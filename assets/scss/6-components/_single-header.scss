@@ -11,9 +11,9 @@
 	display: table;
 	width: 100%;
 
-	// the only known case until now:
-	// "*" would be replaced by .entry-title
-	> * {
+	> .entry-title {
+		@extend .h0;
+
 		display: table-cell;
 		vertical-align: middle;
 		padding: 0;
