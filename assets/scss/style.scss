@@ -6,7 +6,7 @@
 // globally available tools
 // public mixins
 // helper functions
-@import "2-tools/silence";
+@import "2-tools/clearfix";
 
 // reset
 // ground-zero styles
@@ -29,6 +29,7 @@
 @import "6-components/comments";
 @import "6-components/single-header";
 @import "6-components/single-content";
+@import "6-components/single-footer";
 
 // overried, helpers, utilities
 // usually caring !imporant

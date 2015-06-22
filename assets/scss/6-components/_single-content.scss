@@ -1,8 +1,10 @@
 .single-post, .page {
-	.entry-content, .entry-footer {
+	.entry-content, .entry-footer, .post-navigation {
 		max-width: $single-width;
 		margin: 0 auto;
+	}
 
+	.entry-content {
 		padding: 30px 0;
 	}
 }
