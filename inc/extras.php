@@ -125,6 +125,62 @@ if ( ! function_exists( 'timber_fonts_url' ) ) :
 
 endif;
 
+if ( ! function_exists( 'timber_comment' ) ) :
+
+	/**
+	 * Display individual comment layout
+	 *
+	 * @since Timber 1.0
+	 */
+	function timber_comment( $comment, $args, $depth ) {
+		static $comment_number;
+
+		if ( ! isset( $comment_number ) ) {
+			$comment_number = $args['per_page'] * ( $args['page'] - 1 ) + 1;
+		} else {
+			$comment_number ++;
+		}
+
+		$GLOBALS['comment'] = $comment; ?>
+	<li <?php comment_class( empty( $args['has_children'] ) ? '' : 'parent' ); ?>>
+		<article id="comment-<?php comment_ID() ?>" class="comment-article  media">
+			<span class="comment-number"><?php echo $comment_number ?></span>
+
+			<div class="media__body">
+				<header class="comment__meta comment-author">
+					<?php printf( '<span class="comment__author-name">%s</span>', get_comment_author_link() ) ?>
+					<time class="comment__time" datetime="<?php comment_time( 'c' ); ?>">
+						<a href="<?php echo esc_url( get_comment_link( get_comment_ID() ) ) ?>" class="comment__timestamp"><?php printf( __( 'on %s at %s', 'timber' ), get_comment_date(), get_comment_time() ); ?> </a>
+					</time>
+					<div class="comment__links">
+						<?php
+						//we need some space before Edit
+						edit_comment_link( __( 'Edit', 'timber' ) );
+
+						comment_reply_link( array_merge( $args, array(
+							'depth'     => $depth,
+							'max_depth' => $args['max_depth'],
+						) ) );
+						?>
+					</div>
+				</header>
+				<!-- .comment-meta -->
+				<?php if ( '0' == $comment->comment_approved ) : ?>
+					<div class="alert info">
+						<p><?php _e( 'Your comment is awaiting moderation.', 'timber' ) ?></p>
+					</div>
+				<?php endif; ?>
+				<section class="comment__content comment">
+					<?php comment_text() ?>
+				</section>
+			</div>
+		</article>
+		<!-- </li> is added by WordPress automatically -->
+	<?php
+	} #function
+
+endif;
+
 /**
  * Filter comment_form_defaults to remove the notes after the comment form textarea.
  *
