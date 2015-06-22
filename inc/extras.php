@@ -69,3 +69,101 @@ if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 	}
 	add_action( 'wp_head', 'timber_render_title' );
 endif;
+
+if ( ! function_exists( 'timber_fonts_url' ) ) :
+
+	/**
+	 * Register Google fonts for Timber.
+	 *
+	 * @since Timber 1.0
+	 *
+	 * @return string Google fonts URL for the theme.
+	 */
+	function timber_fonts_url() {
+		$fonts_url = '';
+		$fonts     = array();
+		$subsets   = 'latin,latin-ext';
+
+		/* Translators: If there are characters in your language that are not
+		* supported by Roboto, translate this to 'off'. Do not translate
+		* into your own language.
+		*/
+		if ( 'off' !== _x( 'on', 'Roboto font: on or off', 'timber' ) ) {
+			$fonts[] = 'Roboto:500,400,300,500italic,400italic,300italic';
+		}
+
+		/* Translators: If there are characters in your language that are not
+		* supported by Oswald, translate this to 'off'. Do not translate
+		* into your own language.
+		*/
+		if ( 'off' !== _x( 'on', 'Oswald font: on or off', 'timber' ) ) {
+			$fonts[] = 'Oswald:300,400,700';
+		}
+
+		/* translators: To add an additional character subset specific to your language, translate this to 'greek', 'cyrillic', 'devanagari' or 'vietnamese'. Do not translate into your own language. */
+		$subset = _x( 'no-subset', 'Add new subset (greek, cyrillic, devanagari, vietnamese)', 'timber' );
+
+		if ( 'cyrillic' == $subset ) {
+			$subsets .= ',cyrillic,cyrillic-ext';
+		} elseif ( 'greek' == $subset ) {
+			$subsets .= ',greek,greek-ext';
+		} elseif ( 'devanagari' == $subset ) {
+			$subsets .= ',devanagari';
+		} elseif ( 'vietnamese' == $subset ) {
+			$subsets .= ',vietnamese';
+		}
+
+		if ( $fonts ) {
+			$fonts_url = add_query_arg( array(
+				'family' => urlencode( implode( '|', $fonts ) ),
+				'subset' => urlencode( $subsets ),
+			), '//fonts.googleapis.com/css' );
+		}
+
+		return $fonts_url;
+	} #function
+
+endif;
+
+/**
+ * Filter comment_form_defaults to remove the notes after the comment form textarea.
+ *
+ * @since Timber 1.0
+ *
+ * @param array $defaults
+ * @return array
+ */
+function timber_comment_form_remove_notes_after( $defaults ) {
+	$defaults['comment_notes_after'] = '';
+
+	return $defaults;
+}
+
+add_filter( 'comment_form_defaults', 'timber_comment_form_remove_notes_after' );
+
+/**
+ * Filter wp_link_pages to wrap current page in span.
+ *
+ * @since Timber 1.0
+ *
+ * @param string $link
+ * @return string
+ */
+function timber_link_pages( $link ) {
+	if ( is_numeric( $link ) ) {
+		return '<span class="current">' . $link . '</span>';
+	}
+
+	return $link;
+}
+
+add_filter( 'wp_link_pages_link', 'timber_link_pages' );
+
+/**
+ * Wrap more link
+ */
+function timber_read_more_link( $link ) {
+	return '<div class="more-link-wrapper">' . $link . '</div>';
+}
+
+add_filter( 'the_content_more_link', 'timber_read_more_link' );
