@@ -112,11 +112,9 @@ add_action( 'widgets_init', 'timber_widgets_init' );
  * Enqueue scripts and styles.
  */
 function timber_scripts() {
-	wp_enqueue_style( 'timber-style', get_stylesheet_uri() );
 
-	wp_enqueue_script( 'timber-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
-
-	wp_enqueue_script( 'timber-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
+	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css' );
 
 	wp_enqueue_script( 'timber-scripts', get_stylesheet_directory_uri() . '/assets/js/main.js', array(
 		'jquery',
