@@ -86,7 +86,7 @@ add_action( 'after_setup_theme', 'timber_setup' );
  * @global int $content_width
  */
 function timber_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'timber_content_width', 640 );
+	$GLOBALS['content_width'] = apply_filters( 'timber_content_width', 1200 );
 }
 add_action( 'after_setup_theme', 'timber_content_width', 0 );
 
@@ -123,6 +123,10 @@ function timber_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
+		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
 
@@ -135,6 +139,17 @@ require get_template_directory() . '/inc/config.php';
  * And all the activation hooks.
  */
 require get_template_directory() . '/inc/activation.php';
+
+ /**
+ * Add the global AddThis configuration in the <head>
+ */
+function timber_setup_addthis() {
+	if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
+		//here we will configure the AddThis sharing globally
+		get_template_part( 'inc/addthis/addthis-js-config' );
+	}
+}
+add_action( 'wp_head', 'timber_setup_addthis' );
 
 /**
  * MB string functions for when the MB library is not available
