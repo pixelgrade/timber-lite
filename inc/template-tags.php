@@ -322,3 +322,16 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 		}
 	} #function
 endif;
+
+if ( ! function_exists( 'timber_get_option' ) ) :
+	/**
+	 * Get option from the database
+	 *
+	 * @param string
+	 * @return mixed
+	 */
+	function timber_get_option( $option, $default = null ) {
+		//@TODO Need logic here - mix of Customify and the rest of the options
+		return false;
+	} #function
+endif;

@@ -4,7 +4,7 @@
  * @package Pile
  * @since   Pile 1.0
  */
-$share_buttons_types = wpgrade::option('share_buttons_settings');
+$share_buttons_types = timber_get_option('share_buttons_settings');
 
 if (!empty($share_buttons_types) || $share_buttons_types !== 'false') {
 	//lets go through each button type and create the needed markup
@@ -17,7 +17,7 @@ if (!empty($share_buttons_types) || $share_buttons_types !== 'false') {
 	$display_share_buttons = '';
 	$display_share_buttons .= '<div class="overlay  overlay-share">' . PHP_EOL;
 	$display_share_buttons .= '<div class="overlay-wrap">' . PHP_EOL;
-	$display_share_buttons .= '<h2 class="share-title  js-share-destination">' . __( 'Share', wpgrade::textdomain() ) .'</h2>' . PHP_EOL;
+	$display_share_buttons .= '<h2 class="share-title  js-share-destination">' . __( 'Share', 'timber' ) .'</h2>' . PHP_EOL;
 	$display_share_buttons .= '<hr class="separator  separator--white"/>' . PHP_EOL;
 	$display_share_buttons .= '<ul class="share-icons">' . PHP_EOL;
 	if (!empty($buttons)) {
