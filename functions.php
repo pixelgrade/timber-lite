@@ -43,6 +43,7 @@ function timber_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => esc_html__( 'Primary Menu', 'timber' ),
+		'social' => esc_html__( 'Social Menu', 'timber' )
 	) );
 
 	/*
@@ -131,6 +132,16 @@ function timber_scripts() {
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
 
 /**
+ * Load theme's configuration file.
+ */
+require get_template_directory() . '/inc/config.php';
+
+/**
+ * And all the activation hooks.
+ */
+require get_template_directory() . '/inc/activation.php';
+
+ /**
  * Add the global AddThis configuration in the <head>
  */
 function timber_setup_addthis() {

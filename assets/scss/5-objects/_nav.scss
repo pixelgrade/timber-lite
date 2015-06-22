@@ -1,18 +1,15 @@
-// some kind of reset
-.nav-menu,
+.nav,
 .sub-menu,
 .menu-item {
     @extend %box--0;
 }
 
-.nav-menu {
+.nav {
     @extend %display--flex;
 
     // general styling of links inside menu
     a {
         @extend %background--none;
-        text-shadow: none;
-        padding: .5em 1em;
 
         &:hover {
             @extend %background--none;
@@ -38,14 +35,13 @@
         @extend %position--relative;
 
         > a:after {
-            content: " v";
+
         }
     }
 
     .sub-menu {
         @extend %display--none;
         @extend %position--absolute;
-        width: 10em;
         top: 100%;
     }
 
@@ -54,7 +50,7 @@
     }
 
     .sub-menu .menu-item-has-children > a:after {
-        content: " >";
+
     }
 
     .sub-menu .sub-menu {

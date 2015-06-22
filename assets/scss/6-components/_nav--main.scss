@@ -1,0 +1,106 @@
+.nav--main {
+    @extend %font-weight--bold;
+    text-transform: uppercase;
+
+    // general styling of links inside menu
+    a {
+        @extend %display--inline-block;
+        @extend %delta;
+        padding: .25em 0;
+
+        &:hover {
+        }
+    }
+
+    > .menu-item {
+        > a {
+            padding-left: 1em;
+            padding-right: 1em;
+        }
+    }
+
+    // styling of current menu items
+    [class*="current-menu-"] {
+        > a {
+            position: relative;
+
+            &:before {
+                content: "";
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 1em;
+                right: 1em;
+                height: 8px;
+                transform: translateY(50%);
+                background-image: url('assets/svg/divider.svg');
+                background-repeat: repeat-x;
+                background-position: top center;
+                opacity: 0.25;
+            }
+        }
+    }
+
+    [class*="current-menu-"] [class*="current-menu-"] {
+        > a:before {
+            left: 0;
+            right: 0;
+        }
+    }
+
+    // styling sub-menus
+    .menu-item-has-children {
+
+        > a:after {
+            @extend %fa;
+            @extend %display--inline-block;
+            content: $fa-var-caret-down;
+            margin-left: .5em;
+        }
+
+        > a:before {
+            right: 2.2em;
+        }
+    }
+
+    .sub-menu {
+        display: block;
+        width: 10em;
+        padding: 1.25em 1em;
+        box-shadow: 0 .35em 1em -.5em black;
+        background: white;
+        opacity: 0;
+        pointer-events: none;
+        will-change: transform, opacity;
+        transform: translateY(-.5em);
+        transition: opacity .1s ease-out, transform .1s ease-out;
+        transform-origin: 0 0;
+    }
+
+    .menu-item:hover > .sub-menu {
+        transform: none;
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity .1s ease-in, transform .1s ease-in;
+    }
+
+    .sub-menu .menu-item-has-children {
+        display: flex;
+        justify-content: space-between;
+
+        &:after {
+            @extend %fa;
+            @extend %display--inline-block;
+            content: $fa-var-caret-right;
+            margin-right: .5em;
+        }
+
+        > a:after {
+            content: none;
+        }
+    }
+
+    .sub-menu .sub-menu {
+        margin-top: -1.25em;
+    }
+}

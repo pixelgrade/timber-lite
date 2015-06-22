@@ -64,6 +64,12 @@
 
 %transition-duration--default { transition-duration: $default-transition-duration }
 
+%visibility--visible        { visibility: visible }
+%visibility--hidden         { visibility: hidden }
+
+%pointer-events--auto       { pointer-events: auto }
+%pointer-events--none       { pointer-events: none }
+
 body {
     @extend %margin--0;
     -moz-osx-font-smoothing: grayscale;

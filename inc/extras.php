@@ -126,7 +126,6 @@ if ( ! function_exists( 'timber_fonts_url' ) ) :
 endif;
 
 if ( ! function_exists( 'timber_comment' ) ) :
-
 	/**
 	 * Display individual comment layout
 	 *

@@ -75,6 +75,7 @@ gulp.task('scripts-watch', function () {
 });
 
 gulp.task('watch', function () {
+	livereload.listen();
 	gulp.watch('assets/scss/**/*.scss', ['styles-dev']);
 	gulp.watch('assets/js/**/*.js', ['scripts']);
 });
