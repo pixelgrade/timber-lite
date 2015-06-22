@@ -69,11 +69,11 @@ function timber_setup() {
 		'link',
 	) );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'timber_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
+	/*
+	 * Add editor custom style to make it look more like the frontend
+	 * Also enqueue the custom Google Fonts also
+	 */
+	add_editor_style( array( 'editor-style.css', timber_fonts_url() ) );
 }
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
@@ -127,11 +127,6 @@ function timber_scripts() {
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
 
 /**
- * Implement the Custom Header feature.
- */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/template-tags.php';
@@ -145,8 +140,3 @@ require get_template_directory() . '/inc/extras.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-require get_template_directory() . '/inc/jetpack.php';
