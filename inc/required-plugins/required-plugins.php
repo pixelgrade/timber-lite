@@ -30,7 +30,7 @@ function timber_register_required_plugins() {
 		array(
 			'name'               => 'Customify',
 			'slug'               => 'customify',
-			'required'           => false,
+			'required'           => true,
 		),
 		array(
 			'name'               => 'PixCodes',

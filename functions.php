@@ -129,6 +129,11 @@ function timber_scripts() {
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
 
 /**
+ * MB string functions for when the MB library is not available
+ */
+require get_template_directory() . '/inc/mb_compat.php';
+
+/**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/template-tags.php';
@@ -142,3 +147,14 @@ require get_template_directory() . '/inc/extras.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Load Recommended/Required plugins notification
+ */
+require get_template_directory() . '/inc/required-plugins/required-plugins.php';
+
+/**
+ * Load the theme update logic
+ */
+require_once( get_template_directory() . '/inc/wp-updates-theme.php');
+new WPUpdatesThemeUpdater_1447( 'http://wp-updates.com/api/2/theme', basename( get_template_directory() ) );
