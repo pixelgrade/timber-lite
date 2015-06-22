@@ -127,6 +127,16 @@ function timber_scripts() {
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
 
 /**
+ * Load theme's configuration file.
+ */
+require get_template_directory() . '/inc/config.php';
+
+/**
+ * And all the activation hooks.
+ */
+require get_template_directory() . '/inc/activation.php';
+
+/**
  * MB string functions for when the MB library is not available
  */
 require get_template_directory() . '/inc/mb_compat.php';
