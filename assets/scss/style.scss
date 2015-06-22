@@ -21,11 +21,13 @@
 // design patterns
 // no cosmetics!
 // agnostic naming
-@import "5-objects/silence";
+@import "5-objects/layout";
 
 // designed pieces of UI
 // explicit naming
 @import "6-components/nav-menu";
+@import "6-components/comments";
+@import "6-components/single-header";
 
 // overried, helpers, utilities
 // usually caring !imporant

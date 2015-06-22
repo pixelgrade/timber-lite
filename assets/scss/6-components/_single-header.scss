@@ -1,0 +1,34 @@
+// Styling for Single Post header and Single page header
+
+// .single-post, .page
+.entry-header {
+	text-align: center;
+}
+
+// to be used on single page as
+//.entry-header.cover
+.cover {
+	display: table;
+	width: 100%;
+
+	// the only known case until now:
+	// "*" would be replaced by .entry-title
+	> * {
+		display: table-cell;
+		vertical-align: middle;
+		padding: 0;
+		margin: 0;
+	}
+
+	&.full-height {
+		height: 100vh;
+	}
+
+	&.half-height {
+		height: 50vh;
+	}
+
+	&.two-thirds-height {
+		height: 66.666666vh;
+	}
+}
