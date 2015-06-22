@@ -219,8 +219,6 @@ function timber_add_customify_options( $options ) {
 			)
 		),
 
-
-
 		/**
 		 * FONTS - This section will handle different elements fonts (eg. headings, body)
 		 */
@@ -302,12 +300,21 @@ function timber_add_customify_options( $options ) {
 				)
 			)
 		)
-
 	);
 
-
 	// @TODO for the momment keep it empty
-	$options['sections'] = array();
+	$options['sections'] = array(
+		'theme_options' => array(
+			'title'    => __( 'Theme Options', 'timber' ),
+			'options' => array(
+				'show_share_links' => array(
+					'type'	=> 'checkbox',
+					'default' => false,
+					'label' => __( 'Show Share Links', 'patch' ),
+				),
+			)
+		)
+	);
 
 	return $options;
 }
