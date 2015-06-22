@@ -6,6 +6,8 @@
 // globally available tools
 // public mixins
 // helper functions
+@import "2-tools/font-awesome/font-awesome";
+@import "2-tools/sassline/sassline";
 @import "2-tools/clearfix";
 
 // reset
@@ -22,14 +24,18 @@
 // no cosmetics!
 // agnostic naming
 @import "5-objects/silence";
+@import "5-objects/nav";
 
 // designed pieces of UI
 // explicit naming
-@import "6-components/nav-menu";
 @import "6-components/comments";
 @import "6-components/single-header";
 @import "6-components/single-content";
 @import "6-components/single-footer";
+@import "6-components/header";
+@import "6-components/site-branding";
+@import "6-components/nav--main";
+@import "6-components/nav--social";
 
 // overried, helpers, utilities
 // usually caring !imporant

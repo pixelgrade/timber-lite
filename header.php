@@ -29,9 +29,21 @@
 		</div><!-- .site-branding -->
 
 		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'timber' ); ?></button>
-			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
+			<?php wp_nav_menu( array(
+				'theme_location' => 'primary',
+				'menu_class' => 'nav nav--main',
+				'menu_id' => 'primary-menu'
+			) ); ?>
 		</nav><!-- #site-navigation -->
+
+		<nav class="social-navigation" role="navigation">
+			<?php wp_nav_menu( array(
+				'theme_location' => 'social',
+				'menu_class' => 'nav nav--social',
+				'menu_id' => 'social-menu'
+			) ); ?>
+			<button class="toggle  js-toggle"></button>
+		</nav>
 	</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
