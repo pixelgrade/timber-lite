@@ -1,0 +1,24 @@
+// minimal styling to properly align images and captions
+.wp-caption {
+    @extend %max-width--100;
+
+    img[class*="wp-image-"] {
+        @extend %display--block;
+    }
+}
+
+.alignleft {
+    @extend %float--left;
+}
+
+.alignright {
+    @extend %float--right;
+}
+
+.aligncenter {
+    margin: 0 auto;
+}
+
+.alignnone {
+    // silence
+}
