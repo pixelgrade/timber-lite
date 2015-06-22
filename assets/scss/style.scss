@@ -1,0 +1,37 @@
+// globally available variables
+// config, switches
+// brand colors etc.
+@import "1-settings/default";
+
+// globally available tools
+// public mixins
+// helper functions
+@import "2-tools/silence";
+
+// reset
+// ground-zero styles
+// low specificity styling
+@import "3-generic/reset";
+
+// unclasses html elements
+// certain wp-related classes (.alignnone, .wp-caption)
+@import "4-base/typography";
+@import "4-base/wpcore";
+
+// design patterns
+// no cosmetics!
+// agnostic naming
+@import "5-objects/silence";
+
+// designed pieces of UI
+// explicit naming
+@import "6-components/nav-menu";
+
+// overried, helpers, utilities
+// usually caring !imporant
+@import "7-overrides/silence";
+
+// you either want it, or you don't
+// this is going to be here
+// shame on you!
+@import "shame";
