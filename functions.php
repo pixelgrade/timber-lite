@@ -82,7 +82,7 @@ add_action( 'after_setup_theme', 'timber_setup' );
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
  * Priority 0 to make it available to lower priority callbacks.
- *
+ *x
  * @global int $content_width
  */
 function timber_content_width() {
@@ -117,6 +117,10 @@ function timber_scripts() {
 	wp_enqueue_script( 'timber-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
 	wp_enqueue_script( 'timber-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+
+	wp_enqueue_script( 'patch-scripts', get_stylesheet_directory_uri() . '/assets/js/main.js', array(
+		'jquery',
+	), '1.0.0', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
