@@ -11,7 +11,9 @@ var gulp 		= require('gulp'),
 	beautify 	= require('gulp-beautify'),
 	csscomb 	= require('gulp-csscomb'),
 	cmq 		= require('gulp-combine-media-queries'),
-	chmod 		= require('gulp-chmod');
+	chmod 		= require('gulp-chmod' ),
+	map         = require('map-stream' ),
+	fs          = require('fs') ;
 
 jsFiles = [
 	'./assets/js/vendor/*.js',
@@ -73,6 +75,7 @@ gulp.task('scripts-watch', function () {
 });
 
 gulp.task('watch', function () {
+	livereload.listen();
 	gulp.watch('assets/scss/**/*.scss', ['styles-dev']);
 	gulp.watch('assets/js/**/*.js', ['scripts']);
 });
@@ -139,8 +142,29 @@ gulp.task('build', ['copy-folder'], function () {
  */
 gulp.task('zip', ['build'], function(){
 
+	var versionString = '';
+	//get theme version from styles.css
+	var contents = fs.readFileSync("./style.css", "utf8");
+
+	// split it by lines
+	var lines = contents.split(/[\r\n]/);
+
+	function checkIfVersionLine(value, index, ar) {
+		var myRegEx = /^[Vv]ersion:/;
+		if ( myRegEx.test(value) ) {
+			return true;
+		}
+		return false;
+	}
+
+	// apply the filter
+	var versionLine = lines.filter(checkIfVersionLine);
+
+	versionString = versionLine[0].replace(/^[Vv]ersion:/, '' ).trim();
+	versionString = '-' + versionString.replace(/\./g,'-');
+
 	return gulp.src('./')
-		.pipe(exec('cd ./../; rm -rf timber.zip; cd ./build/; zip -r -X ./../timber.zip ./timber; cd ./../; rm -rf build'));
+		.pipe(exec('cd ./../; rm -rf Timber*.zip; cd ./build/; zip -r -X ./../Timber-Installer' + versionString +'.zip ./timber; cd ./../; rm -rf build'));
 
 });
 

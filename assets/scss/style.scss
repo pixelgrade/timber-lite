@@ -1,3 +1,28 @@
+@charset "UTF-8";
+/*
+Theme Name: Timber
+Theme URI: https://pixelgrade.com/demos/timber/
+Author: PixelGrade
+Author URI: https://pixelgrade.com/
+Description: What the passionate photographer ordered.
+Version: 0.0.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: timber
+Domain Path: /languages/
+Tags: light, white, one-column, two-columns, three-columns, left-sidebar, responsive-layout, custom-menu, featured-images, editor-style, infinite-scroll, microformats, post-formats, rtl-language-support, site-logo, sticky-post, theme-options, threaded-comments, translation-ready, blog, journal, lifestream, magazine, news, scrapbooking, video, bright, clean, bold, geometric, minimal, modern, smart, adaptive
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+Timber is based on Underscores http://underscores.me/, (C) 2012-2015 Automattic, Inc.
+
+Resetting and rebuilding styles have been helped along thanks to the fine work of
+Eric Meyer http://meyerweb.com/eric/tools/css/reset/index.html
+along with Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
+and Blueprint http://www.blueprintcss.org/
+*/
+
 // globally available variables
 // config, switches
 // brand colors etc.
@@ -6,7 +31,8 @@
 // globally available tools
 // public mixins
 // helper functions
-@import "2-tools/silence";
+@import "2-tools/font-awesome/font-awesome";
+@import "2-tools/sassline/sassline";
 
 // reset
 // ground-zero styles
@@ -22,10 +48,14 @@
 // no cosmetics!
 // agnostic naming
 @import "5-objects/silence";
+@import "5-objects/nav";
 
 // designed pieces of UI
 // explicit naming
-@import "6-components/nav-menu";
+@import "6-components/header";
+@import "6-components/site-branding";
+@import "6-components/nav--main";
+@import "6-components/nav--social";
 
 // overried, helpers, utilities
 // usually caring !imporant
