@@ -1,0 +1,67 @@
+// Modular scale
+// ---------------------------------------
+
+// Setting responsive modular-scales. Use appropriate scales for viewport sizes.
+$modular-scale: (
+  // 1.33 http://www.modularscale.com/?17,30&px&1.33&web&table
+  scale-0: (
+    alpha:   33,    // H0
+    beta:    26.5,  // H1
+    gamma:   24,    // H2
+    delta:   19.2,  // H3 + .intro
+    epsilon: 19.2,  // H4
+    zeta:    17.0,  // Body
+    eta:     14.3,
+    theta:   12.8,
+    iota:    11.5
+  ),
+  // Major Third http://modularscale.com/scale/?px1=17&px2=30&ra1=1.25&ra2=0
+  scale-1: (
+    alpha:   61.44,
+    beta:    28.1,
+    gamma:   25.1,
+    delta:   22.5,
+    epsilon: 20.1,
+    zeta:    18.0,
+    eta:     16.3,
+    theta:   14.4,
+    iota:    13.1
+  ),
+  // Major Third http://modularscale.com/scale/?px1=18&px2=32&ra1=1.25&ra2=0
+  scale-2: (
+    alpha:   61.44,
+    beta:    28.1,
+    gamma:   25.6,
+    delta:   22.5,
+    epsilon: 20.5,
+    zeta:    18.0,
+    eta:     16.3,
+    theta:   14.4,
+    iota:    13.1
+  ),
+  // Minor Sixth http://www.modularscale.com/?15&px&1.6&web&text
+  scale-3: (
+    alpha:   98.3,
+    beta:    61.44,
+    gamma:   38.4,
+    delta:   24,
+    epsilon: 15,
+    zeta:    16, // Body
+    eta:     15,
+    theta:   12.8,
+    iota:    11.5
+  ),
+
+  // Minor Sixth http://www.modularscale.com/?15&px&1.6&web&text
+  scale-4: (
+    alpha:   98.3,
+    beta:    61.44,
+    gamma:   38.4,
+    delta:   24,
+    epsilon: 15,
+    zeta:    16, // Body
+    eta:     15,
+    theta:   12.8,
+    iota:    11.5
+  ),
+);
