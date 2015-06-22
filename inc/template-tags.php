@@ -99,7 +99,7 @@ if ( ! function_exists( 'timber_entry_footer' ) ) :
 function timber_entry_footer() {
 	// Hide category and tag text for pages.
 	if ( 'post' == get_post_type() ) {
-	echo '<div class="metabox"><button class="share-button  js-popup-share js-share-source"><i class="fa  fa-share-alt">i</i>' . _( 'Share' ) . '</button></div>';
+	echo '<div class="metabox"><button class="share-button  js-popup-share js-share-source"><i class="fa  fa-share-alt"></i>' . _( 'Share' ) . '</button></div>';
 
 		/* translators: used between list items, there is a space after the comma */
 		$tags_list = get_the_tag_list( '', esc_html__( '', 'timber' ) );
