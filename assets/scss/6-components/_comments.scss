@@ -3,19 +3,19 @@
 //*------------------------------------*/
 
 $u: 12px;
+$borders: #d3d3d3;
 
 .comment-number, %comment-number {
-//	@extend .gamma;
+	width: 30px;
+	height: 30px;
 
-	width: 1.5*$u;
-	height: 1.5*$u;
-	line-height: 1.5*$u;
-
-	border: 1px solid $hoverColour;
+	font-size: 15px;
+	line-height: 28px;
+	font-weight: 900;
 	text-align: center;
 
-	font-size: 16px;
-	color: $hoverColour;
+	border: 2px solid $borders;
+	border-radius: 3px;
 	background: white;
 }
 
@@ -26,18 +26,11 @@ $u: 12px;
 	vertical-align: top;
 	margin-right: $u;
 
-	border: 0;
+	border: 2px solid black;
 
 	background-color: black;
 	color: white;
-
-	font-size: 20px;
 }
-
-.comment-number.total {
-	line-height: 38px;
-}
-
 
 
 
@@ -48,8 +41,6 @@ $u: 12px;
 
 .comments-area {
 	position: relative;
-//	padding-top: $u;
-//	border-top: 1px solid $borders;
 
 	max-width: $single-width;
 	margin: 0 auto;
@@ -57,10 +48,10 @@ $u: 12px;
 	&:before {
 		content: "";
 		position: absolute;
-		left: 18px;
-		top: 24px;
+		left: 14px;
+		top: 30px;
 		bottom: 0;
-		border-left: 1px solid $borderColour;
+		border-left: 2px solid $borders;
 	}
 
 	&.no-comments {
@@ -77,12 +68,11 @@ $u: 12px;
 
 .comments-area-title {
 	@extend .cf;
+	margin-top: 36px;
 
 	.comments-title, a {
 		display: inline-block;
 		vertical-align: middle;
-
-		text-transform: uppercase;
 	}
 
 	a {
@@ -91,11 +81,13 @@ $u: 12px;
 
 	.comments-title {
 		margin: 0;
+		padding: 0;
 		margin-right: 6px;
-		transform: none;
 
-		font-size: 20px;
-		line-height: 36px;
+		font-size: 24px;
+		line-height: 30px;
+		font-weight: 300;
+		text-transform: none;
 
 //		@include query-below($lap) {
 //			font-size: 21px;
@@ -116,14 +108,6 @@ $u: 12px;
 	}
 }
 
-.comments-title, .comment-reply-title {
-	text-transform: uppercase;
-}
-
-.commentlist > .comment, .commentlist > .pingback {
-	padding-left: 24px;
-}
-
 //@include query-below($lap) {
 //	.depth-1 > .comment-article > .comment-number {
 //		left: 0;
@@ -142,11 +126,11 @@ $u: 12px;
 //   $COMMENTS BODY
 //*------------------------------------*/
 
-.commentlist {
+.comment-list {
 	margin: 0;
 	border-left: 0;
 	padding-left: 0;
-	padding-bottom: $u;
+	padding-top: 0;
 
 	list-style: none;
 }
@@ -155,15 +139,15 @@ li.comment, li.pingback {
 	position: relative;
 
 	display: block;
-	margin-bottom: 0;
-	margin-top: 24px;
+	margin-left: 0;
+	margin-top: 50px;
 	margin-bottom: 24px;
-	padding-top: 6px;
+	padding-left: 42px;
 
 	.comment-number {
 		position: absolute;
 		left: 0;
-		top: 0;
+		top: -2px;
 		z-index: 1;
 
 //		@include query-below($lap) {
@@ -177,8 +161,7 @@ li.comment, li.pingback {
 
 	.children {
 		position: relative;
-
-		margin-top: $u;
+		padding-top: 0;
 
 		.rtl & {
 			margin-right: 0;
@@ -186,8 +169,6 @@ li.comment, li.pingback {
 
 		li {
 //			@include query-above($lap) {
-				padding-left: 24px;
-
 				.rtl & {
 					padding-left: 0;
 					padding-right: 24px;
@@ -196,26 +177,29 @@ li.comment, li.pingback {
 				&:before {
 					content: "";
 					position: absolute;
-					top: 18px;
-					border-top: 1px solid $borderColour;
+					top: 15px;
+					border-top: 2px solid $borders;
 				}
 //			}
 
 			.comment-number {
-				border: 1px solid $borderColour;
-				background: $borderColour;
-				color: white;
+				border: 2px solid $borders;
 			}
 		}
 	}
+
+	a {
+		border: 0;
+		background: transparent;
+	}
 }
 
-$first-padding-unit: 27px;
-$second-padding-unit: 45px;
+$first-padding-unit: 14px;
+$second-padding-unit: 28px;
 
 li.depth-2:before {
 	left: -2 * $first-padding-unit;
-	width: 60px;
+	width: 30px;
 
 	.rtl & {
 		left: auto;
@@ -232,18 +216,20 @@ li.depth-2:before {
 	}
 //}
 
+.comment__meta {
+	font-size: 15px;
+}
+
 .comment__author-name {
-//	@extend .gamma;
+	font-weight: 900;
 
 	a {
-		font-size: 16px;
 		color: black;
 	}
 }
 
 .comment-article {
 	margin-bottom: 0;
-	margin-left: 12px;
 
 	&:hover {
 		.comment-edit-link, .comment-reply-link {
@@ -263,8 +249,6 @@ li.depth-2:before {
 
 .comment__timestamp {
 //	@extend .gamma;
-
-	font-size: 14px;
 	color: $hoverColour;
 }
 
@@ -275,8 +259,9 @@ li.depth-2:before {
 .comment__content {
 	position: relative;
 
-	font-size: 14px;
-	color: $hoverColour;
+	p:first-child {
+		padding-top: 0;
+	}
 }
 
 .comment__links {
@@ -607,7 +592,7 @@ li.depth-2:before {
 
 .rtl {
 
-	.commentlist > .comment, .commentlist > .pingback {
+	.comment-list > .comment, .comment-list > .pingback {
 		padding-left: 0;
 		padding-right: 3em;
 	}
