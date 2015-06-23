@@ -9,9 +9,6 @@
 
 ?>
 
-       </div><!-- #content -->
-
-   </div><!-- .site-container -->
 
 <?php if ( is_page() || is_single() ) get_template_part( 'template-parts/content', 'single-footer' ); ?>
 

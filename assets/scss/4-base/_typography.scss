@@ -70,26 +70,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 // Heading level 1.
-h1, %alpha {
+h1, .h1, %alpha {
     @include sassline($fontsize: beta, $font: $headingtype, $lineheight: 4, $below: 3, $breakpoint: all);
 
     margin-top: 3rem;
 }
 
 // Heading level 2.
-h2, %beta {
+h2, .h2, %beta {
     @include sassline(gamma, $headingtype, 3, 1, all);
 
     margin-top: 2rem;
 }
 
 // Heading level 3.
-h3, %gamma {
+h3, .h3, %gamma {
     @include sassline(delta, $headingtype, 2, 1, all);
 }
 
 // Heading level 4, 5, 6
-h4, h5, h6, %delta {
+h4, h5, h6, .h4, .h5, .h6, %delta {
     @include sassline(epsilon, $headingtype, 1.5, 0.5, all);
     letter-spacing: 0.075rem;
 }

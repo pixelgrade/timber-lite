@@ -19,6 +19,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+
 <div id="page" class="hfeed site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'timber' ); ?></a>
 
@@ -44,8 +45,6 @@
 			) ); ?>
 			<button class="toggle  js-toggle"></button>
 		</nav>
+
 	</header><!-- #masthead -->
 
-	<div class="site-container">
-
-		<div id="content" class="site-content">
