@@ -5,40 +5,46 @@
  * @package Timber
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('gallery  gallery--grid  gallery--project  js-gallery'); ?>>
 
 	<?php
 	/**
 	 * Project Thumbnail
 	 */
 	?>
-	<div class="project-thumbnail">
-		<?php if ( has_post_thumbnail() ) : ?>
+	<?php if ( has_post_thumbnail() ) : ?>
+		<div class="project-thumbnail">
 			<?php the_post_thumbnail( 'snaps-thumbnails' ); ?>
-		<?php endif; ?>
-	</div>
+		</div>
+	<?php endif; ?>
 
-	<div class="project-content-wrap">
-		<?php
-		/**
-		 * Project Title and Link
-		 */
-		?>
-		<h2 class="entry-title">
+	<?php
+	/**
+	 * Project Title and Link
+	 */
+	?>
+	<div class="gallery__header">
+		<div class="gallery__category">Category</div>
+		<h2 class="gallery__title h1">
 			<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
-				<span class="title-text">
-					<?php
-						if ( get_the_title() != '' ) :
-							// check if the post has a title
-							the_title();
-						else :
-							// if no, use generic text instead
-							_e( 'View Project', 'timber' );
-						endif;
-					?>
-				</span>
+				<?php
+					if ( get_the_title() != '' ) :
+						// check if the post has a title
+						the_title();
+					else :
+						// if no, use generic text instead
+						_e( 'View Project', 'timber' );
+					endif;
+				?>
 			</a>
 		</h2>
 	</div>
+
+	<?php
+	/*
+	 * Project film strip
+	 */
+	timber_the_film_strip();
+	?>
 
 </article><!-- #post-<?php the_ID(); ?> -->

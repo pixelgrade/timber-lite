@@ -5,10 +5,7 @@ $(document).ready(function() {
 });
 
 function init() {
-  //browserSize();
-  //platformDetect();
-  //masonry.refresh();
-  //reorderSingleFooter();
+  Gallery.init();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
@@ -40,7 +37,6 @@ function requestTick() {
 }
 
 function update() {
-  //logoAnimation.update();
   ticking = false;
 }
 
