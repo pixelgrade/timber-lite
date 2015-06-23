@@ -7,34 +7,36 @@
  * @package Timber
  */
 
-if ( ! function_exists( 'the_posts_navigation' ) ) :
-/**
- * Display navigation to next/previous set of posts when applicable.
- *
- * @todo Remove this function when WordPress 4.3 is released.
- */
-function the_posts_navigation() {
-	// Don't print empty markup if there's only one page.
-	if ( $GLOBALS['wp_query']->max_num_pages < 2 ) {
-		return;
-	}
-	?>
-	<nav class="navigation posts-navigation" role="navigation">
-		<h2 class="screen-reader-text"><?php esc_html_e( 'Posts navigation', 'timber' ); ?></h2>
-		<div class="nav-links">
+if ( ! function_exists( 'timber_paging_nav' ) ) :
+	/**
+	 * Display navigation to next/previous set of posts when applicable.
+	 *
+	 */
+	function timber_paging_nav( $max_num_pages = '' ) {
+		// Get max_num_pages if not provided
+		if ( '' == $max_num_pages ) {
+			$max_num_pages = $GLOBALS['wp_query']->max_num_pages;
+		}
+		// Don't print empty markup if there's only one page.
+		if ( $max_num_pages < 2 ) {
+			return;
+		} ?>
+		<nav class="navigation posts-navigation clearfix" role="navigation">
+			<h2 class="screen-reader-text"><?php _e( 'Posts navigation', 'timber' ); ?></h2>
+			<div class="nav-links">
 
-			<?php if ( get_next_posts_link() ) : ?>
-			<div class="nav-previous"><?php next_posts_link( esc_html__( 'Older posts', 'timber' ) ); ?></div>
-			<?php endif; ?>
+				<?php if ( get_next_posts_link( '', $max_num_pages ) ) : ?>
+					<div class="nav-previous"><?php next_posts_link( __( 'Older posts', 'timber' ), $max_num_pages ); ?></div>
+				<?php endif; ?>
 
-			<?php if ( get_previous_posts_link() ) : ?>
-			<div class="nav-next"><?php previous_posts_link( esc_html__( 'Newer posts', 'timber' ) ); ?></div>
-			<?php endif; ?>
+				<?php if ( get_previous_posts_link( '', $max_num_pages ) ) : ?>
+					<div class="nav-next"><?php previous_posts_link( __( 'Newer posts', 'timber' ), $max_num_pages ); ?></div>
+				<?php endif; ?>
 
-		</div><!-- .nav-links -->
-	</nav><!-- .navigation -->
+			</div><!-- .nav-links -->
+		</nav><!-- .navigation -->
 	<?php
-}
+	}
 endif;
 
 if ( ! function_exists( 'the_post_navigation' ) ) :
@@ -364,4 +366,90 @@ if ( ! function_exists( 'timber_get_option' ) ) :
 
 		return $default;
 	} #function
+endif;
+
+if ( ! function_exists( 'timber_the_film_strip' ) ) :
+	/**
+	 * Display the film strip
+	 *
+	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 */
+	function timber_the_film_strip( $post_id = null ) {
+		echo timber_get_film_strip( $post_id );
+	}
+
+endif;
+
+if ( ! function_exists( 'timber_get_film_strip' ) ) :
+	/**
+	 * Return the film strip markup
+	 *
+	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 * @return string The film strip markup
+	 */
+	function timber_get_film_strip( $post_id = null ) {
+		$post = get_post( $post_id );
+
+		if ( empty( $post ) ) {
+			return '';
+		}
+
+		$output = '';
+
+		//let's get cranking at processing the content and make a film strip out of it
+		$content = $post->post_content;
+		$galleries = get_post_galleries( $post, false );
+
+		if ( ! empty( $galleries ) ) {
+			foreach ( $galleries as $gallery ) {
+				if ( ! empty( $gallery['ids'] ) ) {
+					$gallery_ids = explode(',', $gallery['ids'] );
+
+					foreach ( $gallery_ids as $key => $attachment_id ) {
+						$output .= timber_get_film_strip_image( $attachment_id );
+					}
+				}
+			}
+		}
+
+		return $output;
+
+	}
+
+endif;
+
+if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
+	/**
+	 * Return markup for a single image in the fiml strip
+	 *
+	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 * @return string The image markup
+	 */
+	function timber_get_film_strip_image( $id = null ) {
+		$markup = '';
+
+		//do nothing if we have no ID
+		if ( empty( $id ) ) {
+			return $markup;
+		}
+
+		$image_full_size = wp_get_attachment_image_src( $id, 'full' );
+		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-images' );
+		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-images' );
+		$markup .= '<div class="film-strip--box">' . PHP_EOL;
+		$markup .= '<span class="film-strip--image" itemprop="image"
+	data-srcsmall="' . $image_small_size[0] . '"
+	data-srclarge="' . $image_large_size[0] . '"
+	data-srcfull="' . $image_full_size[0] . '"
+	data-alt="' . timber_get_img_alt( $id ) . '"
+	data-width="' . $image_full_size[1] . '"
+	data-height="' . $image_full_size[2] . '"></span>' . PHP_EOL;
+
+		//some accessibility
+		$markup .= '<noscript><img itemprop="image" src="' . $image_full_size[0] . '" alt="' . timber_get_img_alt( $id ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '"></noscript>' . PHP_EOL;
+		$markup .= '</div>' . PHP_EOL;
+
+		return $markup;
+	}
+
 endif;

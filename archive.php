@@ -21,22 +21,37 @@ get_header(); ?>
 				?>
 			</header><!-- .page-header -->
 
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
-
-				<?php
-
-					/*
-					 * Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'template-parts/content', get_post_format() );
+			<?php if ( is_post_type_archive( 'jetpack-portfolio' ) || is_tax( 'jetpack-portfolio-type' ) || is_tax( 'jetpack-portfolio-tag' ) ) :
+				/**
+				 * Loop for Portfolio post types
+				 */
 				?>
+				<div class="posts" id="projects">
+					<?php
+					while ( have_posts() ) : the_post();
+						get_template_part( 'template-parts/content', 'portfolio' );
+					endwhile;
+					?>
+				</div>
 
-			<?php endwhile; ?>
+			<?php
+			else :
+				/**
+				 * Loop for all other post types
+				 */
+				?>
+				<div class="archive-posts posts" id="posts">
+					<?php
+					while ( have_posts() ) : the_post();
+						get_template_part( 'template-parts/content', get_post_format() );
+					endwhile;
+					?>
+				</div>
 
-			<?php the_posts_navigation(); ?>
+			<?php
+			endif;
+
+			timber_paging_nav(); ?>
 
 		<?php else : ?>
 
