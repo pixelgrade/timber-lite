@@ -480,8 +480,7 @@ function wpgrade_comments( $comment, $args, $depth ) {
 		<?php //if ( wpgrade::option( 'comments_show_numbering' ) ): ?>
 			<span class="comment-number"><?php echo $comment_number ?></span>
 		<?php //endif; ?>
-		<?php //if ( wpgrade::option( 'comments_show_avatar' ) && get_comment_type( $comment->comment_ID ) == 'comment' ): ?>
-		<?php if ( false ): ?>
+		<?php if ( get_option( 'show_avatars' ) && get_comment_type( $comment->comment_ID ) == 'comment' ): ?>
 			<aside class="comment__avatar  media__img">
 				<!-- custom gravatar call -->
 				<?php
