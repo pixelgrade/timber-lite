@@ -2,7 +2,6 @@
 
 .single-post, .page {
 	.entry-title {
-		@extend .h0;
 		margin-bottom: 20px;
 	}
 }
@@ -42,5 +41,18 @@
 
 	&.two-thirds-height {
 		height: 66.666666vh;
+	}
+}
+
+//Fullwidth page template
+
+.page-template-page-fullwidth {
+	.entry-title {
+		margin-top: 30px;
+		margin-bottom: 40px;
+		padding-right: 32px;
+		padding-top: 0;
+
+		text-align: left;
 	}
 }

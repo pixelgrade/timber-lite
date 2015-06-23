@@ -3,11 +3,7 @@
 	margin: 0 auto;
 }
 
-.site-content {
-	overflow-y: scroll;
-}
-
-.single-post, .page {
+.single-post, .page-template-default {
 	.entry-content, .entry-footer, .post-navigation {
 		@extend %single-width;
 	}
@@ -15,4 +11,13 @@
 	.entry-content {
 		padding: 30px 0;
 	}
+}
+
+
+
+
+
+//Fullwidth page template
+.entry-content--fullwidth {
+	padding-right: 32px;
 }

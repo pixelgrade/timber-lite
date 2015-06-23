@@ -7,7 +7,7 @@
 // * systems.
 // */
 
-$use-widths: false !default;
+$use-widths: true !default;
 
 @mixin widths($namespace: null, $placeholder: false) {
 
@@ -324,16 +324,16 @@ $use-widths: false !default;
 
 	@include widths();
 
-	@include query-below($lap) {
-		@include widths('to-lap-');
-	}
-
-	@include query-above($lap) {
-		@include widths('lap-');
-	}
-
-	@include query-above($desk) {
-		@include widths('desk-');
-	}
+//	@include query-below($lap) {
+//		@include widths('to-lap-');
+//	}
+//
+//	@include query-above($lap) {
+//		@include widths('lap-');
+//	}
+//
+//	@include query-above($desk) {
+//		@include widths('desk-');
+//	}
 
 }
