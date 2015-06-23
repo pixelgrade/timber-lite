@@ -152,7 +152,9 @@ blockquote {
 
     p {
         font-weight: map-get($bodytype, bold);
-        text-transform: uppercase;
+        font-weight: 300;
+        letter-spacing: -0.05em;
+//        text-transform: uppercase;
         color: $headingColour;
         @include sassline(delta, $headingtype, 2.5, 1, all);
         // padding-left: 1rem;
@@ -183,6 +185,17 @@ blockquote {
 
     @include breakpoint(break-1) {
         // margin-left: -1rem;
+    }
+
+    cite {
+        display: block;
+
+        font-style: normal;
+        font-weight: bold;
+        font-size: 15px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
     }
 }
 

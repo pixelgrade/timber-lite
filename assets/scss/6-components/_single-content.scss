@@ -1,0 +1,18 @@
+%single-width {
+	max-width: $single-width;
+	margin: 0 auto;
+}
+
+.site-content {
+	overflow-y: scroll;
+}
+
+.single-post, .page {
+	.entry-content, .entry-footer, .post-navigation {
+		@extend %single-width;
+	}
+
+	.entry-content {
+		padding: 30px 0;
+	}
+}

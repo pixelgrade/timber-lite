@@ -1,0 +1,50 @@
+.entry-footer {
+	@extend %clearfix;
+	border-bottom: 3px solid #D3D3D3;
+	padding: 15px 0;
+}
+
+.tags-links {
+	float: right;
+	margin-left: 10px;
+
+	font-size: 14px;
+
+	a {
+		margin-right: 5px;
+		color: $hoverColour;
+
+		&:before {
+			content: "#";
+		}
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	& + .edit-link {
+		&:after {
+			content: "|";
+			margin-left: 10px;
+		}
+	}
+}
+
+.edit-link {
+	float: right;
+}
+
+.metabox{
+	font-size: 15px;
+	font-weight: bold;
+	display: inline-block;
+
+	button {
+		text-transform: uppercase;
+	}
+
+	i{
+		margin-right: 12px;
+	}
+}

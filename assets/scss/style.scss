@@ -33,6 +33,9 @@ and Blueprint http://www.blueprintcss.org/
 // helper functions
 @import "2-tools/font-awesome/font-awesome";
 @import "2-tools/sassline/sassline";
+@import "2-tools/clearfix";
+@import "2-tools/widths";
+@import "2-tools/mixins";
 
 // reset
 // ground-zero styles
@@ -42,6 +45,7 @@ and Blueprint http://www.blueprintcss.org/
 // unclasses html elements
 // certain wp-related classes (.alignnone, .wp-caption)
 @import "4-base/typography";
+@import "4-base/forms";
 @import "4-base/wpcore";
 
 // design patterns
@@ -49,6 +53,9 @@ and Blueprint http://www.blueprintcss.org/
 // agnostic naming
 @import "5-objects/bar";
 @import "5-objects/nav";
+@import "5-objects/grid";
+@import "5-objects/beautons";
+@import "5-objects/media";
 
 // designed pieces of UI
 // explicit naming
@@ -58,6 +65,11 @@ and Blueprint http://www.blueprintcss.org/
 @import "6-components/site-sidebar";
 @import "6-components/site-content";
 @import "6-components/site-footer";
+
+@import "6-components/single-header";
+@import "6-components/single-content";
+@import "6-components/single-footer";
+@import "6-components/comments";
 
 @import "6-components/nav--main";
 @import "6-components/nav--social";
