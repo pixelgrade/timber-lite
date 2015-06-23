@@ -1,0 +1,57 @@
+// Styling for Single Post header and Single page header
+
+.single-post, .page {
+	.entry-title {
+		margin-bottom: 20px;
+	}
+}
+
+// .single-post, .page
+.entry-header {
+	text-align: center;
+
+	.entry-meta {
+		font-size: 15px;
+		font-weight: bold;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+	}
+}
+
+// to be used on single page as
+//.entry-header.cover
+.cover {
+	display: table;
+	width: 100%;
+
+	> .entry-title {
+		display: table-cell;
+		vertical-align: middle;
+		padding: 0;
+		margin: 0;
+	}
+
+	&.full-height {
+		height: 100vh;
+	}
+
+	&.half-height {
+		height: 50vh;
+	}
+
+	&.two-thirds-height {
+		height: 66.666666vh;
+	}
+}
+
+//Fullwidth page template
+
+.page-template-page-fullwidth {
+	.entry-title {
+		margin-top: 30px;
+		margin-bottom: 40px;
+		padding-top: 0;
+
+		text-align: left;
+	}
+}

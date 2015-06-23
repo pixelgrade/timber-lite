@@ -6,3 +6,9 @@ html[lang] {
     overflow-x: hidden;
     margin-top: 0 !important;
 }
+
+.single, .page {
+    .site {
+        display: initial;
+    }
+}

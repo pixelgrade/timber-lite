@@ -73,9 +73,9 @@ if ( ! function_exists( 'timber_posted_on' ) ) :
  */
 function timber_posted_on() {
 	$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-		$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
-	}
+//	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+//		$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
+//	}
 
 	$time_string = sprintf( $time_string,
 		esc_attr( get_the_date( 'c' ) ),
@@ -85,16 +85,11 @@ function timber_posted_on() {
 	);
 
 	$posted_on = sprintf(
-		esc_html_x( 'Posted on %s', 'post date', 'timber' ),
+		esc_html_x( '%s', 'post date', 'timber' ),
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
 
-	$byline = sprintf(
-		esc_html_x( 'by %s', 'post author', 'timber' ),
-		'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
-	);
-
-	echo '<span class="posted-on">' . $posted_on . '</span><span class="byline"> ' . $byline . '</span>'; // WPCS: XSS OK.
+	echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
 
 }
 endif;
@@ -106,16 +101,12 @@ if ( ! function_exists( 'timber_entry_footer' ) ) :
 function timber_entry_footer() {
 	// Hide category and tag text for pages.
 	if ( 'post' == get_post_type() ) {
-		/* translators: used between list items, there is a space after the comma */
-		$categories_list = get_the_category_list( esc_html__( ', ', 'timber' ) );
-		if ( $categories_list && timber_categorized_blog() ) {
-			printf( '<span class="cat-links">' . esc_html__( 'Posted in %1$s', 'timber' ) . '</span>', $categories_list ); // WPCS: XSS OK.
-		}
+	echo '<div class="metabox"><button class="js-popup-share js-share-source"><i class="fa  fa-share-alt"></i>' . _( 'Share' ) . '</button></div>';
 
 		/* translators: used between list items, there is a space after the comma */
-		$tags_list = get_the_tag_list( '', esc_html__( ', ', 'timber' ) );
+		$tags_list = get_the_tag_list( '', esc_html__( '', 'timber' ) );
 		if ( $tags_list ) {
-			printf( '<span class="tags-links">' . esc_html__( 'Tagged %1$s', 'timber' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'timber' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
 	}
 
@@ -468,9 +459,7 @@ function timber_process_partial_content_into_film_strip( $content ) {
 			//first a little bit of safety - better safe than sorry
 			$before_content = balanceTags( $before_content, true );
 			//let's make a text box
-			$markup .= '<div class="film-strip--box">' . PHP_EOL;
-			$markup .= '<div class="film-strip--text">' . $before_content . '</div>' . PHP_EOL;
-			$markup .= '</div><!-- .film-strip--box -->' . PHP_EOL;
+			$markup .= '<div class="gallery__item gallery__item--text js-gallery-item">' . $before_content . '</div>' . PHP_EOL;
 		}
 
 		//delete everything in front of the current match including it
@@ -499,9 +488,7 @@ function timber_process_partial_content_into_film_strip( $content ) {
 		//first a little bit of safety - better safe than sorry
 		$content = balanceTags( $content, true );
 		//let's make a text box
-		$markup .= '<div class="film-strip--box">' . PHP_EOL;
-		$markup .= '<div class="film-strip--text">' . $content . '</div>' . PHP_EOL;
-		$markup .= '</div><!-- .film-strip--box -->' . PHP_EOL;
+		$markup .= '<div class="gallery__item gallery__item--text js-gallery-item">' . $content . '</div>' . PHP_EOL;
 	}
 
 	return $markup;
@@ -525,8 +512,8 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		$image_full_size = wp_get_attachment_image_src( $id, 'full' );
 		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-images' );
 		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-images' );
-		$markup .= '<div class="film-strip--box">' . PHP_EOL;
-		$markup .= '<div class="film-strip--image"
+
+		$markup .= '<div class="gallery__item js-gallery-item"
 	data-srcsmall="' . $image_small_size[0] . '"
 	data-srclarge="' . $image_large_size[0] . '"
 	data-srcfull="' . $image_full_size[0] . '"
@@ -539,11 +526,13 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 
 		$markup .= '
 	data-width="' . $image_full_size[1] . '"
-	data-height="' . $image_full_size[2] . '"></div>' . PHP_EOL;
+	data-height="' . $image_full_size[2] . '">' . PHP_EOL;
 
 		//some accessibility
-		$markup .= '<noscript><img itemprop="image" src="' . $image_full_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '"></noscript>' . PHP_EOL;
-		$markup .= '</div><!-- .film-strip--box -->' . PHP_EOL;
+		$markup .= '<noscript><a href="' . $image_full_size[0] . '">
+			<img itemprop="image" src="' . $image_full_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '">
+			</a></noscript>' . PHP_EOL;
+		$markup .= '</div><!-- .gallery__item -->' . PHP_EOL;
 
 		return $markup;
 	}

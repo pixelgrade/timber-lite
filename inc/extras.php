@@ -502,3 +502,65 @@ function timber_attachment_url_to_postid( $url ) {
 
 	return (int) $post_id;
 }
+
+/*
+* COMMENT LAYOUT
+*/
+function wpgrade_comments( $comment, $args, $depth ) {
+	static $comment_number;
+
+	if ( ! isset( $comment_number ) )
+		$comment_number = $args['per_page'] * ( $args['page'] - 1 ) + 1; else {
+		$comment_number ++;
+	}
+
+	$GLOBALS['comment'] = $comment; ?>
+<li <?php comment_class(); ?>>
+	<article id="comment-<?php echo $comment->comment_ID; ?>" class="comment-article  media">
+		<?php //if ( wpgrade::option( 'comments_show_numbering' ) ): ?>
+			<span class="comment-number"><?php echo $comment_number ?></span>
+		<?php //endif; ?>
+		<?php if ( get_option( 'show_avatars' ) && get_comment_type( $comment->comment_ID ) == 'comment' ): ?>
+			<aside class="comment__avatar  media__img">
+				<!-- custom gravatar call -->
+				<?php
+				$bgauthemail = md5( strtolower( trim( get_comment_author_email() ) ) );
+
+				if ( is_ssl() ) {
+					$host = 'https://secure.gravatar.com';
+				} else {
+					$host = sprintf( "http://%d.gravatar.com", ( hexdec( $bgauthemail[0] ) % 2 ) );
+				}
+				?>
+				<img src="<?php echo $host; ?>/avatar/<?php echo $bgauthemail; ?>?s=60" class="comment__avatar-image" height="60" width="60" style="background-image: <?php echo get_template_directory_uri() . '/library/images/nothing.gif'; ?>; background-size: 100% 100%"/>
+			</aside>
+		<?php endif; ?>
+		<div class="media__body">
+			<header class="comment__meta comment-author">
+				<?php printf( '<span class="comment__author-name">%s</span>', get_comment_author_link() ) ?>
+				<time class="comment__time" datetime="<?php comment_time( 'c' ); ?>">
+					<a href="<?php echo htmlspecialchars( get_comment_link( $comment->comment_ID ) ) ?>" class="comment__timestamp"><?php printf( __( '<span class="italic">on</span> %s at %s' /*, wpgrade::textdomain()*/ ), get_comment_date(), get_comment_time() ); ?> </a>
+				</time>
+				<div class="comment__links">
+					<?php
+					edit_comment_link( __( 'Edit' /*, wpgrade::textdomain() */ ), '  ', '' );
+					comment_reply_link( array_merge( $args, array( 'depth'     => $depth,
+					                                               'max_depth' => $args['max_depth']
+					) ) );
+					?>
+				</div>
+			</header>
+			<!-- .comment-meta -->
+			<?php if ( $comment->comment_approved == '0' ) : ?>
+				<div class="alert info">
+					<p><?php _e( 'Your comment is awaiting moderation.' /*, wpgrade::textdomain() */ ) ?></p>
+				</div>
+			<?php endif; ?>
+			<section class="comment__content comment">
+				<?php comment_text() ?>
+			</section>
+		</div>
+	</article>
+	<!-- </li> is added by WordPress automatically -->
+<?php
+} // don't remove this bracket!
