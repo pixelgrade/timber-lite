@@ -47,13 +47,18 @@ and Blueprint http://www.blueprintcss.org/
 // design patterns
 // no cosmetics!
 // agnostic naming
-@import "5-objects/silence";
+@import "5-objects/bar";
 @import "5-objects/nav";
 
 // designed pieces of UI
 // explicit naming
-@import "6-components/header";
+@import "6-components/site-header";
 @import "6-components/site-branding";
+@import "6-components/site-container";
+@import "6-components/site-sidebar";
+@import "6-components/site-content";
+@import "6-components/site-footer";
+
 @import "6-components/nav--main";
 @import "6-components/nav--social";
 
