@@ -1,0 +1,35 @@
+.gallery {
+    @extend %display--flex;
+    @extend %position--absolute;
+    min-height: 100%;
+
+    img {
+        display: block;
+    }
+}
+
+.gallery__item {
+    background: #eee;
+    flex-shrink: 0;
+    margin-right: 1em;
+}
+
+.gallery-item--content {
+    min-width: 40em;
+}
+
+.gallery--grid {
+    min-height: 24vh;
+    flex-wrap: wrap;
+
+    .gallery__item {
+        margin-right: .5em;
+        margin-bottom: .5em;
+    }
+}
+
+.gallery__title {
+    @extend %delta;
+    margin: 0;
+    padding: 0;
+}
