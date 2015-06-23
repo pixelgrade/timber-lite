@@ -40,6 +40,12 @@ function timber_setup() {
 	 */
 	add_theme_support( 'post-thumbnails' );
 
+	//used for the small images of projects
+	add_image_size( 'timber-small-image', 400, 9999, false );
+
+	//used for the large images of projects
+	add_image_size( 'timber-large-image', 1000, 9999, false );
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'primary' => esc_html__( 'Primary Menu', 'timber' ),

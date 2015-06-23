@@ -458,6 +458,11 @@ function timber_get_current_canonical_url() {
 	return $link;
 }
 
+function timber_get_img_alt( $image ) {
+	$img_alt = trim( strip_tags( get_post_meta( $image, '_wp_attachment_image_alt', true ) ) );
+	return $img_alt;
+}
+
 /*
 * COMMENT LAYOUT
 */
