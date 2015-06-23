@@ -1,0 +1,4 @@
+.site-container {
+    @extend %display--flex;
+    flex-grow: 1;
+}
