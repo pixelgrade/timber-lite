@@ -1,5 +1,5 @@
 .entry-footer {
-	@extend .cf;
+	@extend %clearfix;
 	border-bottom: 3px solid #D3D3D3;
 	padding: 15px 0;
 }

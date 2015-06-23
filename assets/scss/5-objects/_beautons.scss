@@ -1,0 +1,68 @@
+///*------------------------------------*\
+//    $BUTTONS
+//\*------------------------------------*/
+
+.btn {
+	padding: 4px 30px;
+
+	font-family: unquote(map-get($bodytype, font-family));
+	font-weight: map-get($bodytype, bold);
+	font-size: 14px;
+	text-transform: uppercase;
+
+	border: 1px solid black;
+	background-color: black;
+	color: white;
+	transition: all .15s;
+
+	cursor: pointer;
+
+	&:hover {
+		background-color: white;
+		color: black;
+	}
+
+	&.a{
+		border-bottom: none;
+	}
+}
+
+//.btn--primary {
+//	background-color: $accent;
+//	color: white;
+//
+//	&:hover {
+//		background-color: $dark !important;
+//	}
+//}
+//
+//.btn--secondary {
+//	color: white;
+//}
+//
+//.btn--tertiary {
+//	@extend .btn--secondary;
+//	background-color: $light;
+//}
+//
+//
+//
+//
+//
+/////*------------------------------------*\
+////    $SIZES
+////\*------------------------------------*/
+//.btn--small {
+//	padding: 9px 18px;
+//
+//}
+//
+//.btn--large {
+//	font-size: 16px;
+//	padding: $u/2 2em;
+//}
+//
+//.btn--huge {
+//	padding: $u - $u/4 2.5em;
+//	font-size: 20px;
+//}

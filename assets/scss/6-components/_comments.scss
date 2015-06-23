@@ -40,10 +40,11 @@ $borders: #d3d3d3;
 //*------------------------------------*/
 
 .comments-area {
+	@extend %single-width;
+
 	position: relative;
 
-	max-width: $single-width;
-	margin: 0 auto;
+	padding-bottom: 50px;
 
 	&:before {
 		content: "";
@@ -67,7 +68,7 @@ $borders: #d3d3d3;
 }
 
 .comments-area-title {
-	@extend .cf;
+	@extend %clearfix;
 	margin-top: 36px;
 
 	.comments-title, a {
@@ -140,8 +141,8 @@ li.comment, li.pingback {
 
 	display: block;
 	margin-left: 0;
+	margin-bottom: 50px;
 	margin-top: 50px;
-	margin-bottom: 24px;
 	padding-left: 42px;
 
 	.comment-number {
@@ -157,6 +158,10 @@ li.comment, li.pingback {
 
 	&:last-child {
 		margin-bottom: 0;
+
+		p:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	.children {
@@ -191,6 +196,10 @@ li.comment, li.pingback {
 	a {
 		border: 0;
 		background: transparent;
+	}
+
+	.comment-respond {
+		margin-top: 30px;
 	}
 }
 
@@ -301,11 +310,13 @@ li.depth-2:before {
 
 .comment-reply-title {
 	margin-top: 0;
-	margin-bottom: 12px;
+	padding-top: 0;
+	margin-bottom: 26px;
 
-	font-size: 20px;
-	line-height: 36px;
-	transform: none;
+	font-size: 24px;
+	font-weight: 300;
+	line-height: 30px;
+	text-transform: none;
 
 //	@include query-below($lap) {
 //		font-size: 21px;
@@ -317,7 +328,7 @@ li.depth-2:before {
 
 		content: "+";
 
-		margin-right: 1.5*12px;
+		margin-right: 12px;
 
 //		@include query-below($lap) {
 //			font-size: (28/21) + em;
@@ -342,6 +353,8 @@ li.depth-2:before {
 }
 
 .comment-respond {
+	@extend %single-width;
+
 	position: relative;
 	margin-bottom: 12px;
 
@@ -359,16 +372,10 @@ li.depth-2:before {
 }
 
 #cancel-comment-reply-link {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	z-index: 5;
-
-	margin-top: 0;
-
-	text-decoration: none;
-	font-size: 18px;
 	font-style: normal;
+	font-size: 16px;
+	text-decoration: underline;
+	font-family: unquote(map-get($bodytype, font-family));
 }
 
 
@@ -380,8 +387,8 @@ li.depth-2:before {
 //*------------------------------------*/
 
 .comment-form {
-//	@extend %grid;
-	@extend .cf;
+	@extend %grid;
+	@extend %clearfix;
 
 	.comment & {
 		padding-left: 0;
@@ -398,17 +405,19 @@ li.depth-2:before {
 	}
 
 	input, textarea {
-		font-weight: 300;
-		border-radius: 0;
-		border: 1px solid $hoverColour;
 		box-shadow: none;
+	}
+
+	p {
+		padding-top: 0;
+		margin-bottom: 20px;
 	}
 }
 
 .comment-form-author,
 .comment-form-email,
 .comment-form-url {
-//	@extend %grid__item;
+	@extend %grid__item;
 	width: 100%;
 	display: inline-block;
 	margin-bottom: 0;
@@ -419,11 +428,6 @@ li.depth-2:before {
 
 	input {
 		width: 100%;
-		margin-bottom: $u;
-
-//		@include query-below($lap) {
-			margin-bottom: $u/2;
-//		}
 	}
 
 	.lt-ie9 & {
@@ -442,7 +446,7 @@ li.depth-2:before {
 
 .comment-form-comment,
 .logged-in-as {
-//	@extend %grid__item;
+	@extend %grid__item;
 	width: 100%;
 }
 
@@ -456,23 +460,15 @@ li.depth-2:before {
 	textarea {
 		width: 100%;
 		max-width: 100%;
-		padding: $u/2;
-
-		border: 1px solid $hoverColour;
-		font-size: 16px;
 	}
 }
 
 .form-submit {
-	margin-top: $u/2;
 	margin-bottom: 0;
 	float: right;
 
 	#comment-submit {
 		float: right;
-		margin-left: $u;
-		border-radius: 3px;
-		border: 0;
 
 		.lt-ie9 & {
 			width: 100px;
@@ -527,7 +523,7 @@ li.depth-2:before {
 
 
 .comment-navigation {
-	@extend .cf;
+	@extend %clearfix;
 
 	position: relative;
 
