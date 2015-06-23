@@ -331,7 +331,28 @@ if ( ! function_exists( 'timber_get_option' ) ) :
 	 * @return mixed
 	 */
 	function timber_get_option( $option, $default = null ) {
-		//@TODO Need logic here - mix of Customify and the rest of the options
-		return false;
+		// @TODO Need logic here - mix of Customify and the rest of the options
+		// @TODO also decide if this function will get theme options as well or we go for another function
+		global $pixcustomify_plugin;
+
+		// if there is set an key in url force that value
+		if ( isset( $_GET[ $option ] ) && ! empty( $option ) ) {
+
+			return $_GET[ $option ];
+
+		} elseif ( $pixcustomify_plugin !== null ) {
+
+			$cutomify_value = $pixcustomify_plugin::get_option( $option, $default );
+
+			return $cutomify_value;
+
+			// in the future get theme options if this is null
+//			if ( $cutomify_value !== null ) {
+//				return $cutomify_value;
+//			} else {
+//			}
+		}
+
+		return $default;
 	} #function
 endif;
