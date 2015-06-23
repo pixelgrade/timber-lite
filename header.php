@@ -46,4 +46,10 @@
 		</nav>
 	</header><!-- #masthead -->
 
-	<div id="content" class="site-content">
+	<div class="site-container">
+
+		<div class="site-sidebar">
+			<div class="site-sidebar__content">Some Sample text</div>
+		</div>
+
+		<div id="content" class="site-content">

@@ -1,0 +1,20 @@
+.site-footer {
+    @extend %bar;
+}
+
+.share-button {
+    @extend %bar-piece;
+    @extend %bar-side;
+    @extend %bar-left;
+}
+
+.site-info {
+    @extend %bar-piece;
+    @extend %bar-middle;
+}
+
+.show-button {
+    @extend %bar-piece;
+    @extend %bar-side;
+    @extend %bar-right;
+}

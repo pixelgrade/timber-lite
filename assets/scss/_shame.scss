@@ -1,0 +1,8 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html[lang] {
+    overflow-x: hidden;
+    margin-top: 0 !important;
+}
