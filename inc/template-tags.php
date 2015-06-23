@@ -369,7 +369,11 @@ if ( ! function_exists( 'timber_get_option' ) ) :
 endif;
 
 if ( ! function_exists( 'timber_the_film_strip' ) ) :
-
+	/**
+	 * Display the film strip
+	 *
+	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 */
 	function timber_the_film_strip( $post_id = null ) {
 		echo timber_get_film_strip( $post_id );
 	}
@@ -377,7 +381,12 @@ if ( ! function_exists( 'timber_the_film_strip' ) ) :
 endif;
 
 if ( ! function_exists( 'timber_get_film_strip' ) ) :
-
+	/**
+	 * Return the film strip markup
+	 *
+	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 * @return string The film strip markup
+	 */
 	function timber_get_film_strip( $post_id = null ) {
 		$post = get_post( $post_id );
 
@@ -410,7 +419,12 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 endif;
 
 if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
-
+	/**
+	 * Return markup for a single image in the fiml strip
+	 *
+	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 * @return string The image markup
+	 */
 	function timber_get_film_strip_image( $id = null ) {
 		$markup = '';
 
