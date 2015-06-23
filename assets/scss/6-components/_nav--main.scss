@@ -50,6 +50,7 @@
 
     // styling sub-menus
     .menu-item-has-children {
+        z-index: 999;
 
         > a:after {
             @extend %fa;

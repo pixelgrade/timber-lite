@@ -16,7 +16,7 @@ get_header(); ?>
                 /*
                  * Project Title
                  */
-                the_title( '<h1 class="gallery__title">', '</h1>' );
+                the_title( '<h1 class="site-sidebar__text">', '</h1>' );
 
                 /*
                  * Project meta information
