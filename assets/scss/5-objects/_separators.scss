@@ -1,0 +1,37 @@
+%divider-image {
+	position: relative;
+	height: 4px;
+
+	&:before {
+		content: "";
+
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+
+		display: inline-block;
+		width: 48px;
+		height: 4px;
+
+		background-image: url('assets/svg/divider.svg');
+	}
+}
+
+.divider {
+	@extend %divider-image;
+
+	display: inline-block;
+	margin-left: 12px;
+	margin-right: 12px;
+	min-width: 48px;
+	vertical-align: middle;
+}
+
+hr {
+	@extend %divider-image;
+
+	margin: 50px 0;
+	padding: 0;
+	background: none;
+}

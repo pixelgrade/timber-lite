@@ -1,0 +1,116 @@
+/**
+ * Fluid images for responsive purposes.
+ * Offset `alt` text from surrounding copy.
+ */
+$gutter: 24px;
+
+img {
+    max-width: 100%;
+    height: auto;
+    font-style: italic;
+}
+
+// Google Maps breaks if `max-width: 100%` acts upon it; use their selector
+// .gm-style img {
+//     max-width: none;
+// }
+
+.aligncenter,
+.alignnone,
+.alignleft,
+.alignright {
+    display: block;
+    margin: 0;
+    margin-bottom: 16px;
+    //    width: auto !important;
+
+    @include breakpoint(break-3) {
+        margin-bottom: 24px;
+    }
+
+    .archive__grid & {
+        margin-bottom: 0;
+    }
+
+    .widget &, .blog &, .archive &, .search &{
+        margin: 0;
+    }
+}
+
+.aligncenter, .alignnone, .entry-content .jetpack-video-wrapper {
+    @include breakpoint(break-3) {
+        margin-left: -3 * $gutter;
+        margin-right: -3 * $gutter;
+        max-width: calc(#{6 * $gutter} + 100%);
+
+        .entry-content & {
+            width: auto !important;
+        }
+
+        .entry-card & {
+            max-width: 100%;
+        }
+    }
+
+    text-align: center;
+
+    img {
+        margin: 0 auto;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.alignleft, .alignright {
+    margin-top: $gutter;
+
+    @include breakpoint(break-3) {
+        max-width: calc(50% + #{3 * $gutter} - 20px);
+    }
+
+    p + & {
+        margin-top: 0;
+    }
+
+    p > &:first-child,
+    p > :first-child > &:first-child {
+        margin-top: 0; 
+    }
+}
+
+
+.alignleft {
+    margin-right: 0.5*$gutter;
+}
+
+.alignright {
+    margin-left: 0.5*$gutter;
+}
+
+@include breakpoint(break-3) {
+    .alignleft {
+        float: left;
+        margin-right: 1.5*$gutter;
+
+        @include breakpoint(break-3) {
+            margin-left: -3 * $gutter;
+        }
+    }
+
+    .alignright {
+        float: right;
+        margin-left: 1.5*$gutter;
+
+        @include breakpoint(break-3) {
+            margin-right: -3 * $gutter;
+        }
+    }
+}
+
+figure {
+    max-width: 100%;
+
+    img {
+        display: block;
+    }
+}

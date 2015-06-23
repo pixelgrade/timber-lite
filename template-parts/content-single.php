@@ -13,6 +13,7 @@
 
 		<div class="entry-meta">
 			<?php timber_posted_on(); ?>
+			<span class="divider"></span>
 			<span class="cat-links"><?php echo get_the_category_list( ',' ); ?></span>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->

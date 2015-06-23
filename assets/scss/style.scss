@@ -47,6 +47,7 @@ and Blueprint http://www.blueprintcss.org/
 @import "4-base/typography";
 @import "4-base/forms";
 @import "4-base/wpcore";
+@import "4-base/wp-align";
 
 // design patterns
 // no cosmetics!
@@ -56,6 +57,8 @@ and Blueprint http://www.blueprintcss.org/
 @import "5-objects/grid";
 @import "5-objects/beautons";
 @import "5-objects/media";
+@import "5-objects/images";
+@import "5-objects/separators";
 
 // designed pieces of UI
 // explicit naming

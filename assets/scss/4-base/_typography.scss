@@ -99,10 +99,10 @@ ul, ol {
     @include baseline(zeta, $bodytype, 2, 2, all);
 
     li {
-        font-feature-settings: 'kern' 1, 'onum' 1, 'liga' 1;
-
+        display: list-item;
         margin-left: 2rem;
 
+        font-feature-settings: 'kern' 1, 'onum' 1, 'liga' 1;
         @include breakpoint(break-1) {
             // margin-left: 2rem;
         }
@@ -149,9 +149,10 @@ h1 + .caption, %alpha + .caption, h2 + %caption, %beta + .caption, h3 + .caption
 
 // Quotes.
 blockquote {
+    max-width: 550px;
+    margin: 0 auto;
 
     p {
-        font-weight: map-get($bodytype, bold);
         font-weight: 300;
         letter-spacing: -0.05em;
 //        text-transform: uppercase;
@@ -261,37 +262,99 @@ code {
      font-weight: 300; //Extra-Light 200
 }
 
+.dropcap {
+    float: left;
+    margin-right: 6px;
 
+    font-size: 98px;
+    font-weight: 200;
+    line-height: 84px;
+}
 
 // Pull Content Outside
-@include breakpoint(break-2) {
+@include breakpoint(break-1) {
     $gutter:           24px; // archive
     $col:             80px; // single
-    $pull-offset2 : 2 * $col;
+    $pull-offset : 2 * $col;
+    $pull-gutter : 40px;
 
-    $pull-offset: 66%;
-    $pull-gutter : 60px;
+    .pull-left {
+        margin-left: -$pull-offset;
+        margin-bottom: 24px;
+        width: calc(#{$pull-offset + $pull-gutter/2} + 50%);
+        padding-right: $pull-gutter;
 
-    .pull {
-        width: calc(#{$pull-gutter} + #{$pull-offset});
+        padding-left: 1.5*$gutter;
+        float: left;
 
-        margin-right: calc(#{$pull-gutter} - 50%);
-        margin-bottom: rhythm(1);
+        text-align: right;
 
+        & + .pull-right {
+            margin-right: -$pull-offset;
+            width: calc(#{$pull-offset - $pull-gutter/2} + 50%);
+            padding-left: 0;
+        }
+    }
+
+    .pull-right {
+        margin-right: -$pull-offset;
+        margin-bottom: 24px;
+        width: calc(#{$pull-offset + $pull-gutter/2} + 50%);
         padding-left: $pull-gutter;
-        padding-right: 0;
+
+        padding-right: 1.5*$gutter;
         float: right;
+
+        text-align: left;
     }
 }
 
 // Two Column
 .twocolumn {
     @include breakpoint(break-2) {
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
         column-count: 2;
+
+        -webkit-column-gap: 40px;
+        -moz-column-gap: 40px;
         column-gap: 40px;
     }
 
     @include breakpoint(break-3) {
+        -webkit-column-gap: 60px;
+        -moz-column-gap: 60px;
         column-gap: 60px;
+    }
+}
+
+// Tables
+
+table {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 24px;
+    width: 100%;
+    border-top: 0;
+    border-collapse: collapse;
+
+    table-layout: fixed;
+
+    th {
+        text-align: left;
+    }
+
+    tr {
+        border-bottom: 1px solid $hoverColour;
+    }
+
+    th, td {
+        padding: 12px;
+        vertical-align: middle;
+
+        font: {
+            family: inherit;
+            size: inherit;
+        }
     }
 }
