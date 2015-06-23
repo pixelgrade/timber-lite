@@ -11,8 +11,7 @@ var gulp 		= require('gulp'),
 	beautify 	= require('gulp-beautify'),
 	csscomb 	= require('gulp-csscomb'),
 	cmq 		= require('gulp-combine-media-queries'),
-	chmod 		= require('gulp-chmod' ),
-	map         = require('map-stream' ),
+	chmod 		= require('gulp-chmod'),
 	fs          = require('fs') ;
 
 jsFiles = [

@@ -167,10 +167,7 @@ if (!Date.now) Date.now = function () {
   });
 
   function init() {
-    //browserSize();
-    //platformDetect();
-    //masonry.refresh();
-    //reorderSingleFooter();
+    Gallery.init();
   }
 
   // /* ====== ON WINDOW LOAD ====== */
@@ -201,7 +198,6 @@ if (!Date.now) Date.now = function () {
   }
 
   function update() {
-    //logoAnimation.update();
     ticking = false;
   }
 

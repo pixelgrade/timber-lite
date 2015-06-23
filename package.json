@@ -16,7 +16,6 @@
         "gulp-beautify": "*",
         "gulp-csscomb": "*",
         "gulp-combine-media-queries": "*",
-        "gulp-chmod": "*",
-        "map-stream": "*"
+        "gulp-chmod": "*"
     }
 }

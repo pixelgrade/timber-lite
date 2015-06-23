@@ -7,20 +7,39 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+	<?php while ( have_posts() ) : the_post(); ?>
 
-		<?php while ( have_posts() ) : the_post(); ?>
+        <div class="site-container">
+            <header class="site-sidebar">
+                <div class="site-sidebar__content">
+                <?php
+                /*
+                 * Project Title
+                 */
+                the_title( '<h1 class="gallery__title">', '</h1>' );
 
-			<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
+                /*
+                 * Project meta information
+                 */
+                $separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
+                echo get_the_term_list( $post->ID, 'jetpack-portfolio-type', '<span class="entry-meta meta-categories">' . sprintf( '%1s: ', __( 'Type', 'timber' ) ), $separate_meta, '</span>' );
 
-			<?php the_post_navigation(); ?>
+                ?>
+                </div>
+            </header>
 
-			<?php comments_template(); ?>
+            <main id="content" class="site-content">
+        		<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
+            </main>
 
-		<?php endwhile; // end of the loop. ?>
+        </div>
 
-		</main><!-- #main -->
-	</div><!-- #primary .content-area -->
+        <footer id="colophon" class="site-footer" role="contentinfo">
+            <button class="share-button"><i class="fa fa-share-alt"></i></button>
+            <div class="site-info"></div><!-- .site-info -->
+            <button class="show-button  js-show-thumbnails"><span>show thumbnails</span></button>
+        </footer><!-- #colophon -->
+
+	<?php endwhile; // end of the loop. ?>
 
 <?php get_footer(); ?>
