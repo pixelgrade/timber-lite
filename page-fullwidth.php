@@ -2,9 +2,7 @@
 /**
  * Template Name: Full Width Page
  *
- * @package WordPress
- * @subpackage Timber
- * @since Timber 1.0
+ * @package Timber
  */
 
 get_header(); ?>

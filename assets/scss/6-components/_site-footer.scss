@@ -18,3 +18,33 @@
     @extend %bar-side;
     @extend %bar-right;
 }
+
+
+
+
+
+// Single post and page footer style
+.theme-name, .back-to-top {
+    @extend %bar-piece;
+    @extend %bar-side;
+}
+
+.theme-name {
+    @extend %bar-left;
+
+    * {
+        display: inline-block;
+    }
+}
+
+.back-to-top {
+    @extend %bar-right;
+}
+
+.site-footer--single {
+    flex-basis: 9vh;
+
+    color: $hoverColour;
+    font-weight: 300;
+    font-size: 14px;
+}
