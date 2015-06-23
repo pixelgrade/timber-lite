@@ -398,11 +398,27 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 		//let's get cranking at processing the content and make a film strip out of it
 		$content = $post->post_content;
-		$galleries = get_post_galleries( $post, false );
+
+		/* FIRST DEAL WITH GALLERIES - [gallery] shortcode - THIS IS A HARD/TOP LEVEL LIMIT */
+
+		$galleries = timber_get_post_galleries( $post, false );
 
 		if ( ! empty( $galleries ) ) {
 			foreach ( $galleries as $gallery ) {
 				if ( ! empty( $gallery['ids'] ) ) {
+					//we've got a proper gallery on our hands
+
+					//let's get the content before the shortcode
+					$pos = strpos( $content, $gallery['original'] );
+					$before_content = substr( $content, 0, $pos );
+
+					//now let's process this content and get it in the film strip
+					$output .= timber_process_partial_content_into_film_strip( $before_content );
+
+					//delete everything in front of the shortcode including it
+					$content = trim( substr( $content, $pos + strlen( $gallery['original'] ) ) );
+
+					//now make a film strip box for each image in the gallery
 					$gallery_ids = explode(',', $gallery['ids'] );
 
 					foreach ( $gallery_ids as $key => $attachment_id ) {
@@ -412,20 +428,93 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 			}
 		}
 
+		if ( ! empty( $content ) ) {
+			//there is some content left - let's process it
+			$output .= timber_process_partial_content_into_film_strip( $content );
+		}
+
 		return $output;
 
 	}
 
 endif;
 
+/**
+ * Return markup for the film strip given a gallery-free piece of content
+ *
+ * @param string Partial post content
+ * @return string The markup
+ */
+function timber_process_partial_content_into_film_strip( $content ) {
+	$markup = '';
+
+	//a little bit of cleanup
+	$content = trim( $content );
+	$content = apply_filters( 'the_content', $content );
+
+	//do nothing if we have no content
+	if ( empty( $content ) ) {
+		return $markup;
+	}
+
+	//split this content by images (<img> tag)
+	$num_matches = preg_match_all("!(?:<\s*p\s?[^>]*>\s*)?(?:<\s*figure\s?.*>\s*)?(?:<\s*?a\s?.*>\s*)?<\s*img\s?.*src=[\"|']([^\"']*)[\"|'].*alt=[\"|']([^\"']*)[\"|'].*/>(?:\s*</a\s*>)?(?:\s*<\s*figcaption\s?[^>]*>([^>]*)\s*</figcaption\s*>)?(?:\s*</figure>)?(?:\s*</p\s*>)?!i", $content, $matches);
+
+	for ( $idx = 0; $idx < $num_matches; $idx++ ) {
+		//first let's see if there is some content before the current match
+		$pos = strpos( $content, $matches[0][ $idx ] );
+		$before_content = trim( substr( $content, 0, $pos ) );
+		if ( ! empty( $before_content ) ) {
+			//first a little bit of safety - better safe than sorry
+			$before_content = balanceTags( $before_content, true );
+			//let's make a text box
+			$markup .= '<div class="film-strip--box">' . PHP_EOL;
+			$markup .= '<div class="film-strip--text">' . $before_content . '</div>' . PHP_EOL;
+			$markup .= '</div><!-- .film-strip--box -->' . PHP_EOL;
+		}
+
+		//delete everything in front of the current match including it
+		$content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
+
+		//now let's handle the current match
+		//let's see if we have a caption
+		$caption = "";
+		if ( ! empty( $matches[3][ $idx ] ) ) {
+			$caption = $matches[3][ $idx ];
+		}
+		//first try and get an attachment ID - we may fail because it is an external image
+		$attachment_id = timber_attachment_url_to_postid( $matches[1][ $idx ] );
+		if ( $attachment_id ) {
+			$markup .= timber_get_film_strip_image( $attachment_id, $caption );
+		} else {
+			//we have an external image
+
+			//IGNORE IT for now as we can't reliably get dimensions
+		}
+	}
+
+	if ( ! empty( $content ) ) {
+		//we have one last text box
+
+		//first a little bit of safety - better safe than sorry
+		$content = balanceTags( $content, true );
+		//let's make a text box
+		$markup .= '<div class="film-strip--box">' . PHP_EOL;
+		$markup .= '<div class="film-strip--text">' . $content . '</div>' . PHP_EOL;
+		$markup .= '</div><!-- .film-strip--box -->' . PHP_EOL;
+	}
+
+	return $markup;
+}
+
 if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 	/**
-	 * Return markup for a single image in the fiml strip
+	 * Return markup for a single image in the film strip
 	 *
-	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 * @param int Attachment ID
 	 * @return string The image markup
 	 */
-	function timber_get_film_strip_image( $id = null ) {
+	function timber_get_film_strip_image( $id = null, $caption = "" ) {
 		$markup = '';
 
 		//do nothing if we have no ID
@@ -437,19 +526,83 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-images' );
 		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-images' );
 		$markup .= '<div class="film-strip--box">' . PHP_EOL;
-		$markup .= '<span class="film-strip--image" itemprop="image"
+		$markup .= '<div class="film-strip--image"
 	data-srcsmall="' . $image_small_size[0] . '"
 	data-srclarge="' . $image_large_size[0] . '"
 	data-srcfull="' . $image_full_size[0] . '"
-	data-alt="' . timber_get_img_alt( $id ) . '"
+	data-alt="' . esc_attr( timber_get_img_alt( $id ) ) . '"';
+
+		if ( ! empty( $caption ) ) {
+			$markup .= '
+	data-caption="' . esc_attr( $caption ) . '"';
+		}
+
+		$markup .= '
 	data-width="' . $image_full_size[1] . '"
-	data-height="' . $image_full_size[2] . '"></span>' . PHP_EOL;
+	data-height="' . $image_full_size[2] . '"></div>' . PHP_EOL;
 
 		//some accessibility
-		$markup .= '<noscript><img itemprop="image" src="' . $image_full_size[0] . '" alt="' . timber_get_img_alt( $id ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '"></noscript>' . PHP_EOL;
-		$markup .= '</div>' . PHP_EOL;
+		$markup .= '<noscript><img itemprop="image" src="' . $image_full_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '"></noscript>' . PHP_EOL;
+		$markup .= '</div><!-- .film-strip--box -->' . PHP_EOL;
 
 		return $markup;
 	}
 
+endif;
+
+if ( ! function_exists( 'timber_get_post_galleries' ) ) :
+	/**
+	 * Retrieves galleries from the passed post's content.
+	 * Modified version of the core get_post_galleries() because we wanted the matched string also returned
+	 *
+	 *
+	 * @param int|WP_Post $post Post ID or object.
+	 * @param bool        $html Optional. Whether to return HTML or data in the array. Default true.
+	 * @return array A list of arrays, each containing gallery data and srcs parsed
+	 *               from the expanded shortcode.
+	 */
+	function timber_get_post_galleries( $post, $html = true ) {
+		if ( ! $post = get_post( $post ) )
+			return array();
+
+		if ( ! has_shortcode( $post->post_content, 'gallery' ) )
+			return array();
+
+		$galleries = array();
+		if ( preg_match_all( '/' . get_shortcode_regex() . '/s', $post->post_content, $matches, PREG_SET_ORDER ) ) {
+			foreach ( $matches as $shortcode ) {
+				if ( 'gallery' === $shortcode[2] ) {
+					$srcs = array();
+
+					$gallery = do_shortcode_tag( $shortcode );
+					if ( $html ) {
+						$galleries[] = $gallery;
+					} else {
+						preg_match_all( '#src=([\'"])(.+?)\1#is', $gallery, $src, PREG_SET_ORDER );
+						if ( ! empty( $src ) ) {
+							foreach ( $src as $s )
+								$srcs[] = $s[2];
+						}
+
+						$data = shortcode_parse_atts( $shortcode[3] );
+						$data['src'] = array_values( array_unique( $srcs ) );
+
+						//add the matched string also
+						$data['original'] = $shortcode[0];
+						$galleries[] = $data;
+					}
+				}
+			}
+		}
+
+		/**
+		 * Filter the list of all found galleries in the given post.
+		 *
+		 * @since 3.6.0
+		 *
+		 * @param array   $galleries Associative array of all found post galleries.
+		 * @param WP_Post $post      Post object.
+		 */
+		return apply_filters( 'get_post_galleries', $galleries, $post );
+	}
 endif;

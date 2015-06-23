@@ -462,3 +462,43 @@ function timber_get_img_alt( $image ) {
 	$img_alt = trim( strip_tags( get_post_meta( $image, '_wp_attachment_image_alt', true ) ) );
 	return $img_alt;
 }
+
+/**
+ * Tries to convert an attachment URL into a post ID.
+ * This is a modified version of the one from core to account for resized urls - thumbnails
+ *
+ * @global wpdb $wpdb WordPress database abstraction object.
+ *
+ * @param string $url The URL to resolve.
+ * @return int The found post ID, or 0 on failure.
+ */
+function timber_attachment_url_to_postid( $url ) {
+	global $wpdb;
+
+	$dir = wp_upload_dir();
+	$path = $url;
+
+	if ( 0 === strpos( $path, $dir['baseurl'] . '/' ) ) {
+		$path = substr( $path, strlen( $dir['baseurl'] . '/' ) );
+	}
+
+	$path = preg_replace( '/-[0-9]{1,4}x[0-9]{1,4}\.(jpg|jpeg|png|gif|bmp)$/i', '.$1', $path );
+
+	$sql = $wpdb->prepare(
+		"SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s",
+		$path
+	);
+	$post_id = $wpdb->get_var( $sql );
+
+	/**
+	 * Filter an attachment id found by URL.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param int|null $post_id The post_id (if any) found by the function.
+	 * @param string   $url     The URL being looked up.
+	 */
+	$post_id = apply_filters( 'attachment_url_to_postid', $post_id, $url );
+
+	return (int) $post_id;
+}
