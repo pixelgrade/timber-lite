@@ -1,0 +1,48 @@
+.site {
+    height: 100vh;
+    border: 0.88vh solid black;
+}
+
+.screen-reader-text,
+.site-description {
+    @extend %display--none;
+}
+
+.site {
+    @extend %display--flex;
+    flex-direction: column;
+}
+
+.site-header {
+    @extend %bar;
+}
+
+.site-branding {
+    @extend %bar-piece;
+    @extend %bar-side;
+    @extend %bar-left;
+}
+
+.main-navigation {
+    @extend %bar-piece;
+    @extend %bar-middle;
+}
+
+.social-navigation {
+    @extend %bar-piece;
+    @extend %bar-side;
+    @extend %bar-right;
+    font-size: 16px;
+}
+
+.toggle {
+    flex-shrink: 0;
+    flex-basis: 1.25em;
+    padding: 0 0 0 .5em;
+    height: 1.7em;
+
+    &:before {
+        @extend %display--block;
+        content: url(assets/svg/navgrid.svg);
+    }
+}

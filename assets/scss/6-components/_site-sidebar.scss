@@ -1,0 +1,15 @@
+.site-sidebar {
+    @extend %position--relative;
+    flex-basis: $sidebar-width;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.site-sidebar__content {
+    @extend %position--absolute;
+    width: 100vh - 2 * $header-height;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
