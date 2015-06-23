@@ -1,0 +1,30 @@
+%bar {
+    @extend %display--flex;
+    flex-basis: $header-height;
+    flex-shrink: 0;
+}
+
+%bar-piece {
+    @extend %display--flex;
+    align-items: center;
+}
+
+%bar-middle {
+    flex-basis: 70%;
+    justify-content: center;
+}
+
+%bar-side {
+    flex-basis: 15%;
+    flex-grow: 1;
+}
+
+%bar-left {
+    justify-content: flex-start;
+    padding-left: 2em;
+}
+
+%bar-right {
+    justify-content: flex-end;
+    padding-right: 2em;
+}
