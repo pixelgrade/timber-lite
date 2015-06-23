@@ -527,9 +527,9 @@ li.depth-2:before {
 
 	position: relative;
 
-	padding-left: 2.5*$u;
-	margin-top: $u;
-	margin-bottom: $u;
+	padding-left: 42px;
+	margin-top: 24px;
+	margin-bottom: 24px;
 
 	.comment-number {
 		position: absolute;
@@ -539,11 +539,12 @@ li.depth-2:before {
 		line-height: 30px;
 	}
 
-	.assistive-text {
+	.comment-navigation__title {
 		margin-top: 0;
-		margin-left: 8px;
+		padding-top: 0;
 		font-size: 28px;
-		transform: none;
+		line-height: 30px;
+		text-transform: none;
 	}
 
 	.nav-previous, .nav-next {

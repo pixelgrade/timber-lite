@@ -36,8 +36,8 @@ if ( post_password_required() ) {
 		if ( have_comments() ) :
 			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 				<nav role="navigation" id="comment-nav-above" class="site-navigation comment-navigation">
-					<h3 class="assistive-text"><?php _e( 'Comment navigation', 'timber' ); ?></h3>
-
+					<span class="comment-number  comment-number--dark">&bull;</span>
+					<h3 class="comment-navigation__title  assistive-text"><?php _e( 'Comment navigation', 'timber' ); ?></h3>
 					<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'timber' ) ); ?></div>
 					<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'timber' ) ); ?></div>
 				</nav><!-- #comment-nav-before .site-navigation .comment-navigation -->
@@ -56,8 +56,8 @@ if ( post_password_required() ) {
 
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 			<nav role="navigation" id="comment-nav-below" class="site-navigation comment-navigation">
-				<h3 class="assistive-text"><?php _e( 'Comment navigation', 'timber' ); ?></h3>
-
+				<span class="comment-number  comment-number--dark">&bull;</span>
+				<h3 class="comment-navigation__title  assistive-text"><?php _e( 'Comment navigation', 'timber' ); ?></h3>
 				<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'timber' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'timber' ) ); ?></div>
 			</nav><!-- #comment-nav-below .site-navigation .comment-navigation -->
