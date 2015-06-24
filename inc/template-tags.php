@@ -260,35 +260,38 @@ add_action( 'save_post',     'timber_category_transient_flusher' );
 
 
 if ( ! function_exists( 'timber_get_custom_excerpt' ) ) :
-	/**
-	 * Generate a custom post excerpt suited to both latin alphabet languages and multibyte ones, like Chinese of Japanese
-	 */
-	function timber_get_custom_excerpt( $post_id = null ) {
-		$post = get_post( $post_id );
+/**
+ * Generate a custom post excerpt suited to both latin alphabet languages and multibyte ones, like Chinese of Japanese
+ *
+ * @param int|WP_Post $id Optional. Post ID or post object.
+ * @return string The custom excerpt
+ */
+function timber_get_custom_excerpt( $post_id = null ) {
+	$post = get_post( $post_id );
 
-		if ( empty( $post ) ) {
-			return '';
-		}
-
-		//so we need to generate a custom excerpt
-		//
-		//the problem arises when we are dealing with multibyte characters
-		//in this case we need to do a multibyte character length excerpt not the regular, number of words excerpt
-		//but first we need to detect such a case
-
-		//the excerpt returned by WordPress
-		$excerpt = get_the_excerpt();
-		//now we try to truncate the default excerpt with the length = number of words * 6 - the average word length in English
-		$mb_excerpt = timber_truncate( $excerpt, ( apply_filters( 'excerpt_length', 55 ) * 6 ) );
-
-		//if the multibyte excerpt's length is smaller then the regular excerpt's length divided by 1.8 (this is a conservative number)
-		//then it's quite clear that the default one is no good
-		//else leave things like they used to work
-		if ( mb_strlen( $mb_excerpt ) < mb_strlen( $excerpt ) / 1.8 ) {
-			$excerpt = $mb_excerpt;
-		}
-		return $excerpt;
+	if ( empty( $post ) ) {
+		return '';
 	}
+
+	//so we need to generate a custom excerpt
+	//
+	//the problem arises when we are dealing with multibyte characters
+	//in this case we need to do a multibyte character length excerpt not the regular, number of words excerpt
+	//but first we need to detect such a case
+
+	//the excerpt returned by WordPress
+	$excerpt = get_the_excerpt();
+	//now we try to truncate the default excerpt with the length = number of words * 6 - the average word length in English
+	$mb_excerpt = timber_truncate( $excerpt, ( apply_filters( 'excerpt_length', 55 ) * 6 ) );
+
+	//if the multibyte excerpt's length is smaller then the regular excerpt's length divided by 1.8 (this is a conservative number)
+	//then it's quite clear that the default one is no good
+	//else leave things like they used to work
+	if ( mb_strlen( $mb_excerpt ) < mb_strlen( $excerpt ) / 1.8 ) {
+		$excerpt = $mb_excerpt;
+	}
+	return $excerpt;
+}
 endif;
 
 if ( ! function_exists( 'timber_post_excerpt' ) ) :
@@ -296,7 +299,6 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 	 * Display the post excerpt, either with the <!--more--> tag or regular excerpt
 	 *
 	 * @param int|WP_Post $id Optional. Post ID or post object.
-	 * @return string The custom excerpt
 	 */
 	function timber_post_excerpt( $post_id = null ) {
 		$post = get_post( $post_id );
@@ -430,6 +432,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 endif;
 
+if ( ! function_exists( 'timber_process_partial_content_into_film_strip' ) ) :
 /**
  * Return markup for the film strip given a gallery-free piece of content
  *
@@ -493,6 +496,7 @@ function timber_process_partial_content_into_film_strip( $content ) {
 
 	return $markup;
 }
+endif;
 
 if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 	/**

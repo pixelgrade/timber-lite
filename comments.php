@@ -51,7 +51,7 @@ if ( post_password_required() ) {
 				 * define wpgrade_comment() and that will be used instead.
 				 * See wpgrade_comment() in inc/template-tags.php for more.
 				 */
-				wp_list_comments( array( 'callback' => 'wpgrade_comments', 'short_ping' => true ) ); ?>
+				wp_list_comments( array( 'callback' => 'timber_comment', 'short_ping' => true ) ); ?>
 			</ol><!-- .commentlist -->
 
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
