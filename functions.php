@@ -95,7 +95,7 @@ add_action( 'after_setup_theme', 'timber_setup' );
  * @global int $content_width
  */
 function timber_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'timber_content_width', 1200 );
+	$GLOBALS['content_width'] = apply_filters( 'timber_content_width', 2500 );
 }
 add_action( 'after_setup_theme', 'timber_content_width', 0 );
 
