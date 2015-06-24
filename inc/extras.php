@@ -238,6 +238,20 @@ function timber_excerpt_length( $length ) {
 add_filter( 'excerpt_length', 'timber_excerpt_length', 999 );
 
 /**
+ * When dealing with gallery post format, we need to strip the first gallery in the content since we show it at the top
+ */
+function timber_strip_first_content_gallery( $content ) {
+	if ( 'gallery' == get_post_format() ) {
+		$regex   = '/\[gallery.*]/';
+		$content = preg_replace( $regex, '', $content, 1 );
+	}
+
+	return $content;
+}
+
+add_filter( 'the_content', 'timber_strip_first_content_gallery' );
+
+/**
  * This function was borrowed from CakePHP and adapted.
  * https://github.com/cakephp/cakephp/blob/53fdb18655119d4cca966d769b6c33f8eaaa8da0/src/Utility/Text.php
  *
