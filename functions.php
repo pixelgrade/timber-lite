@@ -186,6 +186,11 @@ require get_template_directory() . '/inc/hybrid-media-grabber.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
+ * Load Jetpack compatibility file.
+ */
+require get_template_directory() . '/inc/jetpack.php';
+
+/**
  * Load Recommended/Required plugins notification
  */
 require get_template_directory() . '/inc/required-plugins/required-plugins.php';
