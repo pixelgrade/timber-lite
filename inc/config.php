@@ -296,35 +296,6 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 						)
 					),
 
-					'branding' => array (
-						'title'    => __( 'Branding', 'timber' ),
-						'options' => array(
-							'main_logo_light' => array(
-								'type'     => 'image',
-								'label'    => __( 'Main Logo (Dark)', 'timber' ),
-								'subtitle' => __( 'If there is no image uploaded, plain text will be used instead (generated from the site\'s name).', 'timber' ),
-							),
-							'main_logo_dark' => array(
-								'type'  => 'image',
-								'label' => __( 'Logo Inversed (Light)', 'timber' ),
-								'desc' => __( 'Upload an inverted color logo.', 'timber' )
-							),
-							'retina_main_logo_light' => array(
-								'type'     => 'image',
-								'label'    => __( '[Retina] Main Logo', 'timber' )
-							),
-							'retina_main_logo_dark' => array(
-								'type'     => 'image',
-								'label'    => __( '[Retina] Logo Inversed', 'timber' )
-							),
-							'favicon' => array(
-								'type'     => 'image',
-								'label'    => __( 'Favicon', 'timber' ),
-								'desc' => __( 'Upload a 16 x 16px image that will be used as a favicon.', 'timber' ),
-							),
-						)
-					),
-
 					'share_settings' => array(
 						'title'    => __( 'Share Settings', 'timber' ),
 						'options' => array(
