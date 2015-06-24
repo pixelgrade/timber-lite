@@ -521,3 +521,20 @@ function timber_attachment_url_to_postid( $url ) {
 
 	return (int) $post_id;
 }
+
+/**
+ * Replace the submit input with button because the <input> tag doesn't allow CSS styling with ::before or ::after
+ */
+function timber_search_form( $form ) {
+	$form = '<form role="search" method="get" class="search-form" action="' . esc_url( home_url( '/' ) ) . '">
+				<label>
+					<span class="screen-reader-text">' . _x( 'Search for:', 'label' , 'timber' ) . '</span>
+					<input type="search" class="search-field" placeholder="' . esc_attr_x( 'Search &hellip;', 'placeholder' , 'timber' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label' , 'timber' ) . '" />
+				</label>
+				<button class="search-submit"><i class="fa fa-search"></i></button>
+			</form>';
+
+	return $form;
+}
+
+add_filter( 'get_search_form', 'timber_search_form' );

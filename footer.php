@@ -10,7 +10,7 @@
 ?>
 
 
-<?php if ( is_page() || is_single() ) get_template_part( 'template-parts/content', 'single-footer' ); ?>
+<?php if ( is_page() || is_single() ) get_template_part( 'footer-single' ); ?>
 
 </div><!-- #page -->
 
