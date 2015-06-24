@@ -1,10 +1,12 @@
 <?php
 /**
- * The template for displaying single gallery post format posts.
+ * The template for displaying single video post format posts.
  *
  * @package Timber
  */
-?>
+
+//get the media objects from the content and bring up only the first one
+$media  = timber_audio_attachment(); ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
@@ -31,15 +33,15 @@
 
 		</div><!-- .entry-meta -->
 
-		<?php //output the first gallery in the content - if it exists
-		$gallery = get_post_gallery();
-		if ( $gallery ) { ?>
+		<?php if ( ! empty( $media ) ) : ?>
 
-			<div class="entry-featured  entry-gallery">
-				<?php echo $gallery; ?>
-			</div><!-- .entry-gallery -->
+			<div class="entry-featured entry-media">
 
-		<?php } ?>
+				<?php echo $media; ?>
+
+			</div><!-- .entry-media -->
+
+		<?php endif; ?>
 
 	</header><!-- .entry-header -->
 

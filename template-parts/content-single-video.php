@@ -20,12 +20,7 @@ $media  = timber_video_attachment(); ?>
 
 			<?php timber_posted_on(); ?>
 
-			<span class="divider"></span>
-			<span class="entry-format">
-				<a href="<?php echo esc_url( get_post_format_link( 'video' ) ); ?>" title="<?php echo esc_attr( sprintf( __( 'All %s posts', 'timber' ), get_post_format_string( 'video' ) ) ); ?>">
-					<?php echo get_post_format_string( 'video' ); ?>
-				</a>
-			</span>
+			<?php timber_post_format_link( get_the_ID(), '<span class="divider"></span>' ); ?>
 
 			<?php if ( $category_list && timber_categorized_blog() ) { ?>
 

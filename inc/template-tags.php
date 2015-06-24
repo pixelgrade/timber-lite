@@ -314,7 +314,7 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 		if ( $has_more ) {
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
-				__( 'Continue reading %s', 'timber' ),
+				wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'timber' ), array( 'span' => array( 'class' => array() ) ) ),
 				the_title( '<span class="screen-reader-text">', '</span>', false )
 			) );
 		} elseif ( has_excerpt( $post ) ) {
@@ -615,4 +615,104 @@ function timber_audio_attachment() {
  */
 function timber_video_attachment() {
 	return hybrid_media_grabber( array( 'type' => 'video', 'split_media' => true ) );
-} ?>
+}
+
+/**
+ * Prints HTML with the category of a certain post, with the most posts in it
+ * The most important category of a post
+ *
+ * @param int|WP_Post $post_ID Optional. Post ID or post object.
+ */
+function timber_first_category( $post_ID = null ) {
+	global $wp_rewrite;
+
+	//use the current post ID is none given
+	if ( empty( $post_ID ) ) {
+		$post_ID = get_the_ID();
+	}
+
+	//obviously pages don't have categories
+	if ( 'page' == get_post_type( $post_ID ) ) {
+		return;
+	}
+
+	//first get all categories ordered by count
+	$all_categories = get_categories( array(
+		'orderby' => 'count',
+		'order' => 'DESC',
+	) );
+
+	//get the post's categories
+	$categories = get_the_category( $post_ID );
+	if ( empty( $categories ) ) {
+		//get the default category instead
+		$categories = array( get_the_category_by_ID( get_option( 'default_category' ) ) );
+	}
+
+	//now intersect them so that we are left with e descending ordered array of the post's categories
+	$categories = array_uintersect( $all_categories, $categories, 'timber_compare_categories' );
+
+	if ( ! empty ( $categories ) ) {
+		$category = array_shift( $categories );
+		$rel = ( is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) ? 'rel="category tag"' : 'rel="category"';
+
+		echo '<span class="divider"></span><span class="cat-links"><a href="' . esc_url( get_category_link( $category->term_id ) ) . '" ' . $rel . '>' . $category->name . '</a></span>';
+	}
+
+} #function
+
+function timber_compare_categories( $a1, $a2 ) {
+	if ( $a1->term_id == $a2->term_id ) {
+		return 0; //we are only interested by equality but PHP wants the whole thing
+	}
+
+	if ( $a1->term_id > $a2->term_id ) {
+		return 1;
+	}
+	return -1;
+}
+
+if ( ! function_exists( 'timber_get_post_format_link' ) ) :
+
+	/**
+	 * Returns HTML with the post format link
+	 *
+	 * @param int|WP_Post $post_ID Optional. Post ID or post object.
+	 */
+	function timber_get_post_format_link( $post_ID = null, $before = '', $after = '' ) {
+
+		//use the current post ID is none given
+		if ( empty( $post_ID ) ) {
+			$post_ID = get_the_ID();
+		}
+
+		$post_format = get_post_format( $post_ID );
+
+		if ( empty( $post_format ) || 'standard' == $post_format ) {
+			return '';
+		}
+
+		return $before . '<span class="entry-format">
+				<a href="' . esc_url( get_post_format_link( $post_format ) ) .'" title="' . esc_attr( sprintf( __( 'All %s Posts', 'timber' ), get_post_format_string( $post_format ) ) ) . '">' .
+		       get_post_format_string( $post_format ) .
+		       '</a>
+			</span>' . $after;
+
+	} #function
+
+endif;
+
+if ( ! function_exists( 'timber_post_format_link' ) ) :
+
+	/**
+	 * Prints HTML with the post format link
+	 *
+	 * @param int|WP_Post $post_ID Optional. Post ID or post object.
+	 */
+	function timber_post_format_link( $post_ID = null, $before = '', $after = '' ) {
+
+		echo timber_get_post_format_link( $post_ID, $before, $after );
+
+	} #function
+
+endif;
