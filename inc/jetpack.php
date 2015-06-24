@@ -34,7 +34,7 @@ function timber_jetpack_setup() {
 	 * Second, the 2 classes we want to use for the "Display Header Text" Customizer logic
 	 */
 	add_theme_support( 'site-logo', array(
-		'size'        => 'patch-site-logo',
+		'size'        => 'timber-site-logo',
 		'header-text' => array(
 			'site-title',
 			'site-description-text',
