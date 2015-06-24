@@ -71,7 +71,9 @@ function timber_setup() {
 	add_theme_support( 'post-formats', array(
 		'aside',
 		'image',
+		'gallery',
 		'video',
+		'audio',
 		'quote',
 		'link',
 	) );
