@@ -1,7 +1,8 @@
 <?php
 /**
  * The template for displaying single gallery post format posts.
- * @package Hive
+ *
+ * @package Timber
  */
 ?>
 
@@ -15,7 +16,7 @@
 
 		<div class="entry-meta">
 
-			<?php hive_posted_on(); ?>
+			<?php timber_posted_on(); ?>
 
 			<span class="divider"></span>
 			<span class="entry-format">
@@ -24,7 +25,7 @@
 				</a>
 			</span>
 
-			<?php if ( $category_list && hive_categorized_blog() ) { ?>
+			<?php if ( $category_list && timber_categorized_blog() ) { ?>
 
 				<span class="divider"></span>
 				<span class="cat-links">

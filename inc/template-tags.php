@@ -599,3 +599,20 @@ if ( ! function_exists( 'timber_get_post_galleries' ) ) :
 		return apply_filters( 'get_post_galleries', $galleries, $post );
 	}
 endif;
+
+/**
+ * Handles the output of the media for audio attachment posts. This should be used within The Loop.
+ *
+ * @return string
+ */
+function timber_audio_attachment() {
+	return hybrid_media_grabber( array( 'type' => 'audio', 'split_media' => true ) );
+}
+/**
+ * Handles the output of the media for video attachment posts. This should be used within The Loop.
+ *
+ * @return string
+ */
+function timber_video_attachment() {
+	return hybrid_media_grabber( array( 'type' => 'video', 'split_media' => true ) );
+} ?>
