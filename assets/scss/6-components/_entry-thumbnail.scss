@@ -17,3 +17,26 @@
         transform: translate(-50%, -50%);
     }
 }
+
+.post-meta {
+    width: 44px;
+    height: 33px;
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    background: url('assets/svg/postmeta.svg') no-repeat;
+}
+
+.post-meta__content {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    transform: translate(-50%, -50%);
+
+    .fa {
+        font-size: 12px;
+        padding-left: 2px;
+    }
+}

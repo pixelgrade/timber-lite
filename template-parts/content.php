@@ -13,6 +13,9 @@
 		<?php if (has_post_thumbnail()) {
 			echo get_the_post_thumbnail($post->ID, 'medium');
 		} ?>
+		<div class="post-meta">
+			<div class="post-meta__content"><i class="fa fa-play"></i></div>
+		</div>
 	</aside>
 
 	<header class="entry-header">
