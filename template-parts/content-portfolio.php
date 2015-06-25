@@ -42,9 +42,9 @@
 
 	<?php
 	/*
-	 * Project film strip
+	 * Project film strip with text boxes ignored
 	 */
-	timber_the_film_strip();
+	timber_the_film_strip( get_the_ID(), true );
 	?>
 
 </article><!-- #post-<?php the_ID(); ?> -->
