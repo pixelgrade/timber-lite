@@ -465,7 +465,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
 			//first a little bit of safety - better safe than sorry
 			$before_content = balanceTags( $before_content, true );
 			//let's make a text box
-			$markup .= '<div class="portfolio__item portfolio__item--text js-portfolio-item">' . $before_content . '</div>' . PHP_EOL;
+			$markup .= '<div class="portfolio__item portfolio__item--text">' . $before_content . '</div>' . PHP_EOL;
 		}
 
 		//delete everything in front of the current match including it
@@ -494,7 +494,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
 		//first a little bit of safety - better safe than sorry
 		$content = balanceTags( $content, true );
 		//let's make a text box
-		$markup .= '<div class="portfolio__item portfolio__item--text js-portfolio-item">' . $content . '</div>' . PHP_EOL;
+		$markup .= '<div class="portfolio__item portfolio__item--text">' . $content . '</div>' . PHP_EOL;
 	}
 
 	return $markup;
