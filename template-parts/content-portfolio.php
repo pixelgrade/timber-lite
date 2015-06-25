@@ -5,7 +5,7 @@
  * @package Timber
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('gallery  gallery--grid  gallery--project  js-gallery'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('portfolio  portfolio--grid  portfolio--project  js-portfolio'); ?>>
 
 	<?php
 	/**
@@ -23,9 +23,9 @@
 	 * Project Title and Link
 	 */
 	?>
-	<div class="gallery__header">
-		<div class="gallery__category">Category</div>
-		<h2 class="gallery__title h1">
+	<div class="portfolio__header">
+		<div class="portfolio__category">Category</div>
+		<h2 class="portfolio__title h1">
 			<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
 				<?php
 					if ( get_the_title() != '' ) :

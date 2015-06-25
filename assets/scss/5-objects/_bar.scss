@@ -1,7 +1,16 @@
 %bar {
     @extend %display--flex;
+    width: 100%;
+    height: $header-height;
     flex-basis: $header-height;
     flex-shrink: 0;
+    z-index: 1000;
+}
+
+.bar--fixed {
+    @extend %bar;
+    @extend %position--fixed;
+    @extend %transform--0;
 }
 
 %bar-piece {

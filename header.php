@@ -24,6 +24,8 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'timber' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
+		<div class="bar--fixed">
+
 		<div class="site-branding">
 
 			<?php if ( function_exists( 'jetpack_the_site_logo' ) ) { // display the Site Logo if present
@@ -53,4 +55,5 @@
 			<button class="toggle  js-toggle"></button>
 		</nav>
 
+		</div>
 	</header><!-- #masthead -->

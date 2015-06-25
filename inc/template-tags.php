@@ -516,27 +516,20 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		$image_full_size = wp_get_attachment_image_src( $id, 'full' );
 		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-images' );
 		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-images' );
+		$markup .=
+		'<div class="portfolio__item js-portfolio-item"
+			data-srcsmall="' . $image_small_size[0] . '"
+			data-srclarge="' . $image_large_size[0] . '"
+			data-srcfull="' . $image_full_size[0] . '"
+			data-alt="' . timber_get_img_alt( $id ) . '"
+			data-caption="' . esc_attr( $caption ) . '"
+			data-width="' . $image_full_size[1] . '"
+			data-height="' . $image_full_size[2] . '">
 
-		$markup .= '<div class="gallery__item js-gallery-item"
-	data-srcsmall="' . $image_small_size[0] . '"
-	data-srclarge="' . $image_large_size[0] . '"
-	data-srcfull="' . $image_full_size[0] . '"
-	data-alt="' . esc_attr( timber_get_img_alt( $id ) ) . '"';
-
-		if ( ! empty( $caption ) ) {
-			$markup .= '
-	data-caption="' . esc_attr( $caption ) . '"';
-		}
-
-		$markup .= '
-	data-width="' . $image_full_size[1] . '"
-	data-height="' . $image_full_size[2] . '">' . PHP_EOL;
-
-		//some accessibility
-		$markup .= '<noscript><a href="' . $image_full_size[0] . '">
-			<img itemprop="image" src="' . $image_full_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '">
-			</a></noscript>' . PHP_EOL;
-		$markup .= '</div><!-- .gallery__item -->' . PHP_EOL;
+			<noscript><a href="' . $image_full_size . '">
+				<img itemprop="image" src="' . $image_small_size[0] . '" alt="' . timber_get_img_alt( $id ) . '" width="' . $image_small_size[1] . '" height="' . $image_small_size[2] . '">
+			</a></noscript>
+		</div>' . PHP_EOL;
 
 		return $markup;
 	}
