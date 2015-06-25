@@ -3,7 +3,7 @@
 }
 
 html[lang] {
-    overflow-x: hidden;
+    // overflow-x: hidden;
     margin-top: 0 !important;
 }
 
@@ -11,4 +11,8 @@ html[lang] {
     .site {
         display: initial;
     }
+}
+
+html, body {
+    height: 100%;
 }

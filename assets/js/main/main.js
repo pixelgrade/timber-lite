@@ -4,8 +4,15 @@ $(document).ready(function() {
   init();
 });
 
+window.scroller = new Scroller(window, function() {
+    var x = scroller.get('x'),
+        y = scroller.get('y');
+
+    Portfolio.updateCurrent(x, y);
+});
+
 function init() {
-  Gallery.init();
+  Portfolio.init();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
