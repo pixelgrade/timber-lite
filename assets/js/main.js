@@ -4602,7 +4602,6 @@ if (!Date.now) Date.now = function () {
 
   function init() {
     platformDetect();
-    Gallery.init();
     Portfolio.init();
   }
 

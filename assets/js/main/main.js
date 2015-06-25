@@ -15,7 +15,6 @@ window.scroller = new Scroller(window, function() {
 
 function init() {
   platformDetect();
-  Gallery.init();
   Portfolio.init();
 }
 
