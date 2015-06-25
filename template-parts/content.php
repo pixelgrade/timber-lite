@@ -13,22 +13,23 @@
 		<?php if (has_post_thumbnail()) {
 			echo get_the_post_thumbnail($post->ID, 'medium');
 		} ?>
-		<div class="post-meta">
-			<div class="post-meta__content"><i class="fa fa-play"></i></div>
-		</div>
+		<?php if ( 'post' == get_post_type() ) : ?>
+			<div class="post-meta">
+				<div class="post-meta__content"><i class="fa fa-play"></i></div>
+			</div>
+		<?php endif; ?>
 	</aside>
 
 	<header class="entry-header">
 
-		<?php if ( 'post' == get_post_type() ) : ?>
 		<div class="entry-meta">
-
-			<?php timber_posted_on(); ?>
-
-			<?php timber_first_category(); ?>
-
+			<?php if ( 'post' == get_post_type() ) : ?>
+				<?php timber_posted_on(); ?>
+				<?php timber_first_category(); ?>
+			<?php else: ?>
+				<?php echo get_post_type(); ?>
+			<?php endif; ?>
 		</div><!-- .entry-meta -->
-		<?php endif; ?>
 
 		<?php the_title( sprintf( '<h1 class="entry-title h3"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 

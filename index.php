@@ -13,9 +13,9 @@
 
 get_header(); ?>
 
-		<div class="site-container  site-content">
-		<?php if ( have_posts() ) : ?>
-			<div class="filmstrip">
+<div class="site-container  site-content">
+	<?php if ( have_posts() ) : ?>
+		<div class="filmstrip">
 			<div class="site-sidebar">
 				<div class="site-sidebar__content">Journal</div>
 			</div>
@@ -33,28 +33,26 @@ get_header(); ?>
 				?>
 				</div>
 			<?php endwhile; ?>
-
-			<?php timber_paging_nav(); ?>
-			</div>
-		<?php else : ?>
-
-			<?php get_template_part( 'template-parts/content', 'none' ); ?>
-
-		<?php endif; ?>
+		<?php timber_paging_nav(); ?>
 		</div>
-		<div class="site-footer">
-			<div class="bar--fixed">
-				<div class="share-button"></div>
-				<div class="site-info">
-					<ul class="nav">
-						<li class="current"><a href="#">All</a></li>
-						<li><a href="#">Travel</a></li>
-						<li><a href="#">Lifestyle</a></li>
-						<li><a href="#">Fashion</a></li>
-					</ul>
-				</div>
-				<div class="share-button"></div>
-			</div>
+	<?php else : ?>
+		<?php get_template_part( 'template-parts/content', 'none' ); ?>
+	<?php endif; ?>
+</div>
+
+<div class="site-footer">
+	<div class="bar--fixed">
+		<div class="share-button"></div>
+		<div class="site-info">
+			<ul class="nav">
+				<li class="current"><a href="#">All</a></li>
+				<li><a href="#">Travel</a></li>
+				<li><a href="#">Lifestyle</a></li>
+				<li><a href="#">Fashion</a></li>
+			</ul>
 		</div>
+		<div class="share-button"></div>
+	</div>
+</div>
 
 <?php get_footer(); ?>
