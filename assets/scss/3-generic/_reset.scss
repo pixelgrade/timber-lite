@@ -51,6 +51,7 @@
 %position--static           { position: static }
 %position--relative         { position: relative }
 %position--absolute         { position: absolute }
+%position--fixed            { position: fixed }
 
 %overflow--auto             { overflow: auto }
 %overflow--hidden           { overflow: hidden }
@@ -69,6 +70,8 @@
 
 %pointer-events--auto       { pointer-events: auto }
 %pointer-events--none       { pointer-events: none }
+
+%transform--0               { transform: translateZ(0); }
 
 body {
     @extend %margin--0;

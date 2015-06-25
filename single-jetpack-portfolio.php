@@ -8,36 +8,19 @@
 get_header(); ?>
 
 	<?php while ( have_posts() ) : the_post(); ?>
-
-        <div class="site-container">
-            <header class="site-sidebar">
-                <div class="site-sidebar__content">
-                <?php
-                /*
-                 * Project Title
-                 */
-                the_title( '<h1 class="site-sidebar__text">', '</h1>' );
-
-                /*
-                 * Project meta information
-                 */
-                $separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
-                echo get_the_term_list( $post->ID, 'jetpack-portfolio-type', '<span class="entry-meta meta-categories">' . sprintf( '%1s: ', __( 'Type', 'timber' ) ), $separate_meta, '</span>' );
-
-                ?>
-                </div>
-            </header>
-
-            <main id="content" class="site-content">
+            <main id="content" class="site-content site-container site-content--filmstrip">
         		<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
             </main>
 
-        </div>
-
         <footer id="colophon" class="site-footer" role="contentinfo">
-            <button class="share-button"><i class="fa fa-share-alt"></i></button>
-            <div class="site-info"></div><!-- .site-info -->
-            <button class="show-button  js-show-thumbnails"><span>show thumbnails</span></button>
+            <div class="bar--fixed">
+                <button class="share-button"><i class="fa fa-share-alt"></i></button>
+                <div class="site-info">
+                    <div class="portfolio__position"></div>
+                    <a class="show-details js-details" href="#">show details</a>
+                </div><!-- .site-info -->
+                <button class="show-button  js-show-thumbnails"><span>show thumbnails</span></button>
+            </div>
         </footer><!-- #colophon -->
 
 	<?php endwhile; // end of the loop. ?>

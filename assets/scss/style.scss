@@ -69,16 +69,16 @@ and Blueprint http://www.blueprintcss.org/
 @import "6-components/site-content";
 @import "6-components/site-footer";
 
+@import "6-components/nav--main";
+@import "6-components/nav--social";
 
 @import "6-components/single-header";
 @import "6-components/single-content";
 @import "6-components/single-footer";
+
 @import "6-components/comments";
+@import "6-components/portfolio";
 
-@import "6-components/gallery";
-
-@import "6-components/nav--main";
-@import "6-components/nav--social";
 
 @import "6-components/search-form";
 @import "6-components/royalslider";
