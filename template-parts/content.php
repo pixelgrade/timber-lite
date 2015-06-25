@@ -8,6 +8,13 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+	<aside class="entry-thumbnail">
+		<?php if (has_post_thumbnail()) {
+			echo get_the_post_thumbnail($post->ID, 'medium');
+		} ?>
+	</aside>
+
 	<header class="entry-header">
 
 		<?php if ( 'post' == get_post_type() ) : ?>
@@ -20,7 +27,7 @@
 		</div><!-- .entry-meta -->
 		<?php endif; ?>
 
-		<?php the_title( sprintf( '<h1 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+		<?php the_title( sprintf( '<h1 class="entry-title h3"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
 	</header><!-- .entry-header -->
 
@@ -36,7 +43,4 @@
 		?>
 	</div><!-- .entry-content -->
 
-	<footer class="entry-footer">
-		<?php timber_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->
