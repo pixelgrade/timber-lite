@@ -16,7 +16,7 @@
     the_title( '<h1 class="site-sidebar__text">', '</h1>' );
 
     /*
-     * Project meta information
+     * Project category list
      */
     $separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
     echo get_the_term_list( $post->ID, 'jetpack-portfolio-type', '<span class="entry-meta meta-categories">' . sprintf( '%1s: ', __( 'Type', 'timber' ) ), $separate_meta, '</span>' );

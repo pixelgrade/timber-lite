@@ -526,7 +526,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			data-width="' . $image_full_size[1] . '"
 			data-height="' . $image_full_size[2] . '">
 
-			<noscript><a href="' . $image_full_size . '">
+			<noscript><a href="' . $image_full_size[0] . '">
 				<img itemprop="image" src="' . $image_small_size[0] . '" alt="' . timber_get_img_alt( $id ) . '" width="' . $image_small_size[1] . '" height="' . $image_small_size[2] . '">
 			</a></noscript>
 		</div>' . PHP_EOL;

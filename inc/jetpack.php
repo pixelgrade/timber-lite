@@ -27,8 +27,8 @@ function timber_jetpack_setup() {
 	 * See: http://jetpack.me/support/featured-content/
 	 */
 	add_theme_support( 'featured-content', array(
-		'filter'     => 'timber_get_featured_posts',
-		'max_posts'  => 10,
+		'filter'     => 'timber_get_featured_projects',
+		'max_posts'  => 20, //even if there are 20 here we will cap them at 10; this is so that in case we get posts also we have at least 10 projects
 		'post_types' => array( 'jetpack-portfolio' ),
 	) );
 
@@ -56,23 +56,39 @@ function timber_jetpack_setup() {
 
 add_action( 'after_setup_theme', 'timber_jetpack_setup' );
 
-function timber_get_featured_posts() {
-	return apply_filters( 'timber_get_featured_posts', array() );
+function timber_get_featured_projects() {
+	$featured_projects = apply_filters( 'timber_get_featured_projects', array() );
+
+	//filter to only allow for jetpack-portfolio type
+	$featured_projects = array_filter( $featured_projects, 'timber_post_is_project');
+
+	//cap to maximum 10 projects
+	$featured_projects = array_slice( $featured_projects, 0, 10 );
+
+	return $featured_projects;
 }
 
-function timber_has_featured_posts( $minimum = 1 ) {
+function timber_post_is_project( $post ) {
+	if ( $post->post_type !== 'jetpack-portfolio' ) {
+		return false;
+	}
+
+	return true;
+}
+
+function timber_has_featured_projects( $minimum = 1 ) {
 	if ( is_paged() ) {
 		return false;
 	}
 
 	$minimum = absint( $minimum );
-	$featured_posts = timber_get_featured_posts();
+	$featured_projects = timber_get_featured_projects();
 
-	if ( ! is_array( $featured_posts ) ) {
+	if ( ! is_array( $featured_projects ) ) {
 		return false;
 	}
 
-	if ( $minimum > count( $featured_posts ) ) {
+	if ( $minimum > count( $featured_projects ) ) {
 		return false;
 	}
 

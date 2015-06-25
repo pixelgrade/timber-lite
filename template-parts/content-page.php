@@ -5,7 +5,6 @@
  * @package Timber
  */
 
-
 $background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'full' );
 ?>
 

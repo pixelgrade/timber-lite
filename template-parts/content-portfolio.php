@@ -14,7 +14,7 @@
 	?>
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="project-thumbnail">
-			<?php the_post_thumbnail( 'snaps-thumbnails' ); ?>
+			<?php the_post_thumbnail( 'full' ); ?>
 		</div>
 	<?php endif; ?>
 
@@ -32,7 +32,7 @@
 						// check if the post has a title
 						the_title();
 					else :
-						// if no, use generic text instead
+						// if no title is present, use generic text instead
 						_e( 'View Project', 'timber' );
 					endif;
 				?>
