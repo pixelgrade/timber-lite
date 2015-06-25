@@ -43,6 +43,10 @@
 	display: table;
 	width: 100%;
 
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+
 	> .entry-title {
 		display: table-cell;
 		vertical-align: middle;
@@ -51,15 +55,15 @@
 	}
 
 	&.full-height {
-		height: 100vh;
+		min-height: 100vh;
 	}
 
 	&.half-height {
-		height: 50vh;
+		min-height: 50vh;
 	}
 
 	&.two-thirds-height {
-		height: 66.666666vh;
+		min-height: 66.666666vh;
 	}
 }
 

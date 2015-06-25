@@ -6,7 +6,10 @@
 
 .nav {
     @extend %display--flex;
-    list-style-type: none;
+
+    &, ul {
+        list-style-type: none;
+    }
 
     // general styling of links inside menu
     a {

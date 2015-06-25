@@ -5,10 +5,16 @@
  * @package Timber
  */
 
+
+$background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'full' );
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header  cover  half-height" style="background-image: url('<?php echo wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'full' ); ?>');">
+	<?php if ( !empty($background_image) ) : ?>
+	<header class="entry-header  cover  full-height" style="background-image: url('<?php  echo $background_image; ?>');">
+	<?php else : ?>
+	<header class="entry-header  cover  half-height">
+	<?php endif; ?>
 		<?php the_title( '<h1 class="entry-title  h0">', '</h1>' ); ?>
 	</header><!-- .entry-header -->
 

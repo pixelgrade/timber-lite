@@ -15,6 +15,13 @@
 
 .site-header {
     @extend %bar;
+
+    .page & {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 100%;
+    }
 }
 
 .site-branding {
@@ -26,6 +33,17 @@
 .main-navigation {
     @extend %bar-piece;
     @extend %bar-middle;
+
+    .page & {
+        .sub-menu {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        a {
+            text-shadow: none;
+        }
+    }
 }
 
 .social-navigation {
