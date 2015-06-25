@@ -137,10 +137,12 @@ function sliderInit($slider) {
 		numImagesToPreload: 2
 	};
 
+	var rs_centerArea = rs_nearbyCenter == true ? 0.90 : 0.95;
+
 	if (rs_visibleNearby) {
 		royalSliderParams['visibleNearby'] = {
 			enabled: rs_visibleNearby,
-			centerArea: 0.85,
+			centerArea: rs_centerArea,
 			center: rs_nearbyCenter,
 			breakpoint: 650,
 			breakpointCenterArea: 0.64,

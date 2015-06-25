@@ -608,67 +608,18 @@ img.rsImg {
 	}
 }
 
-.featured-projects-slider {
-	position: absolute;
-	top: -1px;
-	right: -1px;
-	bottom: -1px;
-	left: -1px;
+.rsBullet {
+	background: transparent;
+	border: 3px solid white;
 
-	width: 100vw;
-	height: 100vh;
+	width: 12px;
+	height: 12px;
+
+	margin: 0 5px;
+
+	transition: .2s background linear;
 }
 
-	.project-slide__content {
-		position: absolute;
-		top: 50%;
-		left: 10%;
-
-		transform: translateY(-50%);
-
-		* {
-			color: white;
-			text-transform: uppercase;
-		}
-	}
-
-		.project-slide__title {
-			@extend .h0;
-
-			margin: 10px 0;
-			padding: 0;
-		}
-
-		.project-slide__link {
-			@extend .h4;
-			padding: 0;
-			font-weight: map-get($bodytype, bold);
-		}
-
-	.vertical-title {
-		@extend .h4;
-
-		position: absolute;
-		top: 50%;
-
-		transform: translateY(-50%) rotate(-90deg) translateZ(0.01px);
-
-		font-weight: map-get($bodytype, bold);
-		text-transform: uppercase;
-		color: white;
-
-		opacity: 1;
-		transition: opacity .3s linear;
-
-		.rsActiveSlide & {
-			opacity: 0;
-		}
-
-		&.left-align {
-			left: 0;
-		}
-
-		&.right-align {
-			right: 0;
-		}
-	}
+.rsNavSelected {
+	background: white;
+}

@@ -4,24 +4,19 @@
  *
  * @package Timber
  */
+//project category list
+
+$separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
 ?>
-
 <div class="project-slide  rsContent">
-
-	<?php //project category list
-	$separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
-	echo get_the_term_list( $post->ID, 'jetpack-portfolio-type', '<div class="portfolio__categories">', $separate_meta, '</div>' );
-	?>
-
-	<h2 class="project-slide__name">
-		<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
-			<?php the_title(); ?>
-			<span class="portfolio__view-more"><?php _e( 'View Project', 'timber' ); ?></span>
+	<span class="vertical-title left-align"><?php the_title(); ?></span>
+	<div class="project-slide__content">
+		<?php echo get_the_term_list( $post->ID, 'jetpack-portfolio-type', '<a href="#" class="project-slide__text">', $separate_meta, '</a>' ); ?>
+		<a href="<?php the_permalink(); ?>" class="project-slide__link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
+			<h1 class="project-slide__title"><?php the_title(); ?></h1>
+			<span class="project-slide__text"><?php _e( '&#8594; View Project', 'timber' ); ?></span>
 		</a>
-	</h2>
-
-	<?php
-	// Project Image
-	the_post_thumbnail( 'full', array( 'class' => 'project-slide__image  rsImg' ) ); ?>
-
-</div><!-- .project-slide.rsContent -->
+	</div>
+	<span class="vertical-title right-align"><?php the_title(); ?></span>
+	<?php the_post_thumbnail( 'full', array( 'class' => 'project-slide__image  rsImg' ) ); ?>
+</div><!-- .project-slide -->
