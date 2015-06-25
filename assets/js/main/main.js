@@ -14,6 +14,8 @@ window.scroller = new Scroller(window, function() {
 });
 
 function init() {
+  platformDetect();
+  Gallery.init();
   Portfolio.init();
 }
 
@@ -28,6 +30,8 @@ $window.load(function() {
   //magnificPopupInit();
   //logoAnimation.init();
   //logoAnimation.update();
+
+  royalSliderInit();
 });
 
 // /* ====== ON RESIZE ====== */

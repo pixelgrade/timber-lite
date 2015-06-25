@@ -99,6 +99,14 @@ function timber_content_width() {
 }
 add_action( 'after_setup_theme', 'timber_content_width', 0 );
 
+/*
+ * Disable comments for the Portfolio CPT
+ */
+function timber_remove_custom_post_comment() {
+	remove_post_type_support( 'jetpack-portfolio', 'comments' );
+}
+add_action( 'init', 'timber_remove_custom_post_comment' );
+
 /**
  * Register widget area.
  *

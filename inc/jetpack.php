@@ -8,13 +8,18 @@
  * @since Timber 1.0
  */
 
-//first test if Jetpack is present and activated
-// only if it is not present load the duplicated code from the theme
-if ( ! class_exists( 'Jetpack' ) ) {
-	require_once get_template_directory() . '/inc/jetpack/featured-content.php';
-	require_once get_template_directory() . '/inc/jetpack/site-logo.php';
-	require_once get_template_directory() . '/inc/jetpack/responsive-videos.php';
+function timber_load_jetpack_compatibility() {
+	//first test if Jetpack is present and activated
+	// only if it is not present load the duplicated code from the theme
+	if ( ! class_exists( 'Jetpack' ) ) {
+		//these are safe as they do their own house cleaning
+		require_once get_template_directory() . '/inc/jetpack/featured-content.php';
+		require_once get_template_directory() . '/inc/jetpack/site-logo.php';
+		//this is not safe -- needed to prefix the functions
+		require_once get_template_directory() . '/inc/jetpack/responsive-videos.php';
+	}
 }
+add_action( 'plugins_loaded', 'timber_load_jetpack_compatibility' );
 
 function timber_jetpack_setup() {
 	/**
