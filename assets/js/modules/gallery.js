@@ -10,6 +10,12 @@ var Portfolio = (function() {
       $currentFoto,
 
   init = function() {
+
+    if (!$('.single-jetpack-portfolio').length) {
+      placehold();
+      return;
+    }
+
     $filmstrip = $('.js-portfolio');
 
     $grid = $filmstrip.clone().addClass('portfolio--grid').insertBefore($filmstrip);
@@ -111,13 +117,15 @@ var Portfolio = (function() {
 
   placehold = function() {
 
+
     $('.js-portfolio').each(function(i, obj) {
 
-      var $portfolio        = $(obj)
+      var $portfolio      = $(obj),
           isGrid          = $portfolio.hasClass('portfolio--grid'),
           containerHeight = $portfolio.height();
 
       $portfolio.find('.js-portfolio-item').each(function(j, obj) {
+        console.log(containerHeight);
         var $portfolioItem  = $(obj),
             width         = $portfolioItem.data('width'),
             height        = $portfolioItem.data('height'),

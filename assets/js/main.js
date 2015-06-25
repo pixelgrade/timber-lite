@@ -2257,6 +2257,12 @@ if (!Date.now) Date.now = function () {
         $currentFoto,
         
         init = function () {
+
+        if (!$('.single-jetpack-portfolio').length) {
+          placehold();
+          return;
+        }
+
         $filmstrip = $('.js-portfolio');
 
         $grid = $filmstrip.clone().addClass('portfolio--grid').insertBefore($filmstrip);
@@ -2361,13 +2367,15 @@ if (!Date.now) Date.now = function () {
         
         placehold = function () {
 
+
         $('.js-portfolio').each(function (i, obj) {
 
-          var $portfolio = $(obj)
-          isGrid = $portfolio.hasClass('portfolio--grid'),
+          var $portfolio = $(obj),
+              isGrid = $portfolio.hasClass('portfolio--grid'),
               containerHeight = $portfolio.height();
 
           $portfolio.find('.js-portfolio-item').each(function (j, obj) {
+            console.log(containerHeight);
             var $portfolioItem = $(obj),
                 width = $portfolioItem.data('width'),
                 height = $portfolioItem.data('height'),
@@ -2477,7 +2485,9 @@ if (!Date.now) Date.now = function () {
     var x = scroller.get('x'),
         y = scroller.get('y');
 
-    Portfolio.updateCurrent(x, y);
+    if ($('.single-jetpack-portfolio').length) {
+      Portfolio.updateCurrent(x, y);
+    }
   });
 
   function init() {
