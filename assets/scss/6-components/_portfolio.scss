@@ -1,8 +1,13 @@
+.single-jetpack-portfolio .site {
+    @extend %display--flex;
+    flex-direction: column;
+}
+
 .portfolio {
     @extend %display--flex;
     @extend %position--absolute;
     @extend %transform--0;
-    min-height: 100%;
+    height: 100%;
     opacity: 0;
     pointer-events: none;
 
@@ -55,6 +60,7 @@
     &--grid {
         @extend %position--fixed;
         @extend %transform--0;
+        height: auto;
         min-height: 15vh;
         flex-wrap: wrap;
     }
@@ -69,6 +75,7 @@
     }
 
     &--project {
+        opacity: 1;
         position: static;
         flex-wrap: nowrap;
         margin-bottom: .5em;
@@ -76,6 +83,10 @@
 
     &--project &__item {
         margin-bottom: 0;
+    }
+
+    &--project &__item--text {
+        @extend %display--none;
     }
 
     &--details {
@@ -95,6 +106,18 @@
 
     &__item[class*="--active"] {
         opacity: 1;
+    }
+}
+
+.page-template-portfolio-page {
+
+    .site-content {
+        overflow-x: hidden;
+    }
+
+    .entry-header,
+    .entry-footer {
+        @extend %display--none;
     }
 }
 

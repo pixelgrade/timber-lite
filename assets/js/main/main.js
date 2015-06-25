@@ -8,10 +8,13 @@ window.scroller = new Scroller(window, function() {
     var x = scroller.get('x'),
         y = scroller.get('y');
 
-    Portfolio.updateCurrent(x, y);
+    if ($('.single-jetpack-portfolio').length) {
+      Portfolio.updateCurrent(x, y);
+    }
 });
 
 function init() {
+  platformDetect();
   Portfolio.init();
 }
 
@@ -26,6 +29,8 @@ $window.load(function() {
   //magnificPopupInit();
   //logoAnimation.init();
   //logoAnimation.update();
+
+  royalSliderInit();
 });
 
 // /* ====== ON RESIZE ====== */

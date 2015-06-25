@@ -3,16 +3,33 @@
 }
 
 html[lang] {
-    // overflow-x: hidden;
     margin-top: 0 !important;
 }
 
-.single, .page {
-    .site {
-        display: initial;
-    }
-}
-
-html, body {
+html, body, .site {
     height: 100%;
 }
+
+html {
+    border: 0.88vh solid black;
+}
+
+#page {
+    overflow-x: auto;
+}
+
+// .admin-bar {
+//     @extend %display--flex;
+//     flex-direction: column;
+
+//     #wpadminbar {
+//         position: static;
+//         flex-shrink: 0;
+//         order: 1;
+//     }
+
+//     .site {
+//         flex-grow: 1;
+//         order: 2;
+//     }
+// }
