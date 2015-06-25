@@ -1,11 +1,21 @@
 <?php
 /**
- * This file has been "borrowed" from the awesome Jetpack plugin to provide a smooth transition in case one decides to use the plugin
+ * This file has been "borrowed" (meaning customized) from the awesome Jetpack plugin to provide a smooth transition in case one decides to use the plugin
  * See: http://jetpack.me/
  */
 
-if ( ! class_exists( 'Featured_Content' ) && isset( $GLOBALS['pagenow'] ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {
+/*
+ * ------- License Header --------
+ * Plugin Name: Jetpack by WordPress.com
+ * Plugin URI: http://wordpress.org/extend/plugins/jetpack/
+ * Description: Bring the power of the WordPress.com cloud to your self-hosted WordPress. Jetpack enables you to connect your blog to a WordPress.com account to use the powerful features normally only available to WordPress.com users.
+ * Author: Automattic
+ * Version: 3.5.3
+ * Author URI: http://jetpack.me
+ * License: GPL2+
+ */
 
+if ( ! class_exists( 'Timber_Featured_Content' ) && isset( $GLOBALS['pagenow'] ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {
 /**
  * Featured Content.
  *
@@ -27,7 +37,7 @@ if ( ! class_exists( 'Featured_Content' ) && isset( $GLOBALS['pagenow'] ) && 'pl
  * special meaning beyond that of a normal tags, users will have the ability to
  * hide it from the front-end of their site.
  */
-class Featured_Content {
+class Timber_Featured_Content {
 
 	/**
 	 * The maximum number of posts that a Featured Content area can contain. We
@@ -70,7 +80,7 @@ class Featured_Content {
 	 * @uses Featured_Content::$max_posts
 	 */
 	public static function init() {
-		$theme_support = get_theme_support( 'featured-content' );
+		$theme_support = get_theme_support( 'timber-featured-content' );
 
 		// Return early if theme does not support featured content.
 		if ( ! $theme_support ) {
@@ -117,13 +127,13 @@ class Featured_Content {
 		}
 
 		// Themes can allow Featured Content pages
+		// We are not doing merge anymore but when present the post_types arg replaces the existing ones
+		// no more posts by default
 		if ( isset( $theme_support[0]['post_types'] ) ) {
-			self::$post_types = array_merge( self::$post_types, (array) $theme_support[0]['post_types'] );
+			self::$post_types = (array) $theme_support[0]['post_types'];
 
 			// register post_tag support for each post type
-			foreach ( self::$post_types as $post_type ) {
-				register_taxonomy_for_object_type( 'post_tag', $post_type );
-			}
+			// not doing this anymore as we will only be handling the Portfolio CPT
 		}
 	}
 
@@ -188,11 +198,14 @@ class Featured_Content {
 
 		$settings = self::get_setting();
 
-		// Return empty array if no tag name is set.
-		$term = get_term_by( 'name', $settings['tag-name'], 'post_tag' );
+		$term = get_term_by( 'name', $settings['tag-name'], 'jetpack-portfolio-tag' );
 		if ( ! $term ) {
-			$term = get_term_by( 'id', $settings['tag-id'], 'post_tag' );
+			$term = get_term_by( 'id', $settings['tag-id'], 'jetpack-portfolio-tag' );
+		} else { //try the fallback 'featured' tag
+			$term = get_term_by( 'name', 'featured', 'jetpack-portfolio-tag' );
 		}
+
+		// Return empty array if no tag name is set.
 		if ( $term ) {
 			$tag = $term->term_id;
 		} else {
@@ -209,7 +222,7 @@ class Featured_Content {
 			'tax_query'   => array(
 				array(
 					'field'    => 'term_id',
-					'taxonomy' => 'post_tag',
+					'taxonomy' => 'jetpack-portfolio-tag',
 					'terms'    => $tag,
 				),
 			),
@@ -333,7 +346,7 @@ class Featured_Content {
 		}
 
 		// We only want to hide the featured tag.
-		if ( ! in_array( 'post_tag', $taxonomies ) ) {
+		if ( ! in_array( 'jetpack-portfolio-tag', $taxonomies ) ) {
 			return $terms;
 		}
 
@@ -348,7 +361,7 @@ class Featured_Content {
 		}
 
 		$settings = self::get_setting();
-		$tag = get_term_by( 'name', $settings['tag-name'], 'post_tag' );
+		$tag = get_term_by( 'name', $settings['tag-name'], 'jetpack-portfolio-tag' );
 
 		if ( false !== $tag ) {
 			foreach ( $terms as $order => $term ) {
@@ -382,7 +395,7 @@ class Featured_Content {
 		}
 
 		// Make sure we are in the correct taxonomy.
-		if ( 'post_tag' != $taxonomy ) {
+		if ( 'jetpack-portfolio-tag' != $taxonomy ) {
 			return $terms;
 		}
 
@@ -392,7 +405,7 @@ class Featured_Content {
 		}
 
 		$settings = self::get_setting();
-		$tag = get_term_by( 'name', $settings['tag-name'], 'post_tag' );
+		$tag = get_term_by( 'name', $settings['tag-name'], 'jetpack-portfolio-tag' );
 
 		if ( false !== $tag ) {
 			foreach ( $terms as $order => $term ) {
@@ -428,9 +441,9 @@ class Featured_Content {
 	public static function customize_register( $wp_customize ) {
 		$wp_customize->add_section( 'featured_content', array(
 			'title'          => __( 'Featured Content', 'jetpack' ),
-			'description'    => sprintf( __( 'Easily feature all posts with the <a href="%1$s">"featured" tag</a> or a tag of your choice. Your theme supports up to %2$s posts in its featured content area.', 'jetpack' ), admin_url( '/edit.php?tag=featured' ), absint( self::$max_posts ) ),
+			'description'    => sprintf( __( 'Easily feature all posts with the <a href="%1$s">"featured" tag</a> or a tag of your choice. Your theme supports up to %2$s posts in its featured content area.', 'timber' ), admin_url( '/edit.php?tag=featured' ), absint( self::$max_posts ) ),
 			'priority'       => 130,
-			'theme_supports' => 'featured-content',
+			'theme_supports' => 'timber-featured-content',
 		) );
 
 		/* Add Featured Content settings.
@@ -457,20 +470,20 @@ class Featured_Content {
 		$wp_customize->add_control( 'featured-content[tag-name]', array(
 			'label'          => __( 'Tag name', 'jetpack' ),
 			'section'        => 'featured_content',
-			'theme_supports' => 'featured-content',
+			'theme_supports' => 'timber-featured-content',
 			'priority'       => 20,
 		) );
 		$wp_customize->add_control( 'featured-content[hide-tag]', array(
 			'label'          => __( 'Hide tag from displaying in post meta and tag clouds.', 'jetpack' ),
 			'section'        => 'featured_content',
-			'theme_supports' => 'featured-content',
+			'theme_supports' => 'timber-featured-content',
 			'type'           => 'checkbox',
 			'priority'       => 30,
 		) );
 		$wp_customize->add_control( 'featured-content[show-all]', array(
 			'label'          => __( 'Display tag content in all listings.', 'jetpack' ),
 			'section'        => 'featured_content',
-			'theme_supports' => 'featured-content',
+			'theme_supports' => 'timber-featured-content',
 			'type'           => 'checkbox',
 			'priority'       => 40,
 		) );
@@ -541,7 +554,7 @@ class Featured_Content {
 		if ( empty( $input['tag-name'] ) ) {
 			$output['tag-id'] = 0;
 		} else {
-			$term = get_term_by( 'name', $input['tag-name'], 'post_tag' );
+			$term = get_term_by( 'name', $input['tag-name'], 'jetpack-portfolio-tag' );
 
 			if ( $term ) {
 				$output['tag-id'] = $term->term_id;
@@ -580,6 +593,6 @@ class Featured_Content {
 	}
 }
 
-Featured_Content::setup();
+Timber_Featured_Content::setup();
 
 } // end if ( ! class_exists( 'Featured_Content' ) && isset( $GLOBALS['pagenow'] ) && 'plugins.php' !== $GLOBALS['pagenow'] ) {

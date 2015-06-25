@@ -1,9 +1,15 @@
 <?php
+/*
+ * Output the global AddThis JavaScript config
+ * @package Timber
+ * @since   Timber 1.0
+ */
+
 global $post;
 if ( empty($post) ) return; ?>
 <script type="text/javascript">
 addthis_config = {
-	<?php if ( timber_get_option( 'share_buttons_enable_tracking' ) && timber_get_option( 'share_buttons_enable_addthis_tracking' ) ) {
+	<?php if ( ! empty( timber_get_option( 'share_buttons_addthis_username' ) ) ) {
 		echo 'username : "' . timber_get_option( 'share_buttons_addthis_username' ) . '",';
 	} ?>
 	ui_click : false,
@@ -13,11 +19,9 @@ addthis_config = {
 	ui_use_css : true,
 	data_track_addressbar : false,
 	data_track_clickback : false
-	<?php if ( timber_get_option( 'share_buttons_enable_tracking' ) && timber_get_option( 'share_buttons_enable_ga_tracking' ) ) {
-		echo ', data_ga_property: "'.timber_get_option('share_buttons_ga_id').'"';
-		if ( timber_get_option( 'share_buttons_enable_ga_social_tracking' ) ) {
-			echo ', data_ga_social : true';
-		}
+	<?php if ( ! empty( timber_get_option('share_buttons_ga_id') ) ) {
+		echo ', data_ga_property: "' . timber_get_option('share_buttons_ga_id').'"';
+		echo ', data_ga_social : true';
 	} ?>
 };
 

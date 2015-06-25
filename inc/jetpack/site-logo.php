@@ -12,8 +12,6 @@
  * Version: 1.0
  * Author URI: http://wordpress.com
  * License: GPL2 or later
- * Text Domain: site-logo
- * Domain Path: /languages/
  */
 
 /**

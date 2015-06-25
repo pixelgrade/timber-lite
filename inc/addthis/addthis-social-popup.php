@@ -1,9 +1,10 @@
 <?php
 /*
  * Get the comma delimited string from Theme Options and generate the a tags that are needed to make AddThis sharing work
- * @package Pile
- * @since   Pile 1.0
+ * @package Timber
+ * @since   Timber 1.0
  */
+
 $share_buttons_types = timber_get_option('share_buttons_settings');
 
 if (!empty($share_buttons_types) || $share_buttons_types !== 'false') {

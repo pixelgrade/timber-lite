@@ -4,6 +4,17 @@
  * See: http://jetpack.me/
  */
 
+/*
+ * ------- License Header --------
+ * Plugin Name: Jetpack by WordPress.com
+ * Plugin URI: http://wordpress.org/extend/plugins/jetpack/
+ * Description: Bring the power of the WordPress.com cloud to your self-hosted WordPress. Jetpack enables you to connect your blog to a WordPress.com account to use the powerful features normally only available to WordPress.com users.
+ * Author: Automattic
+ * Version: 3.5.3
+ * Author URI: http://jetpack.me
+ * License: GPL2+
+ */
+
 /**
  * Load the Responsive videos plugin
  */

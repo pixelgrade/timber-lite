@@ -7,26 +7,27 @@
  * @package Timber
  * @since Timber 1.0
  */
-
 function timber_load_jetpack_compatibility() {
+	//this is a customized version of the Jetpack module
+	require_once get_template_directory() . '/inc/jetpack/featured-content.php';
+
 	//first test if Jetpack is present and activated
 	// only if it is not present load the duplicated code from the theme
 	if ( ! class_exists( 'Jetpack' ) ) {
 		//these are safe as they do their own house cleaning
-		require_once get_template_directory() . '/inc/jetpack/featured-content.php';
 		require_once get_template_directory() . '/inc/jetpack/site-logo.php';
 		//this is not safe -- needed to prefix the functions
 		require_once get_template_directory() . '/inc/jetpack/responsive-videos.php';
 	}
 }
-add_action( 'plugins_loaded', 'timber_load_jetpack_compatibility' );
+add_action( 'after_setup_theme', 'timber_load_jetpack_compatibility' );
 
 function timber_jetpack_setup() {
 	/**
-	 * Add theme support for Featured Content
+	 * Add theme support for Timber Featured Content - Customized so it will not use/activate the module in Jetpack
 	 * See: http://jetpack.me/support/featured-content/
 	 */
-	add_theme_support( 'featured-content', array(
+	add_theme_support( 'timber-featured-content', array(
 		'filter'     => 'timber_get_featured_projects',
 		'max_posts'  => 20, //even if there are 20 here we will cap them at 10; this is so that in case we get posts also we have at least 10 projects
 		'post_types' => array( 'jetpack-portfolio' ),
@@ -52,8 +53,8 @@ function timber_jetpack_setup() {
 	 * Add theme support for Jetpack responsive videos
 	 */
 	add_theme_support( 'jetpack-responsive-videos' );
-}
 
+}
 add_action( 'after_setup_theme', 'timber_jetpack_setup' );
 
 function timber_get_featured_projects() {
