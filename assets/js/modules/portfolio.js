@@ -1,4 +1,5 @@
 var Portfolio = (function() {
+
   var $filmstrip,
       filmstripWidth,
       $grid,
@@ -22,9 +23,9 @@ var Portfolio = (function() {
     $filmstrip.addClass('portfolio--filmstrip portfolio--visible');
     placehold();
 
-    $portfolioItems = $filmstrip.find('.portfolio__item');
+    $portfolioItems = $filmstrip.find('.js-portfolio-item');
     $('.portfolio').each(function() {
-      $(this).find('.portfolio__item').each(function(i, obj) {
+      $(this).find('.js-portfolio-item').each(function(i, obj) {
         var $obj = $(obj);
         $obj.data('middle', getMiddle($obj));
         $obj.data('count', i);
@@ -38,7 +39,7 @@ var Portfolio = (function() {
     end = $('.site-content').width() - $('.site-sidebar').width() - filmstripWidth + getMiddle($last.prev()) + (getMiddle($last) - getMiddle($last.prev())) / 2;
 
     if (start > end) {
-      end = $('.site-content').width() / 2;
+      end = $('.site-content').width() / 2 - $('.site-sidebar').width();
       start = end - 10;
     }
 
@@ -51,7 +52,7 @@ var Portfolio = (function() {
     })
 
     $currentFoto = $first.addClass('portfolio__item--active');
-
+    // setCurrent($currentFoto);
     bindEvents();
   },
 
@@ -59,7 +60,7 @@ var Portfolio = (function() {
     $('body').on('click', '.js-show-thumbnails', function(e) {
       var $active = $('.portfolio__item--active');
 
-      morph($active, $grid.find('.portfolio__item').eq($active.data('count')));
+      morph($active, $grid.find('.js-portfolio-item').eq($active.data('count')));
       $('body').addClass('scroll-x').removeClass('scroll-y');
       $filmstrip.removeClass('portfolio--visible');
       $grid.addClass('portfolio--visible');
@@ -70,7 +71,7 @@ var Portfolio = (function() {
       $('body').addClass('scroll-x').removeClass('scroll-y');
       $grid.removeClass('portfolio--visible');
       $filmstrip.addClass('portfolio--visible');
-      scroller.set('x', $filmstrip.find('.portfolio__item').eq(count).data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      scroller.set('x', $filmstrip.find('.js-portfolio-item').eq(count).data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
       requestAnimationFrame(function() {
         morph($active, $filmstrip.find('.portfolio__item').eq(count));
       });
@@ -156,25 +157,48 @@ var Portfolio = (function() {
     $('.js-reference').css('left', reference + 'px').text(parseInt(reference));
 
     if (reference >= current) {
-      $next = $currentFoto.next();
+      $next = $currentFoto.nextAll('.js-portfolio-item').first();
     } else {
-      $next = $currentFoto.prev();
+      $next = $currentFoto.prevAll('.js-portfolio-item').first();;
     }
 
-    // if (current == 0) {
-    //   current = reference;
-    // }
     compare = $next.data('middle');
     $('.js-compare').css('left', compare).text(parseInt(compare));
 
     if (Math.abs(compare - reference) <= Math.abs(reference - current)) {
-      $currentFoto = $next;
-      $portfolioItems.removeClass('portfolio__item--active');
-      $currentFoto.addClass('portfolio__item--active');
-      $('.portfolio__position').text($next.data('count') + 1 + ' of ' + $filmstrip.find('.portfolio__item').length);
-      current = compare;
-      $('.js-last').css('left', current).text(parseInt(current));
+      setCurrent($next);
     }
+  },
+
+  updateCurrentForce = function(x, y) {
+
+    // var width = end - start,
+    //     reference =  start + width * x / (filmstripWidth - $('.site-content').width()) + x,
+    //     compare,
+    //     $next = $currentFoto,
+    //     currentCount;
+
+    // $('.js-reference').css('left', reference + 'px').text(parseInt(reference));
+
+    // $('.js-portfolio-item').each(function(i, obj) {
+    //     var compare = $(obj).data('middle');
+
+    //     if (Math.abs(compare - reference) <= Math.abs(reference - current)) {
+    //       $next = $(obj);
+    //       current = compare;
+    //     }
+    // });
+
+    // setCurrent($next);
+  },
+
+  setCurrent = function($next) {
+    $currentFoto = $next;
+    $portfolioItems.removeClass('portfolio__item--active');
+    $currentFoto.addClass('portfolio__item--active');
+    $('.portfolio__position').text($next.data('count') + 1 + ' of ' + $filmstrip.find('.js-portfolio-item').length);
+    current = $currentFoto.data('middle');
+    $('.js-last').css('left', current).text(parseInt(current));
   }
 
   return {
