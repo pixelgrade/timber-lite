@@ -1,5 +1,6 @@
 %bar {
     @extend %display--flex;
+    background: white;
     width: 100%;
     height: $header-height;
     flex-basis: $header-height;
@@ -11,6 +12,9 @@
     @extend %bar;
     @extend %position--fixed;
     @extend %transform--0;
+    left: 0.88vh;
+    right: 0.88vh;
+    width: auto;
 }
 
 %bar-piece {

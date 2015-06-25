@@ -5,7 +5,7 @@
  * @package Timber
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('portfolio  portfolio--grid  portfolio--project  js-portfolio'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio'); ?>>
 
 	<?php
 	/**
@@ -14,7 +14,7 @@
 	?>
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="project-thumbnail">
-			<?php the_post_thumbnail( 'snaps-thumbnails' ); ?>
+			<?php the_post_thumbnail( 'full' ); ?>
 		</div>
 	<?php endif; ?>
 
@@ -32,7 +32,7 @@
 						// check if the post has a title
 						the_title();
 					else :
-						// if no, use generic text instead
+						// if no title is present, use generic text instead
 						_e( 'View Project', 'timber' );
 					endif;
 				?>
@@ -42,9 +42,9 @@
 
 	<?php
 	/*
-	 * Project film strip
+	 * Project film strip with text boxes ignored
 	 */
-	timber_the_film_strip();
+	timber_the_film_strip( get_the_ID(), true );
 	?>
 
 </article><!-- #post-<?php the_ID(); ?> -->

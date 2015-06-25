@@ -366,9 +366,10 @@ if ( ! function_exists( 'timber_the_film_strip' ) ) :
 	 * Display the film strip
 	 *
 	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 * @param boolean Optional. To ignore or not text boxes
 	 */
-	function timber_the_film_strip( $post_id = null ) {
-		echo timber_get_film_strip( $post_id );
+	function timber_the_film_strip( $post_id = null, $ignore_text = false ) {
+		echo timber_get_film_strip( $post_id, $ignore_text );
 	}
 
 endif;
@@ -378,9 +379,10 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 	 * Return the film strip markup
 	 *
 	 * @param int|WP_Post $id Optional. Post ID or post object.
+	 * @param boolean Optional. To ignore or not text boxes
 	 * @return string The film strip markup
 	 */
-	function timber_get_film_strip( $post_id = null ) {
+	function timber_get_film_strip( $post_id = null, $ignore_text = false ) {
 		$post = get_post( $post_id );
 
 		if ( empty( $post ) ) {
@@ -406,7 +408,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 					$before_content = substr( $content, 0, $pos );
 
 					//now let's process this content and get it in the film strip
-					$output .= timber_process_partial_content_into_film_strip( $before_content );
+					$output .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text );
 
 					//delete everything in front of the shortcode including it
 					$content = trim( substr( $content, $pos + strlen( $gallery['original'] ) ) );
@@ -423,7 +425,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 		if ( ! empty( $content ) ) {
 			//there is some content left - let's process it
-			$output .= timber_process_partial_content_into_film_strip( $content );
+			$output .= timber_process_partial_content_into_film_strip( $content, $ignore_text );
 		}
 
 		return $output;
@@ -437,9 +439,10 @@ if ( ! function_exists( 'timber_process_partial_content_into_film_strip' ) ) :
  * Return markup for the film strip given a gallery-free piece of content
  *
  * @param string Partial post content
+ * @param boolean Optional. To ignore or not text boxes
  * @return string The markup
  */
-function timber_process_partial_content_into_film_strip( $content ) {
+function timber_process_partial_content_into_film_strip( $content, $ignore_text = false ) {
 	$markup = '';
 
 	//a little bit of cleanup
@@ -458,11 +461,11 @@ function timber_process_partial_content_into_film_strip( $content ) {
 		//first let's see if there is some content before the current match
 		$pos = strpos( $content, $matches[0][ $idx ] );
 		$before_content = trim( substr( $content, 0, $pos ) );
-		if ( ! empty( $before_content ) ) {
+		if ( ! $ignore_text && ! empty( $before_content ) ) {
 			//first a little bit of safety - better safe than sorry
 			$before_content = balanceTags( $before_content, true );
 			//let's make a text box
-			$markup .= '<div class="gallery__item gallery__item--text js-gallery-item">' . $before_content . '</div>' . PHP_EOL;
+			$markup .= '<div class="portfolio__item portfolio__item--text js-portfolio-item">' . $before_content . '</div>' . PHP_EOL;
 		}
 
 		//delete everything in front of the current match including it
@@ -485,13 +488,13 @@ function timber_process_partial_content_into_film_strip( $content ) {
 		}
 	}
 
-	if ( ! empty( $content ) ) {
+	if ( ! $ignore_text && ! empty( $content ) ) {
 		//we have one last text box
 
 		//first a little bit of safety - better safe than sorry
 		$content = balanceTags( $content, true );
 		//let's make a text box
-		$markup .= '<div class="gallery__item gallery__item--text js-gallery-item">' . $content . '</div>' . PHP_EOL;
+		$markup .= '<div class="portfolio__item portfolio__item--text js-portfolio-item">' . $content . '</div>' . PHP_EOL;
 	}
 
 	return $markup;
@@ -526,7 +529,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			data-width="' . $image_full_size[1] . '"
 			data-height="' . $image_full_size[2] . '">
 
-			<noscript><a href="' . $image_full_size . '">
+			<noscript><a href="' . $image_full_size[0] . '">
 				<img itemprop="image" src="' . $image_small_size[0] . '" alt="' . timber_get_img_alt( $id ) . '" width="' . $image_small_size[1] . '" height="' . $image_small_size[2] . '">
 			</a></noscript>
 		</div>' . PHP_EOL;
