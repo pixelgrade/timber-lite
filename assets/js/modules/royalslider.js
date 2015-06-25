@@ -3,17 +3,12 @@
 function royalSliderInit($container) {
 	$container = typeof $container !== 'undefined' ? $container : $('body');
 
-	// Transform Wordpress Galleries to Sliders
-	$container.find('.wp-gallery').each(function () {
-		sliderMarkupGallery($(this));
-	});
-
 	// Find and initialize each slider
 	$container.find('.js-pixslider').each(function () {
 
 		sliderInit($(this));
 
-		var slider 				= $(this).data('royalSlider');
+		var slider = $(this).data('royalSlider');
 
 		if (!slider.slides.length) {
 			return;
@@ -81,18 +76,17 @@ function sliderInit($slider) {
 		rs_autoScaleSliderHeight    = typeof $slider.data('autoscalesliderheight') !== "undefined" && $slider.data('autoscalesliderheight') != '' ? $slider.data('autoscalesliderheight') : false,
 		rs_customArrows             = typeof $slider.data('customarrows') !== "undefined",
 		rs_slidesSpacing            = typeof $slider.data('slidesspacing') !== "undefined" ? parseInt($slider.data('slidesspacing')) : 0,
-		rs_keyboardNav              = typeof $slider.data('fullscreen') !== "undefined",
 		rs_imageScale               = $slider.data('imagescale'),
+		rs_keyboardNav				= typeof $slider.data('keyboardnav') !== "undefined",
 		rs_visibleNearby            = typeof $slider.data('visiblenearby') !== "undefined",
+		rs_nearbyCenter				= typeof $slider.data('nearbycenter') !== "undefined",
 		rs_imageAlignCenter         = typeof $slider.data('imagealigncenter') !== "undefined",
-		//rs_imageAlignCenter = false,
 		rs_transition               = typeof $slider.data('slidertransition') !== "undefined" && $slider.data('slidertransition') != '' ? $slider.data('slidertransition') : 'fade',
 		rs_transitionSpeed          = typeof $slider.data('slidertransitionspeed') !== "undefined" && $slider.data('slidertransitionspeed') != '' ? $slider.data('slidertransitionspeed') : 600,
 		rs_autoPlay                 = typeof $slider.data('sliderautoplay') !== "undefined",
 		rs_delay                    = typeof $slider.data('sliderdelay') !== "undefined" && $slider.data('sliderdelay') != '' ? $slider.data('sliderdelay') : '1000',
 		rs_drag                     = true,
 		rs_globalCaption            = typeof $slider.data('showcaptions') !== "undefined",
-		is_headerSlider             = $slider.hasClass('hero-slider') ? true : false,
 		hoverArrows                 = typeof $slider.data('hoverarrows') !== "undefined";
 
 	if (rs_autoheight) {
@@ -138,26 +132,21 @@ function sliderInit($slider) {
 			pauseOnHover: true,
 			delay: rs_delay
 		},
+		addActiveClass: true,
 		globalCaption: rs_globalCaption,
-		numImagesToPreload: 2,
-		visibleNearby: {
-			enabled: true,
-			centerArea: 0.85,
-			center: true,
-			breakpoint: 650,
-			breakpointCenterArea: 0.64,
-			navigateByCenterClick: true
-		}
+		numImagesToPreload: 2
 	};
+
+	var rs_centerArea = rs_nearbyCenter == true ? 0.90 : 0.95;
 
 	if (rs_visibleNearby) {
 		royalSliderParams['visibleNearby'] = {
-			enabled: true,
-			//centerArea: 0.8,
-			center: true,
-			breakpoint: 0,
-			//breakpointCenterArea: 0.64,
-			navigateByCenterClick: false
+			enabled: rs_visibleNearby,
+			centerArea: rs_centerArea,
+			center: rs_nearbyCenter,
+			breakpoint: 650,
+			breakpointCenterArea: 0.64,
+			navigateByCenterClick: true
 		}
 	}
 
@@ -173,7 +162,6 @@ function sliderInit($slider) {
 
 		var classes = '';
 
-		if (is_headerSlider) classes = 'slider-arrows-header';
 		if (hoverArrows && !Modernizr.touch) classes += ' arrows--hover ';
 
 		var $gallery_control = $(
@@ -213,26 +201,9 @@ function sliderInit($slider) {
 	$slider.addClass('slider--loaded');
 }
 
-/*
- * Wordpress Galleries to Sliders
- * Create the markup for the slider from the gallery shortcode
- * take all the images and insert them in the .gallery <div>
- */
-function sliderMarkupGallery($gallery) {
-	var $old_gallery = $gallery,
-		gallery_data = $gallery.data(),
-		$images = $old_gallery.find('img'),
-		$new_gallery = $('<div class="pixslider js-pixslider">');
 
-	$images.prependTo($new_gallery).addClass('rsImg');
 
-	//add the data attributes
-	$.each(gallery_data, function (key, value) {
-		$new_gallery.attr('data-' + key, value);
-	})
 
-	$old_gallery.replaceWith($new_gallery);
-}
 
 /*
  Get slider arrows to hover, following the cursor
