@@ -5,6 +5,7 @@ $(document).ready(function() {
 });
 
 function init() {
+  platformDetect();
   Gallery.init();
 }
 
@@ -19,6 +20,8 @@ $window.load(function() {
   //magnificPopupInit();
   //logoAnimation.init();
   //logoAnimation.update();
+
+  royalSliderInit();
 });
 
 // /* ====== ON RESIZE ====== */
