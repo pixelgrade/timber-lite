@@ -17,7 +17,14 @@ get_header(); ?>
 
 			if ( ! empty( $featured ) ) : ?>
 
-				<div class="featured-projects-slider  royalSlider  js-pixslider" data-slidertransition="move" data-imagealigncenter data-imagescale="fill">
+			<div class="projects-slider  royalSlider  js-pixslider"
+			     data-slidertransition="move"
+			     data-imagealigncenter
+			     data-imagescale="fill"
+			     data-visiblenearby
+			     data-nearbycenter
+			     data-keyboardnav
+				 data-bullets>
 
 				<?php foreach ( $featured as $post ) : setup_postdata( $post );
 
@@ -25,7 +32,7 @@ get_header(); ?>
 
 				endforeach; ?>
 
-				</div><!-- .featured-projects-slider -->
+			</div><!-- .featured-projects-slider -->
 
 			<?php else :
 

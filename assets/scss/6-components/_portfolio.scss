@@ -57,6 +57,24 @@
         }
     }
 
+    &__item--text {
+        // display: flex;
+        // max-width: 80vw;
+        width: 29em;
+        // > .wrap {
+            background: white;
+            -webkit-column-width: 24em;
+            column-width: 24em;
+            -webkit-column-gap: 5em;
+            column-gap: 5em;
+            padding: 0 4em 0 1em;
+
+            > :first-child {
+                margin-top: 0;
+            }
+        // }
+    }
+
     &--grid {
         @extend %position--fixed;
         @extend %transform--0;
@@ -70,7 +88,8 @@
         margin-bottom: .5em;
     }
 
-    &--grid &__item--content {
+    &--grid &__item--content,
+    &--grid &__item--text {
         @extend .hidden;
     }
 
@@ -93,7 +112,7 @@
 
     }
 
-    &--details &__item {
+    &--details .js-portfolio-item {
         @extend %transform--0;
         opacity: 0.25;
     }

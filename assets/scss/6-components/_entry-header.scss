@@ -1,0 +1,44 @@
+.home, .blog, .archive, .search {
+    .site {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .entry-header {
+        text-align: left;
+    }
+
+    .entry-meta {
+        margin-top: 1.75em;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    .divider {
+        min-width: 1.5em;
+        margin: 0 0.75em 0 0.5em;
+
+        &:before {
+            width: 1.5em;
+            opacity: 0.25;
+        }
+    }
+
+    .entry-title {
+        line-height: 1.5;
+    }
+
+    .entry-title,
+    .entry-footer.entry-footer {
+        @extend %box--0;
+    }
+
+    .entry-header,
+    .entry-content {
+        padding-right: 3em;
+    }
+
+    .entry-content p {
+        line-height: 1.5;
+    }
+}

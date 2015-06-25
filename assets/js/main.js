@@ -2188,6 +2188,39 @@ var _gsScope = "undefined" != typeof module && module.exports && "undefined" != 
   };
 
 })(jQuery);
+//http://stackoverflow.com/questions/8354786/determine-the-width-of-a-dynamic-css3-multicolumn-div-width-fixed-column-width
+(function ($) {
+  $.fn.extend({
+    getColumnsWidth: function () {
+
+      // append an empty <span>
+      $this = $(this).append('<span></span>');
+
+      // grab left position
+      var pos = $this.find('span:last-of-type').position().left;
+
+      // get prefix for css3
+      var prefix;
+      if (jQuery.browser.webkit) prefix = '-webkit-';
+      else if (jQuery.browser.opera) prefix = '-o-';
+      else if (jQuery.browser.mozilla) prefix = '-moz-';
+      else if (jQuery.browser.msie) prefix = '-ms-';
+
+      // add the width of the final column
+      pos += parseInt($this.css(prefix + 'column-width'), 10);
+
+      // subtract one column gap (not sure why this is necessary?)
+      pos -= parseInt($this.css(prefix + 'column-gap'), 10);
+
+      // remove empty <span>
+      $(this).find('span:last-of-type').remove();
+
+      // return position
+      return pos;
+
+    }
+  });
+})(jQuery);
 /**
  * requestAnimationFrame polyfill by Erik Möller.
  * Fixes from Paul Irish, Tino Zijdel, Andrew Mao, Klemen Slavič, Darius Bacon
@@ -4030,7 +4063,54 @@ if (!Date.now) Date.now = function () {
   latestKnownScrollY = window.scrollY, ticking = false,
 
   globalDebug = false;;
+  // Platform Detection
+
+
+  function getIOSVersion(ua) {
+    ua = ua || navigator.userAgent;
+    return parseFloat(('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(ua) || [0, ''])[1]).replace('undefined', '3_2').replace('_', '.').replace('_', '')) || false;
+  }
+
+  function getAndroidVersion(ua) {
+    var matches;
+    ua = ua || navigator.userAgent;
+    matches = ua.match(/[A|a]ndroid\s([0-9\.]*)/);
+    return matches ? matches[1] : false;
+  }
+
+  function platformDetect() {
+
+    var navUA = navigator.userAgent.toLowerCase(),
+        navPlat = navigator.platform.toLowerCase();
+
+    isiPhone = navPlat.indexOf("iphone");
+    isiPod = navPlat.indexOf("ipod");
+    isAndroidPhone = navPlat.indexOf("android");
+    isSafari = navUA.indexOf('safari') != -1 && navUA.indexOf('chrome') == -1;
+    isIE = typeof(is_ie) !== "undefined" || (!(window.ActiveXObject) && "ActiveXObject" in window);
+    ieMobile = ua.match(/Windows Phone/i) ? true : false;
+    iOS = getIOSVersion();
+    android = getAndroidVersion();
+    isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+
+    if (Modernizr.touch) {
+      $html.addClass('touch');
+    }
+
+    if (iOS && iOS < 8) {
+      $html.addClass('no-scroll-fx')
+    }
+
+    if (isIE) {
+      $html.addClass('is--ie');
+    }
+
+    if (ieMobile) {
+      $html.addClass('is--ie-mobile')
+    }
+  }
   var Portfolio = (function () {
+
     var $filmstrip, filmstripWidth, $grid, $first, start, $last, end, current = 0,
         $currentFoto,
         
@@ -4047,9 +4127,9 @@ if (!Date.now) Date.now = function () {
         $filmstrip.addClass('portfolio--filmstrip portfolio--visible');
         placehold();
 
-        $portfolioItems = $filmstrip.find('.portfolio__item');
+        $portfolioItems = $filmstrip.find('.js-portfolio-item');
         $('.portfolio').each(function () {
-          $(this).find('.portfolio__item').each(function (i, obj) {
+          $(this).find('.js-portfolio-item').each(function (i, obj) {
             var $obj = $(obj);
             $obj.data('middle', getMiddle($obj));
             $obj.data('count', i);
@@ -4063,7 +4143,7 @@ if (!Date.now) Date.now = function () {
         end = $('.site-content').width() - $('.site-sidebar').width() - filmstripWidth + getMiddle($last.prev()) + (getMiddle($last) - getMiddle($last.prev())) / 2;
 
         if (start > end) {
-          end = $('.site-content').width() / 2;
+          end = $('.site-content').width() / 2 - $('.site-sidebar').width();
           start = end - 10;
         }
 
@@ -4076,7 +4156,7 @@ if (!Date.now) Date.now = function () {
         })
 
         $currentFoto = $first.addClass('portfolio__item--active');
-
+        // setCurrent($currentFoto);
         bindEvents();
         },
         
@@ -4085,7 +4165,7 @@ if (!Date.now) Date.now = function () {
         $('body').on('click', '.js-show-thumbnails', function (e) {
           var $active = $('.portfolio__item--active');
 
-          morph($active, $grid.find('.portfolio__item').eq($active.data('count')));
+          morph($active, $grid.find('.js-portfolio-item').eq($active.data('count')));
           $('body').addClass('scroll-x').removeClass('scroll-y');
           $filmstrip.removeClass('portfolio--visible');
           $grid.addClass('portfolio--visible');
@@ -4096,7 +4176,7 @@ if (!Date.now) Date.now = function () {
           $('body').addClass('scroll-x').removeClass('scroll-y');
           $grid.removeClass('portfolio--visible');
           $filmstrip.addClass('portfolio--visible');
-          scroller.set('x', $filmstrip.find('.portfolio__item').eq(count).data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+          scroller.set('x', $filmstrip.find('.js-portfolio-item').eq(count).data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
           requestAnimationFrame(function () {
             morph($active, $filmstrip.find('.portfolio__item').eq(count));
           });
@@ -4186,25 +4266,46 @@ if (!Date.now) Date.now = function () {
         $('.js-reference').css('left', reference + 'px').text(parseInt(reference));
 
         if (reference >= current) {
-          $next = $currentFoto.next();
+          $next = $currentFoto.nextAll('.js-portfolio-item').first();
         } else {
-          $next = $currentFoto.prev();
+          $next = $currentFoto.prevAll('.js-portfolio-item').first();;
         }
 
-        // if (current == 0) {
-        //   current = reference;
-        // }
         compare = $next.data('middle');
         $('.js-compare').css('left', compare).text(parseInt(compare));
 
         if (Math.abs(compare - reference) <= Math.abs(reference - current)) {
-          $currentFoto = $next;
-          $portfolioItems.removeClass('portfolio__item--active');
-          $currentFoto.addClass('portfolio__item--active');
-          $('.portfolio__position').text($next.data('count') + 1 + ' of ' + $filmstrip.find('.portfolio__item').length);
-          current = compare;
-          $('.js-last').css('left', current).text(parseInt(current));
+          setCurrent($next);
         }
+        },
+        
+        
+        updateCurrentForce = function (x, y) {
+
+        // var width = end - start,
+        //     reference =  start + width * x / (filmstripWidth - $('.site-content').width()) + x,
+        //     compare,
+        //     $next = $currentFoto,
+        //     currentCount;
+        // $('.js-reference').css('left', reference + 'px').text(parseInt(reference));
+        // $('.js-portfolio-item').each(function(i, obj) {
+        //     var compare = $(obj).data('middle');
+        //     if (Math.abs(compare - reference) <= Math.abs(reference - current)) {
+        //       $next = $(obj);
+        //       current = compare;
+        //     }
+        // });
+        // setCurrent($next);
+        },
+        
+        
+        setCurrent = function ($next) {
+        $currentFoto = $next;
+        $portfolioItems.removeClass('portfolio__item--active');
+        $currentFoto.addClass('portfolio__item--active');
+        $('.portfolio__position').text($next.data('count') + 1 + ' of ' + $filmstrip.find('.js-portfolio-item').length);
+        current = $currentFoto.data('middle');
+        $('.js-last').css('left', current).text(parseInt(current));
         }
         
         
@@ -4213,61 +4314,10 @@ if (!Date.now) Date.now = function () {
         init: init,
         updateCurrent: updateCurrent
         }
-  })();
-  // Platform Detection
-
-
-  function getIOSVersion(ua) {
-    ua = ua || navigator.userAgent;
-    return parseFloat(('' + (/CPU.*OS ([0-9_]{1,5})|(CPU like).*AppleWebKit.*Mobile/i.exec(ua) || [0, ''])[1]).replace('undefined', '3_2').replace('_', '.').replace('_', '')) || false;
-  }
-
-  function getAndroidVersion(ua) {
-    var matches;
-    ua = ua || navigator.userAgent;
-    matches = ua.match(/[A|a]ndroid\s([0-9\.]*)/);
-    return matches ? matches[1] : false;
-  }
-
-  function platformDetect() {
-
-    var navUA = navigator.userAgent.toLowerCase(),
-        navPlat = navigator.platform.toLowerCase();
-
-    isiPhone = navPlat.indexOf("iphone");
-    isiPod = navPlat.indexOf("ipod");
-    isAndroidPhone = navPlat.indexOf("android");
-    isSafari = navUA.indexOf('safari') != -1 && navUA.indexOf('chrome') == -1;
-    isIE = typeof(is_ie) !== "undefined" || (!(window.ActiveXObject) && "ActiveXObject" in window);
-    ieMobile = ua.match(/Windows Phone/i) ? true : false;
-    iOS = getIOSVersion();
-    android = getAndroidVersion();
-    isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-
-    if (Modernizr.touch) {
-      $html.addClass('touch');
-    }
-
-    if (iOS && iOS < 8) {
-      $html.addClass('no-scroll-fx')
-    }
-
-    if (isIE) {
-      $html.addClass('is--ie');
-    }
-
-    if (ieMobile) {
-      $html.addClass('is--ie-mobile')
-    }
-  } /* --- Royal Slider Init --- */
+  })(); /* --- Royal Slider Init --- */
 
   function royalSliderInit($container) {
     $container = typeof $container !== 'undefined' ? $container : $('body');
-
-    // Transform Wordpress Galleries to Sliders
-    $container.find('.wp-gallery').each(function () {
-      sliderMarkupGallery($(this));
-    });
 
     // Find and initialize each slider
     $container.find('.js-pixslider').each(function () {
@@ -4343,20 +4393,17 @@ if (!Date.now) Date.now = function () {
         rs_autoScaleSliderHeight = typeof $slider.data('autoscalesliderheight') !== "undefined" && $slider.data('autoscalesliderheight') != '' ? $slider.data('autoscalesliderheight') : false,
         rs_customArrows = typeof $slider.data('customarrows') !== "undefined",
         rs_slidesSpacing = typeof $slider.data('slidesspacing') !== "undefined" ? parseInt($slider.data('slidesspacing')) : 0,
-        rs_keyboardNav = typeof $slider.data('fullscreen') !== "undefined",
         rs_imageScale = $slider.data('imagescale'),
+        rs_keyboardNav = typeof $slider.data('keyboardnav') !== "undefined",
         rs_visibleNearby = typeof $slider.data('visiblenearby') !== "undefined",
+        rs_nearbyCenter = typeof $slider.data('nearbycenter') !== "undefined",
         rs_imageAlignCenter = typeof $slider.data('imagealigncenter') !== "undefined",
-        
-        
-        //rs_imageAlignCenter = false,
         rs_transition = typeof $slider.data('slidertransition') !== "undefined" && $slider.data('slidertransition') != '' ? $slider.data('slidertransition') : 'fade',
         rs_transitionSpeed = typeof $slider.data('slidertransitionspeed') !== "undefined" && $slider.data('slidertransitionspeed') != '' ? $slider.data('slidertransitionspeed') : 600,
         rs_autoPlay = typeof $slider.data('sliderautoplay') !== "undefined",
         rs_delay = typeof $slider.data('sliderdelay') !== "undefined" && $slider.data('sliderdelay') != '' ? $slider.data('sliderdelay') : '1000',
         rs_drag = true,
         rs_globalCaption = typeof $slider.data('showcaptions') !== "undefined",
-        is_headerSlider = $slider.hasClass('hero-slider') ? true : false,
         hoverArrows = typeof $slider.data('hoverarrows') !== "undefined";
 
     if (rs_autoheight) {
@@ -4402,26 +4449,21 @@ if (!Date.now) Date.now = function () {
         pauseOnHover: true,
         delay: rs_delay
       },
+      addActiveClass: true,
       globalCaption: rs_globalCaption,
-      numImagesToPreload: 2,
-      visibleNearby: {
-        enabled: true,
-        centerArea: 0.85,
-        center: true,
-        breakpoint: 650,
-        breakpointCenterArea: 0.64,
-        navigateByCenterClick: true
-      }
+      numImagesToPreload: 2
     };
+
+    var rs_centerArea = rs_nearbyCenter == true ? 0.90 : 0.95;
 
     if (rs_visibleNearby) {
       royalSliderParams['visibleNearby'] = {
-        enabled: true,
-        //centerArea: 0.8,
-        center: true,
-        breakpoint: 0,
-        //breakpointCenterArea: 0.64,
-        navigateByCenterClick: false
+        enabled: rs_visibleNearby,
+        centerArea: rs_centerArea,
+        center: rs_nearbyCenter,
+        breakpoint: 650,
+        breakpointCenterArea: 0.64,
+        navigateByCenterClick: true
       }
     }
 
@@ -4437,7 +4479,6 @@ if (!Date.now) Date.now = function () {
 
       var classes = '';
 
-      if (is_headerSlider) classes = 'slider-arrows-header';
       if (hoverArrows && !Modernizr.touch) classes += ' arrows--hover ';
 
       var $gallery_control = $('<div class="' + classes + '">' + '<div class="rsArrow rsArrowLeft js-arrow-left" style="display: block;"><div class="rsArrowIcn"></div></div>' + '<div class="rsArrow rsArrowRight js-arrow-right" style="display: block;"><div class="rsArrowIcn"></div></div>' + '</div>');
@@ -4472,27 +4513,9 @@ if (!Date.now) Date.now = function () {
     $slider.addClass('slider--loaded');
   }
 
-/*
- * Wordpress Galleries to Sliders
- * Create the markup for the slider from the gallery shortcode
- * take all the images and insert them in the .gallery <div>
- */
 
-  function sliderMarkupGallery($gallery) {
-    var $old_gallery = $gallery,
-        gallery_data = $gallery.data(),
-        $images = $old_gallery.find('img'),
-        $new_gallery = $('<div class="pixslider js-pixslider">');
 
-    $images.prependTo($new_gallery).addClass('rsImg');
 
-    //add the data attributes
-    $.each(gallery_data, function (key, value) {
-      $new_gallery.attr('data-' + key, value);
-    })
-
-    $old_gallery.replaceWith($new_gallery);
-  }
 
 /*
  Get slider arrows to hover, following the cursor
@@ -4601,8 +4624,14 @@ if (!Date.now) Date.now = function () {
   });
 
   function init() {
+    // jQuery('.portfolio__item--text').each(function(i, obj) {
+    //   jQuery(obj).width(jQuery(obj).getColumnsWidth());
+    // });
     platformDetect();
     Portfolio.init();
+
+    // setTimeout(function() {
+    // }, 10);
   }
 
   // /* ====== ON WINDOW LOAD ====== */

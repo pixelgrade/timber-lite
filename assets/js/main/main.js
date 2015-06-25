@@ -14,8 +14,14 @@ window.scroller = new Scroller(window, function() {
 });
 
 function init() {
+  // jQuery('.portfolio__item--text').each(function(i, obj) {
+  //   jQuery(obj).width(jQuery(obj).getColumnsWidth());
+  // });
   platformDetect();
   Portfolio.init();
+
+  // setTimeout(function() {
+  // }, 10);
 }
 
 // /* ====== ON WINDOW LOAD ====== */
