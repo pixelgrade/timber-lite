@@ -25,6 +25,11 @@
 
 	<header id="masthead" class="site-header" role="banner">
 		<div class="site-branding">
+
+			<?php if ( function_exists( 'jetpack_the_site_logo' ) ) { // display the Site Logo if present
+				jetpack_the_site_logo();
+			} ?>
+
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<p class="site-description"><?php bloginfo( 'description' ); ?></p>
 		</div><!-- .site-branding -->
@@ -33,7 +38,8 @@
 			<?php wp_nav_menu( array(
 				'theme_location' => 'primary',
 				'menu_class' => 'nav nav--main',
-				'menu_id' => 'primary-menu'
+				'menu_id' => 'primary-menu',
+				'fallback_cb' => false,
 			) ); ?>
 		</nav><!-- #site-navigation -->
 
@@ -41,10 +47,10 @@
 			<?php wp_nav_menu( array(
 				'theme_location' => 'social',
 				'menu_class' => 'nav nav--social',
-				'menu_id' => 'social-menu'
+				'menu_id' => 'social-menu',
+				'fallback_cb' => false,
 			) ); ?>
 			<button class="toggle  js-toggle"></button>
 		</nav>
 
 	</header><!-- #masthead -->
-
