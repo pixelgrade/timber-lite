@@ -43,7 +43,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						array(
 							'name'       => __( 'Show adjacent projects', 'timber' ),
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-							'id'         => 'homepage_slide_height',
+							'id'         => 'show_adjacent_projects',
 							'type'       => 'select',
 							'default'    => 'default',
 							'options'    => array(
