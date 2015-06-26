@@ -16,13 +16,13 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 				'jetpack-portfolio'   => array(
 					'description' => __( 'Portfolio Items', 'timber' ),
 					'labels'        => array(
-						'name'               => __( 'Projectss', 'timber' ),
+						'name'               => __( 'Projects', 'timber' ),
 						'singular_name'      => __( 'Project', 'timber' ),
 						'add_new'            => __( 'Add New', 'timber' ),
 						'add_new_item'       => __( 'Add New Project', 'timber' ),
 						'edit_item'          => __( 'Edit Project', 'timber' ),
 						'new_item'           => __( 'New Project', 'timber' ),
-						'all_items'          => __( 'All Galleries', 'timber' ),
+						'all_items'          => __( 'All Projects', 'timber' ),
 						'view_item'          => __( 'View Project', 'timber' ),
 						'search_items'       => __( 'Search Projects', 'timber' ),
 						'not_found'          => __( 'No Projects found', 'timber' ),
@@ -62,7 +62,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 				'jetpack-portfolio-type'   => array(
 					'hierarchical'      => true,
 					'labels'            => array(
-						'name'              => esc_html__( 'Project Typess',         'jetpack' ),
+						'name'              => esc_html__( 'Project Types',         'jetpack' ),
 						'singular_name'     => esc_html__( 'Project Type',          'jetpack' ),
 						'menu_name'         => esc_html__( 'Project Types',         'jetpack' ),
 						'all_items'         => esc_html__( 'All Project Types',     'jetpack' ),
@@ -87,7 +87,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 				'jetpack-portfolio-tag'   => array(
 					'hierarchical'      => false,
 					'labels'            => array(
-						'name'                       => __( 'Project Tagss',                   'timber' ),
+						'name'                       => __( 'Project Tags',                   'timber' ),
 						'singular_name'              => __( 'Project Tag',                    'timber' ),
 						'menu_name'                  => __( 'Project Tags',                   'timber' ),
 						'all_items'                  => __( 'All Project Tags',               'timber' ),
