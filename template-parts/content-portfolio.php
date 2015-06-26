@@ -12,7 +12,7 @@
 	 * Project Thumbnail
 	 */
 	?>
-	<?php if ( has_post_thumbnail() ) : ?>
+	<?php if ( has_post_thumbnail() && false ) : ?>
 		<div class="project-thumbnail">
 			<?php the_post_thumbnail( 'full' ); ?>
 		</div>
@@ -24,7 +24,16 @@
 	 */
 	?>
 	<div class="portfolio__header">
-		<div class="portfolio__category">Category</div>
+		<div class="portfolio__category">
+			<?php
+				$types = get_the_terms(get_the_ID(), 'jetpack-portfolio-type');
+				if (!empty($types)) {
+					$type = $types[0]->name;
+					$link = get_term_link($type, 'jetpack-portfolio-type');
+					echo '<a class="block" href="' . $link . '">' . $types[0]->name . '</a>';
+				}
+			?>
+		</div>
 		<h2 class="portfolio__title h1">
 			<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
 				<?php

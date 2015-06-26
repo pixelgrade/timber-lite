@@ -7,62 +7,65 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+<div class="site-container">
 
-			<?php
-			/**
-			 * Displays portfolio page content if user opts to
-			 * Can be controlled in Appearance > Customize > Theme Options
-			 */
-			if ( ! get_theme_mod( 'timber_hide_portfolio_page_content' ) ) : ?>
+	<div class="site-sidebar"></div>
+	<div class="site-content">
 
-				<?php while ( have_posts() ) : the_post(); ?>
 
-					<?php get_template_part( 'template-parts/content', 'page' ); ?>
+		<?php
+		/**
+		 * Displays portfolio page content if user opts to
+		 * Can be controlled in Appearance > Customize > Theme Options
+		 */
+		if ( ! get_theme_mod( 'timber_hide_portfolio_page_content' ) ) : ?>
 
-				<?php endwhile; // end of the loop. ?>
+			<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php endif; ?>
+				<?php get_template_part( 'template-parts/content', 'page' ); ?>
 
-			<?php
-				if ( get_query_var( 'paged' ) ) :
-					$paged = get_query_var( 'paged' );
-				elseif ( get_query_var( 'page' ) ) :
-					$paged = get_query_var( 'page' );
-				else :
-					$paged = 1;
-				endif;
+			<?php endwhile; // end of the loop. ?>
 
-				$posts_per_page = get_option( 'jetpack_portfolio_posts_per_page', '12' );
+		<?php endif; ?>
 
-				$args = array(
-					'post_type' => 'jetpack-portfolio',
-					'paged' => $paged,
-					'posts_per_page' => $posts_per_page,
-				);
+		<?php
+			if ( get_query_var( 'paged' ) ) :
+				$paged = get_query_var( 'paged' );
+			elseif ( get_query_var( 'page' ) ) :
+				$paged = get_query_var( 'page' );
+			else :
+				$paged = 1;
+			endif;
 
-				$project_query = new WP_Query( $args );
+			$posts_per_page = get_option( 'jetpack_portfolio_posts_per_page', '12' );
 
-				if ( $project_query -> have_posts() ) :
+			$args = array(
+				'post_type' => 'jetpack-portfolio',
+				'paged' => $paged,
+				'posts_per_page' => $posts_per_page,
+			);
 
-					while ( $project_query -> have_posts() ) : $project_query -> the_post();
+			$project_query = new WP_Query( $args );
 
-						get_template_part( 'template-parts/content', 'portfolio' );
+			if ( $project_query -> have_posts() ) :
 
-					endwhile;
+				while ( $project_query -> have_posts() ) : $project_query -> the_post();
 
-					timber_paging_nav( $project_query->max_num_pages );
-					wp_reset_postdata();
+					get_template_part( 'template-parts/content', 'portfolio' );
 
-				else :
+				endwhile;
 
-					get_template_part( 'template-parts/content', 'none' );
+				timber_paging_nav( $project_query->max_num_pages );
+				wp_reset_postdata();
 
-				endif;
-			?>
+			else :
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+				get_template_part( 'template-parts/content', 'none' );
+
+			endif;
+		?>
+
+	</div>
+</div>
 
 <?php get_footer(); ?>

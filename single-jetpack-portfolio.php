@@ -8,9 +8,9 @@
 get_header(); ?>
 
 	<?php while ( have_posts() ) : the_post(); ?>
-            <main id="content" class="site-content site-container site-content--filmstrip">
-        		<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
-            </main>
+        <main id="content" class="site-content site-container site-content--filmstrip">
+    		<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
+        </main>
 
         <footer id="colophon" class="site-footer" role="contentinfo">
             <div class="bar--fixed">
