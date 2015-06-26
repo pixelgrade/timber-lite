@@ -56,6 +56,7 @@
         margin-right: 1em;
         will-change: opacity;
         transition: opacity .3s ease-in-out;
+        cursor: pointer;
 
         &--content {
             min-width: 40em;
@@ -86,11 +87,19 @@
         height: auto;
         min-height: 15vh;
         flex-wrap: wrap;
+        z-index: 100;
     }
 
     &--grid &__item {
+        opacity: 0;
         margin-right: .5em;
         margin-bottom: .5em;
+
+    }
+
+    &--grid.portfolio--visible &__item {
+        transition-delay: .3s;
+        opacity: 1;
     }
 
     &--grid &__item--content,
@@ -159,6 +168,17 @@
     padding: 0 0.5em;
 }
 
-.js-last { background: red; }
-.js-reference { background: blue; }
-.js-compare { background: green; }
+.js-last {
+    border-left: 0.2em solid green;
+    background-color: rgba(green, 0.25);
+}
+
+.js-reference {
+    border-left: 0.2em solid blue;
+    background-color: rgba(blue, 0.25);
+}
+
+.js-compare {
+    border-left: 0.2em solid gray;
+    background-color: rgba(gray, 0.25);
+}
