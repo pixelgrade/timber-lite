@@ -1,4 +1,5 @@
-.single-jetpack-portfolio .site {
+.single-jetpack-portfolio .site,
+.jetpack-portfolio .site {
     @extend %display--flex;
     flex-direction: column;
 }
@@ -22,12 +23,16 @@
     }
 
     &__title,
-    &__category {
+    &__type {
         margin: 0;
         padding: 0;
     }
 
-    &__category {
+    &__title {
+        overflow: hidden;
+    }
+
+    &__type {
         @extend %delta;
         text-transform: uppercase;
         font-weight: bold;
@@ -128,7 +133,8 @@
     }
 }
 
-.page-template-portfolio-page {
+.page-template-portfolio-page,
+.tax-jetpack-portfolio-type {
 
     .site-content {
         overflow-x: hidden;

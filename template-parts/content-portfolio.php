@@ -5,14 +5,14 @@
  * @package Timber
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<?php
 	/**
 	 * Project Thumbnail
 	 */
 	?>
-	<?php if ( has_post_thumbnail() ) : ?>
+	<?php if ( has_post_thumbnail() && false ) : ?>
 		<div class="project-thumbnail">
 			<?php the_post_thumbnail( 'full' ); ?>
 		</div>
@@ -24,7 +24,9 @@
 	 */
 	?>
 	<div class="portfolio__header">
-		<div class="portfolio__category">Category</div>
+
+		<?php timber_the_project_types( get_the_ID(), '<div class="portfolio__type">', '</div>' ); ?>
+
 		<h2 class="portfolio__title h1">
 			<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
 				<?php

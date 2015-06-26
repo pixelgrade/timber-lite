@@ -5,24 +5,27 @@
  * @package Timber
  */
 
-get_header(); ?>
+get_header();
 
-	<?php while ( have_posts() ) : the_post(); ?>
-            <main id="content" class="site-content site-container site-content--filmstrip">
-        		<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
-            </main>
+$homepage_slide_height = get_post_meta( timber_get_post_id(), 'homepage_slide_height', true);
 
-        <footer id="colophon" class="site-footer" role="contentinfo">
-            <div class="bar--fixed">
-                <button class="share-button"><i class="fa fa-share-alt"></i></button>
-                <div class="site-info">
-                    <div class="portfolio__position"></div>
-                    <a class="show-details js-details" href="#">show details</a>
-                </div><!-- .site-info -->
-                <button class="show-button  js-show-thumbnails"><span>show thumbnails</span></button>
-            </div>
-        </footer><!-- #colophon -->
+while ( have_posts() ) : the_post(); ?>
+	<main id="content" class="site-content site-container site-content--filmstrip">
+		<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
+	</main>
 
-	<?php endwhile; // end of the loop. ?>
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="bar--fixed">
+			<button class="share-button"><i class="fa fa-share-alt"></i></button>
+			<div class="site-info">
+				<div class="portfolio__position"></div>
+				<a class="show-details js-details" href="#"><?php _e( 'show details', 'timber' ); ?></a>
+			</div>
+			<!-- .site-info -->
+			<button class="show-button  js-show-thumbnails"><span><?php _e( 'show thumbnails', 'timber' ); ?></span></button>
+		</div>
+	</footer><!-- #colophon -->
 
-<?php get_footer(); ?>
+<?php endwhile; // end of the loop.
+
+get_footer(); ?>

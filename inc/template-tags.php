@@ -652,7 +652,45 @@ function timber_first_category( $post_ID = null ) {
 		$category = array_shift( $categories );
 		$rel = ( is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) ? 'rel="category tag"' : 'rel="category"';
 
-		echo '<span class="divider"></span><span class="cat-links"><a href="' . esc_url( get_category_link( $category->term_id ) ) . '" ' . $rel . '>' . $category->name . '</a></span>';
+		echo '<span class="cat-links"><a href="' . esc_url( get_category_link( $category->term_id ) ) . '" ' . $rel . '>' . $category->name . '</a></span>';
+	}
+
+} #function
+
+/**
+ * Prints HTML with the category of a certain post, with the most posts in it
+ * The most important category of a post
+ *
+ * @param int|WP_Post $post_ID Optional. Post ID or post object.
+ */
+function timber_first_project_category( $post_ID = null ) {
+	global $wp_rewrite;
+
+	//use the current post ID is none given
+	if ( empty( $post_ID ) ) {
+		$post_ID = get_the_ID();
+	}
+
+	//first get all project types ordered by count
+	$all_types = get_terms( 'jetpack-portfolio-type', array(
+		'orderby' => 'count',
+		'order' => 'DESC',
+	) );
+
+	//get the project's categories
+	$types = get_the_terms( $post_ID, 'jetpack-portfolio-type');
+	if ( empty( $types ) ) {
+		return;
+	}
+
+	//now intersect them so that we are left with a descending ordered array of the post's categories
+	$types = array_uintersect( $all_types, $types, 'timber_compare_categories' );
+
+	if ( ! empty ( $types ) ) {
+		$type = array_shift( $types );
+		$rel = ( is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) ? 'rel="category tag"' : 'rel="category"';
+
+		echo '<span class="divider"></span><span class="cat-links"><a href="' . esc_url( get_term_link( $term->term_id ) ) . '" ' . $rel . '>' . $term->name . '</a></span>';
 	}
 
 } #function
@@ -666,6 +704,24 @@ function timber_compare_categories( $a1, $a2 ) {
 		return 1;
 	}
 	return -1;
+}
+
+/**
+ * Prints HTML with the list of project types (categories)
+ *
+ * @param int|WP_Post $post_ID Optional. Post ID or post object.
+ */
+function timber_the_project_types( $post_ID = null, $before = '<span class="entry-meta meta-categories">', $after = '</span>' ) {
+	//use the current post ID is none given
+	if ( empty( $post_ID ) ) {
+		$post_ID = get_the_ID();
+	}
+
+	/*
+     * Project category list
+     */
+	$separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
+	echo get_the_term_list( $post_ID, 'jetpack-portfolio-type', $before , $separate_meta, $after );
 }
 
 if ( ! function_exists( 'timber_get_post_format_link' ) ) :
@@ -712,3 +768,18 @@ if ( ! function_exists( 'timber_post_format_link' ) ) :
 	} #function
 
 endif;
+
+function timber_get_post_gallery_count( $post_ID = null ) {
+	//use the current post ID is none given
+	if ( empty( $post_ID ) ) {
+		$post_ID = get_the_ID();
+	}
+
+	$images = get_post_gallery_images( $post_ID );
+
+	if ( ! empty($images) ) {
+		return count( $images );
+	}
+
+	return false;
+}

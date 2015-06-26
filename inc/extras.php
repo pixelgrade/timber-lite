@@ -8,6 +8,32 @@
  */
 
 /**
+ * Returns the proper post id in case WPML is active and a the post has a translation
+ * @param $id
+ * @param string $post_type
+ *
+ * @return int The id of the post
+ */
+function timber_get_post_id( $id = null, $post_type = 'post' ) {
+	global $post;
+
+	if ( $id === null ) {
+		$id  = get_the_ID();
+	}
+
+	if ( function_exists( 'icl_object_id' ) ) {
+		// make this work for any post type
+		if ( isset( $post->post_type ) && $post->post_type !== $post_type ) {
+			$post_type = $post->post_type;
+		}
+
+		return icl_object_id( $id, $post_type, true );
+	} else {
+		return $id;
+	}
+}
+
+/**
  * Adds custom classes to the array of body classes.
  *
  * @param array $classes Classes for the body element.
@@ -22,6 +48,31 @@ function timber_body_classes( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'timber_body_classes' );
+
+/**
+ * Extend the default WordPress post classes.
+ *
+ * @since Timber 1.0
+ *
+ * @param array $classes A list of existing post class values.
+ * @return array The filtered post class list.
+ */
+function timber_post_classes( $classes ) {
+
+	//add classes for portfolio
+	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
+		if ( is_single() ) {
+			$classes[] = 'portfolio js-portfolio entry-content';
+		} else {
+			//this is a project displayed in some sort of archive
+			$classes[] = 'portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio';
+		}
+	}
+
+	return $classes;
+}
+
+add_filter( 'post_class', 'timber_post_classes' );
 
 if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 	/**
@@ -423,7 +474,7 @@ function timber_get_current_canonical_url() {
 		}
 	} elseif ( ( $wp_query->is_single || $wp_query->is_page ) && $haspost ) {
 		$post = $wp_query->posts[0];
-		$link = get_permalink( wpgrade::lang_post_id( $post->ID ) );
+		$link = get_permalink( timber_get_post_id( $post->ID ) );
 	} elseif ( $wp_query->is_author && $haspost ) {
 		$author = get_userdata( get_query_var( 'author' ) );
 		if ( $author === false ) {
