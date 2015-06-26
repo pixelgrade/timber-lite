@@ -8,6 +8,32 @@
  */
 
 /**
+ * Returns the proper post id in case WPML is active and a the post has a translation
+ * @param $id
+ * @param string $post_type
+ *
+ * @return int The id of the post
+ */
+function timber_get_post_id( $id = null, $post_type = 'post' ) {
+	global $post;
+
+	if ( $id === null ) {
+		$id  = get_the_ID();
+	}
+
+	if ( function_exists( 'icl_object_id' ) ) {
+		// make this work for any post type
+		if ( isset( $post->post_type ) && $post->post_type !== $post_type ) {
+			$post_type = $post->post_type;
+		}
+
+		return icl_object_id( $id, $post_type, true );
+	} else {
+		return $id;
+	}
+}
+
+/**
  * Adds custom classes to the array of body classes.
  *
  * @param array $classes Classes for the body element.
@@ -448,7 +474,7 @@ function timber_get_current_canonical_url() {
 		}
 	} elseif ( ( $wp_query->is_single || $wp_query->is_page ) && $haspost ) {
 		$post = $wp_query->posts[0];
-		$link = get_permalink( wpgrade::lang_post_id( $post->ID ) );
+		$link = get_permalink( timber_get_post_id( $post->ID ) );
 	} elseif ( $wp_query->is_author && $haspost ) {
 		$author = get_userdata( get_query_var( 'author' ) );
 		if ( $author === false ) {
