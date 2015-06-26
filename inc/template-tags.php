@@ -619,6 +619,50 @@ function timber_video_attachment() {
  *
  * @param int|WP_Post $post_ID Optional. Post ID or post object.
  */
+function timber_first_category( $post_ID = null ) {
+	global $wp_rewrite;
+
+	//use the current post ID is none given
+	if ( empty( $post_ID ) ) {
+		$post_ID = get_the_ID();
+	}
+
+	//obviously pages don't have categories
+	if ( 'page' == get_post_type( $post_ID ) ) {
+		return;
+	}
+
+	//first get all categories ordered by count
+	$all_categories = get_categories( array(
+		'orderby' => 'count',
+		'order' => 'DESC',
+	) );
+
+	//get the post's categories
+	$categories = get_the_category( $post_ID );
+	if ( empty( $categories ) ) {
+		//get the default category instead
+		$categories = array( get_the_category_by_ID( get_option( 'default_category' ) ) );
+	}
+
+	//now intersect them so that we are left with e descending ordered array of the post's categories
+	$categories = array_uintersect( $all_categories, $categories, 'timber_compare_categories' );
+
+	if ( ! empty ( $categories ) ) {
+		$category = array_shift( $categories );
+		$rel = ( is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) ? 'rel="category tag"' : 'rel="category"';
+
+		echo '<span class="cat-links"><a href="' . esc_url( get_category_link( $category->term_id ) ) . '" ' . $rel . '>' . $category->name . '</a></span>';
+	}
+
+} #function
+
+/**
+ * Prints HTML with the category of a certain post, with the most posts in it
+ * The most important category of a post
+ *
+ * @param int|WP_Post $post_ID Optional. Post ID or post object.
+ */
 function timber_first_project_category( $post_ID = null ) {
 	global $wp_rewrite;
 
