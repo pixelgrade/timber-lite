@@ -768,3 +768,18 @@ if ( ! function_exists( 'timber_post_format_link' ) ) :
 	} #function
 
 endif;
+
+function timber_get_post_gallery_count( $post_ID = null ) {
+	//use the current post ID is none given
+	if ( empty( $post_ID ) ) {
+		$post_ID = get_the_ID();
+	}
+
+	$images = get_post_gallery_images( $post_ID );
+
+	if ( ! empty($images) ) {
+		return count( $images );
+	}
+
+	return false;
+}
