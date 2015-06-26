@@ -15,7 +15,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 			'metaboxes'        => array(
 				'timber_frontpage_settings' => array(
 					'id'         => 'timber_frontpage_settings',
-					'title'      => __( 'Frontpage settings', 'timber' ),
+					'title'      => __( 'Slider settings', 'timber' ),
 					'pages'      => array( 'page' ), // Post type
 					'context'    => 'side',
 					'priority'   => 'default',
@@ -24,9 +24,9 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
 						array(
-							'name'       => __( 'Slide height', 'timber' ),
+							'name'       => __( 'Slider height', 'timber' ),
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-							'id'         => 'homepage_slide_height',
+							'id'         => 'projects_slider_height',
 							'type'       => 'select',
 							'default'    => 'default',
 							'options'    => array(

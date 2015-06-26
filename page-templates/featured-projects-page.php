@@ -15,7 +15,7 @@ get_header(); ?>
 		<?php
 		$featured = timber_get_featured_projects();
 
-		$homepage_slide_height = get_post_meta( timber_get_post_id(), 'homepage_slide_height', true);
+		$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true);
 		$show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_projects', true);
 
 		if ( ! empty( $featured ) ) : ?>
@@ -25,7 +25,7 @@ get_header(); ?>
 			     data-imagealigncenter
 			     data-imagescale="fill"
 			     data-visiblenearby
-			     data-nearbycenter
+				 <?php if($show_adjacent_projects == "show_prev_next") echo 'data-nearbycenter'; ?>
 			     data-keyboardnav
 				 data-bullets>
 
