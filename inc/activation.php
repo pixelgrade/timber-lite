@@ -70,16 +70,16 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						array(
 							'name'       => __( 'Template', 'timber' ),
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-							'id'         => 'homepage_slide_height',
+							'id'         => 'project_layout',
 							'type'       => 'select',
-							'default'    => 'hybrid',
+							'default'    => 'fullscreen',
 							'options'    => array(
 								array(
 									'name' => __( 'Hybrid', 'timber' ),
 									'value' => 'hybrid'
 								),
 								array(
-									'name' => __( 'Slider', 'timber' ),
+									'name' => __( 'Fullscreen', 'timber' ),
 									'value' => 'slider'
 								)
 							)

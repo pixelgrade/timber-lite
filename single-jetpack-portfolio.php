@@ -1,17 +1,19 @@
 <?php
 /**
- * The Template for displaying all single portfolio posts
+ * The Template for displaying a project
  *
  * @package Timber
  */
 
 get_header();
 
-$homepage_slide_height = get_post_meta( timber_get_post_id(), 'homepage_slide_height', true);
+$project_layout = get_post_meta( timber_get_post_id(), 'project_layout', true);
 
-while ( have_posts() ) : the_post(); ?>
+while ( have_posts() ) : the_post();
+	if ( $project_layout == 'hybrid' ): ?>
+
 	<main id="content" class="site-content site-container site-content--filmstrip">
-		<?php get_template_part( 'template-parts/content', 'portfolio-single' ); ?>
+		<?php get_template_part( 'template-parts/content', 'project-filmstrip' ); ?>
 	</main>
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
@@ -26,6 +28,14 @@ while ( have_posts() ) : the_post(); ?>
 		</div>
 	</footer><!-- #colophon -->
 
-<?php endwhile; // end of the loop.
+	<?php else : ?>
+
+	<main id="content" class="site-content  site-container  site-content--fullscreen">
+		<?php get_template_part( 'template-parts/content', 'project-fullscreen' ); ?>
+	</main>
+
+	<?php endif;
+
+endwhile; // end of the loop.
 
 get_footer(); ?>

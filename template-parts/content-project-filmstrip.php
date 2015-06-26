@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying Portfolio posts on single project pages
+ * The template used for displaying a project(Jetpack Portfolio Single Post) using the Filmstrip layout
  *
  * @package Timber
  */
