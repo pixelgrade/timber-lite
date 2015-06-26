@@ -21,10 +21,10 @@ while ( have_posts() ) : the_post();
 			<button class="share-button"><i class="fa fa-share-alt"></i></button>
 			<div class="site-info">
 				<div class="portfolio__position"></div>
-				<a class="show-details js-details" href="#">show details</a>
+				<a class="show-details js-details" href="#"><?php _e( 'show details', 'timber' ); ?></a>
 			</div>
 			<!-- .site-info -->
-			<button class="show-button  js-show-thumbnails"><span>show thumbnails</span></button>
+			<button class="show-button  js-show-thumbnails"><span><?php _e( 'show thumbnails', 'timber' ); ?></span></button>
 		</div>
 	</footer><!-- #colophon -->
 

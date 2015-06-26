@@ -287,6 +287,22 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'desc' => __( 'Enable / Disable dynamic page content loading using AJAX.', 'timber' ),
 								'default'  => true
 							),
+
+							'copyright_text' => array(
+								'type'     => 'textarea',
+								'label'    => __( 'Copyright', 'timber' ),
+								'desc' => __( 'The copyright text which should appear in footer.', 'timber' ),
+								'default'  => 'Pixelgrade 2015',
+							),
+
+							'custom_js' => array(
+								'type'     => 'ace_editor',
+								'label'    => __( 'Customjs', 'timber' ),
+								'desc' => __( 'test', 'timber' ),
+								'default'  => "(function(#){\n})(jQuery)",
+								'editor_type' => 'javascript',
+							),
+
 							'enable_copyright_overlay' => array(
 								'type'     => 'checkbox',
 								'label'    => __( 'Right-Click Protected ?', 'timber' ),
