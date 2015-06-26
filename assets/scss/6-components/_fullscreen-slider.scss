@@ -14,6 +14,10 @@
 		width: auto;
 		height: auto;
 	}
+}
+
+.projects-slider {
+	@extend .fullscreen-slider;
 
 	.rsSlide{
 		transition: .3s box-shadow linear;
@@ -31,10 +35,6 @@
 
 		transform: translateX(-50%);
 	}
-}
-
-.projects-slider {
-	@extend .fullscreen-slider;
 }
 
 .project-slide__content {

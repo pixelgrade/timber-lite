@@ -45,6 +45,28 @@ function timber_body_classes( $classes ) {
 		$classes[] = 'group-blog';
 	}
 
+	// let the body_class know what project layout we have and what height has the page slider
+	global $post;
+
+	if ( isset( $post->post_type ) ) {
+
+		if ( $post->post_type === 'jetpack-portfolio' ) {
+			$project_layout = get_post_meta( timber_get_post_id(), 'project_layout', true );
+
+			if ( ! empty( $project_layout ) ) {
+				$classes[] = 'project_layout-' . $project_layout;
+			}
+		} elseif ( $post->post_type === 'page' && basename( get_page_template() ) === 'featured-projects-page.php' ) {
+
+			$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
+
+			if ( ! empty( $projects_slider_height ) ) {
+				$classes[] = 'slider_height-' . $projects_slider_height;
+			}
+		}
+	}
+
+
 	return $classes;
 }
 add_filter( 'body_class', 'timber_body_classes' );
@@ -62,7 +84,12 @@ function timber_post_classes( $classes ) {
 	//add classes for portfolio
 	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
 		if ( is_single() ) {
-			$classes[] = 'portfolio js-portfolio entry-content';
+			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
+
+			if($project_template == 'hybrid')
+				$classes[] = 'portfolio   js-portfolio  entry-content';
+			else
+				$classes[] = 'portfolio  entry-content';
 		} else {
 			//this is a project displayed in some sort of archive
 			$classes[] = 'portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio';

@@ -61,6 +61,14 @@ function royalSliderInit($container) {
  * Slider Initialization
  */
 function sliderInit($slider) {
+	// Helper function
+	// examples
+	// console.log(padLeft(23,5));       //=> '00023'
+	// console.log(padLeft(23,5,'>>'));  //=> '>>>>>>23'
+	function padLeft(nr, n, str){
+		return Array(n-String(nr).length+1).join(str||'0')+nr;
+	}
+
 	if (globalDebug) {
 		console.log("Royal Slider Init");
 	}
@@ -158,40 +166,19 @@ function sliderInit($slider) {
 
 	// create the markup for the customArrows
 	//don't need it if we have only one slide
-	if (royalSlider && rs_customArrows && slidesNumber > 1 ) {
+	if (royalSlider && slidesNumber > 1 ) {
 
-		var classes = '';
+		$slides_total = $('.js-gallery-slides-total');
+		$decimal = $('.js-decimal');
+		$unit = $('.js-unit');
 
-		if (hoverArrows && !Modernizr.touch) classes += ' arrows--hover ';
+		//slidesNumber = (slidesNumber < 10) ? padLeft(slidesNumber, 2) : slidesNumber;
+		$slides_total.html(slidesNumber);
 
-		var $gallery_control = $(
-			'<div class="' + classes + '">' +
-			'<div class="rsArrow rsArrowLeft js-arrow-left" style="display: block;"><div class="rsArrowIcn"></div></div>' +
-			'<div class="rsArrow rsArrowRight js-arrow-right" style="display: block;"><div class="rsArrowIcn"></div></div>' +
-			'</div>'
-		);
-
-		if ($slider.data('customarrows') == "left") {
-			$gallery_control.addClass('gallery-control--left');
-		}
-
-		$gallery_control.insertBefore($slider);
-
-		$gallery_control.on('click', '.js-arrow-left', function (event) {
-			event.preventDefault();
-			royalSlider.prev();
+		royalSlider.ev.on('rsBeforeAnimStart', function(event) {
+			var currentSlide = royalSlider.currSlideId + 1;
+			$unit.html(currentSlide);
 		});
-
-		$gallery_control.on('click', '.js-arrow-right', function (event) {
-			event.preventDefault();
-			royalSlider.next();
-		});
-
-		if (hoverArrows && !Modernizr.touch) {
-			hoverArrow( $('.slider-arrows-header .rsArrow') );
-		}
-
-		$slider.parent().children('.slider-arrows-header').addClass('slider-arrows--loaded');
 	}
 
 	if (slidesNumber == 1) {

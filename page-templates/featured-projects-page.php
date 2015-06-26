@@ -31,7 +31,7 @@ get_header(); ?>
 
 				<?php foreach ( $featured as $post ) : setup_postdata( $post );
 
-					get_template_part( 'template-parts/content', 'portfolio-featured' );
+					get_template_part( 'template-parts/content', 'project-featured' );
 
 				endforeach; ?>
 

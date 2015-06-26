@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying Jetpack Portfolio posts on the Front Page Slider
+ * The template used for displaying a project(Jetpack Portfolio Single Post) on the Featured Projects Page
  *
  * @package Timber
  */
