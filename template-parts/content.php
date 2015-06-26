@@ -26,6 +26,12 @@
 					} ?>
 				</div>
 			</div>
+		<?php else: ?>
+			<div class="post-meta">
+				<div class="post-meta__content">
+					12
+				</div>
+			</div>
 		<?php endif; ?>
 	</aside>
 
@@ -34,6 +40,7 @@
 		<div class="entry-meta">
 			<?php if ( 'post' == get_post_type() ) : ?>
 				<?php timber_posted_on(); ?>
+				<div class="divider"></div>
 				<?php timber_first_category(); ?>
 			<?php else: ?>
 				<?php echo get_post_type(); ?>
