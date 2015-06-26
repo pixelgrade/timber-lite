@@ -1,4 +1,5 @@
-.single-jetpack-portfolio .site {
+.single-jetpack-portfolio .site,
+.jetpack-portfolio .site {
     @extend %display--flex;
     flex-direction: column;
 }
@@ -25,6 +26,10 @@
     &__category {
         margin: 0;
         padding: 0;
+    }
+
+    &__title {
+        overflow: hidden;
     }
 
     &__category {
@@ -128,7 +133,8 @@
     }
 }
 
-.page-template-portfolio-page {
+.page-template-portfolio-page,
+.tax-jetpack-portfolio-type {
 
     .site-content {
         overflow-x: hidden;

@@ -12,7 +12,7 @@
 	 * Project Thumbnail
 	 */
 	?>
-	<?php if ( has_post_thumbnail() ) : ?>
+	<?php if ( has_post_thumbnail() && false ) : ?>
 		<div class="project-thumbnail">
 			<?php the_post_thumbnail( 'full' ); ?>
 		</div>
