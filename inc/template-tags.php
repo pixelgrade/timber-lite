@@ -750,6 +750,7 @@ endif;
  */
 function timber_the_project_types( $post_ID = null, $before = '<span class="entry-meta meta-categories">', $after = '</span>' ) {
 	//use the current post ID is none given
+
 	if ( empty( $post_ID ) ) {
 		$post_ID = get_the_ID();
 	}
@@ -758,7 +759,13 @@ function timber_the_project_types( $post_ID = null, $before = '<span class="entr
      * Project category list
      */
 	$separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
-	echo get_the_term_list( $post_ID, 'jetpack-portfolio-type', $before , $separate_meta, $after );
+
+	$terms_list = get_the_term_list( $post_ID, 'jetpack-portfolio-type', $before , $separate_meta, $after );
+
+	// $terms_list will turn into an wp_error when the taxonomy is missing so check it first
+	if ( ! is_wp_error( $terms_list ) ) {
+		echo $terms_list;
+	}
 }
 
 if ( ! function_exists( 'timber_get_post_format_link' ) ) :
