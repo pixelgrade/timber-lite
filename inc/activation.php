@@ -20,7 +20,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 					'context'    => 'side',
 					'priority'   => 'default',
 					'hidden'     => true,
-					'show_on'    => array( 'key' => 'page-template', 'value' => array( 'page-templates/front-page.php' ), ),
+					'show_on'    => array( 'key' => 'page-template', 'value' => array( 'page-templates/featured-projects-page.php' ), ),
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
 						array(
