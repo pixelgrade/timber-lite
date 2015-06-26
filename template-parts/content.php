@@ -26,12 +26,6 @@
 					} ?>
 				</div>
 			</div>
-		<?php else: ?>
-			<div class="post-meta">
-				<div class="post-meta__content">
-					12
-				</div>
-			</div>
 		<?php endif; ?>
 	</aside>
 
