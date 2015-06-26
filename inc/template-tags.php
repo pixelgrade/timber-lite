@@ -258,38 +258,6 @@ function timber_category_transient_flusher() {
 add_action( 'edit_category', 'timber_category_transient_flusher' );
 add_action( 'save_post',     'timber_category_transient_flusher' );
 
-if ( ! function_exists( 'timber_the_categories_nav' ) ) :
-	/**
-	 * Print the categories navigation used for filtering the blog posts
-	 */
-	function timber_the_categories_nav() {
-		//get only the top level categories
-		$categories = get_categories(array(
-			'orderby' => 'name',
-			'order' => 'ASC',
-			'hide_empty' => 1,
-			'hierarchical' => false,
-			'parent' => 0,
-			'number' => 15, //15 is the maximum we can beautifully handle
-		) );
-
-		if ( ! empty( $categories ) ) : ?>
-
-		<ul class="nav">
-			<li class="current"><a href="#show-all"><?php _e( 'All', 'timber' ); ?></a></li>
-
-			<?php foreach ( $categories as $category ) : ?>
-
-			<li><a href="#<?php echo $category->slug; ?>"><?php echo $category->name; ?></a></li>
-
-			<?php endforeach; ?>
-
-		</ul>
-
-		<?php endif;
-	}
-endif;
-
 
 if ( ! function_exists( 'timber_get_custom_excerpt' ) ) :
 /**
@@ -672,19 +640,23 @@ function timber_first_category( $post_ID = null ) {
 
 	//get the post's categories
 	$categories = get_the_category( $post_ID );
-	if ( empty( $categories ) ) {
-		//get the default category instead
-		$categories = array( get_the_category_by_ID( get_option( 'default_category' ) ) );
-	}
 
 	//now intersect them so that we are left with e descending ordered array of the post's categories
 	$categories = array_uintersect( $all_categories, $categories, 'timber_compare_categories' );
 
+	//remove the Uncategorized category
+	if ( ! empty( $categories ) ) {
+		$first_category = reset( $categories );
+		while ( ! empty( $first_category ) && $first_category->term_id == get_option( 'default_category' ) ) {
+			$first_category = array_shift( $categories );
+		}
+	}
+
 	if ( ! empty ( $categories ) ) {
-		$category = array_shift( $categories );
+		$first_category = array_shift( $categories );
 		$rel = ( is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) ? 'rel="category tag"' : 'rel="category"';
 
-		echo '<span class="cat-links"><a href="' . esc_url( get_category_link( $category->term_id ) ) . '" ' . $rel . '>' . $category->name . '</a></span>';
+		echo '<div class="divider"></div><span class="cat-links"><a href="' . esc_url( get_category_link( $first_category->term_id ) ) . '" ' . $rel . '>' . $first_category->name . '</a></span>';
 	}
 
 } #function
@@ -737,6 +709,39 @@ function timber_compare_categories( $a1, $a2 ) {
 	}
 	return -1;
 }
+
+if ( ! function_exists( 'timber_the_categories_nav' ) ) :
+	/**
+	 * Print the categories navigation used for filtering the blog posts
+	 */
+	function timber_the_categories_nav() {
+		//get only the top level categories
+		$categories = get_categories(array(
+			'orderby' => 'name',
+			'order' => 'ASC',
+			'hide_empty' => 1,
+			'hierarchical' => false,
+			'parent' => 0,
+			'number' => 15, //15 is the maximum we can beautifully handle
+			'exclude' => get_option( 'default_category' ),
+		) );
+
+		if ( ! empty( $categories ) ) : ?>
+
+			<ul class="nav">
+				<li class="current"><a href="#show-all"><?php _e( 'All', 'timber' ); ?></a></li>
+
+				<?php foreach ( $categories as $category ) : ?>
+
+					<li><a href="#<?php echo $category->slug; ?>"><?php echo $category->name; ?></a></li>
+
+				<?php endforeach; ?>
+
+			</ul>
+
+		<?php endif;
+	}
+endif;
 
 /**
  * Prints HTML with the list of project types (categories)

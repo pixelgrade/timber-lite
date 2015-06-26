@@ -35,7 +35,7 @@
 		<div class="entry-meta">
 			<?php if ( 'post' == get_post_type() ) : ?>
 				<?php timber_posted_on(); ?>
-				<div class="divider"></div>
+
 				<?php timber_first_category(); ?>
 			<?php else: ?>
 				<?php echo get_post_type(); ?>
