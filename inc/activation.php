@@ -70,7 +70,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						array(
 							'name'       => __( 'Template', 'timber' ),
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-							'id'         => 'project_layout',
+							'id'         => 'project_template',
 							'type'       => 'select',
 							'default'    => 'fullscreen',
 							'options'    => array(
@@ -80,7 +80,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								),
 								array(
 									'name' => __( 'Fullscreen', 'timber' ),
-									'value' => 'slider'
+									'value' => 'fullscreen'
 								)
 							)
 						)

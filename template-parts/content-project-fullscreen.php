@@ -7,5 +7,50 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php echo '<h1>' . get_the_title($post->ID) . ' Fullscreen </h1>'; ?>
+	<div class="fullscreen-slider  royalSlider  js-pixslider"
+	     data-slidertransition="move"
+	     data-imagealigncenter
+	     data-imagescale="fill"
+	     data-arrows
+	     data-keyboardnav
+	     data-bullets>
+
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+		<div class="project-slide  rsContent">
+			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />
+		</div><!-- .project-slide -->
+
+	</div><!-- .featured-projects-slider -->
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->

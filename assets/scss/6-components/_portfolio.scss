@@ -12,6 +12,11 @@
     opacity: 0;
     pointer-events: none;
 
+    .site-content--fullscreen & {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
     img { @extend %display--block; }
 
     &__header {
