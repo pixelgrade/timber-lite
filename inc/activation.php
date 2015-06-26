@@ -12,6 +12,104 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 
 		$pixtypes_conf_settings = array(
 			'first_activation' => true,
+			'post_types'       => array(
+				'jetpack-portfolio'   => array(
+					'description' => __( 'Portfolio Items', 'timber' ),
+					'labels'        => array(
+						'name'               => __( 'Projects', 'timber' ),
+						'singular_name'      => __( 'Project', 'timber' ),
+						'add_new'            => __( 'Add New', 'timber' ),
+						'add_new_item'       => __( 'Add New Project', 'timber' ),
+						'edit_item'          => __( 'Edit Project', 'timber' ),
+						'new_item'           => __( 'New Project', 'timber' ),
+						'all_items'          => __( 'All Projects', 'timber' ),
+						'view_item'          => __( 'View Project', 'timber' ),
+						'search_items'       => __( 'Search Projects', 'timber' ),
+						'not_found'          => __( 'No Projects found', 'timber' ),
+						'not_found_in_trash' => __( 'No Projects found in Trash', 'timber' ),
+						'menu_name'          => __( 'Portfolio', 'timber' ),
+					),
+					'public'        => true,
+					'rewrite' => array(
+						'slug'       => 'portfolio',
+						'with_front' => false,
+						'feeds'      => true,
+						'pages'      => true,
+					),
+					'supports' => array(
+						'title',
+						'editor',
+						'thumbnail',
+						'comments',
+						'publicize',
+						'wpcom-markdown',
+					),
+					'has_archive'   => 'portfolio-archive',
+					'menu_icon'     => 'slider.png',
+					'menu_position' => null,
+
+					'show_ui'         => true,                   // below Pages
+					'capability_type' => 'page',
+					'map_meta_cap'    => true,
+					'taxonomies'      => array( 'jetpack-portfolio-tag', 'jetpack-portfolio-type' ),
+					'query_var'       => 'portfolio',
+
+					//'yarpp_support' => true,
+				),
+			),
+			'taxonomies'       => array(
+
+				'jetpack-portfolio-type'   => array(
+					'hierarchical'      => true,
+					'labels'            => array(
+						'name'              => esc_html__( 'Project Types',         'jetpack' ),
+						'singular_name'     => esc_html__( 'Project Type',          'jetpack' ),
+						'menu_name'         => esc_html__( 'Project Types',         'jetpack' ),
+						'all_items'         => esc_html__( 'All Project Types',     'jetpack' ),
+						'edit_item'         => esc_html__( 'Edit Project Type',     'jetpack' ),
+						'view_item'         => esc_html__( 'View Project Type',     'jetpack' ),
+						'update_item'       => esc_html__( 'Update Project Type',   'jetpack' ),
+						'add_new_item'      => esc_html__( 'Add New Project Type',  'jetpack' ),
+						'new_item_name'     => esc_html__( 'New Project Type Name', 'jetpack' ),
+						'parent_item'       => esc_html__( 'Parent Project Type',   'jetpack' ),
+						'parent_item_colon' => esc_html__( 'Parent Project Type:',  'jetpack' ),
+						'search_items'      => esc_html__( 'Search Project Types',  'jetpack' ),
+					),
+					'public'            => true,
+					'show_ui'           => true,
+					'show_in_nav_menus' => true,
+					'show_admin_column' => true,
+					'query_var'         => true,
+					'rewrite'           => array( 'slug' => 'project-type' ),
+					'post_types'        => array( 'jetpack-portfolio' )
+				),
+
+				'jetpack-portfolio-tag'   => array(
+					'hierarchical'      => false,
+					'labels'            => array(
+						'name'                       => __( 'Project Tags',                   'timber' ),
+						'singular_name'              => __( 'Project Tag',                    'timber' ),
+						'menu_name'                  => __( 'Project Tags',                   'timber' ),
+						'all_items'                  => __( 'All Project Tags',               'timber' ),
+						'edit_item'                  => __( 'Edit Project Tag',               'timber' ),
+						'view_item'                  => __( 'View Project Tag',               'timber' ),
+						'update_item'                => __( 'Update Project Tag',             'timber' ),
+						'add_new_item'               => __( 'Add New Project Tag',            'timber' ),
+						'new_item_name'              => __( 'New Project Tag Name',           'timber' ),
+						'search_items'               => __( 'Search Project Tags',            'timber' ),
+						'popular_items'              => __( 'Popular Project Tags',           'timber' ),
+						'separate_items_with_commas' => __( 'Separate tags with commas',      'timber' ),
+						'add_or_remove_items'        => __( 'Add or remove tags',             'timber' ),
+						'choose_from_most_used'      => __( 'Choose from the most used tags', 'timber' ),
+						'not_found'                  => __( 'No tags found.',                 'timber' ),
+					),
+					'show_admin_column' => true,
+					'rewrite'           => array( 'slug' => 'project-tag' ),
+					'sort'              => true,
+					'post_types'        => array( 'jetpack-portfolio' )
+				),
+			),
+
 			'metaboxes'        => array(
 				'timber_frontpage_settings' => array(
 					'id'         => 'timber_frontpage_settings',
