@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Front Page Template
+ * Template Name: Featured Projects Template
  *
  * Aimed at being used as a static front page where you can showcase your featured projects in a fullscreen slideshow
  *

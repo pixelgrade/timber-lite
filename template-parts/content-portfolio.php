@@ -5,7 +5,7 @@
  * @package Timber
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<?php
 	/**
@@ -24,7 +24,9 @@
 	 */
 	?>
 	<div class="portfolio__header">
-		<div class="portfolio__category">Category</div>
+
+		<?php timber_the_project_types( get_the_ID(), '<div class="portfolio__category">', '</div>' ); ?>
+
 		<h2 class="portfolio__title h1">
 			<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
 				<?php

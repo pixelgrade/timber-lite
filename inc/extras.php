@@ -23,6 +23,31 @@ function timber_body_classes( $classes ) {
 }
 add_filter( 'body_class', 'timber_body_classes' );
 
+/**
+ * Extend the default WordPress post classes.
+ *
+ * @since Timber 1.0
+ *
+ * @param array $classes A list of existing post class values.
+ * @return array The filtered post class list.
+ */
+function timber_post_classes( $classes ) {
+
+	//add classes for portfolio
+	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
+		if ( is_single() ) {
+			$classes[] = 'portfolio js-portfolio entry-content';
+		} else {
+			//this is a project displayed in some sort of archive
+			$classes[] = 'portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio';
+		}
+	}
+
+	return $classes;
+}
+
+add_filter( 'post_class', 'timber_post_classes' );
+
 if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 	/**
 	 * Filters wp_title to print a neat <title> tag based on what is being viewed.
