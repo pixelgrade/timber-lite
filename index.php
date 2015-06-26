@@ -17,7 +17,7 @@ get_header(); ?>
 	<?php if ( have_posts() ) : ?>
 		<div class="filmstrip">
 			<div class="site-sidebar">
-				<div class="site-sidebar__content">Journal</div>
+				<div class="site-sidebar__content"><?php _e( 'Journal', 'timber' ); ?></div>
 			</div>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -44,12 +44,9 @@ get_header(); ?>
 	<div class="bar--fixed">
 		<div class="share-button"></div>
 		<div class="site-info">
-			<ul class="nav">
-				<li class="current"><a href="#">All</a></li>
-				<li><a href="#">Travel</a></li>
-				<li><a href="#">Lifestyle</a></li>
-				<li><a href="#">Fashion</a></li>
-			</ul>
+
+			<?php timber_the_categories_nav(); ?>
+
 		</div>
 		<div class="share-button"></div>
 	</div>

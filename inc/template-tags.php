@@ -258,6 +258,38 @@ function timber_category_transient_flusher() {
 add_action( 'edit_category', 'timber_category_transient_flusher' );
 add_action( 'save_post',     'timber_category_transient_flusher' );
 
+if ( ! function_exists( 'timber_the_categories_nav' ) ) :
+	/**
+	 * Print the categories navigation used for filtering the blog posts
+	 */
+	function timber_the_categories_nav() {
+		//get only the top level categories
+		$categories = get_categories(array(
+			'orderby' => 'name',
+			'order' => 'ASC',
+			'hide_empty' => 1,
+			'hierarchical' => false,
+			'parent' => 0,
+			'number' => 15, //15 is the maximum we can beautifully handle
+		) );
+
+		if ( ! empty( $categories ) ) : ?>
+
+		<ul class="nav">
+			<li class="current"><a href="#show-all"><?php _e( 'All', 'timber' ); ?></a></li>
+
+			<?php foreach ( $categories as $category ) : ?>
+
+			<li><a href="#<?php echo $category->slug; ?>"><?php echo $category->name; ?></a></li>
+
+			<?php endforeach; ?>
+
+		</ul>
+
+		<?php endif;
+	}
+endif;
+
 
 if ( ! function_exists( 'timber_get_custom_excerpt' ) ) :
 /**
