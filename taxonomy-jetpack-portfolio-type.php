@@ -1,4 +1,13 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying archive pages for the portfolio types.
+ *
+ * Learn more: http://codex.wordpress.org/Template_Hierarchy
+ *
+ * @package Timber
+ */
+
+get_header(); ?>
 
 <div class="site-container">
 
