@@ -17,16 +17,12 @@ function platformDetect() {
     .addClass(!!$.support.transform ? 'transform' : 'no-transform');
 }
 
-
-
 function browserSize() {
     windowHeight    = $window.height();
     windowWidth     = $window.width();
     documentHeight  = $document.height();
     orientation     = windowWidth > windowHeight ? 'portrait' : 'landscape';
 }
-
-
 
 function getSupportedTransform() {
   var prefixes = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];

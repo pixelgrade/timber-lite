@@ -3,7 +3,7 @@ var Placeholder = (function() {
     var update = function($container, src) {
 
         $container  = $container || $('body');
-        src         = src || 'srcfull';
+        src         = src || 'srcsmall';
 
         var $items = $container.find('.js-placeholder');
 

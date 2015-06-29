@@ -15,7 +15,6 @@ img {
     @extend %transform--0;
 
     height: 100%;
-    opacity: 0;
     pointer-events: none;
 
     .project_layout-slider & {
@@ -67,6 +66,7 @@ img {
     }
 
     &__item {
+        @extend %transform--0;
         background: #eee;
         flex-shrink: 0;
         margin-right: 1em;
@@ -103,19 +103,33 @@ img {
         height: auto;
         flex-wrap: wrap;
         z-index: 100;
+
+        .portfolio__item {
+            opacity: 0;
+            transition: none !important;
+        }
+
+        &.portfolio--visible {
+
+            .portfolio__item {
+                opacity: 1;
+            }
+        }
+    }
+
+    &--filmstrip {
+        opacity: 0;
+
+        &.portfolio--visible {
+            opacity: 1;
+        }
     }
 
     &--grid &__item {
-        opacity: 0;
         margin-right: .5em;
         margin-bottom: .5em;
         height: 15vh;
-
-    }
-
-    &--grid.portfolio--visible &__item {
-        transition-delay: .3s;
-        opacity: 1;
+        position: relative;
     }
 
     &--grid &__item--content,
@@ -148,7 +162,6 @@ img {
     }
 
     &--visible {
-        opacity: 1;
         pointer-events: auto;
     }
 

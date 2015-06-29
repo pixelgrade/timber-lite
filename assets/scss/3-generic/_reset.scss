@@ -71,7 +71,11 @@
 %pointer-events--auto       { pointer-events: auto }
 %pointer-events--none       { pointer-events: none }
 
-%transform--0               { transform: translateZ(0); }
+%transform--0               {
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    transform: translateZ(0);
+}
 
 body {
     @extend %margin--0;
