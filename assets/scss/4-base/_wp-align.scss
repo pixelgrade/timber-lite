@@ -37,7 +37,7 @@ img {
     }
 }
 
-.aligncenter, .alignnone, .entry-content .jetpack-video-wrapper {
+.wp-caption.aligncenter, .wp-caption.alignnone, .entry-content .jetpack-video-wrapper {
     @include breakpoint(break-3) {
         margin-left: -3 * $gutter;
         margin-right: -3 * $gutter;
@@ -59,6 +59,10 @@ img {
         max-width: 100%;
         height: auto;
     }
+}
+
+.aligncenter {
+    margin: 0 auto;
 }
 
 .alignleft, .alignright {

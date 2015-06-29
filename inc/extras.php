@@ -616,3 +616,32 @@ function timber_search_form( $form ) {
 }
 
 add_filter( 'get_search_form', 'timber_search_form' );
+
+
+/**
+ * Add "Styles" drop-down
+ */
+add_filter( 'mce_buttons_2', 'timber_mce_editor_buttons' );
+function timber_mce_editor_buttons( $buttons ) {
+	array_unshift($buttons, 'styleselect' );
+	return $buttons;
+}
+
+/**
+ * Add styles/classes to the "Styles" drop-down
+ */
+add_filter( 'tiny_mce_before_init', 'timber_mce_before_init' );
+function timber_mce_before_init( $settings ) {
+
+	$style_formats =array(
+		array( 'title' => __( 'Intro Text', 'timber' ), 'selector' => 'p', 'classes' => 'intro'),
+		array( 'title' => __( 'Dropcap', 'timber' ), 'inline' => 'span', 'classes' => 'dropcap'),
+		array( 'title' => __( 'Highlight', 'timber' ), 'inline' => 'span', 'classes' => 'highlight' ),
+		array( 'title' => __( 'Two Columns', 'timber' ), 'selector' => 'p', 'classes' => 'twocolumn', 'wrapper' => true ),
+		array( 'title' => __( 'Caption', 'timber' ), 'inline' => 'span', 'classes' => 'caption' )
+	);
+
+	$settings['style_formats'] = json_encode( $style_formats );
+
+	return $settings;
+}
