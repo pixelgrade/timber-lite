@@ -21,7 +21,6 @@ get_header(); ?>
 			</div>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
-				<div class="filmstrip__item">
 				<?php
 
 					/*
@@ -31,7 +30,6 @@ get_header(); ?>
 					 */
 					get_template_part( 'template-parts/content', get_post_format() );
 				?>
-				</div>
 			<?php endwhile; ?>
 		<?php timber_paging_nav(); ?>
 		</div>
@@ -42,13 +40,7 @@ get_header(); ?>
 
 <div class="site-footer">
 	<div class="bar--fixed">
-		<div class="share-button"></div>
-		<div class="site-info">
-
-			<?php timber_the_categories_nav(); ?>
-
-		</div>
-		<div class="share-button"></div>
+		<?php timber_the_categories_nav(); ?>
 	</div>
 </div>
 
