@@ -8,9 +8,13 @@
 get_header();
 
 $project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
+//in case nothing is returned default to a hybrid template
+if ( empty( $project_template ) ) {
+	$project_template = 'hybrid';
+}
 
 while ( have_posts() ) : the_post();
-	if ( $project_template == 'hybrid' ): ?>
+	if ( 'hybrid' == $project_template ): ?>
 
 	<main id="content" class="site-content site-container site-content--filmstrip">
 		<?php get_template_part( 'template-parts/content', 'project-filmstrip' ); ?>
