@@ -21,7 +21,6 @@ get_header(); ?>
 			</div>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
-				<div class="filmstrip__item">
 				<?php
 
 					/*
@@ -31,7 +30,6 @@ get_header(); ?>
 					 */
 					get_template_part( 'template-parts/content', get_post_format() );
 				?>
-				</div>
 			<?php endwhile; ?>
 		<?php timber_paging_nav(); ?>
 		</div>

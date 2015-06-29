@@ -20,6 +20,8 @@ function init() {
   platformDetect();
   Portfolio.init();
 
+  $('.filmstrip').mixItUp();
+
   // setTimeout(function() {
   // }, 10);
 }
