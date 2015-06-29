@@ -6718,16 +6718,17 @@ if (!Date.now) Date.now = function () {
   });
 
   function init() {
-    // jQuery('.portfolio__item--text').each(function(i, obj) {
-    //   jQuery(obj).width(jQuery(obj).getColumnsWidth());
-    // });
     platformDetect();
     Portfolio.init();
 
-    $('.filmstrip').mixItUp();
-
-    // setTimeout(function() {
-    // }, 10);
+    if ($('.filmstrip').length) {
+      $('.filmstrip').mixItUp({
+        selectors: {
+          target: '.filmstrip__item',
+          filter: '.filter__item'
+        }
+      });
+    }
   }
 
   // /* ====== ON WINDOW LOAD ====== */

@@ -40,13 +40,7 @@ get_header(); ?>
 
 <div class="site-footer">
 	<div class="bar--fixed">
-		<div class="share-button"></div>
-		<div class="site-info">
-
-			<?php timber_the_categories_nav(); ?>
-
-		</div>
-		<div class="share-button"></div>
+		<?php timber_the_categories_nav(); ?>
 	</div>
 </div>
 

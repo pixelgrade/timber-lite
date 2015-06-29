@@ -728,12 +728,12 @@ if ( ! function_exists( 'timber_the_categories_nav' ) ) :
 
 		if ( ! empty( $categories ) ) : ?>
 
-			<ul class="nav">
-				<li class="filter" data-filter="*"><?php _e( 'All', 'timber' ); ?></li>
+			<ul class="filter">
+				<li class="filter__item active" data-filter="*"><?php _e( 'All', 'timber' ); ?></li>
 
 				<?php foreach ( $categories as $category ) : ?>
 
-					<li class="filter" data-filter=".category-<?php echo $category->slug; ?>"><?php echo $category->name; ?></li>
+					<li class="filter__item" data-filter=".category-<?php echo $category->slug; ?>"><?php echo $category->name; ?></li>
 
 				<?php endforeach; ?>
 

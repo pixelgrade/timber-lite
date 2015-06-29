@@ -1,3 +1,22 @@
+%current-item {
+    position: relative;
+
+    &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 8px;
+        transform: translateY(50%);
+        background-image: url('assets/svg/divider.svg');
+        background-repeat: repeat-x;
+        background-position: top center;
+        opacity: 0.25;
+    }
+}
+
 .nav--main {
     @extend %font-weight--bold;
     text-transform: uppercase;
@@ -22,21 +41,11 @@
     // styling of current menu items
     [class*="current-menu-"] {
         > a {
-            position: relative;
+            @extend %current-item;
 
             &:before {
-                content: "";
-                display: block;
-                position: absolute;
-                bottom: 0;
                 left: 1em;
                 right: 1em;
-                height: 8px;
-                transform: translateY(50%);
-                background-image: url('assets/svg/divider.svg');
-                background-repeat: repeat-x;
-                background-position: top center;
-                opacity: 0.25;
             }
         }
     }
