@@ -1,15 +1,18 @@
-var Portfolio = (function() {
+window.Portfolio = (function() {
 
 	var $film,
-		filmstripWidth,
 		$grid,
-		$fullview = $('.fullview'),
-		$first,
+		$fullview,
+
 		start,
-		$last,
 		end,
+
 		current = 0,
 		$currentFoto,
+
+		filmWidth,
+		contentWidth,
+		sidebarWidth,
 
 	init = function() {
 
@@ -20,37 +23,52 @@ var Portfolio = (function() {
 
 		$film  		= $('.js-portfolio');
 		$grid   	= $film.clone().insertBefore($film);
-
-		var scroller = new Scroller($film, function() {
-		    var x = scroller.get('x'),
-		        y = scroller.get('y');
-
-		    if ($('.single-jetpack-portfolio').length) {
-		      Portfolio.updateCurrent(x, y);
-		    }
-		});
+		$fullview 	= $('.fullview');
 
 		$film.addClass('portfolio--filmstrip portfolio--visible');
 		$grid.addClass('portfolio--grid');
 
-		placehold();
+		filmWidth 		= $film.width();
+		contentWidth 	= $('.site-content').width();
+		sidebarWidth 	= $('.site-sidebar').width();
 
 		getMiddlePoints();
+		getReferenceBounds();
 
-		filmstripWidth = $film.width();
-		$first = $film.find('.js-portfolio-item').first();
-		start = getMiddle($first) + (getMiddle($first.next()) - getMiddle($first)) / 2;
-		$last = $film.find('.js-portfolio-item').last();
-		end = $('.site-content').width() - $('.site-sidebar').width() - filmstripWidth + getMiddle($last.prev()) + (getMiddle($last) - getMiddle($last.prev())) / 2;
+		$currentFoto 	= $film.find('.js-portfolio-item').first();
+		getCurrent();
+		bindEvents();
+	},
+
+	getCurrent = function() {
+		var x = scroller.get('x'),
+			reference = start + (end - start) * x / (filmWidth - contentWidth) + x,
+			$next = $currentFoto,
+			min = Math.abs(reference - current);
+
+		$film.find('.js-portfolio-item').each(function(i, obj) {
+			var compare = $(obj).data('middle');
+
+			if (Math.abs(compare - reference) <= min) {
+				min = Math.abs(compare - reference);
+				$next = $(obj);
+			}
+		});
+
+		setCurrent($next);
+	},
+
+	getReferenceBounds = function() {
+		var $first 			= $film.find('.js-portfolio-item').first(),
+			$last 			= $film.find('.js-portfolio-item').last();
+
+		start 	= $first.data('middle') + ($first.next().data('middle') - $first.data('middle')) / 2;
+		end 	= contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
 
 		if (start > end) {
-			end = $('.site-content').width() / 2 - $('.site-sidebar').width();
+			end = contentWidth / 2 - sidebarWidth;
 			start = end - 10;
 		}
-
-		$currentFoto = $first.addClass('portfolio__item--active');
-		// setCurrent($currentFoto);
-		bindEvents();
 	},
 
 	getMiddlePoints = function() {
@@ -187,10 +205,11 @@ var Portfolio = (function() {
 			newHeight   = $item.height(),
 			newWidth    = newHeight * $item.data('width') / $item.data('height'),
 			$image      = $(document.createElement('img'));
+
 		$item.width(newWidth).height(newHeight);
-		$image.width(newWidth).height(newHeight)
-			.attr('src', $item.data('srcfull'))
-			.prependTo($item);
+		// $image.width(newWidth).height(newHeight)
+		// 	.attr('src', $item.data('srcfull'))
+		// 	.prependTo($item);
 	},
 
 	getMiddle = function($image) {
@@ -200,7 +219,7 @@ var Portfolio = (function() {
 	updateCurrent = function(x, y) {
 
 		var width = end - start,
-			reference =  start + width * x / (filmstripWidth - $('.site-content').width()) + x,
+			reference =  start + width * x / (filmWidth - contentWidth) + x,
 			compare,
 			$next;
 
@@ -213,6 +232,7 @@ var Portfolio = (function() {
 		}
 
 		compare = $next.data('middle');
+
 		$('.js-compare').css('left', compare).text(parseInt(compare));
 
 		if (Math.abs(compare - reference) <= Math.abs(reference - current)) {
@@ -253,6 +273,7 @@ var Portfolio = (function() {
 
 	return {
 		init: init,
+		getCurrent: getCurrent,
 		updateCurrent: updateCurrent
 	}
 })();
