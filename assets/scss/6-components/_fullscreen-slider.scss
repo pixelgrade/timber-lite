@@ -44,11 +44,48 @@
 
 	.rsBullets {
 		position: absolute;
-		bottom: 50px;
-		left: 50%;
+		bottom: 0;
+		left: 0;
+		right: 0;
 		z-index: 101;
 
-		transform: translateX(-50%);
+		width: 100%;
+		height: 13vh;
+
+		text-align: center;
+
+		background: white;
+
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		-webkit-flex-wrap: nowrap;
+		-ms-flex-wrap: nowrap;
+		flex-wrap: nowrap;
+		-webkit-justify-content: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		-webkit-align-content: stretch;
+		-ms-flex-line-pack: stretch;
+		align-content: stretch;
+		-webkit-align-items: center;
+		-ms-flex-align: center;
+		align-items: center;
+
+		.rsBullet {
+			-webkit-order: 0;
+			-ms-flex-order: 0;
+			order: 0;
+			-webkit-flex: 0 1 auto;
+			-ms-flex: 0 1 auto;
+			flex: 0 1 auto;
+			-webkit-align-self: auto;
+			-ms-flex-item-align: auto;
+			align-self: auto;
+		}
 	}
 }
 
@@ -116,7 +153,23 @@
 	.site-content {
 		position: static;
 	}
+}
 
+.slider_height-full-height {
+	.rsBullets {
+		background: transparent;
+
+		.rsBullet {
+			border-color: white;
+		}
+
+		.rsNavSelected {
+			background: white;
+		}
+	}
+}
+
+.slider_height-full-height, .project_layout-slider {
 	.bar--fixed, .site-header, .site-footer {
 		background: transparent;
 
