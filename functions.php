@@ -133,9 +133,25 @@ function timber_scripts() {
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
 	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css' );
 
-	wp_enqueue_script( 'timber-scripts', get_stylesheet_directory_uri() . '/assets/js/main.js', array(
+	wp_register_script( 'timber-scripts', get_stylesheet_directory_uri() . '/assets/js/main.js', array(
 		'jquery',
 	), '1.0.0', true );
+	// Localize the script with new data
+	$translation_array = array
+	(
+		'tPrev' => __('Previous (Left arrow key)', 'timber'),
+		'tNext' => __('Next (Right arrow key)', 'timber'),
+		'tCounter' => __('of', 'timber'),
+		'infscrLoadingText' => __("<em>Loading more...</em>", 'timber'),
+		'infscrReachedEnd' => __("<em>Nothing left to load.</em>", 'timber'),
+	);
+	wp_localize_script( 'timber-scripts', 'objectl10n', $translation_array );
+	wp_localize_script( 'timber-scripts', 'timber_ajax', array(
+		'ajax_url' => admin_url('admin-ajax.php'),
+		'nonce' => wp_create_nonce( 'timber_ajax' ),
+		) );
+	// Enqueued script with localized data.
+	wp_enqueue_script( 'timber-scripts' );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

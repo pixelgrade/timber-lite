@@ -645,3 +645,42 @@ function timber_mce_before_init( $settings ) {
 
 	return $settings;
 }
+
+/*
+ * Ajax loading all posts
+ */
+add_action( 'wp_ajax_timber_load_next_posts', 'timber_load_next_posts');
+add_action( 'wp_ajax_nopriv_timber_load_next_posts', 'timber_load_next_posts');
+function timber_load_next_posts( ) {
+	global $post;
+
+	if( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ){
+		wp_send_json_error();
+	}
+
+	//set the query args
+	$args = array();
+	$args['posts_per_page'] = get_option('posts_per_page');
+	//check if we have a offset in $_POST
+	if ( isset( $_POST['offset'] ) ) {
+		$args['offset'] = (int)$_POST['offset'];
+	}
+	$posts = get_posts( $args );
+	if ( ! empty( $posts ) ) {
+		ob_start();
+
+		foreach ( $posts as $post ) : setup_postdata( $post );
+			get_template_part( 'template-parts/content', get_post_format() );
+		endforeach;
+
+		/* Restore original Post Data */
+		wp_reset_postdata();
+
+		wp_send_json_success( array(
+			'posts' => ob_get_clean(),
+			'nonce' => wp_create_nonce( 'webdev' ),
+		) );
+	} else {
+		wp_send_json_error();
+	}
+}

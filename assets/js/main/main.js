@@ -19,13 +19,60 @@ function init() {
   Placeholder.update();
   Portfolio.init();
 
-  if ($('.filmstrip').length) {
-    $('.filmstrip').mixItUp({
+	var $filmstrip_container = $('.filmstrip');
+
+  if ($filmstrip_container.length) {
+	  $filmstrip_container.mixItUp({
       selectors: {
         target: '.filmstrip__item',
         filter: '.filter__item'
       }
     });
+
+	  $('.nav-links .nav-previous a').click(function(){
+		  $(this).addClass('loading');
+
+		  var offset = $filmstrip_container.find('.filmstrip__item').length;
+
+		  if (globalDebug) {console.log("Loading More Posts - AJAX Offset = " + offset);}
+
+		  $.post(
+			  timber_ajax.ajax_url,
+			  {
+				  action : 'timber_load_next_posts',
+				  nonce : timber_ajax.nonce,
+				  offset : offset
+			  },
+			  function(response_data) {
+
+				  if( response_data.success ){
+					  if (globalDebug) {console.log("Loaded next posts");}
+
+					  var $result = $( response_data.data.posts );
+
+					  if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
+
+					  $result.imagesLoaded(function(){
+						  if (globalDebug) {console.log("MixItUp Filtering - Images Loaded");}
+
+						  $filmstrip_container.mixItUp( 'append', $result );
+
+						  //is_everything_loaded = true;
+
+						  //if (globalDebug) {console.log("MixItUp Filtering - Filter by "+selector);}
+					  });
+				  } else {
+					  //we have failed
+					  //it's time to call it a day
+					  if (globalDebug) {console.log("It seems that there are no more posts to load");}
+
+					  $('.nav-links' ).remove();
+				  }
+			  }
+		  );
+
+		  return false;
+	  });
   }
 }
 
