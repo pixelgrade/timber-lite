@@ -4,17 +4,19 @@ $(document).ready(function() {
   init();
 });
 
-window.scroller = new Scroller(window, function() {
-    var x = scroller.get('x'),
-        y = scroller.get('y');
-
-    if ($('.single-jetpack-portfolio').length) {
-      Portfolio.updateCurrent(x, y);
-    }
-});
 
 function init() {
+  window.scroller = new Scroller(window, function() {
+      var x = scroller.get('x'),
+          y = scroller.get('y');
+
+      if ($('.single-jetpack-portfolio').length) {
+        Portfolio.updateCurrent(x, y);
+      }
+  });
+
   platformDetect();
+  Placeholder.update();
   Portfolio.init();
 
   if ($('.filmstrip').length) {

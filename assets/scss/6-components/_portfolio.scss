@@ -4,17 +4,24 @@
     flex-direction: column;
 }
 
+img {
+    will-change: opacity;
+    transition: opacity .3s ease-in-out;
+}
+
 .portfolio {
     @extend %display--flex;
     @extend %position--absolute;
     @extend %transform--0;
 
-    top: 0; bottom: 0;
-    left: 0; right: 0;
-    
     height: 100%;
     opacity: 0;
     pointer-events: none;
+
+    .project_layout-slider & {
+        top: 0; bottom: 0;
+        left: 0; right: 0;
+    }
 
     .site-content--fullscreen & {
         opacity: 1;
@@ -94,7 +101,6 @@
         @extend %position--fixed;
         @extend %transform--0;
         height: auto;
-        min-height: 15vh;
         flex-wrap: wrap;
         z-index: 100;
     }
@@ -103,6 +109,7 @@
         opacity: 0;
         margin-right: .5em;
         margin-bottom: .5em;
+        height: 15vh;
 
     }
 

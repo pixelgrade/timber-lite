@@ -520,7 +520,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-images' );
 		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-images' );
 		$markup .=
-		'<div class="portfolio__item js-portfolio-item"
+		'<div class="portfolio__item js-placeholder js-portfolio-item"
 			data-srcsmall="' . $image_small_size[0] . '"
 			data-srclarge="' . $image_large_size[0] . '"
 			data-srcfull="' . $image_full_size[0] . '"

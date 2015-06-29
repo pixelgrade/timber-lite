@@ -29,9 +29,9 @@
 	timber_the_film_strip();
 	?>
 
-	<!-- <div class="js-last"></div>
+	<div class="js-last"></div>
 	<div class="js-compare"></div>
-	<div class="js-reference"></div> -->
+	<div class="js-reference"></div>
 
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->
 
