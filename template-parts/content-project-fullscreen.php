@@ -12,8 +12,7 @@
 	     data-imagealigncenter
 	     data-imagescale="fill"
 	     data-arrows
-	     data-keyboardnav
-	     data-bullets>
+	     data-keyboardnav >
 
 		<div class="project-slide  rsContent">
 			<img width="1600" height="1200" src="http://10.0.1.3/timber/wp-content/uploads/2011/07/dsc20050102_192118_51.jpg" class="rsImg" alt="Wind Farm" />

@@ -14,6 +14,21 @@
 		width: auto;
 		height: auto;
 	}
+
+	.rsArrowLeft {
+		padding-left: 42px;
+	}
+
+	.rsArrowRight {
+		padding-right: 42px;
+	}
+
+	.rsArrow .rsArrowIcn {
+		border-color: white;
+		border-width: 1px;
+		width: 25px;
+		height: 25px;
+	}
 }
 
 .projects-slider {
@@ -94,5 +109,25 @@
 
 	&.right-align {
 		right: 0.5vw;
+	}
+}
+
+.project_layout-slider {
+	.site-content {
+		position: static;
+	}
+
+	.bar--fixed, .site-header, .site-footer {
+		background: transparent;
+
+		* {
+			color: white;
+			text-shadow: none;
+		}
+
+	}
+
+	.nav--main .sub-menu {
+		background: transparent;
 	}
 }
