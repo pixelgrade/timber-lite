@@ -26,8 +26,16 @@
 		color: white;
 	}
 
+	a, a:hover {
+		background: none;
+	}
+
 	p {
 		line-height: 1.6;
+	}
+
+	.search-form {
+		border: 0;
 	}
 }
 

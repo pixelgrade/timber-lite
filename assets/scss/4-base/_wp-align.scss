@@ -32,7 +32,11 @@ img {
         margin-bottom: 0;
     }
 
-    .widget &, .blog &, .archive &, .search &{
+    .widget &, .blog &, .archive &, .search & {
+        margin: 0;
+    }
+
+    .widget &.wp-caption {
         margin: 0;
     }
 }

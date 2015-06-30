@@ -43,12 +43,13 @@
 	.overlay__col {
 		flex-grow: 1;
 		flex-shrink: 1;
-		padding: 0 50px;
 
 		&.col1 {
+			position: relative;
+
 			flex-basis: 510px;
 			height: calc(100vh - 250px);
-			position: relative;
+			padding: 0 50px;
 		}
 
 		&.col2 {
@@ -61,13 +62,21 @@
 		}
 	}
 		.sub-col_container {
-			@extend .grid;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: flex-start;
+			align-content: flex-start;
+
 			margin-bottom: 100px;
 		}
 
 			.sub-col {
-				@extend .grid__item;
-				@extend .one-half;
+				flex-grow: 0;
+				flex-shrink: 1;
+
+				padding: 0 50px;
+				flex-basis: 375px;
 			}
 
 
@@ -83,7 +92,7 @@
 .overlay__close {
 	position: absolute;
 	right: 24px;
-	top: 24px;
+	top: 12px;
 
 	padding: 12px;
 
