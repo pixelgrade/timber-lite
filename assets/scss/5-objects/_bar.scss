@@ -5,7 +5,8 @@
     height: $header-height;
     flex-basis: $header-height;
     flex-shrink: 0;
-    z-index: 1000;
+    // above mask which is 300
+    z-index: 350;
 }
 
 .bar--fixed {
