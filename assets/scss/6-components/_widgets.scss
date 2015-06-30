@@ -1,0 +1,90 @@
+.widget {
+	font-size: 14px;
+	color: #ABABAB;
+	margin-bottom: 36px;
+
+	ul {
+		list-style-type: none;
+		padding-top: 0;
+		margin-bottom: 0;
+
+		li {
+			line-height: 1;
+			margin-bottom: 12px;
+			margin-left: 0;
+		}
+	}
+
+	&.dashed {
+		li:before {
+			content: "\2013";
+			margin-right: 3px;
+		}
+	}
+
+	.widget-title, a {
+		color: white;
+	}
+
+	a, a:hover {
+		background: none;
+	}
+
+	p {
+		line-height: 1.6;
+	}
+
+	.search-form {
+		border: 0;
+	}
+}
+
+	.widget-title {
+		padding: 0;
+		margin-bottom: 12px;
+		line-height: 1;
+	}
+
+.widget_timber_image {}
+
+	.timber-widget-img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 50px;
+		height: 100%;
+
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+
+/* Widget - RSS */
+
+.widget_rss{
+
+	cite{
+		display: block;
+		margin-top: 6px;
+	}
+}
+
+.rsswidget { //rss entry title
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.rss-date{
+	&:before{
+		content: '-';
+
+		display: inline-block;
+		margin: 0 3px;
+	}
+}
+
+.widget_rss_links a{
+	display: inline-block;
+	vertical-align: middle;
+}

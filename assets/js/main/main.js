@@ -167,3 +167,8 @@ $window.on('scroll', function() {
   latestKnownScrollX = window.scrollX;
   requestTick();
 });
+
+$document.mousemove(function(e) {
+    latestKnownMouseX = e.pageX - latestKnownScrollX;
+    latestKnownMouseY = e.pageY - latestKnownScrollY;
+});

@@ -81,6 +81,7 @@ img {
 
     &__item--target {
         background: none;
+
         img {
             opacity: 0;
         }
@@ -129,6 +130,7 @@ img {
     }
 
     &--filmstrip {
+        z-index: 350;
         opacity: 0;
 
         &.portfolio--visible {
