@@ -36,7 +36,6 @@
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->
 
 <div class="fullview">
-    <div class="fullview__image"></div>
     <div class="fullview__close">x</div>
 </div>
 

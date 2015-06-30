@@ -129,8 +129,8 @@ function timber_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
-		'after_title'   => '</h1>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	) );
 
 	register_sidebar( array(
@@ -139,8 +139,8 @@ function timber_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
-		'after_title'   => '</h1>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	) );
 
 	register_sidebar( array(
@@ -149,8 +149,8 @@ function timber_widgets_init() {
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
-		'before_title'  => '<h1 class="widget-title">',
-		'after_title'   => '</h1>',
+		'before_title'  => '<h4 class="widget-title">',
+		'after_title'   => '</h4>',
 	) );
 }
 add_action( 'widgets_init', 'timber_widgets_init' );
@@ -176,6 +176,37 @@ function timber_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
+
+/**
+ * Registers/enqueues the scripts related to media JS APIs
+ *
+ */
+function timber_wp_enqueue_media() {
+	/*
+	 * Register the about-me.js here so we can upload images in the customizer
+	 */
+	if ( ! wp_script_is( 'timber-image-widget-admin', 'registered' ) ) {
+		wp_register_script( 'timber-image-widget-admin', get_template_directory_uri() . '/inc/widgets/assets/image.js', array(
+			'media-upload',
+			'media-views',
+		) );
+	}
+
+	wp_enqueue_script( 'timber-image-widget-admin' );
+
+	wp_localize_script(
+		'timber-image-widget-admin',
+		'TimberImageWidget',
+		array(
+			'l10n' => array(
+				'frameTitle'      => __( 'Choose an Image', 'timber' ),
+				'frameUpdateText' => __( 'Update Image', 'timber' ),
+			),
+		)
+	);
+}
+
+add_action( 'wp_enqueue_media', 'timber_wp_enqueue_media' );
 
 /**
  * Load theme's configuration file.
@@ -237,4 +268,5 @@ require get_template_directory() . '/inc/required-plugins/required-plugins.php';
  * Load the theme update logic
  */
 require_once( get_template_directory() . '/inc/wp-updates-theme.php');
+require get_template_directory() . '/inc/widgets/image-widget.php';
 new WPUpdatesThemeUpdater_1447( 'http://wp-updates.com/api/2/theme', basename( get_template_directory() ) );

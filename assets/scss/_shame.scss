@@ -14,6 +14,12 @@ html, body, .site {
     @extend %display--block;
 }
 
+
+// WP DEBUGGER
+#querylist * {
+    text-shadow: none !important;
+}
+
 // html {
 //     border: 0.88vh solid black;
 // }

@@ -7155,22 +7155,26 @@ if (!Date.now) Date.now = function () {
 
     var $film, $grid, $fullview, start, end, current,
 
-    init = function () {
+    fullviewWidth = windowWidth,
+        fullviewHeight = windowHeight,
+        
+        
+        init = function () {
 
-      if (!$('.single-jetpack-portfolio').length) {
-        placehold();
-        return;
-      }
+        if (!$('.single-jetpack-portfolio').length) {
+          placehold();
+          return;
+        }
 
-      $film = $('.js-portfolio');
-      $grid = $film.clone().insertBefore($film);
-      $fullview = $('.fullview');
+        $film = $('.js-portfolio');
+        $grid = $film.clone().insertBefore($film);
+        $fullview = $('.fullview');
 
-      $film.addClass('portfolio--filmstrip portfolio--visible');
-      $grid.addClass('portfolio--grid').find('.js-portfolio-item img').hide();
+        $film.addClass('portfolio--filmstrip portfolio--visible');
+        $grid.addClass('portfolio--grid').find('.js-portfolio-item img').hide();
 
-      bindEvents();
-    },
+        bindEvents();
+        },
         
         
         prepare = function () {
@@ -7261,21 +7265,20 @@ if (!Date.now) Date.now = function () {
         var $active = $('.portfolio__item--active'),
             $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
+        $grid.find('.js-portfolio-item img').css('opacity', '');
+
         TweenMax.to($('.site-content__mask'), 0, {
-          'transform-origin': '100% 0',
-          'z-index': 199
+          'transform-origin': '0 100%',
+          'z-index': 300
         });
-        $film.css('z-index', 198);
-        $grid.css('z-index', 200);
+        $film.css('z-index', 200);
+        $grid.css('z-index', 400);
 
         morph($active, $target, {
           delay: .3
         });
 
         setTimeout(function () {
-          $film.removeClass('portfolio--visible');
-          $grid.addClass('portfolio--visible');
-
           var $items = $grid.find('.js-portfolio-item img');
           $items.sort(function () {
             return 0.5 - Math.random()
@@ -7291,6 +7294,8 @@ if (!Date.now) Date.now = function () {
           scale: 1,
           ease: Expo.easeInOut,
           onComplete: function () {
+            $film.removeClass('portfolio--visible');
+            $grid.addClass('portfolio--visible');
             TweenMax.to('.site-content__mask', 0, {
               scaleX: 0
             });
@@ -7305,6 +7310,7 @@ if (!Date.now) Date.now = function () {
         var $clicked = $(this),
             $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
+        $clicked.css('opacity', 0);
         $film.find('.js-portfolio-item').css('opacity', 0);
         $film.find('.js-portfolio-item img').css('opacity', '');
 
@@ -7314,10 +7320,10 @@ if (!Date.now) Date.now = function () {
 
         TweenMax.to($('.site-content__mask'), 0, {
           'transform-origin': '100% 0',
-          'z-index': 199
+          'z-index': 300
         });
-        $film.css('z-index', 200);
-        $grid.css('z-index', 198);
+        $film.css('z-index', 400);
+        $grid.css('z-index', 200);
 
         TweenMax.to($('.site-content__mask'), .6, {
           scale: 1,
@@ -7356,11 +7362,16 @@ if (!Date.now) Date.now = function () {
             $target = $('<div>').addClass('fullview__image'),
             $image = $(document.createElement('img'));
 
+        fullviewWidth = width * scale;
+        fullviewHeight = height * scale;
+
+        setCurrent($source);
+
         $target.css({
-          width: width * scale,
-          height: height * scale,
-          top: (height * scale - newHeight) / -2,
-          left: (width * scale - newWidth) / -2
+          width: fullviewWidth,
+          height: fullviewHeight,
+          top: (fullviewHeight - newHeight) / -2,
+          left: (fullviewWidth - newWidth) / -2
         });
 
         $fullview.append($target);
@@ -7368,14 +7379,39 @@ if (!Date.now) Date.now = function () {
         $image.attr('src', $source.data('srcfull')).prependTo($target);
 
         morph($source, $target);
-        $fullview.addClass('fullview--visible');
 
+        setTimeout(function () {
+          $document.on('mousemove', panFullview);
+        }, 500);
+
+        $fullview.addClass('fullview--visible');
+        },
+        
+        
+        panFullview = function () {
+        TweenMax.to($('.fullview__image img'), 0, {
+          x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+          y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight
+        });
         },
         
         
         hideFullView = function () {
-        $fullview.removeClass('fullview--visible');
-        $('.fullview__image').remove();
+        var $source = $('.fullview__image'),
+            $target = $('.portfolio__item--active');
+
+        $document.off('mousemove', panFullview);
+        TweenMax.to($('.fullview__image img'), .3, {
+          x: 0,
+          y: 0,
+          onComplete: function () {
+            morph($source, $target);
+            setTimeout(function () {
+              $fullview.removeClass('fullview--visible');
+              $('.fullview__image').remove();
+            }, 10);
+          }
+        });
         },
         
         
@@ -7392,15 +7428,15 @@ if (!Date.now) Date.now = function () {
           position: 'absolute',
           top: sourceOffset.top - targetOffset.top,
           left: sourceOffset.left - targetOffset.left,
-          width: $source.width(),
-          height: $source.height(),
+          width: sourceWidth,
+          height: sourceHeight,
           background: 'none'
         });
 
         $target.css({
           position: 'relative',
-          'z-index': 10000,
           transition: 'none',
+          'z-index': '10000',
           opacity: 1,
           background: 'none'
         });
@@ -7418,6 +7454,7 @@ if (!Date.now) Date.now = function () {
           onComplete: function () {
             $target.find('img').css('opacity', 1);
             $target.css({
+              background: '',
               position: '',
               'z-index': '',
               transition: '',
@@ -7808,6 +7845,11 @@ if (!Date.now) Date.now = function () {
     latestKnownScrollY = window.scrollY;
     latestKnownScrollX = window.scrollX;
     requestTick();
+  });
+
+  $document.mousemove(function (e) {
+    latestKnownMouseX = e.pageX - latestKnownScrollX;
+    latestKnownMouseY = e.pageY - latestKnownScrollY;
   }); /* ====== HELPER FUNCTIONS ====== */
 
 
