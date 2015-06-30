@@ -442,20 +442,50 @@ if ( ! function_exists( 'timber_process_partial_content_into_film_strip' ) ) :
  * @param boolean Optional. To ignore or not text boxes
  * @return string The markup
  */
-function timber_process_partial_content_into_film_strip( $content, $ignore_text = false ) {
+function timber_process_partial_content_into_film_strip( $content, $ignore_text = false, $the_content = true ) {
 	$markup = '';
 
 	//a little bit of cleanup
 	$content = trim( $content );
-	$content = apply_filters( 'the_content', $content );
 
-	//do nothing if we have no content
-	if ( empty( $content ) ) {
-		return $markup;
-	}
+    //do nothing if we have no content
+    if ( empty( $content ) ) {
+        return $markup;
+    }
 
-	//split this content by images (<img> tag)
-	$num_matches = preg_match_all("!(?:<\s*p\s?[^>]*>\s*)?(?:<\s*figure\s?.*>\s*)?(?:<\s*?a\s?.*>\s*)?<\s*img\s?.*src=[\"|']([^\"']*)[\"|'].*alt=[\"|']([^\"']*)[\"|'].*/>(?:\s*</a\s*>)?(?:\s*<\s*figcaption\s?[^>]*>([^>]*)\s*</figcaption\s*>)?(?:\s*</figure>)?(?:\s*</p\s*>)?!i", $content, $matches);
+    if ( true === $the_content ) {
+        //let other plugins have their take on the content
+        //although this might be a bit dangerous for those plugins that add something at the beginning or the end
+        $content = apply_filters( 'the_content', $content );
+    }
+
+    //FIRST split this content by videos (by the <div class="jetpack-video-wrapper"> )
+    //this will use recursion to process content between the videos
+    $num_matches = preg_match_all("!<div \s*class=[\"|']jetpack-video-wrapper[\"|']\s*>.*</div\s*>!i", $content, $matches);
+
+    //if no videos found, continue to processing images and text
+    if ( $num_matches > 0 ) {
+        for ($idx = 0; $idx < $num_matches; $idx++) {
+            //first let's see if there is some content before the current match
+            $pos = strpos( $content, $matches[0][ $idx ] );
+
+            $before_content = trim( substr( $content, 0, $pos ) );
+
+            //process the before content recursively
+            $markup .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, false );
+
+            //delete everything in front of the current match including it
+            $content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
+
+            //now let's handle the current video match
+            $markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div>' . PHP_EOL;
+
+        }
+    }
+
+	//SECOND, once done with the videos, we are left with the content after the last video (it there was any)
+	// split this content by images (<img>,<figure>)
+	$num_matches = preg_match_all( "!(?:<\s*p\s?[^>]*>\s*)?(?:<\s*figure\s?.*>\s*)?(?:<\s*?a\s?.*>\s*)?<\s*img\s?.*src=[\"|']([^\"']*)[\"|'].*alt=[\"|']([^\"']*)[\"|'].*/>(?:\s*</a\s*>)?(?:\s*<\s*figcaption\s?[^>]*>([^>]*)\s*</figcaption\s*>)?(?:\s*</figure>)?(?:\s*</p\s*>)?!i", $content, $matches );
 
 	for ( $idx = 0; $idx < $num_matches; $idx++ ) {
 		//first let's see if there is some content before the current match
