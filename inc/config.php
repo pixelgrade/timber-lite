@@ -11,7 +11,17 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 		$options['opt-name'] = 'timber_options';
 
 		// @TODO for the momment keep it empty
-		$options['sections'] = array();
+		$options['sections'] = array(
+			'generall' => array(
+				'title'    => __( 'General', 'timber' ),
+				'options' => array(
+					'test' => array(
+						'title' => 'Import',
+						'type' => 'import_demodata'
+					)
+				)
+			)
+		);
 
 		$options['panels'] = array(
 
