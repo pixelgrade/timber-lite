@@ -12,7 +12,7 @@ img {
 .portfolio {
     @extend %display--flex;
     @extend %position--absolute;
-    @extend %transform--0;
+    // @extend %transform--0;
 
     height: 100%;
     pointer-events: none;
@@ -66,12 +66,13 @@ img {
     }
 
     &__item {
-        @extend %transform--0;
+        // @extend %transform--0;
+        position: relative;
         background: #eee;
         flex-shrink: 0;
         margin-right: 1em;
         will-change: opacity;
-        // transition: opacity .3s ease-in-out;
+        transition: opacity .3s ease-in-out;
         cursor: pointer;
 
         &--content {
@@ -165,11 +166,7 @@ img {
         @extend %display--none;
     }
 
-    &--details {
-
-    }
-
-    &--details .js-portfolio-item {
+    &--details .js-portfolio-item:not(.portfolio__item--active) {
         @extend %transform--0;
         opacity: 0.25;
     }
@@ -178,10 +175,12 @@ img {
         pointer-events: auto;
     }
 
-
-    // &__item[class*="--active"] {
-    //     opacity: 1;
-    // }
+    &__meta {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 .page-template-portfolio-page,
