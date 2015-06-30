@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="19px" height="20px" viewBox="0 0 19 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Galleries" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="EXIF-Copy" transform="translate(-188.000000, -9.000000)" fill="#000000">
+            <g id="noun_120118" transform="translate(190.000000, 12.000000)">
+                <path d="M13.6339869,14 L8.2600593e-14,7 L13.6339869,-4.35207426e-14 L14,0.845637584 L2.0130719,7 L14,13.1543624 L13.6339869,14 Z" id="Shape"></path>
+                <path d="M11.6233638,12 L11,11.3867925 C11.1168807,11.1981132 13.6882563,7.18867925 11,2.51886792 L11.6233638,2 C14.7012225,7.28301887 11.662324,11.9528302 11.6233638,12 L11.6233638,12 Z" id="Shape"></path>
+                <path d="M9,11 C8.12,11 8,8.5 8,7 C8,5.5 8.12,3 9,3 C9.88,3 10,5.5 10,7 C10,8.5 9.88,11 9,11 L9,11 Z M9,4.45 C8.88,4.95 8.8,5.85 8.8,7 C8.8,8.15 8.88,9.05 9,9.55 C9.12,9.05 9.2,8.15 9.2,7 C9.2,5.85 9.12,4.95 9,4.45 L9,4.45 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
