@@ -36,6 +36,7 @@ $window.load(function() {
   //logoAnimation.init();
   //logoAnimation.update();
 
+  overlayInit();
   royalSliderInit();
 });
 
