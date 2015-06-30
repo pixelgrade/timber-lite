@@ -660,7 +660,12 @@ function timber_load_next_posts( ) {
 
 	//set the query args
 	$args = array();
-	$args['posts_per_page'] = get_option('posts_per_page');
+
+	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
+		$args['posts_per_page'] = 999;
+	} else {
+		$args['posts_per_page'] = get_option('posts_per_page');
+	}
 	//check if we have a offset in $_POST
 	if ( isset( $_POST['offset'] ) ) {
 		$args['offset'] = (int)$_POST['offset'];
@@ -678,7 +683,6 @@ function timber_load_next_posts( ) {
 
 		wp_send_json_success( array(
 			'posts' => ob_get_clean(),
-			'nonce' => wp_create_nonce( 'webdev' ),
 		) );
 	} else {
 		wp_send_json_error();

@@ -722,7 +722,7 @@ if ( ! function_exists( 'timber_the_categories_nav' ) ) :
 			'hide_empty' => 1,
 			'hierarchical' => false,
 			'parent' => 0,
-			'number' => 15, //15 is the maximum we can beautifully handle
+//			'number' => 15, //15 is the maximum we can beautifully handle
 			'exclude' => get_option( 'default_category' ),
 		) );
 

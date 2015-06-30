@@ -35,5 +35,7 @@ var ua                  = navigator.userAgent.toLowerCase(),
     latestKnownScrollY  = window.scrollY,
     ticking             = false,
 
-    globalDebug         = false;
+    globalDebug         = false,
+
+    isFirstFilterClick = true;
 ;
