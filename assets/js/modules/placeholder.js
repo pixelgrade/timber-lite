@@ -36,7 +36,7 @@ var Placeholder = (function() {
                     $image.attr('src', $item.data(src));
                     $image.prependTo($item);
                     $image.imagesLoaded(function() {
-                        $image.css('opacity', 1);
+                        $image.css('opacity', '');
                     });
                 };
             });

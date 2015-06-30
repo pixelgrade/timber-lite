@@ -16,7 +16,7 @@ window.Portfolio = (function() {
 		$fullview 	= $('.fullview');
 
 		$film.addClass('portfolio--filmstrip portfolio--visible');
-		$grid.addClass('portfolio--grid');
+		$grid.addClass('portfolio--grid').find('.js-portfolio-item img').hide();
 
 		bindEvents();
 	},
@@ -29,6 +29,7 @@ window.Portfolio = (function() {
 		getMiddlePoints();
 		getReferenceBounds();
 
+		$grid.show();
 		var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
 		setCurrent($first);
 	},
@@ -108,18 +109,19 @@ window.Portfolio = (function() {
 		setTimeout(function() {
 			$film.removeClass('portfolio--visible');
 			$grid.addClass('portfolio--visible');
-		}, 400);
+
+			var $items = $grid.find('.js-portfolio-item img');
+			$items.sort(function(){return 0.5-Math.random()});
+
+			TweenMax.staggerTo($items, .3, {opacity: 1, ease: Quad.easeInOut}, 0.05);
+
+		}, 600);
 
 		TweenMax.to($('.site-content__mask'), .6, {
-			width: '100%',
+			scale: 1,
 			ease: Expo.easeInOut,
 			onComplete: function() {
-				// TweenMax.to($('.site-content__mask'), .3, {
-				// 	opacity: 0,
-				// 	ease: Quad.easeInOut,
-				// 	delay: .3
-				// });
-				$('.site-content__mask').css('width', '');
+				TweenMax.to('.site-content__mask', 0, {scaleX: 0});
 			}
 		});
 
@@ -129,13 +131,25 @@ window.Portfolio = (function() {
 		var $clicked = $(this),
 			$target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
-		$('html').addClass('scroll-x').removeClass('scroll-y');
+		$film.addClass('portfolio--visible');
+		$grid.removeClass('portfolio--visible');
+
+		TweenMax.to($('.site-content__mask'), 0, {
+			'transform-origin': '100% 0',
+			'z-index': 200
+		});
+		$film.css('z-index', 199);
+
+		TweenMax.to($('.site-content__mask'), .6, {
+			scale: 1,
+			ease: Expo.easeInOut,
+			onComplete: function() {
+				TweenMax.to('.site-content__mask', 0, {scaleX: 0});
+			}
+		});
 
 		var newx = $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
 		$window.scrollLeft(newx);
-
-		$grid.removeClass('portfolio--visible');
-		$film.addClass('portfolio--visible');
 
 		morph($clicked, $target);
 	},
@@ -187,48 +201,46 @@ window.Portfolio = (function() {
 			$clone        = $source.clone();
 
 		$clone.css({
-			position: 'absolute',
-			top: sourceOffset.top - targetOffset.top,
-			left: sourceOffset.left - targetOffset.left,
+			position: 'fixed',
+			top: sourceOffset.top,
+			left: sourceOffset.left - latestKnownScrollX,
 			width: $source.width(),
 			height: $source.height(),
-			background: 'none'
+			background: 'none',
+			'z-index': 9999
 		});
 
 		$target.css({
 			position: 'relative',
 			'z-index': 10000,
 			transition: 'none',
-			opacity: 1
+			opacity: 1,
+			background: 'none'
 		});
 
-		$target.children().css({
-			'transition': 'none',
-			'opacity': 0
-		});
-
+		$clone.find('img').css('opacity', 1);
 
 		var defaults = {
-				x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
-				y: targetOffset.top - sourceOffset.top + (targetHeight - sourceHeight) / 2,
+				x: targetOffset.left + targetWidth / 2 - sourceOffset.left - sourceWidth / 2,
+				y: targetOffset.top + targetHeight / 2 - sourceOffset.top - sourceHeight / 2,
 				scale: targetWidth / sourceWidth,
 				force3D: true,
 				ease: Expo.easeInOut,
 				onComplete: function() {
-					$clone.remove();
+					$target.find('img').css('opacity', 1);
 					$target.css({
 						position: '',
 						'z-index': '',
 						transition: '',
 						opacity: ''
 					});
-					$target.children().css('opacity', '');
+					$clone.remove();
 				}
 			},
 			config = $.extend(defaults, options);
 
 		requestAnimationFrame(function() {
-			$clone.appendTo($target);
+			$clone.appendTo($body);
 			TweenMax.to($clone, .5, config);
 		});
 

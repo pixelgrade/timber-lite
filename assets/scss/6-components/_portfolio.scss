@@ -106,7 +106,11 @@ img {
 
         .portfolio__item {
             opacity: 0;
-            transition: none !important;
+
+            img {
+                opacity: 0;
+                transition: none !important;
+            }
         }
 
         &.portfolio--visible {
