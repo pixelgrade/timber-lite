@@ -25,17 +25,22 @@ var ua                  = navigator.userAgent.toLowerCase(),
     firefox             = ua.indexOf('gecko') != -1,
     safari              = ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1,
 
-    is_small            = $('.js-nav-trigger').is(':visible');
+    is_small            = $('.js-nav-trigger').is(':visible'),
 
     windowHeight        = $window.height(),
     windowWidth         = $window.width(),
     documentHeight      = $document.height(),
     orientation         = windowWidth > windowHeight ? 'portrait' : 'landscape',
 
+    filmWidth,
+    contentWidth,
+    sidebarWidth,
+
     latestKnownScrollY  = window.scrollY,
+    latestKnownScrollX  = window.scrollX,
     ticking             = false,
 
-    globalDebug         = false,
+    isFirstFilterClick = true,
 
-    isFirstFilterClick = true;
-;
+    globalDebug         = false;
+

@@ -6986,21 +6986,85 @@ if (!Date.now) Date.now = function () {
       safari = ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1,
       
       
-      is_small = $('.js-nav-trigger').is(':visible');
+      is_small = $('.js-nav-trigger').is(':visible'),
+      
+      
+      windowHeight = $window.height(),
+      windowWidth = $window.width(),
+      documentHeight = $document.height(),
+      orientation = windowWidth > windowHeight ? 'portrait' : 'landscape',
+      
+      
+      filmWidth, contentWidth, sidebarWidth,
+      
+      latestKnownScrollY = window.scrollY,
+      latestKnownScrollX = window.scrollX,
+      ticking = false,
+      
+      
+      isFirstFilterClick = true,
+      
+      
+      globalDebug = false;
 
-  windowHeight = $window.height(), windowWidth = $window.width(), documentHeight = $document.height(), orientation = windowWidth > windowHeight ? 'portrait' : 'landscape',
 
-  latestKnownScrollY = window.scrollY, ticking = false,
+  function overlayInit() {
 
-  globalDebug = false,
+    var $trigger = $('.js-overlay-trigger'),
+        $overlay = $('.overlay'),
+        isOpen = false;
 
-  isFirstFilterClick = true;;
+
+    // Toggle navigation on click
+    $trigger.on('click touchstart', navToggle);
+
+
+    // Close menu with ESC key
+    $(document).on('keydown', function (e) {
+      if (e.keyCode == 27 && isOpen) {
+        navToggle(e);
+      }
+    });
+
+    function navToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      isOpen = !isOpen;
+
+      if (isOpen) {
+
+        $overlay.css('left', 0);
+
+        TweenMax.to($overlay, 0.3, {
+          opacity: 1
+        });
+
+        $('html').css('overflow', 'hidden');
+
+        isOpen = true;
+
+      } else {
+
+        TweenMax.to($overlay, 0.3, {
+          opacity: 0,
+          onComplete: function () {
+            $overlay.css('left', '100%');
+          }
+        });
+
+        $('html').css('overflow', '');
+
+        isOpen = false;
+      }
+    }
+  }
   var Placeholder = (function () {
 
     var update = function ($container, src) {
 
       $container = $container || $('body');
-      src = src || 'srcfull';
+      src = src || 'srcsmall';
 
       var $items = $container.find('.js-placeholder');
 
@@ -7033,7 +7097,7 @@ if (!Date.now) Date.now = function () {
             $image.attr('src', $item.data(src));
             $image.prependTo($item);
             $image.imagesLoaded(function () {
-              $image.css('opacity', 1);
+              $image.css('opacity', '');
             });
           };
         });
@@ -7093,29 +7157,27 @@ if (!Date.now) Date.now = function () {
   }
   window.Portfolio = (function () {
 
-    var $film, $grid, $fullview,
+    var $film, $grid, $fullview, start, end, current,
 
-    start, end,
+    init = function () {
 
-    current = 0,
-        $currentFoto,
+      if (!$('.single-jetpack-portfolio').length) {
+        placehold();
+        return;
+      }
+
+      $film = $('.js-portfolio');
+      $grid = $film.clone().insertBefore($film);
+      $fullview = $('.fullview');
+
+      $film.addClass('portfolio--filmstrip portfolio--visible');
+      $grid.addClass('portfolio--grid').find('.js-portfolio-item img').hide();
+
+      bindEvents();
+    },
         
-        filmWidth, contentWidth, sidebarWidth,
         
-        init = function () {
-
-        if (!$('.single-jetpack-portfolio').length) {
-          placehold();
-          return;
-        }
-
-        $film = $('.js-portfolio');
-        $grid = $film.clone().insertBefore($film);
-        $fullview = $('.fullview');
-
-        $film.addClass('portfolio--filmstrip portfolio--visible');
-        $grid.addClass('portfolio--grid');
-
+        prepare = function () {
         filmWidth = $film.width();
         contentWidth = $('.site-content').width();
         sidebarWidth = $('.site-sidebar').width();
@@ -7123,53 +7185,9 @@ if (!Date.now) Date.now = function () {
         getMiddlePoints();
         getReferenceBounds();
 
-        $currentFoto = $film.find('.js-portfolio-item').first();
-        getCurrent();
-        bindEvents();
-        },
-        
-        
-        getCurrent = function () {
-        var x = scroller.get('x'),
-            reference = start + (end - start) * x / (filmWidth - contentWidth) + x,
-            $next = $currentFoto,
-            min = Math.abs(reference - current);
-
-        $film.find('.js-portfolio-item').each(function (i, obj) {
-          var compare = $(obj).data('middle');
-
-          if (Math.abs(compare - reference) <= min) {
-            min = Math.abs(compare - reference);
-            $next = $(obj);
-          }
-        });
-
-        setCurrent($next);
-        },
-        
-        
-        getReferenceBounds = function () {
-        var $first = $film.find('.js-portfolio-item').first(),
-            $last = $film.find('.js-portfolio-item').last();
-
-        start = $first.data('middle') + ($first.next().data('middle') - $first.data('middle')) / 2;
-        end = contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
-
-        if (start > end) {
-          end = contentWidth / 2 - sidebarWidth;
-          start = end - 10;
-        }
-        },
-        
-        
-        getMiddlePoints = function () {
-        $('.portfolio').each(function (i, portfolio) {
-          $(portfolio).find('.js-portfolio-item').each(function (i, obj) {
-            var $obj = $(obj);
-            $obj.data('middle', getMiddle($obj));
-            $obj.data('count', i);
-          });
-        });
+        $grid.show();
+        var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+        setCurrent($first);
         },
         
         
@@ -7189,57 +7207,183 @@ if (!Date.now) Date.now = function () {
         },
         
         
+        
+        
+        // loop through each portfolio item and find the one closest to center
+        getCurrent = function () {
+
+        var current = $('.portfolio__item--active').data('middle'),
+            reference = latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
+            min = Math.abs(reference - current),
+            $next;
+
+        $film.find('.js-portfolio-item').each(function (i, obj) {
+          var compare = $(obj).data('middle');
+
+          if (Math.abs(compare - reference) < min) {
+            min = Math.abs(compare - reference);
+            $next = $(obj);
+          }
+        });
+
+        if (typeof $next !== "undefined") {
+          setCurrent($next);
+        }
+        },
+        
+        
+        getReferenceBounds = function () {
+        var $first = $film.find('.js-portfolio-item').first(),
+            $last = $film.find('.js-portfolio-item').last();
+
+        start = $first.data('middle') + ($first.next().data('middle') - $first.data('middle')) / 2;
+        end = contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
+
+        if (start > end) {
+          end = contentWidth / 2 - sidebarWidth;
+          start = end - 10;
+          return;
+        } else {
+          start = start - 10;
+          end = end + 10;
+        }
+        },
+        
+        
+        getMiddlePoints = function () {
+        $('.portfolio').each(function (i, portfolio) {
+          $(portfolio).find('.js-portfolio-item').each(function (i, obj) {
+            var $obj = $(obj);
+            $obj.data('middle', getMiddle($obj));
+            $obj.data('count', i);
+          });
+        });
+        },
+        
+        
         showThumbnails = function (e) {
         var $active = $('.portfolio__item--active'),
             $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
+        TweenMax.to($('.site-content__mask'), 0, {
+          'transform-origin': '100% 0',
+          'z-index': 199
+        });
+        $film.css('z-index', 198);
+        $grid.css('z-index', 200);
 
-        $grid.addClass('portfolio--visible');
-        morph($active, $target);
+        morph($active, $target, {
+          delay: .3
+        });
 
-        TweenMax.to($('.site-content__mask'), .3, {
-          width: '100%',
+        setTimeout(function () {
+          $film.removeClass('portfolio--visible');
+          $grid.addClass('portfolio--visible');
+
+          var $items = $grid.find('.js-portfolio-item img');
+          $items.sort(function () {
+            return 0.5 - Math.random()
+          });
+
+          TweenMax.staggerTo($items, .3, {
+            opacity: 1,
+            ease: Quad.easeInOut
+          }, 0.05);
+        }, 600);
+
+        TweenMax.to($('.site-content__mask'), .6, {
+          scale: 1,
+          ease: Expo.easeInOut,
           onComplete: function () {
-            $film.removeClass('portfolio--visible');
-            $('.site-content__mask').css('width', '');
+            TweenMax.to('.site-content__mask', 0, {
+              scaleX: 0
+            });
           }
         });
 
-        $(window).one('pxg:morph-end', function () {
-
-        });
-
-        $('html').addClass('scroll-x').removeClass('scroll-y');
         },
         
         
         showFilmstrip = function (e) {
+
         var $clicked = $(this),
             $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
-        $('html').addClass('scroll-x').removeClass('scroll-y');
+        $film.find('.js-portfolio-item').css('opacity', 0);
+        $film.find('.js-portfolio-item img').css('opacity', '');
+
+        $target.addClass('portfolio__item--target');
+
+        $film.addClass('portfolio--visible');
+
+        TweenMax.to($('.site-content__mask'), 0, {
+          'transform-origin': '100% 0',
+          'z-index': 199
+        });
+        $film.css('z-index', 200);
+        $grid.css('z-index', 198);
+
+        TweenMax.to($('.site-content__mask'), .6, {
+          scale: 1,
+          ease: Expo.easeInOut,
+          onComplete: function () {
+            $grid.removeClass('portfolio--visible');
+            $grid.css('opacity', '');
+            TweenMax.to($film.find('.js-portfolio-item'), .3, {
+              opacity: 1
+            });
+            $target.removeClass('portfolio__item--target');
+            TweenMax.to('.site-content__mask', 0, {
+              scaleX: 0
+            });
+          }
+        });
 
         var newx = $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
-        scroller.set('x', newx);
-
-        $grid.removeClass('portfolio--visible');
-        $film.addClass('portfolio--visible');
+        $window.scrollLeft(newx);
 
         morph($clicked, $target);
         },
         
         
-        showFullView = function () {
+        showFullView = function (e) {
+
+        // prepare current for fullview
+        var $source = $(this),
+            width = $source.data('width'),
+            height = $source.data('height'),
+            newWidth = $fullview.width(),
+            newHeight = $fullview.height(),
+            scaleX = newWidth / width,
+            scaleY = newHeight / height,
+            scale = Math.max(scaleX, scaleY),
+            $target = $('<div>').addClass('fullview__image'),
+            $image = $(document.createElement('img'));
+
+        $target.css({
+          width: width * scale,
+          height: height * scale,
+          top: (height * scale - newHeight) / -2,
+          left: (width * scale - newWidth) / -2
+        });
+
+        $fullview.append($target);
+
+        $image.attr('src', $source.data('srcfull')).prependTo($target);
+
+        morph($source, $target);
         $fullview.addClass('fullview--visible');
+
         },
         
         
         hideFullView = function () {
         $fullview.removeClass('fullview--visible');
+        $('.fullview__image').remove();
         },
         
         
-        morph = function ($source, $target) {
+        morph = function ($source, $target, options) {
         var sourceOffset = $source.offset(),
             sourceWidth = $source.width(),
             sourceHeight = $source.height(),
@@ -7261,54 +7405,39 @@ if (!Date.now) Date.now = function () {
           position: 'relative',
           'z-index': 10000,
           transition: 'none',
-          opacity: 1
+          opacity: 1,
+          background: 'none'
         });
 
-        $clone.appendTo($target);
+        $target.find('img').css('opacity', 0);
+        $clone.css('opacity', 1);
+        $clone.find('img').css('opacity', 1);
 
-        TweenMax.to($clone, .3, {
+        var defaults = {
           x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
           y: targetOffset.top - sourceOffset.top + (targetHeight - sourceHeight) / 2,
           scale: targetWidth / sourceWidth,
           force3D: true,
-          ease: Quad.easeOut,
+          ease: Expo.easeInOut,
           onComplete: function () {
-            $clone.remove();
+            $target.find('img').css('opacity', 1);
             $target.css({
               position: '',
               'z-index': '',
-              opacity: '',
-              transition: ''
+              transition: '',
+              opacity: ''
             });
+            $clone.remove();
           }
-        });
-        $(window).trigger('pxg:morph-end');
         },
-        
-        
-        placehold = function () {
-        $('.js-portfolio').each(function (i, obj) {
-          var $portfolio = $(obj),
-              newHeight = $portfolio.height();
-          $portfolio.find('.js-portfolio-item').each(function (i, obj) {
-            placeholdImage($(obj), 'srcfull');
-          });
-        });
-        },
-        
-        
-        placeholdImage = function ($item, src) {
-        var src = typeof src === "undefined" ? 'srcfull' : src,
-            width = $item.data('width'),
-            height = $item.data('height'),
-            newHeight = $item.height(),
-            newWidth = newHeight * $item.data('width') / $item.data('height'),
-            $image = $(document.createElement('img'));
+            config = $.extend(defaults, options);
 
-        $item.width(newWidth).height(newHeight);
-        // $image.width(newWidth).height(newHeight)
-        // 	.attr('src', $item.data('srcfull'))
-        // 	.prependTo($item);
+        requestAnimationFrame(function () {
+          $clone.appendTo($target);
+          TweenMax.to($clone, .5, config);
+        });
+
+        $(window).trigger('pxg:morph-end');
         },
         
         
@@ -7317,64 +7446,18 @@ if (!Date.now) Date.now = function () {
         },
         
         
-        updateCurrent = function (x, y) {
-
-        var width = end - start,
-            reference = start + width * x / (filmWidth - contentWidth) + x,
-            compare, $next;
-
-        $('.js-reference').css('left', reference + 'px').text(parseInt(reference));
-
-        if (reference >= current) {
-          $next = $currentFoto.nextAll('.js-portfolio-item').first();
-        } else {
-          $next = $currentFoto.prevAll('.js-portfolio-item').first();;
-        }
-
-        compare = $next.data('middle');
-
-        $('.js-compare').css('left', compare).text(parseInt(compare));
-
-        if (Math.abs(compare - reference) <= Math.abs(reference - current)) {
-          setCurrent($next);
-        }
-        },
-        
-        
-        setCurrent = function ($next) {
-        $currentFoto = $next;
+        setCurrent = function ($current) {
         $film.find('.js-portfolio-item').removeClass('portfolio__item--active');
-        $currentFoto.addClass('portfolio__item--active');
-        $('.portfolio__position').text($next.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
-        current = $currentFoto.data('middle');
-        $('.js-last').css('left', current).text(parseInt(current));
-
-        // prepare current for fullview
-        var width = $currentFoto.data('width'),
-            height = $currentFoto.data('height'),
-            newWidth = $fullview.width(),
-            newHeight = $fullview.height(),
-            scaleX = newWidth / width,
-            scaleY = newHeight / height,
-            scale = Math.max(scaleX, scaleY),
-            $image = $(document.createElement('img'));
-
-        $image.css({
-          'max-width': 'none',
-          width: width * scale,
-          height: height * scale
-        });
-
-        $fullview.find('.fullview__image').empty();
-        $image.attr('src', $currentFoto.data('srcfull')).prependTo($fullview.find('.fullview__image'));
+        $current.addClass('portfolio__item--active');
+        $('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
         }
         
         
         
         return {
         init: init,
-        getCurrent: getCurrent,
-        updateCurrent: updateCurrent
+        prepare: prepare,
+        getCurrent: getCurrent
         }
   })(); /* --- Royal Slider Init --- */
 
@@ -7672,22 +7755,17 @@ if (!Date.now) Date.now = function () {
 
 
   function init() {
-    window.scroller = new Scroller(window, function () {
-      var x = scroller.get('x'),
-          y = scroller.get('y');
-
-      if ($('.single-jetpack-portfolio').length) {
-        Portfolio.updateCurrent(x, y);
-      }
-    });
-
     platformDetect();
-    Placeholder.update();
+    browserSize();
+
     Portfolio.init();
+    Placeholder.update();
+    Portfolio.prepare();
 
     var $filmstrip_container = $('.filmstrip');
 
     if ($filmstrip_container.length) {
+
       //the mixitup logic with filtering
       $filmstrip_container.mixItUp({
         selectors: {
@@ -7753,14 +7831,14 @@ if (!Date.now) Date.now = function () {
           });
 
         } else {
-          //just regular filtering
+          //just regular filtering from the second click onwards
           $filmstrip_container.mixItUp('filter', filterBy);
         }
 
         return false;
       });
 
-      //the infinite scroll logic
+      //the infinite scroll logic on click
       $('.nav-links .nav-previous a').click(function () {
         $(this).addClass('loading');
 
@@ -7782,7 +7860,7 @@ if (!Date.now) Date.now = function () {
               console.log("Loaded next posts");
             }
 
-            var $result = $(response_data.data.posts);
+            var $result = $(response_data.data.posts).filter('article');
 
             if (globalDebug) {
               console.log("Adding new " + $result.length + " items to the DOM");
@@ -7813,6 +7891,7 @@ if (!Date.now) Date.now = function () {
 
   // /* ====== ON WINDOW LOAD ====== */
   $window.load(function () {
+    // Portfolio.getCurrent();
     //browserSize();
     //Sidebar.init();
     //navigation.init();
@@ -7821,15 +7900,14 @@ if (!Date.now) Date.now = function () {
     //magnificPopupInit();
     //logoAnimation.init();
     //logoAnimation.update();
+    overlayInit();
     royalSliderInit();
   });
 
   // /* ====== ON RESIZE ====== */
 
   function onResize() {
-    //browserSize();
-    //masonry.refresh();
-    //Sidebar.init();
+    browserSize();
   }
 
   function requestTick() {
@@ -7840,6 +7918,8 @@ if (!Date.now) Date.now = function () {
   }
 
   function update() {
+
+    Portfolio.getCurrent();
     ticking = false;
   }
 
@@ -7847,6 +7927,7 @@ if (!Date.now) Date.now = function () {
 
   $window.on('scroll', function () {
     latestKnownScrollY = window.scrollY;
+    latestKnownScrollX = window.scrollX;
     requestTick();
   }); /* ====== HELPER FUNCTIONS ====== */
 
@@ -7864,16 +7945,12 @@ if (!Date.now) Date.now = function () {
     $html.addClass($.support.touch ? 'touch' : 'no-touch').addClass($.support.svg ? 'svg' : 'no-svg').addClass( !! $.support.transform ? 'transform' : 'no-transform');
   }
 
-
-
   function browserSize() {
     windowHeight = $window.height();
     windowWidth = $window.width();
     documentHeight = $document.height();
     orientation = windowWidth > windowHeight ? 'portrait' : 'landscape';
   }
-
-
 
   function getSupportedTransform() {
     var prefixes = ['transform', 'WebkitTransform', 'MozTransform', 'OTransform', 'msTransform'];

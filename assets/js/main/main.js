@@ -6,18 +6,12 @@ $(document).ready(function() {
 
 
 function init() {
-  window.scroller = new Scroller(window, function() {
-      var x = scroller.get('x'),
-          y = scroller.get('y');
-
-      if ($('.single-jetpack-portfolio').length) {
-        Portfolio.updateCurrent(x, y);
-      }
-  });
-
   platformDetect();
-  Placeholder.update();
+  browserSize();
+
   Portfolio.init();
+  Placeholder.update();
+  Portfolio.prepare();
 
 	var $filmstrip_container = $('.filmstrip');
 
@@ -133,6 +127,7 @@ function init() {
 // /* ====== ON WINDOW LOAD ====== */
 
 $window.load(function() {
+  // Portfolio.getCurrent();
   //browserSize();
   //Sidebar.init();
   //navigation.init();
@@ -142,15 +137,14 @@ $window.load(function() {
   //logoAnimation.init();
   //logoAnimation.update();
 
+  overlayInit();
   royalSliderInit();
 });
 
 // /* ====== ON RESIZE ====== */
 
 function onResize() {
-  //browserSize();
-  //masonry.refresh();
-  //Sidebar.init();
+  browserSize();
 }
 
 function requestTick() {
@@ -161,6 +155,8 @@ function requestTick() {
 }
 
 function update() {
+
+  Portfolio.getCurrent();
   ticking = false;
 }
 
@@ -168,5 +164,6 @@ $window.on('debouncedresize', onResize);
 
 $window.on('scroll', function() {
   latestKnownScrollY = window.scrollY;
+  latestKnownScrollX = window.scrollX;
   requestTick();
 });

@@ -52,7 +52,7 @@
 				'menu_id' => 'social-menu',
 				'fallback_cb' => false,
 			) ); ?>
-			<button class="toggle  js-toggle"></button>
+			<button class="toggle  js-overlay-trigger"></button>
 		</nav>
 
 		</div>

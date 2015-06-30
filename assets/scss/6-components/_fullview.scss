@@ -14,11 +14,12 @@
         pointer-events: auto;
     }
 
+    &__image {
+        position: relative;
+    }
+
     img {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        width: 100%;
     }
 
     &__close {
@@ -28,5 +29,6 @@
         color: white;
         font-size: 2em;
         cursor: pointer;
+        z-index: 10;
     }
 }

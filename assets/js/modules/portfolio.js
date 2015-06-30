@@ -1,18 +1,8 @@
 window.Portfolio = (function() {
 
-	var $film,
-		$grid,
-		$fullview,
-
-		start,
-		end,
-
-		current = 0,
-		$currentFoto,
-
-		filmWidth,
-		contentWidth,
-		sidebarWidth,
+	var $film, $grid, $fullview,
+		start, end,
+		current,
 
 	init = function() {
 
@@ -26,59 +16,22 @@ window.Portfolio = (function() {
 		$fullview 	= $('.fullview');
 
 		$film.addClass('portfolio--filmstrip portfolio--visible');
-		$grid.addClass('portfolio--grid');
+		$grid.addClass('portfolio--grid').find('.js-portfolio-item img').hide();
 
-		filmWidth 		= $film.width();
-		contentWidth 	= $('.site-content').width();
-		sidebarWidth 	= $('.site-sidebar').width();
+		bindEvents();
+	},
+
+	prepare = function() {
+	    filmWidth       = $film.width();
+	    contentWidth    = $('.site-content').width();
+	    sidebarWidth    = $('.site-sidebar').width();
 
 		getMiddlePoints();
 		getReferenceBounds();
 
-		$currentFoto 	= $film.find('.js-portfolio-item').first();
-		getCurrent();
-		bindEvents();
-	},
-
-	getCurrent = function() {
-		var x = scroller.get('x'),
-			reference = start + (end - start) * x / (filmWidth - contentWidth) + x,
-			$next = $currentFoto,
-			min = Math.abs(reference - current);
-
-		$film.find('.js-portfolio-item').each(function(i, obj) {
-			var compare = $(obj).data('middle');
-
-			if (Math.abs(compare - reference) <= min) {
-				min = Math.abs(compare - reference);
-				$next = $(obj);
-			}
-		});
-
-		setCurrent($next);
-	},
-
-	getReferenceBounds = function() {
-		var $first 			= $film.find('.js-portfolio-item').first(),
-			$last 			= $film.find('.js-portfolio-item').last();
-
-		start 	= $first.data('middle') + ($first.next().data('middle') - $first.data('middle')) / 2;
-		end 	= contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
-
-		if (start > end) {
-			end = contentWidth / 2 - sidebarWidth;
-			start = end - 10;
-		}
-	},
-
-	getMiddlePoints = function() {
-		$('.portfolio').each(function(i, portfolio) {
-			$(portfolio).find('.js-portfolio-item').each(function(i, obj) {
-				var $obj = $(obj);
-				$obj.data('middle', getMiddle($obj));
-				$obj.data('count', i);
-			});
-		});
+		$grid.show();
+		var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+		setCurrent($first);
 	},
 
 	bindEvents = function() {
@@ -96,53 +49,165 @@ window.Portfolio = (function() {
 		});
 	},
 
+	// loop through each portfolio item and find the one closest to center
+	getCurrent = function() {
+
+		var current 	= $('.portfolio__item--active').data('middle'),
+			reference 	= latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
+			min 		= Math.abs(reference - current),
+			$next;
+
+		$film.find('.js-portfolio-item').each(function(i, obj) {
+			var compare = $(obj).data('middle');
+
+			if (Math.abs(compare - reference) < min) {
+				min = Math.abs(compare - reference);
+				$next = $(obj);
+			}
+		});
+
+		if (typeof $next !== "undefined") {
+			setCurrent($next);
+		}
+	},
+
+	getReferenceBounds = function() {
+		var $first 			= $film.find('.js-portfolio-item').first(),
+			$last 			= $film.find('.js-portfolio-item').last();
+
+		start 	= $first.data('middle') + ($first.next().data('middle') - $first.data('middle')) / 2;
+		end 	= contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
+
+		if (start > end) {
+			end = contentWidth / 2 - sidebarWidth;
+			start = end - 10;
+			return;
+		} else {
+			start = start - 10;
+			end = end + 10;
+		}
+	},
+
+	getMiddlePoints = function() {
+		$('.portfolio').each(function(i, portfolio) {
+			$(portfolio).find('.js-portfolio-item').each(function(i, obj) {
+				var $obj = $(obj);
+				$obj.data('middle', getMiddle($obj));
+				$obj.data('count', i);
+			});
+		});
+	},
+
 	showThumbnails = function(e) {
 		var $active = $('.portfolio__item--active'),
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
+		TweenMax.to($('.site-content__mask'), 0, {
+			'transform-origin': '100% 0',
+			'z-index': 199
+		});
+		$film.css('z-index', 198);
+		$grid.css('z-index', 200);
 
-		$grid.addClass('portfolio--visible');
-		morph($active, $target);
+		morph($active, $target, {delay: .3});
 
-		TweenMax.to($('.site-content__mask'), .3, {
-			width: '100%',
+		setTimeout(function() {
+			$film.removeClass('portfolio--visible');
+			$grid.addClass('portfolio--visible');
+
+			var $items = $grid.find('.js-portfolio-item img');
+			$items.sort(function(){return 0.5-Math.random()});
+
+			TweenMax.staggerTo($items, .3, {opacity: 1, ease: Quad.easeInOut}, 0.05);
+		}, 600);
+
+		TweenMax.to($('.site-content__mask'), .6, {
+			scale: 1,
+			ease: Expo.easeInOut,
 			onComplete: function() {
-				$film.removeClass('portfolio--visible');
-				$('.site-content__mask').css('width', '');
+				TweenMax.to('.site-content__mask', 0, {scaleX: 0});
 			}
 		});
 
-		$(window).one('pxg:morph-end', function () {
-
-		});
-
-		$('html').addClass('scroll-x').removeClass('scroll-y');
 	},
 
 	showFilmstrip = function(e) {
+
 		var $clicked = $(this),
 			$target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
-		$('html').addClass('scroll-x').removeClass('scroll-y');
+		$film.find('.js-portfolio-item').css('opacity', 0);
+		$film.find('.js-portfolio-item img').css('opacity', '');
+
+		$target.addClass('portfolio__item--target');
+
+		$film.addClass('portfolio--visible');
+
+		TweenMax.to($('.site-content__mask'), 0, {
+			'transform-origin': '100% 0',
+			'z-index': 199
+		});
+		$film.css('z-index', 200);
+		$grid.css('z-index', 198);
+
+		TweenMax.to($('.site-content__mask'), .6, {
+			scale: 1,
+			ease: Expo.easeInOut,
+			onComplete: function() {
+				$grid.removeClass('portfolio--visible');
+				$grid.css('opacity', '');
+				TweenMax.to($film.find('.js-portfolio-item'), .3, {
+					opacity: 1
+				});
+				$target.removeClass('portfolio__item--target');
+				TweenMax.to('.site-content__mask', 0, {scaleX: 0});
+			}
+		});
 
 		var newx = $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
-		scroller.set('x', newx);
-
-		$grid.removeClass('portfolio--visible');
-		$film.addClass('portfolio--visible');
+		$window.scrollLeft(newx);
 
 		morph($clicked, $target);
 	},
 
-	showFullView = function() {
+	showFullView = function(e) {
+
+		// prepare current for fullview
+		var $source = $(this),
+			width = $source.data('width'),
+			height = $source.data('height'),
+			newWidth = $fullview.width(),
+			newHeight = $fullview.height(),
+			scaleX = newWidth / width,
+			scaleY = newHeight / height,
+			scale = Math.max(scaleX, scaleY),
+			$target = $('<div>').addClass('fullview__image'),
+			$image = $(document.createElement('img'));
+
+		$target.css({
+			width: width * scale,
+			height: height * scale,
+			top: (height * scale - newHeight) / -2,
+			left: (width * scale - newWidth) / -2
+		});
+
+		$fullview.append($target);
+
+		$image
+			.attr('src', $source.data('srcfull'))
+			.prependTo($target);
+
+		morph($source, $target);
 		$fullview.addClass('fullview--visible');
+
 	},
 
 	hideFullView = function() {
 		$fullview.removeClass('fullview--visible');
+		$('.fullview__image').remove();
 	},
 
-	morph = function($source, $target) {
+	morph = function($source, $target, options) {
 		var sourceOffset  = $source.offset(),
 			sourceWidth   = $source.width(),
 			sourceHeight  = $source.height(),
@@ -164,116 +229,54 @@ window.Portfolio = (function() {
 			position: 'relative',
 			'z-index': 10000,
 			transition: 'none',
-			opacity: 1
+			opacity: 1,
+			background: 'none'
 		});
 
-		$clone.appendTo($target);
+		$target.find('img').css('opacity', 0);
+		$clone.css('opacity', 1);
+		$clone.find('img').css('opacity', 1);
 
-		TweenMax.to($clone, .3, {
-			x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
-			y: targetOffset.top - sourceOffset.top + (targetHeight - sourceHeight) / 2,
-			scale: targetWidth / sourceWidth,
-			force3D: true,
-			ease: Quad.easeOut,
-			onComplete: function() {
-				$clone.remove();
-				$target.css({
-					position: '',
-					'z-index': '',
-					opacity: '',
-					transition: ''
-				});
-			}
+		var defaults = {
+				x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
+				y: targetOffset.top - sourceOffset.top + (targetHeight - sourceHeight) / 2,
+				scale: targetWidth / sourceWidth,
+				force3D: true,
+				ease: Expo.easeInOut,
+				onComplete: function() {
+					$target.find('img').css('opacity', 1);
+					$target.css({
+						position: '',
+						'z-index': '',
+						transition: '',
+						opacity: ''
+					});
+					$clone.remove();
+				}
+			},
+			config = $.extend(defaults, options);
+
+		requestAnimationFrame(function() {
+			$clone.appendTo($target);
+			TweenMax.to($clone, .5, config);
 		});
+
 		$(window).trigger('pxg:morph-end');
-	},
-
-	placehold = function() {
-		$('.js-portfolio').each(function(i, obj) {
-			var $portfolio  = $(obj),
-				newHeight 	= $portfolio.height();
-			$portfolio.find('.js-portfolio-item').each(function(i, obj) {
-				placeholdImage($(obj), 'srcfull');
-			});
-		});
-	},
-
-	placeholdImage = function($item, src) {
-		var src 		= typeof src === "undefined" ? 'srcfull' : src,
-			width       = $item.data('width'),
-			height      = $item.data('height'),
-			newHeight   = $item.height(),
-			newWidth    = newHeight * $item.data('width') / $item.data('height'),
-			$image      = $(document.createElement('img'));
-
-		$item.width(newWidth).height(newHeight);
-		// $image.width(newWidth).height(newHeight)
-		// 	.attr('src', $item.data('srcfull'))
-		// 	.prependTo($item);
 	},
 
 	getMiddle = function($image) {
 		return $image.offset().left + $image.width() / 2 - $film.offset().left;
 	},
 
-	updateCurrent = function(x, y) {
-
-		var width = end - start,
-			reference =  start + width * x / (filmWidth - contentWidth) + x,
-			compare,
-			$next;
-
-		$('.js-reference').css('left', reference + 'px').text(parseInt(reference));
-
-		if (reference >= current) {
-			$next = $currentFoto.nextAll('.js-portfolio-item').first();
-		} else {
-			$next = $currentFoto.prevAll('.js-portfolio-item').first();;
-		}
-
-		compare = $next.data('middle');
-
-		$('.js-compare').css('left', compare).text(parseInt(compare));
-
-		if (Math.abs(compare - reference) <= Math.abs(reference - current)) {
-			setCurrent($next);
-		}
-	},
-
-	setCurrent = function($next) {
-		$currentFoto = $next;
+	setCurrent = function($current) {
 		$film.find('.js-portfolio-item').removeClass('portfolio__item--active');
-		$currentFoto.addClass('portfolio__item--active');
-		$('.portfolio__position').text($next.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
-		current = $currentFoto.data('middle');
-		$('.js-last').css('left', current).text(parseInt(current));
-
-		// prepare current for fullview
-
-		var width = $currentFoto.data('width'),
-			height = $currentFoto.data('height'),
-			newWidth = $fullview.width(),
-			newHeight = $fullview.height(),
-			scaleX = newWidth / width,
-			scaleY = newHeight / height,
-			scale = Math.max(scaleX, scaleY),
-			$image = $(document.createElement('img'));
-
-		$image.css({
-			'max-width': 'none',
-			width: width * scale,
-			height: height * scale
-		});
-
-		$fullview.find('.fullview__image').empty();
-		$image
-			.attr('src', $currentFoto.data('srcfull'))
-			.prependTo($fullview.find('.fullview__image'));
+		$current.addClass('portfolio__item--active');
+		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
 	}
 
 	return {
 		init: init,
-		getCurrent: getCurrent,
-		updateCurrent: updateCurrent
+		prepare: prepare,
+		getCurrent: getCurrent
 	}
 })();
