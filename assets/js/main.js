@@ -7209,6 +7209,13 @@ if (!Date.now) Date.now = function () {
         var $active = $('.portfolio__item--active'),
             $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
+        TweenMax.to($('.site-content__mask'), 0, {
+          'transform-origin': '100% 0',
+          'z-index': 199
+        });
+        $film.css('z-index', 198);
+        $grid.css('z-index', 200);
+
         morph($active, $target, {
           delay: .3
         });
@@ -7226,7 +7233,6 @@ if (!Date.now) Date.now = function () {
             opacity: 1,
             ease: Quad.easeInOut
           }, 0.05);
-
         }, 600);
 
         TweenMax.to($('.site-content__mask'), .6, {
@@ -7243,22 +7249,34 @@ if (!Date.now) Date.now = function () {
         
         
         showFilmstrip = function (e) {
+
         var $clicked = $(this),
             $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
+        $film.find('.js-portfolio-item').css('opacity', 0);
+        $film.find('.js-portfolio-item img').css('opacity', '');
+
+        $target.addClass('portfolio__item--target');
+
         $film.addClass('portfolio--visible');
-        $grid.removeClass('portfolio--visible');
 
         TweenMax.to($('.site-content__mask'), 0, {
           'transform-origin': '100% 0',
-          'z-index': 200
+          'z-index': 199
         });
-        $film.css('z-index', 199);
+        $film.css('z-index', 200);
+        $grid.css('z-index', 198);
 
         TweenMax.to($('.site-content__mask'), .6, {
           scale: 1,
           ease: Expo.easeInOut,
           onComplete: function () {
+            $grid.removeClass('portfolio--visible');
+            $grid.css('opacity', '');
+            TweenMax.to($film.find('.js-portfolio-item'), .3, {
+              opacity: 1
+            });
+            $target.removeClass('portfolio__item--target');
             TweenMax.to('.site-content__mask', 0, {
               scaleX: 0
             });
@@ -7319,13 +7337,12 @@ if (!Date.now) Date.now = function () {
             $clone = $source.clone();
 
         $clone.css({
-          position: 'fixed',
-          top: sourceOffset.top,
-          left: sourceOffset.left - latestKnownScrollX,
+          position: 'absolute',
+          top: sourceOffset.top - targetOffset.top,
+          left: sourceOffset.left - targetOffset.left,
           width: $source.width(),
           height: $source.height(),
-          background: 'none',
-          'z-index': 9999
+          background: 'none'
         });
 
         $target.css({
@@ -7336,11 +7353,13 @@ if (!Date.now) Date.now = function () {
           background: 'none'
         });
 
+        $target.find('img').css('opacity', 0);
+        $clone.css('opacity', 1);
         $clone.find('img').css('opacity', 1);
 
         var defaults = {
-          x: targetOffset.left + targetWidth / 2 - sourceOffset.left - sourceWidth / 2,
-          y: targetOffset.top + targetHeight / 2 - sourceOffset.top - sourceHeight / 2,
+          x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
+          y: targetOffset.top - sourceOffset.top + (targetHeight - sourceHeight) / 2,
           scale: targetWidth / sourceWidth,
           force3D: true,
           ease: Expo.easeInOut,
@@ -7358,7 +7377,7 @@ if (!Date.now) Date.now = function () {
             config = $.extend(defaults, options);
 
         requestAnimationFrame(function () {
-          $clone.appendTo($body);
+          $clone.appendTo($target);
           TweenMax.to($clone, .5, config);
         });
 

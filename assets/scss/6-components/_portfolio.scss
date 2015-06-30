@@ -6,7 +6,7 @@
 
 img {
     will-change: opacity;
-    transition: opacity .3s ease-in-out;
+    // transition: opacity .3s ease-in-out;
 }
 
 .portfolio {
@@ -71,11 +71,18 @@ img {
         flex-shrink: 0;
         margin-right: 1em;
         will-change: opacity;
-        transition: opacity .3s ease-in-out;
+        // transition: opacity .3s ease-in-out;
         cursor: pointer;
 
         &--content {
             min-width: 40em;
+        }
+    }
+
+    &__item--target {
+        background: none;
+        img {
+            opacity: 0;
         }
     }
 
@@ -109,7 +116,7 @@ img {
 
             img {
                 opacity: 0;
-                transition: none !important;
+                // transition: none !important;
             }
         }
 
@@ -170,9 +177,9 @@ img {
     }
 
 
-    &__item[class*="--active"] {
-        opacity: 1;
-    }
+    // &__item[class*="--active"] {
+    //     opacity: 1;
+    // }
 }
 
 .page-template-portfolio-page,
