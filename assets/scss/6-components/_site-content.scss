@@ -1,16 +1,20 @@
 .site-content {
     @extend %position--relative;
+    z-index: 500;
     flex-grow: 1;
 
     &__mask {
         // @extend %transform--0;
         position: fixed;
-        z-index: 90;
+        z-index: 300;
         top: 0;
         left: 0;
         width: 0;
         height: 100%;
+        width: 100%;
         background: white;
-        will-change: opacity, width;
+        will-change: opacity, transform;
+        transform: scale(0, 1);
+        transform-origin: 0 0;
     }
 }

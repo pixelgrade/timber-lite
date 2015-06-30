@@ -52,7 +52,11 @@
 				'menu_id' => 'social-menu',
 				'fallback_cb' => false,
 			) ); ?>
-			<button class="toggle  js-toggle"></button>
+			<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ||
+			           is_active_sidebar( 'overlay-widget-area-2' ) ||
+			           is_active_sidebar( 'overlay-widget-area-3' )) : ?>
+			<button class="toggle  js-overlay-trigger"></button>
+			<?php endif; ?>
 		</nav>
 
 		</div>

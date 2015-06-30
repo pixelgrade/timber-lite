@@ -36,6 +36,7 @@ $window.load(function() {
   //logoAnimation.init();
   //logoAnimation.update();
 
+  overlayInit();
   royalSliderInit();
 });
 
@@ -64,4 +65,9 @@ $window.on('scroll', function() {
   latestKnownScrollY = window.scrollY;
   latestKnownScrollX = window.scrollX;
   requestTick();
+});
+
+$document.mousemove(function(e) {
+    latestKnownMouseX = e.pageX - latestKnownScrollX;
+    latestKnownMouseY = e.pageY - latestKnownScrollY;
 });
