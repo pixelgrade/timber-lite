@@ -22,7 +22,6 @@
 		<?php endif; ?>
 		<?php if ( is_active_sidebar( 'overlay-widget-area-2' ) || is_active_sidebar( 'overlay-widget-area-3' ) ) : ?>
 		<div class="overlay__col  col2">
-			<div class="sub-col_container">
 				<div class="sub-col">
 					<?php if ( is_active_sidebar( 'overlay-widget-area-2' ) ) : ?>
 						<?php dynamic_sidebar( 'overlay-widget-area-2' ); ?>
@@ -33,7 +32,6 @@
 						<?php dynamic_sidebar( 'overlay-widget-area-3' ); ?>
 					<?php endif; ?>
 				</div>
-			</div>
 		</div>
 		<?php endif; ?>
 	</div>
