@@ -1,34 +1,39 @@
 .overlay {
-	width: 100%;
-	height: 100vh;
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 100%;
 	z-index: 1100;
+
+	width: 100%;
+	height: 100vh;
+
 	opacity: 0;
-	-webkit-overflow-scrolling: touch;
-	overflow-y: scroll;
-	background: black;
+	background: #222222;
 	color: white;
+
 	transform: translateZ(0);
 
-	a {
-		color: white;
-	}
+	-webkit-overflow-scrolling: touch;
 
 	* {
 		text-shadow: none;
+	}
+
+	.admin-bar & {
+		top: 32px;
 	}
 }
 
 .overlay__wrapper {
 	// @todo better when widget areas are added to the navigation overlay
 	width: 100%;
+	padding: 150px 150px 0 150px;
+
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	align-content: flex-start;
 
 	.is--IE & {
@@ -42,14 +47,28 @@
 
 		&.col1 {
 			flex-basis: 510px;
+			height: calc(100vh - 250px);
+			position: relative;
 		}
 
-		&.col2, &.col3 {
+		&.col2 {
 			flex-grow: 0;
 			flex-shrink: 1;
-			flex-basis: 375px;
+			flex-basis: 750px;
+
+			height: calc(100vh - 250px);
+			overflow-y: scroll;
 		}
 	}
+		.sub-col_container {
+			@extend .grid;
+			margin-bottom: 100px;
+		}
+
+			.sub-col {
+				@extend .grid__item;
+				@extend .one-half;
+			}
 
 
 .overlay,
