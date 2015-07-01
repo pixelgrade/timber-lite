@@ -57,7 +57,6 @@ function requestTick() {
 }
 
 function update() {
-
   Portfolio.getCurrent();
   ticking = false;
 }
