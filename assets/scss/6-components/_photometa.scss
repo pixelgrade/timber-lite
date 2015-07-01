@@ -5,6 +5,7 @@
     align-content: flex-start;
     padding: 1em 1.5em;
     color: white;
+    @extend %transform--0;
 
     &:before {
         content: "";
