@@ -9,27 +9,20 @@ function init() {
   platformDetect();
   browserSize();
 
-  Portfolio.init();
+  Project.init();
   Placeholder.update();
-  Portfolio.prepare();
+  Project.prepare();
 
-  if ($('.filmstrip').length) {
-    $('.filmstrip').mixItUp({
-      animation: {
-        effects: 'fade'
-      },
-      selectors: {
-        target: '.filmstrip__item',
-        filter: '.filter__item'
-      }
-    });
-  }
+	Portfolio.init();
+
+	Blog.init();
+	Blog.prepare();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
 
 $window.load(function() {
-  // Portfolio.getCurrent();
+  // Project.getCurrent();
   //browserSize();
   //Sidebar.init();
   //navigation.init();
@@ -58,7 +51,12 @@ function requestTick() {
 }
 
 function update() {
-  Portfolio.getCurrent();
+  Project.getCurrent();
+
+	Portfolio.maybeloadNextProjects();
+
+	Blog.maybeLoadNextPosts();
+
   ticking = false;
 }
 

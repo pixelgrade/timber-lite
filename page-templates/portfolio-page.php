@@ -10,7 +10,7 @@ get_header(); ?>
 <div class="site-container">
 
 	<div class="site-sidebar"></div>
-	<div class="site-content">
+	<div class="site-content portfolio-archive">
 
 
 		<?php
@@ -47,18 +47,22 @@ get_header(); ?>
 
 			$project_query = new WP_Query( $args );
 
-			if ( $project_query -> have_posts() ) :
+			if ( $project_query -> have_posts() ) : ?>
 
-				while ( $project_query -> have_posts() ) : $project_query -> the_post();
+                <div class="portfolio-wrapper">
+
+				<?php while ( $project_query -> have_posts() ) : $project_query -> the_post();
 
 					get_template_part( 'template-parts/content', 'portfolio' );
 
 				endwhile;
 
 				timber_paging_nav( $project_query->max_num_pages );
-				wp_reset_postdata();
+				wp_reset_postdata(); ?>
 
-			else :
+                </div>
+
+			<?php else :
 
 				get_template_part( 'template-parts/content', 'none' );
 

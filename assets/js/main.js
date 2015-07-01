@@ -3104,6 +3104,117 @@ function factory(window, EventEmitter, eventie) {
   return ImagesLoaded;
 
 });
+/*
+ * jQuery appear plugin
+ *
+ * Copyright (c) 2012 Andrey Sidorov
+ * licensed under MIT license.
+ *
+ * https://github.com/morr/jquery.appear/
+ *
+ * Version: 0.3.6
+ */
+(function ($) {
+  var selectors = [];
+
+  var check_binded = false;
+  var check_lock = false;
+  var defaults = {
+    interval: 250,
+    force_process: false
+  };
+  var $window = $(window);
+
+  var $prior_appeared = [];
+
+  function process() {
+    check_lock = false;
+    for (var index = 0, selectorsLength = selectors.length; index < selectorsLength; index++) {
+      var $appeared = $(selectors[index]).filter(function () {
+        return $(this).is(':appeared');
+      });
+
+      $appeared.trigger('appear', [$appeared]);
+
+      if ($prior_appeared[index]) {
+        var $disappeared = $prior_appeared[index].not($appeared);
+        $disappeared.trigger('disappear', [$disappeared]);
+      }
+      $prior_appeared[index] = $appeared;
+    }
+  };
+
+  function add_selector(selector) {
+    selectors.push(selector);
+    $prior_appeared.push();
+  }
+
+  // "appeared" custom filter
+  $.expr[':']['appeared'] = function (element) {
+    var $element = $(element);
+    if (!$element.is(':visible')) {
+      return false;
+    }
+
+    var window_left = $window.scrollLeft();
+    var window_top = $window.scrollTop();
+    var offset = $element.offset();
+    var left = offset.left;
+    var top = offset.top;
+
+    if (top + $element.height() >= window_top && top - ($element.data('appear-top-offset') || 0) <= window_top + $window.height() && left + $element.width() >= window_left && left - ($element.data('appear-left-offset') || 0) <= window_left + $window.width()) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  $.fn.extend({
+    // watching for element's appearance in browser viewport
+    appear: function (options) {
+      var opts = $.extend({}, defaults, options || {});
+      var selector = this.selector || this;
+      if (!check_binded) {
+        var on_check = function () {
+          if (check_lock) {
+            return;
+          }
+          check_lock = true;
+
+          setTimeout(process, opts.interval);
+        };
+
+        $(window).scroll(on_check).resize(on_check);
+        check_binded = true;
+      }
+
+      if (opts.force_process) {
+        setTimeout(process, opts.interval);
+      }
+      add_selector(selector);
+      return $(selector);
+    }
+  });
+
+  $.extend({
+    // force elements's appearance check
+    force_appear: function () {
+      if (check_binded) {
+        process();
+        return true;
+      }
+      return false;
+    }
+  });
+})(function () {
+  if (typeof module !== 'undefined') {
+    // Node
+    return require('jquery');
+  } else {
+    return jQuery;
+  }
+}());
+
 /**!
  * MixItUp v2.1.8
  *
@@ -7004,6 +7115,205 @@ if (!Date.now) Date.now = function () {
       
       globalDebug = false;
 
+
+  window.Blog = (function () {
+
+    var $filmstrip_container = $('.filmstrip'),
+        
+        
+        fullviewWidth = windowWidth,
+        fullviewHeight = windowHeight,
+        isFirstFilterClick = true,
+        isLoadingPosts = false,
+        filterBy = '',
+        
+        
+        init = function () {
+
+        if (!$filmstrip_container.length) {
+          //placehold();
+          return;
+        }
+
+        $('.navigation').hide();
+
+        //mixitup init without filtering
+        $filmstrip_container.mixItUp({
+          animation: {
+            effects: 'fade'
+          },
+          selectors: {
+            target: '.filmstrip__item'
+          }
+        });
+
+        bindEvents();
+
+        //if there are not sufficient posts to have scroll - load the next page also (prepending)
+        if ($filmstrip_container.children('article').last().offset().left == 0) {
+          loadNextPosts();
+        }
+        },
+        
+        
+        prepare = function () {
+
+      },
+        
+        
+        bindEvents = function () {
+        //we will handle the binding of filter links because we need to load all posts on first filter click
+        $('.filter .filter__item').click(function () {
+          filterBy = $(this).data('filter');
+
+          //first make the current filter link active
+          $('.filter .filter__item').removeClass('active');
+          $(this).addClass('active');
+
+          if (isFirstFilterClick == true) {
+            //this is the first time the user has clicked a filter link
+            //we need to first load all posts before proceeding
+            loadAllPosts();
+
+          } else {
+            //just regular filtering from the second click onwards
+            $filmstrip_container.mixItUp('filter', filterBy);
+          }
+
+          return false;
+        });
+        },
+        
+        
+        loadAllPosts = function () {
+        var offset = $filmstrip_container.find('.filmstrip__item').length;
+
+        if (globalDebug) {
+          console.log("Loading All Posts - AJAX Offset = " + offset);
+        }
+
+        isLoadingPosts = true;
+
+        $.post(
+        timber_ajax.ajax_url, {
+          action: 'timber_load_next_posts',
+          nonce: timber_ajax.nonce,
+          offset: offset,
+          posts_number: 'all'
+        }, function (response_data) {
+
+          if (response_data.success) {
+            if (globalDebug) {
+              console.log("Loaded all posts");
+            }
+
+            var $result = $(response_data.data.posts).filter('article');
+
+            if (globalDebug) {
+              console.log("Adding new " + $result.length + " items to the DOM");
+            }
+
+            $('.navigation').hide().remove();
+
+            $result.imagesLoaded(function () {
+              if (globalDebug) {
+                console.log("MixItUp Filtering - Images Loaded");
+              }
+
+              $filmstrip_container.mixItUp('append', $result, {
+                filter: filterBy
+              });
+
+              //next time the user filters we will know
+              isFirstFilterClick = false;
+
+              isLoadingPosts = false;
+
+              if (globalDebug) {
+                console.log("MixItUp Filtering - Filter by " + filterBy);
+              }
+            });
+          }
+        });
+        },
+        
+        
+        loadNextPosts = function () {
+        var offset = $filmstrip_container.find('.filmstrip__item').length;
+
+        if (globalDebug) {
+          console.log("Loading More Posts - AJAX Offset = " + offset);
+        }
+
+        isLoadingPosts = true;
+
+        $.post(
+        timber_ajax.ajax_url, {
+          action: 'timber_load_next_posts',
+          nonce: timber_ajax.nonce,
+          offset: offset
+        }, function (response_data) {
+
+          if (response_data.success) {
+            if (globalDebug) {
+              console.log("Loaded next posts");
+            }
+
+            var $result = $(response_data.data.posts).filter('article');
+
+            if (globalDebug) {
+              console.log("Adding new " + $result.length + " items to the DOM");
+            }
+
+            $result.imagesLoaded(function () {
+              if (globalDebug) {
+                console.log("MixItUp Filtering - Images Loaded");
+              }
+
+              $filmstrip_container.mixItUp('append', $result);
+
+              isLoadingPosts = false;
+            });
+          } else {
+            //we have failed
+            //it's time to call it a day
+            if (globalDebug) {
+              console.log("It seems that there are no more posts to load");
+            }
+
+            $('.navigation').fadeOut();
+
+            //don't make isLoadingPosts true so we won't load any more posts
+          }
+        });
+        },
+        
+        
+        maybeLoadNextPosts = function () {
+        if (!$filmstrip_container.length || isLoadingPosts) {
+          return;
+        }
+
+        var $lastChild = $filmstrip_container.children('article').last();
+
+        //if the last child is in view then load more posts
+        if ($lastChild.is(':appeared')) {
+          loadNextPosts();
+        }
+
+        }
+        
+        
+        
+        return {
+        init: init,
+        prepare: prepare,
+        loadAllPosts: loadAllPosts,
+        loadNextPosts: loadNextPosts,
+        maybeLoadNextPosts: maybeLoadNextPosts
+        }
+  })();
+
   function overlayInit() {
 
     var $trigger = $('.js-overlay-trigger'),
@@ -7152,6 +7462,162 @@ if (!Date.now) Date.now = function () {
     }
   }
   window.Portfolio = (function () {
+
+    var $portfolio_container = $('.portfolio-wrapper'),
+        
+        
+        isLoadingProjects = false,
+        
+        
+        init = function () {
+
+        if (!$portfolio_container.length) {
+          return;
+        }
+
+        $('.navigation').hide();
+
+        bindEvents();
+
+        //if there are not sufficient projects to have scroll - load the next page also (prepending)
+        if ($portfolio_container.children('article').last().offset().top == 0) {
+          loadNextProjects();
+        }
+        },
+        
+        
+        prepare = function () {
+
+      },
+        
+        
+        bindEvents = function () {
+
+        $('.site-content.portfolio-archive').on('scroll', function () {
+          requestTick();
+        });
+
+        },
+        
+        
+        loadAllProjects = function () {
+        var offset = $portfolio_container.find('.portfolio--project').length;
+
+        if (globalDebug) {
+          console.log("Loading All Projects - AJAX Offset = " + offset);
+        }
+
+        isLoadingProjects = true;
+
+        $.post(
+        timber_ajax.ajax_url, {
+          action: 'timber_load_next_projects',
+          nonce: timber_ajax.nonce,
+          offset: offset,
+          posts_number: 'all'
+        }, function (response_data) {
+
+          if (response_data.success) {
+            if (globalDebug) {
+              console.log("Loaded all projects");
+            }
+
+            var $result = $(response_data.data.posts).filter('article');
+
+            if (globalDebug) {
+              console.log("Adding new " + $result.length + " items to the DOM");
+            }
+
+            $('.navigation').hide().remove();
+
+            $result.imagesLoaded(function () {
+
+              $portfolio_container.append($result);
+
+              Placeholder.update();
+
+              isLoadingProjects = false;
+            });
+          }
+        });
+        },
+        
+        
+        loadNextProjects = function () {
+        var offset = $portfolio_container.find('.portfolio--project').length;
+
+        if (globalDebug) {
+          console.log("Loading More Projects - AJAX Offset = " + offset);
+        }
+
+        isLoadingProjects = true;
+
+        $.post(
+        timber_ajax.ajax_url, {
+          action: 'timber_load_next_projects',
+          nonce: timber_ajax.nonce,
+          offset: offset
+        }, function (response_data) {
+
+          if (response_data.success) {
+            if (globalDebug) {
+              console.log("Loaded next projects");
+            }
+
+            var $result = $(response_data.data.posts).filter('article');
+
+            if (globalDebug) {
+              console.log("Adding new " + $result.length + " items to the DOM");
+            }
+
+            $result.imagesLoaded(function () {
+
+              $portfolio_container.append($result);
+
+              Placeholder.update();
+
+              isLoadingProjects = false;
+            });
+          } else {
+            //we have failed
+            //it's time to call it a day
+            if (globalDebug) {
+              console.log("It seems that there are no more projects to load");
+            }
+
+            $('.navigation').fadeOut();
+
+            //don't make isLoadingProjects true so we won't load any more projects
+          }
+        });
+        },
+        
+        
+        maybeloadNextProjects = function () {
+        if (!$portfolio_container.length || isLoadingProjects) {
+          return;
+        }
+
+        var $lastChild = $portfolio_container.children('article').last();
+
+        //if the last child is in view then load more projects
+        if ($lastChild.is(':appeared')) {
+          loadNextProjects();
+        }
+
+        }
+        
+        
+        
+        return {
+        init: init,
+        prepare: prepare,
+        loadAllProjects: loadAllProjects,
+        loadNextProjects: loadNextProjects,
+        maybeloadNextProjects: maybeloadNextProjects
+        }
+  })();
+  window.Project = (function () {
 
     var $film, $grid, $fullview, start, end, current,
 
@@ -8026,26 +8492,19 @@ if (!Date.now) Date.now = function () {
     platformDetect();
     browserSize();
 
-    Portfolio.init();
+    Project.init();
     Placeholder.update();
-    Portfolio.prepare();
+    Project.prepare();
 
-    if ($('.filmstrip').length) {
-      $('.filmstrip').mixItUp({
-        animation: {
-          effects: 'fade'
-        },
-        selectors: {
-          target: '.filmstrip__item',
-          filter: '.filter__item'
-        }
-      });
-    }
+    Portfolio.init();
+
+    Blog.init();
+    Blog.prepare();
   }
 
   // /* ====== ON WINDOW LOAD ====== */
   $window.load(function () {
-    // Portfolio.getCurrent();
+    // Project.getCurrent();
     //browserSize();
     //Sidebar.init();
     //navigation.init();
@@ -8073,7 +8532,12 @@ if (!Date.now) Date.now = function () {
   }
 
   function update() {
-    Portfolio.getCurrent();
+    Project.getCurrent();
+
+    Portfolio.maybeloadNextProjects();
+
+    Blog.maybeLoadNextPosts();
+
     ticking = false;
   }
 

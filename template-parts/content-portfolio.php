@@ -46,7 +46,7 @@
 	/*
 	 * Project film strip with text boxes ignored
 	 */
-	timber_the_film_strip( get_the_ID(), true );
+	timber_the_film_strip( get_the_ID(), true, true );
 	?>
 
 </article><!-- #post-<?php the_ID(); ?> -->

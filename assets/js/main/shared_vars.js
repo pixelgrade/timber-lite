@@ -41,3 +41,4 @@ var ua                  = navigator.userAgent.toLowerCase(),
     ticking             = false,
 
     globalDebug         = false;
+
