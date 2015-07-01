@@ -7237,7 +7237,7 @@ if (!Date.now) Date.now = function () {
         $('.fullview .rsArrowLeft').on('click', showPrev);
 
         $('.js-details').on('click', function () {
-          $film.toggleClass('portfolio--details');
+          $body.toggleClass('portfolio--details');
         });
         },
         
@@ -7325,23 +7325,22 @@ if (!Date.now) Date.now = function () {
         
         getReferenceBounds = function () {
         var $items = $film.find('.js-portfolio-item'),
-            items = $items.length;
+            items = $items.length,
+            max;
 
         if (items < 2) {
           return;
         }
 
-        console.log($items.eq(0).data('middle'), $items.eq(1).data('middle'));
         start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
         end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
-        if (start > end) {
-          start = (start + end) / 2 - 10;
-          end = start + 20;
-        } else {
-          start = start - 10;
-          end = end + 10;
-        }
+        max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
+
+        start = contentWidth / 2 - max;
+        end = contentWidth / 2 + max;
+
+        console.log(start, contentWidth / 2, end, max);
         },
         
         
@@ -7496,7 +7495,14 @@ if (!Date.now) Date.now = function () {
         morph($source, $target);
 
         setTimeout(function () {
-          $document.on('mousemove', panFullview);
+          TweenMax.to($('.fullview__image img'), .5, {
+            x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+            y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
+            ease: Back.easeOut,
+            onComplete: function () {
+              $document.on('mousemove', panFullview);
+            }
+          });
         }, 500);
 
         $fullview.addClass('fullview--visible');
