@@ -2,7 +2,7 @@ var scl,
 	socialLinks = {
 		settings: {
 			wrapper: $('.share-box'),
-			button: $('.js-share-button i'),
+			button: $('.js-share-button'),
 			text: $('.share-text'),
 			social_links: $('.share-box a'),
 			social_links_list: $('.social-links-list'),

@@ -9,6 +9,7 @@
     @extend %bar-left;
 
     position: relative;
+}
 
     .share-text {
         position: absolute;
@@ -23,10 +24,17 @@
 
     }
 
+    .share-button {
+        position: relative;
+        left: -12px;
+
+        padding: 12px 18px;
+    }
+
     .share-button, .share-text {
         transition-duration: 0.2s;
     }
-}
+
     .social-links-list {
         @extend %margin--0;
         @extend %padding--0;
