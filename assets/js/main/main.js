@@ -13,6 +13,8 @@ function init() {
   Placeholder.update();
   Portfolio.prepare();
 
+	PortfolioArchive.init();
+
 	Blog.init();
 	Blog.prepare();
 }
@@ -50,6 +52,8 @@ function requestTick() {
 function update() {
 
   Portfolio.getCurrent();
+
+	PortfolioArchive.maybeloadNextProjects();
 
 	Blog.maybeLoadNextPosts();
 

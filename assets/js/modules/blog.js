@@ -15,7 +15,7 @@ window.Blog = (function() {
 			return;
 		}
 
-		$('.nav-links').hide();
+		$('.navigation').hide();
 
 		//mixitup init without filtering
 		$filmstrip_container.mixItUp({
@@ -26,7 +26,7 @@ window.Blog = (function() {
 
 		bindEvents();
 
-		//if there are not sufficient posts to have scroll - load the next page also
+		//if there are not sufficient posts to have scroll - load the next page also (prepending)
 		if ( $filmstrip_container.children('article').last().offset().left == 0 ) {
 			loadNextPosts();
 		}
@@ -92,7 +92,7 @@ window.Blog = (function() {
 
 					if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
 
-					$('.nav-links').hide().remove();
+					$('.navigation').hide().remove();
 
 					$result.imagesLoaded(function(){
 						if (globalDebug) {console.log("MixItUp Filtering - Images Loaded");}
@@ -146,7 +146,7 @@ window.Blog = (function() {
 					//it's time to call it a day
 					if (globalDebug) {console.log("It seems that there are no more posts to load");}
 
-					$('.nav-links').fadeOut();
+					$('.navigation').fadeOut();
 
 					//don't make isLoadingPosts true so we won't load any more posts
 				}

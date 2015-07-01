@@ -7135,7 +7135,7 @@ if (!Date.now) Date.now = function () {
           return;
         }
 
-        $('.nav-links').hide();
+        $('.navigation').hide();
 
         //mixitup init without filtering
         $filmstrip_container.mixItUp({
@@ -7146,7 +7146,7 @@ if (!Date.now) Date.now = function () {
 
         bindEvents();
 
-        //if there are not sufficient posts to have scroll - load the next page also
+        //if there are not sufficient posts to have scroll - load the next page also (prepending)
         if ($filmstrip_container.children('article').last().offset().left == 0) {
           loadNextPosts();
         }
@@ -7219,7 +7219,7 @@ if (!Date.now) Date.now = function () {
               console.log("Adding new " + $result.length + " items to the DOM");
             }
 
-            $('.nav-links').hide().remove();
+            $('.navigation').hide().remove();
 
             $result.imagesLoaded(function () {
               if (globalDebug) {
@@ -7287,7 +7287,7 @@ if (!Date.now) Date.now = function () {
               console.log("It seems that there are no more posts to load");
             }
 
-            $('.nav-links').fadeOut();
+            $('.navigation').fadeOut();
 
             //don't make isLoadingPosts true so we won't load any more posts
           }
@@ -7815,6 +7815,154 @@ if (!Date.now) Date.now = function () {
         prepare: prepare,
         getCurrent: getCurrent
         }
+  })();
+  window.PortfolioArchive = (function () {
+
+    var $portfolio_container = $('.portfolio-archive'),
+        
+        
+        isLoadingProjects = false,
+        
+        
+        init = function () {
+
+        if (!$portfolio_container.length) {
+          return;
+        }
+
+        $('.navigation').hide();
+
+        bindEvents();
+
+        //if there are not sufficient projects to have scroll - load the next page also (prepending)
+        if ($portfolio_container.children('article').last().offset().top == 0) {
+          loadNextProjects();
+        }
+        },
+        
+        
+        prepare = function () {
+
+      },
+        
+        
+        bindEvents = function () {
+
+      },
+        
+        
+        loadAllProjects = function () {
+        var offset = $portfolio_container.find('.portfolio--project').length;
+
+        if (globalDebug) {
+          console.log("Loading All Projects - AJAX Offset = " + offset);
+        }
+
+        isLoadingProjects = true;
+
+        $.post(
+        timber_ajax.ajax_url, {
+          action: 'timber_load_next_projects',
+          nonce: timber_ajax.nonce,
+          offset: offset,
+          posts_number: 'all'
+        }, function (response_data) {
+
+          if (response_data.success) {
+            if (globalDebug) {
+              console.log("Loaded all projects");
+            }
+
+            var $result = $(response_data.data.posts).filter('article');
+
+            if (globalDebug) {
+              console.log("Adding new " + $result.length + " items to the DOM");
+            }
+
+            $('.navigation').hide().remove();
+
+            $result.imagesLoaded(function () {
+
+              $portfolio_container.append($result);
+
+              isLoadingProjects = false;
+            });
+          }
+        });
+        },
+        
+        
+        loadNextProjects = function () {
+        var offset = $portfolio_container.find('.portfolio--project').length;
+
+        if (globalDebug) {
+          console.log("Loading More Projects - AJAX Offset = " + offset);
+        }
+
+        isLoadingProjects = true;
+
+        $.post(
+        timber_ajax.ajax_url, {
+          action: 'timber_load_next_projects',
+          nonce: timber_ajax.nonce,
+          offset: offset
+        }, function (response_data) {
+
+          if (response_data.success) {
+            if (globalDebug) {
+              console.log("Loaded next projects");
+            }
+
+            var $result = $(response_data.data.posts).filter('article');
+
+            if (globalDebug) {
+              console.log("Adding new " + $result.length + " items to the DOM");
+            }
+
+            $result.imagesLoaded(function () {
+
+              $portfolio_container.append($result);
+
+              isLoadingProjects = false;
+            });
+          } else {
+            //we have failed
+            //it's time to call it a day
+            if (globalDebug) {
+              console.log("It seems that there are no more projects to load");
+            }
+
+            $('.navigation').fadeOut();
+
+            //don't make isLoadingProjects true so we won't load any more projects
+          }
+        });
+        },
+        
+        
+        maybeloadNextProjects = function () {
+        if (!$portfolio_container.length || isLoadingProjects) {
+          return;
+        }
+
+        var $lastChild = $portfolio_container.children('article').last();
+
+        //if the last child is in view then load more projects
+        if ($lastChild.is(':appeared')) {
+          loadNextProjects();
+        }
+
+        }
+        
+        
+        
+        return {
+        init: init,
+        prepare: prepare,
+        loadAllProjects: loadAllProjects,
+        loadNextProjects: loadNextProjects,
+        maybeloadNextProjects: maybeloadNextProjects
+        }
   })(); /* --- Royal Slider Init --- */
 
   function royalSliderInit($container) {
@@ -8118,6 +8266,8 @@ if (!Date.now) Date.now = function () {
     Placeholder.update();
     Portfolio.prepare();
 
+    PortfolioArchive.init();
+
     Blog.init();
     Blog.prepare();
   }
@@ -8153,6 +8303,8 @@ if (!Date.now) Date.now = function () {
   function update() {
 
     Portfolio.getCurrent();
+
+    PortfolioArchive.maybeloadNextProjects();
 
     Blog.maybeLoadNextPosts();
 
