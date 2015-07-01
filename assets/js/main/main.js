@@ -15,6 +15,9 @@ function init() {
 
   if ($('.filmstrip').length) {
     $('.filmstrip').mixItUp({
+      animation: {
+        effects: 'fade'
+      },
       selectors: {
         target: '.filmstrip__item',
         filter: '.filter__item'
@@ -65,4 +68,9 @@ $window.on('scroll', function() {
   latestKnownScrollY = window.scrollY;
   latestKnownScrollX = window.scrollX;
   requestTick();
+});
+
+$document.mousemove(function(e) {
+    latestKnownMouseX = e.pageX - latestKnownScrollX;
+    latestKnownMouseY = e.pageY - latestKnownScrollY;
 });

@@ -20,7 +20,7 @@
  * @uses current_theme_supports()
  * @since 3.2
  */
-function site_logo_init() {
+function timber_site_logo_init() {
 	// Only load our code if our theme declares support, and the standalone plugin is not activated.
 	if ( current_theme_supports( 'site-logo' ) && ! class_exists( 'Site_Logo', false ) ) {
 		// Load our class for namespacing.
@@ -33,4 +33,4 @@ function site_logo_init() {
 		require( dirname( __FILE__ ) . '/site-logo/inc/compat.php' );
 	}
 }
-add_action( 'init', 'site_logo_init' );
+add_action( 'init', 'timber_site_logo_init' );
