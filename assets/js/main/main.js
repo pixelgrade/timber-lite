@@ -34,6 +34,7 @@ $window.load(function() {
 
   overlayInit();
   royalSliderInit();
+  socialLinks.init();
 });
 
 // /* ====== ON RESIZE ====== */

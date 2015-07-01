@@ -22,13 +22,13 @@ while ( have_posts() ) : the_post();
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="bar--fixed">
-			<button class="share-button"><i class="fa fa-share-alt"></i></button>
+			<?php get_template_part('template-parts/addthis-share'); ?>
 			<div class="site-info">
 				<div class="portfolio__position"></div>
-				<a class="show-details js-details" href="#"><?php _e( 'details', 'timber' ); ?></a>
+				<a class="show-details caption js-details" href="#"><span><?php _e( 'details', 'timber' ); ?></span></a>
 			</div>
 			<!-- .site-info -->
-			<button class="show-button  js-show-thumbnails"><span><?php _e( 'show thumbnails', 'timber' ); ?></span></button>
+			<button class="show-button caption js-show-thumbnails"><span><?php _e( 'show thumbnails', 'timber' ); ?></span></button>
 		</div>
 	</footer><!-- #colophon -->
 
@@ -40,7 +40,7 @@ while ( have_posts() ) : the_post();
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="bar--fixed">
-			<button class="share-button"><i class="fa fa-share-alt"></i></button>
+			<?php get_template_part('template-parts/addthis-share'); ?>
 			<div class="site-info">
 				<div class="gallery-counter  js-gallery-counter">
 					<span class="js-unit">1</span>

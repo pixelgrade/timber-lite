@@ -7705,9 +7705,62 @@ if (!Date.now) Date.now = function () {
         $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
         $('.fullview__close').on('click', hideFullView);
 
+        $('.fullview .rsArrowRight').on('click', showNext);
+        $('.fullview .rsArrowLeft').on('click', showPrev);
+
         $('.js-details').on('click', function () {
-          $film.toggleClass('portfolio--details');
+          $body.toggleClass('portfolio--details');
         });
+        },
+        
+        
+        showPrev = function () {
+        var $items = $film.find('.js-portfolio-item'),
+            items = $items.length;
+
+        $items.each(function (i, obj) {
+          if ($(obj).hasClass('portfolio__item--active')) {
+            if (i == 0) {
+              fullViewTransition($items.eq(items - 1));
+            } else {
+              fullViewTransition($items.eq(i - 1));
+            }
+            return false;
+          }
+        });
+        },
+        
+        
+        showNext = function () {
+        var $items = $film.find('.js-portfolio-item'),
+            items = $items.length;
+
+        $items.each(function (i, obj) {
+          if ($(obj).hasClass('portfolio__item--active')) {
+            if (i == items - 1) {
+              fullViewTransition($items.eq(0));
+              console.log(i + 1);
+            } else {
+              fullViewTransition($items.eq(i + 1));
+            }
+            return false;
+          }
+        });
+        },
+        
+        
+        fullViewTransition = function ($source) {
+        var $target = addImageToFullView($source);
+        TweenMax.fromTo($target, .3, {
+          opacity: 0
+        }, {
+          opacity: 1,
+          onComplete: function () {
+            $('.fullview__image').not($target).remove();
+            centerFilmToTarget($source);
+          }
+        });
+        setCurrent($source);
         },
         
         
@@ -7746,19 +7799,23 @@ if (!Date.now) Date.now = function () {
         
         
         getReferenceBounds = function () {
-        var $first = $film.find('.js-portfolio-item').first(),
-            $last = $film.find('.js-portfolio-item').last();
+        var $items = $film.find('.js-portfolio-item'),
+            items = $items.length,
+            max;
 
-        start = $first.data('middle') + ($first.next().data('middle') - $first.data('middle')) / 2;
-        end = contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
-
-        if (start > end) {
-          start = end - 10;
-          end = end + 10;
-        } else {
-          start = start - 10;
-          end = end + 10;
+        if (items < 2) {
+          return;
         }
+
+        start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
+        end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
+
+        max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
+
+        start = contentWidth / 2 - max;
+        end = contentWidth / 2 + max;
+
+        console.log(start, contentWidth / 2, end, max);
         },
         
         
@@ -7779,7 +7836,6 @@ if (!Date.now) Date.now = function () {
 
         $('.js-portfolio-item').addClass('no-transition');
 
-        $film.removeClass('portfolio--details');
         $grid.find('.js-portfolio-item img').css('opacity', '');
 
         TweenMax.to($('.site-content__mask'), 0, {
@@ -7862,18 +7918,19 @@ if (!Date.now) Date.now = function () {
           }
         });
 
-        var newx = $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
-        $window.scrollLeft(newx);
-
+        centerFilmToTarget($target);
         morph($clicked, $target);
         },
         
         
-        showFullView = function (e) {
-
+        centerFilmToTarget = function ($target) {
+        $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+        },
+        
+        
+        addImageToFullView = function ($source) {
         // prepare current for fullview
-        var $source = $(this),
-            width = $source.data('width'),
+        var width = $source.data('width'),
             height = $source.data('height'),
             newWidth = $fullview.width(),
             newHeight = $fullview.height(),
@@ -7899,10 +7956,28 @@ if (!Date.now) Date.now = function () {
 
         $image.attr('src', $source.data('srcfull')).prependTo($target);
 
+        return $target;
+        }
+        
+        
+        
+        showFullView = function (e) {
+
+        // prepare current for fullview
+        var $source = $(this),
+            $target = addImageToFullView($source);
+
         morph($source, $target);
 
         setTimeout(function () {
-          $document.on('mousemove', panFullview);
+          TweenMax.to($('.fullview__image img'), .5, {
+            x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+            y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
+            ease: Back.easeOut,
+            onComplete: function () {
+              $document.on('mousemove', panFullview);
+            }
+          });
         }, 500);
 
         $fullview.addClass('fullview--visible');
@@ -7924,11 +7999,15 @@ if (!Date.now) Date.now = function () {
         $document.off('mousemove', panFullview);
         TweenMax.to($('.fullview__image img'), .3, {
           x: 0,
-          y: 0
+          y: 0,
+          onComplete: function () {
+            morph($source, $target);
+            setTimeout(function () {
+              $('.fullview__image').remove();
+              $fullview.removeClass('fullview--visible');
+            });
+          }
         });
-        morph($source, $target);
-        $fullview.removeClass('fullview--visible');
-        $('.fullview__image').remove();
         },
         
         
@@ -7977,14 +8056,26 @@ if (!Date.now) Date.now = function () {
               transition: '',
               opacity: ''
             });
+            TweenMax.fromTo($target.children('.photometa'), .3, {
+              opacity: 0
+            }, {
+              opacity: 1
+            });
+            $source.css('opacity', '');
             $clone.remove();
           }
         },
             config = $.extend(defaults, options);
 
         requestAnimationFrame(function () {
+          TweenMax.to($target.children('.photometa'), 0, {
+            opacity: 0
+          });
           $clone.appendTo($target);
           TweenMax.to($clone, .5, config);
+          TweenMax.to($clone.children('.photometa'), .3, {
+            opacity: 0
+          });
         });
 
         $(window).trigger('pxg:morph-end');
@@ -8297,6 +8388,108 @@ if (!Date.now) Date.now = function () {
       }
     });
   }
+  var scl, socialLinks = {
+    settings: {
+      wrapper: $('.share-box'),
+      button: $('.js-share-button'),
+      text: $('.share-text'),
+      social_links: $('.share-box a'),
+      social_links_list: $('.social-links-list'),
+      anim: new TimelineMax({
+        paused: true,
+        onComplete: function () {
+          $('.social-links-list').addClass('is-active');
+        },
+        onReverseComplete: function () {
+          $('.social-links-list').removeClass('is-active');
+        }
+      })
+    },
+
+    init: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - INIT");
+      }
+
+      scl = this.settings;
+      this.update();
+
+      if (!empty(scl.wrapper)) {
+        //the actual animation
+        scl.anim
+        //.to(scl.button, 0.2, {backgroundColor:"#1a1717"})
+        //.to(scl.social_links_list, 0.2, {opacity: 1})
+        .to(scl.button, 0.02, {
+          opacity: 0,
+          ease: Quart.easeOut
+        }).to(scl.text, 0.02, {
+          opacity: 1,
+          ease: Circ.easeOut
+        }).staggerFromTo(scl.social_links, 0.3, {
+          opacity: 0,
+          x: -20
+        }, {
+          opacity: 1,
+          x: 0,
+          ease: Circ.easeOut,
+          onComplete: function () {
+            $('.social-links-list').addClass('clickable');
+          },
+          onReverseComplete: function () {
+            $('.social-links-list').removeClass('clickable');
+          }
+        }, 0.025, "-=0.02");
+
+        //toggle play and reverse timeline on hover
+        //scl.wrapper.hover(this.over, this.out);
+        scl.button.on('mouseenter', this.over);
+        scl.wrapper.on('mouseleave', this.out);
+
+      } else {
+        if (globalDebug) {
+          console.log("Social Links Hover - SHOW STOPPER - No social links wrapper found");
+        }
+      }
+    },
+
+    update: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - UPDATE");
+      }
+
+      scl.wrapper = $('.share-box');
+      scl.button = $('.js-share-button');
+      scl.social_links = $('.share-box a');
+      scl.social_links_list = $('.social-links-list');
+      scl.anim = new TimelineLite({
+        paused: true,
+        onComplete: function () {
+          scl.social_links_list.addClass('is-active');
+        },
+        onReverseComplete: function () {
+          scl.social_links_list.removeClass('is-active');
+        }
+      });
+    },
+
+    over: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - OVER");
+      }
+
+      scl.anim.play();
+
+      console.log('over');
+    },
+
+    out: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - OUT");
+      }
+
+      scl.anim.reverse();
+    }
+  };
   console.log('modules compiled');
   // /* ====== ON DOCUMENT READY ====== */
   $(document).ready(function () {
@@ -8331,6 +8524,7 @@ if (!Date.now) Date.now = function () {
     //logoAnimation.update();
     overlayInit();
     royalSliderInit();
+    socialLinks.init();
   });
 
   // /* ====== ON RESIZE ====== */
