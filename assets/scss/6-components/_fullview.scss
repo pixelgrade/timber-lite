@@ -23,12 +23,27 @@
     }
 
     &__close {
+        width: 1.5em;
+        height: 1.5em;
         position: absolute;
-        top: 1em;
-        right: 1em;
-        color: white;
-        font-size: 2em;
+        top: 3.5em;
+        right: 3.5em;
         cursor: pointer;
         z-index: 10;
+        background: url('assets/svg/close-button.svg') no-repeat;
+        background-size: cover;
     }
+
+    .rsArrow {
+        width: auto;
+        height: auto;
+
+        .rsArrowIcn {
+            margin: 0;
+            border-color: white;
+        }
+    }
+
+    .rsArrowLeft    { left: 3.7em }
+    .rsArrowRight   { right: 3.7em }
 }

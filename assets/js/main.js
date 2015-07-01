@@ -7271,15 +7271,20 @@ if (!Date.now) Date.now = function () {
         
         
         getReferenceBounds = function () {
-        var $first = $film.find('.js-portfolio-item').first(),
-            $last = $film.find('.js-portfolio-item').last();
+        var $items = $film.find('.js-portfolio-item'),
+            items = $items.length;
 
-        start = $first.data('middle') + ($first.next().data('middle') - $first.data('middle')) / 2;
-        end = contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
+        if (items < 2) {
+          return;
+        }
+
+        console.log($items.eq(0).data('middle'), $items.eq(1).data('middle'));
+        start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
+        end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
         if (start > end) {
-          start = end - 10;
-          end = end + 10;
+          start = (start + end) / 2 - 10;
+          end = start + 20;
         } else {
           start = start - 10;
           end = end + 10;
@@ -7304,7 +7309,7 @@ if (!Date.now) Date.now = function () {
 
         $('.js-portfolio-item').addClass('no-transition');
 
-        $film.removeClass('portfolio--details');
+        // $film.removeClass('portfolio--details');
         $grid.find('.js-portfolio-item img').css('opacity', '');
 
         TweenMax.to($('.site-content__mask'), 0, {
@@ -7449,11 +7454,15 @@ if (!Date.now) Date.now = function () {
         $document.off('mousemove', panFullview);
         TweenMax.to($('.fullview__image img'), .3, {
           x: 0,
-          y: 0
+          y: 0,
+          onComplete: function () {
+            morph($source, $target);
+            setTimeout(function () {
+              $('.fullview__image').remove();
+              $fullview.removeClass('fullview--visible');
+            });
+          }
         });
-        morph($source, $target);
-        $fullview.removeClass('fullview--visible');
-        $('.fullview__image').remove();
         },
         
         
@@ -7502,14 +7511,25 @@ if (!Date.now) Date.now = function () {
               transition: '',
               opacity: ''
             });
+            TweenMax.fromTo($target.children('.photometa'), .3, {
+              opacity: 0
+            }, {
+              opacity: 1
+            });
             $clone.remove();
           }
         },
             config = $.extend(defaults, options);
 
         requestAnimationFrame(function () {
+          TweenMax.to($target.children('.photometa'), 0, {
+            opacity: 0
+          });
           $clone.appendTo($target);
           TweenMax.to($clone, .5, config);
+          TweenMax.to($clone.children('.photometa'), .3, {
+            opacity: 0
+          });
         });
 
         $(window).trigger('pxg:morph-end');
