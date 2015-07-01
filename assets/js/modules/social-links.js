@@ -26,12 +26,12 @@ var scl,
 					.to(scl.social_links_list, 0.2, {opacity: 1})
 					.to(scl.button, 0.02, {opacity: 0, ease: Quart.easeOut })
 					.to(scl.text, 0.02, {opacity: 1,  ease: Circ.easeOut })
-					.staggerFromTo(scl.social_links, 0.2, {opacity: 0, x: "-40px"}, {opacity: 1, x: 0, ease: Quint.easeIn, onComplete: function(){
+					.staggerFromTo(scl.social_links, 0.22, {opacity: 0, x: -20}, {opacity: 1, x: 0, ease: Circ.easeOut, onComplete: function(){
 						$('.social-links-list').addClass('clickable');
 					},
 						onReverseComplete: function(){
 							$('.social-links-list').removeClass('clickable');
-						}}, 0.02, "-=0.2");
+						}}, 0.025, "-=0.02");
 
 				//toggle play and reverse timeline on hover
 				//scl.wrapper.hover(this.over, this.out);
