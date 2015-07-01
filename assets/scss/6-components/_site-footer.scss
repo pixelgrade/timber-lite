@@ -9,6 +9,7 @@
     @extend %bar-left;
 
     position: relative;
+}
 
     .share-text {
         position: absolute;
@@ -22,7 +23,18 @@
         color: $hoverColour;
 
     }
-}
+
+    .share-button {
+        position: relative;
+        left: -12px;
+
+        padding: 12px 18px;
+    }
+
+    .share-button, .share-text {
+        transition-duration: 0.2s;
+    }
+
     .social-links-list {
         @extend %margin--0;
         @extend %padding--0;
@@ -34,7 +46,6 @@
 
         transform: translateY(-50%);
         pointer-events: none;
-        opacity: 0;
 
         &.clickable{ pointer-events: auto; }
 
@@ -43,7 +54,10 @@
         }
 
         a {
+            opacity: 0;
+            display: inline-block;
             padding: 10px;
+            transition-duration: 0s;
         }
     }
 

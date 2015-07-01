@@ -7910,7 +7910,7 @@ if (!Date.now) Date.now = function () {
   var scl, socialLinks = {
     settings: {
       wrapper: $('.share-box'),
-      button: $('.js-share-button i'),
+      button: $('.js-share-button'),
       text: $('.share-text'),
       social_links: $('.share-box a'),
       social_links_list: $('.social-links-list'),
@@ -7937,28 +7937,27 @@ if (!Date.now) Date.now = function () {
         //the actual animation
         scl.anim
         //.to(scl.button, 0.2, {backgroundColor:"#1a1717"})
-        .to(scl.social_links_list, 0.2, {
-          opacity: 1
-        }).to(scl.button, 0.02, {
+        //.to(scl.social_links_list, 0.2, {opacity: 1})
+        .to(scl.button, 0.02, {
           opacity: 0,
           ease: Quart.easeOut
         }).to(scl.text, 0.02, {
           opacity: 1,
           ease: Circ.easeOut
-        }).staggerFromTo(scl.social_links, 0.2, {
+        }).staggerFromTo(scl.social_links, 0.3, {
           opacity: 0,
-          x: "-40px"
+          x: -20
         }, {
           opacity: 1,
           x: 0,
-          ease: Quint.easeIn,
+          ease: Circ.easeOut,
           onComplete: function () {
             $('.social-links-list').addClass('clickable');
           },
           onReverseComplete: function () {
             $('.social-links-list').removeClass('clickable');
           }
-        }, 0.02, "-=0.2");
+        }, 0.025, "-=0.02");
 
         //toggle play and reverse timeline on hover
         //scl.wrapper.hover(this.over, this.out);
