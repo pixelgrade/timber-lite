@@ -1,4 +1,4 @@
-window.Portfolio = (function() {
+window.Project = (function() {
 
 	var $film, $grid, $fullview,
 		start, end,

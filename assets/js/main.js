@@ -7182,15 +7182,6 @@ if (!Date.now) Date.now = function () {
 
           return false;
         });
-
-        //the infinite scroll logic on click
-        //$('.nav-links .nav-previous a').click(function(){
-        //	$(this).addClass('loading');
-        //
-        //	loadNextPosts();
-        //
-        //	return false;
-        //});
         },
         
         
@@ -7470,7 +7461,7 @@ if (!Date.now) Date.now = function () {
       $html.addClass('is--ie-mobile')
     }
   }
-  window.PortfolioArchive = (function () {
+  window.Portfolio = (function () {
 
     var $portfolio_container = $('.portfolio-wrapper'),
         
@@ -7503,8 +7494,6 @@ if (!Date.now) Date.now = function () {
         bindEvents = function () {
 
         $('.site-content.portfolio-archive').on('scroll', function () {
-          latestKnownScrollY = window.scrollY;
-          latestKnownScrollX = window.scrollX;
           requestTick();
         });
 
@@ -7545,6 +7534,8 @@ if (!Date.now) Date.now = function () {
 
               $portfolio_container.append($result);
 
+              Placeholder.update();
+
               isLoadingProjects = false;
             });
           }
@@ -7582,6 +7573,8 @@ if (!Date.now) Date.now = function () {
             $result.imagesLoaded(function () {
 
               $portfolio_container.append($result);
+
+              Placeholder.update();
 
               isLoadingProjects = false;
             });
@@ -7682,7 +7675,8 @@ if (!Date.now) Date.now = function () {
         
         
         prepare = function () {
-        if (typeof $film == "undefined") {
+
+        if (!$('.single-jetpack-portfolio').length) {
           return;
         }
 
@@ -7768,9 +7762,6 @@ if (!Date.now) Date.now = function () {
         
         // loop through each portfolio item and find the one closest to center
         getCurrent = function () {
-        if (typeof $film == "undefined") {
-          return;
-        }
 
         if (!$('.single-jetpack-portfolio').length) {
           return;
@@ -8505,7 +8496,7 @@ if (!Date.now) Date.now = function () {
     Placeholder.update();
     Project.prepare();
 
-    PortfolioArchive.init();
+    Portfolio.init();
 
     Blog.init();
     Blog.prepare();
@@ -8543,7 +8534,7 @@ if (!Date.now) Date.now = function () {
   function update() {
     Project.getCurrent();
 
-    PortfolioArchive.maybeloadNextProjects();
+    Portfolio.maybeloadNextProjects();
 
     Blog.maybeLoadNextPosts();
 

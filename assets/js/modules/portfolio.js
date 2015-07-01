@@ -62,6 +62,8 @@ window.Portfolio = (function() {
 
 						$portfolio_container.append( $result );
 
+						Placeholder.update();
+
 						isLoadingProjects = false;
 					});
 				}
@@ -95,6 +97,8 @@ window.Portfolio = (function() {
 					$result.imagesLoaded(function(){
 
 						$portfolio_container.append( $result );
+
+						Placeholder.update();
 
 						isLoadingProjects = false;
 					});
