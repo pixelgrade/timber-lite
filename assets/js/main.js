@@ -7162,7 +7162,7 @@ if (!Date.now) Date.now = function () {
         init = function () {
 
         if (!$('.single-jetpack-portfolio').length) {
-          // placehold();
+          Placeholder.update();
           return;
         }
 
@@ -7253,6 +7253,8 @@ if (!Date.now) Date.now = function () {
             min = Math.abs(reference - current),
             $next;
 
+        $('.js-reference').css('left', reference).text(parseInt(reference, 10));
+
         $film.find('.js-portfolio-item').each(function (i, obj) {
           var compare = $(obj).data('middle');
 
@@ -7276,9 +7278,8 @@ if (!Date.now) Date.now = function () {
         end = contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
 
         if (start > end) {
-          end = contentWidth / 2 - sidebarWidth;
           start = end - 10;
-          return;
+          end = end + 10;
         } else {
           start = start - 10;
           end = end + 10;
@@ -7982,7 +7983,6 @@ if (!Date.now) Date.now = function () {
   }
 
   function update() {
-
     Portfolio.getCurrent();
     ticking = false;
   }

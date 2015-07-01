@@ -119,6 +119,10 @@ img {
             img {
                 opacity: 0;
                 // transition: none !important;
+
+                .page-template-portfolio-page & {
+                    opacity: 1;
+                }
             }
         }
 

@@ -85,9 +85,12 @@ function timber_post_classes( $classes ) {
 	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
 		if ( is_single() ) {
 			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
+			if (empty($project_template)) {
+				$project_template = 'hybrid';
+			}
 
 			if($project_template == 'hybrid')
-				$classes[] = 'portfolio   js-portfolio  entry-content';
+				$classes[] = 'portfolio  js-portfolio  entry-content';
 			else
 				$classes[] = 'portfolio  entry-content';
 		} else {
