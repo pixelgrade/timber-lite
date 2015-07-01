@@ -166,10 +166,10 @@ img {
         @extend %display--none;
     }
 
-    &--details .js-portfolio-item:not(.portfolio__item--active) {
-        @extend %transform--0;
-        opacity: 0.25;
-    }
+    // &--details .js-portfolio-item:not(.portfolio__item--active) {
+    //     @extend %transform--0;
+    //     opacity: 0.25;
+    // }
 
     &--visible {
         pointer-events: auto;

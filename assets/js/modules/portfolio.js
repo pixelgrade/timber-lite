@@ -10,7 +10,7 @@ window.Portfolio = (function() {
 	init = function() {
 
 		if (!$('.single-jetpack-portfolio').length) {
-			placehold();
+			// placehold();
 			return;
 		}
 
@@ -55,6 +55,11 @@ window.Portfolio = (function() {
 	},
 
 	prepare = function() {
+
+		if (!$('.single-jetpack-portfolio').length) {
+			return;
+		}
+
 	    filmWidth       = $film.width();
 	    contentWidth    = $('.site-content').width();
 	    sidebarWidth    = $('.site-sidebar').width();
@@ -80,6 +85,10 @@ window.Portfolio = (function() {
 
 	// loop through each portfolio item and find the one closest to center
 	getCurrent = function() {
+
+		if (!$('.single-jetpack-portfolio').length) {
+			return;
+		}
 
 		var current 	= $('.portfolio__item--active').data('middle'),
 			reference 	= latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),

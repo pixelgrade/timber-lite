@@ -7162,7 +7162,7 @@ if (!Date.now) Date.now = function () {
         init = function () {
 
         if (!$('.single-jetpack-portfolio').length) {
-          placehold();
+          // placehold();
           return;
         }
 
@@ -7209,6 +7209,11 @@ if (!Date.now) Date.now = function () {
         
         
         prepare = function () {
+
+        if (!$('.single-jetpack-portfolio').length) {
+          return;
+        }
+
         filmWidth = $film.width();
         contentWidth = $('.site-content').width();
         sidebarWidth = $('.site-sidebar').width();
@@ -7238,6 +7243,10 @@ if (!Date.now) Date.now = function () {
         
         // loop through each portfolio item and find the one closest to center
         getCurrent = function () {
+
+        if (!$('.single-jetpack-portfolio').length) {
+          return;
+        }
 
         var current = $('.portfolio__item--active').data('middle'),
             reference = latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
@@ -7829,6 +7838,9 @@ if (!Date.now) Date.now = function () {
 
     if ($('.filmstrip').length) {
       $('.filmstrip').mixItUp({
+        animation: {
+          effects: 'fade'
+        },
         selectors: {
           target: '.filmstrip__item',
           filter: '.filter__item'

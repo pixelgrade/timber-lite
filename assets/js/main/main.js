@@ -15,6 +15,9 @@ function init() {
 
   if ($('.filmstrip').length) {
     $('.filmstrip').mixItUp({
+      animation: {
+        effects: 'fade'
+      },
       selectors: {
         target: '.filmstrip__item',
         filter: '.filter__item'
