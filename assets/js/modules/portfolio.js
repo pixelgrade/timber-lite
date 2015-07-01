@@ -10,7 +10,7 @@ window.Portfolio = (function() {
 	init = function() {
 
 		if (!$('.single-jetpack-portfolio').length) {
-			placehold();
+			//placehold();
 			return;
 		}
 
@@ -25,9 +25,13 @@ window.Portfolio = (function() {
 	},
 
 	prepare = function() {
-	    filmWidth       = $film.width();
-	    contentWidth    = $('.site-content').width();
-	    sidebarWidth    = $('.site-sidebar').width();
+		if (typeof $film == "undefined") {
+			return;
+		}
+
+    filmWidth       = $film.width();
+    contentWidth    = $('.site-content').width();
+    sidebarWidth    = $('.site-sidebar').width();
 
 		getMiddlePoints();
 		getReferenceBounds();
@@ -54,6 +58,9 @@ window.Portfolio = (function() {
 
 	// loop through each portfolio item and find the one closest to center
 	getCurrent = function() {
+		if (typeof $film == "undefined") {
+			return;
+		}
 
 		var current 	= $('.portfolio__item--active').data('middle'),
 			reference 	= latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),

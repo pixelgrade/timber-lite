@@ -647,14 +647,14 @@ function timber_mce_before_init( $settings ) {
 }
 
 /*
- * Ajax loading all posts
+ * Ajax loading posts
  */
-add_action( 'wp_ajax_timber_load_next_posts', 'timber_load_next_posts');
-add_action( 'wp_ajax_nopriv_timber_load_next_posts', 'timber_load_next_posts');
-function timber_load_next_posts( ) {
+add_action( 'wp_ajax_timber_load_next_posts', 'timber_load_next_posts' );
+add_action( 'wp_ajax_nopriv_timber_load_next_posts', 'timber_load_next_posts' );
+function timber_load_next_posts() {
 	global $post;
 
-	if( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ){
+	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
 		wp_send_json_error();
 	}
 
@@ -666,10 +666,12 @@ function timber_load_next_posts( ) {
 	} else {
 		$args['posts_per_page'] = get_option('posts_per_page');
 	}
+
 	//check if we have a offset in $_POST
 	if ( isset( $_POST['offset'] ) ) {
 		$args['offset'] = (int)$_POST['offset'];
 	}
+
 	$posts = get_posts( $args );
 	if ( ! empty( $posts ) ) {
 		ob_start();
@@ -687,4 +689,49 @@ function timber_load_next_posts( ) {
 	} else {
 		wp_send_json_error();
 	}
+}
+
+/*
+ * Ajax loading projects
+ */
+add_action( 'wp_ajax_timber_load_next_projects', 'timber_load_next_projects' );
+add_action( 'wp_ajax_nopriv_timber_load_next_projects', 'timber_load_next_projects' );
+function timber_load_next_projects() {
+    global $post;
+
+    if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
+        wp_send_json_error();
+    }
+
+    //set the query args
+    $args = array();
+
+    if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
+        $args['posts_per_page'] = 999;
+    } else {
+        $args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '12' );
+    }
+
+    //check if we have a offset in $_POST
+    if ( isset( $_POST['offset'] ) ) {
+        $args['offset'] = (int)$_POST['offset'];
+    }
+
+    $posts = get_posts( $args );
+    if ( ! empty( $posts ) ) {
+        ob_start();
+
+        foreach ( $posts as $post ) : setup_postdata( $post );
+            get_template_part( 'template-parts/content', 'portfolio' );
+        endforeach;
+
+        /* Restore original Post Data */
+        wp_reset_postdata();
+
+        wp_send_json_success( array(
+            'posts' => ob_get_clean(),
+        ) );
+    } else {
+        wp_send_json_error();
+    }
 }

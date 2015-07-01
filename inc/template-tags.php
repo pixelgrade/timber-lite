@@ -368,8 +368,8 @@ if ( ! function_exists( 'timber_the_film_strip' ) ) :
 	 * @param int|WP_Post $id Optional. Post ID or post object.
 	 * @param boolean Optional. To ignore or not text boxes
 	 */
-	function timber_the_film_strip( $post_id = null, $ignore_text = false ) {
-		echo timber_get_film_strip( $post_id, $ignore_text );
+	function timber_the_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
+		echo timber_get_film_strip( $post_id, $ignore_text, $ignore_videos );
 	}
 
 endif;
@@ -382,7 +382,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 	 * @param boolean Optional. To ignore or not text boxes
 	 * @return string The film strip markup
 	 */
-	function timber_get_film_strip( $post_id = null, $ignore_text = false ) {
+	function timber_get_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
 		$post = get_post( $post_id );
 
 		if ( empty( $post ) ) {
@@ -408,7 +408,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 					$before_content = substr( $content, 0, $pos );
 
 					//now let's process this content and get it in the film strip
-					$output .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text );
+					$output .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, $ignore_videos );
 
 					//delete everything in front of the shortcode including it
 					$content = trim( substr( $content, $pos + strlen( $gallery['original'] ) ) );
@@ -425,7 +425,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 		if ( ! empty( $content ) ) {
 			//there is some content left - let's process it
-			$output .= timber_process_partial_content_into_film_strip( $content, $ignore_text );
+			$output .= timber_process_partial_content_into_film_strip( $content, $ignore_text, $ignore_videos );
 		}
 
 		return $output;
@@ -442,7 +442,7 @@ if ( ! function_exists( 'timber_process_partial_content_into_film_strip' ) ) :
  * @param boolean Optional. To ignore or not text boxes
  * @return string The markup
  */
-function timber_process_partial_content_into_film_strip( $content, $ignore_text = false, $the_content = true ) {
+function timber_process_partial_content_into_film_strip( $content, $ignore_text = false, $ignore_videos = false, $the_content = true ) {
 	$markup = '';
 
 	//a little bit of cleanup
@@ -459,26 +459,29 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
         $content = apply_filters( 'the_content', $content );
     }
 
+
     //FIRST split this content by videos (by the <div class="jetpack-video-wrapper"> )
     //this will use recursion to process content between the videos
-    $num_matches = preg_match_all("!<div \s*class=[\"|']jetpack-video-wrapper[\"|']\s*>.*</div\s*>!i", $content, $matches);
+    $num_matches = preg_match_all( "!<div \s*class=[\"|']jetpack-video-wrapper[\"|']\s*>.*</div\s*>!i", $content, $matches );
 
     //if no videos found, continue to processing images and text
     if ( $num_matches > 0 ) {
-        for ($idx = 0; $idx < $num_matches; $idx++) {
+        for ( $idx = 0; $idx < $num_matches; $idx++ ) {
             //first let's see if there is some content before the current match
             $pos = strpos( $content, $matches[0][ $idx ] );
 
             $before_content = trim( substr( $content, 0, $pos ) );
 
             //process the before content recursively
-            $markup .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, false );
+            $markup .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, $ignore_videos, false );
 
             //delete everything in front of the current match including it
             $content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
 
-            //now let's handle the current video match
-            $markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div>' . PHP_EOL;
+            if ( false == $ignore_videos ) {
+                //now let's handle the current video match
+                $markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div>' . PHP_EOL;
+            }
 
         }
     }
