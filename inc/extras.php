@@ -558,9 +558,72 @@ function timber_get_current_canonical_url() {
 	return $link;
 }
 
-function timber_get_img_alt( $image ) {
-	$img_alt = trim( strip_tags( get_post_meta( $image, '_wp_attachment_image_alt', true ) ) );
+function timber_get_img_alt( $attachment_ID ) {
+	$img_alt = trim( strip_tags( get_post_meta( $attachment_ID, '_wp_attachment_image_alt', true ) ) );
 	return $img_alt;
+}
+
+function timber_get_img_caption( $attachment_ID ) {
+    $attachment = get_post( $attachment_ID );
+    $img_caption = trim( strip_tags( $attachment->post_excerpt ) );
+    return $img_caption;
+}
+
+function timber_get_img_description( $attachment_ID ) {
+    $attachment = get_post( $attachment_ID );
+    $img_description = trim( strip_tags( $attachment->post_content ) );
+    return $img_description;
+}
+
+function timber_get_img_exif( $attachment_ID ) {
+    $meta_data = wp_get_attachment_metadata( $attachment_ID );
+
+    if ( isset( $meta_data['image_meta'] ) ) {
+        $exif = array();
+
+        if ( ! empty( $meta_data['image_meta']['camera'] ) ) {
+            $exif['camera'] = $meta_data['image_meta']['camera'];
+        }
+
+        if ( ! empty( $meta_data['image_meta']['aperture'] ) ) {
+            $exif['aperture'] = '&#402;/' . $meta_data['image_meta']['aperture'];
+        }
+
+        if ( ! empty( $meta_data['image_meta']['focal_length'] ) ) {
+            $exif['focal'] = $meta_data['image_meta']['focal_length'] . 'mm';
+        }
+
+        if ( ! empty( $meta_data['image_meta']['shutter_speed'] ) ) {
+            $exif['exposure'] = '';
+
+            //conversion from decimal to fraction inspired by http://enliteart.com/blog/2008/08/30/quick-shutter-speed-fix-for-wordpress-exif/
+            //this is the reverse of what WordPress does to raw EXIF data - quite dumb but that's life
+            if ( ( 1 / $meta_data['image_meta']['shutter_speed'] ) > 1 ) {
+                $exif['exposure'] .= "1/";
+                if ( ( number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) ) == 1.3
+                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.5
+                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.6
+                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 2.5 ) {
+                    /* translators: used in EXIF metadata, this refers to time */
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1, '.', '' ) . " " . __( "second", 'timber' );
+                } else {
+                    /* translators: used in EXIF metadata, this refers to time */
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 0, '.', '' ) . " " . __( "second", 'timber' );
+                }
+            } else {
+                /* translators: used in EXIF metadata, this refers to time */
+                $exif['exposure'] .= $meta_data['image_meta']['shutter_speed'] . " " . __( "seconds", 'timber' );
+            }
+        }
+
+        if ( ! empty( $meta_data['image_meta']['iso'] ) ) {
+            $exif['iso'] = $meta_data['image_meta']['iso'];
+        }
+
+        return json_encode( $exif );
+    }
+
+    return '';
 }
 
 /**

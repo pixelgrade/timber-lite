@@ -17,7 +17,9 @@ while ( have_posts() ) : the_post();
 	if ( 'hybrid' == $project_template ): ?>
 
 	<main id="content" class="site-content site-container site-content--filmstrip">
+
 		<?php get_template_part( 'template-parts/content', 'project-filmstrip' ); ?>
+
 	</main>
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
