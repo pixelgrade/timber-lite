@@ -7872,15 +7872,14 @@ if (!Date.now) Date.now = function () {
         //the actual animation
         scl.anim
         //.to(scl.button, 0.2, {backgroundColor:"#1a1717"})
-        .to(scl.social_links_list, 0.2, {
-          opacity: 1
-        }).to(scl.button, 0.02, {
+        //.to(scl.social_links_list, 0.2, {opacity: 1})
+        .to(scl.button, 0.02, {
           opacity: 0,
           ease: Quart.easeOut
         }).to(scl.text, 0.02, {
           opacity: 1,
           ease: Circ.easeOut
-        }).staggerFromTo(scl.social_links, 0.22, {
+        }).staggerFromTo(scl.social_links, 0.3, {
           opacity: 0,
           x: -20
         }, {
