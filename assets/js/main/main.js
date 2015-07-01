@@ -9,11 +9,11 @@ function init() {
   platformDetect();
   browserSize();
 
-  Portfolio.init();
+  Project.init();
   Placeholder.update();
-  Portfolio.prepare();
-	
-	PortfolioArchive.init();
+  Project.prepare();
+
+	Portfolio.init();
 
 	Blog.init();
 	Blog.prepare();
@@ -22,7 +22,7 @@ function init() {
 // /* ====== ON WINDOW LOAD ====== */
 
 $window.load(function() {
-  // Portfolio.getCurrent();
+  // Project.getCurrent();
   //browserSize();
   //Sidebar.init();
   //navigation.init();
@@ -50,9 +50,9 @@ function requestTick() {
 }
 
 function update() {
-  Portfolio.getCurrent();
+  Project.getCurrent();
 
-	PortfolioArchive.maybeloadNextProjects();
+	Portfolio.maybeloadNextProjects();
 
 	Blog.maybeLoadNextPosts();
 

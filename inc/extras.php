@@ -707,7 +707,7 @@ function timber_load_next_projects() {
     }
 
     //set the query args
-    $args = array();
+    $args = array('post_type' => 'jetpack-portfolio');
 
     if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
         $args['posts_per_page'] = 999;

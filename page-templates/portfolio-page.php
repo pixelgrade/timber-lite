@@ -10,7 +10,7 @@ get_header(); ?>
 <div class="site-container">
 
 	<div class="site-sidebar"></div>
-	<div class="site-content">
+	<div class="site-content portfolio-archive">
 
 
 		<?php
@@ -49,7 +49,7 @@ get_header(); ?>
 
 			if ( $project_query -> have_posts() ) : ?>
 
-                <div class="portfolio-archive">
+                <div class="portfolio-wrapper">
 
 				<?php while ( $project_query -> have_posts() ) : $project_query -> the_post();
 

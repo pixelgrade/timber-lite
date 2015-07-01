@@ -60,15 +60,6 @@ window.Blog = (function() {
 
 			return false;
 		});
-
-		//the infinite scroll logic on click
-		//$('.nav-links .nav-previous a').click(function(){
-		//	$(this).addClass('loading');
-		//
-		//	loadNextPosts();
-		//
-		//	return false;
-		//});
 	},
 
 	loadAllPosts = function() {
