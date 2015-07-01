@@ -7139,6 +7139,9 @@ if (!Date.now) Date.now = function () {
 
         //mixitup init without filtering
         $filmstrip_container.mixItUp({
+          animation: {
+            effects: 'fade'
+          },
           selectors: {
             target: '.filmstrip__item'
           }
@@ -7478,7 +7481,7 @@ if (!Date.now) Date.now = function () {
         init = function () {
 
         if (!$('.single-jetpack-portfolio').length) {
-          //placehold();
+          Placeholder.update();
           return;
         }
 
@@ -7489,7 +7492,38 @@ if (!Date.now) Date.now = function () {
         $film.addClass('portfolio--filmstrip portfolio--visible');
         $grid.addClass('portfolio--grid').find('.js-portfolio-item img').hide();
 
+        addMetadata();
         bindEvents();
+        },
+        
+        
+        addMetadata = function () {
+        $film.find('.js-portfolio-item').each(function (i, obj) {
+          var $item = $(obj),
+              captionText = 'This is a caption text',
+              $caption = $('<div class="photometa__caption"></div>').html(captionText),
+              descriptionText = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable",
+              $description = $('<div class="photometa__description"></div>').html('<div>' + descriptionText + '</div>'),
+              $exif = $('<ul class="photometa__exif  exif"></ul>'),
+              $meta = $('<div class="portfolio__meta  photometa"></div>')
+               exifText = {
+              camera: 'Canon EOS-1D',
+              focal: 'f/1.4',
+              aperture: '22mm',
+              exposure: '30',
+              iso: '6400'
+              };
+
+          $.each(exifText, function (key, value) {
+            $('<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>').appendTo($exif);
+          });
+
+          $caption.appendTo($meta);
+          $exif.appendTo($meta);
+          $description.appendTo($meta);
+
+          $meta.appendTo($item);
+        });
         },
         
         
@@ -7517,12 +7551,8 @@ if (!Date.now) Date.now = function () {
         $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
         $('.fullview__close').on('click', hideFullView);
 
-        $('.js-details').on('mouseenter', function () {
-          $film.addClass('portfolio--details');
-        });
-
-        $('.js-details').on('mouseleave', function () {
-          $film.removeClass('portfolio--details');
+        $('.js-details').on('click', function () {
+          $film.toggleClass('portfolio--details');
         });
         },
         
@@ -7535,10 +7565,16 @@ if (!Date.now) Date.now = function () {
           return;
         }
 
+        if (!$('.single-jetpack-portfolio').length) {
+          return;
+        }
+
         var current = $('.portfolio__item--active').data('middle'),
             reference = latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
             min = Math.abs(reference - current),
             $next;
+
+        $('.js-reference').css('left', reference).text(parseInt(reference, 10));
 
         $film.find('.js-portfolio-item').each(function (i, obj) {
           var compare = $(obj).data('middle');
@@ -7563,9 +7599,8 @@ if (!Date.now) Date.now = function () {
         end = contentWidth - sidebarWidth - filmWidth + $last.prev().data('middle') + ($last.data('middle') - $last.prev().data('middle')) / 2;
 
         if (start > end) {
-          end = contentWidth / 2 - sidebarWidth;
           start = end - 10;
-          return;
+          end = end + 10;
         } else {
           start = start - 10;
           end = end + 10;
@@ -7588,6 +7623,9 @@ if (!Date.now) Date.now = function () {
         var $active = $('.portfolio__item--active'),
             $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
+        $('.js-portfolio-item').addClass('no-transition');
+
+        $film.removeClass('portfolio--details');
         $grid.find('.js-portfolio-item img').css('opacity', '');
 
         TweenMax.to($('.site-content__mask'), 0, {
@@ -7611,6 +7649,7 @@ if (!Date.now) Date.now = function () {
             opacity: 1,
             ease: Quad.easeInOut
           }, 0.05);
+          $('.js-portfolio-item').removeClass('no-transition');
         }, 600);
 
         TweenMax.to($('.site-content__mask'), .6, {
@@ -7632,6 +7671,8 @@ if (!Date.now) Date.now = function () {
 
         var $clicked = $(this),
             $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
+
+        $('.js-portfolio-item').addClass('no-transition');
 
         $clicked.css('opacity', 0);
         $film.find('.js-portfolio-item').css('opacity', 0);
@@ -7655,7 +7696,10 @@ if (!Date.now) Date.now = function () {
             $grid.removeClass('portfolio--visible');
             $grid.css('opacity', '');
             TweenMax.to($film.find('.js-portfolio-item'), .3, {
-              opacity: 1
+              opacity: 1,
+              onComplete: function () {
+                $('.js-portfolio-item').removeClass('no-transition');
+              }
             });
             $target.removeClass('portfolio__item--target');
             TweenMax.to('.site-content__mask', 0, {
@@ -7726,15 +7770,11 @@ if (!Date.now) Date.now = function () {
         $document.off('mousemove', panFullview);
         TweenMax.to($('.fullview__image img'), .3, {
           x: 0,
-          y: 0,
-          onComplete: function () {
-            morph($source, $target);
-            setTimeout(function () {
-              $fullview.removeClass('fullview--visible');
-              $('.fullview__image').remove();
-            }, 10);
-          }
+          y: 0
         });
+        morph($source, $target);
+        $fullview.removeClass('fullview--visible');
+        $('.fullview__image').remove();
         },
         
         
@@ -8301,7 +8341,6 @@ if (!Date.now) Date.now = function () {
   }
 
   function update() {
-
     Portfolio.getCurrent();
 
     PortfolioArchive.maybeloadNextProjects();

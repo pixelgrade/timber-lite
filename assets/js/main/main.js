@@ -12,7 +12,7 @@ function init() {
   Portfolio.init();
   Placeholder.update();
   Portfolio.prepare();
-
+	
 	PortfolioArchive.init();
 
 	Blog.init();
@@ -50,7 +50,6 @@ function requestTick() {
 }
 
 function update() {
-
   Portfolio.getCurrent();
 
 	PortfolioArchive.maybeloadNextProjects();

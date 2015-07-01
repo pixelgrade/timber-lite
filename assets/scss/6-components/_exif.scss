@@ -1,0 +1,38 @@
+.exif {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.exif__item {
+    margin-left: 0;
+    margin-right: 1.5em;
+    display: inline-block;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.exif__icon {
+    display: inline-block;
+    height: 20px;
+    background-repeat: no-repeat;
+    margin-bottom: -6px;
+    margin-right: .5em;
+
+    $icons: (
+        aperture: 18px,
+        camera: 19px,
+        exposure: 19px,
+        focal: 19px,
+        iso: 27px
+    );
+
+    @each $name, $width in $icons {
+        &--#{$name} {
+            width: $width;
+            background-image: url('assets/svg/exif-#{$name}.svg');
+        }
+    }
+}

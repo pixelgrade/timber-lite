@@ -19,6 +19,9 @@ window.Blog = (function() {
 
 		//mixitup init without filtering
 		$filmstrip_container.mixItUp({
+			animation: {
+				effects: 'fade'
+			},
 			selectors: {
 				target: '.filmstrip__item'
 			}

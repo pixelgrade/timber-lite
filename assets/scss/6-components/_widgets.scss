@@ -43,6 +43,7 @@
 		padding: 0;
 		margin-bottom: 12px;
 		line-height: 1;
+		font-weight: 800;
 	}
 
 .widget_timber_image {}
@@ -51,7 +52,7 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		right: 50px;
+		right: 0;
 		height: 100%;
 
 		background-position: center center;
@@ -87,4 +88,17 @@
 .widget_rss_links a{
 	display: inline-block;
 	vertical-align: middle;
+}
+
+.overlay__col .nav--social .menu-item {
+	display: inline-block;
+	height: 1.1em;
+
+	a {
+		color: #ABABAB;
+
+		&:hover {
+			color: white;
+		}
+	}
 }

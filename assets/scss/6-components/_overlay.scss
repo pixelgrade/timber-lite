@@ -28,7 +28,7 @@
 .overlay__wrapper {
 	// @todo better when widget areas are added to the navigation overlay
 	width: 100%;
-	padding: 150px 150px 0 150px;
+	padding: 150px 70px 110px 110px;
 
 	display: flex;
 	flex-direction: row;
@@ -43,25 +43,25 @@
 	.overlay__col {
 		flex-grow: 1;
 		flex-shrink: 1;
+		padding: 0 40px;
 
 		&.col1 {
 			position: relative;
 
-			flex-basis: 510px;
-			height: calc(100vh - 250px);
-			padding: 0 50px;
+			flex-shrink: 1;
+			height: calc(100vh - 260px);
 		}
 
 		&.col2 {
 			flex-grow: 0;
 			flex-shrink: 1;
-			flex-basis: 750px;
+			flex-basis: 760px;
+
+			padding-right: 0;
 
 			height: calc(100vh - 250px);
 			overflow-y: scroll;
-		}
-	}
-		.sub-col_container {
+
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
@@ -70,13 +70,14 @@
 
 			margin-bottom: 100px;
 		}
+	}
 
 			.sub-col {
 				flex-grow: 0;
 				flex-shrink: 1;
 
-				padding: 0 50px;
-				flex-basis: 375px;
+				padding: 0 40px;
+				flex-basis: 360px;
 			}
 
 
