@@ -20,21 +20,21 @@ class wpGrade_import extends WPGrade_WP_Import {
 		if ( $stepNumber == $numberOfSteps ) {
 			//set the front and blog page
 			// Use a static front page
-			if ( wpgrade::confoption( 'import_homepage_name' ) ) {
-				update_option( 'show_on_front', 'page' );
-				$home = get_page_by_title( wpgrade::confoption( 'import_homepage_name' ) );
-				if ( ! empty( $home ) ) {
-					update_option( 'page_on_front', $home->ID );
-				}
-			}
+//			if ( wpgrade::confoption( 'import_homepage_name' ) ) {
+//				update_option( 'show_on_front', 'page' );
+//				$home = get_page_by_title( wpgrade::confoption( 'import_homepage_name' ) );
+//				if ( ! empty( $home ) ) {
+//					update_option( 'page_on_front', $home->ID );
+//				}
+//			}
 
 			// Set the blog page
-			if ( wpgrade::confoption( 'import_blogpage_name' ) ) {
-				$blog = get_page_by_title( wpgrade::confoption( 'import_blogpage_name' ) );
-				if ( ! empty( $blog ) ) {
-					update_option( 'page_for_posts', $blog->ID );
-				}
-			}
+//			if ( wpgrade::confoption( 'import_blogpage_name' ) ) {
+//				$blog = get_page_by_title( wpgrade::confoption( 'import_blogpage_name' ) );
+//				if ( ! empty( $blog ) ) {
+//					update_option( 'page_for_posts', $blog->ID );
+//				}
+//			}
 		}
 
 		//Ensure the $wp_rewrite global is loaded
@@ -113,7 +113,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 			$post = apply_filters( 'wp_import_post_data_raw', $post );
 
 			if ( ! post_type_exists( $post['post_type'] ) ) {
-				printf( __( 'Failed to import "%s": Invalid post type %s', wpgrade::textdomain() ), esc_html( $post['post_title'] ), esc_html( $post['post_type'] ) );
+				printf( __( 'Failed to import "%s": Invalid post type %s', 'timber' ), esc_html( $post['post_title'] ), esc_html( $post['post_type'] ) );
 				echo '<br />';
 				do_action( 'wp_import_post_exists', $post );
 				continue;
@@ -137,7 +137,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 
 			$post_exists = post_exists( $post['post_title'], '', $post['post_date'] );
 			if ( $post_exists && get_post_type( $post_exists ) == $post['post_type'] ) {
-				//printf( __('%s &#8220;%s&#8221; already exists.', wpgrade::textdomain()), $post_type_object->labels->singular_name, esc_html($post['post_title']) );
+				//printf( __('%s &#8220;%s&#8221; already exists.', 'timber'), $post_type_object->labels->singular_name, esc_html($post['post_title']) );
 				//echo '<br />';
 
 				//save it for later check if it exists - it may be unattached to it's parent
@@ -221,7 +221,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 				}
 
 				if ( is_wp_error( $post_id ) ) {
-					printf( __( 'Failed to import %s "%s"', wpgrade::textdomain() ), $post_type_object->labels->singular_name, esc_html( $post['post_title'] ) );
+					printf( __( 'Failed to import %s "%s"', 'timber' ), $post_type_object->labels->singular_name, esc_html( $post['post_title'] ) );
 					if ( defined( 'IMPORT_DEBUG' ) && IMPORT_DEBUG ) {
 						echo ': ' . $post_id->get_error_message();
 					}
@@ -257,7 +257,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 							$term_id = $t['term_id'];
 							do_action( 'wp_import_insert_term', $t, $term, $post_id, $post );
 						} else {
-							printf( __( 'Failed to import %s %s', wpgrade::textdomain() ), esc_html( $taxonomy ), esc_html( $term['name'] ) );
+							printf( __( 'Failed to import %s %s', 'timber' ), esc_html( $taxonomy ), esc_html( $term['name'] ) );
 							if ( defined( 'IMPORT_DEBUG' ) && IMPORT_DEBUG ) {
 								echo ': ' . $t->get_error_message();
 							}
@@ -383,8 +383,8 @@ class wpGrade_import extends WPGrade_WP_Import {
 		wp_defer_term_counting( false );
 		wp_defer_comment_counting( false );
 
-		//echo '<p>' . __( 'All done.', wpgrade::textdomain() ) . ' <a href="' . admin_url() . '">' . __( 'Have fun!', wpgrade::textdomain() ) . '</a>' . '</p>';
-		//echo '<p>' . __( 'Remember to update the passwords and roles of imported users.', wpgrade::textdomain() ) . '</p>';
+		//echo '<p>' . __( 'All done.', 'timber' ) . ' <a href="' . admin_url() . '">' . __( 'Have fun!', 'timber' ) . '</a>' . '</p>';
+		//echo '<p>' . __( 'Remember to update the passwords and roles of imported users.', 'timber' ) . '</p>';
 
 		do_action( 'import_end' );
 	}
@@ -402,7 +402,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 			$post = apply_filters( 'wp_import_post_data_raw', $post );
 
 			//			if ( ! post_type_exists( $post['post_type'] ) ) {
-			//				printf( __( 'Failed to import &#8220;%s&#8221;: Invalid post type %s', wpgrade::textdomain() ),
+			//				printf( __( 'Failed to import &#8220;%s&#8221;: Invalid post type %s', 'timber' ),
 			//					esc_html($post['post_title']), esc_html($post['post_type']) );
 			//				echo '<br />';
 			//				do_action( 'wp_import_post_exists', $post );
@@ -445,7 +445,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 		if ( ! empty( $theme_options ) ) {
 			$imported_options = json_decode( htmlspecialchars_decode( base64_decode( $theme_options ) ), true );
 			echo 'Success: ';
-			var_export( update_option( wpgrade::shortname() . "_options", $imported_options ) );
+			var_export( update_option( "timber_options", $imported_options ) );
 		}
 
 		//		if( !empty( $imported_options ) && is_array( $imported_options ) && isset( $imported_options['redux-backup'] ) && $imported_options['redux-backup'] == '1' ) {
@@ -478,23 +478,23 @@ class wpGrade_import extends WPGrade_WP_Import {
 		$wpGrade_menus = wp_get_nav_menus();
 
 		//get the configuration
-		$menu_conf = wpgrade::confoption( 'import_nav_menu' );
-
-		if ( ! empty( $wpGrade_menus ) && ! empty( $menu_conf ) ) {
-			foreach ( $wpGrade_menus as $wpGrade_menu ) {
-				//check if we got a menu that corresponds to the Menu name array ($wpGrade_config->get('nav_menus')) we have set in menus.php
-				if ( is_object( $wpGrade_menu ) && in_array( $wpGrade_menu->name, $menu_conf ) ) {
-					$key = array_search( $wpGrade_menu->name, $menu_conf );
-
-					if ( $key !== false ) {
-						//if we have found a menu with the correct menu name apply the id to the menu location
-						$locations[ $key ] = $wpGrade_menu->term_id;
-					}
-				}
-			}
-		}
-		//update the theme with the new menus in the right location
-		set_theme_mod( 'nav_menu_locations', $locations );
+//		$menu_conf = wpgrade::confoption( 'import_nav_menu' );
+//
+//		if ( ! empty( $wpGrade_menus ) && ! empty( $menu_conf ) ) {
+//			foreach ( $wpGrade_menus as $wpGrade_menu ) {
+//				//check if we got a menu that corresponds to the Menu name array ($wpGrade_config->get('nav_menus')) we have set in menus.php
+//				if ( is_object( $wpGrade_menu ) && in_array( $wpGrade_menu->name, $menu_conf ) ) {
+//					$key = array_search( $wpGrade_menu->name, $menu_conf );
+//
+//					if ( $key !== false ) {
+//						//if we have found a menu with the correct menu name apply the id to the menu location
+//						$locations[ $key ] = $wpGrade_menu->term_id;
+//					}
+//				}
+//			}
+//		}
+//		//update the theme with the new menus in the right location
+//		set_theme_mod( 'nav_menu_locations', $locations );
 
 		return true;
 	}
@@ -511,7 +511,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 			return false;
 		}
 
-		//first let's remove all the widgets in the sidebars to avoid a big mess		
+		//first let's remove all the widgets in the sidebars to avoid a big mess
 		$sidebars_widgets = wp_get_sidebars_widgets();
 		foreach ( $sidebars_widgets as $sidebarID => $widgets ) {
 			if ( $sidebarID != 'wp_inactive_widgets' ) {

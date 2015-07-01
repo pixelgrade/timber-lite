@@ -79,10 +79,25 @@ function timber_sanitize_checkbox( $input ) {
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function timber_customize_preview_js() {
-	wp_enqueue_script( 'timber_customizer', get_template_directory_uri() . '/assets/js/admin/customizer.js', array( 'customize-preview', 'wp-ajax-response' ), '20130508', true );
+
+//	wp_enqueue_script('wp-ajax-response');
+//	var_dump( wp_script_is('wp-ajax-response' ) );
+	wp_enqueue_script( 'timber_customizer_preview', get_template_directory_uri() . '/assets/js/admin/customizer_preview.js', array( 'customize-preview' ), '20130508', true );
 }
 add_action( 'customize_preview_init', 'timber_customize_preview_js' );
 
+
+
+/**
+ * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
+ */
+function timber_load_customize_js() {
+
+//	wp_enqueue_script('wp-ajax-response');
+
+	wp_enqueue_script( 'timber_customizer', get_template_directory_uri() . '/assets/js/admin/customizer.js', array( 'wp-ajax-response' ), '20130508', true );
+}
+add_action( 'customize_controls_enqueue_scripts', 'timber_load_customize_js' );
 
 // "One-Click import for demo data" feature
 // ----------------------------------------
@@ -128,7 +143,7 @@ if ( ! function_exists( 'wpGrade_ajax_import_posts_pages' ) ) {
 		//no errors yet :)
 		$wpGrade_importerError = false;
 		//the path to the demo files including the file name without the extension
-		$import_filepath = get_template_directory() . 'inc/import/demo-data/demo_data';
+		$import_filepath = get_template_directory() . '/inc/import/demo-data/demo_data';
 
 		//check if wp_importer, the base importer class is available, otherwise include it
 		if ( ! class_exists( 'WP_Importer' ) ) {
@@ -142,7 +157,7 @@ if ( ! function_exists( 'wpGrade_ajax_import_posts_pages' ) ) {
 
 		//check if the wp import class is available, this class handles the wordpress XML files. If not, include it
 		if ( ! class_exists( 'WPGrade_WP_Import' ) ) {
-			$class_wp_import = get_template_directory() . 'inc/import/wordpress-importer/wordpress-importer.php';
+			$class_wp_import = get_template_directory() . '/inc/import/wordpress-importer/wordpress-importer.php';
 			if ( file_exists( $class_wp_import ) ) {
 				require_once( $class_wp_import );
 			} else {
@@ -157,7 +172,7 @@ if ( ! function_exists( 'wpGrade_ajax_import_posts_pages' ) ) {
 				include_once( 'import/wordpress-importer/wpgrade-import-class.php' );
 			}
 			if ( ! is_file( $import_filepath . '.xml' ) ) {
-				$response['id'] = new WP_Error( 'import_posts_pages_nofile', 'The XML file containing the demo data could not be found or could not be read in <pre>' . wpgrade::themefilepath( 'inc/import/demo-data' ) . '</pre><br/> You might want to try to set the file permission to 777.<br/>If this doesn\'t work please use the <a href="' . admin_url( 'import.php' ) . '">WordPress default import</a> and import the .XML file provided in the archive you\'ve received on purchase manually.' );
+				$response['id'] = new WP_Error( 'import_posts_pages_nofile', 'The XML file containing the demo data could not be found or could not be read in <pre>' . get_template_directory() . 'inc/import/demo-data' . '</pre><br/> You might want to try to set the file permission to 777.<br/>If this doesn\'t work please use the <a href="' . admin_url( 'import.php' ) . '">WordPress default import</a> and import the .XML file provided in the archive you\'ve received on purchase manually.' );
 			} else {
 				ob_start();
 				$wp_import                    = new wpGrade_import();
@@ -196,7 +211,7 @@ if ( ! function_exists( 'wpGrade_ajax_import_theme_options' ) ) {
 		if ( function_exists( 'check_ajax_referer' ) ) {
 			check_ajax_referer( 'wpGrade_nonce_import_demo_theme_options' );
 		}
-		require_once ( get_template_directory() . 'inc/import/import-demo-theme-options' . EXT );
+		require_once ( get_template_directory() . '/inc/import/import-demo-theme-options' . EXT );
 
 		$response = new WP_Ajax_Response( $response );
 		$response->send();
@@ -223,7 +238,7 @@ if ( ! function_exists( 'wpGrade_ajax_import_widgets' ) ) {
 			check_ajax_referer( 'wpGrade_nonce_import_demo_widgets' );
 		}
 
-		require_once (get_template_directory() . 'inc/import/import-demo-widgets' . EXT );
+		require_once (get_template_directory() . '/inc/import/import-demo-widgets' . EXT );
 
 		$response = new WP_Ajax_Response( $response );
 		$response->send();

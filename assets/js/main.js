@@ -7158,7 +7158,7 @@ if (!Date.now) Date.now = function () {
     init = function () {
 
       if (!$('.single-jetpack-portfolio').length) {
-        placehold();
+        //placehold();
         return;
       }
 
