@@ -1,5 +1,5 @@
 <footer id="colophon" class="site-footer" role="contentinfo">
-    <button class="share-button"><i class="fa fa-share-alt"></i></button>
+    <?php get_template_part('template-parts/addthis-share'); ?>
     <div class="site-info">
         <a href="<?php echo esc_url( __( 'http://wordpress.org/', 'timber' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'timber' ), 'WordPress' ); ?></a>
         <span class="sep"> | </span>
