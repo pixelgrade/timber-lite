@@ -100,7 +100,7 @@ strong {
 a,
 button {
     @extend %color--inherit;
-//    @extend %transition-duration--default;
+    @extend %transition-duration--default;
 }
 a {
     @extend %text-decoration--none;
