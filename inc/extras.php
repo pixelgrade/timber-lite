@@ -558,9 +558,72 @@ function timber_get_current_canonical_url() {
 	return $link;
 }
 
-function timber_get_img_alt( $image ) {
-	$img_alt = trim( strip_tags( get_post_meta( $image, '_wp_attachment_image_alt', true ) ) );
+function timber_get_img_alt( $attachment_ID ) {
+	$img_alt = trim( strip_tags( get_post_meta( $attachment_ID, '_wp_attachment_image_alt', true ) ) );
 	return $img_alt;
+}
+
+function timber_get_img_caption( $attachment_ID ) {
+    $attachment = get_post( $attachment_ID );
+    $img_caption = trim( strip_tags( $attachment->post_excerpt ) );
+    return $img_caption;
+}
+
+function timber_get_img_description( $attachment_ID ) {
+    $attachment = get_post( $attachment_ID );
+    $img_description = trim( strip_tags( $attachment->post_content ) );
+    return $img_description;
+}
+
+function timber_get_img_exif( $attachment_ID ) {
+    $meta_data = wp_get_attachment_metadata( $attachment_ID );
+
+    if ( isset( $meta_data['image_meta'] ) ) {
+        $exif = array();
+
+        if ( ! empty( $meta_data['image_meta']['camera'] ) ) {
+            $exif['camera'] = $meta_data['image_meta']['camera'];
+        }
+
+        if ( ! empty( $meta_data['image_meta']['aperture'] ) ) {
+            $exif['aperture'] = '&#402;/' . $meta_data['image_meta']['aperture'];
+        }
+
+        if ( ! empty( $meta_data['image_meta']['focal_length'] ) ) {
+            $exif['focal'] = $meta_data['image_meta']['focal_length'] . 'mm';
+        }
+
+        if ( ! empty( $meta_data['image_meta']['shutter_speed'] ) ) {
+            $exif['exposure'] = '';
+
+            //conversion from decimal to fraction inspired by http://enliteart.com/blog/2008/08/30/quick-shutter-speed-fix-for-wordpress-exif/
+            //this is the reverse of what WordPress does to raw EXIF data - quite dumb but that's life
+            if ( ( 1 / $meta_data['image_meta']['shutter_speed'] ) > 1 ) {
+                $exif['exposure'] .= "1/";
+                if ( ( number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) ) == 1.3
+                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.5
+                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.6
+                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 2.5 ) {
+                    /* translators: used in EXIF metadata, this refers to time */
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1, '.', '' ) . " " . __( "second", 'timber' );
+                } else {
+                    /* translators: used in EXIF metadata, this refers to time */
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 0, '.', '' ) . " " . __( "second", 'timber' );
+                }
+            } else {
+                /* translators: used in EXIF metadata, this refers to time */
+                $exif['exposure'] .= $meta_data['image_meta']['shutter_speed'] . " " . __( "seconds", 'timber' );
+            }
+        }
+
+        if ( ! empty( $meta_data['image_meta']['iso'] ) ) {
+            $exif['iso'] = $meta_data['image_meta']['iso'];
+        }
+
+        return json_encode( $exif );
+    }
+
+    return '';
 }
 
 /**
@@ -647,4 +710,94 @@ function timber_mce_before_init( $settings ) {
 	$settings['style_formats'] = json_encode( $style_formats );
 
 	return $settings;
+}
+
+/*
+ * Ajax loading posts
+ */
+add_action( 'wp_ajax_timber_load_next_posts', 'timber_load_next_posts' );
+add_action( 'wp_ajax_nopriv_timber_load_next_posts', 'timber_load_next_posts' );
+function timber_load_next_posts() {
+	global $post;
+
+	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
+		wp_send_json_error();
+	}
+
+	//set the query args
+	$args = array();
+
+	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
+		$args['posts_per_page'] = 999;
+	} else {
+		$args['posts_per_page'] = get_option('posts_per_page');
+	}
+
+	//check if we have a offset in $_POST
+	if ( isset( $_POST['offset'] ) ) {
+		$args['offset'] = (int)$_POST['offset'];
+	}
+
+	$posts = get_posts( $args );
+	if ( ! empty( $posts ) ) {
+		ob_start();
+
+		foreach ( $posts as $post ) : setup_postdata( $post );
+			get_template_part( 'template-parts/content', get_post_format() );
+		endforeach;
+
+		/* Restore original Post Data */
+		wp_reset_postdata();
+
+		wp_send_json_success( array(
+			'posts' => ob_get_clean(),
+		) );
+	} else {
+		wp_send_json_error();
+	}
+}
+
+/*
+ * Ajax loading projects
+ */
+add_action( 'wp_ajax_timber_load_next_projects', 'timber_load_next_projects' );
+add_action( 'wp_ajax_nopriv_timber_load_next_projects', 'timber_load_next_projects' );
+function timber_load_next_projects() {
+    global $post;
+
+    if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
+        wp_send_json_error();
+    }
+
+    //set the query args
+    $args = array('post_type' => 'jetpack-portfolio');
+
+    if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
+        $args['posts_per_page'] = 999;
+    } else {
+        $args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '12' );
+    }
+
+    //check if we have a offset in $_POST
+    if ( isset( $_POST['offset'] ) ) {
+        $args['offset'] = (int)$_POST['offset'];
+    }
+
+    $posts = get_posts( $args );
+    if ( ! empty( $posts ) ) {
+        ob_start();
+
+        foreach ( $posts as $post ) : setup_postdata( $post );
+            get_template_part( 'template-parts/content', 'portfolio' );
+        endforeach;
+
+        /* Restore original Post Data */
+        wp_reset_postdata();
+
+        wp_send_json_success( array(
+            'posts' => ob_get_clean(),
+        ) );
+    } else {
+        wp_send_json_error();
+    }
 }
