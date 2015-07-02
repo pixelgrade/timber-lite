@@ -14,24 +14,12 @@ function init() {
   Project.prepare();
 
 	Portfolio.init();
-
 	Blog.init();
-	Blog.prepare();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
 
 $window.load(function() {
-  // Project.getCurrent();
-  //browserSize();
-  //Sidebar.init();
-  //navigation.init();
-  //scrollToTop();
-  //moveFeaturedImage();
-  //magnificPopupInit();
-  //logoAnimation.init();
-  //logoAnimation.update();
-
   overlayInit();
   royalSliderInit();
   socialLinks.init();
@@ -52,11 +40,8 @@ function requestTick() {
 
 function update() {
   Project.getCurrent();
-
 	Portfolio.maybeloadNextProjects();
-
 	Blog.maybeLoadNextPosts();
-
   ticking = false;
 }
 

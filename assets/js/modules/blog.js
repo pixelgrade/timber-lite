@@ -11,7 +11,6 @@ window.Blog = (function() {
 	init = function() {
 
 		if (!$filmstrip_container.length) {
-			//placehold();
 			return;
 		}
 
@@ -23,6 +22,7 @@ window.Blog = (function() {
 				effects: 'fade'
 			},
 			selectors: {
+				filter: '.no-real-selector-for-filtering',
 				target: '.filmstrip__item'
 			}
 		});
@@ -35,17 +35,13 @@ window.Blog = (function() {
 		}
 	},
 
-	prepare = function() {
-
-	},
-
 	bindEvents = function() {
 		//we will handle the binding of filter links because we need to load all posts on first filter click
-		$('.filter .filter__item').click(function() {
-			filterBy = $(this ).data('filter');
+		$('.filter__item').click(function() {
+			filterBy = $(this).data('filter');
 
-			//first make the current filter link active
-			$('.filter .filter__item').removeClass('active');
+			// first make the current filter link active
+			$('.filter__item').removeClass('active');
 			$(this).addClass('active');
 
 			if ( isFirstFilterClick == true ) {
@@ -111,6 +107,7 @@ window.Blog = (function() {
 		if (globalDebug) {console.log("Loading More Posts - AJAX Offset = " + offset);}
 
 		isLoadingPosts = true;
+		$('.preloader').css('opacity', 1);
 
 		$.post(
 			timber_ajax.ajax_url,
@@ -144,6 +141,8 @@ window.Blog = (function() {
 
 					//don't make isLoadingPosts true so we won't load any more posts
 				}
+
+				$('.preloader').css('opacity', 0);
 			}
 		);
 	},

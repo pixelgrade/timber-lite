@@ -40,5 +40,5 @@ var ua                  = navigator.userAgent.toLowerCase(),
     latestKnownScrollX  = window.scrollX,
     ticking             = false,
 
-    globalDebug         = false;
+    globalDebug         = true;
 

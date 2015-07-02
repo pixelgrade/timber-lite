@@ -20,10 +20,6 @@ window.Portfolio = (function() {
 		}
 	},
 
-	prepare = function() {
-
-	},
-
 	bindEvents = function() {
 
 		$('.site-content.portfolio-archive').on('scroll', function() {
