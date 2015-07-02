@@ -19,6 +19,8 @@ function init() {
 
 	Portfolio.init();
 	Blog.init();
+
+	AddThisIcons.init();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
@@ -27,6 +29,7 @@ $window.load(function() {
   overlayInit();
   royalSliderInit();
   socialLinks.init();
+  $(".pixcode--tabs").organicTabs();
 });
 
 // /* ====== ON RESIZE ====== */

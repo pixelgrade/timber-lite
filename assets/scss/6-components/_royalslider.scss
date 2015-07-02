@@ -376,8 +376,8 @@ img.rsImg {
 		display: block;
 	}
 
-	blockquote {
-		margin-bottom: 3*$u;
+	p {
+		margin-bottom: 0;
 	}
 }
 
@@ -399,10 +399,6 @@ img.rsImg {
 
 	.rsArrowIcn {
 		border-bottom: 2px solid black;
-
-//		@include query-below($lap){
-			border-bottom-width: 3px;
-//		}
 	}
 }
 
@@ -412,10 +408,6 @@ img.rsImg {
 	.rsArrowIcn {
 		border-left: 2px solid black;
 		transform: rotate(45deg);
-
-//		@include query-below($lap){
-			border-left-width: 3px;
-//		}
 	}
 }
 

@@ -90,6 +90,7 @@ and Blueprint http://www.blueprintcss.org/
 
 @import "6-components/overlay";
 @import "6-components/search-form";
+@import "6-components/add_this";
 
 @import "6-components/royalslider";
 @import "6-components/fullscreen-slider";
@@ -100,6 +101,9 @@ and Blueprint http://www.blueprintcss.org/
 // overried, helpers, utilities
 // usually caring !imporant
 @import "7-overrides/winners";
+
+@import "8-shortcodes/icons";
+@import "8-shortcodes/tabs";
 
 // you either want it, or you don't
 // this is going to be here

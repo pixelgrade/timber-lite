@@ -20,7 +20,7 @@ $preferred_count = 0; ?>
 <div class="share-box">
     <button class="share-button  js-share-button"><i class="fa fa-share-alt"></i></button>
     <small class="share-text"><?php  echo _('Share:', 'timber'); ?></small>
-    <div class="addthis_toolbox  social-links-list">
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style social-links-list">
 
         <?php if ( ! empty( $buttons ) ) {
             for ( $k = 0; $k < count( $buttons ); $k++ ) {
@@ -28,16 +28,16 @@ $preferred_count = 0; ?>
                 switch ($buttons[$k]) {
                 case 'preferred':
                     $preferred_count++;
-                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'_'.$preferred_count.'"><i class="fa fa-share-alt"></i></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'_'.$preferred_count.'"></a>' . PHP_EOL;
                     break;
                 case 'more':
-                    $button_markup = '<a class="addthis_button_compact"><i class="fa fa-share-alt"></i></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_button_compact"></a>' . PHP_EOL;
                     break;
                 case 'counter':
-                    $button_markup = '<a class="addthis_counter addthis_bubble_style"><i class="fa fa-share-alt"></i></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_counter addthis_bubble_style"></a>' . PHP_EOL;
                     break;
                 default :
-                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'"><i class="fa fa-share-alt"></i></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'"></a>' . PHP_EOL;
                 }
 
                 echo $button_markup;
