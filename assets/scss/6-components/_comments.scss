@@ -44,6 +44,8 @@ $borders: #d3d3d3;
 
 	position: relative;
 
+	border-top: 3px solid #D3D3D3;
+	padding-top: 36px;
 	padding-bottom: 50px;
 
 	&:before {
@@ -69,7 +71,6 @@ $borders: #d3d3d3;
 
 .comments-area-title {
 	@extend %clearfix;
-	margin-top: 36px;
 
 	.comments-title, a {
 		display: inline-block;

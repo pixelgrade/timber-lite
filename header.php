@@ -55,7 +55,7 @@
 			<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ||
 			           is_active_sidebar( 'overlay-widget-area-2' ) ||
 			           is_active_sidebar( 'overlay-widget-area-3' )) : ?>
-			<button class="toggle  js-overlay-trigger"></button>
+			<button class="toggle  js-overlay-trigger"><?php get_template_part('assets/svg/navgrid-svg'); ?></button>
 			<?php endif; ?>
 		</nav>
 
