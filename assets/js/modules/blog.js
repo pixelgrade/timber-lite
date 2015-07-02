@@ -1,4 +1,4 @@
-window.Blog = (function() {
+var Blog = (function() {
 
 	var $filmstrip_container = $('.filmstrip'),
 

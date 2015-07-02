@@ -1,4 +1,4 @@
-window.Portfolio = (function() {
+var Portfolio = (function() {
 
 	var $portfolio_container = $('.portfolio-wrapper'),
 
