@@ -10,14 +10,32 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 
 		$options['opt-name'] = 'timber_options';
 
-		// @TODO for the momment keep it empty
 		$options['sections'] = array(
-			'generall' => array(
-				'title'    => __( 'General', 'timber' ),
+			'import_demo_data' => array(
+				'title'    => __( 'Demo Data', 'timber' ),
+				'priority' => 999999,
 				'options' => array(
-					'test' => array(
+					'import_demodata_button' => array(
 						'title' => 'Import',
-						'type' => 'import_demodata'
+						'type' => 'html',
+						'html' => '<input type="hidden" name="wpGrade-nonce-import-posts-pages" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_posts_pages' ) . '" />
+			<input type="hidden" name="wpGrade-nonce-import-theme-options" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_theme_options' ) . '" />
+			<input type="hidden" name="wpGrade-nonce-import-widgets" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_widgets' ) . '" />
+			<input type="hidden" name="wpGrade_import_ajax_url" value="' . admin_url( "admin-ajax.php" ) . '" />
+
+			<a href="#" class="button button-primary" id="wpGrade_import_demodata_button">
+				' . __( 'Import demo data', 'mies_txtd' ) . '
+			</a>
+
+			<div class="wpGrade-loading-wrap hidden">
+				<span class="wpGrade-loading wpGrade-import-loading"></span>
+				<div class="wpGrade-import-wait">
+					' . __( 'Please wait a few minutes (between 1 and 3 minutes usually, but depending on your hosting it can take longer) and <strong>don\'t reload the page</strong>. You will be notified as soon as the import has finished!', 'mies_txtd' ) . '
+				</div>
+			</div>
+
+			<div class="wpGrade-import-results hidden"></div>
+			<div class="hr"><div class="inner"><span>&nbsp;</span></div></div>'
 					)
 				)
 			)

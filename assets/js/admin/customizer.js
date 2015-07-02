@@ -40,7 +40,7 @@
 
 				//The demo data import-----------------------------------------------------
 				var importButton = jQuery( '#wpGrade_import_demodata_button' ),
-					container = jQuery( '#redux-form-wrapper' );
+					container = jQuery( '#customize-control-timber_options-import_demodata_button_control' );
 
 				var saveData = {
 					container: container,
@@ -54,14 +54,12 @@
 
 				//bind to click
 				importButton.bind( 'click', {set: saveData}, function( receivedData ) {
-					console.log( 'ceva aici ' );
-
 					var button = $( this ),
 						me = receivedData.data.set,
 						waitLabel = $( '.wpGrade_import_demodata_wait', me.container ),
 						answer = "",
-						activate = true;
-					var resultcontainer = $( '.wpGrade-import-results', me.container );
+						activate = true,
+						resultcontainer = $( '.wpGrade-import-results', me.container );
 
 					if ( button.is( '.wpGrade_button_inactive' ) ) return false;
 
@@ -84,7 +82,12 @@
 							url: ajaxurl
 						},
 						onQueueChange: function( length ) {
+
 							if ( length == 0 ) {
+
+								// when the import is done refresh the customizer iframe
+								wp.customize.previewer.refresh();
+
 								if ( res.errors == false ) {
 									setTimeout( function() {
 										//hide the loading
@@ -259,6 +262,9 @@
 							} );
 					}
 
+					// make the iframe preview loading
+					wp.customize.previewer.send( 'loading-initiated' );
+
 					//show the loader and some messages
 					//show loader
 					$( '.wpGrade-loading-wrap', me.container ).css( {
@@ -268,13 +274,12 @@
 					} ).removeClass( "hidden" ).animate( {opacity: 1} );
 					//disable the import button
 					button.addClass( 'button-disabled' );
-
 					resultcontainer.removeClass( 'hidden' );
 					resultcontainer.append( '<br /><i>Working...</i><br />' );
 
 					//queue the calls
-					//ajax_import_theme_options();
-					//ajax_import_widgets();
+					ajax_import_theme_options();
+					ajax_import_widgets();
 					ajax_import_posts_pages_stepped();
 
 					return false;
@@ -282,7 +287,6 @@
 			}
 
 			import_demodata();
-
 		} );
 		//});
 

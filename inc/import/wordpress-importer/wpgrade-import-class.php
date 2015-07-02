@@ -18,6 +18,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 
 		//only set the pages after the last step
 		if ( $stepNumber == $numberOfSteps ) {
+			// @TODO process this through the options import
 			//set the front and blog page
 			// Use a static front page
 //			if ( wpgrade::confoption( 'import_homepage_name' ) ) {
@@ -444,22 +445,15 @@ class wpGrade_import extends WPGrade_WP_Import {
 
 		if ( ! empty( $theme_options ) ) {
 			$imported_options = json_decode( htmlspecialchars_decode( base64_decode( $theme_options ) ), true );
-			echo 'Success: ';
-			var_export( update_option( "timber_options", $imported_options ) );
-		}
 
-		//		if( !empty( $imported_options ) && is_array( $imported_options ) && isset( $imported_options['redux-backup'] ) && $imported_options['redux-backup'] == '1' ) {
-		//
-		//			$imported_options['REDUX_imported'] = 1;
-		//			foreach($imported_options as $key => $value) {
-		//				$plugin_options[$key] = $value;
-		//			}
-		//			update_option(wpgrade::shortname()."_options", $plugin_options);
-		//		}
-
-		// Remove the import/export tab cookie.
-		if ( $_COOKIE['redux_current_tab'] == 'import_export_default' ) {
-			setcookie( 'redux_current_tab', '', 1, '/' );
+			/**
+			 * $imported_options should be an array of options which should be replaced on import
+			 */
+			if ( ! empty ( $imported_options ) ) {
+				foreach ( $imported_options as $key => $data ) {
+					update_option( $key, maybe_unserialize( $data ) );
+				}
+			}
 		}
 
 		//Ensure the $wp_rewrite global is loaded
@@ -470,31 +464,39 @@ class wpGrade_import extends WPGrade_WP_Import {
 		return true;
 	}
 
-	function set_menus() {
+	function set_menus( $option_file ) {
 		//get all registered menu locations
 		$locations = get_theme_mod( 'nav_menu_locations' );
 
 		//get all created menus
 		$wpGrade_menus = wp_get_nav_menus();
 
+		if ( $option_file ) {
+			@include_once( $option_file );
+		}
+
+		if ( ! isset( $demo_menus ) ) {
+			return false;
+		}
+
 		//get the configuration
-//		$menu_conf = wpgrade::confoption( 'import_nav_menu' );
-//
-//		if ( ! empty( $wpGrade_menus ) && ! empty( $menu_conf ) ) {
-//			foreach ( $wpGrade_menus as $wpGrade_menu ) {
-//				//check if we got a menu that corresponds to the Menu name array ($wpGrade_config->get('nav_menus')) we have set in menus.php
-//				if ( is_object( $wpGrade_menu ) && in_array( $wpGrade_menu->name, $menu_conf ) ) {
-//					$key = array_search( $wpGrade_menu->name, $menu_conf );
-//
-//					if ( $key !== false ) {
-//						//if we have found a menu with the correct menu name apply the id to the menu location
-//						$locations[ $key ] = $wpGrade_menu->term_id;
-//					}
-//				}
-//			}
-//		}
-//		//update the theme with the new menus in the right location
-//		set_theme_mod( 'nav_menu_locations', $locations );
+		$menu_conf = $demo_menus;
+
+		if ( ! empty( $wpGrade_menus ) && ! empty( $menu_conf ) ) {
+			foreach ( $wpGrade_menus as $wpGrade_menu ) {
+				//check if we got a menu that corresponds to the Menu name array ($wpGrade_config->get('nav_menus')) we have set in menus.php
+				if ( is_object( $wpGrade_menu ) && in_array( $wpGrade_menu->name, $menu_conf ) ) {
+					$key = array_search( $wpGrade_menu->name, $menu_conf );
+
+					if ( $key !== false ) {
+						//if we have found a menu with the correct menu name apply the id to the menu location
+						$locations[ $key ] = $wpGrade_menu->term_id;
+					}
+				}
+			}
+		}
+		//update the theme with the new menus in the right location
+		set_theme_mod( 'nav_menu_locations', $locations );
 
 		return true;
 	}
@@ -630,5 +632,4 @@ class wpGrade_import extends WPGrade_WP_Import {
 
 		return $new_widget_name;
 	}
-
 }
