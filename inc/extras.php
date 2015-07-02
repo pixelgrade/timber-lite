@@ -267,6 +267,20 @@ if ( ! function_exists( 'timber_comment' ) ) :
 endif;
 
 /**
+ * Filter the default editor content for projects when creating a new project
+ *
+ * @param string
+ * @return string
+ */
+function timber_project_editor_content( $content, $post ) {
+    if ( 'jetpack-portfolio' == $post->post_type ) {
+        $content = "[gallery]";
+    }
+    return $content;
+}
+add_filter( 'default_content', 'timber_project_editor_content', 10, 3 );
+
+/**
  * Filter comment_form_defaults to remove the notes after the comment form textarea.
  *
  * @since Timber 1.0
@@ -604,15 +618,12 @@ function timber_get_img_exif( $attachment_ID ) {
                     or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.5
                     or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.6
                     or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 2.5 ) {
-                    /* translators: used in EXIF metadata, this refers to time */
-                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1, '.', '' ) . " " . __( "second", 'timber' );
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1, '.', '' );
                 } else {
-                    /* translators: used in EXIF metadata, this refers to time */
-                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 0, '.', '' ) . " " . __( "second", 'timber' );
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 0, '.', '' );
                 }
             } else {
-                /* translators: used in EXIF metadata, this refers to time */
-                $exif['exposure'] .= $meta_data['image_meta']['shutter_speed'] . " " . __( "seconds", 'timber' );
+                $exif['exposure'] .= $meta_data['image_meta']['shutter_speed'];
             }
         }
 
