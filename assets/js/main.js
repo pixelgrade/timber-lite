@@ -8558,8 +8558,6 @@ if (!Date.now) Date.now = function () {
       }
 
       scl.anim.play();
-
-      console.log('over');
     },
 
     out: function () {

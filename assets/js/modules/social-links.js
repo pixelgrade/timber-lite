@@ -61,8 +61,6 @@ var scl,
 			if (globalDebug) {console.log("Social Links Hover - OVER");}
 
 			scl.anim.play();
-
-			console.log('over');
 		},
 
 		out: function() {
