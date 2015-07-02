@@ -35,6 +35,7 @@ $window.load(function() {
   overlayInit();
   royalSliderInit();
   socialLinks.init();
+  $(".pixcode--tabs").organicTabs();
 });
 
 // /* ====== ON RESIZE ====== */
