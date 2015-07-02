@@ -39,8 +39,9 @@ $preferred_count = 0; ?>
                 default :
                     $button_markup = '<a class="addthis_button_'.$buttons[$k].'"></a>' . PHP_EOL;
                 }
+
+                echo $button_markup;
             }
-            echo $button_markup;
         } ?>
 
     </div><!-- .addthis_toolbox -->
