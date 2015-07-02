@@ -17,6 +17,8 @@ function init() {
 
 	Blog.init();
 	Blog.prepare();
+
+	AddThisIcons.init();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
