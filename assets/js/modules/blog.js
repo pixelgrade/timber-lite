@@ -163,7 +163,6 @@ var Blog = (function() {
 
 	return {
 		init: init,
-		prepare: prepare,
 		loadAllPosts: loadAllPosts,
 		loadNextPosts: loadNextPosts,
 		maybeLoadNextPosts: maybeLoadNextPosts

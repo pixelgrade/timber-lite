@@ -9,9 +9,13 @@ function init() {
   platformDetect();
   browserSize();
 
-  Project.init();
-  Placeholder.update();
-  Project.prepare();
+  if ($('.single-jetpack-portfolio').length) {
+    Project.init();
+    Placeholder.update();
+    Project.prepare();
+  } else {
+    Placeholder.update();
+  }
 
 	Portfolio.init();
 	Blog.init();

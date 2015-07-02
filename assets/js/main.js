@@ -7113,10 +7113,10 @@ if (!Date.now) Date.now = function () {
       ticking = false,
       
       
-      globalDebug = true;
+      globalDebug = false;
 
 
-  window.Blog = (function () {
+  var Blog = (function () {
 
     var $filmstrip_container = $('.filmstrip'),
         
@@ -7305,7 +7305,6 @@ if (!Date.now) Date.now = function () {
         
         return {
         init: init,
-        prepare: prepare,
         loadAllPosts: loadAllPosts,
         loadNextPosts: loadNextPosts,
         maybeLoadNextPosts: maybeLoadNextPosts
@@ -7459,7 +7458,7 @@ if (!Date.now) Date.now = function () {
       $html.addClass('is--ie-mobile')
     }
   }
-  window.Portfolio = (function () {
+  var Portfolio = (function () {
 
     var $portfolio_container = $('.portfolio-wrapper'),
         
@@ -7604,13 +7603,12 @@ if (!Date.now) Date.now = function () {
         
         return {
         init: init,
-        prepare: prepare,
         loadAllProjects: loadAllProjects,
         loadNextProjects: loadNextProjects,
         maybeloadNextProjects: maybeloadNextProjects
         }
   })();
-  window.Project = (function () {
+  var Project = (function () {
 
     var $film, $grid, $fullview, start, end, current,
 
@@ -7640,23 +7638,19 @@ if (!Date.now) Date.now = function () {
         addMetadata = function () {
         $film.find('.js-portfolio-item').each(function (i, obj) {
           var $item = $(obj),
-              captionText = 'This is a caption text',
+              captionText = $item.data('caption'),
               $caption = $('<div class="photometa__caption"></div>').html(captionText),
-              descriptionText = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable",
+              descriptionText = $item.data('description'),
               $description = $('<div class="photometa__description"></div>').html('<div>' + descriptionText + '</div>'),
               $exif = $('<ul class="photometa__exif  exif"></ul>'),
-              $meta = $('<div class="portfolio__meta  photometa"></div>')
-               exifText = {
-              camera: 'Canon EOS-1D',
-              focal: 'f/1.4',
-              aperture: '22mm',
-              exposure: '30',
-              iso: '6400'
-              };
+              $meta = $('<div class="portfolio__meta  photometa"></div>'),
+              exifText = $item.data('exif');
 
-          $.each(exifText, function (key, value) {
-            $('<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>').appendTo($exif);
-          });
+          if (!empty(exifText)) {
+            $.each(exifText, function (key, value) {
+              $('<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>').appendTo($exif);
+            });
+          }
 
           $caption.appendTo($meta);
           $exif.appendTo($meta);
@@ -7668,10 +7662,6 @@ if (!Date.now) Date.now = function () {
         
         
         prepare = function () {
-
-        if (!$('.single-jetpack-portfolio').length) {
-          return;
-        }
 
         filmWidth = $film.width();
         contentWidth = $('.site-content').width();
@@ -8484,9 +8474,13 @@ if (!Date.now) Date.now = function () {
     platformDetect();
     browserSize();
 
-    Project.init();
-    Placeholder.update();
-    Project.prepare();
+    if ($('.single-jetpack-portfolio').length) {
+      Project.init();
+      Placeholder.update();
+      Project.prepare();
+    } else {
+      Placeholder.update();
+    }
 
     Portfolio.init();
     Blog.init();

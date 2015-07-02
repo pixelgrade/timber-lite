@@ -127,7 +127,6 @@ var Portfolio = (function() {
 
 	return {
 		init: init,
-		prepare: prepare,
 		loadAllProjects: loadAllProjects,
 		loadNextProjects: loadNextProjects,
 		maybeloadNextProjects: maybeloadNextProjects
