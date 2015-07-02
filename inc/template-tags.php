@@ -327,6 +327,94 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 	} #function
 endif;
 
+if ( ! function_exists( 'timber_the_project_featured_image') ) :
+    /**
+     * Display the project featured image or the first content image
+     *
+     * @param int|WP_Post $id Optional. Post ID or post object.
+     * @param string Optional. Thumbnail size. Default full
+     * @param string|array $attr Optional. Query string or array of attributes. Default empty.
+     */
+    function timber_the_post_thumbnail( $post_id = null, $size = 'full', $attr = '' ) {
+        $post = get_post( $post_id );
+
+        if ( empty( $post ) ) {
+            return;
+        }
+
+        if ( has_post_thumbnail() ) {
+            the_post_thumbnail( $size, $attr );
+        } else {
+            $post_thumbnail_id = false;
+
+            //we need to look for the first image in the content (first in a gallery then standalone)
+            $galleries = get_post_galleries( $post, false );
+            $gallery = reset( $galleries );
+
+            if ( ! empty( $gallery['ids'] ) ) {
+                $gallery_ids = explode(',', $gallery['ids'] );
+                $post_thumbnail_id = reset( $gallery_ids );
+            }
+
+            if ( ! $post_thumbnail_id ) {
+                //we need to look for the first image in the content
+                preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+
+                if ( isset( $matches[1][0] ) ) {
+                    $post_thumbnail_id = timber_attachment_url_to_postid( $matches[1][0] );
+                }
+            }
+
+            if ( $post_thumbnail_id ) {
+
+                /**
+                 * Fires before fetching the post thumbnail HTML.
+                 *
+                 * Provides "just in time" filtering of all filters in wp_get_attachment_image().
+                 *
+                 * @since 2.9.0
+                 *
+                 * @param string $post_id The post ID.
+                 * @param string $post_thumbnail_id The post thumbnail ID.
+                 * @param string $size The post thumbnail size.
+                 */
+                do_action('begin_fetch_post_thumbnail_html', $post_id, $post_thumbnail_id, $size);
+                if (in_the_loop())
+                    update_post_thumbnail_cache();
+                $html = wp_get_attachment_image($post_thumbnail_id, $size, false, $attr);
+
+                /**
+                 * Fires after fetching the post thumbnail HTML.
+                 *
+                 * @since 2.9.0
+                 *
+                 * @param string $post_id The post ID.
+                 * @param string $post_thumbnail_id The post thumbnail ID.
+                 * @param string $size The post thumbnail size.
+                 */
+                do_action('end_fetch_post_thumbnail_html', $post_id, $post_thumbnail_id, $size);
+            } else {
+                $html = '';
+            }
+
+            /**
+             * Filter the post thumbnail HTML.
+             *
+             * @since 2.9.0
+             *
+             * @param string $html              The post thumbnail HTML.
+             * @param string $post_id           The post ID.
+             * @param string $post_thumbnail_id The post thumbnail ID.
+             * @param string $size              The post thumbnail size.
+             * @param string $attr              Query string of attributes.
+             */
+            echo apply_filters( 'post_thumbnail_html', $html, $post_id, $post_thumbnail_id, $size, $attr );
+        }
+
+        return;
+    }
+endif;
+
 if ( ! function_exists( 'timber_get_option' ) ) :
 	/**
 	 * Get option from the database
@@ -487,7 +575,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
     }
 
 	//SECOND, once done with the videos, we are left with the content after the last video (it there was any)
-	// split this content by images (<img>,<figure>)
+	//split this content by images (<img>,<figure>)
 	$num_matches = preg_match_all( "!(?:<\s*p\s?[^>]*>\s*)?(?:<\s*figure\s?.*>\s*)?(?:<\s*?a\s?.*>\s*)?<\s*img\s?.*src=[\"|']([^\"']*)[\"|'].*alt=[\"|']([^\"']*)[\"|'].*/>(?:\s*</a\s*>)?(?:\s*<\s*figcaption\s?[^>]*>([^>]*)\s*</figcaption\s*>)?(?:\s*</figure>)?(?:\s*</p\s*>)?!i", $content, $matches );
 
 	for ( $idx = 0; $idx < $num_matches; $idx++ ) {
