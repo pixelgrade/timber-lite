@@ -1,0 +1,94 @@
+.share-box {
+	@extend %bar-piece;
+	@extend %bar-side;
+	@extend %bar-left;
+
+	position: relative;
+}
+
+.share-text {
+	position: absolute;
+	left: 1.5em;
+	top: 50%;
+	transform: translateY(-50%) translateZ(0);
+
+	opacity: 0;
+	pointer-events: none;
+
+	color: $hoverColour;
+
+}
+
+.share-button {
+	position: relative;
+	left: -12px;
+
+	padding: 12px 18px;
+
+	font-size: 22px;
+	line-height: 22px;
+}
+
+.share-button, .share-text {
+	transition-duration: 0.2s;
+}
+
+.social-links-list {
+	@extend %margin--0;
+	@extend %padding--0;
+
+	position: absolute;
+	top: 50%;
+	left: 5.5em;
+	min-width: 33vw;
+
+	transform: translateY(-50%);
+	pointer-events: none;
+
+	&.clickable{ pointer-events: auto; }
+
+	a, a:hover {
+		background: none;
+	}
+
+	a {
+		opacity: 0;
+		display: inline-block;
+		padding: 10px;
+		transition-duration: 0s;
+	}
+
+	a:hover .at4-icon{
+		-webkit-filter: none;
+		filter: none;
+	}
+}
+
+.addthis_toolbox.addthis_32x32_style span {
+	background-size: 85% !important;
+	background-position: center center !important;
+}
+
+.addthis_32x32_style {
+	.at4-icon {
+		width: 28px !important;
+		height: 28px !important;
+
+		border-radius: 3px;
+
+		-webkit-filter: grayscale(1) invert(1) brightness(2.3);
+		-moz-filter: grayscale(1) invert(1) brightness(2.3);
+		-o-filter: grayscale(1) invert(1) brightness(2.3);
+		-ms-filter: grayscale(1) invert(1) brightness(2.3);
+		filter: grayscale(1) invert(1) brightness(2.3);
+		transition: all .3s linear;
+	}
+
+	a:hover .at4-icon {
+		-webkit-filter: none;
+		-moz-filter: none;
+		-o-filter: none;
+		-ms-filter: none;
+		filter: none;
+	}
+}
