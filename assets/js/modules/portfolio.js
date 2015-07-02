@@ -1,4 +1,4 @@
-window.Portfolio = (function() {
+var Portfolio = (function() {
 
 	var $portfolio_container = $('.portfolio-wrapper'),
 
@@ -18,10 +18,6 @@ window.Portfolio = (function() {
 		if ( $portfolio_container.children('article').last().offset().top == 0 ) {
 			loadNextProjects();
 		}
-	},
-
-	prepare = function() {
-
 	},
 
 	bindEvents = function() {
