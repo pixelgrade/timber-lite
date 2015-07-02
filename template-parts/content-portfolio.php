@@ -9,17 +9,6 @@
 
 	<?php
 	/**
-	 * Project Thumbnail
-	 */
-	?>
-	<?php if ( has_post_thumbnail() && false ) : ?>
-		<div class="project-thumbnail">
-			<?php the_post_thumbnail( 'full' ); ?>
-		</div>
-	<?php endif; ?>
-
-	<?php
-	/**
 	 * Project Title and Link
 	 */
 	?>
@@ -44,7 +33,7 @@
 
 	<?php
 	/*
-	 * Project film strip with text boxes ignored
+	 * Project film strip with text boxes and videos ignored
 	 */
 	timber_the_film_strip( get_the_ID(), true, true );
 	?>

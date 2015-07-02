@@ -18,5 +18,5 @@
 		</a>
 	</div>
 	<span class="vertical-title right-align"><?php the_title(); ?></span>
-	<?php the_post_thumbnail( 'full', array( 'class' => 'project-slide__image  rsImg' ) ); ?>
+	<?php timber_the_post_thumbnail( get_the_ID(), 'full', array( 'class' => 'project-slide__image  rsImg' ) ); ?>
 </div><!-- .project-slide -->
