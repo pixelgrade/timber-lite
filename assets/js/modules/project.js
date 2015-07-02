@@ -1,4 +1,4 @@
-window.Project = (function() {
+var Project = (function() {
 
 	var $film, $grid, $fullview,
 		start, end,
@@ -51,10 +51,6 @@ window.Project = (function() {
 		},
 
 		prepare = function() {
-
-			if (!$('.single-jetpack-portfolio').length) {
-				return;
-			}
 
 			filmWidth       = $film.width();
 			contentWidth    = $('.site-content').width();
