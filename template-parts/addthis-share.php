@@ -28,16 +28,16 @@ $preferred_count = 0; ?>
                 switch ($buttons[$k]) {
                 case 'preferred':
                     $preferred_count++;
-                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'_'.$preferred_count.'"></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'_'.$preferred_count.'"><i class="fa fa-share-alt"></i></a>' . PHP_EOL;
                     break;
                 case 'more':
-                    $button_markup = '<a class="addthis_button_compact"></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_button_compact"><<i class="fa fa-share-alt"></i>/a>' . PHP_EOL;
                     break;
                 case 'counter':
-                    $button_markup = '<a class="addthis_counter addthis_bubble_style"></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_counter addthis_bubble_style"><i class="fa fa-share-alt"></i></a>' . PHP_EOL;
                     break;
                 default :
-                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'"></a>' . PHP_EOL;
+                    $button_markup = '<a class="addthis_button_'.$buttons[$k].'"><i class="fa fa-share-alt"></i></a>' . PHP_EOL;
                 }
 
                 echo $button_markup;
