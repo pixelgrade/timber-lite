@@ -955,3 +955,54 @@ function timber_get_post_gallery_count( $post_ID = null ) {
 
 	return false;
 }
+
+/**
+ * Get a number of random attachments attached to the jetpack-portfolio CPT
+ *
+ * @param int Max number of random projects images to return
+ * @return array List of images
+ */
+function timber_get_random_projects_images( $maxnum = 5 ) {
+    $projects = get_posts( array(
+        'post_type' => 'jetpack-portfolio',
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    ) );
+
+    if ( ! empty($projects) ) {
+        $args = array(
+            'post_parent__in' => $projects,
+            'post_type'   => 'attachment',
+            'numberposts' => $maxnum,
+            'post_status' => 'any',
+            'post_mime_type' => 'image',
+            'orderby' => 'rand',
+        );
+        $images = get_posts( $args );
+
+        return $images;
+    }
+
+    return array();
+}
+
+/**
+ * Print a JSON encoded array of a number of random attachments srcs from those attached to the jetpack-portfolio CPT.
+ *
+ * @param int Max number of random projects images srcs to return
+ */
+function timber_the_random_projects_images_srcs( $maxnum = 5 ) {
+    $random_images = timber_get_random_projects_images( $maxnum );
+
+    $image_srcs = array();
+    if ( ! empty( $random_images ) ) {
+        foreach ($random_images as $key => $image) {
+            $thumbnail = wp_get_attachment_image_src( $image->ID, 'thumbnail' );
+            if ( $thumbnail ) {
+                $image_srcs[] = $thumbnail[0];
+            }
+        }
+    }
+
+    echo json_encode( $image_srcs );
+}
