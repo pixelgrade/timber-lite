@@ -27,6 +27,11 @@
 			<?php } // End if categories ?>
 
 		</div><!-- .entry-meta -->
+		<?php if(has_post_thumbnail()) : ?>
+		<div class="entry-featured">
+			<?php the_post_thumbnail(); ?>
+		</div><!-- .entry-featured -->
+		<?php endif; ?>
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
