@@ -83,6 +83,10 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		 * Also enqueue the custom Google Fonts also
 		 */
 		add_editor_style( array( 'editor-style.css', timber_fonts_url() ) );
+
+		// custom javascript handlers - make sure it is the last one added
+		add_action( 'wp_head', 'timber_load_custom_js_header', 999 );
+		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
@@ -192,6 +196,37 @@ function timber_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
+
+/**
+ * Load custom javascript set by theme options
+ * This method is invoked by wpgrade_callback_themesetup
+ * The function is executed on wp_enqueue_scripts
+ */
+function timber_load_custom_js_header() {
+	$custom_js = timber_get_option( 'custom_js' );
+	if ( ! empty( $custom_js ) ) {
+		//first lets test is the js code is clean or has <script> tags and such
+		//if we have <script> tags than we will not enclose it in anything - raw output
+		if ( strpos( $custom_js, '</script>' ) !== false ) {
+			echo $custom_js . "\n";
+		} else {
+			echo "<script type=\"text/javascript\">\n;(function($){\n" . $custom_js . "\n})(jQuery);\n</script>\n";
+		}
+	}
+}
+
+function timber_load_custom_js_footer() {
+	$custom_js = timber_get_option( 'custom_js_footer' );
+	if ( ! empty( $custom_js ) ) {
+		//first lets test is the js code is clean or has <script> tags and such
+		//if we have <script> tags than we will not enclose it in anything - raw output
+		if ( strpos( $custom_js, '</script>' ) !== false ) {
+			echo $custom_js . "\n";
+		} else {
+			echo "<script type=\"text/javascript\">\n;(function($){\n" . $custom_js . "\n})(jQuery);\n</script>\n";
+		}
+	}
+}
 
 /**
  * Registers/enqueues the scripts related to media JS APIs
