@@ -157,6 +157,34 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						),
 					)
 				),
+				'featured_projects_template_settings'     => array(
+					'id'         => 'featured_projects_template_settings',
+					'title'      => __( 'Source', 'timber' ),
+					'pages'      => array( 'page' ), // Post type
+					'context'    => 'normal',
+					'priority'   => 'default',
+					'hidden'     => true,
+					'show_on'    => array(
+						'key'   => 'page-template',
+						'value' => array('page-templates/featured-projects-page.php' ),
+					),
+					'show_names' => true, // Show field names on the left
+					'fields'     => array(
+						array(
+							'name'    => __( 'Featured Projects', 'timber' ),
+							'id'      => 'portfolio_featured_projects',
+							'desc'    => __( 'Choose your featured projects. Drag and drop to reorder them to your liking. These projects will be excluded from the main projects list.', 'timber' ),
+							'type'    => 'pw_multiselect_cpt',
+							'options' => array(
+								'args' => array(
+									'post_type' => 'jetpack-portfolio',
+									'post_status' => 'publish'
+								),
+							),
+							'sanitization_cb' => 'pw_select2_sanitise',
+						),
+					),
+				),
 				'timber_project_settings' => array(
 					'id'         => 'timber_project_settings',
 					'title'      => __( 'Project settings', 'timber' ),

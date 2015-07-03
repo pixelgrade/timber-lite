@@ -280,6 +280,28 @@ function timber_project_editor_content( $content, $post ) {
 }
 add_filter( 'default_content', 'timber_project_editor_content', 10, 3 );
 
+if ( ! function_exists('timber_get_featured_projects' ) ) {
+	function timber_get_featured_projects() {
+
+		$featured_projects = array();
+		$featured_projects_ids = get_post_meta( timber_get_post_id(), 'portfolio_featured_projects', true);
+		// turn from string to array
+		$featured_projects_ids = explode( ',', $featured_projects_ids );
+
+		if ( ! empty($featured_projects_ids) ) {
+			$query_args  = array(
+				'post_type'      => 'jetpack-portfolio',
+				'post__in'       => $featured_projects_ids, // pass array of ids into `include` parameter
+				'orderby'        => 'post__in',
+				'posts_per_page' => - 1, //get all featured projects
+			);
+			$featured_projects = get_posts( $query_args );
+		}
+		return $featured_projects;
+	}
+}
+
+
 /**
  * Filter comment_form_defaults to remove the notes after the comment form textarea.
  *
