@@ -53,10 +53,7 @@
 		}
 
 		&.col2 {
-			flex-grow: 0;
 			flex-shrink: 1;
-			flex-basis: 760px;
-
 			padding-right: 0;
 
 			height: calc(100vh - 250px);
@@ -70,6 +67,15 @@
 
 			margin-bottom: 100px;
 		}
+
+		&.col1 + &.col2 {
+			flex-basis: 760px;
+			flex-grow: 0;
+
+			.sub-col {
+				flex-basis: 360px;
+			}
+		}
 	}
 
 			.sub-col {
@@ -77,7 +83,6 @@
 				flex-shrink: 1;
 
 				padding: 0 40px;
-				flex-basis: 360px;
 			}
 
 
