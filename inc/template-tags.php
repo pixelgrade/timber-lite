@@ -959,7 +959,7 @@ function timber_get_post_gallery_count( $post_ID = null ) {
 /**
  * Get a number of random attachments attached to the jetpack-portfolio CPT
  *
- * @param int Max number of random projects images to return
+ * @param int $maxnum Optional. Max number of random projects images to return
  * @return array List of images
  */
 function timber_get_random_projects_images( $maxnum = 5 ) {
@@ -989,7 +989,7 @@ function timber_get_random_projects_images( $maxnum = 5 ) {
 /**
  * Print a JSON encoded array of a number of random attachments srcs from those attached to the jetpack-portfolio CPT.
  *
- * @param int Max number of random projects images srcs to return
+ * @param int $maxnum Optional. Max number of random projects images srcs to return
  */
 function timber_the_random_projects_images_srcs( $maxnum = 5 ) {
     $random_images = timber_get_random_projects_images( $maxnum );
@@ -1005,4 +1005,34 @@ function timber_the_random_projects_images_srcs( $maxnum = 5 ) {
     }
 
     echo json_encode( $image_srcs );
+}
+
+/**
+ * Print a JSON encoded array of a number of random attachments data uris from those attached to the jetpack-portfolio CPT.
+ *
+ * @param int $maxnum Optional. Max number of random projects images srcs to return
+ */
+function timber_the_random_projects_images_data_uri( $maxnum = 5 ) {
+    $random_images = timber_get_random_projects_images( $maxnum );
+
+    $image_data_uris = array();
+    if ( ! empty( $random_images ) ) {
+        $upload_dir = wp_upload_dir();
+
+        foreach ($random_images as $key => $image) {
+            $thumbnail = image_get_intermediate_size( $image->ID, 'thumbnail' );
+            if ( $thumbnail ) {
+                $image_data_uris[] = data_uri( trailingslashit( $upload_dir['basedir'] ) . $thumbnail['path'], $image->post_mime_type );
+            }
+        }
+    }
+
+    echo json_encode( $image_data_uris );
+}
+
+function data_uri($file, $mime)
+{
+    $contents = file_get_contents($file);
+    $base64   = base64_encode($contents);
+    return ('data:' . $mime . ';base64,' . $base64);
 }
