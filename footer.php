@@ -10,7 +10,7 @@
 ?>
 
 
-<?php //if ( is_page() || is_single() && ! get_post_type() == 'jetpack-portfolio' ) get_template_part( 'template-parts/content', 'single-footer' ); ?>
+<?php if ( is_page() || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) get_template_part( 'footer-single' ); ?>
 
 </div><!-- #page -->
 <div class="overlay">
