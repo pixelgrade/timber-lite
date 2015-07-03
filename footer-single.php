@@ -3,5 +3,5 @@
 	<div class="site-info">
 		<?php printf( esc_html__( 'All contents &copy; %s 2011-2015', 'timber' ), 'Pixelgrade' ); ?>
 	</div><!-- .site-info -->
-	<button class="back-to-top  js-back-to-top">Back to top</button>
+	<button class="back-to-top  js-back-to-top"><?php _e( 'Back to top', 'timber' ); ?></button>
 </footer><!-- #colophon -->
