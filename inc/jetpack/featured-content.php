@@ -201,8 +201,6 @@ class Timber_Featured_Content {
 		$term = get_term_by( 'name', $settings['tag-name'], 'jetpack-portfolio-tag' );
 		if ( ! $term ) {
 			$term = get_term_by( 'id', $settings['tag-id'], 'jetpack-portfolio-tag' );
-		} else { //try the fallback 'featured' tag
-			$term = get_term_by( 'name', 'featured', 'jetpack-portfolio-tag' );
 		}
 
 		// Return empty array if no tag name is set.
@@ -428,7 +426,7 @@ class Timber_Featured_Content {
 	 */
 	public static function register_setting() {
 		add_settings_field( 'featured-content', __( 'Featured Content', 'jetpack' ), array( __class__, 'render_form' ), 'reading' );
-		
+
 		// Register sanitization callback for the Customizer.
 		register_setting( 'featured-content', 'featured-content', array( __class__, 'validate_settings' ) );
 	}
@@ -452,6 +450,7 @@ class Timber_Featured_Content {
 		 * See http://themeshaper.com/2013/04/29/validation-sanitization-in-customizer/comment-page-1/#comment-12374
 		 */
 		$wp_customize->add_setting( 'featured-content[tag-name]', array(
+			'default'              => 'featured',
 			'type'                 => 'option',
 			'sanitize_js_callback' => array( __CLASS__, 'delete_transient' ),
 		) );
@@ -522,7 +521,7 @@ class Timber_Featured_Content {
 		$defaults = apply_filters( 'featured_content_default_settings', array(
 			'hide-tag' => 1,
 			'tag-id'   => 0,
-			'tag-name' => '',
+			'tag-name' => 'featured',
 			'show-all' => 0,
 		) );
 
