@@ -38,6 +38,10 @@
 	<button class="overlay__close  js-overlay-trigger"><i class="fa  fa-times-circle-o"></i></button>
 </div><!-- .overlay -->
 
-<?php wp_footer(); ?>
+<script>
+    var loaderRandomImages = <?php timber_the_random_projects_images_srcs(); ?>;
+</script>
+
+<?php wp_footer();?>
 </body>
 </html>
