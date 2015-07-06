@@ -25,6 +25,7 @@ img {
     .site-content--fullscreen & {
         opacity: 1;
         pointer-events: auto;
+        position: static;
     }
 
     img { @extend %display--block; }
