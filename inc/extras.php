@@ -86,14 +86,15 @@ function timber_post_classes( $classes ) {
 	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
 		if ( is_single() ) {
 			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
-			if (empty($project_template)) {
+			if ( empty( $project_template ) ) {
 				$project_template = 'filmstrip';
 			}
 
-			if($project_template == 'filmstrip')
-				$classes[] = 'portfolio  js-portfolio  entry-content';
-			else
-				$classes[] = 'portfolio  entry-content';
+			if(  'filmstrip' == $project_template || 'thumbnails' == $project_template ) {
+                $classes[] = 'portfolio  js-portfolio  entry-content';
+            } else {
+                $classes[] = 'portfolio  entry-content';
+            }
 		} else {
 			//this is a project displayed in some sort of archive
 			$classes[] = 'portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio';

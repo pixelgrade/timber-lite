@@ -15,6 +15,7 @@ if ( empty( $project_template ) ) {
 }
 
 while ( have_posts() ) : the_post();
+
 	if ( 'fullscreen' == $project_template ): ?>
 
 	<main id="content" class="site-content  site-container  site-content--fullscreen">
@@ -31,7 +32,7 @@ while ( have_posts() ) : the_post();
 			<div class="site-info">
 				<div class="gallery-counter  js-gallery-counter">
 					<span class="js-unit">1</span>
-					<span>of</span>
+					<span><?php _e( 'of', 'timber' ); ?></span>
 					<span class="js-gallery-slides-total"></span>
 				</div>
 			</div><!-- .site-info -->
@@ -41,7 +42,7 @@ while ( have_posts() ) : the_post();
 
 	<?php else : ?>
 
-	<main id="content" class="site-content site-container site-content--filmstrip">
+	<main id="content" class="site-content site-container site-content--filmstrip site-content--<?php echo $project_template; ?>">
 
 		<?php get_template_part( 'template-parts/content', 'project-filmstrip' ); ?>
 
