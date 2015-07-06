@@ -35,7 +35,7 @@ addthis_config = {
 
 addthis_share = {
 	url : "<?php echo timber_get_current_canonical_url(); ?>",
-	title : "<?php wp_title( '|', true, 'right' ); ?>",
+	title : "<?php echo html_entity_decode( wp_title( '|', false, 'right' ) ); ?>",
 	description : "<?php echo trim( strip_tags( get_the_excerpt() ) ); ?>"
 };
 </script>

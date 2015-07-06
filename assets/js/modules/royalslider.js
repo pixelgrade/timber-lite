@@ -142,7 +142,7 @@ function sliderInit($slider) {
 		},
 		addActiveClass: true,
 		globalCaption: rs_globalCaption,
-		numImagesToPreload: 2
+		numImagesToPreload: 4
 	};
 
 	var rs_centerArea = rs_nearbyCenter == true ? 0.90 : 0.95;
@@ -165,8 +165,8 @@ function sliderInit($slider) {
 		slidesNumber = royalSlider.numSlides;
 
 	// create the markup for the customArrows
-	//don't need it if we have only one slide
-	if (royalSlider && slidesNumber > 1 ) {
+	// don't need it if we have only one slide
+	if (royalSlider && slidesNumber > 1) {
 
 		$slides_total = $('.js-gallery-slides-total');
 		$decimal = $('.js-decimal');

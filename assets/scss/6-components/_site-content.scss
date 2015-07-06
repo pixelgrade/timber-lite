@@ -18,3 +18,21 @@
         transform-origin: 0 0;
     }
 }
+
+.page-template-featured-projects-page .site-content__mask {
+    transform: none;
+    transform-origin: 100% 0;
+
+    .portfolio_types,
+    .project-slide__text {
+        // transition: opacity .3s ease-in
+    }
+
+    .project-slide__title {
+
+    }
+
+    .project-slide__text {
+
+    }
+}
