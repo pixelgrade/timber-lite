@@ -150,14 +150,8 @@
 	}
 }
 
-.project_layout-fullscreen {
-	.site-content {
-		position: static;
-	}
-
-	.site-header, .site-footer {
-		z-index: 550;
-	}
+.project_layout-fullscreen .site-content {
+	position: static;
 }
 
 .slider_height-full-height {
