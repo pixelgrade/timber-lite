@@ -52,7 +52,7 @@ function timber_body_classes( $classes ) {
 	if ( isset( $post->post_type ) ) {
 
 		if ( $post->post_type === 'jetpack-portfolio' ) {
-			$project_layout = get_post_meta( timber_get_post_id(), 'project_layout', true );
+			$project_layout = get_post_meta( timber_get_post_id(), 'project_template', true );
 
 			if ( ! empty( $project_layout ) ) {
 				$classes[] = 'project_layout-' . $project_layout;
