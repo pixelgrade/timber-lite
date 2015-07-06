@@ -1,14 +1,3 @@
-<?php
-/**
- * Template Name: Featured Projects Template
- *
- * Aimed at being used as a static front page where you can showcase your featured projects in a fullscreen slideshow
- *
- * @package Timber
- */
-
-get_header(); ?>
-
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 
@@ -45,5 +34,3 @@ get_header(); ?>
 
 	</main><!-- #main -->
 </div><!-- #primary -->
-
-<?php get_footer(); ?>

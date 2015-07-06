@@ -7,7 +7,7 @@
  * @package Timber
  */
 
-if ( ( is_page() && ! is_page_template( 'page-templates/featured-projects-page.php' ) ) || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) {
+if ( ( is_page() && ! is_page_template( 'page-templates/custom-portfolio-page.php' ) ) || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) {
 	get_template_part( 'footer-single' );
 } ?>
 
