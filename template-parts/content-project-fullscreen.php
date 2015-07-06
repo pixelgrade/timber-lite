@@ -15,7 +15,7 @@
 	     data-arrows
 	     data-keyboardnav >
 
-        <?php timber_the_project_slider_images(); ?>
+        <?php timber_the_project_slider_images( get_the_ID(), true, true ); ?>
 
 	</div><!-- .featured-projects-slider -->
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->
