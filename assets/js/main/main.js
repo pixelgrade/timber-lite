@@ -25,6 +25,7 @@ function init() {
 
 $window.load(function() {
   overlayInit();
+  frontpageSlider.init();
   royalSliderInit();
   socialLinks.init();
 });

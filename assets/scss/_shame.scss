@@ -35,27 +35,3 @@ html, body, .site {
 #querylist * {
     text-shadow: none !important;
 }
-
-// html {
-//     border: 0.88vh solid black;
-// }
-
-// #page {
-//     overflow-x: auto;
-// }
-
-// .admin-bar {
-//     @extend %display--flex;
-//     flex-direction: column;
-
-//     #wpadminbar {
-//         position: static;
-//         flex-shrink: 0;
-//         order: 1;
-//     }
-
-//     .site {
-//         flex-grow: 1;
-//         order: 2;
-//     }
-// }
