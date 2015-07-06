@@ -91,7 +91,7 @@ function timber_post_classes( $classes ) {
 			}
 
 			if(  'filmstrip' == $project_template || 'thumbnails' == $project_template ) {
-                $classes[] = 'portfolio  js-portfolio  js-portfolio--' . $project_template . '  entry-content';
+                $classes[] = 'portfolio  portfolio--filmstrip  js-portfolio  js-portfolio--' . $project_template . '  entry-content';
             } else {
                 $classes[] = 'portfolio  entry-content';
             }

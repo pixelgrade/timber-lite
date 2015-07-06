@@ -8232,8 +8232,7 @@ if (!Date.now) Date.now = function () {
         $grid = $film.clone().insertBefore($film);
         $fullview = $('.fullview');
 
-        $film.addClass('portfolio--filmstrip portfolio--visible');
-        $grid.addClass('portfolio--grid').find('.js-portfolio-item img').hide();
+        $grid.removeClass('portfolio--filmstrip').addClass('portfolio--grid').find('.js-portfolio-item img').hide();
 
         addMetadata();
         bindEvents();
@@ -8278,6 +8277,12 @@ if (!Date.now) Date.now = function () {
         $grid.show();
         var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
         setCurrent($first);
+
+        if (!$body.hasClass('project_layout-filmstrip')) {
+          showThumbnails();
+        } else {
+          $filmstrip.addClass('portfolio--visible');
+        }
         },
         
         
@@ -8321,7 +8326,6 @@ if (!Date.now) Date.now = function () {
           if ($(obj).hasClass('portfolio__item--active')) {
             if (i == items - 1) {
               fullViewTransition($items.eq(0));
-              console.log(i + 1);
             } else {
               fullViewTransition($items.eq(i + 1));
             }
@@ -8393,8 +8397,6 @@ if (!Date.now) Date.now = function () {
 
         start = contentWidth / 2 - max;
         end = contentWidth / 2 + max;
-
-        console.log(start, contentWidth / 2, end, max);
         },
         
         
