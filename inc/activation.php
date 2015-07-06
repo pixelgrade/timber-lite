@@ -1,7 +1,11 @@
 <?php
 /**
  * Theme activation hook
+ *
+ * @package Timber
+ * @since Timber 1.0
  */
+
 if ( ! function_exists( 'timber_config_getting_active' ) ) :
 	function timber_config_getting_active() {
 		/**
@@ -238,7 +242,7 @@ add_action( 'after_switch_theme', 'timber_config_getting_active' );
 
 
 // pixtypes requires these things below for a pixelgrade theme
-// for the momment we'll shim them until we update pixtypes
+// for the moment we'll shim them until we update pixtypes
 if ( ! class_exists( 'wpgrade' ) ) :
 class wpgrade {
 	static function shortname() {

@@ -3,12 +3,11 @@
  * Template part for displaying posts.
  *
  * @package Timber
+ * @since Timber 1.0
  */
-
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('filmstrip__item'); ?>>
-
 	<a href="<?php the_permalink(); ?>">
 		<aside class="entry-thumbnail">
 

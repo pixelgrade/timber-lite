@@ -5,6 +5,7 @@
  * Contains the closing of the #content div and all content after
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 if ( ( is_page() && ! is_page_template( 'page-templates/featured-projects-page.php' ) ) || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) {

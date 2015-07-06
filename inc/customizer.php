@@ -3,6 +3,7 @@
  * Timber Theme Customizer
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 /**

@@ -1,10 +1,11 @@
 <?php
 /**
- * Template Name: Featured Projects Template
+ * Template Name: Featured Projects
  *
  * Aimed at being used as a static front page where you can showcase your featured projects in a fullscreen slideshow
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header(); ?>

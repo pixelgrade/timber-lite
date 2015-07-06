@@ -3,6 +3,7 @@
  * The template for displaying single gallery post format posts.
  *
  * @package Timber
+ * @since Timber 1.0
  */
 ?>
 
@@ -20,26 +21,26 @@
 
 			<?php timber_post_format_link( get_the_ID(), '<span class="divider"></span>' ); ?>
 
-			<?php if ( $category_list && timber_categorized_blog() ) { ?>
+			<?php if ( $category_list && timber_categorized_blog() ) : ?>
 
 				<span class="divider"></span>
 				<span class="cat-links">
 					<?php echo $category_list; ?>
 				</span>
 
-			<?php } // End if categories ?>
+			<?php endif; // End if categories ?>
 
 		</div><!-- .entry-meta -->
 
 		<?php //output the first gallery in the content - if it exists
 		$gallery = get_post_gallery();
-		if ( $gallery ) { ?>
+		if ( $gallery ) : ?>
 
 			<div class="entry-featured  entry-gallery">
 				<?php echo $gallery; ?>
 			</div><!-- .entry-gallery -->
 
-		<?php } ?>
+		<?php endif; ?>
 
 	</header><!-- .entry-header -->
 

@@ -1,5 +1,12 @@
 <?php
 /**
+ * Timber Options Config
+ *
+ * @package Timber
+ * @since Timber 1.0
+ */
+
+/**
  * Hook into the Customify's fields and settings
  * @param $options array - Contains the plugin's options array right before they are used, so edit with care
  *

@@ -1,8 +1,9 @@
 <?php
 /**
- * Timber widget
+ * Timber image widget
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 if ( ! function_exists( 'timber_image_widget_init' ) ) :

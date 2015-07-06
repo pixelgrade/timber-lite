@@ -1,3 +1,12 @@
+<?php
+/**
+ * Template part for displaying the post footer.
+ *
+ * @package Timber
+ * @since Timber 1.0
+ */
+?>
+
 <footer id="colophon" class="site-footer" role="contentinfo">
 
     <?php get_template_part('template-parts/addthis-share'); ?>

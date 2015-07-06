@@ -5,6 +5,7 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header(); ?>
@@ -15,8 +16,10 @@ get_header(); ?>
 			<div class="site-sidebar">
 				<div class="site-sidebar__content"><?php the_archive_title(); ?></div>
 			</div>
-			<?php /* Start the Loop */ ?>
-			<?php while ( have_posts() ) : the_post(); ?>
+
+			<?php
+			/* Start the Loop */
+			while ( have_posts() ) : the_post(); ?>
 				<?php
 
 					/*
@@ -27,7 +30,8 @@ get_header(); ?>
 					get_template_part( 'template-parts/content', get_post_format() );
 				?>
 			<?php endwhile; ?>
-		<?php timber_paging_nav(); ?>
+		    <?php timber_paging_nav(); ?>
+
 		</div>
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content', 'none' ); ?>
