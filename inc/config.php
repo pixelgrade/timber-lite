@@ -308,7 +308,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'     => 'text',
 								'label'    => __( 'Additional Copyright Text', 'timber' ),
 								//'desc' => __( 'The copyright text which should appear in footer.', 'timber' ),
-								//'default'  => 'Pixelgrade 2015',
+								'default'  => esc_html__( 'All contents &copy; Pixelgrade 2011-2015', 'timber' ),
 								'sanitize_callback' => 'wp_kses_post',
 							),
 

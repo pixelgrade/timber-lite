@@ -7,10 +7,9 @@
  * @package Timber
  */
 
-?>
-
-
-<?php if ( is_page() || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) get_template_part( 'footer-single' ); ?>
+if ( ( is_page() && ! is_page_template( 'page-templates/featured-projects-page.php' ) ) || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) {
+	get_template_part( 'footer-single' );
+} ?>
 
 </div><!-- #page -->
 <div class="overlay">
