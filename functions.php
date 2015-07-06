@@ -185,6 +185,12 @@ function timber_scripts() {
 	if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
 		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
 	}
+
+	$project_template = get_post_meta( timber_get_post_id(), 'project_template', true );
+
+	if( is_front_page() && is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
+		wp_enqueue_script('mousewheel' , 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
 
