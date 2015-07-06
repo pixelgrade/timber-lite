@@ -402,7 +402,7 @@ add_filter( 'the_content', 'timber_strip_first_content_gallery' );
  */
 function timber_truncate($text, $length = 100, $options = array() ) {
 	$default = array(
-		'ellipsis' => apply_filters('excerpt_more', '[…]' ),
+		'ellipsis' => apply_filters('excerpt_more', '[&#8230;]' ),
 		'exact' => false,
 		'html' => false,
 	);
