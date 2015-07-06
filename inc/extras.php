@@ -86,10 +86,10 @@ function timber_post_classes( $classes ) {
 		if ( is_single() ) {
 			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
 			if (empty($project_template)) {
-				$project_template = 'hybrid';
+				$project_template = 'filmstrip';
 			}
 
-			if($project_template == 'hybrid')
+			if($project_template == 'filmstrip')
 				$classes[] = 'portfolio  js-portfolio  entry-content';
 			else
 				$classes[] = 'portfolio  entry-content';
