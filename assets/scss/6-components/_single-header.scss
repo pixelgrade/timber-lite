@@ -36,7 +36,9 @@
 			}
 	}
 
-
+.single .entry-featured {
+	@extend %single-width;
+}
 // to be used on single page as
 //.entry-header.cover
 .cover {
