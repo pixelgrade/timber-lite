@@ -1,8 +1,9 @@
 <?php
 /**
- * Template Name: Portfolio Page Template
+ * Template Name: Portfolio Page
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header(); ?>

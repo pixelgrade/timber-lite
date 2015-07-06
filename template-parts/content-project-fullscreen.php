@@ -3,6 +3,7 @@
  * The template used for displaying a project(Jetpack Portfolio Single Post) using the Fullscreen layout
  *
  * @package Timber
+ * @since Timber 1.0
  */
 ?>
 

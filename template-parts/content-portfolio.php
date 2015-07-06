@@ -3,6 +3,7 @@
  * The template used for displaying Jetpack Portfolio posts on the Porfolio landing page
  *
  * @package Timber
+ * @since Timber 1.0
  */
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

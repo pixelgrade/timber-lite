@@ -5,7 +5,9 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * @package Timber
+ * @since Timber 1.0
  */
+global $wp_query;
 
 get_header(); ?>
 

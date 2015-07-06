@@ -1,6 +1,7 @@
 <?php
 /*
  * Output the global AddThis JavaScript config
+ *
  * @package Timber
  * @since   Timber 1.0
  */
