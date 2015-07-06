@@ -19,6 +19,8 @@ function init() {
 
 	Portfolio.init();
 	Blog.init();
+
+	AddThisIcons.init();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
@@ -28,6 +30,17 @@ $window.load(function() {
   frontpageSlider.init();
   royalSliderInit();
   socialLinks.init();
+  $(".pixcode--tabs").organicTabs();
+
+  if( $('body').hasClass('blog')
+      || $('body').hasClass('project_layout-filmstrip')
+      || $('body').hasClass('project_layout-thumbnails') )
+  // html body are for ie
+  $('html, body, *').mousewheel(function(event, delta) {
+    // this.scrollLeft -= (delta * 30);
+    this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+    event.preventDefault();
+  });
 });
 
 // /* ====== ON RESIZE ====== */

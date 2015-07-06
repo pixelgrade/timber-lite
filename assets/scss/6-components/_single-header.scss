@@ -36,7 +36,9 @@
 			}
 	}
 
-
+.single .entry-featured {
+	@extend %single-width;
+}
 // to be used on single page as
 //.entry-header.cover
 .cover {
@@ -69,6 +71,10 @@
 
 .page-template-default .entry-title {
 	color: white;
+}
+
+.page-template-default .no-image .entry-title {
+	color: black;
 }
 
 //Fullwidth page template

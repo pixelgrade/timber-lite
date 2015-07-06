@@ -1,8 +1,9 @@
 <?php
 /**
- * Timber widget
+ * Timber image widget
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 if ( ! function_exists( 'timber_image_widget_init' ) ) :
@@ -60,7 +61,8 @@ if ( ! class_exists( 'Timber_Image_Widget' ) ) :
 			} else {
 				$image = '';
 			}
-			echo '<div class="timber-widget-img" style="background-image: url(\''. $image .'\');"></div>' . PHP_EOL;
+			echo '<div class="timber-widget-background-image" style="background-image: url(\''. $image .'\');"></div>' . PHP_EOL;
+			echo '<img class="timber-widget-image" src="'. $image .'" alt="img" />' . PHP_EOL;
 
 			echo $args['after_widget'] . PHP_EOL;
 		}

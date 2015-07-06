@@ -3,6 +3,7 @@
  * Timber functions and definitions
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 if ( ! function_exists( 'timber_setup' ) ) :
@@ -83,6 +84,10 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		 * Also enqueue the custom Google Fonts also
 		 */
 		add_editor_style( array( 'editor-style.css', timber_fonts_url() ) );
+
+		// custom javascript handlers - make sure it is the last one added
+		add_action( 'wp_head', 'timber_load_custom_js_header', 999 );
+		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
@@ -113,16 +118,6 @@ add_action( 'init', 'timber_remove_custom_post_comment' );
  * @link http://codex.wordpress.org/Function_Reference/register_sidebar
  */
 function timber_widgets_init() {
-//	register_sidebar( array(
-//		'name'          => esc_html__( 'Sidebar', 'timber' ),
-//		'id'            => 'sidebar-1',
-//		'description'   => '',
-//		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-//		'after_widget'  => '</aside>',
-//		'before_title'  => '<h1 class="widget-title">',
-//		'after_title'   => '</h1>',
-//	) );
-
 	register_sidebar( array(
 		'name'          => esc_html__( 'Overlay widget area 1', 'timber' ),
 		'id'            => 'overlay-widget-area-1',
@@ -190,8 +185,45 @@ function timber_scripts() {
 	if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
 		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
 	}
+
+	$project_template = get_post_meta( timber_get_post_id(), 'project_template', true );
+
+	if( is_front_page() && is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
+		wp_enqueue_script('mousewheel' , 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
+
+/**
+ * Load custom javascript set by theme options
+ * This method is invoked by wpgrade_callback_themesetup
+ * The function is executed on wp_enqueue_scripts
+ */
+function timber_load_custom_js_header() {
+	$custom_js = timber_get_option( 'custom_js' );
+	if ( ! empty( $custom_js ) ) {
+		//first lets test is the js code is clean or has <script> tags and such
+		//if we have <script> tags than we will not enclose it in anything - raw output
+		if ( strpos( $custom_js, '</script>' ) !== false ) {
+			echo $custom_js . "\n";
+		} else {
+			echo "<script type=\"text/javascript\">\n;(function($){\n" . $custom_js . "\n})(jQuery);\n</script>\n";
+		}
+	}
+}
+
+function timber_load_custom_js_footer() {
+	$custom_js = timber_get_option( 'custom_js_footer' );
+	if ( ! empty( $custom_js ) ) {
+		//first lets test is the js code is clean or has <script> tags and such
+		//if we have <script> tags than we will not enclose it in anything - raw output
+		if ( strpos( $custom_js, '</script>' ) !== false ) {
+			echo $custom_js . "\n";
+		} else {
+			echo "<script type=\"text/javascript\">\n;(function($){\n" . $custom_js . "\n})(jQuery);\n</script>\n";
+		}
+	}
+}
 
 /**
  * Registers/enqueues the scripts related to media JS APIs
@@ -225,6 +257,17 @@ function timber_wp_enqueue_media() {
 add_action( 'wp_enqueue_media', 'timber_wp_enqueue_media' );
 
 /**
+ * Add the global AddThis configuration in the <head>
+ */
+function timber_setup_addthis() {
+    if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
+        //here we will configure the AddThis sharing globally
+        get_template_part( 'inc/addthis/addthis-js-config' );
+    }
+}
+add_action( 'wp_head', 'timber_setup_addthis' );
+
+/**
  * Load theme's configuration file.
  */
 require get_template_directory() . '/inc/config.php';
@@ -233,17 +276,6 @@ require get_template_directory() . '/inc/config.php';
  * And all the activation hooks.
  */
 require get_template_directory() . '/inc/activation.php';
-
-/**
- * Add the global AddThis configuration in the <head>
- */
-function timber_setup_addthis() {
-	if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
-		//here we will configure the AddThis sharing globally
-		get_template_part( 'inc/addthis/addthis-js-config' );
-	}
-}
-add_action( 'wp_head', 'timber_setup_addthis' );
 
 /**
  * MB string functions for when the MB library is not available

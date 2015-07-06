@@ -1,6 +1,7 @@
 <?php
 /*
  * Output the global AddThis JavaScript config
+ *
  * @package Timber
  * @since   Timber 1.0
  */
@@ -21,8 +22,8 @@ addthis_config = {
 	} ?>
 	ui_click : false,
 	ui_delay : 100,
-	ui_offset_top: 16,
-	ui_offset_left: -12,
+	ui_offset_top: 0,
+	ui_offset_left: 0,
 	ui_use_css : true,
 	data_track_addressbar : false,
 	data_track_clickback : false

@@ -3,6 +3,7 @@
  * Timber Theme Customizer
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 /**
@@ -16,94 +17,26 @@ function timber_customize_register( $wp_customize ) {
 
 	// Rename the label to "Display Site Title & Tagline" in order to make this option clearer.
 	$wp_customize->get_control( 'display_header_text' )->label = __( 'Display Site Title &amp; Tagline', 'timber' );
-
-	/*
-	 * Add custom settings
-	 */
-	$wp_customize->add_section( 'timber_theme_options', array(
-		'title'             => __( 'Theme Options', 'timber' ),
-		'priority'          => 30,
-	) );
-
-	$wp_customize->add_setting( 'timber_hide_portfolio_page_content', array(
-		'default' => '',
-		'sanitize_callback' => 'timber_sanitize_checkbox',
-	) );
-
-	$wp_customize->add_control( 'timber_hide_portfolio_page_content', array(
-		'label'   => __( 'Hide title and content on Portfolio Page Template', 'timber' ),
-		'section' => 'timber_theme_options',
-		'type'    => 'checkbox',
-	) );
-
-	$wp_customize->add_setting( 'timber_disable_search_in_social_menu', array(
-		'default'           => '',
-		'sanitize_callback' => 'timber_sanitize_checkbox',
-	) );
-
-	$wp_customize->add_control( 'timber_disable_search_in_social_menu', array(
-		'label'             => __( 'Hide search button in Social Menu.', 'timber' ),
-		'section'           => 'timber_theme_options',
-		'type'              => 'checkbox',
-	) );
-
-	$wp_customize->add_setting( 'timber_footer_copyright', array(
-		'default'           => '',
-		'sanitize_callback' => 'wp_kses_post',
-	) );
-
-	$wp_customize->add_control( 'timber_footer_copyright', array(
-		'label'             => __( 'Additional Copyright Text', 'timber' ),
-		'description' => '',
-		'section'           => 'timber_theme_options',
-		'type'              => 'text',
-	) );
 }
 add_action( 'customize_register', 'timber_customize_register' );
-
-/**
- * Sanitize the checkbox.
- *
- * @param boolean $input.
- * @return boolean true if is 1 or '1', false if anything else
- */
-function timber_sanitize_checkbox( $input ) {
-	if ( 1 == $input ) {
-		return true;
-	} else {
-		return false;
-	}
-}
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function timber_customize_preview_js() {
-
-//	wp_enqueue_script('wp-ajax-response');
-//	var_dump( wp_script_is('wp-ajax-response' ) );
 	wp_enqueue_script( 'timber_customizer_preview', get_template_directory_uri() . '/assets/js/admin/customizer_preview.js', array( 'customize-preview' ), '20130508', true );
 }
 add_action( 'customize_preview_init', 'timber_customize_preview_js' );
-
-
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function timber_load_customize_js() {
-
-//	wp_enqueue_script('wp-ajax-response');
-
 	wp_enqueue_script( 'timber_customizer', get_template_directory_uri() . '/assets/js/admin/customizer.js', array( 'wp-ajax-response' ), '20130508', true );
 }
 add_action( 'customize_controls_enqueue_scripts', 'timber_load_customize_js' );
 
-// "One-Click import for demo data" feature
-// ----------------------------------------
-
 // @todo CLEANUP refactor function names
-
 /**
  * Imports the demo data from the demo_data.xml file
  */

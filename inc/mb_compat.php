@@ -3,8 +3,8 @@
  * Multibyte String Functions Pseudo-Replacements
  * This is in case the mb PHP extension is not present although it should be
  *
- * @package Patch
- * @since Patch 1.0
+ * @package Timber
+ * @since Timber 1.0
  */
 
 if ( ! function_exists('mb_internal_encoding') ) {

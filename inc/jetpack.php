@@ -8,8 +8,6 @@
  * @since Timber 1.0
  */
 function timber_load_jetpack_compatibility() {
-	//this is a customized version of the Jetpack module
-	require_once get_template_directory() . '/inc/jetpack/featured-content.php';
 
 	//first test if Jetpack is present and activated
 	// only if it is not present load the duplicated code from the theme
@@ -23,15 +21,6 @@ function timber_load_jetpack_compatibility() {
 add_action( 'after_setup_theme', 'timber_load_jetpack_compatibility' );
 
 function timber_jetpack_setup() {
-	/**
-	 * Add theme support for Timber Featured Content - Customized so it will not use/activate the module in Jetpack
-	 * See: http://jetpack.me/support/featured-content/
-	 */
-	add_theme_support( 'timber-featured-content', array(
-		'filter'     => 'timber_get_featured_projects',
-		'max_posts'  => 20, //even if there are 20 here we will cap them at 10; this is so that in case we get posts also we have at least 10 projects
-		'post_types' => array( 'jetpack-portfolio' ),
-	) );
 
 	/**
 	 * Add theme support for site logo
@@ -56,18 +45,6 @@ function timber_jetpack_setup() {
 
 }
 add_action( 'after_setup_theme', 'timber_jetpack_setup' );
-
-function timber_get_featured_projects() {
-	$featured_projects = apply_filters( 'timber_get_featured_projects', array() );
-
-	//filter to only allow for jetpack-portfolio type
-	$featured_projects = array_filter( $featured_projects, 'timber_post_is_project');
-
-	//cap to maximum 10 projects
-	$featured_projects = array_slice( $featured_projects, 0, 10 );
-
-	return $featured_projects;
-}
 
 function timber_post_is_project( $post ) {
 	if ( $post->post_type !== 'jetpack-portfolio' ) {

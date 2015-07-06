@@ -5,6 +5,7 @@
  * Eventually, some of the functionality here could be replaced by core features.
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 if ( ! function_exists( 'timber_paging_nav' ) ) :
@@ -101,10 +102,9 @@ if ( ! function_exists( 'timber_entry_footer' ) ) :
 function timber_entry_footer() {
 	// Hide category and tag text for pages.
 	if ( 'post' == get_post_type() ) {
-	echo '<div class="metabox"><button class="js-popup-share js-share-source"><i class="fa  fa-share-alt"></i>' . _( 'Share' ) . '</button></div>';
+	echo '<div class="metabox"><button class="js-popup-share js-share-source"><i class="fa  fa-share-alt"></i>' . __( 'Share', 'timber' ) . '</button></div>';
 
-		/* translators: used between list items, there is a space after the comma */
-		$tags_list = get_the_tag_list( '', esc_html__( '', 'timber' ) );
+		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
 			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'timber' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
@@ -327,6 +327,94 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 	} #function
 endif;
 
+if ( ! function_exists( 'timber_the_project_featured_image') ) :
+    /**
+     * Display the project featured image or the first content image
+     *
+     * @param int|WP_Post $id Optional. Post ID or post object.
+     * @param string Optional. Thumbnail size. Default full
+     * @param string|array $attr Optional. Query string or array of attributes. Default empty.
+     */
+    function timber_the_post_thumbnail( $post_id = null, $size = 'full', $attr = '' ) {
+        $post = get_post( $post_id );
+
+        if ( empty( $post ) ) {
+            return;
+        }
+
+        if ( has_post_thumbnail() ) {
+            the_post_thumbnail( $size, $attr );
+        } else {
+            $post_thumbnail_id = false;
+
+            //we need to look for the first image in the content (first in a gallery then standalone)
+            $galleries = get_post_galleries( $post, false );
+            $gallery = reset( $galleries );
+
+            if ( ! empty( $gallery['ids'] ) ) {
+                $gallery_ids = explode(',', $gallery['ids'] );
+                $post_thumbnail_id = reset( $gallery_ids );
+            }
+
+            if ( ! $post_thumbnail_id ) {
+                //we need to look for the first image in the content
+                preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+
+                if ( isset( $matches[1][0] ) ) {
+                    $post_thumbnail_id = timber_attachment_url_to_postid( $matches[1][0] );
+                }
+            }
+
+            if ( $post_thumbnail_id ) {
+
+                /**
+                 * Fires before fetching the post thumbnail HTML.
+                 *
+                 * Provides "just in time" filtering of all filters in wp_get_attachment_image().
+                 *
+                 * @since 2.9.0
+                 *
+                 * @param string $post_id The post ID.
+                 * @param string $post_thumbnail_id The post thumbnail ID.
+                 * @param string $size The post thumbnail size.
+                 */
+                do_action('begin_fetch_post_thumbnail_html', $post_id, $post_thumbnail_id, $size);
+                if (in_the_loop())
+                    update_post_thumbnail_cache();
+                $html = wp_get_attachment_image($post_thumbnail_id, $size, false, $attr);
+
+                /**
+                 * Fires after fetching the post thumbnail HTML.
+                 *
+                 * @since 2.9.0
+                 *
+                 * @param string $post_id The post ID.
+                 * @param string $post_thumbnail_id The post thumbnail ID.
+                 * @param string $size The post thumbnail size.
+                 */
+                do_action('end_fetch_post_thumbnail_html', $post_id, $post_thumbnail_id, $size);
+            } else {
+                $html = '';
+            }
+
+            /**
+             * Filter the post thumbnail HTML.
+             *
+             * @since 2.9.0
+             *
+             * @param string $html              The post thumbnail HTML.
+             * @param string $post_id           The post ID.
+             * @param string $post_thumbnail_id The post thumbnail ID.
+             * @param string $size              The post thumbnail size.
+             * @param string $attr              Query string of attributes.
+             */
+            echo apply_filters( 'post_thumbnail_html', $html, $post_id, $post_thumbnail_id, $size, $attr );
+        }
+
+        return;
+    }
+endif;
+
 if ( ! function_exists( 'timber_get_option' ) ) :
 	/**
 	 * Get option from the database
@@ -365,24 +453,41 @@ if ( ! function_exists( 'timber_the_film_strip' ) ) :
 	/**
 	 * Display the film strip
 	 *
-	 * @param int|WP_Post $id Optional. Post ID or post object.
-	 * @param boolean Optional. To ignore or not text boxes
+     * @param int|WP_Post $post_id Optional. Post ID or post object.
+     * @param boolean $ignore_text Optional. To ignore or not text boxes
+     * @param boolean $ignore_videos Optional. To ignore or not video boxes
 	 */
 	function timber_the_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
-		echo timber_get_film_strip( $post_id, $ignore_text, $ignore_videos );
+		echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos );
 	}
 
 endif;
 
-if ( ! function_exists( 'timber_get_film_strip' ) ) :
+if ( ! function_exists( 'timber_the_project_slider_images' ) ) :
+    /**
+     * Display the film strip
+     *
+     * @param int|WP_Post $post_id Optional. Post ID or post object.
+     * @param boolean $ignore_text Optional. To ignore or not text boxes
+     * @param boolean $ignore_videos Optional. To ignore or not video boxes
+     */
+    function timber_the_project_slider_images( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
+        echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos, 'timber_get_slider_image' );
+    }
+
+endif;
+
+if ( ! function_exists( 'timber_get_processed_content' ) ) :
 	/**
 	 * Return the film strip markup
 	 *
-	 * @param int|WP_Post $id Optional. Post ID or post object.
-	 * @param boolean Optional. To ignore or not text boxes
+	 * @param int|WP_Post $post_id Optional. Post ID or post object.
+	 * @param boolean $ignore_text Optional. To ignore or not text boxes
+     * @param boolean $ignore_videos Optional. To ignore or not video boxes
+     * @param string $image_callback Optional. Function name to use to get the individual images markup
 	 * @return string The film strip markup
 	 */
-	function timber_get_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
+	function timber_get_processed_content( $post_id = null, $ignore_text = false, $ignore_videos = false, $image_callback = 'timber_get_film_strip_image' ) {
 		$post = get_post( $post_id );
 
 		if ( empty( $post ) ) {
@@ -408,7 +513,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 					$before_content = substr( $content, 0, $pos );
 
 					//now let's process this content and get it in the film strip
-					$output .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, $ignore_videos );
+					$output .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, true, $image_callback );
 
 					//delete everything in front of the shortcode including it
 					$content = trim( substr( $content, $pos + strlen( $gallery['original'] ) ) );
@@ -417,7 +522,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 					$gallery_ids = explode(',', $gallery['ids'] );
 
 					foreach ( $gallery_ids as $key => $attachment_id ) {
-						$output .= timber_get_film_strip_image( $attachment_id );
+						$output .= call_user_func($image_callback, $attachment_id );
 					}
 				}
 			}
@@ -425,7 +530,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 		if ( ! empty( $content ) ) {
 			//there is some content left - let's process it
-			$output .= timber_process_partial_content_into_film_strip( $content, $ignore_text, $ignore_videos );
+			$output .= timber_process_partial_content( $content, $ignore_text, $ignore_videos, true, $image_callback );
 		}
 
 		return $output;
@@ -434,15 +539,18 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_process_partial_content_into_film_strip' ) ) :
+if ( ! function_exists( 'timber_process_partial_content' ) ) :
 /**
  * Return markup for the film strip given a gallery-free piece of content
  *
- * @param string Partial post content
- * @param boolean Optional. To ignore or not text boxes
+ * @param string $content Partial post content
+ * @param boolean $ignore_text Optional. To ignore or not text boxes
+ * @param boolean $ignore_videos Optional. To ignore or not video boxes
+ * @param boolean $the_content Optional. To apply or not the_content filters
+ * @param string $image_callback Optional. Function name to use to get the individual images markup
  * @return string The markup
  */
-function timber_process_partial_content_into_film_strip( $content, $ignore_text = false, $ignore_videos = false, $the_content = true ) {
+function timber_process_partial_content( $content, $ignore_text = false, $ignore_videos = false, $the_content = true, $image_callback = 'timber_get_film_strip_image' ) {
 	$markup = '';
 
 	//a little bit of cleanup
@@ -473,7 +581,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
             $before_content = trim( substr( $content, 0, $pos ) );
 
             //process the before content recursively
-            $markup .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, $ignore_videos, false );
+            $markup .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, false, $image_callback );
 
             //delete everything in front of the current match including it
             $content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
@@ -487,7 +595,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
     }
 
 	//SECOND, once done with the videos, we are left with the content after the last video (it there was any)
-	// split this content by images (<img>,<figure>)
+	//split this content by images (<img>,<figure>)
 	$num_matches = preg_match_all( "!(?:<\s*p\s?[^>]*>\s*)?(?:<\s*figure\s?.*>\s*)?(?:<\s*?a\s?.*>\s*)?<\s*img\s?.*src=[\"|']([^\"']*)[\"|'].*alt=[\"|']([^\"']*)[\"|'].*/>(?:\s*</a\s*>)?(?:\s*<\s*figcaption\s?[^>]*>([^>]*)\s*</figcaption\s*>)?(?:\s*</figure>)?(?:\s*</p\s*>)?!i", $content, $matches );
 
 	for ( $idx = 0; $idx < $num_matches; $idx++ ) {
@@ -513,7 +621,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
 		//first try and get an attachment ID - we may fail because it is an external image
 		$attachment_id = timber_attachment_url_to_postid( $matches[1][ $idx ] );
 		if ( $attachment_id ) {
-			$markup .= timber_get_film_strip_image( $attachment_id, $caption );
+			$markup .= call_user_func( $image_callback, $attachment_id, $caption );
 		} else {
 			//we have an external image
 
@@ -538,7 +646,8 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 	/**
 	 * Return markup for a single image in the film strip
 	 *
-	 * @param int Attachment ID
+     * @param int $id Optional. Attachment ID
+     * @param string $caption Optional. The caption
 	 * @return string The image markup
 	 */
 	function timber_get_film_strip_image( $id = null, $caption = "" ) {
@@ -576,6 +685,41 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 
 		return $markup;
 	}
+
+endif;
+
+if ( ! function_exists( 'timber_get_slider_image' ) ) :
+    /**
+     * Return markup for a single image in the slider
+     *
+     * @param int $id Optional. Attachment ID
+     * @param string $caption Optional. The caption
+     * @return string The image markup
+     */
+    function timber_get_slider_image( $id = null, $caption = "" ) {
+        $markup = '';
+
+        //do nothing if we have no ID
+        if ( empty( $id ) ) {
+            return $markup;
+        }
+
+        if ( empty( $caption ) ) {
+            //try to get the caption from the attachment metadata
+            $caption = timber_get_img_caption( $id );
+        }
+
+        $image_full_size = wp_get_attachment_image_src( $id, 'full' );
+        $markup .=
+            '<div class="project-slide  rsContent">' .
+				'<img itemprop="image" src="' . $image_full_size[0] . '" class="rsImg" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '">';
+        if ( ! empty($caption) ) {
+            $markup .= '<figure class="rsCaption">' . $caption . '</figure>';
+        }
+		$markup .= '</div>' . PHP_EOL;
+
+        return $markup;
+    }
 
 endif;
 
@@ -866,4 +1010,85 @@ function timber_get_post_gallery_count( $post_ID = null ) {
 	}
 
 	return false;
+}
+
+/**
+ * Get a number of random attachments attached to the jetpack-portfolio CPT
+ *
+ * @param int $maxnum Optional. Max number of random projects images to return
+ * @return array List of images
+ */
+function timber_get_random_projects_images( $maxnum = 5 ) {
+    $projects = get_posts( array(
+        'post_type' => 'jetpack-portfolio',
+        'posts_per_page' => -1,
+        'fields' => 'ids'
+    ) );
+
+    if ( ! empty($projects) ) {
+        $args = array(
+            'post_parent__in' => $projects,
+            'post_type'   => 'attachment',
+            'numberposts' => $maxnum,
+            'post_status' => 'any',
+            'post_mime_type' => 'image',
+            'orderby' => 'rand',
+        );
+        $images = get_posts( $args );
+
+        return $images;
+    }
+
+    return array();
+}
+
+/**
+ * Print a JSON encoded array of a number of random attachments srcs from those attached to the jetpack-portfolio CPT.
+ *
+ * @param int $maxnum Optional. Max number of random projects images srcs to return
+ */
+function timber_the_random_projects_images_srcs( $maxnum = 5 ) {
+    $random_images = timber_get_random_projects_images( $maxnum );
+
+    $image_srcs = array();
+    if ( ! empty( $random_images ) ) {
+        foreach ($random_images as $key => $image) {
+            $thumbnail = wp_get_attachment_image_src( $image->ID, 'thumbnail' );
+            if ( $thumbnail ) {
+                $image_srcs[] = $thumbnail[0];
+            }
+        }
+    }
+
+    echo json_encode( $image_srcs );
+}
+
+/**
+ * Print a JSON encoded array of a number of random attachments data uris from those attached to the jetpack-portfolio CPT.
+ *
+ * @param int $maxnum Optional. Max number of random projects images srcs to return
+ */
+function timber_the_random_projects_images_data_uri( $maxnum = 5 ) {
+    $random_images = timber_get_random_projects_images( $maxnum );
+
+    $image_data_uris = array();
+    if ( ! empty( $random_images ) ) {
+        $upload_dir = wp_upload_dir();
+
+        foreach ($random_images as $key => $image) {
+            $thumbnail = image_get_intermediate_size( $image->ID, 'thumbnail' );
+            if ( $thumbnail ) {
+                $image_data_uris[] = data_uri( trailingslashit( $upload_dir['basedir'] ) . $thumbnail['path'], $image->post_mime_type );
+            }
+        }
+    }
+
+    echo json_encode( $image_data_uris );
+}
+
+function data_uri($file, $mime)
+{
+    $contents = file_get_contents($file);
+    $base64   = base64_encode($contents);
+    return ('data:' . $mime . ';base64,' . $base64);
 }

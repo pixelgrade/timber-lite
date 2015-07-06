@@ -207,17 +207,14 @@
 	}
 }
 
-.clone-title {
-	position: absolute;
-	top: 0; left: 0;
-	width: 100%;
-	height: 100%;
-}
-
 .project_layout-slider {
 	.site-content {
 		position: static;
 	}
+}
+
+.project_layout-fullscreen .site-content {
+	position: static;
 }
 
 .slider_height-full-height {
@@ -234,7 +231,7 @@
 	}
 }
 
-.slider_height-full-height, .project_layout-slider {
+.slider_height-full-height, .project_layout-fullscreen {
 	.bar--fixed, .site-header, .site-footer {
 		background: transparent;
 

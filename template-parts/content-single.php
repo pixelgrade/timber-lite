@@ -3,8 +3,8 @@
  * Template part for displaying single posts.
  *
  * @package Timber
+ * @since Timber 1.0
  */
-
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -19,17 +19,26 @@
 
 			<?php timber_posted_on(); ?>
 
-			<?php if ( $category_list && timber_categorized_blog() ) { ?>
+			<?php if ( $category_list && timber_categorized_blog() ) : ?>
 				<span class="divider"></span>
 				<span class="cat-links">
 					<?php echo $category_list; ?>
 				</span>
-			<?php } // End if categories ?>
+			<?php endif; // End if categories ?>
 
 		</div><!-- .entry-meta -->
+
+		<?php if( has_post_thumbnail() ) : ?>
+
+		<div class="entry-featured">
+			<?php the_post_thumbnail(); ?>
+		</div><!-- .entry-featured -->
+
+		<?php endif; ?>
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
+
 		<?php the_content(); ?>
 		<?php
 		wp_link_pages( array(
@@ -41,6 +50,7 @@
 			'pagelink'         => '%',
 			'echo'             => 1,
 		) ); ?>
+
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">

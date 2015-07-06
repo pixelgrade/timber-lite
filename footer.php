@@ -5,12 +5,12 @@
  * Contains the closing of the #content div and all content after
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
-?>
-
-
-<?php //if ( is_page() || is_single() && ! get_post_type() == 'jetpack-portfolio' ) get_template_part( 'template-parts/content', 'single-footer' ); ?>
+if ( ( is_page() && ! is_page_template( 'page-templates/featured-projects-page.php' ) ) || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) {
+	get_template_part( 'footer-single' );
+} ?>
 
 </div><!-- #page -->
 <div class="overlay">
@@ -38,6 +38,10 @@
 	<button class="overlay__close  js-overlay-trigger"><i class="fa  fa-times-circle-o"></i></button>
 </div><!-- .overlay -->
 
-<?php wp_footer(); ?>
+<script>
+    var loaderRandomImages = <?php timber_the_random_projects_images_srcs(); ?>;
+</script>
+
+<?php wp_footer();?>
 </body>
 </html>

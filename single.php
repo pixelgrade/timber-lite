@@ -3,6 +3,7 @@
  * The template for displaying all single posts.
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header(); ?>

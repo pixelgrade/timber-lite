@@ -3,6 +3,7 @@
  * The template used for displaying Portfolio posts on single project pages
  *
  * @package Timber
+ * @since Timber 1.0
  */
 ?>
 

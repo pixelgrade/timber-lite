@@ -5,6 +5,7 @@
  * Eventually, some of the functionality here could be replaced by core features
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 /**
@@ -51,7 +52,7 @@ function timber_body_classes( $classes ) {
 	if ( isset( $post->post_type ) ) {
 
 		if ( $post->post_type === 'jetpack-portfolio' ) {
-			$project_layout = get_post_meta( timber_get_post_id(), 'project_layout', true );
+			$project_layout = get_post_meta( timber_get_post_id(), 'project_template', true );
 
 			if ( ! empty( $project_layout ) ) {
 				$classes[] = 'project_layout-' . $project_layout;
@@ -85,14 +86,15 @@ function timber_post_classes( $classes ) {
 	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
 		if ( is_single() ) {
 			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
-			if (empty($project_template)) {
-				$project_template = 'hybrid';
+			if ( empty( $project_template ) ) {
+				$project_template = 'filmstrip';
 			}
 
-			if($project_template == 'hybrid')
-				$classes[] = 'portfolio  js-portfolio  entry-content';
-			else
-				$classes[] = 'portfolio  entry-content';
+			if(  'filmstrip' == $project_template || 'thumbnails' == $project_template ) {
+                $classes[] = 'portfolio  js-portfolio  entry-content';
+            } else {
+                $classes[] = 'portfolio  entry-content';
+            }
 		} else {
 			//this is a project displayed in some sort of archive
 			$classes[] = 'portfolio  portfolio--grid  portfolio--project  portfolio--visible  js-portfolio';
@@ -267,6 +269,42 @@ if ( ! function_exists( 'timber_comment' ) ) :
 endif;
 
 /**
+ * Filter the default editor content for projects when creating a new project
+ *
+ * @param string
+ * @return string
+ */
+function timber_project_editor_content( $content, $post ) {
+    if ( 'jetpack-portfolio' == $post->post_type ) {
+        $content = "[gallery]";
+    }
+    return $content;
+}
+add_filter( 'default_content', 'timber_project_editor_content', 10, 3 );
+
+if ( ! function_exists('timber_get_featured_projects' ) ) {
+	function timber_get_featured_projects() {
+
+		$featured_projects = array();
+		$featured_projects_ids = get_post_meta( timber_get_post_id(), 'portfolio_featured_projects', true);
+		// turn from string to array
+		$featured_projects_ids = explode( ',', $featured_projects_ids );
+
+		if ( ! empty($featured_projects_ids) ) {
+			$query_args  = array(
+				'post_type'      => 'jetpack-portfolio',
+				'post__in'       => $featured_projects_ids, // pass array of ids into `include` parameter
+				'orderby'        => 'post__in',
+				'posts_per_page' => - 1, //get all featured projects
+			);
+			$featured_projects = get_posts( $query_args );
+		}
+		return $featured_projects;
+	}
+}
+
+
+/**
  * Filter comment_form_defaults to remove the notes after the comment form textarea.
  *
  * @since Timber 1.0
@@ -366,7 +404,7 @@ add_filter( 'the_content', 'timber_strip_first_content_gallery' );
  */
 function timber_truncate($text, $length = 100, $options = array() ) {
 	$default = array(
-		'ellipsis' => apply_filters('excerpt_more', '[…]' ),
+		'ellipsis' => apply_filters('excerpt_more', '[&#8230;]' ),
 		'exact' => false,
 		'html' => false,
 	);
@@ -604,15 +642,12 @@ function timber_get_img_exif( $attachment_ID ) {
                     or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.5
                     or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.6
                     or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 2.5 ) {
-                    /* translators: used in EXIF metadata, this refers to time */
-                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1, '.', '' ) . " " . __( "second", 'timber' );
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1, '.', '' );
                 } else {
-                    /* translators: used in EXIF metadata, this refers to time */
-                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 0, '.', '' ) . " " . __( "second", 'timber' );
+                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 0, '.', '' );
                 }
             } else {
-                /* translators: used in EXIF metadata, this refers to time */
-                $exif['exposure'] .= $meta_data['image_meta']['shutter_speed'] . " " . __( "seconds", 'timber' );
+                $exif['exposure'] .= $meta_data['image_meta']['shutter_speed'];
             }
         }
 

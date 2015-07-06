@@ -1,0 +1,52 @@
+.pixcode--tabs{
+	padding-bottom: 0;
+}
+
+.tabs__nav {
+	@extend .nav;
+	color: white;
+	background: black;
+	text-transform: uppercase;
+	font-size: 13px;
+	margin-bottom: 24px;
+
+	li {
+		margin-left: 0;
+	}
+
+	a {
+		color: white;
+		background: none !important;
+		text-shadow: none;
+		padding: 12px;
+
+		font-weight: 800;
+
+		&.current, &:hover {
+		}
+
+		.icon {
+			margin-right: 12px;
+		}
+	}
+}
+
+.tabs__content {
+	position: relative;
+	min-height: 1px;
+	transition: height .2s linear;
+}
+
+.tabs__pane {
+	width: 100%;
+	position: absolute;
+	transition: opacity .2s ease-in-out;
+	-webkit-backface-visibility: hidden;
+	transform: translate3d(0,0,0);
+	z-index: 10;
+
+	&.not-shown {
+		opacity: 0;
+		z-index: 10;
+	}
+}

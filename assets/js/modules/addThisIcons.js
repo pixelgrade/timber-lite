@@ -1,3 +1,45 @@
+// AddThis Init
+window.AddThisIcons = (function() {
+
+	var addThisToolBox = '.addthis_toolbox',
+
+		init = function() {
+			if (window.addthis) {
+				bindEvents();
+
+				addthis.init();
+			}
+		},
+
+		bindEvents = function() {
+			if (globalDebug) {console.log("addthis::Load Script");}
+			// Listen for the ready event
+			addthis.addEventListener('addthis.ready', addThisReady);
+		},
+
+	/* --- AddThis On Ready - The API is fully loaded --- */
+	//only fire this the first time we load the AddThis API - even when using ajax
+		addThisReady = function () {
+			if (globalDebug) {console.log("addthis::Ready");}
+			addThisInit();
+		},
+
+	/* --- AddThis Init --- */
+		addThisInit = function () {
+			if (window.addthis) {
+				if (globalDebug) {console.log("addthis::Toolbox INIT");}
+
+				addthis.toolbox( addThisToolBox );
+			}
+		}
+
+	return {
+		init: init
+	}
+})();
+
+
+// Animation logic
 var scl,
 	socialLinks = {
 		settings: {
@@ -26,12 +68,13 @@ var scl,
 					//.to(scl.social_links_list, 0.2, {opacity: 1})
 					.to(scl.button, 0.02, {opacity: 0, ease: Quart.easeOut })
 					.to(scl.text, 0.02, {opacity: 1,  ease: Circ.easeOut })
-					.staggerFromTo(scl.social_links, 0.3, {opacity: 0, x: -20}, {opacity: 1, x: 0, ease: Circ.easeOut, onComplete: function(){
+					.staggerFromTo(scl.social_links, 0.3, {opacity: 0, x: -20, z: 0}, {opacity: 1, x: 0, z: 0, ease: Circ.easeOut, onComplete: function(){
 						$('.social-links-list').addClass('clickable');
 					},
-					onReverseComplete: function(){
-						$('.social-links-list').removeClass('clickable');
-					}}, 0.025, "-=0.02");
+						force3D: true,
+						onReverseComplete: function(){
+							$('.social-links-list').removeClass('clickable');
+						}}, 0.025, "-=0.02");
 
 				//toggle play and reverse timeline on hover
 				//scl.wrapper.hover(this.over, this.out);
@@ -61,8 +104,6 @@ var scl,
 			if (globalDebug) {console.log("Social Links Hover - OVER");}
 
 			scl.anim.play();
-
-			console.log('over');
 		},
 
 		out: function() {

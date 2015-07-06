@@ -1,5 +1,12 @@
 <?php
 /**
+ * Timber Options Config
+ *
+ * @package Timber
+ * @since Timber 1.0
+ */
+
+/**
  * Hook into the Customify's fields and settings
  * @param $options array - Contains the plugin's options array right before they are used, so edit with care
  *
@@ -273,69 +280,58 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 				)
 			),
 
-			'layout' => array(
-				'title'    => __( 'Layout', 'timber' ),
-				'sections' => array(
-					'sizes' => array(
-						'title'    => __( 'Sizes', 'timber' ),
-						'options' => array(
-							'test' => array(
-								'title' => 'test',
-								'type' => 'text'
-							)
-						)
-					),
-					'spaces' => array(
-						'title'    => __( 'Spaces', 'timber' ),
-						'options' => array(
-							'test2' => array(
-								'title' => 'test2',
-								'type' => 'text'
-							)
-						)
-					)
-				)
-			),
-
 			'theme_options' => array(
 				'title'    => __( 'Theme Options', 'timber' ),
 				'sections' => array(
 					'general' => array (
 						'title'    => __( 'General', 'timber' ),
 						'options' => array(
-							'use_smooth_scroll' => array(
+//							'use_smooth_scroll' => array(
+//								'type'     => 'checkbox',
+//								'label'    => __( 'Smooth Scrolling', 'timber' ),
+//								'desc' => __( 'Enable / Disable smooth scrolling.', 'timber' ),
+//								'default'  => true
+//							),
+//							'use_ajax_loading' => array(
+//								'type'     => 'checkbox',
+//								'label'    => __( 'AJAX Loading', 'timber' ),
+//								'desc' => __( 'Enable / Disable dynamic page content loading using AJAX.', 'timber' ),
+//								'default'  => true
+//							),
+
+							'hide_portfolio_page_content' => array(
 								'type'     => 'checkbox',
-								'label'    => __( 'Smooth Scrolling', 'timber' ),
-								'desc' => __( 'Enable / Disable smooth scrolling.', 'timber' ),
-								'default'  => true
-							),
-							'use_ajax_loading' => array(
-								'type'     => 'checkbox',
-								'label'    => __( 'AJAX Loading', 'timber' ),
-								'desc' => __( 'Enable / Disable dynamic page content loading using AJAX.', 'timber' ),
-								'default'  => true
+								'label'    => __( 'Hide title and content on Portfolio Page Template.', 'timber' ),
+								'default'  => false,
 							),
 
-							'copyright_text' => array(
-								'type'     => 'textarea',
-								'label'    => __( 'Copyright', 'timber' ),
-								'desc' => __( 'The copyright text which should appear in footer.', 'timber' ),
-								'default'  => 'Pixelgrade 2015',
+							'disable_search_in_social_menu' => array(
+								'type'     => 'checkbox',
+								'label'    => __( 'Hide search button in Social Menu.', 'timber' ),
+								'default'  => false,
+							),
+
+							'footer_copyright' => array(
+								'type'     => 'text',
+								'label'    => __( 'Additional Copyright Text', 'timber' ),
+								//'desc' => __( 'The copyright text which should appear in footer.', 'timber' ),
+								'default'  => esc_html__( 'All contents &copy; Pixelgrade 2011-2015', 'timber' ),
+								'sanitize_callback' => 'wp_kses_post',
 							),
 
 							'custom_js' => array(
+								'id'       => '',
 								'type'     => 'ace_editor',
-								'label'    => __( 'Customjs', 'timber' ),
-								'desc' => __( 'test', 'timber' ),
-								'default'  => "(function(#){\n})(jQuery)",
-								'editor_type' => 'javascript',
+								'label'    => __( 'Custom JavaScript (header)', 'timber' ),
+								'desc' => __( 'Enter your custom Javascript code. This code will be loaded in the head section of your pages.', 'timber' ),
+								'editor_type'     => 'javascript',
 							),
-
-							'enable_copyright_overlay' => array(
-								'type'     => 'checkbox',
-								'label'    => __( 'Right-Click Protected ?', 'timber' ),
-								'desc' => __( 'Prevent right-click saving for images.', 'timber' ),
-								'default'  => true,
+							'custom_js_footer' => array(
+								'id'       => '',
+								'type'     => 'ace_editor',
+								'label'    => __( 'Custom JavaScript (footer)', 'timber' ),
+								'desc' => __( 'This javascript code will be loaded in the footer. You can paste here your <strong>Google Analytics tracking code</strong> (or for what matters any tracking code) and we will put it on every page.', 'timber' ),
+								'editor_type'     => 'javascript',
 							),
 						)
 					),

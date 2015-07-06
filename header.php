@@ -5,6 +5,7 @@
  * Displays all of the <head> section and everything up till <div id="content">
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 ?><!DOCTYPE html>
@@ -19,7 +20,6 @@
 </head>
 
 <body <?php body_class(); ?>>
-
 <div id="page" class="hfeed site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'timber' ); ?></a>
 
@@ -55,7 +55,7 @@
 			<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ||
 			           is_active_sidebar( 'overlay-widget-area-2' ) ||
 			           is_active_sidebar( 'overlay-widget-area-3' )) : ?>
-			<button class="toggle  js-overlay-trigger"></button>
+			<button class="toggle  js-overlay-trigger"><?php get_template_part('assets/svg/navgrid-svg'); ?></button>
 			<?php endif; ?>
 		</nav>
 

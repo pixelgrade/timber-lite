@@ -3,64 +3,6 @@
     bottom: 0;
 }
 
-.share-box {
-    @extend %bar-piece;
-    @extend %bar-side;
-    @extend %bar-left;
-
-    position: relative;
-}
-
-    .share-text {
-        position: absolute;
-        left: 1.5em;
-        top: 50%;
-        transform: translateY(-50%);
-
-        opacity: 0;
-        pointer-events: none;
-
-        color: $hoverColour;
-
-    }
-
-    .share-button {
-        position: relative;
-        left: -12px;
-
-        padding: 12px 18px;
-    }
-
-    .share-button, .share-text {
-        transition-duration: 0.2s;
-    }
-
-    .social-links-list {
-        @extend %margin--0;
-        @extend %padding--0;
-
-        position: absolute;
-        top: 50%;
-        left: 5.5em;
-        width: 100%;
-
-        transform: translateY(-50%);
-        pointer-events: none;
-
-        &.clickable{ pointer-events: auto; }
-
-        a, a:hover {
-            background: none;
-        }
-
-        a {
-            opacity: 0;
-            display: inline-block;
-            padding: 10px;
-            transition-duration: 0s;
-        }
-    }
-
 .site-info {
     @extend %bar-piece;
     @extend %bar-middle;

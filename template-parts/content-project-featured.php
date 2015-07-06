@@ -1,8 +1,9 @@
 <?php
 /**
- * The template used for displaying a project(Jetpack Portfolio Single Post) on the Featured Projects Page
+ * The template used for displaying a project (Jetpack Portfolio Single Post) on the Featured Projects Page
  *
  * @package Timber
+ * @since Timber 1.0
  */
 ?>
 

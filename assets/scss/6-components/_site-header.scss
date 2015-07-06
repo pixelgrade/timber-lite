@@ -55,8 +55,7 @@
     padding: 0 0 0 .5em;
     height: 1.7em;
 
-    &:before {
-        @extend %display--block;
-        content: url(assets/svg/navgrid.svg);
+    svg rect {
+        color: currentColor;
     }
 }

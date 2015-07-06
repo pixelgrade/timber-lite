@@ -5261,6 +5261,59 @@ function factory(window, EventEmitter, eventie) {
     });
   };
 
+})(jQuery); /* --- ORGANIC TABS --- */
+
+// --- MODIFIED
+// https://github.com/CSS-Tricks/jQuery-Organic-Tabs
+(function ($) {
+
+  $.organicTabs = function (el, options) {
+    var base = this;
+    base.$el = $(el);
+    base.$nav = base.$el.find(".tabs__nav");
+    base.init = function () {
+      base.options = $.extend({}, $.organicTabs.defaultOptions, options);
+      var $allListWrap = base.$el.find(".tabs__content"),
+          curList = base.$el.find("a.current").attr("href").substring(1);
+      $allListWrap.height(base.$el.find("#" + curList).height());
+      base.$nav.find("li > a").click(function (event) {
+
+        var curList = base.$el.find("a.current").attr("href").substring(1),
+            $newList = $(this),
+            listID = $newList.attr("href").substring(1);
+        if ((listID != curList) && (base.$el.find(":animated").length == 0)) {
+          base.$el.find("#" + curList).css({
+            opacity: 0,
+            "z-index": 10
+          });
+          var newHeight = base.$el.find("#" + listID).height();
+          $allListWrap.css({
+            height: newHeight
+          });
+          setTimeout(function () {
+            base.$el.find("#" + curList);
+            base.$el.find("#" + listID).css({
+              opacity: 1,
+              "z-index": 13
+            });
+            base.$el.find(".tabs__nav li a").removeClass("current");
+            $newList.addClass("current");
+          }, 250);
+        }
+        event.preventDefault();
+      });
+    };
+    base.init();
+  };
+  $.organicTabs.defaultOptions = {
+    speed: 300
+  };
+  $.fn.organicTabs = function (options) {
+    return this.each(function () {
+      (new $.organicTabs(this, options));
+    });
+  };
+
 })(jQuery);
 /**
  * requestAnimationFrame polyfill by Erik Möller.
@@ -7116,6 +7169,166 @@ if (!Date.now) Date.now = function () {
       globalDebug = false;
 
 
+  // AddThis Init
+  window.AddThisIcons = (function () {
+
+    var addThisToolBox = '.addthis_toolbox',
+        
+        
+        init = function () {
+        if (window.addthis) {
+          bindEvents();
+
+          addthis.init();
+        }
+        },
+        
+        
+        bindEvents = function () {
+        if (globalDebug) {
+          console.log("addthis::Load Script");
+        }
+        // Listen for the ready event
+        addthis.addEventListener('addthis.ready', addThisReady);
+        },
+        
+        
+         /* --- AddThis On Ready - The API is fully loaded --- */
+        
+        
+        //only fire this the first time we load the AddThis API - even when using ajax
+        addThisReady = function () {
+        if (globalDebug) {
+          console.log("addthis::Ready");
+        }
+        addThisInit();
+        },
+        
+        
+         /* --- AddThis Init --- */
+        
+        addThisInit = function () {
+        if (window.addthis) {
+          if (globalDebug) {
+            console.log("addthis::Toolbox INIT");
+          }
+
+          addthis.toolbox(addThisToolBox);
+        }
+        }
+        
+        
+        
+        return {
+        init: init
+        }
+  })();
+
+
+  // Animation logic
+  var scl, socialLinks = {
+    settings: {
+      wrapper: $('.share-box'),
+      button: $('.js-share-button'),
+      text: $('.share-text'),
+      social_links: $('.share-box a'),
+      social_links_list: $('.social-links-list'),
+      anim: new TimelineMax({
+        paused: true,
+        onComplete: function () {
+          $('.social-links-list').addClass('is-active');
+        },
+        onReverseComplete: function () {
+          $('.social-links-list').removeClass('is-active');
+        }
+      })
+    },
+
+    init: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - INIT");
+      }
+
+      scl = this.settings;
+      this.update();
+
+      if (!empty(scl.wrapper)) {
+        //the actual animation
+        scl.anim
+        //.to(scl.button, 0.2, {backgroundColor:"#1a1717"})
+        //.to(scl.social_links_list, 0.2, {opacity: 1})
+        .to(scl.button, 0.02, {
+          opacity: 0,
+          ease: Quart.easeOut
+        }).to(scl.text, 0.02, {
+          opacity: 1,
+          ease: Circ.easeOut
+        }).staggerFromTo(scl.social_links, 0.3, {
+          opacity: 0,
+          x: -20,
+          z: 0
+        }, {
+          opacity: 1,
+          x: 0,
+          z: 0,
+          ease: Circ.easeOut,
+          onComplete: function () {
+            $('.social-links-list').addClass('clickable');
+          },
+          force3D: true,
+          onReverseComplete: function () {
+            $('.social-links-list').removeClass('clickable');
+          }
+        }, 0.025, "-=0.02");
+
+        //toggle play and reverse timeline on hover
+        //scl.wrapper.hover(this.over, this.out);
+        scl.button.on('mouseenter', this.over);
+        scl.wrapper.on('mouseleave', this.out);
+
+      } else {
+        if (globalDebug) {
+          console.log("Social Links Hover - SHOW STOPPER - No social links wrapper found");
+        }
+      }
+    },
+
+    update: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - UPDATE");
+      }
+
+      scl.wrapper = $('.share-box');
+      scl.button = $('.js-share-button');
+      scl.social_links = $('.share-box a');
+      scl.social_links_list = $('.social-links-list');
+      scl.anim = new TimelineLite({
+        paused: true,
+        onComplete: function () {
+          scl.social_links_list.addClass('is-active');
+        },
+        onReverseComplete: function () {
+          scl.social_links_list.removeClass('is-active');
+        }
+      });
+    },
+
+    over: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - OVER");
+      }
+
+      scl.anim.play();
+    },
+
+    out: function () {
+      if (globalDebug) {
+        console.log("Social Links Hover - OUT");
+      }
+
+      scl.anim.reverse();
+    }
+  };
   var Blog = (function () {
 
     var $filmstrip_container = $('.filmstrip'),
@@ -8754,108 +8967,6 @@ if (!Date.now) Date.now = function () {
       }
     });
   }
-  var scl, socialLinks = {
-    settings: {
-      wrapper: $('.share-box'),
-      button: $('.js-share-button'),
-      text: $('.share-text'),
-      social_links: $('.share-box a'),
-      social_links_list: $('.social-links-list'),
-      anim: new TimelineMax({
-        paused: true,
-        onComplete: function () {
-          $('.social-links-list').addClass('is-active');
-        },
-        onReverseComplete: function () {
-          $('.social-links-list').removeClass('is-active');
-        }
-      })
-    },
-
-    init: function () {
-      if (globalDebug) {
-        console.log("Social Links Hover - INIT");
-      }
-
-      scl = this.settings;
-      this.update();
-
-      if (!empty(scl.wrapper)) {
-        //the actual animation
-        scl.anim
-        //.to(scl.button, 0.2, {backgroundColor:"#1a1717"})
-        //.to(scl.social_links_list, 0.2, {opacity: 1})
-        .to(scl.button, 0.02, {
-          opacity: 0,
-          ease: Quart.easeOut
-        }).to(scl.text, 0.02, {
-          opacity: 1,
-          ease: Circ.easeOut
-        }).staggerFromTo(scl.social_links, 0.3, {
-          opacity: 0,
-          x: -20
-        }, {
-          opacity: 1,
-          x: 0,
-          ease: Circ.easeOut,
-          onComplete: function () {
-            $('.social-links-list').addClass('clickable');
-          },
-          onReverseComplete: function () {
-            $('.social-links-list').removeClass('clickable');
-          }
-        }, 0.025, "-=0.02");
-
-        //toggle play and reverse timeline on hover
-        //scl.wrapper.hover(this.over, this.out);
-        scl.button.on('mouseenter', this.over);
-        scl.wrapper.on('mouseleave', this.out);
-
-      } else {
-        if (globalDebug) {
-          console.log("Social Links Hover - SHOW STOPPER - No social links wrapper found");
-        }
-      }
-    },
-
-    update: function () {
-      if (globalDebug) {
-        console.log("Social Links Hover - UPDATE");
-      }
-
-      scl.wrapper = $('.share-box');
-      scl.button = $('.js-share-button');
-      scl.social_links = $('.share-box a');
-      scl.social_links_list = $('.social-links-list');
-      scl.anim = new TimelineLite({
-        paused: true,
-        onComplete: function () {
-          scl.social_links_list.addClass('is-active');
-        },
-        onReverseComplete: function () {
-          scl.social_links_list.removeClass('is-active');
-        }
-      });
-    },
-
-    over: function () {
-      if (globalDebug) {
-        console.log("Social Links Hover - OVER");
-      }
-
-      scl.anim.play();
-
-      console.log('over');
-    },
-
-    out: function () {
-      if (globalDebug) {
-        console.log("Social Links Hover - OUT");
-      }
-
-      scl.anim.reverse();
-    }
-  };
   // /* ====== ON DOCUMENT READY ====== */
   $(document).ready(function () {
     init();
@@ -8876,6 +8987,8 @@ if (!Date.now) Date.now = function () {
 
     Portfolio.init();
     Blog.init();
+
+    AddThisIcons.init();
   }
 
   // /* ====== ON WINDOW LOAD ====== */
@@ -8884,6 +8997,15 @@ if (!Date.now) Date.now = function () {
     frontpageSlider.init();
     royalSliderInit();
     socialLinks.init();
+    $(".pixcode--tabs").organicTabs();
+
+    if ($('body').hasClass('blog') || $('body').hasClass('project_layout-filmstrip') || $('body').hasClass('project_layout-thumbnails'))
+    // html body are for ie
+    $('html, body, *').mousewheel(function (event, delta) {
+      // this.scrollLeft -= (delta * 30);
+      this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+      event.preventDefault();
+    });
   });
 
   // /* ====== ON RESIZE ====== */

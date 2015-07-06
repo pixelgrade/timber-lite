@@ -1,8 +1,9 @@
 <?php
 /**
- * Template Name: Portfolio Page Template
+ * Template Name: Portfolio Page
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header(); ?>
@@ -18,7 +19,7 @@ get_header(); ?>
 		 * Displays portfolio page content if user opts to
 		 * Can be controlled in Appearance > Customize > Theme Options
 		 */
-		if ( ! get_theme_mod( 'timber_hide_portfolio_page_content' ) ) : ?>
+		if ( ! timber_get_option( 'hide_portfolio_page_content', false ) ) : ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 

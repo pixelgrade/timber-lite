@@ -1,7 +1,11 @@
 <?php
 /**
  * Theme activation hook
+ *
+ * @package Timber
+ * @since Timber 1.0
  */
+
 if ( ! function_exists( 'timber_config_getting_active' ) ) :
 	function timber_config_getting_active() {
 		/**
@@ -157,24 +161,56 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						),
 					)
 				),
+				'featured_projects_template_settings'     => array(
+					'id'         => 'featured_projects_template_settings',
+					'title'      => __( 'Source', 'timber' ),
+					'pages'      => array( 'page' ), // Post type
+					'context'    => 'normal',
+					'priority'   => 'default',
+					'hidden'     => true,
+					'show_on'    => array(
+						'key'   => 'page-template',
+						'value' => array('page-templates/featured-projects-page.php' ),
+					),
+					'show_names' => true, // Show field names on the left
+					'fields'     => array(
+						array(
+							'name'    => __( 'Featured Projects', 'timber' ),
+							'id'      => 'portfolio_featured_projects',
+							'desc'    => __( 'Choose your featured projects. Drag and drop to reorder them to your liking. These projects will be excluded from the main projects list.', 'timber' ),
+							'type'    => 'pw_multiselect_cpt',
+							'options' => array(
+								'args' => array(
+									'post_type' => 'jetpack-portfolio',
+									'post_status' => 'publish'
+								),
+							),
+							'sanitization_cb' => 'pw_select2_sanitise',
+						),
+					),
+				),
 				'timber_project_settings' => array(
 					'id'         => 'timber_project_settings',
 					'title'      => __( 'Project settings', 'timber' ),
 					'pages'      => array( 'jetpack-portfolio' ), // Post type
-					'context'    => 'side',
-					'priority'   => 'default',
+					'context'    => 'normal',
+					'priority'   => 'high',
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
 						array(
-							'name'       => __( 'Template', 'timber' ),
-							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
+							'name'       => __( 'Layout Style<a class="tooltip" title="Select the initial layout for this project."></a>', 'timber' ),
+							// 'desc'       => __( 'Select the initial layout. ', 'timber' ),
 							'id'         => 'project_template',
-							'type'       => 'select',
-							'default'    => 'fullscreen',
+							'type'       => 'radio',
+							'default'    => 'filmstrip',
 							'options'    => array(
 								array(
-									'name' => __( 'Hybrid', 'timber' ),
-									'value' => 'hybrid'
+									'name' => __( 'Thumbnails', 'timber' ),
+									'value' => 'thumbnails'
+								),
+								array(
+									'name' => __( 'Filmstrip', 'timber' ),
+									'value' => 'filmstrip'
 								),
 								array(
 									'name' => __( 'Fullscreen', 'timber' ),
@@ -206,7 +242,7 @@ add_action( 'after_switch_theme', 'timber_config_getting_active' );
 
 
 // pixtypes requires these things below for a pixelgrade theme
-// for the momment we'll shim them until we update pixtypes
+// for the moment we'll shim them until we update pixtypes
 if ( ! class_exists( 'wpgrade' ) ) :
 class wpgrade {
 	static function shortname() {

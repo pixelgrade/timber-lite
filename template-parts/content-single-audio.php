@@ -3,6 +3,7 @@
  * The template for displaying single video post format posts.
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 //get the media objects from the content and bring up only the first one
@@ -22,14 +23,14 @@ $media  = timber_audio_attachment(); ?>
 
 			<?php timber_post_format_link( get_the_ID(), '<span class="divider"></span>' ); ?>
 
-			<?php if ( $category_list && timber_categorized_blog() ) { ?>
+			<?php if ( $category_list && timber_categorized_blog() ) : ?>
 
 				<span class="divider"></span>
 				<span class="cat-links">
 					<?php echo $category_list; ?>
 				</span>
 
-			<?php } // End if categories ?>
+			<?php endif; // End if categories ?>
 
 		</div><!-- .entry-meta -->
 

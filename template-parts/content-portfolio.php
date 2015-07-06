@@ -3,20 +3,10 @@
  * The template used for displaying Jetpack Portfolio posts on the Porfolio landing page
  *
  * @package Timber
+ * @since Timber 1.0
  */
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
-	<?php
-	/**
-	 * Project Thumbnail
-	 */
-	?>
-	<?php if ( has_post_thumbnail() && false ) : ?>
-		<div class="project-thumbnail">
-			<?php the_post_thumbnail( 'full' ); ?>
-		</div>
-	<?php endif; ?>
 
 	<?php
 	/**
@@ -44,7 +34,7 @@
 
 	<?php
 	/*
-	 * Project film strip with text boxes ignored
+	 * Project film strip with text boxes and videos ignored
 	 */
 	timber_the_film_strip( get_the_ID(), true, true );
 	?>
