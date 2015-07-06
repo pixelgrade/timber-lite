@@ -10,6 +10,11 @@
 .entry-header {
 	text-align: center;
 
+	@include query-below($small) {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
 	.entry-meta {
 		font-size: 15px;
 		font-weight: bold;
