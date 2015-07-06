@@ -189,20 +189,24 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 					'id'         => 'timber_project_settings',
 					'title'      => __( 'Project settings', 'timber' ),
 					'pages'      => array( 'jetpack-portfolio' ), // Post type
-					'context'    => 'side',
-					'priority'   => 'default',
+					'context'    => 'normal',
+					'priority'   => 'high',
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
 						array(
-							'name'       => __( 'Template', 'timber' ),
-							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
+							'name'       => __( 'Layout Style<a class="tooltip" title="Select the initial layout for this project."></a>', 'timber' ),
+							// 'desc'       => __( 'Select the initial layout. ', 'timber' ),
 							'id'         => 'project_template',
-							'type'       => 'select',
-							'default'    => 'fullscreen',
+							'type'       => 'radio',
+							'default'    => 'filmstrip',
 							'options'    => array(
 								array(
-									'name' => __( 'Hybrid', 'timber' ),
-									'value' => 'hybrid'
+									'name' => __( 'Thumbnails', 'timber' ),
+									'value' => 'thumbnails'
+								),
+								array(
+									'name' => __( 'Filmstrip', 'timber' ),
+									'value' => 'filmstrip'
 								),
 								array(
 									'name' => __( 'Fullscreen', 'timber' ),
