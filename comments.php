@@ -5,8 +5,8 @@
  * and the comment form. The actual display of comments is
  * handled by a callback to wpgrade_comment() which is
  * located in the functions.php file.
- * @package Pile
- * @since   Pile 1.0
+ * @package Timber
+ * @since   Timber 1.0
  */
 
 /*

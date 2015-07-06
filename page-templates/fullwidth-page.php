@@ -3,10 +3,10 @@
  * Template Name: Full Width Page
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header(); ?>
-
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 

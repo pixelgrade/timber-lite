@@ -5,6 +5,7 @@
  * Eventually, some of the functionality here could be replaced by core features
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 /**
@@ -51,7 +52,7 @@ function timber_body_classes( $classes ) {
 	if ( isset( $post->post_type ) ) {
 
 		if ( $post->post_type === 'jetpack-portfolio' ) {
-			$project_layout = get_post_meta( timber_get_post_id(), 'project_layout', true );
+			$project_layout = get_post_meta( timber_get_post_id(), 'project_template', true );
 
 			if ( ! empty( $project_layout ) ) {
 				$classes[] = 'project_layout-' . $project_layout;
@@ -86,10 +87,10 @@ function timber_post_classes( $classes ) {
 		if ( is_single() ) {
 			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
 			if (empty($project_template)) {
-				$project_template = 'hybrid';
+				$project_template = 'filmstrip';
 			}
 
-			if($project_template == 'hybrid')
+			if($project_template == 'filmstrip')
 				$classes[] = 'portfolio  js-portfolio  entry-content';
 			else
 				$classes[] = 'portfolio  entry-content';
@@ -402,7 +403,7 @@ add_filter( 'the_content', 'timber_strip_first_content_gallery' );
  */
 function timber_truncate($text, $length = 100, $options = array() ) {
 	$default = array(
-		'ellipsis' => apply_filters('excerpt_more', '[…]' ),
+		'ellipsis' => apply_filters('excerpt_more', '[&#8230;]' ),
 		'exact' => false,
 		'html' => false,
 	);

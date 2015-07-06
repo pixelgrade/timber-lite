@@ -5,6 +5,7 @@
  * Eventually, some of the functionality here could be replaced by core features.
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 if ( ! function_exists( 'timber_paging_nav' ) ) :
@@ -101,10 +102,9 @@ if ( ! function_exists( 'timber_entry_footer' ) ) :
 function timber_entry_footer() {
 	// Hide category and tag text for pages.
 	if ( 'post' == get_post_type() ) {
-	echo '<div class="metabox"><button class="js-popup-share js-share-source"><i class="fa  fa-share-alt"></i>' . _( 'Share' ) . '</button></div>';
+	echo '<div class="metabox"><button class="js-popup-share js-share-source"><i class="fa  fa-share-alt"></i>' . __( 'Share', 'timber' ) . '</button></div>';
 
-		/* translators: used between list items, there is a space after the comma */
-		$tags_list = get_the_tag_list( '', esc_html__( '', 'timber' ) );
+		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
 			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'timber' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
@@ -453,24 +453,41 @@ if ( ! function_exists( 'timber_the_film_strip' ) ) :
 	/**
 	 * Display the film strip
 	 *
-	 * @param int|WP_Post $id Optional. Post ID or post object.
-	 * @param boolean Optional. To ignore or not text boxes
+     * @param int|WP_Post $post_id Optional. Post ID or post object.
+     * @param boolean $ignore_text Optional. To ignore or not text boxes
+     * @param boolean $ignore_videos Optional. To ignore or not video boxes
 	 */
 	function timber_the_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
-		echo timber_get_film_strip( $post_id, $ignore_text, $ignore_videos );
+		echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos );
 	}
 
 endif;
 
-if ( ! function_exists( 'timber_get_film_strip' ) ) :
+if ( ! function_exists( 'timber_the_project_slider_images' ) ) :
+    /**
+     * Display the film strip
+     *
+     * @param int|WP_Post $post_id Optional. Post ID or post object.
+     * @param boolean $ignore_text Optional. To ignore or not text boxes
+     * @param boolean $ignore_videos Optional. To ignore or not video boxes
+     */
+    function timber_the_project_slider_images( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
+        echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos, 'timber_get_slider_image' );
+    }
+
+endif;
+
+if ( ! function_exists( 'timber_get_processed_content' ) ) :
 	/**
 	 * Return the film strip markup
 	 *
-	 * @param int|WP_Post $id Optional. Post ID or post object.
-	 * @param boolean Optional. To ignore or not text boxes
+	 * @param int|WP_Post $post_id Optional. Post ID or post object.
+	 * @param boolean $ignore_text Optional. To ignore or not text boxes
+     * @param boolean $ignore_videos Optional. To ignore or not video boxes
+     * @param string $image_callback Optional. Function name to use to get the individual images markup
 	 * @return string The film strip markup
 	 */
-	function timber_get_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
+	function timber_get_processed_content( $post_id = null, $ignore_text = false, $ignore_videos = false, $image_callback = 'timber_get_film_strip_image' ) {
 		$post = get_post( $post_id );
 
 		if ( empty( $post ) ) {
@@ -496,7 +513,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 					$before_content = substr( $content, 0, $pos );
 
 					//now let's process this content and get it in the film strip
-					$output .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, $ignore_videos );
+					$output .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, true, $image_callback );
 
 					//delete everything in front of the shortcode including it
 					$content = trim( substr( $content, $pos + strlen( $gallery['original'] ) ) );
@@ -505,7 +522,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 					$gallery_ids = explode(',', $gallery['ids'] );
 
 					foreach ( $gallery_ids as $key => $attachment_id ) {
-						$output .= timber_get_film_strip_image( $attachment_id );
+						$output .= call_user_func($image_callback, $attachment_id );
 					}
 				}
 			}
@@ -513,7 +530,7 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 		if ( ! empty( $content ) ) {
 			//there is some content left - let's process it
-			$output .= timber_process_partial_content_into_film_strip( $content, $ignore_text, $ignore_videos );
+			$output .= timber_process_partial_content( $content, $ignore_text, $ignore_videos, true, $image_callback );
 		}
 
 		return $output;
@@ -522,15 +539,18 @@ if ( ! function_exists( 'timber_get_film_strip' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_process_partial_content_into_film_strip' ) ) :
+if ( ! function_exists( 'timber_process_partial_content' ) ) :
 /**
  * Return markup for the film strip given a gallery-free piece of content
  *
- * @param string Partial post content
- * @param boolean Optional. To ignore or not text boxes
+ * @param string $content Partial post content
+ * @param boolean $ignore_text Optional. To ignore or not text boxes
+ * @param boolean $ignore_videos Optional. To ignore or not video boxes
+ * @param boolean $the_content Optional. To apply or not the_content filters
+ * @param string $image_callback Optional. Function name to use to get the individual images markup
  * @return string The markup
  */
-function timber_process_partial_content_into_film_strip( $content, $ignore_text = false, $ignore_videos = false, $the_content = true ) {
+function timber_process_partial_content( $content, $ignore_text = false, $ignore_videos = false, $the_content = true, $image_callback = 'timber_get_film_strip_image' ) {
 	$markup = '';
 
 	//a little bit of cleanup
@@ -561,7 +581,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
             $before_content = trim( substr( $content, 0, $pos ) );
 
             //process the before content recursively
-            $markup .= timber_process_partial_content_into_film_strip( $before_content, $ignore_text, $ignore_videos, false );
+            $markup .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, false, $image_callback );
 
             //delete everything in front of the current match including it
             $content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
@@ -601,7 +621,7 @@ function timber_process_partial_content_into_film_strip( $content, $ignore_text 
 		//first try and get an attachment ID - we may fail because it is an external image
 		$attachment_id = timber_attachment_url_to_postid( $matches[1][ $idx ] );
 		if ( $attachment_id ) {
-			$markup .= timber_get_film_strip_image( $attachment_id, $caption );
+			$markup .= call_user_func( $image_callback, $attachment_id, $caption );
 		} else {
 			//we have an external image
 
@@ -626,7 +646,8 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 	/**
 	 * Return markup for a single image in the film strip
 	 *
-	 * @param int Attachment ID
+     * @param int $id Optional. Attachment ID
+     * @param string $caption Optional. The caption
 	 * @return string The image markup
 	 */
 	function timber_get_film_strip_image( $id = null, $caption = "" ) {
@@ -664,6 +685,41 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 
 		return $markup;
 	}
+
+endif;
+
+if ( ! function_exists( 'timber_get_slider_image' ) ) :
+    /**
+     * Return markup for a single image in the slider
+     *
+     * @param int $id Optional. Attachment ID
+     * @param string $caption Optional. The caption
+     * @return string The image markup
+     */
+    function timber_get_slider_image( $id = null, $caption = "" ) {
+        $markup = '';
+
+        //do nothing if we have no ID
+        if ( empty( $id ) ) {
+            return $markup;
+        }
+
+        if ( empty( $caption ) ) {
+            //try to get the caption from the attachment metadata
+            $caption = timber_get_img_caption( $id );
+        }
+
+        $image_full_size = wp_get_attachment_image_src( $id, 'full' );
+        $markup .=
+            '<div class="project-slide  rsContent">' .
+				'<img itemprop="image" src="' . $image_full_size[0] . '" class="rsImg" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '">';
+        if ( ! empty($caption) ) {
+            $markup .= '<figure class="rsCaption">' . $caption . '</figure>';
+        }
+		$markup .= '</div>' . PHP_EOL;
+
+        return $markup;
+    }
 
 endif;
 

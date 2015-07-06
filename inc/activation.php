@@ -1,7 +1,11 @@
 <?php
 /**
  * Theme activation hook
+ *
+ * @package Timber
+ * @since Timber 1.0
  */
+
 if ( ! function_exists( 'timber_config_getting_active' ) ) :
 	function timber_config_getting_active() {
 		/**
@@ -111,33 +115,33 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 			),
 
 			'metaboxes'        => array(
-				'timber_project_settings' => array(
-					'id'         => 'timber_project_settings',
-					'title'      => __( 'Project settings', 'timber' ),
-					'pages'      => array( 'jetpack-portfolio' ), // Post type
-					'context'    => 'side',
-					'priority'   => 'default',
-					'show_names' => true, // Show field names on the left
-					'fields'     => array(
-						array(
-							'name'       => __( 'Template', 'timber' ),
-							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-							'id'         => 'project_template',
-							'type'       => 'select',
-							'std'    => 'fullscreen',
-							'options'    => array(
-								array(
-									'name' => __( 'Hybrid', 'timber' ),
-									'value' => 'hybrid'
-								),
-								array(
-									'name' => __( 'Fullscreen', 'timber' ),
-									'value' => 'fullscreen'
-								)
-							)
-						)
-					)
-				),
+//				'timber_project_settings' => array(
+//					'id'         => 'timber_project_settings',
+//					'title'      => __( 'Project settings', 'timber' ),
+//					'pages'      => array( 'jetpack-portfolio' ), // Post type
+//					'context'    => 'side',
+//					'priority'   => 'default',
+//					'show_names' => true, // Show field names on the left
+//					'fields'     => array(
+//						array(
+//							'name'       => __( 'Template', 'timber' ),
+//							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
+//							'id'         => 'project_template',
+//							'type'       => 'select',
+//							'std'    => 'fullscreen',
+//							'options'    => array(
+//								array(
+//									'name' => __( 'Hybrid', 'timber' ),
+//									'value' => 'hybrid'
+//								),
+//								array(
+//									'name' => __( 'Fullscreen', 'timber' ),
+//									'value' => 'fullscreen'
+//								)
+//							)
+//						)
+//					)
+//				),
 
 				'custom_portfolio_page_settings'   => array(
 					'id'         => 'custom_portfolio_page_settings',
@@ -273,11 +277,45 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								),
 								//'hidden' => true,
 							),
+
 							'display_on' => array(
 								'display' => true,
 								'on'      => array(
 									'field' => 'custom_portfolio_page_type',
 									'value' => 'project'
+								),
+							),
+							'sanitization_cb' => 'pw_select2_sanitise',
+						),
+					),
+				),
+
+				'timber_project_settings' => array(
+					'id'         => 'timber_project_settings',
+					'title'      => __( 'Project settings', 'timber' ),
+					'pages'      => array( 'jetpack-portfolio' ), // Post type
+					'context'    => 'normal',
+					'priority'   => 'high',
+					'show_names' => true, // Show field names on the left
+					'fields'     => array(
+						array(
+							'name'       => __( 'Layout Style<a class="tooltip" title="Select the initial layout for this project."></a>', 'timber' ),
+							// 'desc'       => __( 'Select the initial layout. ', 'timber' ),
+							'id'         => 'project_template',
+							'type'       => 'radio',
+							'default'    => 'filmstrip',
+							'options'    => array(
+								array(
+									'name' => __( 'Thumbnails', 'timber' ),
+									'value' => 'thumbnails'
+								),
+								array(
+									'name' => __( 'Filmstrip', 'timber' ),
+									'value' => 'filmstrip'
+								),
+								array(
+									'name' => __( 'Fullscreen', 'timber' ),
+									'value' => 'fullscreen'
 								)
 							),
 						)
@@ -305,7 +343,7 @@ add_action( 'after_switch_theme', 'timber_config_getting_active' );
 
 
 // pixtypes requires these things below for a pixelgrade theme
-// for the momment we'll shim them until we update pixtypes
+// for the moment we'll shim them until we update pixtypes
 if ( ! class_exists( 'wpgrade' ) ) :
 class wpgrade {
 	static function shortname() {

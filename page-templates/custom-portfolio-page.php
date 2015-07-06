@@ -5,6 +5,7 @@
  * Aimed at being used as a static front page where you can showcase your featured projects in a fullscreen slideshow
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header();
@@ -18,7 +19,8 @@ if ( $custom_portfolio_page_type === 'portfolio' ) {
 }
 
 if ( $custom_portfolio_page_type === 'project' ) {
-
+// @TODO try to recreate the single-jetpack-portfolio as simple as possible here
+/*
 	$homepage_project = get_post_meta( timber_get_post_id(), 'homepage_project', true);
 
 	if ( is_numeric($homepage_project) ) {
@@ -83,7 +85,7 @@ if ( $custom_portfolio_page_type === 'project' ) {
 
 		wp_reset_postdata();
 	}
-
+*/
 } else {
 	get_template_part( $template_part );
 }

@@ -1,14 +1,16 @@
 <?php
 /**
- * The template used for displaying a project(Jetpack Portfolio Single Post) using the Filmstrip layout
+ * The template used for displaying a project (Jetpack Portfolio Single Post) using the Filmstrip layout
  *
  * @package Timber
+ * @since Timber 1.0
  */
 ?>
 
 
 <header class="site-sidebar">
     <div class="site-sidebar__content">
+
     <?php
     /*
      * Project Title
@@ -17,6 +19,7 @@
 
     timber_the_project_types();
     ?>
+
     </div>
 </header>
 

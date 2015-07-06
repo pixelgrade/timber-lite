@@ -8,6 +8,7 @@
  * different template.
  *
  * @package Timber
+ * @since Timber 1.0
  */
 
 get_header(); ?>

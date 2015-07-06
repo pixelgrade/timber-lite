@@ -1,6 +1,9 @@
 <?php
 /**
- * hook shortcodes params
+ * Hook shortcodes params
+ *
+ * @package Timber
+ * @since Timber 1.0
  */
 
 add_filter( 'pixcodes_filter_params_for_separator', 'wpgrade_callback_change_separator_params', 10, 1 );

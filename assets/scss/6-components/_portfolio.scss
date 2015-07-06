@@ -17,14 +17,17 @@ img {
     height: 100%;
     pointer-events: none;
 
-    .project_layout-slider & {
-        top: 0; bottom: 0;
-        left: 0; right: 0;
+    .project_layout-fullscreen & {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 
     .site-content--fullscreen & {
         opacity: 1;
         pointer-events: auto;
+        position: static;
     }
 
     img { @extend %display--block; }

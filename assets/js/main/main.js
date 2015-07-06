@@ -54,6 +54,15 @@ function update() {
 
 $window.on('debouncedresize', onResize);
 
+//// html body for ie
+//$('html, body, *').mousewheel(function(event, delta) {
+//  // this.scrollLeft -= (delta * 30);
+//  if ($('.overlay').is('.loading')) {
+//    this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+//    event.preventDefault();
+//  }
+//});
+
 $window.on('scroll', function() {
   latestKnownScrollY = window.scrollY;
   latestKnownScrollX = window.scrollX;
