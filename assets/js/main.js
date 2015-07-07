@@ -7257,13 +7257,7 @@ if (!Date.now) Date.now = function () {
         scl.anim
         //.to(scl.button, 0.2, {backgroundColor:"#1a1717"})
         //.to(scl.social_links_list, 0.2, {opacity: 1})
-        .to(scl.button, 0.02, {
-          opacity: 0,
-          ease: Quart.easeOut
-        }).to(scl.text, 0.02, {
-          opacity: 1,
-          ease: Circ.easeOut
-        }).staggerFromTo(scl.social_links, 0.3, {
+        .staggerFromTo(scl.social_links, 0.3, {
           opacity: 0,
           x: -20,
           z: 0
@@ -7272,18 +7266,18 @@ if (!Date.now) Date.now = function () {
           x: 0,
           z: 0,
           ease: Circ.easeOut,
-          onComplete: function () {
-            $('.social-links-list').addClass('clickable');
+          onStart: function () {
+            scl.wrapper.addClass('active');
           },
           force3D: true,
           onReverseComplete: function () {
-            $('.social-links-list').removeClass('clickable');
+            scl.wrapper.removeClass('active');
           }
         }, 0.025, "-=0.02");
 
         //toggle play and reverse timeline on hover
         //scl.wrapper.hover(this.over, this.out);
-        scl.button.on('mouseenter', this.over);
+        scl.wrapper.on('mouseenter', this.over);
         scl.wrapper.on('mouseleave', this.out);
 
       } else {
@@ -8580,6 +8574,9 @@ if (!Date.now) Date.now = function () {
         var $source = $(this),
             $target = addImageToFullView($source);
 
+        console.log('here');
+        $('.site-content').addClass('site-content--fullview');
+
         morph($source, $target);
 
         setTimeout(function () {
@@ -8614,7 +8611,9 @@ if (!Date.now) Date.now = function () {
           x: 0,
           y: 0,
           onComplete: function () {
-            morph($source, $target);
+            morph($source, $target, {}, function () {
+              $('.site-content').removeClass('site-content--fullview');
+            });
             setTimeout(function () {
               $('.fullview__image').remove();
               $fullview.removeClass('fullview--visible');
@@ -8624,7 +8623,7 @@ if (!Date.now) Date.now = function () {
         },
         
         
-        morph = function ($source, $target, options) {
+        morph = function ($source, $target, options, callback) {
         var sourceOffset = $source.offset(),
             sourceWidth = $source.width(),
             sourceHeight = $source.height(),
@@ -8676,6 +8675,10 @@ if (!Date.now) Date.now = function () {
             });
             $source.css('opacity', '');
             $clone.remove();
+
+            if (typeof callback !== "undefined") {
+              callback();
+            }
           }
         },
             config = $.extend(defaults, options);
@@ -8685,13 +8688,11 @@ if (!Date.now) Date.now = function () {
             opacity: 0
           });
           $clone.prependTo($target);
-          TweenMax.to($clone, .5, config);
           TweenMax.to($clone.children('.photometa'), .3, {
             opacity: 0
           });
+          TweenMax.to($clone, .5, config);
         });
-
-        $(window).trigger('pxg:morph-end');
         },
         
         

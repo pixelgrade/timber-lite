@@ -332,6 +332,9 @@ var Project = (function() {
 		var $source = $(this),
 			$target = addImageToFullView($source);
 
+		console.log('here');
+		$('.site-content').addClass('site-content--fullview');
+
 		morph($source, $target);
 
 		setTimeout(function() {
@@ -364,7 +367,9 @@ var Project = (function() {
 				x: 0,
 				y: 0,
 				onComplete: function() {
-					morph($source, $target);
+					morph($source, $target, {}, function() {
+						$('.site-content').removeClass('site-content--fullview');
+					});
 					setTimeout(function() {
 						$('.fullview__image').remove();
 						$fullview.removeClass('fullview--visible');
@@ -373,7 +378,7 @@ var Project = (function() {
 			});
 		},
 
-		morph = function($source, $target, options) {
+		morph = function($source, $target, options, callback) {
 			var sourceOffset  = $source.offset(),
 				sourceWidth   = $source.width(),
 				sourceHeight  = $source.height(),
@@ -421,6 +426,10 @@ var Project = (function() {
 						TweenMax.fromTo($target.children('.photometa'), .3, {opacity: 0}, {opacity: 1});
 						$source.css('opacity', '');
 						$clone.remove();
+
+						if (typeof callback !== "undefined") {
+							callback();
+						}
 					}
 				},
 				config = $.extend(defaults, options);
@@ -428,11 +437,9 @@ var Project = (function() {
 			requestAnimationFrame(function() {
 				TweenMax.to($target.children('.photometa'), 0, {opacity: 0});
 				$clone.prependTo($target);
-				TweenMax.to($clone, .5, config);
 				TweenMax.to($clone.children('.photometa'), .3, {opacity: 0});
+				TweenMax.to($clone, .5, config);
 			});
-
-			$(window).trigger('pxg:morph-end');
 		},
 
 		getMiddle = function($image) {

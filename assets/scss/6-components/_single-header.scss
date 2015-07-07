@@ -79,7 +79,7 @@
 }
 
 .page-template-default .no-image/*.entry-header*/ {
-	padding-top: 13vh;
+	padding-top: $header-height;
 
 	.entry-title {
 		color: black;
@@ -96,4 +96,9 @@
 
 		text-align: left;
 	}
+}
+
+.not-found .page-title {
+	margin-top: 0;
+	padding-top: $header-height;
 }

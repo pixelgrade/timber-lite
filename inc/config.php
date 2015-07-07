@@ -17,36 +17,8 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 
 		$options['opt-name'] = 'timber_options';
 
-		$options['sections'] = array(
-			'import_demo_data' => array(
-				'title'    => __( 'Demo Data', 'timber' ),
-				'priority' => 999999,
-				'options' => array(
-					'import_demodata_button' => array(
-						'title' => 'Import',
-						'type' => 'html',
-						'html' => '<input type="hidden" name="wpGrade-nonce-import-posts-pages" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_posts_pages' ) . '" />
-			<input type="hidden" name="wpGrade-nonce-import-theme-options" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_theme_options' ) . '" />
-			<input type="hidden" name="wpGrade-nonce-import-widgets" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_widgets' ) . '" />
-			<input type="hidden" name="wpGrade_import_ajax_url" value="' . admin_url( "admin-ajax.php" ) . '" />
-
-			<a href="#" class="button button-primary" id="wpGrade_import_demodata_button">
-				' . __( 'Import demo data', 'mies_txtd' ) . '
-			</a>
-
-			<div class="wpGrade-loading-wrap hidden">
-				<span class="wpGrade-loading wpGrade-import-loading"></span>
-				<div class="wpGrade-import-wait">
-					' . __( 'Please wait a few minutes (between 1 and 3 minutes usually, but depending on your hosting it can take longer) and <strong>don\'t reload the page</strong>. You will be notified as soon as the import has finished!', 'mies_txtd' ) . '
-				</div>
-			</div>
-
-			<div class="wpGrade-import-results hidden"></div>
-			<div class="hr"><div class="inner"><span>&nbsp;</span></div></div>'
-					)
-				)
-			)
-		);
+		// keep this empty now
+		$options['sections'] = array();
 
 		$options['panels'] = array(
 
@@ -186,18 +158,6 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 					'colors_section' => array(
 						'title'    => __( 'Colors', 'timber' ),
 						'options' => array(
-							'accent_color'   => array(
-								'type'      => 'color',
-								'label'     => __( 'Accent Color', 'timber' ),
-								'live' => true,
-								'default'   => '#ffeb00',
-								'css'  => array(
-									array(
-										'property' => 'background-color',
-										'selector' => 'h1.test',
-									)
-								),
-							),
 							'headings_color' => array(
 								'type'      => 'color',
 								'label'     => __( 'Headings Color', 'timber' ),
@@ -214,13 +174,37 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'      => 'color',
 								'label'     => __( 'Body Color', 'timber' ),
 								'live' => true,
-								'default'   => '#3d3e40',
+								'default'   => '#222222',
 								'css'  => array(
 									array(
 										'selector' => 'body.testest',
 										'property' => 'color'
 									)
 								)
+							),
+							'caption_color'     => array(
+								'type'      => 'color',
+								'label'     => __( 'Caption Color', 'timber' ),
+								'live' => true,
+								'default'   => '#9B9B9B',
+								'css'  => array(
+									array(
+										'property' => 'color',
+										'selector' => '.caption',
+									)
+								)
+							),
+							'links_color'   => array(
+								'type'      => 'color',
+								'label'     => __( 'Links Color', 'timber' ),
+								'live' => true,
+								'default'   => '#222222',
+								'css'  => array(
+									array(
+										'property' => 'color',
+										'selector' => 'a.test',
+									)
+								),
 							),
 						)
 					),
@@ -233,12 +217,13 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'headings_font' => array(
 								'type'     => 'typography',
 								'label'    => __( 'Headings', 'timber' ),
-								'default'  => 'Oswald", sans-serif',
+								'default'  => 'Ek Mukta", sans-serif',
 								'selector' => 'h1.testentry-meta',
 								'font_weight' => false,
 								'load_all_weights' => true,
 								'subsets' => true,
 								'recommended' => array(
+									'Ek Mukta',
 									'Oswald',
 									'Lato',
 									'Open Sans',
@@ -259,13 +244,60 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 									'Pompiere'
 								)
 							),
+							'headings_caps' => array(
+								'type'	=> 'checkbox',
+								'default' => true,
+								'label' => __( 'Capitalize Headings', 'timber' ),
+								'css'	=> array(
+									array(
+										'property' => 'text-transform',
+										'selector' => 'h1, .site-title, h2, h4, h5',
+										'callback_filter' => 'timber_capitalize_headings'
+									),
+								)
+							),
 							'body_font'     => array(
 								'type'    => 'typography',
 								'label'   => __( 'Body Text', 'timber' ),
-								'default' => 'Roboto, sans-serif',
+								'default' => 'Ek Mukta, sans-serif',
 								'selector' => 'body.testtest',
 								'load_all_weights' => true,
 								'recommended' => array(
+									'Ek Mukta',
+									'Roboto',
+									'Lato',
+									'Open Sans',
+									'PT Sans',
+									'Cabin',
+									'Gentium Book Basic',
+									'PT Serif'
+								)
+							),
+							'caption_font'     => array(
+								'type'    => 'typography',
+								'label'   => __( 'Caption Text', 'timber' ),
+								'default' => 'Libre Baskerville, serif',
+								'selector' => 'body.testtest',
+								'load_all_weights' => true,
+								'recommended' => array(
+									'Libre Baskerville',
+									'Roboto',
+									'Lato',
+									'Open Sans',
+									'PT Sans',
+									'Cabin',
+									'Gentium Book Basic',
+									'PT Serif'
+								)
+							),
+							'nav_font'     => array(
+								'type'    => 'typography',
+								'label'   => __( 'Navigation Text', 'timber' ),
+								'default' => 'Ek Mukta, sans-serif',
+								'selector' => 'body.testtest',
+								'load_all_weights' => true,
+								'recommended' => array(
+									'Ek Mukta',
 									'Roboto',
 									'Lato',
 									'Open Sans',
@@ -276,7 +308,85 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								)
 							)
 						)
-					)
+					),
+
+					/**
+					 * SIZING AND SPACING - This section will handle different elements colors (eg. links, headings)
+					 */
+					'sizes_section' => array(
+						'title'    => __( 'Sizes and Spacings', 'timber' ),
+						'options' => array(
+							'logo_height'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Logo Height', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 20,
+							        'max'   => 240,
+							        'step'  => 1,
+							    ),
+								'live' => true,
+								'default'   => 40,
+								'css'  => array(
+									array(
+										'property' => 'height',
+										'selector' => '.site-header',
+									)
+								),
+							),
+							'spacing_header'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Header Spacing', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 0,
+							        'max'   => 100,
+							        'step'  => 10,
+							    ),
+								'live' => true,
+								'default'   => 50,
+								'css'  => array(
+									array(
+										'property' => 'padding',
+										'selector' => '.site-logo',
+									)
+								),
+							),
+							'spacing_footer'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Footer Spacing', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 0,
+							        'max'   => 100,
+							        'step'  => 10,
+							    ),
+								'live' => true,
+								'default'   => 50,
+								'css'  => array(
+									array(
+										'property' => 'padding',
+										'selector' => '.site-footer',
+									)
+								),
+							),
+							'filmstrip_spacing'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 0,
+							        'max'   => 10,
+							        'step'  => 0.1,
+							    ),
+								'live' => true,
+								'default'   => 0.625,
+								'css'  => array(
+									array(
+										'property' => 'margin-right',
+										'unit'	=> 'em',
+										'selector' => '.portfolio__item',
+									)
+								),
+							),
+						)
+					),
 				)
 			),
 
@@ -299,17 +409,17 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 //								'default'  => true
 //							),
 
-							'hide_portfolio_page_content' => array(
-								'type'     => 'checkbox',
-								'label'    => __( 'Hide title and content on Portfolio Page Template.', 'timber' ),
-								'default'  => false,
-							),
+//							'hide_portfolio_page_content' => array(
+//								'type'     => 'checkbox',
+//								'label'    => __( 'Hide title and content on Portfolio Page Template.', 'timber' ),
+//								'default'  => false,
+//							),
 
-							'disable_search_in_social_menu' => array(
-								'type'     => 'checkbox',
-								'label'    => __( 'Hide search button in Social Menu.', 'timber' ),
-								'default'  => false,
-							),
+//							'disable_search_in_social_menu' => array(
+//								'type'     => 'checkbox',
+//								'label'    => __( 'Hide search button in Social Menu.', 'timber' ),
+//								'default'  => false,
+//							),
 
 							'footer_copyright' => array(
 								'type'     => 'text',
@@ -370,6 +480,35 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'default'  => false,
 							),
 						)
+					),
+
+					'import_demo_data' => array(
+						'title'    => __( 'Demo Data', 'timber' ),
+						'priority' => 999999,
+						'options' => array(
+							'import_demodata_button' => array(
+								'title' => 'Import',
+								'type' => 'html',
+								'html' => '<input type="hidden" name="wpGrade-nonce-import-posts-pages" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_posts_pages' ) . '" />
+										<input type="hidden" name="wpGrade-nonce-import-theme-options" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_theme_options' ) . '" />
+										<input type="hidden" name="wpGrade-nonce-import-widgets" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_widgets' ) . '" />
+										<input type="hidden" name="wpGrade_import_ajax_url" value="' . admin_url( "admin-ajax.php" ) . '" />
+
+										<a href="#" class="button button-primary" id="wpGrade_import_demodata_button">
+											' . __( 'Import demo data', 'mies_txtd' ) . '
+										</a>
+
+										<div class="wpGrade-loading-wrap hidden">
+											<span class="wpGrade-loading wpGrade-import-loading"></span>
+											<div class="wpGrade-import-wait">
+												' . __( 'Please wait a few minutes (between 1 and 3 minutes usually, but depending on your hosting it can take longer) and <strong>don\'t reload the page</strong>. You will be notified as soon as the import has finished!', 'mies_txtd' ) . '
+											</div>
+										</div>
+
+										<div class="wpGrade-import-results hidden"></div>
+										<div class="hr"><div class="inner"><span>&nbsp;</span></div></div>'
+							)
+						)
 					)
 				)
 			),
@@ -419,3 +558,14 @@ if ( ! function_exists( 'timber_pixcodes_setup' ) ) :
 endif; // end timber_pixcodes_setup
 
 add_action( 'admin_head', 'timber_pixcodes_setup' );
+
+function timber_capitalize_headings( $value, $selector, $property, $unit ) {
+
+	$result = $value ? 'uppercase' : 'none';
+
+	$output = $selector .'{
+		text-transform: ' . $result . ";\n" .
+	"}\n";
+
+	return $output;
+}
