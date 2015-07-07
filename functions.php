@@ -188,8 +188,27 @@ function timber_scripts() {
 
 	$project_template = get_post_meta( timber_get_post_id(), 'project_template', true );
 
+	// For vertical scroll to be interpreted as horizontal scroll
 	if( is_front_page() && is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
 		wp_enqueue_script('mousewheel' , 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
+	}
+
+	// For back to top link
+	global $timber_show_footer;
+
+	$timber_show_footer = false;
+	if ( ! timber_post_is_project() && ( is_page() || is_single() ) ) {
+		$timber_show_footer = true;
+		if ( is_page() ) {
+			$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true);
+			if ( $custom_portfolio_page_type === 'project_slider' ) {
+				$timber_show_footer = false;
+			}
+		}
+	}
+
+	if( $timber_show_footer ) {
+		wp_enqueue_script('scrolltotop' , 'http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js', array('jquery'), '1.0.0', true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
@@ -206,6 +225,27 @@ function timber_add_admin_page_scripts( $hook ){
 		array('jquery') //dependencies
 	);
 }
+
+/// add custom css to the new-project admin page
+
+add_action('admin_head','timber_add_new_project_admin_style');
+function timber_add_new_project_admin_style( $hook ){
+	global $pagenow;
+	global $typenow;
+
+	if ( $pagenow === 'post-new.php' && $typenow === 'jetpack-portfolio' ) {
+
+$output = '
+<style>
+
+
+</style>';
+
+		echo $output;
+
+	}
+}
+
 
 /**
  * Load custom javascript set by theme options

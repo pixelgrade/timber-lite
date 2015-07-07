@@ -217,7 +217,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'headings_font' => array(
 								'type'     => 'typography',
 								'label'    => __( 'Headings', 'timber' ),
-								'default'  => 'Ek Mukta", sans-serif',
+								'default'  => 'Ek Mukta',
 								'selector' => 'h1.testentry-meta',
 								'font_weight' => false,
 								'load_all_weights' => true,
@@ -259,7 +259,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'body_font'     => array(
 								'type'    => 'typography',
 								'label'   => __( 'Body Text', 'timber' ),
-								'default' => 'Ek Mukta, sans-serif',
+								'default' => 'Ek Mukta',
 								'selector' => 'body.testtest',
 								'load_all_weights' => true,
 								'recommended' => array(
@@ -276,7 +276,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'caption_font'     => array(
 								'type'    => 'typography',
 								'label'   => __( 'Caption Text', 'timber' ),
-								'default' => 'Libre Baskerville, serif',
+								'default' => 'Libre Baskerville',
 								'selector' => 'body.testtest',
 								'load_all_weights' => true,
 								'recommended' => array(
@@ -293,7 +293,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'nav_font'     => array(
 								'type'    => 'typography',
 								'label'   => __( 'Navigation Text', 'timber' ),
-								'default' => 'Ek Mukta, sans-serif',
+								'default' => 'Ek Mukta',
 								'selector' => 'body.testtest',
 								'load_all_weights' => true,
 								'recommended' => array(

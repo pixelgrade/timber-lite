@@ -8,22 +8,13 @@
  * @since Timber 1.0
  */
 
+global $timber_show_footer;
+
+if ( $timber_show_footer ) {
+	get_template_part( 'footer-single' );
+}
+
 ?>
-
-<?php if ( ! timber_post_is_project() && ( is_page() || is_single() ) ) {
-
-	$show_footer = true;
-	if ( is_page() ) {
-		$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true);
-		IF ( $custom_portfolio_page_type === 'project_slider' ) {
-			$show_footer = false;
-		}
-	}
-
-	if ( $show_footer ) {
-		get_template_part( 'footer-single' );
-	}
-} ?>
 
 </div><!-- #djaxContainer -->
 <div class="site-content__mask">

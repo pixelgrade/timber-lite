@@ -233,7 +233,10 @@
 	}
 }
 
-.slider_height-full-height, .project_layout-fullscreen {
+.slider_height-full-height,
+.project_layout-fullscreen,
+.page-has-featured-image {
+	overflow-x: hidden;
 
 	.bar--fixed, .site-header, .site-footer {
 		background: transparent;

@@ -17,6 +17,10 @@
         will-change: opacity, transform;
         pointer-events: none;
     }
+
+    &.portfolio-archive {
+        z-index: 200;
+    }
 }
 
 .page-template-featured-projects-page .site-content__mask {
