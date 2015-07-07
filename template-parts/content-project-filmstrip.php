@@ -32,10 +32,9 @@
 	timber_the_film_strip();
 	?>
 
-	<!-- <div class="js-last"></div>
-	<div class="js-reference"></div> -->
-
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->
+
+<div class="site-content__mask  mask--project"></div>
 
 <div class="fullview">
     <div class="rsArrow rsArrowLeft">

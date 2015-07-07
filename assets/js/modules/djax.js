@@ -35,7 +35,6 @@ var djax = (function() {
 
         $(window).on('djaxClick', onDjaxClick);
         $(window).on('djaxLoad', onDjaxLoad);
-
     }
 
     function replaceBodyClass(data) {
@@ -60,7 +59,7 @@ var djax = (function() {
             left: 0,
             ease: Expo.easeInOut,
         });
-        TweenMax.to('.site-content__mask', .6, {
+        TweenMax.to('.mask--page', .6, {
             left: 0,
             ease: Expo.easeInOut,
             onComplete: function() {
@@ -71,23 +70,26 @@ var djax = (function() {
     function onDjaxLoad(e, data) {
         replaceBodyClass(data);
         softInit();
+        $(window).scrollLeft(0);
+        $(window).scrollTop(0);
         TweenMax.fromTo('.loader', .6, {
             left: 0
         }, {
             left: '-100%',
             ease: Expo.easeInOut,
         });
-        TweenMax.to('.site-content__mask', .6, {
+        TweenMax.to('.mask--page', .6, {
             left: '100%',
             ease: Expo.easeInOut,
             onComplete: function() {
-                $('.site-content__mask').css('left', '');
+                $('.mask--page').css('left', '-100%');
             }
         });
     }
 
     return {
-        init: init
+        init: init,
+        transition: djaxTransition
     }
 
 })();
@@ -95,7 +97,6 @@ var djax = (function() {
 var Loader = (function() {
 
     function init() {
-
 
         var $svg = $("#loaderSvg"),
             svg;

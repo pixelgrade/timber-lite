@@ -6,49 +6,67 @@ $(document).ready(function () {
 
 
 function init() {
-  platformDetect();
-  browserSize();
-  softInit();
-  djax.init();
-  scrollToTop();
+    platformDetect();
+    browserSize();
+    djax.init();
+    scrollToTop();
+    Loader.init();
+
+    $(".pixcode--tabs").organicTabs();
+
+    if ($('body').hasClass('blog')
+        || $('body').hasClass('project_layout-filmstrip')
+        || $('body').hasClass('project_layout-thumbnails')) {
+
+        // html body are for ie
+        $('html, body, *').mousewheel(function (event, delta) {
+            // this.scrollLeft -= (delta * 30);
+            this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+            event.preventDefault();
+        });
+    }
 }
 
 function softInit() {
-  if ($('.single-jetpack-portfolio').length) {
-    Project.init();
-    Placeholder.update();
-    Project.prepare();
-  } else {
-    Placeholder.update();
-  }
 
-  Portfolio.init();
-  Blog.init();
+    if ($('.single-jetpack-portfolio').length) {
+        Project.init();
+        Placeholder.update();
+        Project.prepare();
+    } else {
+        Placeholder.update();
+    }
 
-  frontpageSlider.init();
+    Portfolio.init();
+    Blog.init();
 
-	AddThisIcons.init();
+    frontpageSlider.init();
+
+    AddThisIcons.init();
+    overlayInit();
+    royalSliderInit();
+    socialLinks.init();
+
+    $('#djaxContainer').css('opacity', 1);
+
+    TweenMax.fromTo('.loader', .6, {
+        left: 0
+    }, {
+        left: '-100%',
+        ease: Expo.easeInOut,
+    });
+    TweenMax.to('.mask--page', .6, {
+        left: '100%',
+        ease: Expo.easeInOut,
+        onComplete: function() {
+            $('.mask--page').css('left', '-100%');
+        }
+    });
 }
 
 // /* ====== ON WINDOW LOAD ====== */
 $window.load(function () {
-	overlayInit();
-	royalSliderInit();
-	socialLinks.init();
-  Loader.init();
-	$(".pixcode--tabs").organicTabs();
-
-	if ($('body').hasClass('blog')
-		|| $('body').hasClass('project_layout-filmstrip')
-		|| $('body').hasClass('project_layout-thumbnails')) {
-
-		// html body are for ie
-		$('html, body, *').mousewheel(function (event, delta) {
-			// this.scrollLeft -= (delta * 30);
-			this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-			event.preventDefault();
-		});
-	}
+    softInit();
 });
 
 // /* ====== ON RESIZE ====== */

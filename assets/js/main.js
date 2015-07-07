@@ -15902,197 +15902,190 @@ if (!Date.now) Date.now = function () {
   };
   var Blog = (function () {
 
-    var $filmstrip_container = $('.filmstrip'),
-        
-        
-        fullviewWidth = windowWidth,
-        fullviewHeight = windowHeight,
-        isFirstFilterClick = true,
-        isLoadingPosts = false,
-        filterBy = '',
-        
-        
-        init = function () {
+    var $filmstrip_container, fullviewWidth, fullviewHeight, isFirstFilterClick, isLoadingPosts, filterBy;
 
-        if (!$filmstrip_container.length) {
-          return;
-        }
+    function init() {
 
-        $('.navigation').hide();
+      $filmstrip_container = $('.filmstrip');
+      fullviewWidth = windowWidth;
+      fullviewHeight = windowHeight;
+      isFirstFilterClick = true;
+      isLoadingPosts = false;
+      filterBy = '';
 
-        //mixitup init without filtering
-        $filmstrip_container.mixItUp({
-          animation: {
-            effects: 'fade'
-          },
-          selectors: {
-            filter: '.no-real-selector-for-filtering',
-            target: '.filmstrip__item'
-          }
-        });
+      if (!$filmstrip_container.length) {
+        return;
+      }
 
-        bindEvents();
+      $('.navigation').hide();
 
-        //if there are not sufficient posts to have scroll - load the next page also (prepending)
-        if ($filmstrip_container.children('article').last().offset().left == 0) {
-          loadNextPosts();
-        }
+      //mixitup init without filtering
+      $filmstrip_container.mixItUp({
+        animation: {
+          effects: 'fade'
         },
-        
-        
-        bindEvents = function () {
-        //we will handle the binding of filter links because we need to load all posts on first filter click
-        $('.filter__item').click(function () {
-          filterBy = $(this).data('filter');
+        selectors: {
+          filter: '.no-real-selector-for-filtering',
+          target: '.filmstrip__item'
+        }
+      });
 
-          // first make the current filter link active
-          $('.filter__item').removeClass('active');
-          $(this).addClass('active');
+      bindEvents();
 
-          if (isFirstFilterClick == true) {
-            //this is the first time the user has clicked a filter link
-            //we need to first load all posts before proceeding
-            loadAllPosts();
+      //if there are not sufficient posts to have scroll - load the next page also (prepending)
+      if ($filmstrip_container.children('article').last().offset().left == 0) {
+        loadNextPosts();
+      }
+    }
 
-          } else {
-            //just regular filtering from the second click onwards
-            $filmstrip_container.mixItUp('filter', filterBy);
-          }
+    function bindEvents() {
+      //we will handle the binding of filter links because we need to load all posts on first filter click
+      $('.filter__item').click(function () {
+        filterBy = $(this).data('filter');
 
-          return false;
-        });
-        },
-        
-        
-        loadAllPosts = function () {
-        var offset = $filmstrip_container.find('.filmstrip__item').length;
+        // first make the current filter link active
+        $('.filter__item').removeClass('active');
+        $(this).addClass('active');
 
-        if (globalDebug) {
-          console.log("Loading All Posts - AJAX Offset = " + offset);
+        if (isFirstFilterClick == true) {
+          //this is the first time the user has clicked a filter link
+          //we need to first load all posts before proceeding
+          loadAllPosts();
+
+        } else {
+          //just regular filtering from the second click onwards
+          $filmstrip_container.mixItUp('filter', filterBy);
         }
 
-        isLoadingPosts = true;
+        return false;
+      });
+    }
 
-        $.post(
-        timber_ajax.ajax_url, {
-          action: 'timber_load_next_posts',
-          nonce: timber_ajax.nonce,
-          offset: offset,
-          posts_number: 'all'
-        }, function (response_data) {
+    function loadAllPosts() {
+      var offset = $filmstrip_container.find('.filmstrip__item').length;
 
-          if (response_data.success) {
+      if (globalDebug) {
+        console.log("Loading All Posts - AJAX Offset = " + offset);
+      }
+
+      isLoadingPosts = true;
+
+      $.post(
+      timber_ajax.ajax_url, {
+        action: 'timber_load_next_posts',
+        nonce: timber_ajax.nonce,
+        offset: offset,
+        posts_number: 'all'
+      }, function (response_data) {
+
+        if (response_data.success) {
+          if (globalDebug) {
+            console.log("Loaded all posts");
+          }
+
+          var $result = $(response_data.data.posts).filter('article');
+
+          if (globalDebug) {
+            console.log("Adding new " + $result.length + " items to the DOM");
+          }
+
+          $('.navigation').hide().remove();
+
+          $result.imagesLoaded(function () {
             if (globalDebug) {
-              console.log("Loaded all posts");
+              console.log("MixItUp Filtering - Images Loaded");
             }
 
-            var $result = $(response_data.data.posts).filter('article');
-
-            if (globalDebug) {
-              console.log("Adding new " + $result.length + " items to the DOM");
-            }
-
-            $('.navigation').hide().remove();
-
-            $result.imagesLoaded(function () {
-              if (globalDebug) {
-                console.log("MixItUp Filtering - Images Loaded");
-              }
-
-              $filmstrip_container.mixItUp('append', $result, {
-                filter: filterBy
-              });
-
-              //next time the user filters we will know
-              isFirstFilterClick = false;
-
-              isLoadingPosts = false;
-
-              if (globalDebug) {
-                console.log("MixItUp Filtering - Filter by " + filterBy);
-              }
+            $filmstrip_container.mixItUp('append', $result, {
+              filter: filterBy
             });
-          }
-        });
-        },
-        
-        
-        loadNextPosts = function () {
-        var offset = $filmstrip_container.find('.filmstrip__item').length;
 
-        if (globalDebug) {
-          console.log("Loading More Posts - AJAX Offset = " + offset);
+            //next time the user filters we will know
+            isFirstFilterClick = false;
+
+            isLoadingPosts = false;
+
+            if (globalDebug) {
+              console.log("MixItUp Filtering - Filter by " + filterBy);
+            }
+          });
         }
+      });
+    }
 
-        isLoadingPosts = true;
-        $('.preloader').css('opacity', 1);
+    function loadNextPosts() {
+      var offset = $filmstrip_container.find('.filmstrip__item').length;
 
-        $.post(
-        timber_ajax.ajax_url, {
-          action: 'timber_load_next_posts',
-          nonce: timber_ajax.nonce,
-          offset: offset
-        }, function (response_data) {
+      if (globalDebug) {
+        console.log("Loading More Posts - AJAX Offset = " + offset);
+      }
 
-          if (response_data.success) {
-            if (globalDebug) {
-              console.log("Loaded next posts");
-            }
+      isLoadingPosts = true;
+      $('.preloader').css('opacity', 1);
 
-            var $result = $(response_data.data.posts).filter('article');
+      $.post(
+      timber_ajax.ajax_url, {
+        action: 'timber_load_next_posts',
+        nonce: timber_ajax.nonce,
+        offset: offset
+      }, function (response_data) {
 
-            if (globalDebug) {
-              console.log("Adding new " + $result.length + " items to the DOM");
-            }
-
-            $result.imagesLoaded(function () {
-              if (globalDebug) {
-                console.log("MixItUp Filtering - Images Loaded");
-              }
-
-              $filmstrip_container.mixItUp('append', $result);
-
-              isLoadingPosts = false;
-            });
-          } else {
-            //we have failed
-            //it's time to call it a day
-            if (globalDebug) {
-              console.log("It seems that there are no more posts to load");
-            }
-
-            $('.navigation').fadeOut();
-
-            //don't make isLoadingPosts true so we won't load any more posts
+        if (response_data.success) {
+          if (globalDebug) {
+            console.log("Loaded next posts");
           }
 
-          $('.preloader').css('opacity', 0);
-        });
-        },
-        
-        
-        maybeLoadNextPosts = function () {
-        if (!$filmstrip_container.length || isLoadingPosts) {
-          return;
+          var $result = $(response_data.data.posts).filter('article');
+
+          if (globalDebug) {
+            console.log("Adding new " + $result.length + " items to the DOM");
+          }
+
+          $result.imagesLoaded(function () {
+            if (globalDebug) {
+              console.log("MixItUp Filtering - Images Loaded");
+            }
+
+            $filmstrip_container.mixItUp('append', $result);
+
+            isLoadingPosts = false;
+          });
+        } else {
+          //we have failed
+          //it's time to call it a day
+          if (globalDebug) {
+            console.log("It seems that there are no more posts to load");
+          }
+
+          $('.navigation').fadeOut();
+
+          //don't make isLoadingPosts true so we won't load any more posts
         }
 
-        var $lastChild = $filmstrip_container.children('article').last();
+        $('.preloader').css('opacity', 0);
+      });
+    }
 
-        //if the last child is in view then load more posts
-        if ($lastChild.is(':appeared')) {
-          loadNextPosts();
-        }
+    function maybeLoadNextPosts() {
+      if (!$filmstrip_container.length || isLoadingPosts) {
+        return;
+      }
 
-        }
-        
-        
-        
-        return {
-        init: init,
-        loadAllPosts: loadAllPosts,
-        loadNextPosts: loadNextPosts,
-        maybeLoadNextPosts: maybeLoadNextPosts
-        }
+      var $lastChild = $filmstrip_container.children('article').last();
+
+      //if the last child is in view then load more posts
+      if ($lastChild.is(':appeared')) {
+        loadNextPosts();
+      }
+
+    }
+
+    return {
+      init: init,
+      loadAllPosts: loadAllPosts,
+      loadNextPosts: loadNextPosts,
+      maybeLoadNextPosts: maybeLoadNextPosts
+    }
   })();
   var djax = (function () {
 
@@ -16131,7 +16124,6 @@ if (!Date.now) Date.now = function () {
 
       $(window).on('djaxClick', onDjaxClick);
       $(window).on('djaxLoad', onDjaxLoad);
-
     }
 
     function replaceBodyClass(data) {
@@ -16156,7 +16148,7 @@ if (!Date.now) Date.now = function () {
         left: 0,
         ease: Expo.easeInOut,
       });
-      TweenMax.to('.site-content__mask', .6, {
+      TweenMax.to('.mask--page', .6, {
         left: 0,
         ease: Expo.easeInOut,
         onComplete: function () {}
@@ -16166,23 +16158,26 @@ if (!Date.now) Date.now = function () {
     function onDjaxLoad(e, data) {
       replaceBodyClass(data);
       softInit();
+      $(window).scrollLeft(0);
+      $(window).scrollTop(0);
       TweenMax.fromTo('.loader', .6, {
         left: 0
       }, {
         left: '-100%',
         ease: Expo.easeInOut,
       });
-      TweenMax.to('.site-content__mask', .6, {
+      TweenMax.to('.mask--page', .6, {
         left: '100%',
         ease: Expo.easeInOut,
         onComplete: function () {
-          $('.site-content__mask').css('left', '');
+          $('.mask--page').css('left', '-100%');
         }
       });
     }
 
     return {
-      init: init
+      init: init,
+      transition: djaxTransition
     }
 
   })();
@@ -16190,7 +16185,6 @@ if (!Date.now) Date.now = function () {
   var Loader = (function () {
 
     function init() {
-
 
       var $svg = $("#loaderSvg"),
           svg;
@@ -16261,34 +16255,41 @@ if (!Date.now) Date.now = function () {
 
       $slides.not($current).width(100);
 
-      $slides.each(function (i, obj) {
-        var $slide = $(obj);
+      $slider.imagesLoaded(function () {
 
-        if (i != 0) {
-          totalWidth += 100;
-          $slide.css('left', sliderWidth + (i - 1) * 100);
-        } else {
-          totalWidth += sliderWidth;
-        }
+        $slides.each(function (i, obj) {
+          var $slide = $(obj);
 
-        scaleImage($slide.find('img'));
+          if (i != 0) {
+            totalWidth += 100;
+            $slide.css('left', sliderWidth + (i - 1) * 100);
+          } else {
+            totalWidth += sliderWidth;
+          }
+
+          scaleImage($slide.find('img'));
+        });
+
+        TweenMax.to($slider, .3, {
+          opacity: 1
+        });
+
+        // balance slides to left and right
+        offset = parseInt(($slides.length - 1) / 2, 10);
+        $slides.slice(-offset).prependTo($slider).each(function (i, obj) {
+          $(obj).css('left', '-=' + totalWidth);
+        });
+
+        $slides = $slider.children();
+
+        $prev = $current.prev();
+        $next = $current.next();
+
+        createBullets();
+        setZindex();
+        bindEvents();
+        animateContentIn();
       });
-
-      // balance slides to left and right
-      offset = parseInt(($slides.length - 1) / 2, 10);
-      $slides.slice(-offset).prependTo($slider).each(function (i, obj) {
-        $(obj).css('left', '-=' + totalWidth);
-      });
-
-      $slides = $slider.children();
-
-      $prev = $current.prev();
-      $next = $current.next();
-
-      createBullets();
-      setZindex();
-      bindEvents();
-      animateContentIn();
     }
 
     function scaleImage($img) {
@@ -16560,6 +16561,7 @@ if (!Date.now) Date.now = function () {
             $nextTitle.remove();
             $content.remove();
             $content = $clone;
+            $content.djax('.djax-updatable', [], djax.transition);
           }
         });
 
@@ -16609,6 +16611,7 @@ if (!Date.now) Date.now = function () {
       $prevClone.insertAfter($prevTitle);
       $clone.insertAfter($content);
       timeline.play();
+
     }
 
     function setZindex() {
@@ -16679,8 +16682,7 @@ if (!Date.now) Date.now = function () {
 
     function update($container, src) {
 
-      var $container = $container || $('body'),
-          src = src || 'srcsmall';
+      var $container = $container || $('body');
 
       $items = $container.find('.js-placeholder');
 
@@ -16701,7 +16703,11 @@ if (!Date.now) Date.now = function () {
         $item.data('image', $image);
       });
 
-      $(window).on('DOMContentLoaded load resize scroll', bindImageLoad);
+      $(window).on('DOMContentLoaded load resize scroll', function () {
+        bindImageLoad();
+      });
+
+      bindImageLoad();
 
       $(window).on('djaxClick', function () {
         $(window).off('DOMContentLoaded load resize scroll', bindImageLoad);
@@ -16709,17 +16715,21 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindImageLoad() {
-      var src = src || 'srcsmall';
 
       $items.each(function (i, item) {
         var $item = $(item),
-            $image = $item.data('image');
+            $image = $item.data('image'),
+            src = $item.data('src');
+
+        if (typeof src == "undefined") {
+          src = $item.data('srcsmall');
+        }
 
         if ($item.data('loaded')) return;
 
         if (isElementInViewport($item)) {
           $item.data('loaded', true).removeClass('js-placeholder');
-          $image.attr('src', $item.data(src));
+          $image.attr('src', src);
           $image.prependTo($item);
           $image.imagesLoaded(function () {
             TweenMax.to($image, .3, {
@@ -16936,506 +16946,490 @@ if (!Date.now) Date.now = function () {
     var $film, $grid, $fullview, start, end, current,
 
     fullviewWidth = windowWidth,
-        fullviewHeight = windowHeight,
-        
-        
-        init = function () {
+        fullviewHeight = windowHeight;
 
-        // if (!$('.single-jetpack-portfolio').length) {
-        // 	Placeholder.update();
-        // 	return;
-        // }
-        if ($('.project_layout-filmstrip').length) {
+    function init() {
 
-          $film = $('.js-portfolio');
-          $grid = $film.clone().addClass('portfolio--grid').insertBefore($film);
-          $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
+      // if (!$('.single-jetpack-portfolio').length) {
+      // 	Placeholder.update();
+      // 	return;
+      // }
+      if ($('.project_layout-filmstrip').length) {
 
-        } else {
+        $film = $('.js-portfolio');
+        $grid = $film.clone().addClass('portfolio--grid').insertBefore($film);
+        $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
 
-          $grid = $('.js-portfolio');
-          $film = $grid.clone().addClass('portfolio--filmstrip').insertAfter($grid);
-          $grid.addClass('portfolio--grid').addClass('portfolio--visible');
+      } else {
 
+        $grid = $('.js-portfolio');
+        $film = $grid.clone().addClass('portfolio--filmstrip').insertAfter($grid);
+        $grid.addClass('portfolio--grid').addClass('portfolio--visible');
+
+      }
+
+      $grid.find('.js-portfolio-item').each(function (i, obj) {
+        var $item = $(obj);
+        $item.data('src', $item.data('srcsmall'));
+      });
+
+      $film.find('.js-portfolio-item').each(function (i, obj) {
+        var $item = $(obj);
+        $item.data('src', $item.data('srcfull'));
+      });
+
+      $fullview = $('.fullview');
+
+      addMetadata();
+      bindEvents();
+    }
+
+    function addMetadata() {
+      $film.find('.js-portfolio-item').each(function (i, obj) {
+        var $item = $(obj),
+            captionText = $item.data('caption'),
+            $caption = $('<div class="photometa__caption"></div>').html(captionText),
+            descriptionText = $item.data('description'),
+            $description = $('<div class="photometa__description"></div>').html('<div>' + descriptionText + '</div>'),
+            $exif = $('<ul class="photometa__exif  exif"></ul>'),
+            $meta = $('<div class="portfolio__meta  photometa"></div>'),
+            exifText = $item.data('exif');
+
+        if (!empty(exifText)) {
+          $.each(exifText, function (key, value) {
+            $('<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>').appendTo($exif);
+          });
         }
 
-        $grid.find('.js-portfolio-item').each(function (i, obj) {
-          var $item = $(obj);
-          $item.data('src', $item.data('srcsmall'));
-        });
+        $caption.appendTo($meta);
+        $exif.appendTo($meta);
+        $description.appendTo($meta);
 
-        $fullview = $('.fullview');
+        $meta.appendTo($item);
+      });
+    }
 
-        addMetadata();
-        bindEvents();
-        },
-        
-        
-        addMetadata = function () {
-        $film.find('.js-portfolio-item').each(function (i, obj) {
-          var $item = $(obj),
-              captionText = $item.data('caption'),
-              $caption = $('<div class="photometa__caption"></div>').html(captionText),
-              descriptionText = $item.data('description'),
-              $description = $('<div class="photometa__description"></div>').html('<div>' + descriptionText + '</div>'),
-              $exif = $('<ul class="photometa__exif  exif"></ul>'),
-              $meta = $('<div class="portfolio__meta  photometa"></div>'),
-              exifText = $item.data('exif');
+    function prepare() {
 
-          if (!empty(exifText)) {
-            $.each(exifText, function (key, value) {
-              $('<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>').appendTo($exif);
-            });
+      filmWidth = $film.width();
+      contentWidth = $('.site-content').width();
+      sidebarWidth = $('.site-sidebar').width();
+
+      getMiddlePoints();
+      getReferenceBounds();
+
+      $grid.show();
+      var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+      setCurrent($first);
+
+      if (!$('.project_layout-filmstrip').length) {
+        showThumbnails(null, true);
+      }
+    }
+
+    function bindEvents() {
+      $('body').on('click', '.js-show-thumbnails', showThumbnails);
+      $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
+      $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
+      $('.fullview__close').on('click', hideFullView);
+
+      $('.fullview .rsArrowRight').on('click', showNext);
+      $('.fullview .rsArrowLeft').on('click', showPrev);
+
+      $('.js-details').on('click', function () {
+        $body.toggleClass('portfolio--details');
+      });
+    }
+
+    function showPrev() {
+      var $items = $film.find('.js-portfolio-item'),
+          items = $items.length;
+
+      $items.each(function (i, obj) {
+        if ($(obj).hasClass('portfolio__item--active')) {
+          if (i == 0) {
+            fullViewTransition($items.eq(items - 1));
+          } else {
+            fullViewTransition($items.eq(i - 1));
           }
-
-          $caption.appendTo($meta);
-          $exif.appendTo($meta);
-          $description.appendTo($meta);
-
-          $meta.appendTo($item);
-        });
-        },
-        
-        
-        prepare = function () {
-
-        filmWidth = $film.width();
-        contentWidth = $('.site-content').width();
-        sidebarWidth = $('.site-sidebar').width();
-
-        getMiddlePoints();
-        getReferenceBounds();
-
-        $grid.show();
-        var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-        setCurrent($first);
-
-        if (!$('.project_layout-filmstrip').length) {
-          showThumbnails(null, true);
+          return false;
         }
-        },
-        
-        
-        bindEvents = function () {
-        $('body').on('click', '.js-show-thumbnails', showThumbnails);
-        $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
-        $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
-        $('.fullview__close').on('click', hideFullView);
+      });
+    }
 
-        $('.fullview .rsArrowRight').on('click', showNext);
-        $('.fullview .rsArrowLeft').on('click', showPrev);
+    function showNext() {
+      var $items = $film.find('.js-portfolio-item'),
+          items = $items.length;
 
-        $('.js-details').on('click', function () {
-          $body.toggleClass('portfolio--details');
-        });
-        },
-        
-        
-        showPrev = function () {
-        var $items = $film.find('.js-portfolio-item'),
-            items = $items.length;
-
-        $items.each(function (i, obj) {
-          if ($(obj).hasClass('portfolio__item--active')) {
-            if (i == 0) {
-              fullViewTransition($items.eq(items - 1));
-            } else {
-              fullViewTransition($items.eq(i - 1));
-            }
-            return false;
+      $items.each(function (i, obj) {
+        if ($(obj).hasClass('portfolio__item--active')) {
+          if (i == items - 1) {
+            fullViewTransition($items.eq(0));
+          } else {
+            fullViewTransition($items.eq(i + 1));
           }
-        });
-        },
-        
-        
-        showNext = function () {
-        var $items = $film.find('.js-portfolio-item'),
-            items = $items.length;
+          return false;
+        }
+      });
+    }
 
-        $items.each(function (i, obj) {
-          if ($(obj).hasClass('portfolio__item--active')) {
-            if (i == items - 1) {
-              fullViewTransition($items.eq(0));
-            } else {
-              fullViewTransition($items.eq(i + 1));
-            }
-            return false;
-          }
+    function fullViewTransition($source) {
+      var $target = addImageToFullView($source);
+      TweenMax.fromTo($target, .3, {
+        opacity: 0
+      }, {
+        opacity: 1,
+        onComplete: function () {
+          $('.fullview__image').not($target).remove();
+          centerFilmToTarget($source);
+        }
+      });
+      setCurrent($source);
+    }
+
+    // loop through each portfolio item and find the one closest to center
+
+
+    function getCurrent() {
+
+      if (!$('.single-jetpack-portfolio').length) {
+        return;
+      }
+
+      var current = $('.portfolio__item--active').data('middle'),
+          reference = latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
+          min = Math.abs(reference - current),
+          $next;
+
+      $('.js-reference').css('left', reference).text(parseInt(reference, 10));
+
+      $film.find('.js-portfolio-item').each(function (i, obj) {
+        var compare = $(obj).data('middle');
+
+        if (Math.abs(compare - reference) < min) {
+          min = Math.abs(compare - reference);
+          $next = $(obj);
+        }
+      });
+
+      if (typeof $next !== "undefined") {
+        setCurrent($next);
+      }
+    }
+
+    function getReferenceBounds() {
+      var $items = $film.find('.js-portfolio-item'),
+          items = $items.length,
+          max;
+
+      if (items < 2) {
+        return;
+      }
+
+      start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
+      end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
+
+      max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
+
+      start = contentWidth / 2 - max;
+      end = contentWidth / 2 + max;
+    }
+
+    function getMiddlePoints() {
+      $('.portfolio').each(function (i, portfolio) {
+        $(portfolio).find('.js-portfolio-item').each(function (i, obj) {
+          var $obj = $(obj);
+          $obj.data('middle', getMiddle($obj));
+          $obj.data('count', i);
         });
-        },
-        
-        
-        fullViewTransition = function ($source) {
-        var $target = addImageToFullView($source);
-        TweenMax.fromTo($target, .3, {
-          opacity: 0
-        }, {
+      });
+    }
+
+    function showThumbnails(e, initial) {
+      var $active = $('.portfolio__item--active'),
+          $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
+
+      TweenMax.to('.site-footer', .3, {
+        opacity: 0
+      });
+      $grid.css('opacity', 1);
+
+      $('.js-portfolio-item').addClass('no-transition');
+
+
+      TweenMax.to($('.mask--project'), 0, {
+        'transform-origin': '0 100%',
+        'z-index': 300,
+        scaleX: 0
+      });
+
+      $film.css('z-index', 200);
+      $grid.css('z-index', 400);
+
+      if (typeof initial == "undefined") {
+        morph($active, $target, {
+          delay: .3
+        });
+      }
+
+      $grid.find('.js-portfolio-item img').css('opacity', '');
+
+      setTimeout(function () {
+        var $items = $grid.find('.js-portfolio-item img');
+        $items.sort(function () {
+          return 0.5 - Math.random()
+        });
+
+        TweenMax.staggerTo($items, .3, {
           opacity: 1,
-          onComplete: function () {
-            $('.fullview__image').not($target).remove();
-            centerFilmToTarget($source);
-          }
-        });
-        setCurrent($source);
-        },
-        
-        
-        
-        
-        // loop through each portfolio item and find the one closest to center
-        getCurrent = function () {
+          ease: Quad.easeInOut
+        }, 0.05);
+        $('.js-portfolio-item').removeClass('no-transition');
+      }, 600);
 
-        if (!$('.single-jetpack-portfolio').length) {
-          return;
-        }
-
-        var current = $('.portfolio__item--active').data('middle'),
-            reference = latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
-            min = Math.abs(reference - current),
-            $next;
-
-        $('.js-reference').css('left', reference).text(parseInt(reference, 10));
-
-        $film.find('.js-portfolio-item').each(function (i, obj) {
-          var compare = $(obj).data('middle');
-
-          if (Math.abs(compare - reference) < min) {
-            min = Math.abs(compare - reference);
-            $next = $(obj);
-          }
-        });
-
-        if (typeof $next !== "undefined") {
-          setCurrent($next);
-        }
-        },
-        
-        
-        getReferenceBounds = function () {
-        var $items = $film.find('.js-portfolio-item'),
-            items = $items.length,
-            max;
-
-        if (items < 2) {
-          return;
-        }
-
-        start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
-        end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
-
-        max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
-
-        start = contentWidth / 2 - max;
-        end = contentWidth / 2 + max;
-        },
-        
-        
-        getMiddlePoints = function () {
-        $('.portfolio').each(function (i, portfolio) {
-          $(portfolio).find('.js-portfolio-item').each(function (i, obj) {
-            var $obj = $(obj);
-            $obj.data('middle', getMiddle($obj));
-            $obj.data('count', i);
-          });
-        });
-        },
-        
-        
-        showThumbnails = function (e, initial) {
-        var $active = $('.portfolio__item--active'),
-            $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
-
-        TweenMax.to('.site-footer', .3, {
-          opacity: 0
-        });
-        $grid.css('opacity', 1);
-
-        $('.js-portfolio-item').addClass('no-transition');
-
-
-        TweenMax.to($('.site-content__mask'), 0, {
-          'transform-origin': '0 100%',
-          'z-index': 300
-        });
-
-        $film.css('z-index', 200);
-        $grid.css('z-index', 400);
-
-        if (typeof initial == "undefined") {
-          morph($active, $target, {
-            delay: .3
+      TweenMax.to($('.mask--project'), .6, {
+        x: 0,
+        scaleX: 1,
+        ease: Expo.easeInOut,
+        onComplete: function () {
+          $film.removeClass('portfolio--visible');
+          $grid.addClass('portfolio--visible');
+          TweenMax.to('.mask--project', 0, {
+            scaleX: 0
           });
         }
+      });
 
-        $grid.find('.js-portfolio-item img').css('opacity', '');
+    }
 
-        setTimeout(function () {
-          var $items = $grid.find('.js-portfolio-item img');
-          $items.sort(function () {
-            return 0.5 - Math.random()
-          });
+    function showFilmstrip(e) {
 
-          TweenMax.staggerTo($items, .3, {
+      var $clicked = $(this),
+          $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
+      console.log($target.find('img'));
+
+      TweenMax.to('.site-footer', .3, {
+        opacity: 1
+      });
+
+      // $film.css('opacity', 1);
+      $body.removeClass('scroll-y').addClass('scroll-x');
+
+      $('.js-portfolio-item').addClass('no-transition');
+
+      $clicked.css('opacity', 0);
+      $film.find('.js-portfolio-item').css('opacity', 0);
+      $film.find('.js-portfolio-item img').css('opacity', '');
+
+      $target.addClass('portfolio__item--target');
+
+      $film.addClass('portfolio--visible');
+
+      TweenMax.to($('.mask--project'), 0, {
+        'transform-origin': '100% 0',
+        'z-index': 300
+      });
+      $film.css('z-index', 400);
+      $grid.css('z-index', 200);
+
+      TweenMax.to($('.mask--project'), .6, {
+        scale: 1,
+        ease: Expo.easeInOut,
+        onComplete: function () {
+          $grid.removeClass('portfolio--visible');
+          $grid.css('opacity', '');
+          TweenMax.to($film.find('.js-portfolio-item'), .3, {
             opacity: 1,
-            ease: Quad.easeInOut
-          }, 0.05);
-          $('.js-portfolio-item').removeClass('no-transition');
-        }, 600);
-
-        TweenMax.to($('.site-content__mask'), .6, {
-          x: 0,
-          ease: Expo.easeInOut,
-          onComplete: function () {
-            $film.removeClass('portfolio--visible');
-            $grid.addClass('portfolio--visible');
-            TweenMax.to('.site-content__mask', 0, {
-              x: ''
-            });
-          }
-        });
-
-        },
-        
-        
-        showFilmstrip = function (e) {
-
-        var $clicked = $(this),
-            $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
-        console.log($target.find('img'));
-
-        TweenMax.to('.site-footer', .3, {
-          opacity: 1
-        });
-
-        // $film.css('opacity', 1);
-        $body.removeClass('scroll-y').addClass('scroll-x');
-
-        $('.js-portfolio-item').addClass('no-transition');
-
-        $clicked.css('opacity', 0);
-        $film.find('.js-portfolio-item').css('opacity', 0);
-        $film.find('.js-portfolio-item img').css('opacity', '');
-
-        $target.addClass('portfolio__item--target');
-
-        $film.addClass('portfolio--visible');
-
-        TweenMax.to($('.site-content__mask'), 0, {
-          'transform-origin': '100% 0',
-          'z-index': 300
-        });
-        $film.css('z-index', 400);
-        $grid.css('z-index', 200);
-
-        TweenMax.to($('.site-content__mask'), .6, {
-          scale: 1,
-          ease: Expo.easeInOut,
-          onComplete: function () {
-            $grid.removeClass('portfolio--visible');
-            $grid.css('opacity', '');
-            TweenMax.to($film.find('.js-portfolio-item'), .3, {
-              opacity: 1,
-              onComplete: function () {
-                $('.js-portfolio-item').removeClass('no-transition');
-              }
-            });
-            $target.removeClass('portfolio__item--target');
-            TweenMax.to('.site-content__mask', 0, {
-              scaleX: 0
-            });
-          }
-        });
-
-        centerFilmToTarget($target);
-        morph($clicked, $target);
-
-        },
-        
-        
-        centerFilmToTarget = function ($target) {
-        $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
-        },
-        
-        
-        addImageToFullView = function ($source) {
-        // prepare current for fullview
-        var width = $source.data('width'),
-            height = $source.data('height'),
-            newWidth = $fullview.width(),
-            newHeight = $fullview.height(),
-            scaleX = newWidth / width,
-            scaleY = newHeight / height,
-            scale = Math.max(scaleX, scaleY),
-            $target = $('<div>').addClass('fullview__image'),
-            $image = $(document.createElement('img'));
-
-        fullviewWidth = width * scale;
-        fullviewHeight = height * scale;
-
-        setCurrent($source);
-
-        $target.css({
-          width: fullviewWidth,
-          height: fullviewHeight,
-          top: (fullviewHeight - newHeight) / -2,
-          left: (fullviewWidth - newWidth) / -2
-        });
-
-        $fullview.append($target);
-
-        $image.attr('src', $source.data('srcfull')).prependTo($target);
-
-        return $target;
-        }
-        
-        
-        
-        showFullView = function (e) {
-
-        // prepare current for fullview
-        var $source = $(this),
-            $target = addImageToFullView($source);
-
-        console.log('here');
-        $('.site-content').addClass('site-content--fullview');
-
-        morph($source, $target);
-
-        setTimeout(function () {
-          TweenMax.to($('.fullview__image img'), .5, {
-            x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
-            y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
-            ease: Back.easeOut,
             onComplete: function () {
-              $document.on('mousemove', panFullview);
+              $('.js-portfolio-item').removeClass('no-transition');
             }
           });
-        }, 500);
+          $target.removeClass('portfolio__item--target');
+          TweenMax.to('.mask--project', 0, {
+            scaleX: 0
+          });
+        }
+      });
 
-        $fullview.addClass('fullview--visible');
-        },
-        
-        
-        panFullview = function () {
-        TweenMax.to($('.fullview__image img'), 0, {
+      centerFilmToTarget($target);
+      morph($clicked, $target);
+
+    }
+
+    function centerFilmToTarget($target) {
+      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+    }
+
+    function addImageToFullView($source) {
+      // prepare current for fullview
+      var width = $source.data('width'),
+          height = $source.data('height'),
+          newWidth = $fullview.width(),
+          newHeight = $fullview.height(),
+          scaleX = newWidth / width,
+          scaleY = newHeight / height,
+          scale = Math.max(scaleX, scaleY),
+          $target = $('<div>').addClass('fullview__image'),
+          $image = $(document.createElement('img'));
+
+      fullviewWidth = width * scale;
+      fullviewHeight = height * scale;
+
+      setCurrent($source);
+
+      $target.css({
+        width: fullviewWidth,
+        height: fullviewHeight,
+        top: (fullviewHeight - newHeight) / -2,
+        left: (fullviewWidth - newWidth) / -2
+      });
+
+      $fullview.append($target);
+
+      $image.attr('src', $source.data('srcfull')).prependTo($target);
+
+      return $target;
+    }
+
+    function showFullView(e) {
+
+      // prepare current for fullview
+      var $source = $(this),
+          $target = addImageToFullView($source);
+
+      console.log('here');
+      $('.site-content').addClass('site-content--fullview');
+
+      morph($source, $target);
+
+      setTimeout(function () {
+        TweenMax.to($('.fullview__image img'), .5, {
           x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
-          y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight
-        });
-        },
-        
-        
-        hideFullView = function () {
-        var $source = $('.fullview__image'),
-            $target = $('.portfolio__item--active');
-
-        $document.off('mousemove', panFullview);
-        TweenMax.to($('.fullview__image img'), .3, {
-          x: 0,
-          y: 0,
+          y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
+          ease: Back.easeOut,
           onComplete: function () {
-            morph($source, $target, {}, function () {
-              $('.site-content').removeClass('site-content--fullview');
-            });
-            setTimeout(function () {
-              $('.fullview__image').remove();
-              $fullview.removeClass('fullview--visible');
-            });
+            $document.on('mousemove', panFullview);
           }
         });
-        },
-        
-        
-        morph = function ($source, $target, options, callback) {
-        var sourceOffset = $source.offset(),
-            sourceWidth = $source.width(),
-            sourceHeight = $source.height(),
-            targetOffset = $target.offset(),
-            targetWidth = $target.width(),
-            targetHeight = $target.height(),
-            $clone = $source.clone().addClass('portfolio__item--clone');
+      }, 500);
 
-        $clone.css({
-          position: 'absolute',
-          top: sourceOffset.top - targetOffset.top,
-          left: sourceOffset.left - targetOffset.left,
-          width: sourceWidth,
-          height: sourceHeight,
-          background: 'none'
-        });
+      $fullview.addClass('fullview--visible');
+    }
 
-        $target.css({
-          position: 'relative',
-          transition: 'none',
-          'z-index': '10000',
-          opacity: 1,
-          background: 'none'
-        });
+    function panFullview() {
+      TweenMax.to($('.fullview__image img'), 0, {
+        x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+        y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight
+      });
+    }
 
-        $clone.css('opacity', 1);
-        $clone.find('img').css('opacity', 1);
-        $target.find('img').css('opacity', 0);
+    function hideFullView() {
+      var $source = $('.fullview__image'),
+          $target = $('.portfolio__item--active');
 
-        var defaults = {
-          x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
-          y: targetOffset.top - sourceOffset.top + (targetHeight - sourceHeight) / 2,
-          scale: targetWidth / sourceWidth,
-          force3D: true,
-          ease: Expo.easeInOut,
-          onComplete: function () {
-            $target.find('img').css('opacity', 1);
-            $target.css({
-              background: '',
-              position: '',
-              'z-index': '',
-              transition: '',
-              opacity: ''
-            });
-            TweenMax.fromTo($target.children('.photometa'), .3, {
-              opacity: 0
-            }, {
-              opacity: 1
-            });
-            $source.css('opacity', '');
-            $clone.remove();
+      $document.off('mousemove', panFullview);
+      TweenMax.to($('.fullview__image img'), .3, {
+        x: 0,
+        y: 0,
+        onComplete: function () {
+          morph($source, $target, {}, function () {
+            $('.site-content').removeClass('site-content--fullview');
+          });
+          setTimeout(function () {
+            $('.fullview__image').remove();
+            $fullview.removeClass('fullview--visible');
+          });
+        }
+      });
+    }
 
-            if (typeof callback !== "undefined") {
-              callback();
-            }
+    function morph($source, $target, options, callback) {
+      var sourceOffset = $source.offset(),
+          sourceWidth = $source.width(),
+          sourceHeight = $source.height(),
+          targetOffset = $target.offset(),
+          targetWidth = $target.width(),
+          targetHeight = $target.height(),
+          $clone = $source.clone().addClass('portfolio__item--clone');
+
+      $clone.css({
+        position: 'absolute',
+        top: sourceOffset.top - targetOffset.top,
+        left: sourceOffset.left - targetOffset.left,
+        width: sourceWidth,
+        height: sourceHeight,
+        background: 'none'
+      });
+
+      $target.css({
+        position: 'relative',
+        transition: 'none',
+        'z-index': '10000',
+        opacity: 1,
+        background: 'none'
+      });
+
+      $clone.css('opacity', 1);
+      $clone.find('img').css('opacity', 1);
+      $target.find('img').css('opacity', 0);
+
+      var defaults = {
+        x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
+        y: targetOffset.top - sourceOffset.top + (targetHeight - sourceHeight) / 2,
+        scale: targetWidth / sourceWidth,
+        force3D: true,
+        ease: Expo.easeInOut,
+        onComplete: function () {
+          $target.find('img').css('opacity', 1);
+          $target.css({
+            background: '',
+            position: '',
+            'z-index': '',
+            transition: '',
+            opacity: ''
+          });
+          TweenMax.fromTo($target.children('.photometa'), .3, {
+            opacity: 0
+          }, {
+            opacity: 1
+          });
+          $source.css('opacity', '');
+          $clone.remove();
+
+          if (typeof callback !== "undefined") {
+            callback();
           }
-        },
-            config = $.extend(defaults, options);
+        }
+      },
+          config = $.extend(defaults, options);
 
-        requestAnimationFrame(function () {
-          TweenMax.to($target.children('.photometa'), 0, {
-            opacity: 0
-          });
-          $clone.prependTo($target);
-          TweenMax.to($clone.children('.photometa'), .3, {
-            opacity: 0
-          });
-          TweenMax.to($clone, .5, config);
+      requestAnimationFrame(function () {
+        TweenMax.to($target.children('.photometa'), 0, {
+          opacity: 0
         });
-        },
-        
-        
-        getMiddle = function ($image) {
-        return $image.offset().left + $image.width() / 2 - $film.offset().left;
-        },
-        
-        
-        setCurrent = function ($current) {
-        $film.find('.js-portfolio-item').removeClass('portfolio__item--active');
-        $current.addClass('portfolio__item--active');
-        $('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
-        }
-        
-        
-        
-        return {
-        init: init,
-        prepare: prepare,
-        getCurrent: getCurrent
-        }
+        $clone.prependTo($target);
+        TweenMax.to($clone.children('.photometa'), .3, {
+          opacity: 0
+        });
+        TweenMax.to($clone, .5, config);
+      });
+    }
+
+    function getMiddle($image) {
+      return $image.offset().left + $image.width() / 2 - $film.offset().left;
+    }
+
+    function setCurrent($current) {
+      $film.find('.js-portfolio-item').removeClass('portfolio__item--active');
+      $current.addClass('portfolio__item--active');
+      $('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
+    }
+
+    return {
+      init: init,
+      prepare: prepare,
+      getCurrent: getCurrent
+    }
   })(); /* --- Royal Slider Init --- */
 
   function royalSliderInit($container) {
@@ -17685,45 +17679,6 @@ if (!Date.now) Date.now = function () {
       });
     }
   }
-
-  function Scroller(selector, callback) {
-
-    var instance = this,
-        undefined, x, y,
-        
-        update = function () {
-        x = $(selector).scrollLeft();
-        y = $(selector).scrollTop();
-        };
-
-    if (selector === undefined) {
-      selector = window;
-    }
-
-    update();
-
-    this.get = function (attribute) {
-      if (attribute == "x") return x;
-      if (attribute == "y") return y;
-      return null;
-    }
-
-    this.set = function (attribute, value) {
-      if (attribute == "x") {
-        $(selector).scrollLeft(value);
-      }
-      if (attribute == "y") {
-        $(selector).scrollTop(value);
-      }
-    }
-
-    $(selector).on('scroll', function () {
-      update();
-      if (callback !== undefined) {
-        requestAnimationFrame(callback);
-      }
-    });
-  }
   // /* ====== ON DOCUMENT READY ====== */
   $(document).ready(function () {
     init();
@@ -17733,12 +17688,25 @@ if (!Date.now) Date.now = function () {
   function init() {
     platformDetect();
     browserSize();
-    softInit();
     djax.init();
     scrollToTop();
+    Loader.init();
+
+    $(".pixcode--tabs").organicTabs();
+
+    if ($('body').hasClass('blog') || $('body').hasClass('project_layout-filmstrip') || $('body').hasClass('project_layout-thumbnails')) {
+
+      // html body are for ie
+      $('html, body, *').mousewheel(function (event, delta) {
+        // this.scrollLeft -= (delta * 30);
+        this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+        event.preventDefault();
+      });
+    }
   }
 
   function softInit() {
+
     if ($('.single-jetpack-portfolio').length) {
       Project.init();
       Placeholder.update();
@@ -17753,25 +17721,30 @@ if (!Date.now) Date.now = function () {
     frontpageSlider.init();
 
     AddThisIcons.init();
+    overlayInit();
+    royalSliderInit();
+    socialLinks.init();
+
+    $('#djaxContainer').css('opacity', 1);
+
+    TweenMax.fromTo('.loader', .6, {
+      left: 0
+    }, {
+      left: '-100%',
+      ease: Expo.easeInOut,
+    });
+    TweenMax.to('.mask--page', .6, {
+      left: '100%',
+      ease: Expo.easeInOut,
+      onComplete: function () {
+        $('.mask--page').css('left', '-100%');
+      }
+    });
   }
 
   // /* ====== ON WINDOW LOAD ====== */
   $window.load(function () {
-    overlayInit();
-    royalSliderInit();
-    socialLinks.init();
-    Loader.init();
-    $(".pixcode--tabs").organicTabs();
-
-    if ($('body').hasClass('blog') || $('body').hasClass('project_layout-filmstrip') || $('body').hasClass('project_layout-thumbnails')) {
-
-      // html body are for ie
-      $('html, body, *').mousewheel(function (event, delta) {
-        // this.scrollLeft -= (delta * 30);
-        this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-        event.preventDefault();
-      });
-    }
+    softInit();
   });
 
   // /* ====== ON RESIZE ====== */

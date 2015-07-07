@@ -26,6 +26,7 @@
         @extend %display--inline-block;
         @extend %delta;
         padding: .25em 0;
+        background: none !important;
 
         &:hover {
         }

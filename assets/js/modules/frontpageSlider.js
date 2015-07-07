@@ -39,34 +39,39 @@ var frontpageSlider = (function() {
 
         $slides.not($current).width(100);
 
-        $slides.each(function(i, obj) {
-            var $slide = $(obj);
+        $slider.imagesLoaded(function() {
 
-            if (i != 0) {
-                totalWidth += 100;
-                $slide.css('left', sliderWidth + (i - 1) * 100);
-            } else {
-                totalWidth += sliderWidth;
-            }
+            $slides.each(function(i, obj) {
+                var $slide = $(obj);
 
-            scaleImage($slide.find('img'));
+                if (i != 0) {
+                    totalWidth += 100;
+                    $slide.css('left', sliderWidth + (i - 1) * 100);
+                } else {
+                    totalWidth += sliderWidth;
+                }
+
+                scaleImage($slide.find('img'));
+            });
+
+            TweenMax.to($slider, .3, {opacity: 1});
+
+            // balance slides to left and right
+            offset = parseInt(($slides.length - 1) / 2, 10);
+            $slides.slice(-offset).prependTo($slider).each(function(i, obj) {
+                $(obj).css('left', '-=' + totalWidth);
+            });
+
+            $slides = $slider.children();
+
+            $prev = $current.prev();
+            $next = $current.next();
+
+            createBullets();
+            setZindex();
+            bindEvents();
+            animateContentIn();
         });
-
-        // balance slides to left and right
-        offset = parseInt(($slides.length - 1) / 2, 10);
-        $slides.slice(-offset).prependTo($slider).each(function(i, obj) {
-            $(obj).css('left', '-=' + totalWidth);
-        });
-
-        $slides = $slider.children();
-
-        $prev = $current.prev();
-        $next = $current.next();
-
-        createBullets();
-        setZindex();
-        bindEvents();
-        animateContentIn();
     }
 
     function scaleImage($img) {
@@ -221,6 +226,7 @@ var frontpageSlider = (function() {
                 $nextTitle.remove();
                 $content.remove();
                 $content = $clone;
+                $content.djax('.djax-updatable', [], djax.transition);
             }});
 
         $clone.find('.project-slide__title h1').text($slide.data('title'));
@@ -244,6 +250,7 @@ var frontpageSlider = (function() {
         $prevClone.insertAfter($prevTitle);
         $clone.insertAfter($content);
         timeline.play();
+
     }
 
     function setZindex() {

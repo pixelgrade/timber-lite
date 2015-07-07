@@ -41,6 +41,11 @@ img {
         padding-right: 4em;
     }
 
+    &__link-wrap {
+        @extend %display--flex;
+        flex-shrink: 0;
+    }
+
     &__title,
     &__type {
         margin: 0;
@@ -70,6 +75,10 @@ img {
         will-change: opacity;
         transition: opacity .3s ease-in-out;
         cursor: pointer;
+
+        img {
+            width: 100%;
+        }
 
         &--content {
             min-width: 40em;
@@ -197,6 +206,10 @@ img {
     .entry-footer {
         @extend %display--none;
     }
+}
+
+.portfolio-archive {
+    overflow-x: hidden;
 }
 
 .js-last,

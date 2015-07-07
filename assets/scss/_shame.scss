@@ -35,3 +35,7 @@ html, body, #page, .site, #djaxContainer {
 #querylist * {
     text-shadow: none !important;
 }
+
+#djaxContainer {
+    opacity: 0;
+}

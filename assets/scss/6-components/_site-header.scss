@@ -5,6 +5,7 @@
 
 .site-header {
     @extend %bar;
+    z-index: 552;
 
     .page & {
         position: absolute;
@@ -18,6 +19,14 @@
         left: auto;
         right: auto;
     }
+
+    @include wp-offset(0px, top, true);
+}
+
+.site-header--placeholder {
+    position: static;
+    z-index: 0;
+    @include wp-offset(0px, margin-top);
 }
 
 .site-branding {
@@ -30,16 +39,15 @@
     @extend %bar-piece;
     @extend %bar-middle;
 
-    .page & {
-        .sub-menu {
-            background: transparent;
-            box-shadow: none;
-        }
+    // .page & {
+    //     .sub-menu {
+    //         background: transparent;
+    //     }
 
-        a {
-            text-shadow: none;
-        }
-    }
+    //     a {
+    //         text-shadow: none;
+    //     }
+    // }
 }
 
 .social-navigation {

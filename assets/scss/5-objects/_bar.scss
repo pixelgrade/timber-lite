@@ -14,6 +14,7 @@
         flex-basis: $header-height;
         flex-direction: row;
     }
+
 }
 
 .bar--fixed {
@@ -24,10 +25,10 @@
     right: 0;
     width: auto;
 
-    @include wp-offset(0px, top, true);
-
     .page & {
         position: static !important;
+        width: 100%;
+        flex: initial;
     }
 }
 

@@ -35,6 +35,8 @@
 
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->
 
+<div class="site-content__mask  mask--project"></div>
+
 <div class="fullview">
     <div class="fullview__image"></div>
     <div class="fullview__close">x</div>

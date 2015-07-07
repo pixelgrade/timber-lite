@@ -4,11 +4,11 @@
     flex-grow: 1;
 
     &__mask {
-        // @extend %transform--0;
+        @extend %transform--0;
         position: fixed;
         z-index: 300;
         top: 0;
-        left: -100%;
+        left: 0;
         width: 0;
         height: 100%;
         width: 100%;
@@ -16,6 +16,14 @@
         overflow: hidden;
         will-change: opacity, transform;
         pointer-events: none;
+
+        &.mask--page {
+            z-index: 551;
+        }
+
+        &.mask--project {
+            // left: 0 !important;
+        }
     }
 
     &.portfolio-archive {

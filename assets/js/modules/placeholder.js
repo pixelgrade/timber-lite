@@ -3,8 +3,7 @@ var Placeholder = (function() {
 
     function update($container, src) {
 
-        var $container  = $container || $('body'),
-            src         = src || 'srcsmall';
+        var $container  = $container || $('body');
 
         $items = $container.find('.js-placeholder');
 
@@ -25,7 +24,11 @@ var Placeholder = (function() {
             $item.data('image', $image);
         });
 
-        $(window).on('DOMContentLoaded load resize scroll', bindImageLoad);
+        $(window).on('DOMContentLoaded load resize scroll', function() {
+            bindImageLoad();
+        });
+
+        bindImageLoad();
 
         $(window).on('djaxClick', function() {
             $(window).off('DOMContentLoaded load resize scroll', bindImageLoad);
@@ -33,17 +36,21 @@ var Placeholder = (function() {
     }
 
     function bindImageLoad() {
-        var src = src || 'srcsmall';
 
         $items.each(function(i, item) {
             var $item   = $(item),
-                $image  = $item.data('image');
+                $image  = $item.data('image'),
+                src     = $item.data('src');
+
+            if (typeof src == "undefined") {
+                src = $item.data('srcsmall');
+            }
 
             if ($item.data('loaded')) return;
 
             if (isElementInViewport($item)) {
                 $item.data('loaded', true).removeClass('js-placeholder');
-                $image.attr('src', $item.data(src));
+                $image.attr('src', src);
                 $image.prependTo($item);
                 $image.imagesLoaded(function() {
                     TweenMax.to($image, .3, {opacity: 1});
