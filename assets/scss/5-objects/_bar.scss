@@ -3,7 +3,9 @@
     background: white;
     width: 100%;
     flex-shrink: 0;
+    -webkit-flex-shrink: 0;
     flex-direction: column;
+    -webkit-flex-direction: column;
 
     // above mask which is 300
     // above .site-content which is 500
@@ -12,7 +14,9 @@
     @include query-above($small) {
         height: $header-height;
         flex-basis: $header-height;
+        -webkit-flex-basis: $header-height;
         flex-direction: row;
+        -webkit-flex-direction: row;
     }
 }
 
@@ -32,32 +36,41 @@
 %bar-piece {
     @extend %display--flex;
     align-items: center;
+    -webkit-align-items: center;
 }
 
 %bar-middle {
     flex-basis: 70%;
+    -webkit-flex-basis: 70%;
     justify-content: center;
+    -webkit-justify-content: center;
 }
 
 %bar-side {
     flex-basis: 15%;
+    -webkit-flex-basis: 15%;
     flex-grow: 1;
+    -webkit-flex-grow: 1;
 }
 
 %bar-left {
     justify-content: center;
+    -webkit-justify-content: center;
 
     @include query-above($small) {
         padding-left: 2em;
         justify-content: flex-start;
+        -webkit-justify-content: flex-start;
     }
 }
 
 %bar-right {
     justify-content: center;
+    -webkit-justify-content: center;
 
     @include query-above($small) {
         padding-right: 2em;
         justify-content: flex-end;
+        -webkit-justify-content: flex-end;
     }
 }

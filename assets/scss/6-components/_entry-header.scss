@@ -1,7 +1,9 @@
 .home, .blog, .archive, .search {
     .site {
         display: flex;
+        display: -webkit-flex;
         flex-direction: column;
+        -webkit-flex-direction: column;
     }
 
     .entry-header {
