@@ -51,13 +51,19 @@ function timber_body_classes( $classes ) {
 
 	if ( isset( $post->post_type ) ) {
 
-		if ( $post->post_type === 'jetpack-portfolio' ) {
+		// add classes for a project layout
+		if ( timber_post_is_project() ) {
 			$project_layout = get_post_meta( timber_get_post_id(), 'project_template', true );
 
-			if ( ! empty( $project_layout ) ) {
-				$classes[] = 'project_layout-' . $project_layout;
+			if ( empty( $project_layout ) && is_page() ) {
+				$homepage_project = get_post_meta( timber_get_post_id(), 'homepage_project', true);
+				$project_layout = get_post_meta( $homepage_project, 'project_template', true );
 			}
-		} elseif ( $post->post_type === 'page' && basename( get_page_template() ) === 'page-templates/custom-portfolio-page.php' ) {
+			$classes[] = 'project_layout-' . $project_layout;
+		}
+
+		// add classes for a custom portfolio page
+		if ( $post->post_type === 'page' && basename( get_page_template() ) === 'page-templates/custom-portfolio-page.php' ) {
 
 			$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
 

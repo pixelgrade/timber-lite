@@ -130,6 +130,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							'desc'    => __( ' <p class="cmb_metabox_description" style="font-size: 90%">If you want to set this page as your <a href="https://en.support.wordpress.com/pages/front-page/" target="_blank">Front page</a>, simply go to <a href="customize.php">Customizer</a>, click on the <b>Static Front Page</b> tab on the left and select this one.</p>', 'timber' ),
 							'id'      => 'custom_portfolio_page_type',
 							'type'    => 'radio',
+							'std'     => 'project_slider',
 							'options' => array(
 								array(
 									'name'  => __( '<span class="dashicons dashicons-format-gallery"></span> Projects Slider', 'timber' ),
@@ -147,8 +148,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 									'name'  => __( '<span class="dashicons dashicons-format-image"></span> Single Project <a class="tooltip" title="This feature is designed so you can have the option of a simple gallery on the Front page."></a>', 'timber' ),
 									'value' => 'project',
 								),
-							),
-							'std'     => 'project_slider',
+							)
 						),
 
 						array(

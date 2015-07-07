@@ -188,6 +188,19 @@ function timber_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts' );
 
+/*
+ * Enqueue some custom JS in the admin area for various small tasks
+ */
+add_action('admin_enqueue_scripts','timber_add_admin_page_scripts');
+function timber_add_admin_page_scripts( $hook ){
+
+	wp_enqueue_script(
+		'timber_admin_project_custom', //unique handle
+		get_template_directory_uri().'/assets/js/admin/admin.js', //location
+		array('jquery') //dependencies
+	);
+}
+
 /**
  * Load custom javascript set by theme options
  * This method is invoked by wpgrade_callback_themesetup

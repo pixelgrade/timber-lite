@@ -8,8 +8,8 @@
  * @since Timber 1.0
  */
 
-if ( ( is_page() && ! is_page_template( 'page-templates/custom-portfolio-page.php' ) ) || ( is_single() && ! get_post_type() == 'jetpack-portfolio') ) {
-	get_template_part( 'footer-single' );
+if ( ! timber_post_is_project() && ( is_page() || is_single() ) ) {
+		get_template_part( 'footer-single' );
 } ?>
 
 </div><!-- #page -->
