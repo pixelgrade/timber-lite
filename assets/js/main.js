@@ -15970,13 +15970,22 @@ if (!Date.now) Date.now = function () {
 
       isLoadingPosts = true;
 
-      $.post(
-      timber_ajax.ajax_url, {
+      var args = {
         action: 'timber_load_next_posts',
         nonce: timber_ajax.nonce,
         offset: offset,
         posts_number: 'all'
-      }, function (response_data) {
+      };
+
+      if (!empty($filmstrip_container.data('taxonomy'))) {
+        args['taxonomy'] = $filmstrip_container.data('taxonomy');
+        args['term_id'] = $filmstrip_container.data('termid');
+      } else if (!empty($filmstrip_container.data('search'))) {
+        args['search'] = $filmstrip_container.data('search');
+      }
+
+      $.post(
+      timber_ajax.ajax_url, args, function (response_data) {
 
         if (response_data.success) {
           if (globalDebug) {
@@ -16023,12 +16032,21 @@ if (!Date.now) Date.now = function () {
       isLoadingPosts = true;
       $('.preloader').css('opacity', 1);
 
-      $.post(
-      timber_ajax.ajax_url, {
+      var args = {
         action: 'timber_load_next_posts',
         nonce: timber_ajax.nonce,
         offset: offset
-      }, function (response_data) {
+      };
+
+      if (!empty($filmstrip_container.data('taxonomy'))) {
+        args['taxonomy'] = $filmstrip_container.data('taxonomy');
+        args['term_id'] = $filmstrip_container.data('termid');
+      } else if (!empty($filmstrip_container.data('search'))) {
+        args['search'] = $filmstrip_container.data('search');
+      }
+
+      $.post(
+      timber_ajax.ajax_url, args, function (response_data) {
 
         if (response_data.success) {
           if (globalDebug) {

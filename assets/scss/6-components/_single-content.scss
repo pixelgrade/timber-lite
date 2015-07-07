@@ -31,11 +31,15 @@
 	word-wrap: break-word;
 }
 
+.page-template-fullwidth-page .site-main {
+	padding-top: $header-height;
+}
+
 
 
 
 //Fullwidth page template
-.page-template-page-fullwidth .site-main {
+.page-template-fullwidth-page .site-main {
 	padding-left: 130px;
 	padding-right: 32px;
 }
