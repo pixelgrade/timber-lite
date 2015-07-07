@@ -433,14 +433,10 @@ img.rsImg {
 
 .rsBullets {
 	@extend .nav;
-	margin-left: -6px;
-	// display: block;
-	// margin: 0;
-	// float: left;
-	// position: absolute;
-	// @include rem(bottom, $_u2);
-	// left: 0;
-	// float: left;
+
+	width: 100%;
+	display: block;
+	text-align: center;
 }
 
 .rsBullet {
@@ -520,10 +516,10 @@ img.rsImg {
 
 	border-color: black;
 
-//	@include query-above($lap){
+	@include query-above($lap){
 		height: 35px;
 		width: 35px;
-//	}
+	}
 }
 
 
@@ -541,8 +537,19 @@ img.rsImg {
 	}
 }
 
-.entry-content .pixslider .rsSlide{
-	padding: 0 60px;
+.entry-content .pixslider {
+	.rsArrowIcn {
+		width: 20px;
+		height: 20px;
+	}
+
+	.rsArrowLeft {
+		left: -10px;
+	}
+
+	.rsArrowRight {
+		right: -10px;
+	}
 }
 
 .entry-content .pixslider--gallery-slideshow .rsSlide{
