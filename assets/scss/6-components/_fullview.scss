@@ -1,3 +1,7 @@
+.site-content--fullview {
+    z-index: 1000;
+}
+
 .fullview {
     @extend %transform--0;
     position: fixed;
