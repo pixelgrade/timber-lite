@@ -12,9 +12,18 @@ global $timber_show_footer;
 
 if ( $timber_show_footer ) {
 	get_template_part( 'footer-single' );
-}?>
+}
 
+?>
+
+</div><!-- #djaxContainer -->
+<div class="site-content__mask  mask--page">
+	<div class="loader">
+		<svg id="loaderSvg" class="loader__svg" width="150" height="150" viewBox="0 0 150 150"></svg>
+	</div>
+</div>
 </div><!-- #page -->
+
 <div class="overlay">
 	<div class="overlay__wrapper">
 		<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ) : ?>

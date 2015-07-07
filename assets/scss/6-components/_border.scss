@@ -1,0 +1,22 @@
+%border {
+    &:after {
+        content: "";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999999;
+        width: 100%;
+        bottom: 0;
+        pointer-events: none;
+        border: 0.9vh solid $bodyColour;
+
+        .admin-bar & {
+            border-top: 0;
+        }
+    }
+}
+
+#page {
+    @extend %border;
+}

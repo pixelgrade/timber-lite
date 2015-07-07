@@ -2,7 +2,11 @@
     box-sizing: border-box;
 }
 
-html, body, .site {
+html[lang] {
+    margin-top: 0 !important;
+}
+
+html, body, #page, .site, #djaxContainer {
     height: 100%;
 }
 
@@ -30,4 +34,8 @@ html, body, .site {
 // WP DEBUGGER
 #querylist * {
     text-shadow: none !important;
+}
+
+#djaxContainer {
+    opacity: 0;
 }

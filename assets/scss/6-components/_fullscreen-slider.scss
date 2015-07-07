@@ -10,6 +10,7 @@
 	left: 0;
 	width: auto;
 	height: auto;
+	opacity: 0;
 
 	.rsContent {
 		width: auto;
@@ -233,7 +234,11 @@
 	}
 }
 
-.slider_height-full-height, .project_layout-fullscreen {
+.slider_height-full-height,
+.project_layout-fullscreen,
+.page-has-featured-image:not(.page-template) {
+	overflow-x: hidden;
+
 	.bar--fixed, .site-header, .site-footer {
 		background: transparent;
 
@@ -246,5 +251,6 @@
 
 	.nav--main .sub-menu {
 		background: transparent;
+        box-shadow: none;
 	}
 }

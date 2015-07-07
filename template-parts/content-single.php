@@ -53,8 +53,5 @@
 
 	</div><!-- .entry-content -->
 
-	<footer class="entry-footer">
-		<?php timber_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->
 
