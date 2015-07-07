@@ -68,6 +68,11 @@ function timber_body_classes( $classes ) {
 		// get_page_template() will trigger a notice if is called on a non-page template, so check this out first
 		if ( is_page() ) {
 			$this_template = basename( get_page_template() );
+
+			// also see if the page has a featured-image
+			if ( has_post_thumbnail() ) {
+				$classes[] = 'page-has-featured-image';
+			}
 		}
 		if ( $post->post_type === 'page' && $this_template  === 'custom-portfolio-page.php' ) {
 
