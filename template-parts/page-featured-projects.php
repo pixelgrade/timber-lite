@@ -1,14 +1,13 @@
 <?php
 
 $projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true);
-$show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_projects', true); ?>
+$show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_projects', true);
+
+$featured = timber_get_featured_projects();
+
+if ( ! empty( $featured ) ) : ?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main <?php echo 'slider--' . $show_adjacent_projects . ' slider--' . $projects_slider_height ?>" role="main">
-
-		<?php
-		$featured = timber_get_featured_projects();
-
-		if ( ! empty( $featured ) ) : ?>
 
 			<div class="projects-slider">
 
@@ -38,13 +37,13 @@ $show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_pr
 				</a>
 			</div>
 
-		<?php else :
-
-			get_template_part( 'template-parts/content', 'none' );
-
-		endif; ?>
-
 		<div class="projects-slider__bullets  rsBullets"></div>
 
 	</main><!-- #main -->
 </div><!-- #primary -->
+
+<?php else :
+
+	get_template_part( 'template-parts/content', 'none' );
+
+endif; ?>

@@ -7,7 +7,7 @@ if ( empty( $project_template ) ) {
 	$project_template = 'filmstrip';
 }
 // the $post variable will be served be the parent template
-//while ( have_posts() ) : the_post();
+
 if ( 'fullscreen' == $project_template ): ?>
 
 <main id="content" class="site-content  site-container  site-content--fullscreen">
@@ -19,7 +19,9 @@ if ( 'fullscreen' == $project_template ): ?>
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="bar--fixed">
 
+		<div class="project-addthis-container">
 		<?php get_template_part('template-parts/addthis-share'); ?>
+		</div>
 
 		<div class="site-info">
 			<div class="gallery-counter  js-gallery-counter">
@@ -43,7 +45,9 @@ if ( 'fullscreen' == $project_template ): ?>
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="bar--fixed">
 
+		<div class="project-addthis-container">
 		<?php get_template_part('template-parts/addthis-share'); ?>
+		</div>
 
 		<div class="site-info">
 			<div class="portfolio__position"></div>

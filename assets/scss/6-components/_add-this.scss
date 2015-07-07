@@ -1,32 +1,54 @@
-.share-box {
+.project-addthis-container {
 	@extend %bar-piece;
 	@extend %bar-side;
 	@extend %bar-left;
+}
 
+.share-box {
 	position: relative;
 }
 
 .share-text {
-	position: absolute;
-	left: 1.5em;
-	top: 50%;
-	transform: translateY(-50%) translateZ(0);
-
-	opacity: 0;
-	pointer-events: none;
-
-	color: $hoverColour;
-
+	text-transform: uppercase;
 }
 
-.share-button {
-	position: relative;
-	left: -12px;
+.project-addthis-container {
+	.share-button {
+		padding: 12px 18px;
+		margin-left: -12px;
 
-	padding: 12px 18px;
+		font-size: 22px;
+		line-height: 22px;
+	}
 
-	font-size: 22px;
-	line-height: 22px;
+	.share-text {
+		@extend .caption;
+
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%) translateZ(0);
+
+		padding-top: 0;
+
+		opacity: 0;
+		pointer-events: none;
+
+		color: $hoverColour;
+		text-transform: none;
+
+		transition: 0.3s opacity linear;
+	}
+
+	.active {
+		.share-text {
+			opacity: 1;
+		}
+
+		.share-button {
+			opacity: 0;
+		}
+	}
 }
 
 .share-button, .share-text {
@@ -39,13 +61,18 @@
 
 	position: absolute;
 	top: 50%;
-	left: 5.5em;
+	left: 0;
 	min-width: 33vw;
 
+	padding-left: 4.5em;
 	transform: translateY(-50%);
 	pointer-events: none;
 
-	&.clickable{ pointer-events: auto; }
+	.active & { pointer-events: auto; }
+
+	.metabox & {
+		padding-left: 5.5em;
+	}
 
 	a, a:hover {
 		background: none;
