@@ -25,133 +25,133 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 			'style' => array(
 				'title'    => __( 'Style', 'timber' ),
 				'sections' => array(
-					'presets_section' => array(
-						'title'    => __( 'Style Presets', 'timber' ),
-						'options' => array(
-							'theme_style'   => array(
-								'type'      => 'preset',
-								'label'     => __( 'Select a style:', 'timber' ),
-								'desc' => __( 'Conveniently change the design of your site with built-in style presets. Easy as pie.', 'timber' ),
-								'default'   => 'timber',
-								'choices_type' => 'awesome',
-								'choices'  => array(
-									'timber' => array(
-										'label' => __( 'Patch', 'timber' ),
-										'preview' => array(
-											'color-text' => '#ffffff',
-											'background-card' => '#121012',
-											'background-label' => '#fee900',
-											'font-main' => 'Oswald',
-											'font-alt' => 'Roboto',
-										),
-										'options' => array(
-											'accent_color' => '#ffeb00',
-											'headings_color' => '#171617',
-											'body_color' => '#3d3e40',
-											'headings_font' => 'Oswald',
-											'headings_caps' => true,
-											'body_font' => 'Roboto',
-										)
-									),
-
-
-									'adler' => array(
-										'label' => __( 'Adler', 'timber' ),
-										'preview' => array(
-											'color-text' => '#fff',
-											'background-card' => '#0e364f',
-											'background-label' => '#000000',
-											'font-main' => 'Permanent Marker',
-											'font-alt' => 'Droid Sans Mono',
-										),
-										'options' => array(
-											'accent_color' => '#68f3c8',
-											'headings_color' => '#0e364f',
-											'body_color' => '#45525a',
-											'headings_font' => 'Permanent Marker',
-											'headings_caps' => true,
-											'body_font' => 'Droid Sans Mono'
-										)
-									),
-
-									'royal' => array(
-										'label' => __( 'Royal', 'timber' ),
-										'preview' => array(
-											'color-text' => '#ffffff',
-											'background-card' => '#615375',
-											'background-label' => '#46414c',
-											'font-main' => 'Abril Fatface',
-											'font-alt' => 'PT Serif',
-										),
-										'options' => array(
-											'accent_color' => '#8eb2c5',
-											'headings_color' => '#725c92',
-											'body_color' => '#6f8089',
-											'headings_font' => 'Abril Fatface',
-											'headings_caps' => false,
-											'body_font' => 'PT Serif',
-										)
-									),
-
-									'queen' => array(
-										'label' => __( 'Queen', 'timber' ),
-										'preview' => array(
-											'color-text' => '#fbedec',
-											'background-card' => '#a33b61',
-											'background-label' => '#41212a',
-											'font-main' => 'Playfair Display',
-											'font-alt' => 'Merriweather',
-										),
-										'options' => array(
-											'accent_color' => '#c17390',
-											'headings_color' => '#a33b61',
-											'body_color' => '#403b3c',
-											'headings_font' => 'Playfair Display',
-											'headings_caps' => false,
-											'body_font' => 'Merriweather',
-										)
-									),
-									'carrot' => array(
-										'label' => __( 'Carrot', 'timber' ),
-										'preview' => array(
-											'color-text' => '#ffffff',
-											'background-card' => '#df421d',
-											'background-label' => '#85210a',
-											'font-main' => 'Oswald',
-											'font-alt' => 'PT Sans Narrow',
-										),
-										'options' => array(
-											'accent_color' => '#df421d',
-											'headings_color' => '#df421d',
-											'body_color' => '#7e7e7e',
-											'headings_font' => 'Oswald',
-											'headings_caps' => false,
-											'body_font' => 'PT Sans Narrow',
-										)
-									),
-									'velvet' => array(
-										'label' => __( 'Velvet', 'timber' ),
-										'preview' => array(
-											'color-text' => '#ffffff',
-											'background-card' => '#282828',
-											'background-label' => '#000000',
-											'font-main' => 'Pinyon Script',
-											'font-alt' => 'Josefin Sans',
-										),
-										'options' => array(
-											'accent_color' => '#000000',
-											'headings_color' => '#000000',
-											'body_color' => '#000000',
-											'headings_font' => 'Pinyon Script',
-											'headings_caps' => false,
-											'body_font' => 'Josefin Sans',
-										)
-									),
-
-								)
-							),
-						)
-					),
+//					'presets_section' => array(
+//						'title'    => __( 'Style Presets', 'timber' ),
+//						'options' => array(
+//							'theme_style'   => array(
+//								'type'      => 'preset',
+//								'label'     => __( 'Select a style:', 'timber' ),
+//								'desc' => __( 'Conveniently change the design of your site with built-in style presets. Easy as pie.', 'timber' ),
+//								'default'   => 'timber',
+//								'choices_type' => 'awesome',
+//								'choices'  => array(
+//									'timber' => array(
+//										'label' => __( 'Patch', 'timber' ),
+//										'preview' => array(
+//											'color-text' => '#ffffff',
+//											'background-card' => '#121012',
+//											'background-label' => '#fee900',
+//											'font-main' => 'Oswald',
+//											'font-alt' => 'Roboto',
+//										),
+//										'options' => array(
+//											'accent_color' => '#ffeb00',
+//											'headings_color' => '#171617',
+//											'body_color' => '#3d3e40',
+//											'headings_font' => 'Oswald',
+//											'headings_caps' => true,
+//											'body_font' => 'Roboto',
+//										)
+//									),
+//
+//
+//									'adler' => array(
+//										'label' => __( 'Adler', 'timber' ),
+//										'preview' => array(
+//											'color-text' => '#fff',
+//											'background-card' => '#0e364f',
+//											'background-label' => '#000000',
+//											'font-main' => 'Permanent Marker',
+//											'font-alt' => 'Droid Sans Mono',
+//										),
+//										'options' => array(
+//											'accent_color' => '#68f3c8',
+//											'headings_color' => '#0e364f',
+//											'body_color' => '#45525a',
+//											'headings_font' => 'Permanent Marker',
+//											'headings_caps' => true,
+//											'body_font' => 'Droid Sans Mono'
+//										)
+//									),
+//
+//									'royal' => array(
+//										'label' => __( 'Royal', 'timber' ),
+//										'preview' => array(
+//											'color-text' => '#ffffff',
+//											'background-card' => '#615375',
+//											'background-label' => '#46414c',
+//											'font-main' => 'Abril Fatface',
+//											'font-alt' => 'PT Serif',
+//										),
+//										'options' => array(
+//											'accent_color' => '#8eb2c5',
+//											'headings_color' => '#725c92',
+//											'body_color' => '#6f8089',
+//											'headings_font' => 'Abril Fatface',
+//											'headings_caps' => false,
+//											'body_font' => 'PT Serif',
+//										)
+//									),
+//
+//									'queen' => array(
+//										'label' => __( 'Queen', 'timber' ),
+//										'preview' => array(
+//											'color-text' => '#fbedec',
+//											'background-card' => '#a33b61',
+//											'background-label' => '#41212a',
+//											'font-main' => 'Playfair Display',
+//											'font-alt' => 'Merriweather',
+//										),
+//										'options' => array(
+//											'accent_color' => '#c17390',
+//											'headings_color' => '#a33b61',
+//											'body_color' => '#403b3c',
+//											'headings_font' => 'Playfair Display',
+//											'headings_caps' => false,
+//											'body_font' => 'Merriweather',
+//										)
+//									),
+//									'carrot' => array(
+//										'label' => __( 'Carrot', 'timber' ),
+//										'preview' => array(
+//											'color-text' => '#ffffff',
+//											'background-card' => '#df421d',
+//											'background-label' => '#85210a',
+//											'font-main' => 'Oswald',
+//											'font-alt' => 'PT Sans Narrow',
+//										),
+//										'options' => array(
+//											'accent_color' => '#df421d',
+//											'headings_color' => '#df421d',
+//											'body_color' => '#7e7e7e',
+//											'headings_font' => 'Oswald',
+//											'headings_caps' => false,
+//											'body_font' => 'PT Sans Narrow',
+//										)
+//									),
+//									'velvet' => array(
+//										'label' => __( 'Velvet', 'timber' ),
+//										'preview' => array(
+//											'color-text' => '#ffffff',
+//											'background-card' => '#282828',
+//											'background-label' => '#000000',
+//											'font-main' => 'Pinyon Script',
+//											'font-alt' => 'Josefin Sans',
+//										),
+//										'options' => array(
+//											'accent_color' => '#000000',
+//											'headings_color' => '#000000',
+//											'body_color' => '#000000',
+//											'headings_font' => 'Pinyon Script',
+//											'headings_caps' => false,
+//											'body_font' => 'Josefin Sans',
+//										)
+//									),
+//
+//								)
+//							),
+//						)
+//					),
 					/**
 					 * COLORS - This section will handle different elements colors (eg. links, headings)
 					 */
