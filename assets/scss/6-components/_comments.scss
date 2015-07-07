@@ -60,7 +60,7 @@ $borders: #d3d3d3;
 			content: "";
 			position: absolute;
 			left: 14px;
-			top: 40px;
+			top: 45px;
 			bottom: 0;
 			border-left: 2px solid $borders;
 		}
@@ -576,14 +576,17 @@ li.depth-2:before {
 }
 
 .nocomments {
-//	@extend .alpha;
-	transform: none;
+	@extend %single-width;
+	padding-top: 0;
+
+	&, span {
+		line-height: 30px;
+	}
 
 	span {
 		display: inline-block;
 		vertical-align: middle;
 		font-size: 20px;
-		line-height: 36px;
 	}
 }
 

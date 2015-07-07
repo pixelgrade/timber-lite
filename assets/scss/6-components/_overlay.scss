@@ -31,10 +31,15 @@
 	padding: 150px 70px 110px 110px;
 
 	display: flex;
+	display: -webkit-flex;
 	flex-direction: row;
+	-webkit-flex-direction: row;
 	justify-content: center;
+	-webkit-justify-content: center;
 	align-items: flex-start;
+	-webkit-align-items: flex-start;
 	align-content: flex-start;
+	-webkit-align-content: flex-start;
 
 	.is--IE & {
 		min-height: 0 !important;
@@ -42,45 +47,59 @@
 }
 	.overlay__col {
 		flex-grow: 1;
+		-webkit-flex-grow: 1;
 		flex-shrink: 1;
+		-webkit-flex-shrink: 1;
 		padding: 0 40px;
 
 		&.col1 {
 			position: relative;
 
 			flex-shrink: 1;
+			-webkit-flex-shrink: 1;
 			height: calc(100vh - 260px);
 		}
 
 		&.col2 {
 			flex-shrink: 1;
+			-webkit-flex-shrink: 1;
 			padding-right: 0;
 
 			height: calc(100vh - 250px);
 			overflow-y: scroll;
 
 			display: flex;
+			display: -webkit-flex;
 			flex-direction: row;
+			-webkit-flex-direction: row;
 			justify-content: center;
+			-webkit-justify-content: center;
 			align-items: flex-start;
+			-webkit-align-items: flex-start;
 			align-content: flex-start;
+			-webkit-align-content: flex-start;
 
 			margin-bottom: 100px;
 		}
 
 		&.col1 + &.col2 {
 			flex-basis: 760px;
+			-webkit-flex-basis: 760px;
 			flex-grow: 0;
+			-webkit-flex-grow: 0;
 
 			.sub-col {
 				flex-basis: 360px;
+				-webkit-flex-basis: 360px;
 			}
 		}
 	}
 
 			.sub-col {
 				flex-grow: 0;
+				-webkit-flex-grow: 0;
 				flex-shrink: 1;
+				-webkit-flex-shrink: 1;
 
 				padding: 0 40px;
 			}

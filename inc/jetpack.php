@@ -73,23 +73,4 @@ function timber_post_is_project( $post = null ) {
 	}
 
 	return false;
-}
-
-function timber_has_featured_projects( $minimum = 1 ) {
-	if ( is_paged() ) {
-		return false;
-	}
-
-	$minimum = absint( $minimum );
-	$featured_projects = timber_get_featured_projects();
-
-	if ( ! is_array( $featured_projects ) ) {
-		return false;
-	}
-
-	if ( $minimum > count( $featured_projects ) ) {
-		return false;
-	}
-
-	return true;
 } ?>

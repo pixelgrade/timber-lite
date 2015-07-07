@@ -74,9 +74,10 @@ function timber_body_classes( $classes ) {
 				$classes[] = 'page-has-featured-image';
 			}
 		}
-		if ( $post->post_type === 'page' && $this_template  === 'custom-portfolio-page.php' ) {
 
-			$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
+		if ( $post->post_type === 'page' && $this_template  === 'custom-portfolio-page.php' ) {
+			if( timber_has_featured_projects() )
+				$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
 
 			if ( ! empty( $projects_slider_height ) ) {
 				$classes[] = 'slider_height-' . $projects_slider_height;
@@ -320,6 +321,16 @@ if ( ! function_exists('timber_get_featured_projects' ) ) {
 	}
 }
 
+if ( ! function_exists('timber_has_featured_projects' ) ) {
+	function timber_has_featured_projects() {
+		$featured_projects_ids = get_post_meta( timber_get_post_id(), 'portfolio_featured_projects', true);
+
+		if ( ! empty($featured_projects_ids) ) {
+			return true;
+		}
+		return false;
+	}
+}
 
 /**
  * Filter comment_form_defaults to remove the notes after the comment form textarea.
