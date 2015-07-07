@@ -118,7 +118,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 
 				'custom_portfolio_page_settings'   => array(
 					'id'         => 'custom_portfolio_page_settings',
-					'title'      => __( 'Choose Page Layout and source', 'timber' ),
+					'title'      => __( 'Custom Portfolio Template Options', 'timber' ),
 					'pages'      => array( 'page' ), // Post type
 					'context'    => 'normal',
 					'priority'   => 'high',
@@ -126,17 +126,17 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
 						array(
-							'name'    => __( 'Choose:', 'timber' ),
-							'desc'    => __( 'Select what would you like to be your home page. If you want to have a static page as your homepage simply go the WP classic way and set it up in Settings > Reading (instead of this one).', 'timber' ),
+							'name'    => __( 'Page Content<a class="tooltip" title="Select what content would you like to be on this page."></a>', 'timber' ),
+							'desc'    => __( ' <p class="cmb_metabox_description" style="font-size: 90%">If you want to set this page as your <a href="https://en.support.wordpress.com/pages/front-page/" target="_blank">Front page</a>, simply go to <a href="customize.php">Customizer</a>, click on the <b>Static Front Page</b> tab on the left and select this one.</p>', 'timber' ),
 							'id'      => 'custom_portfolio_page_type',
 							'type'    => 'radio',
 							'options' => array(
 								array(
-									'name'  => __( 'Project Slider', 'timber' ),
+									'name'  => __( '<span class="dashicons dashicons-format-gallery"></span> Projects Slider', 'timber' ),
 									'value' => 'project_slider',
 								),
 								array(
-									'name'  => __( 'Projects Archive', 'timber' ),
+									'name'  => __( '<span class="dashicons dashicons-portfolio"></span> Portfolio Archive', 'timber' ),
 									'value' => 'portfolio',
 								),
 //								array(
@@ -144,7 +144,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 //									'value' => 'portfolio_cat',
 //								),
 								array(
-									'name'  => __( 'Project', 'timber' ),
+									'name'  => __( '<span class="dashicons dashicons-format-image"></span> Single Project <a class="tooltip" title="This feature is designed so you can have the option of a simple gallery on the Front page."></a>', 'timber' ),
 									'value' => 'project',
 								),
 							),
@@ -174,18 +174,18 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						),
 
 						array(
-							'name'       => __( 'Slider height', 'timber' ),
+							'name'       => __( 'Slider Height', 'timber' ),
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
 							'id'         => 'projects_slider_height',
-							'type'       => 'select',
+							'type'       => 'radio',
 							'default'    => 'default',
 							'options'    => array(
 								array(
-									'name' => __( 'Default', 'timber' ),
+									'name' => __( '<span class="dashicons dashicons-editor-insertmore"></span> Standard', 'timber' ),
 									'value' => 'default'
 								),
 								array(
-									'name' => __( 'Full-height', 'timber' ),
+									'name' => __( '<span class="dashicons dashicons-editor-expand"></span> Full Height', 'timber' ),
 									'value' => 'full-height'
 								)
 							),
@@ -198,18 +198,18 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							),
 						),
 						array(
-							'name'       => __( 'Show adjacent projects', 'timber' ),
+							'name'       => __( 'Slider Navigation', 'timber' ),
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
 							'id'         => 'show_adjacent_projects',
-							'type'       => 'select',
-							'default'    => 'default',
+							'type'       => 'radio',
+							'default'    => 'show_next',
 							'options'    => array(
 								array(
-									'name' => __( 'Show prev/next', 'timber' ),
+									'name' => __( '<span class="dashicons dashicons-leftright"></span> Next and Prev', 'timber' ),
 									'value' => 'show_prev_next'
 								),
 								array(
-									'name' => __( 'Show next', 'timber' ),
+									'name' => __( '<span class="dashicons dashicons-arrow-right"></span> Next Only', 'timber' ),
 									'value' => 'show_next'
 								)
 							),
@@ -240,8 +240,8 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 //						),
 
 						array(
-							'name'       => __( 'Select a project', 'timber' ),
-							'desc'       => __( 'Select a project and we will show it on your homepage.', 'timber' ),
+							'name'       => __( 'Select the project', 'timber' ),
+							'desc'       => __( 'Example: You can have a Filmstrip or Fullscreen gallery on the Front page (see above for details).', 'timber' ),
 							'id'         => 'homepage_project',
 							'type'       => 'select_cpt_post',
 							'options'    => array(
