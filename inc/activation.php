@@ -115,33 +115,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 			),
 
 			'metaboxes'        => array(
-//				'timber_project_settings' => array(
-//					'id'         => 'timber_project_settings',
-//					'title'      => __( 'Project settings', 'timber' ),
-//					'pages'      => array( 'jetpack-portfolio' ), // Post type
-//					'context'    => 'side',
-//					'priority'   => 'default',
-//					'show_names' => true, // Show field names on the left
-//					'fields'     => array(
-//						array(
-//							'name'       => __( 'Template', 'timber' ),
-//							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-//							'id'         => 'project_template',
-//							'type'       => 'select',
-//							'std'    => 'fullscreen',
-//							'options'    => array(
-//								array(
-//									'name' => __( 'Hybrid', 'timber' ),
-//									'value' => 'hybrid'
-//								),
-//								array(
-//									'name' => __( 'Fullscreen', 'timber' ),
-//									'value' => 'fullscreen'
-//								)
-//							)
-//						)
-//					)
-//				),
 
 				'custom_portfolio_page_settings'   => array(
 					'id'         => 'custom_portfolio_page_settings',
@@ -170,10 +143,10 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 //									'name'  => __( 'Projects Category', 'timber' ),
 //									'value' => 'portfolio_cat',
 //								),
-//								array(
-//									'name'  => __( 'Project', 'timber' ),
-//									'value' => 'project',
-//								),
+								array(
+									'name'  => __( 'Project', 'timber' ),
+									'value' => 'project',
+								),
 							),
 							'std'     => 'project_slider',
 						),
