@@ -8,6 +8,10 @@
 
 get_header();
 
-get_template_part( 'template-parts/single-jetpack-portfolio');
+while ( have_posts() ) : the_post();
+
+	get_template_part( 'template-parts/single-jetpack-portfolio');
+
+endwhile;
 
 get_footer(); ?>
