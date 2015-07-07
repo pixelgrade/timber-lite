@@ -23,6 +23,10 @@
     left: 0.88vh;
     right: 0.88vh;
     width: auto;
+
+    .admin-bar & {
+        position: absolute;
+    }
 }
 
 %bar-piece {
