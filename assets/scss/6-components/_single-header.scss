@@ -78,8 +78,12 @@
 	color: white;
 }
 
-.page-template-default .no-image .entry-title {
-	color: black;
+.page-template-default .no-image/*.entry-header*/ {
+	padding-top: 13vh;
+
+	.entry-title {
+		color: black;
+	}
 }
 
 //Fullwidth page template

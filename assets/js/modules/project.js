@@ -9,16 +9,31 @@ var Project = (function() {
 
 		init = function() {
 
-			if (!$('.single-jetpack-portfolio').length) {
-				Placeholder.update();
-				return;
+			// if (!$('.single-jetpack-portfolio').length) {
+			// 	Placeholder.update();
+			// 	return;
+			// }
+
+			if ($('.project_layout-filmstrip').length) {
+
+				$film = $('.js-portfolio');
+				$grid = $film.clone().addClass('portfolio--grid').insertBefore($film);
+				$film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
+
+			} else {
+
+				$grid = $('.js-portfolio');
+				$film = $grid.clone().addClass('portfolio--filmstrip').insertAfter($grid);
+				$grid.addClass('portfolio--grid').addClass('portfolio--visible');
+
 			}
 
-			$film  		= $('.js-portfolio');
-			$grid   	= $film.clone().insertBefore($film);
-			$fullview 	= $('.fullview');
+			$grid.find('.js-portfolio-item').each(function(i, obj) {
+				var $item = $(obj);
+				$item.data('src', $item.data('srcsmall'));
+			});
 
-			$grid.removeClass('portfolio--filmstrip').addClass('portfolio--grid').find('.js-portfolio-item img').hide();
+			$fullview 	= $('.fullview');
 
 			addMetadata();
 			bindEvents();
@@ -62,10 +77,8 @@ var Project = (function() {
 			var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
 			setCurrent($first);
 
-			if (!$body.hasClass('project_layout-filmstrip')) {
-				showThumbnails();
-			} else {
-				$filmstrip.addClass('portfolio--visible');
+			if (!$('.project_layout-filmstrip').length) {
+				showThumbnails(null, true);
 			}
 		},
 
@@ -182,22 +195,29 @@ var Project = (function() {
 			});
 		},
 
-		showThumbnails = function(e) {
+		showThumbnails = function(e, initial) {
 			var $active = $('.portfolio__item--active'),
 				$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
+			TweenMax.to('.site-footer', .3, { opacity: 0 });
+			$grid.css('opacity', 1);
+
 			$('.js-portfolio-item').addClass('no-transition');
 
-			$grid.find('.js-portfolio-item img').css('opacity', '');
 
 			TweenMax.to($('.site-content__mask'), 0, {
 				'transform-origin': '0 100%',
 				'z-index': 300
 			});
+
 			$film.css('z-index', 200);
 			$grid.css('z-index', 400);
 
-			morph($active, $target, {delay: .3});
+			if (typeof initial == "undefined") {
+				morph($active, $target, {delay: .3});
+			}
+
+			$grid.find('.js-portfolio-item img').css('opacity', '');
 
 			setTimeout(function() {
 				var $items = $grid.find('.js-portfolio-item img');
@@ -223,6 +243,12 @@ var Project = (function() {
 
 			var $clicked = $(this),
 				$target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
+			console.log($target.find('img'));
+
+			TweenMax.to('.site-footer', .3, { opacity: 1 });
+
+			// $film.css('opacity', 1);
+			$body.removeClass('scroll-y').addClass('scroll-x');
 
 			$('.js-portfolio-item').addClass('no-transition');
 
@@ -260,6 +286,7 @@ var Project = (function() {
 
 			centerFilmToTarget($target);
 			morph($clicked, $target);
+
 		},
 
 		centerFilmToTarget = function($target) {
@@ -305,6 +332,9 @@ var Project = (function() {
 		var $source = $(this),
 			$target = addImageToFullView($source);
 
+		console.log('here');
+		$('.site-content').addClass('site-content--fullview');
+
 		morph($source, $target);
 
 		setTimeout(function() {
@@ -337,7 +367,9 @@ var Project = (function() {
 				x: 0,
 				y: 0,
 				onComplete: function() {
-					morph($source, $target);
+					morph($source, $target, {}, function() {
+						$('.site-content').removeClass('site-content--fullview');
+					});
 					setTimeout(function() {
 						$('.fullview__image').remove();
 						$fullview.removeClass('fullview--visible');
@@ -346,14 +378,14 @@ var Project = (function() {
 			});
 		},
 
-		morph = function($source, $target, options) {
+		morph = function($source, $target, options, callback) {
 			var sourceOffset  = $source.offset(),
 				sourceWidth   = $source.width(),
 				sourceHeight  = $source.height(),
 				targetOffset  = $target.offset(),
 				targetWidth   = $target.width(),
 				targetHeight  = $target.height(),
-				$clone        = $source.clone();
+				$clone        = $source.clone().addClass('portfolio__item--clone');
 
 			$clone.css({
 				position: 'absolute',
@@ -372,9 +404,9 @@ var Project = (function() {
 				background: 'none'
 			});
 
-			$target.find('img').css('opacity', 0);
 			$clone.css('opacity', 1);
 			$clone.find('img').css('opacity', 1);
+			$target.find('img').css('opacity', 0);
 
 			var defaults = {
 					x: targetOffset.left - sourceOffset.left + (targetWidth - sourceWidth) / 2,
@@ -394,18 +426,20 @@ var Project = (function() {
 						TweenMax.fromTo($target.children('.photometa'), .3, {opacity: 0}, {opacity: 1});
 						$source.css('opacity', '');
 						$clone.remove();
+
+						if (typeof callback !== "undefined") {
+							callback();
+						}
 					}
 				},
 				config = $.extend(defaults, options);
 
 			requestAnimationFrame(function() {
 				TweenMax.to($target.children('.photometa'), 0, {opacity: 0});
-				$clone.appendTo($target);
-				TweenMax.to($clone, .5, config);
+				$clone.prependTo($target);
 				TweenMax.to($clone.children('.photometa'), .3, {opacity: 0});
+				TweenMax.to($clone, .5, config);
 			});
-
-			$(window).trigger('pxg:morph-end');
 		},
 
 		getMiddle = function($image) {

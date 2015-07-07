@@ -13,6 +13,7 @@ img {
     @extend %display--flex;
     @extend %position--absolute;
     // @extend %transform--0;
+    opacity: 0;
 
     height: 100%;
     pointer-events: none;
@@ -136,6 +137,10 @@ img {
         &.portfolio--visible {
             opacity: 1;
         }
+    }
+
+    .portfolio__item--target .portfolio__item--clone ~ img {
+        opacity: 0 !important;
     }
 
     &--grid &__item {
