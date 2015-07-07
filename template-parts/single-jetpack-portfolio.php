@@ -19,7 +19,9 @@ if ( 'fullscreen' == $project_template ): ?>
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="bar--fixed">
 
+		<div class="project-addthis-container">
 		<?php get_template_part('template-parts/addthis-share'); ?>
+		</div>
 
 		<div class="site-info">
 			<div class="gallery-counter  js-gallery-counter">
@@ -43,7 +45,9 @@ if ( 'fullscreen' == $project_template ): ?>
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="bar--fixed">
 
+		<div class="project-addthis-container">
 		<?php get_template_part('template-parts/addthis-share'); ?>
+		</div>
 
 		<div class="site-info">
 			<div class="portfolio__position"></div>
