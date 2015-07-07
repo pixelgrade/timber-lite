@@ -34,6 +34,7 @@ a {
 
 // Nice underlines for text links.
 p a, li a {
+    display: inline;
     background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0) 50%,lighten($linkColour,20%) 50%);
     background-position: 0 78%;
     background-repeat: repeat-x;
@@ -43,7 +44,7 @@ p a, li a {
     &:hover, &:active, &:focus {
         background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0) 50%,lighten($hoverColour,20%) 50%);
     }
-    }
+}
 
 // Paragraphs. OpenType ligatures and oldstyle figures enabled if available.
 p {

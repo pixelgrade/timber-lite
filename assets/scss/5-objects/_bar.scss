@@ -18,15 +18,21 @@
         flex-direction: row;
         -webkit-flex-direction: row;
     }
+
 }
 
 .bar--fixed {
     @extend %bar;
     @extend %position--fixed;
     @extend %transform--0;
-    left: 0.88vh;
-    right: 0.88vh;
+    left: 0;
+    right: 0;
     width: auto;
+
+    .page & {
+        width: 100%;
+        flex: initial;
+    }
 }
 
 %bar-piece {
