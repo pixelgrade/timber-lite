@@ -1,0 +1,18 @@
+.wpview-error {
+  padding-bottom: 35px;
+}
+.wpview-error .dashicons.dashicons-format-gallery:after {
+  content: 'Add images here';
+  display: inline-block;
+  width: 125px;
+  margin-left: -45px;
+  position: relative;
+  top: -8px;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+.wpview-error p {
+  display: none;
+}
