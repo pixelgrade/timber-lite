@@ -1,14 +1,20 @@
 var Blog = (function() {
 
-	var $filmstrip_container = $('.filmstrip'),
+	var $filmstrip_container,
+		fullviewWidth,
+		fullviewHeight,
+		isFirstFilterClick,
+		isLoadingPosts,
+		filterBy;
 
-		fullviewWidth = windowWidth,
-		fullviewHeight = windowHeight,
-		isFirstFilterClick = true,
-		isLoadingPosts = false,
-		filterBy = '',
+	function init() {
 
-	init = function() {
+		$filmstrip_container = $('.filmstrip');
+		fullviewWidth = windowWidth;
+		fullviewHeight = windowHeight;
+		isFirstFilterClick = true;
+		isLoadingPosts = false;
+		filterBy = '';
 
 		if (!$filmstrip_container.length) {
 			return;
@@ -33,9 +39,9 @@ var Blog = (function() {
 		if ( $filmstrip_container.children('article').last().offset().left == 0 ) {
 			loadNextPosts();
 		}
-	},
+	}
 
-	bindEvents = function() {
+	function bindEvents() {
 		//we will handle the binding of filter links because we need to load all posts on first filter click
 		$('.filter__item').click(function() {
 			filterBy = $(this).data('filter');
@@ -56,9 +62,9 @@ var Blog = (function() {
 
 			return false;
 		});
-	},
+	}
 
-	loadAllPosts = function() {
+	function loadAllPosts() {
 		var offset = $filmstrip_container.find('.filmstrip__item').length;
 
 		if (globalDebug) {console.log("Loading All Posts - AJAX Offset = " + offset);}
@@ -108,9 +114,9 @@ var Blog = (function() {
 				}
 			}
 		);
-	},
+	}
 
-	loadNextPosts = function() {
+	function loadNextPosts() {
 		var offset = $filmstrip_container.find('.filmstrip__item').length;
 
 		if (globalDebug) {console.log("Loading More Posts - AJAX Offset = " + offset);}
@@ -163,9 +169,9 @@ var Blog = (function() {
 				$('.preloader').css('opacity', 0);
 			}
 		);
-	},
+	}
 
-	maybeLoadNextPosts = function() {
+	function maybeLoadNextPosts() {
 		if (!$filmstrip_container.length || isLoadingPosts ) {
 			return;
 		}

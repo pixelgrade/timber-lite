@@ -2,9 +2,10 @@
     @extend %position--relative;
     z-index: 500;
     flex-grow: 1;
+    -webkit-flex-grow: 1;
 
     &__mask {
-        // @extend %transform--0;
+        @extend %transform--0;
         position: fixed;
         z-index: 300;
         top: 0;
@@ -13,9 +14,21 @@
         height: 100%;
         width: 100%;
         background: white;
+        overflow: hidden;
         will-change: opacity, transform;
-        transform: scale(0, 1);
-        transform-origin: 0 0;
+        pointer-events: none;
+
+        &.mask--page {
+            z-index: 551;
+        }
+
+        &.mask--project {
+            // left: 0 !important;
+        }
+    }
+
+    &.portfolio-archive {
+        z-index: 200;
     }
 }
 

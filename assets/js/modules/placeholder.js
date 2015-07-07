@@ -1,11 +1,11 @@
 var Placeholder = (function() {
+    var $items;
 
-    var update = function($container, src) {
+    function update($container, src) {
 
-        $container  = $container || $('body');
-        src         = src || 'srcsmall';
+        var $container  = $container || $('body');
 
-        var $items = $container.find('.js-placeholder');
+        $items = $container.find('.js-placeholder');
 
         $items.each(function(i, item) {
             var $item = $(item);
@@ -25,21 +25,37 @@ var Placeholder = (function() {
         });
 
         $(window).on('DOMContentLoaded load resize scroll', function() {
-            $items.each(function(i, item) {
-                var $item   = $(item),
-                    $image  = $item.data('image');
+            bindImageLoad();
+        });
 
-                if ($item.data('loaded')) return;
+        bindImageLoad();
 
-                if (isElementInViewport($item)) {
-                    $item.data('loaded', true).removeClass('js-placeholder');
-                    $image.attr('src', $item.data(src));
-                    $image.prependTo($item);
-                    $image.imagesLoaded(function() {
-                        TweenMax.to($image, .3, {opacity: 1});
-                    });
-                };
-            });
+        $(window).on('djaxClick', function() {
+            $(window).off('DOMContentLoaded load resize scroll', bindImageLoad);
+        });
+    }
+
+    function bindImageLoad() {
+
+        $items.each(function(i, item) {
+            var $item   = $(item),
+                $image  = $item.data('image'),
+                src     = $item.data('src');
+
+            if (typeof src == "undefined") {
+                src = $item.data('srcsmall');
+            }
+
+            if ($item.data('loaded')) return;
+
+            if (isElementInViewport($item)) {
+                $item.data('loaded', true).removeClass('js-placeholder');
+                $image.attr('src', src);
+                $image.prependTo($item);
+                $image.imagesLoaded(function() {
+                    TweenMax.to($image, .3, {opacity: 1});
+                });
+            };
         });
     }
 

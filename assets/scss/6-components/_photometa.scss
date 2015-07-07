@@ -1,8 +1,12 @@
 .photometa {
     display: flex;
+    display: -webkit-flex;
     flex-wrap: wrap-reverse;
+    -webkit-flex-wrap: wrap-reverse;
     align-items: flex-start;
+    -webkit-align-items: flex-start;
     align-content: flex-start;
+    -webkit-align-content: flex-start;
     padding: 10em 1.5em 1em;
     color: white;
     @extend %transform--0;
@@ -24,6 +28,7 @@
         @extend %position--relative;
         transition: opacity .3s ease-in-out;
         flex-grow: 0;
+        -webkit-flex-grow: 0;
     }
 
     &__description,
@@ -54,6 +59,7 @@
 
     &__caption {
         flex-grow: 1;
+        -webkit-flex-grow: 1;
         margin-top: .5em;
         margin-right: 1em;
         opacity: 0.5;

@@ -1,0 +1,34 @@
+.wpview-error {
+	padding: 60px;
+
+	.dashicons {
+		width: 70px;
+		height: auto;
+	}
+
+	.dashicons-format-gallery {
+		font-size: 70px;
+	}
+	
+	.dashicons-format-gallery:before {
+		content: "\f233";
+	}
+
+	.dashicons.dashicons-format-gallery:after {
+		content: '';
+		display: inline-block;
+		// width: 125px;
+		// margin-left: -45px;
+		position: relative;
+		top: -8px;
+
+		text-align: center;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 16px;
+		color: #333;
+	}
+
+	p {
+		display: none;
+	}
+}

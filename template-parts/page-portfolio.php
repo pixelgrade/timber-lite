@@ -1,3 +1,4 @@
+<div class="site-header  site-header--placeholder"></div>
 <div class="site-container">
 
 	<div class="site-sidebar"></div>

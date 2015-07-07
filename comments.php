@@ -71,7 +71,7 @@ if ( post_password_required() ) {
 // If comments are closed and there are comments, let's leave a little note, shall we?
 if ( ! comments_open() && post_type_supports( get_post_type(), 'comments' ) && ! is_page() ) :
 	?>
-	<p class="nocomments"><span class="comment-number comment-number--dark  no-comments-box"><i class="icon icon-times"></i></span><span><?php _e( 'Comments are closed.', 'timber' ); ?></span></p>
+	<p class="nocomments"><span class="comment-number comment-number--dark  no-comments-box"><i class="fa  fa-times"></i></span><span><?php _e( 'Comments are closed.', 'timber' ); ?></span></p>
 <?php endif;
 
 $commenter = wp_get_current_commenter();

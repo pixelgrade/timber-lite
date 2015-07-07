@@ -10,6 +10,7 @@
 
 get_header(); ?>
 
+<div class="site-header  site-header--placeholder"></div>
 <div class="site-container  site-content">
 	<?php if ( have_posts() ) :
 
@@ -44,10 +45,6 @@ get_header(); ?>
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content', 'none' ); ?>
 	<?php endif; ?>
-</div>
-
-<div class="site-footer">
-	<div class="bar--fixed"></div>
 </div>
 
 <?php get_footer(); ?>
