@@ -25,6 +25,8 @@ function softInit() {
   Portfolio.init();
   Blog.init();
 
+  frontpageSlider.init();
+
   AddThisIcons.init();
 }
 
@@ -32,7 +34,6 @@ function softInit() {
 
 $window.load(function() {
   overlayInit();
-  frontpageSlider.init();
   royalSliderInit();
   socialLinks.init();
   $(".pixcode--tabs").organicTabs();

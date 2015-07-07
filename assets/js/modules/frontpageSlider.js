@@ -1,20 +1,32 @@
 var frontpageSlider = (function() {
 
-    var $slider         = $('.projects-slider'),
-        $content        = $('.project-slide__content'),
-        $prevTrigger    = $('.vertical-title.prev'),
-        $nextTrigger    = $('.vertical-title.next'),
-        $triggers       = $nextTrigger.add($prevTrigger),
-        sliderWidth     = $slider.width(),
-        sliderHeight    = $slider.height(),
-        totalWidth      = 0,
-        $slides         = $slider.children(),
-        slidesNumber    = $slides.length,
-        $current        = $slides.eq(0),
+    var $slider,
+        $content,
+        $prevTrigger,
+        $nextTrigger,
+        $triggers,
+        sliderWidth,
+        sliderHeight,
+        totalWidth,
+        $slides,
+        slidesNumber,
+        $current,
         $prev,
         $next;
 
     function init() {
+
+        $slider         = $('.projects-slider');
+        $content        = $('.project-slide__content');
+        $prevTrigger    = $('.vertical-title.prev');
+        $nextTrigger    = $('.vertical-title.next');
+        $triggers       = $nextTrigger.add($prevTrigger);
+        sliderWidth     = $slider.width();
+        sliderHeight    = $slider.height();
+        totalWidth      = 0;
+        $slides         = $slider.children();
+        slidesNumber    = $slides.length;
+        $current        = $slides.eq(0);
 
         var minSlides = 5,
             offset;

@@ -78,9 +78,10 @@ var djax = (function() {
             ease: Expo.easeInOut,
         });
         TweenMax.to('.site-content__mask', .6, {
-            x: '100%',
+            left: '100%',
             ease: Expo.easeInOut,
             onComplete: function() {
+                $('.site-content__mask').css('left', '');
             }
         });
     }

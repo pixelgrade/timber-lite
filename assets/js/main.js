@@ -16173,9 +16173,11 @@ if (!Date.now) Date.now = function () {
         ease: Expo.easeInOut,
       });
       TweenMax.to('.site-content__mask', .6, {
-        x: '100%',
+        left: '100%',
         ease: Expo.easeInOut,
-        onComplete: function () {}
+        onComplete: function () {
+          $('.site-content__mask').css('left', '');
+        }
       });
     }
 
@@ -16232,20 +16234,21 @@ if (!Date.now) Date.now = function () {
   })()
   var frontpageSlider = (function () {
 
-    var $slider = $('.projects-slider'),
-        $content = $('.project-slide__content'),
-        $prevTrigger = $('.vertical-title.prev'),
-        $nextTrigger = $('.vertical-title.next'),
-        $triggers = $nextTrigger.add($prevTrigger),
-        sliderWidth = $slider.width(),
-        sliderHeight = $slider.height(),
-        totalWidth = 0,
-        $slides = $slider.children(),
-        slidesNumber = $slides.length,
-        $current = $slides.eq(0),
-        $prev, $next;
+    var $slider, $content, $prevTrigger, $nextTrigger, $triggers, sliderWidth, sliderHeight, totalWidth, $slides, slidesNumber, $current, $prev, $next;
 
     function init() {
+
+      $slider = $('.projects-slider');
+      $content = $('.project-slide__content');
+      $prevTrigger = $('.vertical-title.prev');
+      $nextTrigger = $('.vertical-title.next');
+      $triggers = $nextTrigger.add($prevTrigger);
+      sliderWidth = $slider.width();
+      sliderHeight = $slider.height();
+      totalWidth = 0;
+      $slides = $slider.children();
+      slidesNumber = $slides.length;
+      $current = $slides.eq(0);
 
       var minSlides = 5,
           offset;
@@ -17747,13 +17750,14 @@ if (!Date.now) Date.now = function () {
     Portfolio.init();
     Blog.init();
 
+    frontpageSlider.init();
+
     AddThisIcons.init();
   }
 
   // /* ====== ON WINDOW LOAD ====== */
   $window.load(function () {
     overlayInit();
-    frontpageSlider.init();
     royalSliderInit();
     socialLinks.init();
     $(".pixcode--tabs").organicTabs();
