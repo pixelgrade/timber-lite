@@ -36,6 +36,8 @@ if ( 'fullscreen' == $project_template ): ?>
 
 <?php else : ?>
 
+<div class="site-header  site-header--placeholder"></div>
+
 <main id="content" class="site-content site-container site-content--filmstrip site-content--<?php echo $project_template; ?>">
 
 	<?php get_template_part( 'template-parts/content', 'project-filmstrip' ); ?>
@@ -51,7 +53,7 @@ if ( 'fullscreen' == $project_template ): ?>
 
 		<div class="site-info">
 			<div class="portfolio__position"></div>
-			<a class="show-details caption js-details" href="#"><span><?php _e( 'details', 'timber' ); ?></span></a>
+			<button class="show-details caption js-details"><span><?php _e( 'details', 'timber' ); ?></span></button>
 		</div><!-- .site-info -->
 		<button class="show-button caption js-show-thumbnails"><span><?php _e( 'show thumbnails', 'timber' ); ?></span></button>
 	</div>

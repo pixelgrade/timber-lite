@@ -32,11 +32,13 @@
 		</h2>
 	</div>
 
-	<?php
-	/*
-	 * Project film strip with text boxes and videos ignored
-	 */
-	timber_the_film_strip( get_the_ID(), true, true );
-	?>
+	<a href="<?php the_permalink(); ?>" class="portfolio__link-wrap  block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
+		<?php
+		/*
+		 * Project film strip with text boxes and videos ignored
+		 */
+		timber_the_film_strip( get_the_ID(), true, true );
+		?>
+	</a>
 
 </article><!-- #post-<?php the_ID(); ?> -->

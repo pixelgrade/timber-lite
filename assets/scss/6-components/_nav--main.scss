@@ -26,6 +26,7 @@
         @extend %display--inline-block;
         @extend %delta;
         padding: .25em 0;
+        background: none !important;
 
         &:hover {
         }
@@ -96,7 +97,9 @@
 
     .sub-menu .menu-item-has-children {
         display: flex;
+        display: -webkit-flex;
         justify-content: space-between;
+        -webkit-justify-content: space-between;
 
         &:after {
             @extend %fa;

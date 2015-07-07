@@ -4,7 +4,7 @@
         "gulp": "*",
         "gulp-sass": "*",
         "gulp-ruby-sass": "~0.7.1",
-        "gulp-autoprefixer": "*",
+        "gulp-autoprefixer": "~1.0.1",
         "gulp-minify-css": "*",
         "gulp-ignore": "*",
         "gulp-livereload": "*",

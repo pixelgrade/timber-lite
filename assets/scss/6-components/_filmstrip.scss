@@ -1,5 +1,6 @@
 .filmstrip {
     display: flex;
+    display: -webkit-flex;
     height: 100%;
     position: absolute;
 }
@@ -7,7 +8,9 @@
 .filmstrip__item {
     width: 22vw;
     flex-shrink: 0;
+    -webkit-flex-shrink: 0;
     flex-grow: 0;
+    -webkit-flex-grow: 0;
     margin-right: 1em;
     display: none;
     overflow: hidden;

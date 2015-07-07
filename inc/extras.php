@@ -799,13 +799,25 @@ function timber_load_next_posts() {
 	}
 
 	//set the query args
-	$args = array();
+    $args = array('post_type' => 'post');
 
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
 		$args['posts_per_page'] = 999;
 	} else {
 		$args['posts_per_page'] = get_option('posts_per_page');
 	}
+
+    if ( isset( $_REQUEST['taxonomy'] ) ) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => $_REQUEST['taxonomy'],
+                'field'    => 'term_id',
+                'terms'    => array( $_REQUEST['term_id'] ),
+            ),
+        );
+    } elseif ( isset( $_REQUEST['search'] ) ) {
+        $args['s'] = $_REQUEST['search'];
+    }
 
 	//check if we have a offset in $_POST
 	if ( isset( $_POST['offset'] ) ) {

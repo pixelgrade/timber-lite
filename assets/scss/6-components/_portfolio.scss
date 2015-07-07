@@ -2,6 +2,7 @@
 .jetpack-portfolio .site {
     @extend %display--flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
 }
 
 img {
@@ -36,9 +37,17 @@ img {
     &__header {
         @extend %display--flex;
         flex-direction: column;
+        -webkit-flex-direction: column;
         flex-shrink: 0;
+        -webkit-flex-shrink: 0;
         justify-content: center;
+        -webkit-justify-content: center;
         padding-right: 4em;
+    }
+
+    &__link-wrap {
+        @extend %display--flex;
+        flex-shrink: 0;
     }
 
     &__title,
@@ -66,10 +75,15 @@ img {
         position: relative;
         background: #eee;
         flex-shrink: 0;
+        -webkit-flex-shrink: 0;
         margin-right: 1em;
         will-change: opacity;
         transition: opacity .3s ease-in-out;
         cursor: pointer;
+
+        img {
+            width: 100%;
+        }
 
         &--content {
             min-width: 40em;
@@ -107,6 +121,7 @@ img {
         @extend %transform--0;
         height: auto;
         flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
         z-index: 100;
 
         .portfolio__item {
@@ -159,6 +174,7 @@ img {
         opacity: 1;
         position: static;
         flex-wrap: nowrap;
+        -webkit-flex-wrap: nowrap;
         margin-bottom: .5em;
     }
 
@@ -197,6 +213,10 @@ img {
     .entry-footer {
         @extend %display--none;
     }
+}
+
+.portfolio-archive {
+    overflow-x: hidden;
 }
 
 .js-last,

@@ -39,8 +39,6 @@ if ( ! empty( $featured ) ) : ?>
 
 		<div class="projects-slider__bullets  rsBullets"></div>
 
-		<div class="site-content__mask"></div>
-
 	</main><!-- #main -->
 </div><!-- #primary -->
 

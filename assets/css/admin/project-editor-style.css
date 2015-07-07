@@ -1,11 +1,19 @@
 .wpview-error {
-  padding-bottom: 35px;
+  padding: 60px;
+}
+.wpview-error .dashicons {
+  width: 70px;
+  height: auto;
+}
+.wpview-error .dashicons-format-gallery {
+  font-size: 70px;
+}
+.wpview-error .dashicons-format-gallery:before {
+  content: "\f233";
 }
 .wpview-error .dashicons.dashicons-format-gallery:after {
-  content: 'Add images here';
+  content: '';
   display: inline-block;
-  width: 125px;
-  margin-left: -45px;
   position: relative;
   top: -8px;
   text-align: center;

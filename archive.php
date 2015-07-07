@@ -10,9 +10,18 @@
 
 get_header(); ?>
 
+<div class="site-header  site-header--placeholder"></div>
 <div class="site-container  site-content">
-	<?php if ( have_posts() ) : ?>
-		<div class="filmstrip">
+	<?php if ( have_posts() ) :
+
+        $queried_object = get_queried_object();
+        $data = '';
+        if ( ! empty( $queried_object->taxonomy ) ) {
+            $data .= ' data-taxonomy="' . $queried_object->taxonomy .'"';
+            $data .= ' data-termid="' . $queried_object->term_taxonomy_id .'"';
+        }
+        ?>
+		<div class="filmstrip" <?php echo $data; ?>>
 			<div class="site-sidebar">
 				<div class="site-sidebar__content"><?php the_archive_title(); ?></div>
 			</div>
@@ -36,10 +45,6 @@ get_header(); ?>
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content', 'none' ); ?>
 	<?php endif; ?>
-</div>
-
-<div class="site-footer">
-	<div class="bar--fixed"></div>
 </div>
 
 <?php get_footer(); ?>

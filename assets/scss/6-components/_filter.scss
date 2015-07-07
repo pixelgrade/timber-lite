@@ -3,8 +3,11 @@
     width: 100%;
     height: 100%;
     align-self: center;
-    text-align: center;
+    -webkit-align-self: center;
     flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+
+    text-align: center;
     border: 0 solid transparent;
     border-width: 1em 3em;
     overflow: hidden;

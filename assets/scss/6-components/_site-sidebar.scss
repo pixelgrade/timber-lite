@@ -1,8 +1,11 @@
 .site-sidebar {
     @extend %position--relative;
     flex-basis: $sidebar-width;
+    -webkit-flex-basis: $sidebar-width;
     flex-shrink: 0;
+    -webkit-flex-shrink: 0;
     flex-grow: 0;
+    -webkit-flex-grow: 0;
 }
 
 .site-sidebar__content {
