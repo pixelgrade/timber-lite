@@ -46,7 +46,5 @@ $show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_pr
 
 		<div class="projects-slider__bullets  rsBullets"></div>
 
-		<div class="site-content__mask"></div>
-
 	</main><!-- #main -->
 </div><!-- #primary -->

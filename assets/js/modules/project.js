@@ -228,12 +228,12 @@ var Project = (function() {
 			}, 600);
 
 			TweenMax.to($('.site-content__mask'), .6, {
-				scale: 1,
+				x: 0,
 				ease: Expo.easeInOut,
 				onComplete: function() {
 					$film.removeClass('portfolio--visible');
 					$grid.addClass('portfolio--visible');
-					TweenMax.to('.site-content__mask', 0, {scaleX: 0});
+					TweenMax.to('.site-content__mask', 0, {x: ''});
 				}
 			});
 

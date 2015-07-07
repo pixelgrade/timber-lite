@@ -8,7 +8,12 @@ $(document).ready(function() {
 function init() {
   platformDetect();
   browserSize();
+  softInit();
 
+  djax.init();
+}
+
+function softInit() {
   if ($('.single-jetpack-portfolio').length) {
     Project.init();
     Placeholder.update();
@@ -17,10 +22,10 @@ function init() {
     Placeholder.update();
   }
 
-	Portfolio.init();
-	Blog.init();
+  Portfolio.init();
+  Blog.init();
 
-	AddThisIcons.init();
+  AddThisIcons.init();
 }
 
 // /* ====== ON WINDOW LOAD ====== */
@@ -41,6 +46,9 @@ $window.load(function() {
     this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
     event.preventDefault();
   });
+
+  Loader.init();
+
 });
 
 // /* ====== ON RESIZE ====== */

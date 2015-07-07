@@ -195,7 +195,7 @@ var frontpageSlider = (function() {
         TweenMax.fromTo($content.find('.js-title-mask'), .7, {y: '100%'}, {y: '0%', delay: .5, ease: Expo.easeInOut});
         TweenMax.fromTo($content.find('.portfolio_types'), .3, {opacity: 0}, {opacity: 1, delay: .9, ease: Quint.easeIn});
         TweenMax.fromTo($content.find('.project-slide__text'), .4, {x: -10, opacity: 0}, {x: 0, opacity: 1, delay: 1, ease: Quint.easeOut});
-        TweenMax.to($('.site-content__mask'), .6, {scaleX: 0, ease: Expo.easeInOut});
+        // TweenMax.to($('.site-content__mask'), .6, {scaleX: 0, ease: Expo.easeInOut});
     }
 
     function animateContentTo($slide) {

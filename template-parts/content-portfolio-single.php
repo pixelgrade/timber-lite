@@ -39,5 +39,3 @@
     <div class="fullview__image"></div>
     <div class="fullview__close">x</div>
 </div>
-
-<div class="site-content__mask"></div>

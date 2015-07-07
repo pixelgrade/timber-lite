@@ -8,7 +8,9 @@
  * @since Timber 1.0
  */
 
-if ( ! timber_post_is_project() && ( is_page() || is_single() ) ) {
+?>
+
+<?php if ( ! timber_post_is_project() && ( is_page() || is_single() ) ) {
 
 	$show_footer = true;
 	if ( is_page() ) {
@@ -23,7 +25,14 @@ if ( ! timber_post_is_project() && ( is_page() || is_single() ) ) {
 	}
 } ?>
 
+</div><!-- #djaxContainer -->
+<div class="site-content__mask">
+	<div class="loader">
+		<svg id="loaderSvg" class="loader__svg" width="150" height="150" viewBox="0 0 150 150"></svg>
+	</div>
+</div>
 </div><!-- #page -->
+
 <div class="overlay">
 	<div class="overlay__wrapper">
 		<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ) : ?>

@@ -38,8 +38,4 @@ get_header(); ?>
 	<?php endif; ?>
 </div>
 
-<div class="site-footer">
-	<div class="bar--fixed"></div>
-</div>
-
 <?php get_footer(); ?>
