@@ -178,7 +178,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
 							'id'         => 'projects_slider_height',
 							'type'       => 'radio',
-							'default'    => 'default',
+							'std'    => 'default',
 							'options'    => array(
 								array(
 									'name' => __( '<span class="dashicons dashicons-editor-insertmore"></span> Standard', 'timber' ),
@@ -202,7 +202,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
 							'id'         => 'show_adjacent_projects',
 							'type'       => 'radio',
-							'default'    => 'show_next',
+							'std'    => 'show_next',
 							'options'    => array(
 								array(
 									'name' => __( '<span class="dashicons dashicons-leftright"></span> Next and Prev', 'timber' ),
@@ -276,7 +276,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							// 'desc'       => __( 'Select the initial layout. ', 'timber' ),
 							'id'         => 'project_template',
 							'type'       => 'radio',
-							'default'    => 'filmstrip',
+							'std'    => 'filmstrip',
 							'options'    => array(
 								array(
 									'name' => __( 'Thumbnails', 'timber' ),
