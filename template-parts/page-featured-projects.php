@@ -1,27 +1,12 @@
 <?php
-/**
- * Template Name: Featured Projects
- *
- * Aimed at being used as a static front page where you can showcase your featured projects in a fullscreen slideshow
- *
- * @package Timber
- * @since Timber 1.0
- */
-
-get_header();
 
 $projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true);
-$show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_projects', true);
-
-?>
-
+$show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_projects', true); ?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main <?php echo 'slider--' . $show_adjacent_projects . ' slider--' . $projects_slider_height ?>" role="main">
 
-
 		<?php
 		$featured = timber_get_featured_projects();
-
 
 		if ( ! empty( $featured ) ) : ?>
 
@@ -34,8 +19,7 @@ $show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_pr
 					if ($index == 1) { $current_post = $post; }
 					if ($index == 2) { $next_post = $post; }
 					$index++;
-				endforeach;
-				?>
+				endforeach; ?>
 
 			</div><!-- .featured-projects-slider -->
 
@@ -66,5 +50,3 @@ $show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_pr
 
 	</main><!-- #main -->
 </div><!-- #primary -->
-
-<?php get_footer(); ?>

@@ -115,69 +115,46 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 			),
 
 			'metaboxes'        => array(
-				'timber_frontpage_settings' => array(
-					'id'         => 'timber_frontpage_settings',
-					'title'      => __( 'Slider settings', 'timber' ),
-					'pages'      => array( 'page' ), // Post type
-					'context'    => 'side',
-					'priority'   => 'default',
-					'hidden'     => true,
-					'show_on'    => array( 'key' => 'page-template', 'value' => array( 'page-templates/featured-projects-page.php' ), ),
-					'show_names' => true, // Show field names on the left
-					'fields'     => array(
-						array(
-							'name'       => __( 'Slider height', 'timber' ),
-							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-							'id'         => 'projects_slider_height',
-							'type'       => 'select',
-							'default'    => 'default',
-							'options'    => array(
-								array(
-									'name' => __( 'Default', 'timber' ),
-									'value' => 'default'
-								),
-								array(
-									'name' => __( 'Full-height', 'timber' ),
-									'value' => 'full-height'
-								)
-							)
-						),
-						array(
-							'name'       => __( 'Show adjacent projects', 'timber' ),
-							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
-							'id'         => 'show_adjacent_projects',
-							'type'       => 'select',
-							'default'    => 'default',
-							'options'    => array(
-								array(
-									'name' => __( 'Show prev/next', 'timber' ),
-									'value' => 'show_prev_next'
-								),
-								array(
-									'name' => __( 'Show next', 'timber' ),
-									'value' => 'show_next'
-								)
-							)
-						),
-					)
-				),
-				'featured_projects_template_settings'     => array(
-					'id'         => 'featured_projects_template_settings',
-					'title'      => __( 'Source', 'timber' ),
+
+				'custom_portfolio_page_settings'   => array(
+					'id'         => 'custom_portfolio_page_settings',
+					'title'      => __( 'Custom Portfolio Template Options', 'timber' ),
 					'pages'      => array( 'page' ), // Post type
 					'context'    => 'normal',
-					'priority'   => 'default',
-					'hidden'     => true,
-					'show_on'    => array(
-						'key'   => 'page-template',
-						'value' => array('page-templates/featured-projects-page.php' ),
-					),
+					'priority'   => 'high',
+					'show_on'    => array( 'key' => 'page-template', 'value' => array( 'page-templates/custom-portfolio-page.php' ), ),
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
+						array(
+							'name'    => __( 'Page Content<a class="tooltip" title="Select what content would you like to be on this page."></a>', 'timber' ),
+							'desc'    => __( ' <p class="cmb_metabox_description" style="font-size: 90%">If you want to set this page as your <a href="https://en.support.wordpress.com/pages/front-page/" target="_blank">Front page</a>, simply go to <a href="customize.php">Customizer</a>, click on the <b>Static Front Page</b> tab on the left and select this one.</p>', 'timber' ),
+							'id'      => 'custom_portfolio_page_type',
+							'type'    => 'radio',
+							'std'     => 'project_slider',
+							'options' => array(
+								array(
+									'name'  => __( '<span class="dashicons dashicons-format-gallery"></span> Projects Slider', 'timber' ),
+									'value' => 'project_slider',
+								),
+								array(
+									'name'  => __( '<span class="dashicons dashicons-portfolio"></span> Portfolio Archive', 'timber' ),
+									'value' => 'portfolio',
+								),
+//								array(
+//									'name'  => __( 'Projects Category', 'timber' ),
+//									'value' => 'portfolio_cat',
+//								),
+								array(
+									'name'  => __( '<span class="dashicons dashicons-format-image"></span> Single Project <a class="tooltip" title="This feature is designed so you can have the option of a simple gallery on the Front page."></a>', 'timber' ),
+									'value' => 'project',
+								),
+							)
+						),
+
 						array(
 							'name'    => __( 'Featured Projects', 'timber' ),
 							'id'      => 'portfolio_featured_projects',
-							'desc'    => __( 'Choose your featured projects. Drag and drop to reorder them to your liking. These projects will be excluded from the main projects list.', 'timber' ),
+							'desc'    => __( 'Choose your featured projects. Drag and drop to reorder them to your liking.', 'timber' ),
 							'type'    => 'pw_multiselect_cpt',
 							'options' => array(
 								'args' => array(
@@ -186,9 +163,106 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								),
 							),
 							'sanitization_cb' => 'pw_select2_sanitise',
+
+							'display_on' => array(
+								'display' => true,
+								'on'      => array(
+									'field' => 'custom_portfolio_page_type',
+									'value' => 'project_slider'
+								)
+							),
+						),
+
+						array(
+							'name'       => __( 'Slider Height', 'timber' ),
+							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
+							'id'         => 'projects_slider_height',
+							'type'       => 'radio',
+							'std'    => 'default',
+							'options'    => array(
+								array(
+									'name' => __( '<span class="dashicons dashicons-editor-insertmore"></span> Standard', 'timber' ),
+									'value' => 'default'
+								),
+								array(
+									'name' => __( '<span class="dashicons dashicons-editor-expand"></span> Full Height', 'timber' ),
+									'value' => 'full-height'
+								)
+							),
+							'display_on' => array(
+								'display' => true,
+								'on'      => array(
+									'field' => 'custom_portfolio_page_type',
+									'value' => 'project_slider'
+								)
+							),
+						),
+						array(
+							'name'       => __( 'Slider Navigation', 'timber' ),
+							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber' ),
+							'id'         => 'show_adjacent_projects',
+							'type'       => 'radio',
+							'std'    => 'show_next',
+							'options'    => array(
+								array(
+									'name' => __( '<span class="dashicons dashicons-leftright"></span> Next and Prev', 'timber' ),
+									'value' => 'show_prev_next'
+								),
+								array(
+									'name' => __( '<span class="dashicons dashicons-arrow-right"></span> Next Only', 'timber' ),
+									'value' => 'show_next'
+								)
+							),
+							'display_on' => array(
+								'display' => true,
+								'on'      => array(
+									'field' => 'custom_portfolio_page_type',
+									'value' => 'project_slider'
+								)
+							),
+						),
+
+//						array(
+//							'name'       => __( 'Select a project category', 'timber' ),
+//							'desc'       => __( 'Select a project category and we will show it on your homepage.', 'timber' ),
+//							'id'         => 'project_category',
+//							'type'       => 'select_cpt_term',
+//							'taxonomy'   => 'lens_portfolio_categories',
+//							'options'    => array( // 'hidden' => true,
+//							),
+//							'display_on' => array(
+//								'display' => true,
+//								'on'      => array(
+//									'field' => 'custom_portfolio_page_type',
+//									'value' => 'portfolio_cat'
+//								)
+//							),
+//						),
+
+						array(
+							'name'       => __( 'Select the project', 'timber' ),
+							'desc'       => __( 'Example: You can have a Filmstrip or Fullscreen gallery on the Front page (see above for details).', 'timber' ),
+							'id'         => 'homepage_project',
+							'type'       => 'select_cpt_post',
+							'options'    => array(
+								'args' => array(
+									'post_type' => 'jetpack-portfolio',
+								),
+								//'hidden' => true,
+							),
+
+							'display_on' => array(
+								'display' => true,
+								'on'      => array(
+									'field' => 'custom_portfolio_page_type',
+									'value' => 'project'
+								),
+							),
+							'sanitization_cb' => 'pw_select2_sanitise',
 						),
 					),
 				),
+
 				'timber_project_settings' => array(
 					'id'         => 'timber_project_settings',
 					'title'      => __( 'Project settings', 'timber' ),
@@ -202,7 +276,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							// 'desc'       => __( 'Select the initial layout. ', 'timber' ),
 							'id'         => 'project_template',
 							'type'       => 'radio',
-							'default'    => 'filmstrip',
+							'std'    => 'filmstrip',
 							'options'    => array(
 								array(
 									'name' => __( 'Thumbnails', 'timber' ),
@@ -216,7 +290,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 									'name' => __( 'Fullscreen', 'timber' ),
 									'value' => 'fullscreen'
 								)
-							)
+							),
 						)
 					)
 				),
