@@ -12,12 +12,15 @@ get_header();
 
 $custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true);
 
+// this is the default template
 $template_part = 'template-parts/page-featured-projects';
 
+// if user opts for a portfolio template
 if ( $custom_portfolio_page_type === 'portfolio' ) {
 	$template_part = 'template-parts/page-portfolio';
 }
 
+// when user wants a project as this template, force it
 if ( $custom_portfolio_page_type === 'project' ) {
 	$homepage_project = get_post_meta( timber_get_post_id(), 'homepage_project', true);
 
