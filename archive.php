@@ -11,8 +11,16 @@
 get_header(); ?>
 
 <div class="site-container  site-content">
-	<?php if ( have_posts() ) : ?>
-		<div class="filmstrip">
+	<?php if ( have_posts() ) :
+
+        $queried_object = get_queried_object();
+        $data = '';
+        if ( ! empty( $queried_object->taxonomy ) ) {
+            $data .= ' data-taxonomy="' . $queried_object->taxonomy .'"';
+            $data .= ' data-termid="' . $queried_object->term_taxonomy_id .'"';
+        }
+        ?>
+		<div class="filmstrip" <?php echo $data; ?>>
 			<div class="site-sidebar">
 				<div class="site-sidebar__content"><?php the_archive_title(); ?></div>
 			</div>
