@@ -186,18 +186,6 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 					'colors_section' => array(
 						'title'    => __( 'Colors', 'timber' ),
 						'options' => array(
-							'accent_color'   => array(
-								'type'      => 'color',
-								'label'     => __( 'Accent Color', 'timber' ),
-								'live' => true,
-								'default'   => '#ffeb00',
-								'css'  => array(
-									array(
-										'property' => 'background-color',
-										'selector' => 'h1.test',
-									)
-								),
-							),
 							'headings_color' => array(
 								'type'      => 'color',
 								'label'     => __( 'Headings Color', 'timber' ),
@@ -214,13 +202,37 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'      => 'color',
 								'label'     => __( 'Body Color', 'timber' ),
 								'live' => true,
-								'default'   => '#3d3e40',
+								'default'   => '#222222',
 								'css'  => array(
 									array(
 										'selector' => 'body.testest',
 										'property' => 'color'
 									)
 								)
+							),
+							'caption_color'     => array(
+								'type'      => 'color',
+								'label'     => __( 'Caption Color', 'timber' ),
+								'live' => true,
+								'default'   => '#9B9B9B',
+								'css'  => array(
+									array(
+										'property' => 'color',
+										'selector' => '.caption',
+									)
+								)
+							),
+							'links_color'   => array(
+								'type'      => 'color',
+								'label'     => __( 'Links Color', 'timber' ),
+								'live' => true,
+								'default'   => '#222222',
+								'css'  => array(
+									array(
+										'property' => 'color',
+										'selector' => 'a.test',
+									)
+								),
 							),
 						)
 					),
@@ -233,12 +245,13 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'headings_font' => array(
 								'type'     => 'typography',
 								'label'    => __( 'Headings', 'timber' ),
-								'default'  => 'Oswald", sans-serif',
+								'default'  => 'Ek Mukta", sans-serif',
 								'selector' => 'h1.testentry-meta',
 								'font_weight' => false,
 								'load_all_weights' => true,
 								'subsets' => true,
 								'recommended' => array(
+									'Ek Mukta',
 									'Oswald',
 									'Lato',
 									'Open Sans',
@@ -259,13 +272,60 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 									'Pompiere'
 								)
 							),
+							'headings_caps' => array(
+								'type'	=> 'checkbox',
+								'default' => true,
+								'label' => __( 'Capitalize Headings', 'timber' ),
+								'css'	=> array(
+									array(
+										'property' => 'text-transform',
+										'selector' => 'h1, .site-title, h2, h4, h5',
+										'callback_filter' => 'timber_capitalize_headings'
+									),
+								)
+							),
 							'body_font'     => array(
 								'type'    => 'typography',
 								'label'   => __( 'Body Text', 'timber' ),
-								'default' => 'Roboto, sans-serif',
+								'default' => 'Ek Mukta, sans-serif',
 								'selector' => 'body.testtest',
 								'load_all_weights' => true,
 								'recommended' => array(
+									'Ek Mukta',
+									'Roboto',
+									'Lato',
+									'Open Sans',
+									'PT Sans',
+									'Cabin',
+									'Gentium Book Basic',
+									'PT Serif'
+								)
+							),
+							'caption_font'     => array(
+								'type'    => 'typography',
+								'label'   => __( 'Caption Text', 'timber' ),
+								'default' => 'Libre Baskerville, serif',
+								'selector' => 'body.testtest',
+								'load_all_weights' => true,
+								'recommended' => array(
+									'Libre Baskerville',
+									'Roboto',
+									'Lato',
+									'Open Sans',
+									'PT Sans',
+									'Cabin',
+									'Gentium Book Basic',
+									'PT Serif'
+								)
+							),
+							'nav_font'     => array(
+								'type'    => 'typography',
+								'label'   => __( 'Navigation Text', 'timber' ),
+								'default' => 'Ek Mukta, sans-serif',
+								'selector' => 'body.testtest',
+								'load_all_weights' => true,
+								'recommended' => array(
+									'Ek Mukta',
 									'Roboto',
 									'Lato',
 									'Open Sans',
@@ -276,7 +336,85 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								)
 							)
 						)
-					)
+					),
+					
+					/**
+					 * SIZING AND SPACING - This section will handle different elements colors (eg. links, headings)
+					 */
+					'sizes_section' => array(
+						'title'    => __( 'Sizes and Spacings', 'timber' ),
+						'options' => array(
+							'logo_height'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Logo Height', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 20,
+							        'max'   => 240,
+							        'step'  => 1,
+							    ),
+								'live' => true,
+								'default'   => 40,
+								'css'  => array(
+									array(
+										'property' => 'height',
+										'selector' => '.site-header',
+									)
+								),
+							),
+							'spacing_header'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Header Spacing', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 0,
+							        'max'   => 100,
+							        'step'  => 10,
+							    ),
+								'live' => true,
+								'default'   => 50,
+								'css'  => array(
+									array(
+										'property' => 'padding',
+										'selector' => '.site-logo',
+									)
+								),
+							),
+							'spacing_footer'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Footer Spacing', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 0,
+							        'max'   => 100,
+							        'step'  => 10,
+							    ),
+								'live' => true,
+								'default'   => 50,
+								'css'  => array(
+									array(
+										'property' => 'padding',
+										'selector' => '.site-footer',
+									)
+								),
+							),
+							'filmstrip_spacing'   => array(
+								'type'      => 'range',
+								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
+								 'input_attrs' => array(
+							        'min'   => 0,
+							        'max'   => 10,
+							        'step'  => 0.1,
+							    ),
+								'live' => true,
+								'default'   => 0.625,
+								'css'  => array(
+									array(
+										'property' => 'margin-right',
+										'unit'	=> 'em',
+										'selector' => '.portfolio__item',
+									)
+								),
+							),
+						)
+					),
 				)
 			),
 
@@ -419,3 +557,14 @@ if ( ! function_exists( 'timber_pixcodes_setup' ) ) :
 endif; // end timber_pixcodes_setup
 
 add_action( 'admin_head', 'timber_pixcodes_setup' );
+
+function timber_capitalize_headings( $value, $selector, $property, $unit ) {
+
+	$result = $value ? 'uppercase' : 'none';
+
+	$output = $selector .'{
+		text-transform: ' . $result . ";\n" .
+	"}\n";
+
+	return $output;
+}
