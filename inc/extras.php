@@ -72,6 +72,8 @@ function timber_body_classes( $classes ) {
 			// also see if the page has a featured-image
 			if ( has_post_thumbnail() ) {
 				$classes[] = 'page-has-featured-image';
+			} else {
+				$classes[] = 'page-no-featured-image';
 			}
 		}
 

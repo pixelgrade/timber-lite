@@ -88,11 +88,19 @@
 	color: white;
 }
 
-.page-template-default .no-image/*.entry-header*/ {
-	padding-top: $header-height;
+.page-no-featured-image {
+	.site-main {
+		padding-top: $header-height;
+	}
 
 	.entry-title {
 		color: black;
+	}
+}
+
+.admin-bar.page-no-featured-image {
+	.site-main {
+		padding-top: 15vh;
 	}
 }
 
