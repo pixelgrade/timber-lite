@@ -46,12 +46,33 @@ function timber_jetpack_setup() {
 }
 add_action( 'after_setup_theme', 'timber_jetpack_setup' );
 
-function timber_post_is_project( $post ) {
-	if ( $post->post_type !== 'jetpack-portfolio' ) {
+/**
+ * This functions returns true if the current page should display a project layout
+ * @param null $post
+ *
+ * @return bool
+ */
+function timber_post_is_project( $post = null ) {
+
+	if ( $post === null ) {
+		global $post;
+	}
+
+	// if we can't determine the post type we quit
+	if ( ! isset( $post->post_type ) ) {
 		return false;
 	}
 
-	return true;
+	if ( $post->post_type === 'jetpack-portfolio' ) {
+		return true;
+	} elseif ( $post->post_type === 'page' ) {
+		$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true);
+		if ( $custom_portfolio_page_type === 'project' ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 function timber_has_featured_projects( $minimum = 1 ) {
