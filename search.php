@@ -10,9 +10,15 @@ get_header(); ?>
 
 <div class="site-container  site-content">
 
-	<?php if ( have_posts() ) : ?>
+	<?php if ( have_posts() ) :
+        $search_term = get_search_query();
+        $data = '';
+        if ( ! empty( $search_term ) ) {
+            $data .= ' data-search="' . $search_term .'"';
+        }
+        ?>
 
-		<div class="filmstrip">
+		<div class="filmstrip" <?php echo $data; ?>>
 			<div class="site-sidebar">
 				<div class="site-sidebar__content">
 					<?php printf( esc_html__( 'Search Results for: %s', 'timber' ), '<span>' . get_search_query() . '</span>' ); ?>
@@ -22,9 +28,6 @@ get_header(); ?>
 			<?php
 			/* Start the Loop */
 			while ( have_posts() ) : the_post(); ?>
-
-				<div class="filmstrip__item">
-
 				<?php
 
 					/*
@@ -34,9 +37,6 @@ get_header(); ?>
 					 */
 					get_template_part( 'template-parts/content', get_post_format() );
 				?>
-
-				</div>
-
 			<?php endwhile; ?>
 		    <?php timber_paging_nav(); ?>
 

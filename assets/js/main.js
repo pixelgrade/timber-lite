@@ -15970,13 +15970,22 @@ if (!Date.now) Date.now = function () {
 
       isLoadingPosts = true;
 
-      $.post(
-      timber_ajax.ajax_url, {
+      var args = {
         action: 'timber_load_next_posts',
         nonce: timber_ajax.nonce,
         offset: offset,
         posts_number: 'all'
-      }, function (response_data) {
+      };
+
+      if (!empty($filmstrip_container.data('taxonomy'))) {
+        args['taxonomy'] = $filmstrip_container.data('taxonomy');
+        args['term_id'] = $filmstrip_container.data('termid');
+      } else if (!empty($filmstrip_container.data('search'))) {
+        args['search'] = $filmstrip_container.data('search');
+      }
+
+      $.post(
+      timber_ajax.ajax_url, args, function (response_data) {
 
         if (response_data.success) {
           if (globalDebug) {
@@ -16023,12 +16032,21 @@ if (!Date.now) Date.now = function () {
       isLoadingPosts = true;
       $('.preloader').css('opacity', 1);
 
-      $.post(
-      timber_ajax.ajax_url, {
+      var args = {
         action: 'timber_load_next_posts',
         nonce: timber_ajax.nonce,
         offset: offset
-      }, function (response_data) {
+      };
+
+      if (!empty($filmstrip_container.data('taxonomy'))) {
+        args['taxonomy'] = $filmstrip_container.data('taxonomy');
+        args['term_id'] = $filmstrip_container.data('termid');
+      } else if (!empty($filmstrip_container.data('search'))) {
+        args['search'] = $filmstrip_container.data('search');
+      }
+
+      $.post(
+      timber_ajax.ajax_url, args, function (response_data) {
 
         if (response_data.success) {
           if (globalDebug) {
@@ -17149,7 +17167,7 @@ if (!Date.now) Date.now = function () {
       var $active = $('.portfolio__item--active'),
           $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
-      TweenMax.to('.site-footer', .3, {
+      TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 0
       });
       $grid.css('opacity', 1);
@@ -17208,7 +17226,7 @@ if (!Date.now) Date.now = function () {
           $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
       console.log($target.find('img'));
 
-      TweenMax.to('.site-footer', .3, {
+      TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1
       });
 

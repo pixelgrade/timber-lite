@@ -18,12 +18,14 @@ html, body, #page, .site, #djaxContainer {
     margin: 0;
     padding: 0;
     position: relative;
-    top: -0.1em;
+    top: -1px;
 
     &:before {
         color: $headingColour;
         content: "\2014";
         padding: 0 .5em;
+        position: relative;
+        top: -1px;
     }
 
     .portfolio--details & span {
