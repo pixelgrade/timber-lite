@@ -5,9 +5,10 @@
 
 		<?php
 		/**
+		 * @TODO wait for it
 		 * Displays portfolio page content if user opts to
 		 * Can be controlled in Appearance > Customize > Theme Options
-		 */
+
 		if ( ! timber_get_option( 'hide_portfolio_page_content', false ) ) : ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -16,6 +17,7 @@
 
 			<?php endwhile; // end of the loop.
 		endif;
+		 */
 
 		if ( get_query_var( 'paged' ) ) :
 			$paged = get_query_var( 'paged' );

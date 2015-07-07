@@ -7,7 +7,7 @@ if ( empty( $project_template ) ) {
 	$project_template = 'filmstrip';
 }
 // the $post variable will be served be the parent template
-//while ( have_posts() ) : the_post();
+
 if ( 'fullscreen' == $project_template ): ?>
 
 <main id="content" class="site-content  site-container  site-content--fullscreen">

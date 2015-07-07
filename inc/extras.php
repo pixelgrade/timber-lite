@@ -63,7 +63,8 @@ function timber_body_classes( $classes ) {
 		}
 
 		// add classes for a custom portfolio page
-		if ( $post->post_type === 'page' && basename( get_page_template() ) === 'page-templates/custom-portfolio-page.php' ) {
+		$this_template = basename( get_page_template() );
+		if ( $post->post_type === 'page' && $this_template  === 'custom-portfolio-page.php' ) {
 
 			$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
 
