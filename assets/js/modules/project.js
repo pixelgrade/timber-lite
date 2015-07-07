@@ -204,7 +204,7 @@ var Project = (function() {
 		var $active = $('.portfolio__item--active'),
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
-		TweenMax.to('.site-footer', .3, { opacity: 0 });
+		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0 });
 		$grid.css('opacity', 1);
 
 		$('.js-portfolio-item').addClass('no-transition');
@@ -252,7 +252,7 @@ var Project = (function() {
 			$target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 		console.log($target.find('img'));
 
-		TweenMax.to('.site-footer', .3, { opacity: 1 });
+		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1 });
 
 		// $film.css('opacity', 1);
 		$body.removeClass('scroll-y').addClass('scroll-x');
