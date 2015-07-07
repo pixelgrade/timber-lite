@@ -2,11 +2,18 @@
     @extend %display--flex;
     background: white;
     width: 100%;
-    height: $header-height;
-    flex-basis: $header-height;
     flex-shrink: 0;
+    flex-direction: column;
+
     // above mask which is 300
-    z-index: 350;
+    // above .site-content which is 500
+    z-index: 550;
+
+    @include query-above($small) {
+        height: $header-height;
+        flex-basis: $header-height;
+        flex-direction: row;
+    }
 }
 
 .bar--fixed {
@@ -34,11 +41,19 @@
 }
 
 %bar-left {
-    justify-content: flex-start;
-    padding-left: 2em;
+    justify-content: center;
+
+    @include query-above($small) {
+        padding-left: 2em;
+        justify-content: flex-start;
+    }
 }
 
 %bar-right {
-    justify-content: flex-end;
-    padding-right: 2em;
+    justify-content: center;
+
+    @include query-above($small) {
+        padding-right: 2em;
+        justify-content: flex-end;
+    }
 }

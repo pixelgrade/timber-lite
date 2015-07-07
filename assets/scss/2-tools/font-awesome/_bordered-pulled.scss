@@ -7,8 +7,9 @@
   border-radius: .1em;
 }
 
-.pull-right { float: right; }
-.pull-left { float: left; }
+// conflict with our .pull-left on small devices
+//.pull-right { float: right; }
+//.pull-left { float: left; }
 
 .#{$fa-css-prefix} {
   &.pull-left { margin-right: .3em; }

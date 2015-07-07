@@ -43,23 +43,31 @@ $borders: #d3d3d3;
 	@extend %single-width;
 
 	position: relative;
-
-	border-top: 3px solid #D3D3D3;
-	padding-top: 36px;
 	padding-bottom: 50px;
 
+
 	&:before {
+		border-top: 3px solid #D3D3D3;
+		margin-bottom: 36px;
+
 		content: "";
-		position: absolute;
-		left: 14px;
-		top: 30px;
-		bottom: 0;
-		border-left: 2px solid $borders;
+		width: 100%;
+		display: block;
+	}
+
+	@include query-above($small) {
+		&:after {
+			content: "";
+			position: absolute;
+			left: 14px;
+			top: 40px;
+			bottom: 0;
+			border-left: 2px solid $borders;
+		}
 	}
 
 	&.no-comments {
-
-		&:before {
+		&:after {
 			content: none;
 		}
 	}
@@ -144,7 +152,10 @@ li.comment, li.pingback {
 	margin-left: 0;
 	margin-bottom: 50px;
 	margin-top: 50px;
-	padding-left: 42px;
+
+	@include query-above($lap) {
+		padding-left: 42px;
+	}
 
 	.comment-number {
 		position: absolute;
@@ -152,9 +163,9 @@ li.comment, li.pingback {
 		top: -2px;
 		z-index: 1;
 
-//		@include query-below($lap) {
-//			left: -2*$u;
-//		}
+		@include query-below($lap) {
+			display: none;
+		}
 	}
 
 	&:last-child {
@@ -174,7 +185,7 @@ li.comment, li.pingback {
 		}
 
 		li {
-//			@include query-above($lap) {
+			@include query-above($lap) {
 				.rtl & {
 					padding-left: 0;
 					padding-right: 24px;
@@ -186,7 +197,7 @@ li.comment, li.pingback {
 					top: 13px;
 					border-top: 2px solid $borders;
 				}
-//			}
+			}
 
 			.comment-number {
 				border: 2px solid $borders;
@@ -217,14 +228,14 @@ li.depth-2:before {
 	}
 }
 
-//@include query-above($lap) {
+@include query-above($lap) {
 	@for $i from 3 through 10 {
 		li.depth-#{$i}:before {
 			left: - ( $i * $first-padding-unit + $second-padding-unit * ( $i - 2 ) );
 			width: $i * $first-padding-unit + $second-padding-unit * ( $i - 2 );
 		}
 	}
-//}
+}
 
 .comment__meta {
 	font-size: 15px;
@@ -249,10 +260,11 @@ li.depth-2:before {
 }
 
 .comment__avatar {
-//	@include rhythm(margin-right, 1);
+	&:empty {
+		display: none;
+	}
 
 	img {
-//		@include rhythm(width, 5);
 		height: auto;
 	}
 }
@@ -440,9 +452,9 @@ li.depth-2:before {
 
 .comment-form-author,
 .comment-form-email {
-//	@include query-above($lap) {
+	@include query-above($lap) {
 		width: 50%;
-//	}
+	}
 }
 
 .comment-form-comment,
