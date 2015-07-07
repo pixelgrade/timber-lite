@@ -67,8 +67,7 @@ $borders: #d3d3d3;
 	}
 
 	&.no-comments {
-
-		&:before {
+		&:after {
 			content: none;
 		}
 	}
