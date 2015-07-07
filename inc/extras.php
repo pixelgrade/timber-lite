@@ -644,23 +644,7 @@ function timber_get_img_exif( $attachment_ID ) {
         }
 
         if ( ! empty( $meta_data['image_meta']['shutter_speed'] ) ) {
-            $exif['exposure'] = '';
-
-            //conversion from decimal to fraction inspired by http://enliteart.com/blog/2008/08/30/quick-shutter-speed-fix-for-wordpress-exif/
-            //this is the reverse of what WordPress does to raw EXIF data - quite dumb but that's life
-            if ( ( 1 / $meta_data['image_meta']['shutter_speed'] ) > 1 ) {
-                $exif['exposure'] .= "1/";
-                if ( ( number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) ) == 1.3
-                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.5
-                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 1.6
-                    or number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1 ) == 2.5 ) {
-                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 1, '.', '' );
-                } else {
-                    $exif['exposure'] .= number_format( ( 1 / $meta_data['image_meta']['shutter_speed'] ), 0, '.', '' );
-                }
-            } else {
-                $exif['exposure'] .= $meta_data['image_meta']['shutter_speed'];
-            }
+            $exif['exposure'] = timber_convert_exposure_to_frac( $meta_data['image_meta']['shutter_speed'] );
         }
 
         if ( ! empty( $meta_data['image_meta']['iso'] ) ) {
@@ -671,6 +655,33 @@ function timber_get_img_exif( $attachment_ID ) {
     }
 
     return '';
+}
+
+/**
+ * conversion from decimal to fraction inspired by http://enliteart.com/blog/2008/08/30/quick-shutter-speed-fix-for-wordpress-exif/
+ * this is the reverse of what WordPress does to raw EXIF data - quite dumb but that's life
+ *
+ * @param float $shutter_speed
+ * @return string
+ */
+function timber_convert_exposure_to_frac ( $shutter_speed ) {
+    $frac = '';
+
+    if ( ( 1 / $shutter_speed ) > 1 ) {
+        $frac .= "1/";
+        if ( ( number_format( ( 1 / $shutter_speed ), 1 ) ) == 1.3
+            or number_format( ( 1 / $shutter_speed ), 1 ) == 1.5
+            or number_format( ( 1 / $shutter_speed ), 1 ) == 1.6
+            or number_format( ( 1 / $shutter_speed ), 1 ) == 2.5 ) {
+            $frac .= number_format( ( 1 / $shutter_speed ), 1, '.', '' );
+        } else {
+            $frac .= number_format( ( 1 / $shutter_speed ), 0, '.', '' );
+        }
+    } else {
+        $frac .= $shutter_speed;
+    }
+
+    return $frac;
 }
 
 /**
