@@ -49,6 +49,12 @@
     font-size: 16px;
 }
 
+@include query-below($small) {
+    .main-navigation, .social-navigation {
+        display: none;
+    }
+}
+
 .toggle {
     flex-shrink: 0;
     flex-basis: 1.25em;
