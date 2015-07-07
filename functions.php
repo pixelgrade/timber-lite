@@ -226,6 +226,27 @@ function timber_add_admin_page_scripts( $hook ){
 	);
 }
 
+/// add custom css to the new-project admin page
+
+add_action('admin_head','timber_add_new_project_admin_style');
+function timber_add_new_project_admin_style( $hook ){
+	global $pagenow;
+	global $typenow;
+
+	if ( $pagenow === 'post-new.php' && $typenow === 'jetpack-portfolio' ) {
+
+$output = '
+<style>
+
+
+</style>';
+
+		echo $output;
+
+	}
+}
+
+
 /**
  * Load custom javascript set by theme options
  * This method is invoked by wpgrade_callback_themesetup
