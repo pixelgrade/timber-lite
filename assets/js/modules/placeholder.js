@@ -36,7 +36,7 @@ var Placeholder = (function() {
                     $image.attr('src', $item.data(src));
                     $image.prependTo($item);
                     $image.imagesLoaded(function() {
-                        $image.css('opacity', '');
+                        TweenMax.to($image, .3, {opacity: 1});
                     });
                 };
             });
