@@ -664,8 +664,8 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
         }
 
 		$image_full_size = wp_get_attachment_image_src( $id, 'full' );
-		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-images' );
-		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-images' );
+		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-image' );
+		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-image' );
 		$markup .=
 		'<div class="portfolio__item js-placeholder js-portfolio-item"
 			data-srcsmall="' . $image_small_size[0] . '"
