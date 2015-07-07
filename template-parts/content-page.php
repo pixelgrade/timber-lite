@@ -16,7 +16,7 @@ $background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'fu
 
 	<?php else : ?>
 
-	<header class="entry-header  cover  half-height  no-image">
+	<header class="entry-header  cover  no-image">
 
 	<?php endif; ?>
 
