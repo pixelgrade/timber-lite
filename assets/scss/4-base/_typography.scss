@@ -272,7 +272,7 @@ code {
 }
 
 // Pull Content Outside
-@include breakpoint(break-1) {
+@include query-above($lap) {
     $gutter:           24px; // archive
     $col:             80px; // single
     $pull-offset : 2 * $col;
@@ -311,7 +311,7 @@ code {
 
 // Two Column
 .twocolumn {
-    @include breakpoint(break-2) {
+    @include query-above($small) {
         -webkit-column-count: 2;
         -moz-column-count: 2;
         column-count: 2;
@@ -321,7 +321,7 @@ code {
         column-gap: 40px;
     }
 
-    @include breakpoint(break-3) {
+    @include query-above($lap) {
         -webkit-column-gap: 60px;
         -moz-column-gap: 60px;
         column-gap: 60px;
