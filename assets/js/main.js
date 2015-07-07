@@ -9024,6 +9024,7 @@ if (!Date.now) Date.now = function () {
     Blog.init();
 
     AddThisIcons.init();
+    scrollToTop();
   }
 
   // /* ====== ON WINDOW LOAD ====== */
@@ -9034,13 +9035,15 @@ if (!Date.now) Date.now = function () {
     socialLinks.init();
     $(".pixcode--tabs").organicTabs();
 
-    if ($('body').hasClass('blog') || $('body').hasClass('project_layout-filmstrip') || $('body').hasClass('project_layout-thumbnails'))
-    // html body are for ie
-    $('html, body, *').mousewheel(function (event, delta) {
-      // this.scrollLeft -= (delta * 30);
-      this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-      event.preventDefault();
-    });
+    if ($('body').hasClass('blog') || $('body').hasClass('project_layout-filmstrip') || $('body').hasClass('project_layout-thumbnails')) {
+
+      // html body are for ie
+      $('html, body, *').mousewheel(function (event, delta) {
+        // this.scrollLeft -= (delta * 30);
+        this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+        event.preventDefault();
+      });
+    }
   });
 
   // /* ====== ON RESIZE ====== */
@@ -9075,7 +9078,6 @@ if (!Date.now) Date.now = function () {
     latestKnownMouseX = e.pageX - latestKnownScrollX;
     latestKnownMouseY = e.pageY - latestKnownScrollY;
   }); /* ====== HELPER FUNCTIONS ====== */
-
 
 
   /**
@@ -9116,7 +9118,13 @@ if (!Date.now) Date.now = function () {
       event.preventDefault();
       event.stopPropagation();
 
-      $('html').velocity("scroll", 1000);
+      TweenMax.to($(window), 1, {
+        scrollTo: {
+          y: 0,
+          autoKill: true
+        },
+        ease: Power3.easeOut
+      });
     });
   }
 

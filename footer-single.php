@@ -10,5 +10,5 @@
 	<div class="site-info">
 		<?php echo timber_get_option( 'footer_copyright' ); ?>
 	</div><!-- .site-info -->
-	<button class="back-to-top  js-back-to-top"><?php _e( 'Back to top', 'timber' ); ?></button>
+	<a href="#top" class="back-to-top"><?php _e( 'Back to top', 'timber' ); ?></a>
 </footer><!-- #colophon -->
