@@ -46,7 +46,7 @@ if ( $timber_show_footer ) {
 		</div>
 		<?php endif; ?>
 	</div>
-	<button class="overlay__close  js-overlay-trigger"><i class="fa  fa-times-circle-o"></i></button>
+	<button class="overlay__close  js-overlay-trigger"><i class="icon  icon-times-circle-o"></i></button>
 </div><!-- .overlay -->
 
 <script>
