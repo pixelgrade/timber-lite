@@ -442,19 +442,18 @@ img.rsImg {
 .rsBullet {
 	display: inline-block;
 	margin: 2px 6px;
-	width: 6px;
-	height: 6px;
+	width: 8px;
+	height: 8px;
 	border-radius: 50%;
 	text-indent: -999em;
 	background-color: rgb(202, 202, 202);
 	cursor: pointer;
+
+	transition: background-color .3s linear;
 }
 
 .rsNavSelected {
-	width: 8px;
-	height: 8px;
-	margin: 0 6px;
-//	background-color: $accent;
+	background-color: black;
 }
 
 .rsImg {
@@ -491,28 +490,19 @@ img.rsImg {
 
 	transform: translateY(-50%);
 
-//	@include query-above($lap){
+	@include query-above($lap){
 		width: 85px;
 		height: 68px;
 
 		opacity: 1;
-//	}
-}
-
-.rsArrowLeft .rsArrowIcn {
-	margin-left: 12px;
-
-//	@include query-above($lap) {
-		margin-left: 16px;
-//	}
+	}
 }
 
 .rsArrowIcn {
 	height: 12px;
 	width: 12px;
 
-	margin: 0;
-	margin-top: 22px;
+	margin: 22px auto 0 auto;
 
 	border-color: black;
 
@@ -537,66 +527,38 @@ img.rsImg {
 	}
 }
 
-.entry-content .pixslider {
-	.rsArrowIcn {
-		width: 20px;
-		height: 20px;
-	}
+.pixslider {
+	margin-bottom: 40px;
 
-	.rsArrowLeft {
-		left: -10px;
-	}
+	.rsArrow {
+		top: 40%;
 
-	.rsArrowRight {
-		right: -10px;
-	}
-}
-
-.entry-content .pixslider--gallery-slideshow .rsSlide{
-	padding: 0;
-}
-
-.slider-arrows-header, .pixslider--gallery-slideshow{
-//	@include query-above($lap){
-		.rsArrow{
-			background: rgba(0, 0, 0, 0.5);
+		&:hover .rsArrowIcn {
+			border-color: black;
 		}
-//	}
-
-	.rsArrowIcn{
-		border-color: white;
-	}
-}
-
-.slider-arrows-header.arrows--hover{
-	.rsArrow{
-		cursor: none;
-
-		width: 40%;
-		height: 70%;
-
-		top: 15%;
-
-		background: transparent;
-
-		transform: none;
 	}
 
-	.rsArrowIcn{
-		position: absolute;
-		top: 0;
-		left: 0;
+	.rsArrowIcn {
+		width: 15px;
+		height: 15px;
 
-		opacity: 0;
-		transition: opacity .1s linear;
+		border-color: $hoverColour;
+		transition: all .3s linear;
 	}
 
-	.visible .rsArrowIcn{
-		opacity: 1;
+
+	@include query-above($desk) {
+		.rsArrowLeft {
+			left: -120px;
+		}
+
+		.rsArrowRight {
+			right: -120px;
+		}
 	}
 
-	.is--scrolled .rsArrowIcn{
-		opacity: 0;
+	.rsOverflow {
+		margin-bottom: 40px;
 	}
 }
 
@@ -607,18 +569,21 @@ img.rsImg {
 	}
 }
 
-.rsBullet {
-	background: transparent;
-	border: 3px solid black;
 
-	width: 12px;
-	height: 12px;
+.projects-slider {
+	.rsBullet {
+		background: transparent;
+		border: 3px solid black;
 
-	margin: 0 5px;
+		width: 12px;
+		height: 12px;
 
-	transition: .2s background linear;
-}
+		margin: 0 5px;
 
-.rsNavSelected {
-	background: black;
+		transition: .2s background linear;
+	}
+
+	.rsNavSelected {
+		background: black;
+	}
 }

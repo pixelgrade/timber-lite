@@ -186,55 +186,15 @@ function sliderInit($slider) {
 	}
 
 	$slider.addClass('slider--loaded');
-}
 
+	if($slider.hasClass('pixslider')) {
+		var $arrows = $slider.find('.rsArrow');
+		$arrows.appendTo($slider);
 
-
-
-
-/*
- Get slider arrows to hover, following the cursor
- */
-
-function hoverArrow($arrow) {
-	var $mouseX = 0, $mouseY = 0;
-	var $arrowH = 35, $arrowW = 35;
-
-	$arrow.mouseenter(function (e) {
-		$(this).addClass('visible');
-
-		moveArrow($(this));
-	});
-
-	var $loop;
-
-	function moveArrow($arrow) {
-		var $mouseX;
-		var $mouseY;
-
-		$arrow.mousemove(function (e) {
-			$mouseX = e.pageX - $arrow.offset().left - 40;
-			$mouseY = e.pageY - $arrow.offset().top - 40;
-
-			var $arrowIcn = $arrow.find('.rsArrowIcn');
-			TweenMax.to($arrowIcn, 0, {x: $mouseX, y: $mouseY, z: 0.01});
-		});
-
-		$arrow.mouseleave(function (e) {
-			$(this).removeClass('visible').removeClass('is--scrolled');
-			clearInterval($loop);
-		});
-
-		$(window).scroll(function() {
-			if($arrow.hasClass('visible')){
-
-				$arrow.addClass('is--scrolled');
-
-				clearTimeout($.data(this, 'scrollTimer'));
-				$.data(this, 'scrollTimer', setTimeout(function() {
-					$arrow.removeClass('is--scrolled');
-				}, 100));
-			}
-		});
+		var tl = new TimelineLite({delay: 0.5, paused: true});
+		tl.to($slider, 0, {'overflow': 'visible'})
+			.fromTo($arrows, 0.3, {opacity: 0}, {opacity: 1});
+		tl.play();
 	}
+
 }
