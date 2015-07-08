@@ -223,10 +223,31 @@ add_action('admin_enqueue_scripts','timber_add_admin_page_scripts');
 function timber_add_admin_page_scripts( $hook ){
 
 	wp_enqueue_script(
-		'timber_admin_project_custom', //unique handle
+		'timber_admin_custom_js', //unique handle
 		get_template_directory_uri().'/assets/js/admin/admin.js', //location
 		array('jquery') //dependencies
 	);
+
+	$translation_array = array
+	(
+		'import_failed' => __( 'The import didn\'t work completely! <br/> Check out the errors given. You might want to try reloading the page and then try again.', 'timber'),
+		'import_confirm' => __( 'Importing the demo data will overwrite your current Theme Options settings. Proceed anyway?', 'timber'),
+		'import_phew' => __( 'Phew...that was a hard one!', 'timber'),
+		'import_success_note' => __( 'The demo data was imported without a glitch! Awesome! <br/><br/><b style="color:red">Remember to update the passwords and roles of imported users. </b><br/><br/><i>We will now reload the page so you can see the brand new data!</i>', 'timber'),
+		'import_all_done' => __( "All done!", 'timber'),
+		'import_working' => __( "Working...", 'timber'),
+		'import_widgets_failed' => __( "The setting up of the demo widgets failed...", 'timber'),
+		'import_widgets_error' => __( 'The setting up of the demo widgets failed</i><br />(The script returned the following message', 'timber'),
+		'import_widgets_done' => __( 'Finished setting up the demo widgets...', 'timber'),
+		'import_theme_options_failed' => __( "The importing of the theme options has failed...", 'timber'),
+		'import_theme_options_error' => __( 'The importing of the theme options has failed</i><br />(The script returned the following message', 'timber'),
+		'import_theme_options_done' => __( 'Finished importing the demo theme options...', 'timber'),
+		'import_posts_failed' => __( "The importing of the theme options has failed...", 'timber'),
+		'import_posts_step' => __( 'Importing posts | Step', 'timber'),
+		'import_error' =>  __( "Error:", 'timber'),
+		'import_try_reload' =>  __( "You can reload the page and try again.", 'timber'),
+	);
+	wp_localize_script( 'timber_admin_custom_js', 'timber_admin_js_texts', $translation_array );
 }
 
 /// add custom css to the new-project admin page

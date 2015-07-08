@@ -10,7 +10,7 @@
 global $wp_query;
 
 get_header(); ?>
-
+<div class="site-header  site-header--placeholder"></div>
 <div class="site-container">
 
     <div class="site-sidebar">

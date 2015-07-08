@@ -3,16 +3,16 @@ var Project = (function() {
 	var $film, $grid, $fullview,
 		start, end,
 		current,
+		initialized = false;
 
 		fullviewWidth = windowWidth,
 		fullviewHeight = windowHeight;
 
 	function init() {
 
-		// if (!$('.single-jetpack-portfolio').length) {
-		// 	Placeholder.update();
-		// 	return;
-		// }
+		if (initialized) {
+			return;
+		}
 
 		if ($('.project_layout-filmstrip').length) {
 
@@ -42,6 +42,8 @@ var Project = (function() {
 
 		addMetadata();
 		bindEvents();
+
+		initialized = true;
 	}
 
 	function addMetadata() {
@@ -147,6 +149,10 @@ var Project = (function() {
 	// loop through each portfolio item and find the one closest to center
 	function getCurrent() {
 
+		if (!initialized) {
+			init();
+		}
+
 		if (!$('.single-jetpack-portfolio').length) {
 			return;
 		}
@@ -209,7 +215,6 @@ var Project = (function() {
 
 		$('.js-portfolio-item').addClass('no-transition');
 
-
 		TweenMax.to($('.mask--project'), 0, {
 			'transform-origin': '0 100%',
 			'z-index': 300,
@@ -238,6 +243,7 @@ var Project = (function() {
 			scaleX: 1,
 			ease: Expo.easeInOut,
 			onComplete: function() {
+				$('.site-content').css('overflow-x', 'hidden');
 				$film.removeClass('portfolio--visible');
 				$grid.addClass('portfolio--visible');
 				TweenMax.to('.mask--project', 0, {scaleX: 0});
@@ -250,7 +256,8 @@ var Project = (function() {
 
 		var $clicked = $(this),
 			$target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
-		console.log($target.find('img'));
+
+		$('.site-content').css('overflow-x', '');
 
 		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1 });
 
@@ -292,7 +299,11 @@ var Project = (function() {
 		});
 
 		centerFilmToTarget($target);
-		morph($clicked, $target);
+		morph($clicked, $target, {}, function() {
+			$target.imagesLoaded(function() {
+				$target.find('.portfolio__item--clone').remove();
+			});
+		});
 
 	}
 
@@ -385,7 +396,7 @@ var Project = (function() {
 		});
 	}
 
-	function morph($source, $target, options, callback) {
+	function morph($source, $target, options, callback, remove) {
 		var sourceOffset  = $source.offset(),
 			sourceWidth   = $source.width(),
 			sourceHeight  = $source.height(),
@@ -393,6 +404,8 @@ var Project = (function() {
 			targetWidth   = $target.width(),
 			targetHeight  = $target.height(),
 			$clone        = $source.clone().addClass('portfolio__item--clone');
+
+		remove = typeof remove == "undefined" ? true : remove;
 
 		$clone.css({
 			position: 'absolute',
@@ -432,7 +445,10 @@ var Project = (function() {
 					});
 					TweenMax.fromTo($target.children('.photometa'), .3, {opacity: 0}, {opacity: 1});
 					$source.css('opacity', '');
-					$clone.remove();
+
+					if (remove) {
+						$clone.remove();
+					}
 
 					if (typeof callback !== "undefined") {
 						callback();

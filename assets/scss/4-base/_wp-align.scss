@@ -65,6 +65,11 @@ img {
     }
 }
 
+#page .portfolio .jetpack-video-wrapper {
+    margin: 0;
+    max-width: none;
+}
+
 .aligncenter {
     margin: 0 auto;
 }
@@ -82,7 +87,7 @@ img {
 
     p > &:first-child,
     p > :first-child > &:first-child {
-        margin-top: 0; 
+        margin-top: 0;
     }
 }
 

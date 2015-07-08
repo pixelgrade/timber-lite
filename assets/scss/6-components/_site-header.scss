@@ -24,8 +24,11 @@
 }
 
 .site-header--placeholder {
-    position: static;
+    position: static !important;
     z-index: 0;
+}
+
+.site-header--placeholder {
     @include wp-offset(0px, margin-top);
 }
 

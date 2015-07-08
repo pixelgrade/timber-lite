@@ -89,18 +89,9 @@
 }
 
 .page-no-featured-image {
-	.site-main {
-		padding-top: $header-height;
-	}
 
 	.entry-title {
 		color: black;
-	}
-}
-
-.admin-bar.page-no-featured-image {
-	.site-main {
-		padding-top: 15vh;
 	}
 }
 
@@ -117,5 +108,5 @@
 
 .not-found .page-title {
 	margin-top: 0;
-	padding-top: $header-height;
+	// padding-top: $header-height;
 }
