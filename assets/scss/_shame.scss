@@ -10,6 +10,10 @@ html, body, #page, .site, #djaxContainer {
     height: 100%;
 }
 
+.entry-meta + .entry-featured {
+    margin-top: 1.5em;
+}
+
 .block-link {
     @extend %display--block;
 }

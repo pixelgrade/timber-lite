@@ -46,6 +46,7 @@ function softInit() {
     overlayInit();
     royalSliderInit();
     socialLinks.init();
+    videos.init();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
