@@ -17,7 +17,7 @@ if ( $timber_show_footer ) {
 ?>
 
 </div><!-- #djaxContainer -->
-<div class="site-content__mask  mask--page">
+<div class="site-content__mask  mask--page  is-on-top">
 	<div class="loader">
 		<svg id="loaderSvg" class="loader__svg" width="150" height="150" viewBox="0 0 150 150"></svg>
 	</div>

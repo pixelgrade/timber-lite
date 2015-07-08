@@ -205,17 +205,14 @@ img {
 .page-template-portfolio-page,
 .tax-jetpack-portfolio-type {
 
-    .site-content {
-        overflow-x: hidden;
-    }
-
     .entry-header,
     .entry-footer {
         @extend %display--none;
     }
 }
 
-.portfolio-archive {
+.portfolio-archive,
+.portfolio--project {
     overflow-x: hidden;
 }
 

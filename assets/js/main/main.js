@@ -47,7 +47,7 @@ function softInit() {
     royalSliderInit();
     socialLinks.init();
 
-    $('#djaxContainer').css('opacity', 1);
+    $('.site-header, #page, .site-footer').css('opacity', 1);
 
     TweenMax.fromTo('.loader', .6, {
         left: 0
@@ -60,6 +60,7 @@ function softInit() {
         ease: Expo.easeInOut,
         onComplete: function() {
             $('.mask--page').css('left', '-100%');
+            $('.mask--page').removeClass('is-on-top');
         }
     });
 }

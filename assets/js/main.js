@@ -16160,6 +16160,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function onDjaxClick(e) {
+      $html.css('overflow', 'hidden');
       TweenMax.fromTo('.loader', .6, {
         left: '100%'
       }, {
@@ -16189,6 +16190,7 @@ if (!Date.now) Date.now = function () {
         ease: Expo.easeInOut,
         onComplete: function () {
           $('.mask--page').css('left', '-100%');
+          $html.css('overflow', '');
         }
       });
     }
@@ -17743,7 +17745,7 @@ if (!Date.now) Date.now = function () {
     royalSliderInit();
     socialLinks.init();
 
-    $('#djaxContainer').css('opacity', 1);
+    $('.site-header, #page, .site-footer').css('opacity', 1);
 
     TweenMax.fromTo('.loader', .6, {
       left: 0
@@ -17756,6 +17758,7 @@ if (!Date.now) Date.now = function () {
       ease: Expo.easeInOut,
       onComplete: function () {
         $('.mask--page').css('left', '-100%');
+        $('.mask--page').removeClass('is-on-top');
       }
     });
   }
