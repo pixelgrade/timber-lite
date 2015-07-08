@@ -64,6 +64,8 @@ function softInit() {
             $('.mask--page').removeClass('is-on-top');
         }
     });
+
+    sizeColumns();
 }
 
 // /* ====== ON WINDOW LOAD ====== */

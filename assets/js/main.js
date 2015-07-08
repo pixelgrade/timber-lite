@@ -17842,6 +17842,8 @@ if (!Date.now) Date.now = function () {
         $('.mask--page').removeClass('is-on-top');
       }
     });
+
+    sizeColumns();
   }
 
   // /* ====== ON WINDOW LOAD ====== */
@@ -17993,5 +17995,18 @@ if (!Date.now) Date.now = function () {
     return ((rect.top >= 0 && rect.left >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
     rect.left <= (window.innerWidth || document.documentElement.clientWidth)) || /*or $(window).width() */ (rect.bottom >= 0 && rect.right >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)) /*or $(window).width() */ );
+  }
+
+  function sizeColumns() {
+
+    $('.portfolio__item--text').each(function (i, obj) {
+      var $item = $(obj),
+          itemOffset = $item.offset().left,
+          $last = $(obj).children().last(),
+          width = $last.offset().left - itemOffset + $last.outerWidth();
+
+      $item.outerWidth(width);
+    });
+
   }
 })(jQuery);
