@@ -21,7 +21,7 @@
 						$post_format = get_post_format();
 						switch ( $post_format ) {
 							case 'video':
-							case 'audio': echo '<i class="fa fa-play"></i>';
+							case 'audio': echo '<i class="icon  icon-play"></i>';
 								break;
 							case 'gallery': echo timber_get_post_gallery_count();
                                 break;

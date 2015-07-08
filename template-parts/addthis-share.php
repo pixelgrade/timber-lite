@@ -18,7 +18,7 @@ $buttons = explode(',',$share_buttons_types);
 $preferred_count = 0; ?>
 
 <div class="share-box">
-    <button class="share-button  js-share-button"><i class="fa fa-share-alt"></i></button>
+    <button class="share-button  js-share-button"><i class="icon  icon-share-alt"></i></button>
     <span class="share-text"><?php  _e('Share', 'timber'); ?></span>
     <div class="addthis_toolbox addthis_default_style addthis_32x32_style social-links-list">
 
