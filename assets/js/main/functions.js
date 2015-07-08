@@ -118,3 +118,16 @@ function isElementInViewport(el) {
 	rect.right <= (window.innerWidth || document.documentElement.clientWidth)) /*or $(window).width() */
 	);
 }
+
+function sizeColumns() {
+
+    $('.portfolio__item--text').each(function(i, obj) {
+        var $item = $(obj),
+            itemOffset = $item.offset().left,
+            $last = $(obj).children().last(),
+            width = $last.offset().left - itemOffset + $last.outerWidth();
+
+        $item.outerWidth(width);
+    });
+
+}

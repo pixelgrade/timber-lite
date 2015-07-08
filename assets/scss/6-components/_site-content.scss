@@ -20,6 +20,10 @@
 
         &.mask--page {
             z-index: 551;
+
+            &.is-on-top {
+                z-index: 9999999999;
+            }
         }
 
         &.mask--project {
