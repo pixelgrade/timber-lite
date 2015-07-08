@@ -68,6 +68,7 @@ function softInit() {
 // /* ====== ON WINDOW LOAD ====== */
 $window.load(function () {
     softInit();
+    eventHandlers();
 });
 
 // /* ====== ON RESIZE ====== */
@@ -90,15 +91,17 @@ function update() {
 	ticking = false;
 }
 
-$window.on('debouncedresize', onResize);
+function eventHandlers() {
+    $window.on('debouncedresize', onResize);
 
-$window.on('scroll', function () {
-	latestKnownScrollY = window.scrollY;
-	latestKnownScrollX = window.scrollX;
-	requestTick();
-});
+    $window.on('scroll', function () {
+    	latestKnownScrollY = window.scrollY;
+    	latestKnownScrollX = window.scrollX;
+    	requestTick();
+    });
 
-$document.mousemove(function (e) {
-	latestKnownMouseX = e.pageX - latestKnownScrollX;
-	latestKnownMouseY = e.pageY - latestKnownScrollY;
-});
+    $document.mousemove(function (e) {
+    	latestKnownMouseX = e.pageX - latestKnownScrollX;
+    	latestKnownMouseY = e.pageY - latestKnownScrollY;
+    });
+}

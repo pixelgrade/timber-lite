@@ -16963,17 +16963,16 @@ if (!Date.now) Date.now = function () {
   })();
   var Project = (function () {
 
-    var $film, $grid, $fullview, start, end, current,
+    var $film, $grid, $fullview, start, end, current, initialized = false;
 
-    fullviewWidth = windowWidth,
-        fullviewHeight = windowHeight;
+    fullviewWidth = windowWidth, fullviewHeight = windowHeight;
 
     function init() {
 
-      // if (!$('.single-jetpack-portfolio').length) {
-      // 	Placeholder.update();
-      // 	return;
-      // }
+      if (initialized) {
+        return;
+      }
+
       if ($('.project_layout-filmstrip').length) {
 
         $film = $('.js-portfolio');
@@ -17002,6 +17001,8 @@ if (!Date.now) Date.now = function () {
 
       addMetadata();
       bindEvents();
+
+      initialized = true;
     }
 
     function addMetadata() {
@@ -17112,6 +17113,10 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
+      if (!initialized) {
+        init();
+      }
+
       if (!$('.single-jetpack-portfolio').length) {
         return;
       }
@@ -17176,7 +17181,6 @@ if (!Date.now) Date.now = function () {
 
       $('.js-portfolio-item').addClass('no-transition');
 
-
       TweenMax.to($('.mask--project'), 0, {
         'transform-origin': '0 100%',
         'z-index': 300,
@@ -17212,6 +17216,7 @@ if (!Date.now) Date.now = function () {
         scaleX: 1,
         ease: Expo.easeInOut,
         onComplete: function () {
+          $('.site-content').css('overflow-x', 'hidden');
           $film.removeClass('portfolio--visible');
           $grid.addClass('portfolio--visible');
           TweenMax.to('.mask--project', 0, {
@@ -17226,7 +17231,8 @@ if (!Date.now) Date.now = function () {
 
       var $clicked = $(this),
           $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
-      console.log($target.find('img'));
+
+      $('.site-content').css('overflow-x', '');
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1
@@ -17272,7 +17278,11 @@ if (!Date.now) Date.now = function () {
       });
 
       centerFilmToTarget($target);
-      morph($clicked, $target);
+      morph($clicked, $target, {}, function () {
+        $target.imagesLoaded(function () {
+          $target.find('.portfolio__item--clone').remove();
+        });
+      });
 
     }
 
@@ -17363,7 +17373,7 @@ if (!Date.now) Date.now = function () {
       });
     }
 
-    function morph($source, $target, options, callback) {
+    function morph($source, $target, options, callback, remove) {
       var sourceOffset = $source.offset(),
           sourceWidth = $source.width(),
           sourceHeight = $source.height(),
@@ -17371,6 +17381,8 @@ if (!Date.now) Date.now = function () {
           targetWidth = $target.width(),
           targetHeight = $target.height(),
           $clone = $source.clone().addClass('portfolio__item--clone');
+
+      remove = typeof remove == "undefined" ? true : remove;
 
       $clone.css({
         position: 'absolute',
@@ -17414,7 +17426,10 @@ if (!Date.now) Date.now = function () {
             opacity: 1
           });
           $source.css('opacity', '');
-          $clone.remove();
+
+          if (remove) {
+            $clone.remove();
+          }
 
           if (typeof callback !== "undefined") {
             callback();
@@ -17766,6 +17781,7 @@ if (!Date.now) Date.now = function () {
   // /* ====== ON WINDOW LOAD ====== */
   $window.load(function () {
     softInit();
+    eventHandlers();
   });
 
   // /* ====== ON RESIZE ====== */
@@ -17788,18 +17804,20 @@ if (!Date.now) Date.now = function () {
     ticking = false;
   }
 
-  $window.on('debouncedresize', onResize);
+  function eventHandlers() {
+    $window.on('debouncedresize', onResize);
 
-  $window.on('scroll', function () {
-    latestKnownScrollY = window.scrollY;
-    latestKnownScrollX = window.scrollX;
-    requestTick();
-  });
+    $window.on('scroll', function () {
+      latestKnownScrollY = window.scrollY;
+      latestKnownScrollX = window.scrollX;
+      requestTick();
+    });
 
-  $document.mousemove(function (e) {
-    latestKnownMouseX = e.pageX - latestKnownScrollX;
-    latestKnownMouseY = e.pageY - latestKnownScrollY;
-  }); /* ====== HELPER FUNCTIONS ====== */
+    $document.mousemove(function (e) {
+      latestKnownMouseX = e.pageX - latestKnownScrollX;
+      latestKnownMouseY = e.pageY - latestKnownScrollY;
+    });
+  } /* ====== HELPER FUNCTIONS ====== */
 
 
   /**
