@@ -166,7 +166,11 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => 'h1, h2, h3, h4, h5, h6, .entry-title, .entry-title a',
+										'selector' => 'h1, h2, h3, h4, h5, h6, .entry-title, .entry-title a,
+														.project-slide__content h1, .vertical-title span,
+														.page-template-default .entry-title,
+														.page-no-featured-image .entry-title,
+														.portfolio__title a',
 									)
 								)
 							),
@@ -177,8 +181,9 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'default'   => '#222222',
 								'css'  => array(
 									array(
-										'selector' => 'body.testest',
-										'property' => 'color'
+										'property' => 'color',
+										'selector' => 'body,
+														.project-slide__content .project-slide__text',
 									)
 								)
 							),
@@ -190,7 +195,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => '.caption',
+										'selector' => '.caption, small, .photometa__caption, .photometa__description',
 									)
 								)
 							),
@@ -202,7 +207,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => 'a.test',
+										'selector' => 'a, .portfolio_types a, .filter__item, .toggle',
 									)
 								),
 							),
@@ -218,7 +223,11 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'     => 'typography',
 								'label'    => __( 'Headings', 'timber' ),
 								'default'  => 'Ek Mukta',
-								'selector' => 'h1.testentry-meta',
+								'selector' => 'h1, h2, h3, h4, h5, h6, .entry-title, .entry-title a,
+												.project-slide__content h1, .vertical-title span,
+												.page-template-default .entry-title,
+												.page-no-featured-image .entry-title,
+												.portfolio__title a',
 								'font_weight' => false,
 								'load_all_weights' => true,
 								'subsets' => true,
@@ -260,7 +269,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'    => 'typography',
 								'label'   => __( 'Body Text', 'timber' ),
 								'default' => 'Ek Mukta',
-								'selector' => 'body.testtest',
+								'selector' => 'body',
 								'load_all_weights' => true,
 								'recommended' => array(
 									'Ek Mukta',
@@ -277,7 +286,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'    => 'typography',
 								'label'   => __( 'Caption Text', 'timber' ),
 								'default' => 'Libre Baskerville',
-								'selector' => 'body.testtest',
+								'selector' => '.caption, small, .photometa__caption, .photometa__description',
 								'load_all_weights' => true,
 								'recommended' => array(
 									'Libre Baskerville',
@@ -294,7 +303,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'    => 'typography',
 								'label'   => __( 'Navigation Text', 'timber' ),
 								'default' => 'Ek Mukta',
-								'selector' => 'body.testtest',
+								'selector' => '.main-navigation',
 								'load_all_weights' => true,
 								'recommended' => array(
 									'Ek Mukta',

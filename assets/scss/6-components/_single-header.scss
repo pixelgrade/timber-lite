@@ -18,6 +18,15 @@
 		@extend %single-width;
 	}
 
+	body.single-format-gallery & {
+		max-width: none !important;
+
+		.entry-title {
+			@extend %single-width;
+		}
+	}
+
+
 	@include query-below($small) {
 		padding-left: 30px;
 		padding-right: 30px;
@@ -36,10 +45,6 @@
 }
 
 	.entry-featured.entry-gallery {
-		.single & {
-			max-width: none;
-			padding: 0;
-		}
 
 		.tiled-gallery, .gallery {
 			margin: 30px 0;
