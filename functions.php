@@ -261,6 +261,9 @@ function timber_add_new_project_admin_style( $hook ){
 $output = '
 <style>
 
+.collection-settings {
+	display: none;
+}
 
 </style>';
 

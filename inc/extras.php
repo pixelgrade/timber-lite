@@ -296,7 +296,7 @@ endif;
  */
 function timber_project_editor_content( $content, $post ) {
     if ( 'jetpack-portfolio' == $post->post_type ) {
-        $content = "[gallery]";
+        $content = "[gallery columns='6']";
     }
     return $content;
 }
