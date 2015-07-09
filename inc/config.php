@@ -166,7 +166,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => 'h1.site-titletest',
+										'selector' => 'h1, h2, h3, h4, h5, h6, .entry-title, .entry-title a',
 									)
 								)
 							),

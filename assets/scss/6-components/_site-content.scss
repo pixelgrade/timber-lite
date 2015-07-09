@@ -53,3 +53,18 @@
 
     }
 }
+
+.site-main, .site-content {
+    margin-top: 13vh;
+
+    .admin-bar & {
+        margin-top: 15vh;
+        margin-top: calc(13vh + 32px);
+    }
+}
+
+.project_layout-filmstrip .site-content,
+.page-has-featured-image .site-main,
+.project_layout-fullscreen .site-content {
+    margin-top: 0;
+}

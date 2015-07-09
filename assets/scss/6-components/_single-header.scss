@@ -13,7 +13,10 @@
 // .single-post, .page
 .entry-header {
 	text-align: center;
-	@extend %single-width;
+
+	body:not(.page) & {
+		@extend %single-width;
+	}
 
 	@include query-below($small) {
 		padding-left: 30px;
