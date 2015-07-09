@@ -47,6 +47,9 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		//used for the large images of projects
 		add_image_size( 'timber-large-image', 1000, 9999, false );
 
+		//used for blog archive
+		add_image_size( 'timber-square-image', 350, 350, false );
+
 		// This theme uses wp_nav_menu() in one location.
 		register_nav_menus( array(
 			'primary' => esc_html__( 'Primary Menu', 'timber' ),

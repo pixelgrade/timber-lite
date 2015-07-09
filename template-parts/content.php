@@ -11,7 +11,7 @@
 	<a href="<?php the_permalink(); ?>">
 		<aside class="entry-thumbnail">
 
-			<?php timber_the_post_thumbnail( get_the_ID(), 'medium' ); ?>
+			<?php timber_the_post_thumbnail( get_the_ID(), 'timber-image-square' ); ?>
 
 			<?php if ( 'post' == get_post_type() && in_array( get_post_format(), array( 'gallery', 'video', 'audio' ) ) ) : ?>
 
