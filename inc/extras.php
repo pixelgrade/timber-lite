@@ -795,34 +795,10 @@ function timber_mce_before_init( $settings ) {
  * @since Timber 1.0
  */
 
-add_filter( 'pixcodes_filter_params_for_separator', 'timber_change_pixcodes_separator_params', 10, 1 );
-
+add_filter( 'pixcodes_filter_direct_for_separator', 'timber_change_pixcodes_separator_params');
 function timber_change_pixcodes_separator_params( $params ) {
-	//we only need alignment, color and style
-
-	// unset unneeded params
-	if ( isset( $params['style'] ) ) {
-		unset( $params['style'] );
-	}
-	if ( isset( $params['align'] ) ) {
-		unset( $params['align'] );
-	}
-	if ( isset( $params['size'] ) ) {
-		unset( $params['size'] );
-	}
-	if ( isset( $params['weight'] ) ) {
-		unset( $params['weight'] );
-	}
-
-	if ( isset( $params['color'] ) ) {
-		unset( $params['color'] );
-	}
-
-
-
-//	var_dump( $params );
-
-	return $params;
+	//we need nothing
+	return true;
 }
 
 add_filter( 'pixcodes_filter_params_for_button', 'timber_change_pixcodes_button_params', 10, 1 );
@@ -888,7 +864,6 @@ function timber_change_pixcodes_icon_params( $params ) {
 //		'options'     => array(),
 //		'admin_class' => 'span3 push3'
 //	) );
-
 	return $params;
 }
 

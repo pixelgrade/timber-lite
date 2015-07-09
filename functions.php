@@ -275,7 +275,7 @@ function timber_add_new_project_admin_editor_style() {
 	global $pagenow;
 	global $typenow;
 
-	if ( $pagenow === 'post-new.php' && $typenow === 'jetpack-portfolio' ) {
+	if ( $typenow === 'jetpack-portfolio' ) {
 		add_editor_style( 'assets/css/admin/project-editor-style.css' );
 	}
 }
