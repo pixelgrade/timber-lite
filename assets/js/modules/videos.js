@@ -40,7 +40,7 @@ window.videos = (function() {
                 h = w / ratio;
 
             if (video.closest('.portfolio__item--video').length) {
-                console.log(w, h, ratio);
+                if (globalDebug) {console.log(w, h, ratio);}
                 h = video.closest('.portfolio__item--video').height();
                 w = h * ratio;
             }

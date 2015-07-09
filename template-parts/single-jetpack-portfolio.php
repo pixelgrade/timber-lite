@@ -38,7 +38,7 @@ if ( 'fullscreen' == $project_template ): ?>
 
 <div class="site-header  site-header--placeholder"></div>
 
-<main id="content" class="site-content site-container site-content--filmstrip site-content--<?php echo $project_template; ?>">
+<main id="content" class="site-content site-container">
 
 	<?php get_template_part( 'template-parts/content', 'project-filmstrip' ); ?>
 

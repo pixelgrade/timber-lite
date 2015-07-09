@@ -173,61 +173,6 @@ if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 	add_action( 'wp_head', 'timber_render_title' );
 endif;
 
-if ( ! function_exists( 'timber_fonts_url' ) ) :
-
-	/**
-	 * Register Google fonts for Timber.
-	 *
-	 * @since Timber 1.0
-	 *
-	 * @return string Google fonts URL for the theme.
-	 */
-	function timber_fonts_url() {
-		$fonts_url = '';
-		$fonts     = array();
-		$subsets   = 'latin,latin-ext';
-
-		/* Translators: If there are characters in your language that are not
-		* supported by Roboto, translate this to 'off'. Do not translate
-		* into your own language.
-		*/
-		if ( 'off' !== _x( 'on', 'Roboto font: on or off', 'timber' ) ) {
-			$fonts[] = 'Roboto:500,400,300,500italic,400italic,300italic';
-		}
-
-		/* Translators: If there are characters in your language that are not
-		* supported by Oswald, translate this to 'off'. Do not translate
-		* into your own language.
-		*/
-		if ( 'off' !== _x( 'on', 'Oswald font: on or off', 'timber' ) ) {
-			$fonts[] = 'Oswald:300,400,700';
-		}
-
-		/* translators: To add an additional character subset specific to your language, translate this to 'greek', 'cyrillic', 'devanagari' or 'vietnamese'. Do not translate into your own language. */
-		$subset = _x( 'no-subset', 'Add new subset (greek, cyrillic, devanagari, vietnamese)', 'timber' );
-
-		if ( 'cyrillic' == $subset ) {
-			$subsets .= ',cyrillic,cyrillic-ext';
-		} elseif ( 'greek' == $subset ) {
-			$subsets .= ',greek,greek-ext';
-		} elseif ( 'devanagari' == $subset ) {
-			$subsets .= ',devanagari';
-		} elseif ( 'vietnamese' == $subset ) {
-			$subsets .= ',vietnamese';
-		}
-
-		if ( $fonts ) {
-			$fonts_url = add_query_arg( array(
-				'family' => urlencode( implode( '|', $fonts ) ),
-				'subset' => urlencode( $subsets ),
-			), '//fonts.googleapis.com/css' );
-		}
-
-		return $fonts_url;
-	} #function
-
-endif;
-
 if ( ! function_exists( 'timber_comment' ) ) :
 	/**
 	 * Display individual comment layout
@@ -942,12 +887,12 @@ function timber_load_next_projects() {
     if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
         $args['posts_per_page'] = 999;
     } else {
-        $args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '12' );
+        $args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '7' );
     }
 
-    //check if we have a offset in $_POST
-    if ( isset( $_POST['offset'] ) ) {
-        $args['offset'] = (int)$_POST['offset'];
+    //check if we have a offset in $_REQUEST
+    if ( isset( $_REQUEST['offset'] ) ) {
+        $args['offset'] = (int)$_REQUEST['offset'];
     }
 
     $posts = get_posts( $args );

@@ -17,6 +17,7 @@ var Blog = (function() {
 		filterBy = '';
 
 		if (!$filmstrip_container.length) {
+			//this is not a blog archive so bail
 			return;
 		}
 

@@ -79,12 +79,6 @@ if ( ! function_exists( 'timber_setup' ) ) :
 			'link',
 		) );
 
-		/*
-		 * Add editor custom style to make it look more like the frontend
-		 * Also enqueue the custom Google Fonts also
-		 */
-		add_editor_style( array( 'editor-style.css', timber_fonts_url() ) );
-
 		// custom javascript handlers - make sure it is the last one added
 		add_action( 'wp_head', 'timber_load_custom_js_header', 999 );
 		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );

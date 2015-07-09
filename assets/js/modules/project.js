@@ -10,6 +10,10 @@ var Project = (function() {
 
 	function init() {
 
+		if (!$('.single-jetpack-portfolio').length) {
+			return;
+		}
+
 		if (initialized) {
 			return;
 		}
@@ -20,12 +24,15 @@ var Project = (function() {
 			$grid = $film.clone().addClass('portfolio--grid').insertBefore($film);
 			$film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
 
-		} else {
+		} else if( $('.project_layout-thumbnails').length ){
 
 			$grid = $('.js-portfolio');
 			$film = $grid.clone().addClass('portfolio--filmstrip').insertAfter($grid);
 			$grid.addClass('portfolio--grid').addClass('portfolio--visible');
 
+		} else {
+			 //this is some project type that we don't handle here - like fullscreen
+			return;
 		}
 
 		$grid.find('.js-portfolio-item').each(function(i, obj) {
@@ -72,6 +79,11 @@ var Project = (function() {
 	}
 
 	function prepare() {
+
+		if (!$('.project_layout-filmstrip').length && !$('.project_layout-thumbnails').length) {
+			//we are not in a single project so bail
+			return;
+		}
 
 		filmWidth       = $film.width();
 		contentWidth    = $('.site-content').width();
@@ -149,12 +161,12 @@ var Project = (function() {
 	// loop through each portfolio item and find the one closest to center
 	function getCurrent() {
 
-		if (!initialized) {
-			init();
-		}
-
 		if (!$('.single-jetpack-portfolio').length) {
 			return;
+		}
+
+		if (!initialized) {
+			init();
 		}
 
 		var current 	= $('.portfolio__item--active').data('middle'),
