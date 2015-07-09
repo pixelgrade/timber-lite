@@ -256,7 +256,7 @@ function timber_add_new_project_admin_style( $hook ){
 	global $pagenow;
 	global $typenow;
 
-	if ( $pagenow === 'post-new.php' && $typenow === 'jetpack-portfolio' ) {
+	if ( $typenow === 'jetpack-portfolio' ) {
 
 $output = '
 <style>
