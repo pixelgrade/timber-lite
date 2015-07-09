@@ -13,6 +13,7 @@
 // .single-post, .page
 .entry-header {
 	text-align: center;
+	@extend %single-width;
 
 	@include query-below($small) {
 		padding-left: 30px;
@@ -24,6 +25,10 @@
 		font-weight: bold;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
+	}
+
+	.single-format-gallery & {
+		max-width: none;
 	}
 }
 
@@ -49,11 +54,6 @@
 				}
 			}
 	}
-
-.single .entry-featured {
-	@extend %single-width;
-}
-
 // to be used on single page as
 //.entry-header.cover
 .cover {
