@@ -1,33 +1,48 @@
-# Copyright (C) 2015 PixelGrade
-# This file is distributed under the Themeforest Split Licence.
 msgid ""
 msgstr ""
-"Project-Id-Version: Timber 1.0.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/theme/timber\n"
-"POT-Creation-Date: 2015-07-07 18:18:07+00:00\n"
+"Project-Id-Version: Timber\n"
+"POT-Creation-Date: 2015-07-09 10:03+0200\n"
+"PO-Revision-Date: 2015-07-09 10:05+0200\n"
+"Last-Translator: Vlad Olaru <vlad.olaru@pixelgrade.com>\n"
+"Language-Team: Vlad Olaru <vlad.olaru@pixelgrade.com>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.7.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: 404.php:16
 msgid "Oops! That page can&rsquo;t be found."
 msgstr ""
 
 #: 404.php:20
-msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
 msgstr ""
 
 #: comments.php:26
-msgid "<span class=\"comment-number  comment-number--dark  total\">1</span>comment"
-msgid_plural "<span class=\"comment-number  comment-number--dark  total\">%1$s</span>Comments"
+#, php-format
+msgid ""
+"<span class=\"comment-number  comment-number--dark  total\">1</span>comment"
+msgid_plural ""
+"<span class=\"comment-number  comment-number--dark  total\">%1$s</"
+"span>Comments"
 msgstr[0] ""
 msgstr[1] ""
 
 #: comments.php:28
-msgid "<span class=\"comment-number  comment-number--dark\">+</span>There are no comments"
+msgid ""
+"<span class=\"comment-number  comment-number--dark\">+</span>There are no "
+"comments"
 msgstr ""
 
 #: comments.php:32
@@ -88,6 +103,7 @@ msgid "Website"
 msgstr ""
 
 #: footer-single.php:9
+#, php-format
 msgid "Theme &#8212; %1$s"
 msgstr ""
 
@@ -305,15 +321,23 @@ msgid "Custom Portfolio Template Options"
 msgstr ""
 
 #: inc/activation.php:129
-msgid "Page Content<a class=\"tooltip\" title=\"Select what content would you like to be on this page.\"></a>"
+msgid ""
+"Page Content<a class=\"tooltip\" title=\"Select what content would you like "
+"to be on this page.\"></a>"
 msgstr ""
 
 #: inc/activation.php:130
-msgid " <p class=\"cmb_metabox_description\" style=\"font-size: 90%\">If you want to set this page as your <a href=\"https://en.support.wordpress.com/pages/front-page/\" target=\"_blank\">Front page</a>, simply go to <a href=\"customize.php\">Customizer</a>, click on the <b>Static Front Page</b> tab on the left and select this one.</p>"
+msgid ""
+" <p class=\"cmb_metabox_description\" style=\"font-size: 90%\">If you want "
+"to set this page as your <a href=\"https://en.support.wordpress.com/pages/"
+"front-page/\" target=\"_blank\">Front page</a>, simply go to <a href="
+"\"customize.php\">Customizer</a>, click on the <b>Static Front Page</b> tab "
+"on the left and select this one.</p>"
 msgstr ""
 
 #: inc/activation.php:136
-msgid "<span class=\"dashicons dashicons-format-gallery\"></span> Projects Slider"
+msgid ""
+"<span class=\"dashicons dashicons-format-gallery\"></span> Projects Slider"
 msgstr ""
 
 #: inc/activation.php:140
@@ -321,7 +345,10 @@ msgid "<span class=\"dashicons dashicons-portfolio\"></span> Portfolio Archive"
 msgstr ""
 
 #: inc/activation.php:148
-msgid "<span class=\"dashicons dashicons-format-image\"></span> Single Project <a class=\"tooltip\" title=\"This feature is designed so you can have the option of a simple gallery on the Front page.\"></a>"
+msgid ""
+"<span class=\"dashicons dashicons-format-image\"></span> Single Project <a "
+"class=\"tooltip\" title=\"This feature is designed so you can have the "
+"option of a simple gallery on the Front page.\"></a>"
 msgstr ""
 
 #: inc/activation.php:155
@@ -329,7 +356,8 @@ msgid "Featured Projects"
 msgstr ""
 
 #: inc/activation.php:157
-msgid "Choose your featured projects. Drag and drop to reorder them to your liking."
+msgid ""
+"Choose your featured projects. Drag and drop to reorder them to your liking."
 msgstr ""
 
 #: inc/activation.php:177
@@ -361,7 +389,9 @@ msgid "Select the project"
 msgstr ""
 
 #: inc/activation.php:244
-msgid "Example: You can have a Filmstrip or Fullscreen gallery on the Front page (see above for details)."
+msgid ""
+"Example: You can have a Filmstrip or Fullscreen gallery on the Front page "
+"(see above for details)."
 msgstr ""
 
 #: inc/activation.php:268
@@ -369,7 +399,9 @@ msgid "Project settings"
 msgstr ""
 
 #: inc/activation.php:275
-msgid "Layout Style<a class=\"tooltip\" title=\"Select the initial layout for this project.\"></a>"
+msgid ""
+"Layout Style<a class=\"tooltip\" title=\"Select the initial layout for this "
+"project.\"></a>"
 msgstr ""
 
 #: inc/activation.php:282
@@ -473,7 +505,9 @@ msgid "Custom JavaScript (header)"
 msgstr ""
 
 #: inc/config.php:436
-msgid "Enter your custom Javascript code. This code will be loaded in the head section of your pages."
+msgid ""
+"Enter your custom Javascript code. This code will be loaded in the head "
+"section of your pages."
 msgstr ""
 
 #: inc/config.php:442
@@ -481,7 +515,10 @@ msgid "Custom JavaScript (footer)"
 msgstr ""
 
 #: inc/config.php:443
-msgid "This javascript code will be loaded in the footer. You can paste here your <strong>Google Analytics tracking code</strong> (or for what matters any tracking code) and we will put it on every page."
+msgid ""
+"This javascript code will be loaded in the footer. You can paste here your "
+"<strong>Google Analytics tracking code</strong> (or for what matters any "
+"tracking code) and we will put it on every page."
 msgstr ""
 
 #: inc/config.php:450
@@ -497,7 +534,11 @@ msgid "Share Services"
 msgstr ""
 
 #: inc/config.php:461
-msgid "Add here the share services you want to use, single comma delimited (no spaces). You can find the full list of services here: http://www.addthis.com/services/list. Also you can use the more tag to show the plus sign and the counter tag to show a global share counter."
+msgid ""
+"Add here the share services you want to use, single comma delimited (no "
+"spaces). You can find the full list of services here: http://www.addthis.com/"
+"services/list. Also you can use the more tag to show the plus sign and the "
+"counter tag to show a global share counter."
 msgstr ""
 
 #: inc/config.php:465
@@ -513,7 +554,9 @@ msgid "GA Property ID"
 msgstr ""
 
 #: inc/config.php:472
-msgid "Enter here your GA property ID (generally a serial number of the form UA-xxxxxx-x)."
+msgid ""
+"Enter here your GA property ID (generally a serial number of the form UA-"
+"xxxxxx-x)."
 msgstr ""
 
 #: inc/config.php:478
@@ -521,7 +564,10 @@ msgid "GA Social Tracking"
 msgstr ""
 
 #: inc/config.php:479
-msgid "If you are using the latest version of GA code, you can take advantage of Google's new <a href=\"http://bit.ly/1iVvkbk\">social interaction analytics</a>."
+msgid ""
+"If you are using the latest version of GA code, you can take advantage of "
+"Google's new <a href=\"http://bit.ly/1iVvkbk\">social interaction analytics</"
+"a>."
 msgstr ""
 
 #: inc/config.php:486
@@ -533,84 +579,78 @@ msgid "Import demo data"
 msgstr ""
 
 #: inc/config.php:504
-msgid "Please wait a few minutes (between 1 and 3 minutes usually, but depending on your hosting it can take longer) and <strong>don't reload the page</strong>. You will be notified as soon as the import has finished!"
+msgid ""
+"Please wait a few minutes (between 1 and 3 minutes usually, but depending on "
+"your hosting it can take longer) and <strong>don't reload the page</strong>. "
+"You will be notified as soon as the import has finished!"
 msgstr ""
 
 #: inc/customizer.php:19
 msgid "Display Site Title &amp; Tagline"
 msgstr ""
 
-#: inc/extras.php:153
+#: inc/extras.php:155
+#, php-format
 msgid "Page %s"
 msgstr ""
 
-#. Translators: If there are characters in your language that are not
-#. 		* supported by Roboto, translate this to 'off'. Do not translate
-#. 		* into your own language.
-
-#: inc/extras.php:192
+#: inc/extras.php:194
 msgctxt "Roboto font: on or off"
 msgid "on"
 msgstr ""
 
-#. Translators: If there are characters in your language that are not
-#. 		* supported by Oswald, translate this to 'off'. Do not translate
-#. 		* into your own language.
-
-#: inc/extras.php:200
+#: inc/extras.php:202
 msgctxt "Oswald font: on or off"
 msgid "on"
 msgstr ""
 
-#. translators: To add an additional character subset specific to your
-#. language, translate this to 'greek', 'cyrillic', 'devanagari' or
-#. 'vietnamese'. Do not translate into your own language.
-
-#: inc/extras.php:205
+#. translators: To add an additional character subset specific to your language, translate this to 'greek', 'cyrillic', 'devanagari' or 'vietnamese'. Do not translate into your own language.
+#: inc/extras.php:207
 msgctxt "Add new subset (greek, cyrillic, devanagari, vietnamese)"
 msgid "no-subset"
 msgstr ""
 
-#: inc/extras.php:258
+#: inc/extras.php:260
+#, php-format
 msgid "on %s at %s"
 msgstr ""
 
-#: inc/extras.php:263 inc/template-tags.php:121
+#: inc/extras.php:265 inc/template-tags.php:121
 #: template-parts/content-page.php:40
 msgid "Edit"
 msgstr ""
 
-#: inc/extras.php:275
+#: inc/extras.php:277
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: inc/extras.php:749 inc/extras.php:750
+#: inc/extras.php:751 inc/extras.php:752
 msgctxt "label"
 msgid "Search for:"
 msgstr ""
 
-#: inc/extras.php:750
+#: inc/extras.php:752
 msgctxt "placeholder"
 msgid "Search &hellip;"
 msgstr ""
 
-#: inc/extras.php:777
+#: inc/extras.php:779
 msgid "Intro Text"
 msgstr ""
 
-#: inc/extras.php:778
+#: inc/extras.php:780
 msgid "Dropcap"
 msgstr ""
 
-#: inc/extras.php:779
+#: inc/extras.php:781
 msgid "Highlight"
 msgstr ""
 
-#: inc/extras.php:780
+#: inc/extras.php:782
 msgid "Two Columns"
 msgstr ""
 
-#: inc/extras.php:781
+#: inc/extras.php:783
 msgid "Caption"
 msgstr ""
 
@@ -621,14 +661,17 @@ msgid "There was an error when reading this WXR file"
 msgstr ""
 
 #: inc/import/wordpress-importer/parsers.php:45
-msgid "Details are shown above. The importer will now try again with a different parser..."
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
 msgstr ""
 
 #: inc/import/wordpress-importer/parsers.php:88
 #: inc/import/wordpress-importer/parsers.php:94
 #: inc/import/wordpress-importer/parsers.php:328
 #: inc/import/wordpress-importer/parsers.php:544
-msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:136
@@ -656,15 +699,24 @@ msgid "Remember to update the passwords and roles of imported users."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:201
-msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
+#, php-format
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:219
-msgid "This WXR file (version %s) may not be supported by this version of the importer. Please consider updating."
+#, php-format
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:243
-msgid "Failed to import author %s. Their posts will be attributed to the current user."
+#, php-format
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:270
@@ -672,11 +724,19 @@ msgid "Assign Authors"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:271
-msgid "To make it easier for you to edit and save the imported content, you may want to reassign the author of the imported item to an existing user of this site. For example, you may want to import all the entries as <code>admin</code>s entries."
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:273
-msgid "If a new user is created by WordPress, a new password will be randomly generated and the new user's role will be set as %s. Manually changing the new user's details will be necessary."
+#, php-format
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user's role will be set as %s. Manually changing the "
+"new user's details will be necessary."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:283
@@ -712,34 +772,43 @@ msgid "- Select -"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:391
-msgid "Failed to create new user for %s. Their posts will be attributed to the current user."
+#, php-format
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:448
+#, php-format
 msgid "Failed to import category %s"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:493
+#, php-format
 msgid "Failed to import post tag %s"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:549
 #: inc/import/wordpress-importer/wordpress-importer.php:704
 #: inc/import/wordpress-importer/wpgrade-import-class.php:261
+#, php-format
 msgid "Failed to import %s %s"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:575
 #: inc/import/wordpress-importer/wpgrade-import-class.php:117
+#, php-format
 msgid "Failed to import \"%s\": Invalid post type %s"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:598
+#, php-format
 msgid "%s \"%s\" already exists."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:668
 #: inc/import/wordpress-importer/wpgrade-import-class.php:225
+#, php-format
 msgid "Failed to import %s \"%s\""
 msgstr ""
 
@@ -748,6 +817,7 @@ msgid "Menu item skipped due to missing menu slug"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:852
+#, php-format
 msgid "Menu item skipped due to invalid menu slug: %s"
 msgstr ""
 
@@ -764,6 +834,7 @@ msgid "Remote server did not respond"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:998
+#, php-format
 msgid "Remote server returned error response %1$d %2$s"
 msgstr ""
 
@@ -776,6 +847,7 @@ msgid "Zero size file downloaded"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:1019
+#, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
@@ -784,11 +856,16 @@ msgid "Import WordPress"
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:1134
-msgid "A new version of this importer is available. Please update to version %s to ensure compatibility with newer export files."
+#, php-format
+msgid ""
+"A new version of this importer is available. Please update to version %s to "
+"ensure compatibility with newer export files."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:1149
-msgid "Howdy! Upload your WordPress eXtended RSS (WXR) file and we'll import the posts, pages, comments, custom fields, categories, and tags into this site."
+msgid ""
+"Howdy! Upload your WordPress eXtended RSS (WXR) file and we'll import the "
+"posts, pages, comments, custom fields, categories, and tags into this site."
 msgstr ""
 
 #: inc/import/wordpress-importer/wordpress-importer.php:1150
@@ -847,6 +924,7 @@ msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:163
 #: inc/required-plugins/required-plugins.php:60
+#, php-format
 msgid "Installing Plugin: %s"
 msgstr ""
 
@@ -856,6 +934,7 @@ msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:165
 #: inc/required-plugins/required-plugins.php:63
+#, php-format
 msgid "This theme requires the following plugin: %1$s."
 msgid_plural "This theme requires the following plugins: %1$s."
 msgstr[0] ""
@@ -863,6 +942,7 @@ msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:166
 #: inc/required-plugins/required-plugins.php:65
+#, php-format
 msgid "This theme recommends the following plugin: %1$s."
 msgid_plural "This theme recommends the following plugins: %1$s."
 msgstr[0] ""
@@ -870,13 +950,21 @@ msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:167
 #: inc/required-plugins/required-plugins.php:67
-msgid "Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed."
-msgid_plural "Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed."
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to install the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"installed."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to install the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins installed."
 msgstr[0] ""
 msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:168
 #: inc/required-plugins/required-plugins.php:69
+#, php-format
 msgid "The following required plugin is currently inactive: %1$s."
 msgid_plural "The following required plugins are currently inactive: %1$s."
 msgstr[0] ""
@@ -884,6 +972,7 @@ msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:169
 #: inc/required-plugins/required-plugins.php:71
+#, php-format
 msgid "The following recommended plugin is currently inactive: %1$s."
 msgid_plural "The following recommended plugins are currently inactive: %1$s."
 msgstr[0] ""
@@ -891,22 +980,41 @@ msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:170
 #: inc/required-plugins/required-plugins.php:73
-msgid "Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated."
-msgid_plural "Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated."
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugin. Contact the administrator of this site for help on getting the "
+"plugin activated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to activate the %s "
+"plugins. Contact the administrator of this site for help on getting the "
+"plugins activated."
 msgstr[0] ""
 msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:171
 #: inc/required-plugins/required-plugins.php:75
-msgid "The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s."
-msgid_plural "The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s."
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:172
 #: inc/required-plugins/required-plugins.php:77
-msgid "Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated."
-msgid_plural "Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated."
+#, php-format
+msgid ""
+"Sorry, but you do not have the correct permissions to update the %s plugin. "
+"Contact the administrator of this site for help on getting the plugin "
+"updated."
+msgid_plural ""
+"Sorry, but you do not have the correct permissions to update the %s plugins. "
+"Contact the administrator of this site for help on getting the plugins "
+"updated."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -941,9 +1049,12 @@ msgstr ""
 #: inc/required-plugins/class-tgm-plugin-activation.php:178
 #: inc/required-plugins/class-tgm-plugin-activation.php:1644
 msgid "The following plugin was activated successfully:"
-msgstr ""
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:179
+#, php-format
 msgid "All plugins installed and activated successfully. %1$s"
 msgstr ""
 
@@ -997,7 +1108,10 @@ msgid "Activate"
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:1372
-msgid "No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the Dashboard\">Return to the Dashboard</a>"
+#, php-format
+msgid ""
+"No plugins to install or activate. <a href=\"%1$s\" title=\"Return to the "
+"Dashboard\">Return to the Dashboard</a>"
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:1388
@@ -1021,6 +1135,7 @@ msgid "Install package not available."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:1940
+#, php-format
 msgid "Downloading install package from <span class=\"code\">%s</span>&#8230;"
 msgstr ""
 
@@ -1045,10 +1160,13 @@ msgid "Plugin activation failed."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2069
-msgid "The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2070
+#, php-format
 msgid "%1$s installed and activated successfully."
 msgstr ""
 
@@ -1067,22 +1185,28 @@ msgid "All installations and activations have been completed."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2072
+#, php-format
 msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2076
-msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2077
+#, php-format
 msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2078
+#, php-format
 msgid "The installation of %1$s failed."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2079
+#, php-format
 msgid "%1$s installed successfully."
 msgstr ""
 
@@ -1091,6 +1215,7 @@ msgid "All installations have been completed."
 msgstr ""
 
 #: inc/required-plugins/class-tgm-plugin-activation.php:2081
+#, php-format
 msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
@@ -1105,6 +1230,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: inc/required-plugins/required-plugins.php:83
+#, php-format
 msgid "All plugins installed and activated successfully. %s"
 msgstr ""
 
@@ -1125,11 +1251,13 @@ msgid "Post navigation"
 msgstr ""
 
 #: inc/template-tags.php:89
+#, php-format
 msgctxt "post date"
 msgid "%s"
 msgstr ""
 
 #: inc/template-tags.php:111
+#, php-format
 msgid "%1$s"
 msgstr ""
 
@@ -1146,18 +1274,22 @@ msgid "% Comments"
 msgstr ""
 
 #: inc/template-tags.php:138
+#, php-format
 msgid "Category: %s"
 msgstr ""
 
 #: inc/template-tags.php:140
+#, php-format
 msgid "Tag: %s"
 msgstr ""
 
 #: inc/template-tags.php:142
+#, php-format
 msgid "Author: %s"
 msgstr ""
 
 #: inc/template-tags.php:144
+#, php-format
 msgid "Year: %s"
 msgstr ""
 
@@ -1167,6 +1299,7 @@ msgid "Y"
 msgstr ""
 
 #: inc/template-tags.php:146
+#, php-format
 msgid "Month: %s"
 msgstr ""
 
@@ -1176,6 +1309,7 @@ msgid "F Y"
 msgstr ""
 
 #: inc/template-tags.php:148
+#, php-format
 msgid "Day: %s"
 msgstr ""
 
@@ -1230,12 +1364,13 @@ msgid "Chats"
 msgstr ""
 
 #: inc/template-tags.php:170
+#, php-format
 msgid "Archives: %s"
 msgstr ""
 
 #. translators: 1: Taxonomy singular name, 2: Current taxonomy term
-
 #: inc/template-tags.php:174
+#, php-format
 msgid "%1$s: %2$s"
 msgstr ""
 
@@ -1243,9 +1378,8 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#. translators: %s: Name of current post
-
 #: inc/template-tags.php:319
+#, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
@@ -1259,6 +1393,7 @@ msgid ", "
 msgstr ""
 
 #: inc/template-tags.php:978
+#, php-format
 msgid "All %s Posts"
 msgstr ""
 
@@ -1284,6 +1419,7 @@ msgid "Pages:"
 msgstr ""
 
 #: search.php:24
+#, php-format
 msgid "Search Results for: %s"
 msgstr ""
 
@@ -1296,10 +1432,12 @@ msgid "http://wordpress.org/"
 msgstr ""
 
 #: template-parts/content-footer.php:17
+#, php-format
 msgid "Proudly powered by %s"
 msgstr ""
 
 #: template-parts/content-footer.php:19
+#, php-format
 msgid "Theme: %1$s by %2$s."
 msgstr ""
 
@@ -1313,26 +1451,32 @@ msgid "Nothing Found"
 msgstr ""
 
 #: template-parts/content-none.php:21
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+#, php-format
+msgid ""
+"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: template-parts/content-none.php:25
-msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
 msgstr ""
 
 #: template-parts/content-none.php:30
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
 msgstr ""
 
 #: template-parts/content-portfolio.php:21
 #: template-parts/content-portfolio.php:35
 #: template-parts/content-project-featured.php:14
 #: template-parts/page-featured-projects.php:32
+#, php-format
 msgid "Permalink to %s"
 msgstr ""
 
 #. translators: used between list items, there is a space after the comma
-
 #: template-parts/content-single-audio.php:15
 #: template-parts/content-single-gallery.php:13
 #: template-parts/content-single-video.php:15
@@ -1360,31 +1504,4 @@ msgstr ""
 
 #: template-parts/single-jetpack-portfolio.php:56
 msgid "details"
-msgstr ""
-#. Theme Name of the plugin/theme
-msgid "Timber"
-msgstr ""
-
-#. Theme URI of the plugin/theme
-msgid "https://pixelgrade.com/demos/timber/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "PixelGrade"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://pixelgrade.com/"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Custom Portfolio Template"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Full Width Page"
 msgstr ""
