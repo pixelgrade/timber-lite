@@ -63,8 +63,9 @@
     }
 }
 
-.project_layout-filmstrip .site-content,
 .page-has-featured-image .site-main,
-.project_layout-fullscreen .site-content {
+.page-template-custom-portfolio-page .site-content,
+.single-jetpack-portfolio .site-content,
+.page-template-fullwidth-page .site-main {
     margin-top: 0;
 }
