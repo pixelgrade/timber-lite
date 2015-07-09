@@ -16965,7 +16965,8 @@ if (!Date.now) Date.now = function () {
 
     var $film, $grid, $fullview, start, end, current, initialized = false;
 
-    fullviewWidth = windowWidth, fullviewHeight = windowHeight;
+    fullviewWidth = windowWidth;
+    fullviewHeight = windowHeight;
 
     function init() {
 

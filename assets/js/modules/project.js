@@ -5,7 +5,7 @@ var Project = (function() {
 		current,
 		initialized = false;
 
-		fullviewWidth = windowWidth,
+		fullviewWidth = windowWidth;
 		fullviewHeight = windowHeight;
 
 	function init() {

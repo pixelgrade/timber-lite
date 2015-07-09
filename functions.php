@@ -153,12 +153,12 @@ add_action( 'widgets_init', 'timber_widgets_init' );
 /**
  * Enqueue scripts and styles.
  */
-function timber_scripts() {
+function timber_scripts_styles() {
 
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
 	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css' );
 
-	wp_register_script( 'timber-scripts', get_stylesheet_directory_uri() . '/assets/js/main.js', array(
+	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', array(
 		'jquery',
 	), '1.0.0', true );
 	// Localize the script with new data
@@ -190,7 +190,7 @@ function timber_scripts() {
 
 	// For vertical scroll to be interpreted as horizontal scroll
 	if( is_front_page() && is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
-		wp_enqueue_script('mousewheel' , 'https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.12/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
+		wp_enqueue_script('mousewheel' , get_template_directory_uri() . '/assets/js/plugins/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
 	}
 
 	// For back to top link
@@ -211,10 +211,10 @@ function timber_scripts() {
 	}
 
 	if( $timber_show_footer ) {
-		wp_enqueue_script('scrolltotop' , 'http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js', array('jquery'), '1.0.0', true );
+		wp_enqueue_script('scrolltotop' , get_template_directory_uri() . '/assets/js/plugins/ScrollToPlugin.min.js', array('jquery'), '1.0.0', true );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'timber_scripts' );
+add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
 
 /*
  * Enqueue some custom JS in the admin area for various small tasks
