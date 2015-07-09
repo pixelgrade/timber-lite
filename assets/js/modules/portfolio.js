@@ -1,21 +1,23 @@
 var Portfolio = (function() {
 
-	var $portfolio_container = $('.portfolio-wrapper'),
+	var $portfolio_container,
 
 		isLoadingProjects = false,
 
 	init = function() {
 
-		if (!$portfolio_container.length) {
+		if (!$('.portfolio-wrapper').length) {
 			return;
 		}
+
+		$portfolio_container = $('.portfolio-wrapper');
 
 		$('.navigation').hide();
 
 		bindEvents();
 
 		//if there are not sufficient projects to have scroll - load the next page also (prepending)
-		if ( $portfolio_container.children('article').last().offset().top == 0 ) {
+		if ( $portfolio_container.children('article').last().offset().top < window.innerHeight ) {
 			loadNextProjects();
 		}
 	},
