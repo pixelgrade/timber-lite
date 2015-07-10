@@ -241,6 +241,7 @@
 
 	.bar--fixed, .site-header, .site-footer {
 		background: transparent;
+		opacity: 1 !important;
 
 		* {
 			color: white;
@@ -252,5 +253,9 @@
 	.nav--main .sub-menu {
 		background: transparent;
         box-shadow: none;
+	}
+
+	.site-footer {
+		position: absolute;
 	}
 }

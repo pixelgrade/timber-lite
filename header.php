@@ -19,7 +19,7 @@
 <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> <?php timber_body_attributes(); ?>>
 
 <header id="masthead" class="site-header" role="banner">
 	<div class="bar--fixed">

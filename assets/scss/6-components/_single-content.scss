@@ -27,11 +27,39 @@
 }
 
 .entry-content {
+	@extend %clearfix;
+
 	-ms-word-wrap: break-word;
 	word-wrap: break-word;
 }
 
+// Post pagination
+.page-links {
+	text-align: center;
 
+	span, a {
+		padding: 8px 12px;
+	}
+
+	a {
+		text-decoration: underline;
+	}
+}
+
+// Password protection form
+.post-password-form p:last-child {
+	position: relative;
+
+	[name="post_password"] {
+		padding-right: 40px;
+	}
+
+	[type="submit"] {
+		position: absolute;
+		right: 4px;
+		bottom: 4px;
+	}
+}
 
 //Fullwidth page template
 .page-template-fullwidth-page .site-main {
