@@ -26,11 +26,11 @@
 
 	<div class="site-branding">
 
-		<?php if ( function_exists( 'jetpack_the_site_logo' ) ) { // display the Site Logo if present
+		<?php if ( function_exists( 'jetpack_the_site_logo' ) ) : // display the Site Logo if present
 			jetpack_the_site_logo();
-		} ?>
-
-		<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+		else : ?>
+			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+		<?php endif; ?>
 		<p class="site-description"><?php bloginfo( 'description' ); ?></p>
 	</div><!-- .site-branding -->
 

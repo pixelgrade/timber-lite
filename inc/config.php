@@ -182,8 +182,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => 'body,
-														.project-slide__content .project-slide__text',
+										'selector' => 'body',
 									)
 								)
 							),
@@ -195,7 +194,8 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => '.caption, small, .photometa__caption, .photometa__description',
+										'selector' => '.caption, small, .photometa__caption, .photometa__description,
+														.site-footer--single',
 									)
 								)
 							),
@@ -207,7 +207,8 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => 'a, .portfolio_types a, .filter__item, .toggle',
+										'selector' => 'a, .portfolio_types a, .filter__item, .toggle, .share-box,
+														.tags-links a',
 									)
 								),
 							),
@@ -286,7 +287,8 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'    => 'typography',
 								'label'   => __( 'Caption Text', 'timber' ),
 								'default' => 'Libre Baskerville',
-								'selector' => '.caption, small, .photometa__caption, .photometa__description',
+								'selector' => '.caption, small, .photometa__caption, .photometa__description,
+												.site-footer--single',
 								'load_all_weights' => true,
 								'recommended' => array(
 									'Libre Baskerville',
@@ -338,7 +340,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'height',
-										'selector' => '.site-header',
+										'selector' => '.site-logo-link img',
 									)
 								),
 							),
@@ -354,8 +356,12 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'default'   => 50,
 								'css'  => array(
 									array(
-										'property' => 'padding',
-										'selector' => '.site-logo',
+										'property' => 'padding-top',
+										'selector' => '.site-header .bar--fixed',
+									),
+									array(
+										'property' => 'padding-bottom',
+										'selector' => '.site-header .bar--fixed',
 									)
 								),
 							),
@@ -371,8 +377,12 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'default'   => 50,
 								'css'  => array(
 									array(
-										'property' => 'padding',
-										'selector' => '.site-footer',
+										'property' => 'padding-top',
+										'selector' => '.site-footer .bar--fixed',
+									),
+									array(
+										'property' => 'padding-bottom',
+										'selector' => '.site-footer .bar--fixed',
 									)
 								),
 							),
@@ -381,7 +391,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
 								 'input_attrs' => array(
 							        'min'   => 0,
-							        'max'   => 10,
+							        'max'   => 50,
 							        'step'  => 0.1,
 							    ),
 								'live' => true,
