@@ -26,6 +26,10 @@
 .site-header--placeholder {
     position: static !important;
     z-index: 0;
+
+    @include query-below($small) {
+        display: none;
+    }
 }
 
 .site-header--placeholder {
@@ -58,12 +62,6 @@
     @extend %bar-side;
     @extend %bar-right;
     font-size: 16px;
-}
-
-@include query-below($small) {
-    .main-navigation, .social-navigation {
-        display: none;
-    }
 }
 
 .toggle {

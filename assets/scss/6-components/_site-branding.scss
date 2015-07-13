@@ -1,6 +1,11 @@
-
-
 .site-title {
     @extend %box--0;
     @extend %gamma;
+}
+
+.site-branding {
+
+    @include query-below($lap) {
+        display: none;
+    }
 }

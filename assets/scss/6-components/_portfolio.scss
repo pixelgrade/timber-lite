@@ -7,7 +7,6 @@
 
 img {
     will-change: opacity;
-    // transition: opacity .3s ease-in-out;
 }
 
 .is--ie9 .portfolio-wrapper {
@@ -47,6 +46,15 @@ img {
         justify-content: center;
         -webkit-justify-content: center;
         padding-right: 4em;
+
+        .entry-header {
+            text-align: left;
+        }
+
+        @include query-below($small) {
+            padding-right: 2em;
+            padding-left: 2em;
+        }
     }
 
     &__link-wrap {
@@ -68,6 +76,11 @@ img {
         @extend %delta;
         text-transform: uppercase;
         font-weight: bold;
+
+        @include query-below($small) {
+            font-size: 0.75em;
+            margin-bottom: -0.75em
+        }
     }
 
     &__position {
@@ -76,6 +89,7 @@ img {
 
     &__item {
         // @extend %transform--0;
+        // display: inline-block;
         position: relative;
         background: #eee;
         flex-shrink: 0;
@@ -128,6 +142,10 @@ img {
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
+        @include query-below($small) {
+            padding: 0 1em 0 2em;
+        }
+
         .portfolio__item {
             opacity: 0;
 
@@ -150,8 +168,10 @@ img {
     }
 
     &--filmstrip {
+        // max-width: 100%;
         z-index: 350;
         opacity: 0;
+        overflow-x: auto;
 
         &.portfolio--visible {
             opacity: 1;
@@ -237,6 +257,7 @@ img {
     // width: 5px;
     // height: 50px;
     padding: 0 0.5em;
+    z-index: 99999999999;
 }
 
 .js-last {

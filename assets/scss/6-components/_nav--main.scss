@@ -25,99 +25,160 @@
     a {
         @extend %display--inline-block;
         @extend %delta;
-        padding: .25em 0;
         background: none !important;
-
-        &:hover {
-        }
+        padding: 0.25em;
     }
 
-    > .menu-item {
-        > a {
-            padding-left: 1em;
-            padding-right: 1em;
-        }
+    [class*="current-menu-"] > a {
+        @extend %current-item;
     }
 
-    // styling of current menu items
-    [class*="current-menu-"] {
-        > a {
-            @extend %current-item;
+    .menu-item-has-children > a:after,
+    .sub-menu .menu-item-has-children:after {
+        @extend %fa;
+        @extend %display--inline-block;
+    }
 
-            &:before {
-                left: 1em;
-                right: 1em;
+    @include query-above($small) {
+
+        a {
+            padding: .25em 0;
+        }
+
+        > .menu-item {
+            > a {
+                padding-left: 1em;
+                padding-right: 1em;
             }
         }
-    }
 
-    [class*="current-menu-"] [class*="current-menu-"] {
-        > a:before {
+        // styling of current menu items
+        [class*="current-menu-"] > a:before {
+            left: 1em;
+            right: 1em;
+        }
+
+        [class*="current-menu-"] [class*="current-menu-"] > a:before {
             left: 0;
             right: 0;
         }
-    }
 
-    // styling sub-menus
-    .menu-item-has-children {
-        z-index: 999;
+        // styling sub-menus
+        .menu-item-has-children {
+            z-index: 999;
 
-        > a:after {
-            @extend %fa;
-            @extend %display--inline-block;
-            content: $fa-var-caret-down;
-            margin-left: .5em;
+            > a:after {
+                content: $fa-var-caret-down;
+                margin-left: .5em;
+            }
+
+            > a:before {
+                right: 2.2em;
+            }
         }
 
-        > a:before {
-            right: 2.2em;
-        }
-    }
-
-    .sub-menu {
-        display: block;
-        width: 10em;
-        padding: 1.25em 1em;
-        box-shadow: 0 .35em 1em -.5em black;
-        background: white;
-        opacity: 0;
-        pointer-events: none;
-        will-change: transform, opacity;
-        transform: translateY(-.5em);
-        transition: opacity .1s ease-out, transform .1s ease-out;
-        transform-origin: 0 0;
-    }
-
-    .menu-item:hover > .sub-menu {
-        transform: none;
-        opacity: 1;
-        pointer-events: auto;
-        transition: opacity .1s ease-in, transform .1s ease-in;
-    }
-
-    .sub-menu .menu-item-has-children {
-        display: flex;
-        display: -webkit-flex;
-        justify-content: space-between;
-        -webkit-justify-content: space-between;
-
-        &:after {
-            @extend %fa;
-            @extend %display--inline-block;
-            content: $fa-var-caret-right;
-            margin-right: .5em;
+        .sub-menu {
+            width: 10em;
+            padding: 1.25em 1em;
+            box-shadow: 0 .35em 1em -.5em black;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            will-change: transform, opacity;
+            transform: translateY(-.5em);
+            transition: opacity .1s ease-out, transform .1s ease-out;
+            transform-origin: 0 0;
         }
 
-        > a:after {
-            content: none;
+        .menu-item:hover > .sub-menu {
+            transform: none;
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity .1s ease-in, transform .1s ease-in;
         }
-    }
 
-    .sub-menu .sub-menu {
-        margin-top: -1.25em;
+        .sub-menu .menu-item-has-children {
+            display: flex;
+            display: -webkit-flex;
+            justify-content: space-between;
+            -webkit-justify-content: space-between;
+
+            &:after {
+                content: $fa-var-caret-right;
+                margin-right: .5em;
+            }
+
+            > a:after {
+                content: none;
+            }
+        }
+
+        .sub-menu .sub-menu {
+            margin-top: -1.25em;
+        }
     }
 
     .is--ie9 & li {
         display: inline-block;
     }
+}
+
+
+@include query-below($small) {
+
+    .main-navigation {
+        display: block;
+    }
+
+    .bar--fixed {
+        position: static !important;
+        width: 100%;
+    }
+
+    .nav--main .sub-menu {
+        padding-left: 1em;
+    }
+
+    .site-header {
+        width: auto !important;
+        height: auto;
+        position: fixed !important;
+        z-index: 9999;
+        @include wp-offset(0);
+        left: 0;
+        right: 4em !important;
+        bottom: 0;
+        background: white;
+        box-shadow: rgba(black, 0.5) 0 0 10px;
+        transform: translate3d(-100%, 0, 0);
+        transition: transform .3s cubic-bezier(0.165, 0.840, 0.440, 1.000); /* easeOutQuart */
+
+        .bar--fixed {
+            display: block !important;
+            transform: none !important;
+            overflow-y: auto;
+            padding: 2em;
+        }
+
+        .navigation--is-visible & {
+            transform: translateZ(0);
+        }
+    }
+
+    .site-header--placeholder {
+        box-shadow: none !important;
+    }
+
+    .nav--main {
+        display: block;
+    }
+}
+
+.nav-toggle {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-top: 1em;
+    margin-left: 0.8em;
+    font-size: 1.5em;
 }

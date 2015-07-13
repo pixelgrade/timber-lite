@@ -49,3 +49,7 @@ html, body, #page, .site, #djaxContainer {
 #page, .site-header, .site-footer {
     opacity: 0;
 }
+
+.navigation--is-visible {
+    overflow: hidden;
+}
