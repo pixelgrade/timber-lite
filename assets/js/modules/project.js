@@ -376,7 +376,6 @@ var Project = (function() {
 		var $source = $(this),
 			$target = addImageToFullView($source);
 
-		console.log('here');
 		$('.site-content').addClass('site-content--fullview');
 
 		morph($source, $target);
@@ -498,7 +497,7 @@ var Project = (function() {
 	function setCurrent($current) {
 		$film.find('.js-portfolio-item').removeClass('portfolio__item--active');
 		$current.addClass('portfolio__item--active');
-		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
+		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').not('.portfolio__item--clone').length);
 	}
 
 	return {

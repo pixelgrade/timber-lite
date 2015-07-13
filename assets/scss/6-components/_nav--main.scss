@@ -135,11 +135,15 @@
         width: 100%;
     }
 
+    .nav--main .sub-menu {
+        padding-left: 1em;
+    }
+
     .site-header {
         width: auto !important;
         height: auto;
         position: fixed !important;
-        z-index: 999999;
+        z-index: 9999;
         @include wp-offset(0);
         left: 0;
         right: 4em !important;
@@ -156,7 +160,7 @@
             padding: 2em;
         }
 
-        &.is-visible {
+        .navigation--is-visible & {
             transform: translateZ(0);
         }
     }

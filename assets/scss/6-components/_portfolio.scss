@@ -7,7 +7,6 @@
 
 img {
     will-change: opacity;
-    // transition: opacity .3s ease-in-out;
 }
 
 .is--ie9 .portfolio-wrapper {
@@ -143,6 +142,10 @@ img {
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
+        @include query-below($small) {
+            padding: 0 1em 0 2em;
+        }
+
         .portfolio__item {
             opacity: 0;
 
@@ -254,6 +257,7 @@ img {
     // width: 5px;
     // height: 50px;
     padding: 0 0.5em;
+    z-index: 99999999999;
 }
 
 .js-last {
