@@ -5,12 +5,11 @@ var Portfolio = (function() {
 		isLoadingProjects = false,
 
 	init = function() {
+		$portfolio_container = $('.portfolio-wrapper');
 
-		if (!$('.portfolio-wrapper').length) {
+		if (!$portfolio_container.length) {
 			return;
 		}
-
-		$portfolio_container = $('.portfolio-wrapper');
 
 		$('.navigation').hide();
 

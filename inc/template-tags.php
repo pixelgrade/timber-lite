@@ -1128,3 +1128,74 @@ if ( ! function_exists('timber_body_attributes') ):
 //		}
 	}
 endif;
+
+/**
+ * Display the classes for the post title div.
+ *
+ * @param string|array $class One or more classes to add to the class list.
+ * @param int|WP_Post $post_id Optional. Post ID or post object.
+ * @return string
+ */
+function timber_get_post_title_class_attr( $class = '', $post_id = null ) {
+	// Separates classes with a single space, collates classes for post title
+	return 'class="' . join( ' ', timber_get_post_title_class( $class, $post_id ) ) . '"';
+}
+
+if ( ! function_exists( 'timber_get_post_title_class' ) ) :
+
+	/**
+	 * Retrieve the classes for the post title,
+	 * depending on the length of the title
+	 *
+	 * @param string|array $class One or more classes to add to the class list.
+	 * @return array Array of classes.
+	 */
+	function timber_get_post_title_class( $class = '', $post_id = null ) {
+
+		$post = get_post( $post_id );
+
+		$classes = array();
+
+		if ( empty( $post ) ) {
+			return $classes;
+		}
+
+		$classes[] = 'entry-header';
+
+		// .entry-header--[short|medium|long] depending on the title length
+		// 0-29 chars = short
+		// 30-59 = medium
+		// 60+ = long
+		$title_length = mb_strlen( get_the_title( $post ) );
+
+		if ( $title_length < 30 ) {
+			$classes[] = 'entry-header--short';
+		} elseif ( $title_length < 60 ) {
+			$classes[] = 'entry-header--medium';
+		} else {
+			$classes[] = 'entry-header--long';
+		}
+
+		if ( ! empty($class) ) {
+			if ( ! is_array( $class ) ) {
+				$class = preg_split( '#\s+#', $class );
+			}
+
+			$classes = array_merge( $classes, $class );
+		}
+
+		$classes = array_map( 'esc_attr', $classes );
+
+		/**
+		 * Filter the list of CSS classes for the current post title.
+		 *
+		 * @param array  $classes An array of post classes.
+		 * @param string $class   A comma-separated list of additional classes added to the post.
+		 * @param int    $post_id The post ID.
+		 */
+		$classes = apply_filters( 'timber_post_title_class', $classes, $class, $post->ID );
+
+		return array_unique( $classes );
+	} #function
+
+endif;

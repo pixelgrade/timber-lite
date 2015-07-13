@@ -16891,12 +16891,11 @@ if (!Date.now) Date.now = function () {
         
         
         init = function () {
+        $portfolio_container = $('.portfolio-wrapper');
 
-        if (!$('.portfolio-wrapper').length) {
+        if (!$portfolio_container.length) {
           return;
         }
-
-        $portfolio_container = $('.portfolio-wrapper');
 
         $('.navigation').hide();
 

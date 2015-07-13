@@ -14,7 +14,7 @@
     /*
      * Project Title
      */
-    the_title( '<h1 class="site-sidebar__text">', '</h1>' );
+    the_title( '<h1 ' . timber_get_post_title_class_attr( 'site-sidebar__text' ) . '>', '</h1>' );
 
     timber_the_project_types();
     ?>

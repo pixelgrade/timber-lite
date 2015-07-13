@@ -15,7 +15,7 @@ $media  = timber_audio_attachment(); ?>
 	$category_list = get_the_category_list( __( ', ', 'timber' ) ); ?>
 
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title  h0">', '</h1>' ); ?>
+		<?php the_title( '<h1 ' . timber_get_post_title_class_attr( 'entry-title  h0' ) . '>', '</h1>' ); ?>
 
 		<div class="entry-meta">
 

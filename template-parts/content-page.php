@@ -20,7 +20,7 @@ $background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'fu
 
 	<?php endif; ?>
 
-        <?php the_title( '<h1 class="entry-title  h0">', '</h1>' ); ?>
+		<?php the_title( '<h1 ' . timber_get_post_title_class_attr( 'entry-title  h0' ) . '>', '</h1>' ); ?>
 
 	</header><!-- .entry-header -->
 

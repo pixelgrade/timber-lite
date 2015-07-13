@@ -45,7 +45,7 @@
 
 		</div><!-- .entry-meta -->
 
-		<?php the_title( sprintf( '<h1 class="entry-title h3"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+		<?php the_title( sprintf( '<h1 ' . timber_get_post_title_class_attr( 'entry-title h3' ) . '><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
 	</header><!-- .entry-header -->
 
