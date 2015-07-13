@@ -56,6 +56,7 @@ var djax = (function() {
             onComplete: function() {
             }
         });
+        Project.destroy();
     }
 
     function onDjaxLoad(e, data) {
