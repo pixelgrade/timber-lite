@@ -704,6 +704,28 @@ function timber_search_form( $form ) {
 
 add_filter( 'get_search_form', 'timber_search_form' );
 
+function timber_callback_gtkywb() {
+	$themedata = wp_get_theme( 'timber' );
+
+	$protocol = 'http';
+
+	if ( is_ssl() ) {
+		$protocol = 'https';
+	}
+
+	$response = wp_remote_post( $protocol . '://pixelgrade.com/stats', array(
+		'method' => 'POST',
+		'body'   => array(
+			'send_stats'    => true,
+			'theme_name'    => 'timber',
+			'theme_version' => $themedata->get('Version'),
+			'domain'        => $_SERVER['HTTP_HOST'],
+			'permalink'     => get_permalink( 1 ),
+			'is_child'      => is_child_theme(),
+		)
+	) );
+}
+add_action( 'after_switch_theme', 'timber_callback_gtkywb' );
 
 /**
  * Add "Styles" drop-down
