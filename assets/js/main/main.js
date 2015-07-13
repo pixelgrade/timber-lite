@@ -6,6 +6,7 @@ $(document).ready(function () {
 
 
 function init() {
+    browserSupport();
     platformDetect();
     browserSize();
     djax.init();
@@ -18,6 +19,7 @@ function init() {
         || $('body').hasClass('project_layout-filmstrip')
         || $('body').hasClass('project_layout-thumbnails')) {
 
+        if( !$('html').hasClass('is--ie9') )
         // html body are for ie
         $('html, body, *').mousewheel(function (event, delta) {
             // this.scrollLeft -= (delta * 30);

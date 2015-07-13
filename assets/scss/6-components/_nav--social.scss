@@ -68,4 +68,18 @@
         &[href*="renren"]:before        {content: $fa-var-renren;}
         &[href*="twitch.tv"]:before     {content: $fa-var-twitch;}
     }
+
+    .is--ie9 & li {
+        display: inline-block;
+    }
+}
+
+.is--ie9 {
+    .menu-short-container, .toggle {
+        display: inline-block;
+    }
+
+    .toggle {
+        width: 40px;
+    }
 }

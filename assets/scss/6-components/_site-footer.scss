@@ -1,6 +1,10 @@
 .site-footer {
     @extend %bar;
     bottom: 0;
+
+    .is--ie9 & {
+        position: fixed;
+    }
 }
 
 .site-info {
