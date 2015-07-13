@@ -44,4 +44,22 @@ function platformDetect() {
     if (ieMobile) {
         $html.addClass('is--ie-mobile')
     }
+
+    var browser = {
+        isIe: function () {
+            return navigator.appVersion.indexOf("MSIE") != -1;
+        },
+        navigator: navigator.appVersion,
+        getVersion: function() {
+            var version = 999; // we assume a sane browser
+            if (navigator.appVersion.indexOf("MSIE") != -1)
+            // bah, IE again, lets downgrade version number
+                version = parseFloat(navigator.appVersion.split("MSIE")[1]);
+            return version;
+        }
+    };
+
+    if (browser.isIe() && browser.getVersion() == 9) {
+        $('html').addClass('is--ie9');
+    }
 }

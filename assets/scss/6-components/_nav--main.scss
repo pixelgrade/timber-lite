@@ -116,4 +116,8 @@
     .sub-menu .sub-menu {
         margin-top: -1.25em;
     }
+
+    .is--ie9 & li {
+        display: inline-block;
+    }
 }

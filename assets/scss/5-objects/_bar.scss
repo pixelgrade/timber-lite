@@ -76,3 +76,29 @@
         -webkit-justify-content: flex-end;
     }
 }
+
+.no-flexbox {
+    %bar {
+        display: table;
+        width: 100%;
+    }
+
+    .bar--fixed {
+        display: table;
+        width: 100%;
+    }
+
+    %bar-piece {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    %bar-side {
+        width: 15%;
+    }
+
+    %bar-middle {
+        width: 70%;
+    }
+}

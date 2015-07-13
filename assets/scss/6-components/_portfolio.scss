@@ -10,6 +10,10 @@ img {
     // transition: opacity .3s ease-in-out;
 }
 
+.is--ie9 .portfolio-wrapper {
+    padding-bottom: $header-height;
+}
+
 .portfolio {
     @extend %display--flex;
     @extend %position--absolute;
@@ -186,11 +190,6 @@ img {
         @extend %display--none;
     }
 
-    // &--details .js-portfolio-item:not(.portfolio__item--active) {
-    //     @extend %transform--0;
-    //     opacity: 0.25;
-    // }
-
     &--visible {
         pointer-events: auto;
     }
@@ -200,6 +199,17 @@ img {
         bottom: 0; left: 0;
         width: 100%;
     }
+}
+
+.is--ie9 .portfolio-wrapper {
+    .portfolio__link-wrap, .portfolio__header, .portfolio__item {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.is--ie9 .portfolio__item {
+    display: inline-block;
 }
 
 .page-template-portfolio-page,
