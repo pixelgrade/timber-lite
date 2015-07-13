@@ -78,20 +78,20 @@ class Site_Logo {
 		$wp_customize->get_section('title_tagline')->title = __( 'Site Title, Tagline, and Logo', 'jetpack' );
 
 		// Add a setting to hide header text if the theme isn't supporting the feature itself
-		if ( ! current_theme_supports( 'custom-header' ) ) {
-			$wp_customize->add_setting( 'site_logo_header_text', array(
-				'default'           => 1,
-				'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
-				'transport'         => 'postMessage',
-			) );
-
-			$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'site_logo_header_text', array(
-			    'label'    => __( 'Display Header Text', 'jetpack' ),
-			    'section'  => 'title_tagline',
-			    'settings' => 'site_logo_header_text',
-			    'type'     => 'checkbox',
-			) ) );
-		}
+//		if ( ! current_theme_supports( 'custom-header' ) ) {
+//			$wp_customize->add_setting( 'site_logo_header_text', array(
+//				'default'           => 1,
+//				'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
+//				'transport'         => 'postMessage',
+//			) );
+//
+//			$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'site_logo_header_text', array(
+//			    'label'    => __( 'Display Header Text', 'jetpack' ),
+//			    'section'  => 'title_tagline',
+//			    'settings' => 'site_logo_header_text',
+//			    'type'     => 'checkbox',
+//			) ) );
+//		}
 
 		// Add the setting for our logo value.
 		$wp_customize->add_setting( 'site_logo', array(
