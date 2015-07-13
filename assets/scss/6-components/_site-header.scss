@@ -74,6 +74,11 @@
     padding: 0 0 0 .5em;
     height: 1.7em;
 
+    // for safari
+    svg {
+        width: 100%;
+    }
+
     svg rect {
         color: currentColor;
     }

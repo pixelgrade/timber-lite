@@ -62,33 +62,42 @@
 				}
 			}
 	}
+
 // to be used on single page as
 //.entry-header.cover
 .cover {
-	display: table;
-	width: 100%;
+	display: block;
 
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+}
+
+.cover-container {
+	display: table;
+	width: 100%;
+	padding: 0 50px;
+
+	.full-height & {
+		height: 100vh;
+		min-height: 100vh;
+	}
+
+	.half-height & {
+		height: 50vh;
+		min-height: 50vh;
+	}
+
+	.two-thirds-height & {
+		height: 66.666666vh;
+		min-height: 66.666666vh;
+	}
 
 	> .entry-title {
 		display: table-cell;
 		vertical-align: middle;
 		padding: 0;
 		margin: 0;
-	}
-
-	&.full-height {
-		min-height: 100vh;
-	}
-
-	&.half-height {
-		min-height: 50vh;
-	}
-
-	&.two-thirds-height {
-		min-height: 66.666666vh;
 	}
 }
 
@@ -97,10 +106,18 @@
 }
 
 .page-no-featured-image {
-
 	.entry-title {
 		color: black;
 	}
+
+}
+
+.page-no-featured-image:not(.page-template-fullwidth-page) .entry-header {
+	@extend %single-width;
+}
+
+.page-template-default.page-has-featured-image .site-header--placeholder {
+	display: none;
 }
 
 //Fullwidth page template

@@ -247,7 +247,6 @@
 			color: white;
 			text-shadow: none;
 		}
-
 	}
 
 	.nav--main .sub-menu {
@@ -257,5 +256,13 @@
 
 	.site-footer {
 		position: absolute;
+	}
+}
+
+body.page-template-default.page .site-footer {
+	position: static;
+
+	* {
+		color: black;
 	}
 }

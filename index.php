@@ -13,7 +13,7 @@
  */
 
 get_header(); ?>
-
+<div class="site-header  site-header--placeholder"></div>
 <div class="site-container  site-content">
 	<?php if ( have_posts() ) : ?>
 		<div class="filmstrip">
