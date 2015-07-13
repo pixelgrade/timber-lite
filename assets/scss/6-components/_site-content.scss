@@ -3,6 +3,7 @@
     z-index: 500;
     flex-grow: 1;
     -webkit-flex-grow: 1;
+    overflow: auto;
 
     &__mask {
         @extend %transform--0;

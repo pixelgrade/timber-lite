@@ -238,6 +238,7 @@ var Project = (function() {
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
 		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0 });
+		$('.site-footer, .site-sidebar').css('pointer-events', 'none');
 		$grid.css('opacity', 1);
 
 		$('.js-portfolio-item').addClass('no-transition');
@@ -287,9 +288,7 @@ var Project = (function() {
 		$('.site-content').css('overflow-x', '');
 
 		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1 });
-
-		// $film.css('opacity', 1);
-		$body.removeClass('scroll-y').addClass('scroll-x');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
 		$('.js-portfolio-item').addClass('no-transition');
 
@@ -335,7 +334,7 @@ var Project = (function() {
 	}
 
 	function centerFilmToTarget($target) {
-		$window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+		$('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
 	}
 
 	function addImageToFullView($source) {

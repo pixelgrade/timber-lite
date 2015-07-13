@@ -43,6 +43,7 @@ var djax = (function() {
     }
 
     function onDjaxClick(e) {
+        $('.site-header').removeClass('is-visible');
         $html.css('overflow', 'hidden');
         TweenMax.fromTo('.loader', .6, {
             left: '100%'

@@ -26,6 +26,10 @@
 .site-header--placeholder {
     position: static !important;
     z-index: 0;
+
+    @include query-below($small) {
+        display: none;
+    }
 }
 
 .site-header--placeholder {

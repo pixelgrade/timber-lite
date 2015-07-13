@@ -239,22 +239,27 @@
 .page-has-featured-image:not(.page-template) {
 	overflow-x: hidden;
 
-	.bar--fixed, .site-header, .site-footer {
-		background: transparent;
-		opacity: 1 !important;
+	@include query-above($small) {
+		.bar--fixed, .site-header, .site-footer {
+			background: transparent;
+			opacity: 1 !important;
 
-		* {
-			color: white;
-			text-shadow: none;
+			* {
+				color: white;
+				text-shadow: none;
+			}
+
 		}
 
+		.nav--main .sub-menu {
+			background: transparent;
+	        box-shadow: none;
+		}
 	}
+}
 
-	.nav--main .sub-menu {
-		background: transparent;
-        box-shadow: none;
-	}
-
+.slider_height-full-height,
+.project_layout-fullscreen {
 	.site-footer {
 		position: absolute;
 	}

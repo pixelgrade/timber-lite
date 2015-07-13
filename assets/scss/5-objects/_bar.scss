@@ -4,8 +4,8 @@
     width: 100%;
     flex-shrink: 0;
     -webkit-flex-shrink: 0;
-    flex-direction: column;
-    -webkit-flex-direction: column;
+    flex-direction: row;
+    -webkit-flex-direction: row;
 
     // above mask which is 300
     // above .site-content which is 500
@@ -15,8 +15,6 @@
         height: $header-height;
         flex-basis: $header-height;
         -webkit-flex-basis: $header-height;
-        flex-direction: row;
-        -webkit-flex-direction: row;
     }
 
 }
