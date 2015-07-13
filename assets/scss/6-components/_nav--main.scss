@@ -25,96 +25,124 @@
     a {
         @extend %display--inline-block;
         @extend %delta;
-        padding: .25em 0;
         background: none !important;
-
-        &:hover {
-        }
+        padding: 0.25em;
     }
 
-    > .menu-item {
-        > a {
-            padding-left: 1em;
-            padding-right: 1em;
-        }
+    [class*="current-menu-"] > a {
+        @extend %current-item;
     }
 
-    // styling of current menu items
-    [class*="current-menu-"] {
-        > a {
-            @extend %current-item;
+    .menu-item-has-children > a:after {
+        @extend %fa;
+        @extend %display--inline-block;
+    }
 
-            &:before {
-                left: 1em;
-                right: 1em;
+    @include query-above($small) {
+
+        a {
+            padding: .25em 0;
+        }
+
+        > .menu-item {
+            > a {
+                padding-left: 1em;
+                padding-right: 1em;
             }
         }
-    }
 
-    [class*="current-menu-"] [class*="current-menu-"] {
-        > a:before {
+        // styling of current menu items
+        [class*="current-menu-"] > a:before {
+            left: 1em;
+            right: 1em;
+        }
+
+        [class*="current-menu-"] [class*="current-menu-"] > a:before {
             left: 0;
             right: 0;
         }
-    }
 
-    // styling sub-menus
-    .menu-item-has-children {
-        z-index: 999;
+        // styling sub-menus
+        .menu-item-has-children {
+            z-index: 999;
 
-        > a:after {
-            @extend %fa;
-            @extend %display--inline-block;
-            content: $fa-var-caret-down;
-            margin-left: .5em;
+            > a:after {
+                content: $fa-var-caret-down;
+                margin-left: .5em;
+            }
+
+            > a:before {
+                right: 2.2em;
+            }
         }
 
-        > a:before {
-            right: 2.2em;
+        .sub-menu {
+            width: 10em;
+            padding: 1.25em 1em;
+            box-shadow: 0 .35em 1em -.5em black;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            will-change: transform, opacity;
+            transform: translateY(-.5em);
+            transition: opacity .1s ease-out, transform .1s ease-out;
+            transform-origin: 0 0;
+        }
+
+        .menu-item:hover > .sub-menu {
+            transform: none;
+            opacity: 1;
+            pointer-events: auto;
+            transition: opacity .1s ease-in, transform .1s ease-in;
+        }
+
+        .sub-menu .menu-item-has-children {
+            display: flex;
+            display: -webkit-flex;
+            justify-content: space-between;
+            -webkit-justify-content: space-between;
+
+            &:after {
+                content: $fa-var-caret-right;
+                margin-right: .5em;
+            }
+
+            > a:after {
+                content: none;
+            }
+        }
+
+        .sub-menu .sub-menu {
+            margin-top: -1.25em;
         }
     }
+}
 
-    .sub-menu {
+
+@include query-below($small) {
+    .social-navigation {
+        display: none;
+    }
+
+    .bar--fixed {
+        transform: none !important;
+    }
+
+    .main-navigation {
         display: block;
-        width: 10em;
-        padding: 1.25em 1em;
-        box-shadow: 0 .35em 1em -.5em black;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 4em;
+        height: 100%;
+        padding: 2em;
         background: white;
-        opacity: 0;
-        pointer-events: none;
-        will-change: transform, opacity;
-        transform: translateY(-.5em);
-        transition: opacity .1s ease-out, transform .1s ease-out;
-        transform-origin: 0 0;
+        box-shadow: rgba(black, 0.5) 0 0 10px;
+        overflow-y: auto;
     }
 
-    .menu-item:hover > .sub-menu {
-        transform: none;
-        opacity: 1;
-        pointer-events: auto;
-        transition: opacity .1s ease-in, transform .1s ease-in;
-    }
-
-    .sub-menu .menu-item-has-children {
-        display: flex;
-        display: -webkit-flex;
-        justify-content: space-between;
-        -webkit-justify-content: space-between;
-
-        &:after {
-            @extend %fa;
-            @extend %display--inline-block;
-            content: $fa-var-caret-right;
-            margin-right: .5em;
-        }
-
-        > a:after {
-            content: none;
-        }
-    }
-
-    .sub-menu .sub-menu {
-        margin-top: -1.25em;
+    .nav--main {
+        display: block;
     }
 
     .is--ie9 & li {
