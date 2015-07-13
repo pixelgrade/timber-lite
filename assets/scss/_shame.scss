@@ -8,6 +8,10 @@ html[lang] {
 
 html, body, #page, .site, #djaxContainer {
     height: 100%;
+
+    .page & {
+        height: auto;
+    }
 }
 
 .entry-meta + .entry-featured {

@@ -1,16 +1,15 @@
 var Portfolio = (function() {
 
 	var $portfolio_container,
-
 		isLoadingProjects = false,
 
 	init = function() {
 
-		if (!$('.portfolio-wrapper').length) {
+		$portfolio_container = $('.portfolio-wrapper');
+
+		if (!$portfolio_container.length) {
 			return;
 		}
-
-		$portfolio_container = $('.portfolio-wrapper');
 
 		$('.navigation').hide();
 
