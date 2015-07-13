@@ -1,12 +1,11 @@
 var Portfolio = (function() {
 
 	var $portfolio_container,
-
 		isLoadingProjects = false,
 
 	init = function() {
 		$portfolio_container = $('.portfolio-wrapper');
-
+		
 		if (!$portfolio_container.length) {
 			return;
 		}

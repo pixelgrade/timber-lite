@@ -16186,6 +16186,7 @@ if (!Date.now) Date.now = function () {
         ease: Expo.easeInOut,
         onComplete: function () {}
       });
+      Project.destroy();
     }
 
     function onDjaxLoad(e, data) {
@@ -16885,9 +16886,7 @@ if (!Date.now) Date.now = function () {
   }
   var Portfolio = (function () {
 
-    var $portfolio_container,
-
-    isLoadingProjects = false,
+    var $portfolio_container, isLoadingProjects = false,
         
         
         init = function () {
@@ -17138,13 +17137,28 @@ if (!Date.now) Date.now = function () {
       $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
       $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
       $('.fullview__close').on('click', hideFullView);
-
       $('.fullview .rsArrowRight').on('click', showNext);
       $('.fullview .rsArrowLeft').on('click', showPrev);
+      $('.js-details').on('click', toggleDetails);
+    }
 
-      $('.js-details').on('click', function () {
-        $body.toggleClass('portfolio--details');
-      });
+    function unbindEvents() {
+      $('body').off('click', '.js-show-thumbnails', showThumbnails);
+      $('.portfolio--grid').off('click', '.js-portfolio-item', showFilmstrip);
+      $('.portfolio--filmstrip').off('click', '.js-portfolio-item', showFullView);
+      $('.fullview__close').off('click', hideFullView);
+      $('.fullview .rsArrowRight').off('click', showNext);
+      $('.fullview .rsArrowLeft').off('click', showPrev);
+      $('.js-details').off('click', toggleDetails);
+    }
+
+    function toggleDetails() {
+      $body.toggleClass('portfolio--details');
+    }
+
+    function destroy() {
+      unbindEvents();
+      initialized = false;
     }
 
     function showPrev() {
@@ -17548,7 +17562,8 @@ if (!Date.now) Date.now = function () {
     return {
       init: init,
       prepare: prepare,
-      getCurrent: getCurrent
+      getCurrent: getCurrent,
+      destroy: destroy
     }
   })(); /* --- Royal Slider Init --- */
 
