@@ -80,9 +80,14 @@ function timber_body_classes( $classes ) {
 		if ( $post->post_type === 'page' && $this_template  === 'custom-portfolio-page.php' ) {
 			if( timber_has_featured_projects() )
 				$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
+				$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true );
 
 			if ( ! empty( $projects_slider_height ) ) {
 				$classes[] = 'slider_height-' . $projects_slider_height;
+			}
+
+			if ( ! empty( $custom_portfolio_page_type ) ) {
+				$classes[] = 'portfolio_page_type-' . $custom_portfolio_page_type;
 			}
 		}
 	}
