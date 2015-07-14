@@ -60,6 +60,7 @@
 	</div>
 
 	<button class="js-nav-toggle  nav-toggle"><i class="icon icon-bars"></i></button>
+	<button class="toggle  toggle--mobile  js-overlay-trigger"><?php get_template_part('assets/svg/navgrid-svg'); ?></button>
 </header><!-- #masthead -->
 
 

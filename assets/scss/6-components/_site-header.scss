@@ -80,6 +80,22 @@
     svg rect {
         color: currentColor;
     }
+
+    @include query-below($small) {
+        display: none;
+    }
+}
+
+.toggle--mobile {
+    @include query-below($small) {
+        display: block;
+        width: 1em;
+        position: absolute;
+        top: 1.7em;
+        left: 200%;
+        margin-left: 1.9em;
+        padding: 0;
+    }
 }
 
 .site-logo-link img {

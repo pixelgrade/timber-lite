@@ -16672,7 +16672,7 @@ if (!Date.now) Date.now = function () {
       $slides = $slider.children();
       slidesNumber = $slides.length;
       $current = $slides.eq(0);
-      nextWidth = $nextTrigger.width();
+      nextWidth = $nextTrigger.width() - 100;
 
       var minSlides = 5,
           offset;
@@ -16744,14 +16744,14 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindEvents() {
-      if (nextWidth > 170) {
-        $nextTrigger.on('mouseover', onNextEnter);
+      if (nextWidth > 70) {
+        $nextTrigger.on('mouseenter', onNextEnter);
         $nextTrigger.on('mouseleave', onNextLeave);
       }
       $nextTrigger.on('click', onNextClick);
 
-      if (nextWidth > 170) {
-        $prevTrigger.on('mouseover', onPrevEnter);
+      if (nextWidth > 70) {
+        $prevTrigger.on('mouseenter', onPrevEnter);
         $prevTrigger.on('mouseleave', onPrevLeave);
       }
       $prevTrigger.on('click', onPrevClick);
@@ -16858,7 +16858,7 @@ if (!Date.now) Date.now = function () {
         ease: Quint.easeOut
       }, '-=.7');
 
-      if (nextWidth > 170) {
+      if (nextWidth > 70) {
         timeline.to($next.next(), .4, {
           width: 160,
           x: -60,

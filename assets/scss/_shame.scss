@@ -16,7 +16,10 @@ html, body, #page, .site, #djaxContainer {
 
 #djaxContainer {
     position: relative;
-    overflow: hidden;
+
+    .portfolio_page_type-project_slider & {
+        overflow: hidden;
+    }
 }
 
 .slider_height-full-height {
@@ -30,7 +33,8 @@ html, body, #page, .site, #djaxContainer {
     }
 
     .nav-toggle,
-    .mobile-header a {
+    .mobile-header a,
+    .toggle {
         color: white;
     }
 
