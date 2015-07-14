@@ -713,13 +713,19 @@ function timber_callback_gtkywb() {
 		$protocol = 'https';
 	}
 
+	$domain = '';
+
+	if ( isset( $_SERVER['HTTP_HOST'] ) ) {
+		$domain = $_SERVER['HTTP_HOST'];
+	}
+
 	$response = wp_remote_post( $protocol . '://pixelgrade.com/stats', array(
 		'method' => 'POST',
 		'body'   => array(
 			'send_stats'    => true,
 			'theme_name'    => 'timber',
 			'theme_version' => $themedata->get('Version'),
-			'domain'        => $_SERVER['HTTP_HOST'],
+			'domain'        => $domain,
 			'permalink'     => get_permalink( 1 ),
 			'is_child'      => is_child_theme(),
 		)

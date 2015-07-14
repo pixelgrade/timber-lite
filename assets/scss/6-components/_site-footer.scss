@@ -27,8 +27,12 @@
     @extend %bar-piece;
     @extend %bar-side;
 
-    @include query-below($lap) {
-        padding: 12px 0;
+    @include query-above($small) {
+        padding: 0.75em 0;
+    }
+
+    @include query-above($lap) {
+        padding: 0;
     }
 }
 

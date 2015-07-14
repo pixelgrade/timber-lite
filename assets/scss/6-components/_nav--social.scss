@@ -4,12 +4,19 @@
     text-align: center;
 }
 
+.social-navigation {
+    @include query-below($small) {
+        display: block;
+        margin: 2em 0;
+    }
+}
+
 .nav--social {
 
     .menu-item {
-        @extend %overflow--hidden;
+        overflow: hidden;
         width: 2em;
-        height: 2em;
+        height: 1.8em;
     }
 
     a {

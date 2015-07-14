@@ -16,6 +16,10 @@
         width: 100px;
         height: 100vh;
     }
+
+    @include query-below($small) {
+        display: none;
+    }
 }
 
 .site-sidebar__content {

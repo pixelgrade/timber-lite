@@ -50,6 +50,10 @@ html, body, #page, .site, #djaxContainer {
     opacity: 0;
 }
 
+.navigation--is-visible {
+    overflow: hidden;
+}
+
 .lang_sel_sel {
     transition-duration: 0s;
 }

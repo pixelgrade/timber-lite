@@ -16509,7 +16509,8 @@ if (!Date.now) Date.now = function () {
     }
 
     function onDjaxClick(e) {
-      $html.css('overflow', 'hidden');
+      Nav.close();
+      // $html.css('overflow', 'hidden');
       TweenMax.fromTo('.loader', .6, {
         left: '100%'
       }, {
@@ -16547,7 +16548,7 @@ if (!Date.now) Date.now = function () {
         ease: Expo.easeInOut,
         onComplete: function () {
           $('.mask--page').css('left', '-100%');
-          $html.css('overflow', '');
+          // $html.css('overflow', '');
         }
       });
 
@@ -17053,6 +17054,41 @@ if (!Date.now) Date.now = function () {
     }
 
   })();
+  var Nav = (function () {
+
+    var isOpen;
+
+    function init() {
+      isOpen = false;
+      bindEvents();
+    }
+
+    function bindEvents() {
+      $('.js-nav-toggle').on('click', function () {
+        if (isOpen) {
+          close();
+        } else {
+          open();
+        }
+      });
+    }
+
+    function open() {
+      $body.addClass('navigation--is-visible');
+      isOpen = true;
+    }
+
+    function close() {
+      $body.removeClass('navigation--is-visible');
+      isOpen = false;
+    }
+
+    return {
+      init: init,
+      open: open,
+      close: close
+    }
+  })();
 
   function overlayInit() {
 
@@ -17131,14 +17167,14 @@ if (!Date.now) Date.now = function () {
         $item.data('image', $image);
       });
 
-      $(window).on('DOMContentLoaded load resize scroll', function () {
-        bindImageLoad();
-      });
+      $(window).on('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
+      $('.site-content').on('scroll', bindImageLoad);
 
       bindImageLoad();
 
       $(window).on('djaxClick', function () {
-        $(window).off('DOMContentLoaded load resize scroll', bindImageLoad);
+        $(window).off('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
+        $('.site-content').off('scroll', bindImageLoad);
       });
     }
 
@@ -17629,6 +17665,7 @@ if (!Date.now) Date.now = function () {
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 0
       });
+      $('.site-footer, .site-sidebar').css('pointer-events', 'none');
       $grid.css('opacity', 1);
 
       $('.js-portfolio-item').addClass('no-transition');
@@ -17689,9 +17726,7 @@ if (!Date.now) Date.now = function () {
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1
       });
-
-      // $film.css('opacity', 1);
-      $body.removeClass('scroll-y').addClass('scroll-x');
+      $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
       $('.js-portfolio-item').addClass('no-transition');
 
@@ -17739,7 +17774,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
     }
 
     function addImageToFullView($source) {
@@ -17779,7 +17814,6 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
-      console.log('here');
       $('.site-content').addClass('site-content--fullview');
 
       morph($source, $target);
@@ -17909,7 +17943,7 @@ if (!Date.now) Date.now = function () {
     function setCurrent($current) {
       $film.find('.js-portfolio-item').removeClass('portfolio__item--active');
       $current.addClass('portfolio__item--active');
-      $('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
+      $('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').not('.portfolio__item--clone').length);
     }
 
     return {
@@ -18209,6 +18243,7 @@ if (!Date.now) Date.now = function () {
     djax.init();
     scrollToTop();
     Loader.init();
+    Nav.init();
 
     $(".pixcode--tabs").organicTabs();
 
@@ -18296,12 +18331,16 @@ if (!Date.now) Date.now = function () {
 
     $window.on('scroll', function () {
       latestKnownScrollY = window.scrollY;
-      latestKnownScrollX = window.scrollX;
+      requestTick();
+    });
+
+    $('.site-content').on('scroll', function () {
+      latestKnownScrollX = $('.site-content').scrollLeft();
       requestTick();
     });
 
     $document.mousemove(function (e) {
-      latestKnownMouseX = e.pageX - latestKnownScrollX;
+      latestKnownMouseX = e.pageX;
       latestKnownMouseY = e.pageY - latestKnownScrollY;
     });
   } /* ====== HELPER FUNCTIONS ====== */
@@ -18411,9 +18450,10 @@ if (!Date.now) Date.now = function () {
 
     var rect = el.getBoundingClientRect();
 
-    return ((rect.top >= 0 && rect.left >= 0 && rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-    rect.left <= (window.innerWidth || document.documentElement.clientWidth)) || /*or $(window).width() */ (rect.bottom >= 0 && rect.right >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)) /*or $(window).width() */ );
+    return (
+    rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+    rect.left <= (window.innerWidth || document.documentElement.clientWidth) && /*or $(window).width() */
+    rect.bottom >= 0 && rect.right >= 0);
   }
 
   function sizeColumns() {

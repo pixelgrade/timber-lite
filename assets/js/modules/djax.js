@@ -43,7 +43,8 @@ var djax = (function() {
     }
 
     function onDjaxClick(e) {
-        $html.css('overflow', 'hidden');
+        Nav.close();
+        // $html.css('overflow', 'hidden');
         TweenMax.fromTo('.loader', .6, {
             left: '100%'
         }, {
@@ -82,7 +83,7 @@ var djax = (function() {
             ease: Expo.easeInOut,
             onComplete: function() {
                 $('.mask--page').css('left', '-100%');
-                $html.css('overflow', '');
+                // $html.css('overflow', '');
             }
         });
 
