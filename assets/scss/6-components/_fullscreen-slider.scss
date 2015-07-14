@@ -269,19 +269,21 @@
 .page-has-featured-image:not(.page-template) {
 	overflow-x: hidden;
 
-	@include query-above($small) {
+	.bar--fixed, .site-header, .site-footer {
+		background: transparent;
+		opacity: 1 !important;
 
-		.bar--fixed, .site-header, .site-footer {
-			background: transparent;
-			opacity: 1 !important;
-
-			* {
-				color: white;
-				text-shadow: none;
-			}
-
+		* {
+			color: white;
+			text-shadow: none;
 		}
+	}
 
+	.mobile-header a {
+		color: white;
+	}
+
+	@include query-above($small) {
 		.nav--main .sub-menu {
 			background: transparent;
 	        box-shadow: none;

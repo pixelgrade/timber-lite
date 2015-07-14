@@ -188,7 +188,7 @@ img {
         position: relative;
 
         @include query-below($small) {
-            height: 10vh;
+            height: 13vh;
         }
     }
 
