@@ -24,14 +24,14 @@ var Placeholder = (function() {
             $item.data('image', $image);
         });
 
-        $(window).on('DOMContentLoaded load resize scroll', function() {
-            bindImageLoad();
-        });
+        $(window).on('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
+        $('.site-content').on('scroll', bindImageLoad);
 
         bindImageLoad();
 
         $(window).on('djaxClick', function() {
-            $(window).off('DOMContentLoaded load resize scroll', bindImageLoad);
+            $(window).off('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
+            $('.site-content').off('scroll', bindImageLoad);
         });
     }
 

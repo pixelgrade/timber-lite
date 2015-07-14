@@ -58,8 +58,15 @@
 	</nav>
 
 	</div>
+
+	<button class="js-nav-toggle  nav-toggle"><i class="icon icon-bars"></i></button>
+	<button class="toggle  toggle--mobile  js-overlay-trigger"><?php get_template_part('assets/svg/navgrid-svg'); ?></button>
 </header><!-- #masthead -->
+
 
 <div id="page">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'timber' ); ?></a>
 	<div id="djaxContainer" class="hfeed site djax-updatable">
+		<div class="mobile-header">
+			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+		</div>

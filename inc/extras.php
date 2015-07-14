@@ -80,9 +80,14 @@ function timber_body_classes( $classes ) {
 		if ( $post->post_type === 'page' && $this_template  === 'custom-portfolio-page.php' ) {
 			if( timber_has_featured_projects() )
 				$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
+				$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true );
 
 			if ( ! empty( $projects_slider_height ) ) {
 				$classes[] = 'slider_height-' . $projects_slider_height;
+			}
+
+			if ( ! empty( $custom_portfolio_page_type ) ) {
+				$classes[] = 'portfolio_page_type-' . $custom_portfolio_page_type;
 			}
 		}
 	}
@@ -713,13 +718,19 @@ function timber_callback_gtkywb() {
 		$protocol = 'https';
 	}
 
+	$domain = '';
+
+	if ( isset( $_SERVER['HTTP_HOST'] ) ) {
+		$domain = $_SERVER['HTTP_HOST'];
+	}
+
 	$response = wp_remote_post( $protocol . '://pixelgrade.com/stats', array(
 		'method' => 'POST',
 		'body'   => array(
 			'send_stats'    => true,
 			'theme_name'    => 'timber',
 			'theme_version' => $themedata->get('Version'),
-			'domain'        => $_SERVER['HTTP_HOST'],
+			'domain'        => $domain,
 			'permalink'     => get_permalink( 1 ),
 			'is_child'      => is_child_theme(),
 		)

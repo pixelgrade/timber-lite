@@ -12,6 +12,7 @@ function init() {
     djax.init();
     scrollToTop();
     Loader.init();
+    Nav.init();
 
     $(".pixcode--tabs").organicTabs();
 
@@ -101,12 +102,16 @@ function eventHandlers() {
 
     $window.on('scroll', function () {
     	latestKnownScrollY = window.scrollY;
-    	latestKnownScrollX = window.scrollX;
-    	requestTick();
+        requestTick();
+    });
+
+    $('.site-content').on('scroll', function() {
+    	latestKnownScrollX = $('.site-content').scrollLeft();
+        requestTick();
     });
 
     $document.mousemove(function (e) {
-    	latestKnownMouseX = e.pageX - latestKnownScrollX;
+    	latestKnownMouseX = e.pageX;
     	latestKnownMouseY = e.pageY - latestKnownScrollY;
     });
 }

@@ -238,6 +238,7 @@ var Project = (function() {
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
 		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0 });
+		$('.site-footer, .site-sidebar').css('pointer-events', 'none');
 		$grid.css('opacity', 1);
 
 		$('.js-portfolio-item').addClass('no-transition');
@@ -287,9 +288,7 @@ var Project = (function() {
 		$('.site-content').css('overflow-x', '');
 
 		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1 });
-
-		// $film.css('opacity', 1);
-		$body.removeClass('scroll-y').addClass('scroll-x');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
 		$('.js-portfolio-item').addClass('no-transition');
 
@@ -335,7 +334,7 @@ var Project = (function() {
 	}
 
 	function centerFilmToTarget($target) {
-		$window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+		$('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
 	}
 
 	function addImageToFullView($source) {
@@ -377,7 +376,6 @@ var Project = (function() {
 		var $source = $(this),
 			$target = addImageToFullView($source);
 
-		console.log('here');
 		$('.site-content').addClass('site-content--fullview');
 
 		morph($source, $target);
@@ -499,7 +497,7 @@ var Project = (function() {
 	function setCurrent($current) {
 		$film.find('.js-portfolio-item').removeClass('portfolio__item--active');
 		$current.addClass('portfolio__item--active');
-		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').length);
+		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').not('.portfolio__item--clone').length);
 	}
 
 	return {

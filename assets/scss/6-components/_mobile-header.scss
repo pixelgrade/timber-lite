@@ -1,0 +1,14 @@
+.mobile-header {
+    @include wp-offset(0, margin-top);
+    position: absolute;
+    top: 6.5vh;
+    transform: translate(0, -50%);
+    left: 0;
+    width: 100%;
+    z-index: 9998;
+    text-align: center;
+
+    @include query-above($small) {
+        display: none;
+    }
+}

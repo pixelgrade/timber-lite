@@ -35,7 +35,7 @@
     }
 
     // styling sub-menus
-    .menu-item-has-children {
+    .menu-item-has-children, .menu-item-language {
         @extend %position--relative;
 
         > a:after {
@@ -43,10 +43,12 @@
         }
     }
 
-    .sub-menu {
-        @extend %display--none;
-        @extend %position--absolute;
-        top: 100%;
+    @include query-above($small) {
+        .sub-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+        }
     }
 
     .menu-item:hover > .sub-menu {

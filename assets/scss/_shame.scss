@@ -9,9 +9,31 @@ html[lang] {
 html, body, #page, .site, #djaxContainer {
     height: 100%;
 
-    .page & {
-        height: auto;
+    // .page & {
+    //     height: auto;
+    // }
+}
+
+#djaxContainer {
+    position: relative;
+
+    .portfolio_page_type-project_slider & {
+        overflow: hidden;
     }
+}
+
+.portfolio_page_type-project_slider {
+    overflow-x: hidden;
+}
+
+.slider_height-full-height {
+
+    .nav-toggle,
+    .mobile-header a,
+    .toggle {
+        color: white;
+    }
+
 }
 
 .entry-meta + .entry-featured {
@@ -48,4 +70,12 @@ html, body, #page, .site, #djaxContainer {
 
 #page, .site-header, .site-footer {
     opacity: 0;
+}
+
+.navigation--is-visible {
+    overflow: hidden;
+}
+
+.lang_sel_sel {
+    transition-duration: 0s;
 }

@@ -17,6 +17,10 @@
 		height: auto;
 	}
 
+	.rsArrow {
+		width: 78px;
+	}
+
 	.rsArrowLeft {
 		padding-left: 42px;
 	}
@@ -25,11 +29,36 @@
 		padding-right: 42px;
 	}
 
+	@include query-below($small) {
+		.rsArrow {
+			width: 56px;
+		}
+
+		.rsArrowLeft {
+			padding-left: 20px;
+		}
+
+		.rsArrowRight {
+			padding-right: 20px;
+		}
+	}
+
 	.rsArrow .rsArrowIcn {
 		border-color: white;
 		border-width: 1px;
 		width: 25px;
 		height: 25px;
+	}
+
+	@include query-below($small) {
+
+		.rsArrow {
+			opacity: 0.75;
+		}
+
+		.rsArrow .rsArrowIcn {
+			border-width: 2px;
+		}
 	}
 }
 
@@ -37,15 +66,23 @@
 	@extend .fullscreen-slider;
 	top: $header-height;
 	bottom: $header-height;
-	margin: 0 100px;
+
+	@include query-above($small) {
+		margin: 0 100px;
+
+		.slider--show_next & {
+			margin-left: 0;
+		}
+	}
+
+	@include query-below($small) {
+		margin-right: 60px !important;
+		margin-left: 0 !important;
+	}
 
 	.slider_height-full-height & {
 		top: 0;
 		bottom: 0;
-	}
-
-	.slider--show_next & {
-		margin-left: 0;
 	}
 
 	&__bullets {
@@ -120,12 +157,20 @@
 .project-slide__content {
 	position: absolute;
 	top: 50%;
-	left: 260px;
 	z-index: 20;
 	transform: translateY(-50%);
+	left: 2em;
 
-	.slider--show_next & {
-		left: 160px;
+	@include query-above($small) {
+		left: 260px;
+
+		.slider--show_next & {
+			left: 160px;
+		}
+	}
+
+	@include query-below($small) {
+		transform: translateY(-50%) !important;
 	}
 
 	* {
@@ -166,12 +211,19 @@
 
 .vertical-title {
 	position: absolute;
+	top: 0;
 	height: 100%;
 	z-index: 100;
 	// pointer-events: none;
 	width: 200px;
 	cursor: pointer;
 	margin-left: -0.01em;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+
+	@include query-below($small) {
+		width: 160px !important;
+	}
 
 	span {
 		position: absolute;
@@ -194,10 +246,13 @@
 	}
 
 	&.prev {
+		display: none;
 		left: -100px;
 
-		.slider--show_next & {
-			display: none;
+		.slider--show_prev_next & {
+			@include query-above($small) {
+				display: block;
+			}
 		}
 	}
 
@@ -206,6 +261,10 @@
 
 		span {
 			left: 25%;
+
+			@include query-below($small) {
+				left: 20%;
+			}
 		}
 	}
 }
@@ -247,15 +306,31 @@
 			color: white;
 			text-shadow: none;
 		}
-
 	}
 
-	.nav--main .sub-menu {
-		background: transparent;
-        box-shadow: none;
+	.mobile-header a {
+		color: white;
 	}
 
+	@include query-above($small) {
+		.nav--main .sub-menu {
+			background: transparent;
+	        box-shadow: none;
+		}
+	}
+}
+
+.slider_height-full-height,
+.project_layout-fullscreen {
 	.site-footer {
 		position: absolute;
+	}
+}
+
+body.page-template-default.page .site-footer {
+	position: static;
+
+	* {
+		color: black;
 	}
 }

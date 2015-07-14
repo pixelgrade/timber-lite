@@ -12,7 +12,8 @@ var frontpageSlider = (function() {
         slidesNumber,
         $current,
         $prev,
-        $next;
+        $next,
+        nextWidth;
 
     function init() {
 
@@ -27,6 +28,7 @@ var frontpageSlider = (function() {
         $slides         = $slider.children();
         slidesNumber    = $slides.length;
         $current        = $slides.eq(0);
+        nextWidth       = $nextTrigger.width() - 100;
 
         var minSlides = 5,
             offset;
@@ -37,7 +39,7 @@ var frontpageSlider = (function() {
             $slides = $slider.children();
         }
 
-        $slides.not($current).width(100);
+        $slides.not($current).width(nextWidth);
 
         $slider.imagesLoaded(function() {
 
@@ -45,8 +47,8 @@ var frontpageSlider = (function() {
                 var $slide = $(obj);
 
                 if (i != 0) {
-                    totalWidth += 100;
-                    $slide.css('left', sliderWidth + (i - 1) * 100);
+                    totalWidth += nextWidth;
+                    $slide.css('left', sliderWidth + (i - 1) * nextWidth);
                 } else {
                     totalWidth += sliderWidth;
                 }
@@ -96,15 +98,17 @@ var frontpageSlider = (function() {
     }
 
     function bindEvents() {
-        $nextTrigger
-            .on('mouseover', onNextEnter)
-            .on('mouseleave', onNextLeave)
-            .on('click', onNextClick);
+        if (nextWidth > 70) {
+            $nextTrigger.on('mouseenter', onNextEnter);
+            $nextTrigger.on('mouseleave', onNextLeave);
+        }
+        $nextTrigger.on('click', onNextClick);
 
-        $prevTrigger
-            .on('mouseover', onPrevEnter)
-            .on('mouseleave', onPrevLeave)
-            .on('click', onPrevClick);
+        if (nextWidth > 70) {
+            $prevTrigger.on('mouseenter', onPrevEnter);
+            $prevTrigger.on('mouseleave', onPrevLeave);
+        }
+        $prevTrigger.on('click', onPrevClick);
     }
 
     function onNextEnter() {
@@ -124,14 +128,14 @@ var frontpageSlider = (function() {
     function onNextLeave() {
         TweenMax.to($next.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut});
         TweenMax.to($next.add($content), .4, {x: 0, ease: Quint.easeOut})
-        TweenMax.to($next, .4, {width: 100, ease: Quint.easeOut})
+        TweenMax.to($next, .4, {width: nextWidth, ease: Quint.easeOut})
         TweenMax.to($('.vertical-title.next'), .4, {x: 0, ease: Quint.easeOut});
     }
 
     function onPrevLeave() {
         TweenMax.to($prev.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut});
         TweenMax.to($prev.add($content), .4, {x: 0, ease: Quint.easeOut})
-        TweenMax.to($prev, .4, {width: 100, ease: Quint.easeOut})
+        TweenMax.to($prev, .4, {width: nextWidth, ease: Quint.easeOut})
         TweenMax.to($('.vertical-title.prev'), .4, {x: 0, ease: Quint.easeOut});
     }
 
@@ -139,10 +143,17 @@ var frontpageSlider = (function() {
         var timeline = new TimelineMax({ paused: true, onComplete: onComplete });
 
         timeline.to($next.next().find('.project-slide__image'), 0, {opacity: 1, ease: Power1.easeOut});
-        timeline.to($slider, .7, {x: '-=' + 100, ease: Quint.easeOut});
-        timeline.to($current, .7, {width: 100, ease: Quint.easeOut}, '-=.7');
-        timeline.to($next, .7, {width: sliderWidth, left: '-=' + (sliderWidth - 100), x: 0, ease: Quint.easeOut}, '-=.7');
-        timeline.to($next.next(), .4, {width: 160, x: -60, ease: Quint.easeOut}, '-=.7');
+        timeline.to($slider, .7, {x: '-=' + nextWidth, ease: Quint.easeOut});
+        timeline.to($current, .7, {width: nextWidth, ease: Quint.easeOut}, '-=.7');
+        timeline.to($next, .7, {width: sliderWidth, left: '-=' + (sliderWidth - nextWidth), x: 0, ease: Quint.easeOut}, '-=.7');
+
+        if (nextWidth > 70) {
+            timeline.to($next.next(), .4, {width: 160, x: -60, ease: Quint.easeOut}, '-=.7');
+        } else {
+            timeline.to($next.find('.project-slide__image'), .4, {opacity: 1, ease: Power1.easeOut}, '-=.4');
+            timeline.to($next.next().find('.project-slide__image'), .4, {opacity: 0.6, ease: Power1.easeOut}, '-=.4');
+        }
+
         timeline.to($current.find('.project-slide__image'), .4, {opacity: 0.6, ease: Power1.easeOut}, '-=.4');
 
         $prev       = $current;
@@ -167,8 +178,8 @@ var frontpageSlider = (function() {
         var timeline = new TimelineMax({ paused: true, onComplete: onComplete });
 
         timeline.to($prev.prev().find('.project-slide__image'), 0, {opacity: 1, ease: Quint.easeOut});
-        timeline.to($slider, .7, {x: '+=' + 100, ease: Quint.easeOut});
-        timeline.to($current, .7, {width: 100, left: '+=' + (sliderWidth - 100), ease: Quint.easeOut}, '-=.7');
+        timeline.to($slider, .7, {x: '+=' + nextWidth, ease: Quint.easeOut});
+        timeline.to($current, .7, {width: nextWidth, left: '+=' + (sliderWidth - nextWidth), ease: Quint.easeOut}, '-=.7');
         timeline.to($prev, .7, {width: sliderWidth, x: 0, ease: Quint.easeOut}, '-=.7');
         timeline.to($prev.prev(), .4, {width: 160, ease: Quint.easeOut}, '-=.7');
         timeline.to($current.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut}, '-=.4');

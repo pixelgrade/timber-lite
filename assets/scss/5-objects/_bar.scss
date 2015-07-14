@@ -4,8 +4,8 @@
     width: 100%;
     flex-shrink: 0;
     -webkit-flex-shrink: 0;
-    flex-direction: column;
-    -webkit-flex-direction: column;
+    flex-direction: row;
+    -webkit-flex-direction: row;
 
     // above mask which is 300
     // above .site-content which is 500
@@ -15,8 +15,6 @@
         height: $header-height;
         flex-basis: $header-height;
         -webkit-flex-basis: $header-height;
-        flex-direction: row;
-        -webkit-flex-direction: row;
     }
 
 }
@@ -45,7 +43,6 @@
     flex-basis: 70%;
     -webkit-flex-basis: 70%;
     justify-content: center;
-    -webkit-justify-content: center;
 }
 
 %bar-side {
@@ -56,24 +53,31 @@
 }
 
 %bar-left {
-    justify-content: center;
-    -webkit-justify-content: center;
-
-    @include query-above($small) {
-        padding-left: 2em;
-        justify-content: flex-start;
-        -webkit-justify-content: flex-start;
-    }
+    padding-left: 2em;
+    justify-content: flex-start;
 }
 
 %bar-right {
-    justify-content: center;
-    -webkit-justify-content: center;
+    padding-right: 2em;
+    justify-content: flex-end;
+}
 
-    @include query-above($small) {
-        padding-right: 2em;
-        justify-content: flex-end;
-        -webkit-justify-content: flex-end;
+@include query-below($small) {
+
+    %bar-piece {
+        // display: block;
+        margin: 0;
+        flex-basis: 33%;
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    .site-footer %bar-side {
+        padding: 1.25em;
+    }
+
+    %bar-right {
+        text-align: right;
     }
 }
 
