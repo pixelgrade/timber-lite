@@ -16657,7 +16657,7 @@ if (!Date.now) Date.now = function () {
   })()
   var frontpageSlider = (function () {
 
-    var $slider, $content, $prevTrigger, $nextTrigger, $triggers, sliderWidth, sliderHeight, totalWidth, $slides, slidesNumber, $current, $prev, $next;
+    var $slider, $content, $prevTrigger, $nextTrigger, $triggers, sliderWidth, sliderHeight, totalWidth, $slides, slidesNumber, $current, $prev, $next, nextWidth;
 
     function init() {
 
@@ -16672,6 +16672,7 @@ if (!Date.now) Date.now = function () {
       $slides = $slider.children();
       slidesNumber = $slides.length;
       $current = $slides.eq(0);
+      nextWidth = $nextTrigger.width();
 
       var minSlides = 5,
           offset;
@@ -16682,7 +16683,7 @@ if (!Date.now) Date.now = function () {
         $slides = $slider.children();
       }
 
-      $slides.not($current).width(100);
+      $slides.not($current).width(nextWidth);
 
       $slider.imagesLoaded(function () {
 
@@ -16690,8 +16691,8 @@ if (!Date.now) Date.now = function () {
           var $slide = $(obj);
 
           if (i != 0) {
-            totalWidth += 100;
-            $slide.css('left', sliderWidth + (i - 1) * 100);
+            totalWidth += nextWidth;
+            $slide.css('left', sliderWidth + (i - 1) * nextWidth);
           } else {
             totalWidth += sliderWidth;
           }
@@ -16743,9 +16744,17 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindEvents() {
-      $nextTrigger.on('mouseover', onNextEnter).on('mouseleave', onNextLeave).on('click', onNextClick);
+      if (nextWidth > 170) {
+        $nextTrigger.on('mouseover', onNextEnter);
+        $nextTrigger.on('mouseleave', onNextLeave);
+      }
+      $nextTrigger.on('click', onNextClick);
 
-      $prevTrigger.on('mouseover', onPrevEnter).on('mouseleave', onPrevLeave).on('click', onPrevClick);
+      if (nextWidth > 170) {
+        $prevTrigger.on('mouseover', onPrevEnter);
+        $prevTrigger.on('mouseleave', onPrevLeave);
+      }
+      $prevTrigger.on('click', onPrevClick);
     }
 
     function onNextEnter() {
@@ -16796,7 +16805,7 @@ if (!Date.now) Date.now = function () {
         ease: Quint.easeOut
       })
       TweenMax.to($next, .4, {
-        width: 100,
+        width: nextWidth,
         ease: Quint.easeOut
       })
       TweenMax.to($('.vertical-title.next'), .4, {
@@ -16815,7 +16824,7 @@ if (!Date.now) Date.now = function () {
         ease: Quint.easeOut
       })
       TweenMax.to($prev, .4, {
-        width: 100,
+        width: nextWidth,
         ease: Quint.easeOut
       })
       TweenMax.to($('.vertical-title.prev'), .4, {
@@ -16835,24 +16844,37 @@ if (!Date.now) Date.now = function () {
         ease: Power1.easeOut
       });
       timeline.to($slider, .7, {
-        x: '-=' + 100,
+        x: '-=' + nextWidth,
         ease: Quint.easeOut
       });
       timeline.to($current, .7, {
-        width: 100,
+        width: nextWidth,
         ease: Quint.easeOut
       }, '-=.7');
       timeline.to($next, .7, {
         width: sliderWidth,
-        left: '-=' + (sliderWidth - 100),
+        left: '-=' + (sliderWidth - nextWidth),
         x: 0,
         ease: Quint.easeOut
       }, '-=.7');
-      timeline.to($next.next(), .4, {
-        width: 160,
-        x: -60,
-        ease: Quint.easeOut
-      }, '-=.7');
+
+      if (nextWidth > 170) {
+        timeline.to($next.next(), .4, {
+          width: 160,
+          x: -60,
+          ease: Quint.easeOut
+        }, '-=.7');
+      } else {
+        timeline.to($next.find('.project-slide__image'), .4, {
+          opacity: 1,
+          ease: Power1.easeOut
+        }, '-=.4');
+        timeline.to($next.next().find('.project-slide__image'), .4, {
+          opacity: 0.6,
+          ease: Power1.easeOut
+        }, '-=.4');
+      }
+
       timeline.to($current.find('.project-slide__image'), .4, {
         opacity: 0.6,
         ease: Power1.easeOut
@@ -16887,12 +16909,12 @@ if (!Date.now) Date.now = function () {
         ease: Quint.easeOut
       });
       timeline.to($slider, .7, {
-        x: '+=' + 100,
+        x: '+=' + nextWidth,
         ease: Quint.easeOut
       });
       timeline.to($current, .7, {
-        width: 100,
-        left: '+=' + (sliderWidth - 100),
+        width: nextWidth,
+        left: '+=' + (sliderWidth - nextWidth),
         ease: Quint.easeOut
       }, '-=.7');
       timeline.to($prev, .7, {

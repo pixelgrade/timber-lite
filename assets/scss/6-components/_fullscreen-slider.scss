@@ -37,15 +37,23 @@
 	@extend .fullscreen-slider;
 	top: $header-height;
 	bottom: $header-height;
-	margin: 0 100px;
+
+	@include query-above($small) {
+		margin: 0 100px;
+
+		.slider--show_next & {
+			margin-left: 0;
+		}
+	}
+
+	@include query-below($small) {
+		margin-right: 60px !important;
+		margin-left: 0 !important;
+	}
 
 	.slider_height-full-height & {
 		top: 0;
 		bottom: 0;
-	}
-
-	.slider--show_next & {
-		margin-left: 0;
 	}
 
 	&__bullets {
@@ -120,12 +128,20 @@
 .project-slide__content {
 	position: absolute;
 	top: 50%;
-	left: 260px;
 	z-index: 20;
 	transform: translateY(-50%);
+	left: 2em;
 
-	.slider--show_next & {
-		left: 160px;
+	@include query-above($small) {
+		left: 260px;
+
+		.slider--show_next & {
+			left: 160px;
+		}
+	}
+
+	@include query-below($small) {
+		transform: translateY(-50%) !important;
 	}
 
 	* {
@@ -166,12 +182,19 @@
 
 .vertical-title {
 	position: absolute;
+	top: 0;
 	height: 100%;
 	z-index: 100;
 	// pointer-events: none;
 	width: 200px;
 	cursor: pointer;
 	margin-left: -0.01em;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent;
+
+	@include query-below($small) {
+		width: 160px !important;
+	}
 
 	span {
 		position: absolute;
@@ -194,10 +217,13 @@
 	}
 
 	&.prev {
+		display: none;
 		left: -100px;
 
-		.slider--show_next & {
-			display: none;
+		.slider--show_prev_next & {
+			@include query-above($small) {
+				display: block;
+			}
 		}
 	}
 
@@ -206,6 +232,10 @@
 
 		span {
 			left: 25%;
+
+			@include query-below($small) {
+				left: 20%;
+			}
 		}
 	}
 }
