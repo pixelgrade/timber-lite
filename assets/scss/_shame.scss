@@ -9,9 +9,31 @@ html[lang] {
 html, body, #page, .site, #djaxContainer {
     height: 100%;
 
-    .page & {
-        height: auto;
+    // .page & {
+    //     height: auto;
+    // }
+}
+
+#djaxContainer {
+    position: relative;
+    overflow: hidden;
+}
+
+.slider_height-full-height {
+
+    .mobile-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9998;
     }
+
+    .nav-toggle,
+    .mobile-header a {
+        color: white;
+    }
+
 }
 
 .entry-meta + .entry-featured {

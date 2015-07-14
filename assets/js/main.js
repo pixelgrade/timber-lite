@@ -17093,6 +17093,14 @@ if (!Date.now) Date.now = function () {
           open();
         }
       });
+
+      $('.site-header').on('click', function (e) {
+        e.stopPropagation();
+      });
+
+      $body.on('click', function () {
+        close();
+      });
     }
 
     function open() {
