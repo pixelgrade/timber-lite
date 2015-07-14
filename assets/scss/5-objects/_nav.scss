@@ -35,7 +35,7 @@
     }
 
     // styling sub-menus
-    .menu-item-has-children {
+    .menu-item-has-children, .menu-item-language {
         @extend %position--relative;
 
         > a:after {
