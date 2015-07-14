@@ -84,6 +84,8 @@ img {
 
     &__position {
         @extend %display--inline-block;
+        font-weight: bold;
+        font-size: 13px;
     }
 
     &__item {
