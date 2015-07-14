@@ -47,34 +47,37 @@
 	}
 
 .widget_timber_image {}
-	.timber-widget-background-image {
-		display: none;
 
-		.overlay__col.col1 & {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			height: 100%;
+	@include query-above($small) {
+		.timber-widget-background-image {
+			display: none;
 
-			display: initial;
+			.overlay__col.col1 & {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
 
-			background-position: center center;
-			background-repeat: no-repeat;
-			background-size: cover;
+				display: initial;
+
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+
 		}
 
-	}
+		.timber-widget-image {
+			max-width: 100%;
+			height: auto;
+			margin: 0 auto;
 
-	.timber-widget-image {
-		max-width: 100%;
-		height: auto;
-		margin: 0 auto;
+			display: block;
 
-		display: block;
-
-		.overlay__col.col1 & {
-			display: none;
+			.overlay__col.col1 & {
+				display: none;
+			}
 		}
 	}
 
