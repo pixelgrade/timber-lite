@@ -342,48 +342,48 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 									)
 								),
 							),
-							'spacing_header'   => array(
-								'type'      => 'range',
-								'label'     => __( 'Header Spacing', 'timber' ),
-								 'input_attrs' => array(
-							        'min'   => 0,
-							        'max'   => 100,
-							        'step'  => 10,
-							    ),
-								'live' => true,
-								'default'   => 50,
-								'css'  => array(
-									array(
-										'property' => 'padding-top',
-										'selector' => '.site-header .bar--fixed',
-									),
-									array(
-										'property' => 'padding-bottom',
-										'selector' => '.site-header .bar--fixed',
-									)
-								),
-							),
-							'spacing_footer'   => array(
-								'type'      => 'range',
-								'label'     => __( 'Footer Spacing', 'timber' ),
-								 'input_attrs' => array(
-							        'min'   => 0,
-							        'max'   => 100,
-							        'step'  => 10,
-							    ),
-								'live' => true,
-								'default'   => 0,
-								'css'  => array(
-									array(
-										'property' => 'padding-top',
-										'selector' => '.site-footer .bar--fixed',
-									),
-									array(
-										'property' => 'padding-bottom',
-										'selector' => '.site-footer .bar--fixed',
-									)
-								),
-							),
+							// 'spacing_header'   => array(
+							// 	'type'      => 'range',
+							// 	'label'     => __( 'Header Spacing', 'timber' ),
+							// 	 'input_attrs' => array(
+							//         'min'   => 0,
+							//         'max'   => 100,
+							//         'step'  => 10,
+							//     ),
+							// 	'live' => true,
+							// 	'default'   => 50,
+							// 	'css'  => array(
+							// 		array(
+							// 			'property' => 'padding-top',
+							// 			'selector' => '.site-header .bar--fixed',
+							// 		),
+							// 		array(
+							// 			'property' => 'padding-bottom',
+							// 			'selector' => '.site-header .bar--fixed',
+							// 		)
+							// 	),
+							// ),
+							// 'spacing_footer'   => array(
+							// 	'type'      => 'range',
+							// 	'label'     => __( 'Footer Spacing', 'timber' ),
+							// 	 'input_attrs' => array(
+							//         'min'   => 0,
+							//         'max'   => 100,
+							//         'step'  => 10,
+							//     ),
+							// 	'live' => true,
+							// 	'default'   => 0,
+							// 	'css'  => array(
+							// 		array(
+							// 			'property' => 'padding-top',
+							// 			'selector' => '.site-footer .bar--fixed',
+							// 		),
+							// 		array(
+							// 			'property' => 'padding-bottom',
+							// 			'selector' => '.site-footer .bar--fixed',
+							// 		)
+							// 	),
+							// ),
 							'filmstrip_spacing'   => array(
 								'type'      => 'range',
 								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
