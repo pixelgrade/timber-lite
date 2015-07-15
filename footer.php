@@ -49,6 +49,16 @@ if ( $timber_show_footer ) {
 	<button class="overlay__close  js-overlay-trigger"><i class="icon  icon-times-circle-o"></i></button>
 </div><!-- .overlay -->
 
+<div class="fullview">
+    <div class="rsArrow rsArrowLeft">
+        <div class="rsArrowIcn"></div>
+    </div>
+    <div class="rsArrow rsArrowRight">
+        <div class="rsArrowIcn"></div>
+    </div>
+    <div class="fullview__close"></div>
+</div>
+
 <script>
     var loaderRandomImages = <?php timber_the_random_projects_images_srcs(); ?>;
 </script>
