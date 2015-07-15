@@ -138,7 +138,7 @@ function timber_widgets_init() {
 	register_sidebar( array(
 		'name'          => esc_html__( 'Overlay — Content (2/4)', 'timber' ),
 		'id'            => 'overlay-widget-area-3',
-		'description'   => '',
+		'description'   => 'Add a full-height photo using the Profile Image widget.',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h4 class="widget-title">',
