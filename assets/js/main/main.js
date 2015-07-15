@@ -13,6 +13,8 @@ function init() {
     scrollToTop();
     Loader.init();
     Nav.init();
+    //Loads the addThis script - this should be run just once
+    AddThisIcons.init();
 
     $(".pixcode--tabs").organicTabs();
 
@@ -45,10 +47,9 @@ function softInit() {
 
     frontpageSlider.init();
 
-    AddThisIcons.init();
+    AddThisIcons.softInit();
     overlayInit();
     royalSliderInit();
-    socialLinks.init();
     videos.init();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);

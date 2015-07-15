@@ -468,7 +468,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 						'options' => array(
 							'show_share_links' => array(
 								'type'	=> 'checkbox',
-								'default' => false,
+								'default' => true,
 								'label' => __( 'Show Share Links', 'timber' ),
 							),
 							'share_buttons_settings' => array(
