@@ -186,7 +186,7 @@ function timber_scripts_styles() {
 	$project_template = get_post_meta( timber_get_post_id(), 'project_template', true );
 
 	// For vertical scroll to be interpreted as horizontal scroll
-	if( is_front_page() && is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
+	if( is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
 		wp_enqueue_script('mousewheel' , get_template_directory_uri() . '/assets/js/plugins/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
 	}
 
