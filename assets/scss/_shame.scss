@@ -3,7 +3,9 @@
 }
 
 html[lang] {
-    margin: 0.88vh !important;
+    @include query-above($small) {
+        margin: 0.88vh !important;
+    }
 }
 
 html, body, #page, .site, #djaxContainer {
