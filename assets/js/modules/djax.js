@@ -44,7 +44,8 @@ var djax = (function() {
 
     function onDjaxClick(e) {
         Nav.close();
-        // $html.css('overflow', 'hidden');
+        Overlay.close();
+
         TweenMax.fromTo('.loader', .6, {
             left: '100%'
         }, {

@@ -16513,7 +16513,8 @@ if (!Date.now) Date.now = function () {
 
     function onDjaxClick(e) {
       Nav.close();
-      // $html.css('overflow', 'hidden');
+      Overlay.close();
+
       TweenMax.fromTo('.loader', .6, {
         left: '100%'
       }, {
@@ -17127,58 +17128,68 @@ if (!Date.now) Date.now = function () {
       close: close
     }
   })();
+  var Overlay = (function () {
 
-  function overlayInit() {
+    var $trigger, $overlay, isOpen;
 
-    var $trigger = $('.js-overlay-trigger'),
-        $overlay = $('.overlay'),
-        isOpen = false;
+    function init() {
+      $trigger = $('.js-overlay-trigger');
+      $overlay = $('.overlay');
+      isOpen = false;
+      bindEvents();
+    }
 
+    function bindEvents() {
+      // Toggle navigation on click
+      $trigger.on('click touchstart', navToggle);
 
-    // Toggle navigation on click
-    $trigger.on('click touchstart', navToggle);
+      // Close menu with ESC key
+      $(document).on('keydown', function (e) {
+        if (e.keyCode == 27 && isOpen) {
+          navToggle(e);
+        }
+      });
+    }
 
+    function open() {
+      $overlay.css('left', 0);
+      TweenMax.to($overlay, 0.3, {
+        opacity: 1
+      });
+      $('html').css('overflow', 'hidden');
+      isOpen = true;
+    }
 
-    // Close menu with ESC key
-    $(document).on('keydown', function (e) {
-      if (e.keyCode == 27 && isOpen) {
-        navToggle(e);
-      }
-    });
+    function close() {
+      TweenMax.to($overlay, 0.3, {
+        opacity: 0,
+        onComplete: function () {
+          $overlay.css('left', '100%');
+        }
+      });
+
+      $('html').css('overflow', '');
+      isOpen = false;
+    }
+
 
     function navToggle(e) {
       e.preventDefault();
       e.stopPropagation();
 
-      isOpen = !isOpen;
-
       if (isOpen) {
-
-        $overlay.css('left', 0);
-
-        TweenMax.to($overlay, 0.3, {
-          opacity: 1
-        });
-
-        $('html').css('overflow', 'hidden');
-
-        isOpen = true;
-
+        close();
       } else {
-
-        TweenMax.to($overlay, 0.3, {
-          opacity: 0,
-          onComplete: function () {
-            $overlay.css('left', '100%');
-          }
-        });
-
-        $('html').css('overflow', '');
-
-        isOpen = false;
+        open();
       }
     }
-  }
+
+    return {
+      init: init,
+      open: open,
+      close: close
+    }
+  })();
   var Placeholder = (function () {
     var $items;
 
@@ -18283,6 +18294,8 @@ if (!Date.now) Date.now = function () {
     scrollToTop();
     Loader.init();
     Nav.init();
+    Overlay.init();
+
     //Loads the addThis script - this should be run just once
     AddThisIcons.init();
 
@@ -18316,7 +18329,6 @@ if (!Date.now) Date.now = function () {
     frontpageSlider.init();
 
     AddThisIcons.softInit();
-    overlayInit();
     royalSliderInit();
     videos.init();
 

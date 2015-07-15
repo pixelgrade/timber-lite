@@ -13,6 +13,8 @@ function init() {
     scrollToTop();
     Loader.init();
     Nav.init();
+    Overlay.init();
+
     //Loads the addThis script - this should be run just once
     AddThisIcons.init();
 
@@ -48,7 +50,6 @@ function softInit() {
     frontpageSlider.init();
 
     AddThisIcons.softInit();
-    overlayInit();
     royalSliderInit();
     videos.init();
 
