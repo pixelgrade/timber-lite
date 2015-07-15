@@ -13,6 +13,10 @@ function init() {
     scrollToTop();
     Loader.init();
     Nav.init();
+    Overlay.init();
+
+    //Loads the addThis script - this should be run just once
+    AddThisIcons.init();
 
     $(".pixcode--tabs").organicTabs();
 
@@ -45,10 +49,8 @@ function softInit() {
 
     frontpageSlider.init();
 
-    AddThisIcons.init();
-    overlayInit();
+    AddThisIcons.softInit();
     royalSliderInit();
-    socialLinks.init();
     videos.init();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
@@ -102,11 +104,7 @@ function eventHandlers() {
 
     $window.on('scroll', function () {
     	latestKnownScrollY = window.scrollY;
-        requestTick();
-    });
-
-    $('.site-content').on('scroll', function() {
-    	latestKnownScrollX = $('.site-content').scrollLeft();
+        latestKnownScrollX = window.scrollX;
         requestTick();
     });
 

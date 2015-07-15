@@ -43,7 +43,6 @@
     flex-basis: 70%;
     -webkit-flex-basis: 70%;
     justify-content: center;
-    -webkit-justify-content: center;
 }
 
 %bar-side {
@@ -54,24 +53,31 @@
 }
 
 %bar-left {
-    justify-content: center;
-    -webkit-justify-content: center;
-
-    @include query-above($small) {
-        padding-left: 2em;
-        justify-content: flex-start;
-        -webkit-justify-content: flex-start;
-    }
+    padding-left: 48px;
+    justify-content: flex-start;
 }
 
 %bar-right {
-    justify-content: center;
-    -webkit-justify-content: center;
+    padding-right: 48px;
+    justify-content: flex-end;
+}
 
-    @include query-above($small) {
-        padding-right: 2em;
-        justify-content: flex-end;
-        -webkit-justify-content: flex-end;
+@include query-below($small) {
+
+    %bar-piece {
+        // display: block;
+        margin: 0;
+        flex-basis: 33%;
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    .site-footer %bar-side {
+        padding: 1.25em;
+    }
+
+    %bar-right {
+        text-align: right;
     }
 }
 

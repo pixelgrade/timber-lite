@@ -28,7 +28,7 @@ var frontpageSlider = (function() {
         $slides         = $slider.children();
         slidesNumber    = $slides.length;
         $current        = $slides.eq(0);
-        nextWidth       = $nextTrigger.width();
+        nextWidth       = $nextTrigger.width() - 100;
 
         var minSlides = 5,
             offset;
@@ -98,14 +98,14 @@ var frontpageSlider = (function() {
     }
 
     function bindEvents() {
-        if (nextWidth > 170) {
-            $nextTrigger.on('mouseover', onNextEnter);
+        if (nextWidth > 70) {
+            $nextTrigger.on('mouseenter', onNextEnter);
             $nextTrigger.on('mouseleave', onNextLeave);
         }
         $nextTrigger.on('click', onNextClick);
 
-        if (nextWidth > 170) {
-            $prevTrigger.on('mouseover', onPrevEnter);
+        if (nextWidth > 70) {
+            $prevTrigger.on('mouseenter', onPrevEnter);
             $prevTrigger.on('mouseleave', onPrevLeave);
         }
         $prevTrigger.on('click', onPrevClick);
@@ -147,7 +147,7 @@ var frontpageSlider = (function() {
         timeline.to($current, .7, {width: nextWidth, ease: Quint.easeOut}, '-=.7');
         timeline.to($next, .7, {width: sliderWidth, left: '-=' + (sliderWidth - nextWidth), x: 0, ease: Quint.easeOut}, '-=.7');
 
-        if (nextWidth > 170) {
+        if (nextWidth > 70) {
             timeline.to($next.next(), .4, {width: 160, x: -60, ease: Quint.easeOut}, '-=.7');
         } else {
             timeline.to($next.find('.project-slide__image'), .4, {opacity: 1, ease: Power1.easeOut}, '-=.4');
@@ -218,6 +218,11 @@ var frontpageSlider = (function() {
     }
 
     function animateContentIn() {
+
+        $content.find('.project-slide__title h1').text($current.data('title'));
+        $content.find('.portfolio_types').html($current.data('types'));
+        $content.find('a').attr('href', $current.data('link')).attr('title', $current.data('link-title'));
+
         $current.find('.project-slide__image').css('opacity', 1);
         TweenMax.fromTo($content.find('.project-slide__title h1'), .7, {y: '-100%'}, {y: '0%', delay: .5, ease: Expo.easeInOut});
         TweenMax.fromTo($content.find('.js-title-mask'), .7, {y: '100%'}, {y: '0%', delay: .5, ease: Expo.easeInOut});

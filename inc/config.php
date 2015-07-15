@@ -167,7 +167,6 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 									array(
 										'property' => 'color',
 										'selector' => 'h1, h2, h3, h4, h5, h6, .entry-title, .entry-title a,
-														.project-slide__content h1, .vertical-title span,
 														.page-template-default .entry-title,
 														.page-no-featured-image .entry-title,
 														.portfolio__title a',
@@ -207,7 +206,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => 'a, .portfolio_types a, .filter__item, .toggle, .share-box,
+										'selector' => 'a, .filter__item, .toggle, .share-box,
 														.tags-links a',
 									)
 								),
@@ -287,8 +286,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'    => 'typography',
 								'label'   => __( 'Caption Text', 'timber' ),
 								'default' => 'Libre Baskerville',
-								'selector' => '.caption, small, .photometa__caption, .photometa__description,
-												.site-footer--single',
+								'selector' => '.caption, small, .photometa__caption, .photometa__description',
 								'load_all_weights' => true,
 								'recommended' => array(
 									'Libre Baskerville',
@@ -391,15 +389,15 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
 								 'input_attrs' => array(
 							        'min'   => 0,
-							        'max'   => 50,
-							        'step'  => 0.1,
+							        'max'   => 100,
+							        'step'  => 1,
 							    ),
 								'live' => true,
-								'default'   => 0.625,
+								'default'   => 10,
 								'css'  => array(
 									array(
 										'property' => 'margin-right',
-										'unit'	=> 'em',
+										'unit'	=> 'px',
 										'selector' => '.portfolio__item',
 									)
 								),
@@ -469,7 +467,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 						'options' => array(
 							'show_share_links' => array(
 								'type'	=> 'checkbox',
-								'default' => false,
+								'default' => true,
 								'label' => __( 'Show Share Links', 'timber' ),
 							),
 							'share_buttons_settings' => array(

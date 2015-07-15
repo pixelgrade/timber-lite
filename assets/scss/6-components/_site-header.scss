@@ -23,13 +23,14 @@
     @include wp-offset(0px, top, true);
 }
 
-.site-header--placeholder {
+.site-header.site-header--placeholder {
     position: static !important;
     z-index: 0;
+    height: 13vh !important;
 
-    @include query-below($small) {
-        display: none;
-    }
+    // @include query-below($small) {
+    //     display: none;
+    // }
 }
 
 .site-header--placeholder {
@@ -79,6 +80,29 @@
 
     svg rect {
         color: currentColor;
+    }
+
+    @include query-below($small) {
+        display: none;
+    }
+}
+
+.toggle--mobile {
+    display: none;
+
+    @include query-below($small) {
+        display: block;
+        width: 1em;
+        position: absolute;
+        top: 6.5vh;
+        transform: translate(0, -50%);
+        left: 200%;
+        margin-left: 1.9em;
+        padding: 0;
+
+        svg {
+            display: block;
+        }
     }
 }
 

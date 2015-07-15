@@ -52,8 +52,7 @@ img {
         }
 
         @include query-below($small) {
-            padding-right: 2em;
-            padding-left: 2em;
+            padding-right: 1em;
         }
     }
 
@@ -85,6 +84,8 @@ img {
 
     &__position {
         @extend %display--inline-block;
+        font-weight: bold;
+        font-size: 13px;
     }
 
     &__item {
@@ -143,7 +144,7 @@ img {
         z-index: 100;
 
         @include query-below($small) {
-            padding: 0 1em 0 2em;
+            padding: 0 1em;
         }
 
         .portfolio__item {
@@ -169,9 +170,9 @@ img {
 
     &--filmstrip {
         // max-width: 100%;
+        // overflow-x: auto;
         z-index: 350;
         opacity: 0;
-        overflow-x: auto;
 
         &.portfolio--visible {
             opacity: 1;
@@ -187,6 +188,10 @@ img {
         margin-bottom: .5em;
         height: 15vh;
         position: relative;
+
+        @include query-below($small) {
+            height: 13vh;
+        }
     }
 
     &--grid &__item--content,

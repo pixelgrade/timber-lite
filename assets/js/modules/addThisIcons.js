@@ -21,20 +21,23 @@ window.AddThisIcons = (function() {
 	//only fire this the first time we load the AddThis API - even when using ajax
 		addThisReady = function () {
 			if (globalDebug) {console.log("addthis::Ready");}
-			addThisInit();
+			softInit();
 		},
 
 	/* --- AddThis Init --- */
-		addThisInit = function () {
+		softInit = function () {
 			if (window.addthis) {
 				if (globalDebug) {console.log("addthis::Toolbox INIT");}
 
 				addthis.toolbox( addThisToolBox );
+
+				socialLinks.init();
 			}
 		}
 
 	return {
-		init: init
+		init: init,
+		softInit: softInit
 	}
 })();
 

@@ -16136,26 +16136,29 @@ if (!Date.now) Date.now = function () {
         if (globalDebug) {
           console.log("addthis::Ready");
         }
-        addThisInit();
+        softInit();
         },
         
         
          /* --- AddThis Init --- */
         
-        addThisInit = function () {
+        softInit = function () {
         if (window.addthis) {
           if (globalDebug) {
             console.log("addthis::Toolbox INIT");
           }
 
           addthis.toolbox(addThisToolBox);
+
+          socialLinks.init();
         }
         }
         
         
         
         return {
-        init: init
+        init: init,
+        softInit: softInit
         }
   })();
 
@@ -16510,7 +16513,8 @@ if (!Date.now) Date.now = function () {
 
     function onDjaxClick(e) {
       Nav.close();
-      // $html.css('overflow', 'hidden');
+      Overlay.close();
+
       TweenMax.fromTo('.loader', .6, {
         left: '100%'
       }, {
@@ -16672,7 +16676,7 @@ if (!Date.now) Date.now = function () {
       $slides = $slider.children();
       slidesNumber = $slides.length;
       $current = $slides.eq(0);
-      nextWidth = $nextTrigger.width();
+      nextWidth = $nextTrigger.width() - 100;
 
       var minSlides = 5,
           offset;
@@ -16744,14 +16748,14 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindEvents() {
-      if (nextWidth > 170) {
-        $nextTrigger.on('mouseover', onNextEnter);
+      if (nextWidth > 70) {
+        $nextTrigger.on('mouseenter', onNextEnter);
         $nextTrigger.on('mouseleave', onNextLeave);
       }
       $nextTrigger.on('click', onNextClick);
 
-      if (nextWidth > 170) {
-        $prevTrigger.on('mouseover', onPrevEnter);
+      if (nextWidth > 70) {
+        $prevTrigger.on('mouseenter', onPrevEnter);
         $prevTrigger.on('mouseleave', onPrevLeave);
       }
       $prevTrigger.on('click', onPrevClick);
@@ -16858,7 +16862,7 @@ if (!Date.now) Date.now = function () {
         ease: Quint.easeOut
       }, '-=.7');
 
-      if (nextWidth > 170) {
+      if (nextWidth > 70) {
         timeline.to($next.next(), .4, {
           width: 160,
           x: -60,
@@ -16965,6 +16969,11 @@ if (!Date.now) Date.now = function () {
     }
 
     function animateContentIn() {
+
+      $content.find('.project-slide__title h1').text($current.data('title'));
+      $content.find('.portfolio_types').html($current.data('types'));
+      $content.find('a').attr('href', $current.data('link')).attr('title', $current.data('link-title'));
+
       $current.find('.project-slide__image').css('opacity', 1);
       TweenMax.fromTo($content.find('.project-slide__title h1'), .7, {
         y: '-100%'
@@ -17093,6 +17102,14 @@ if (!Date.now) Date.now = function () {
           open();
         }
       });
+
+      $('.site-header').on('click', function (e) {
+        e.stopPropagation();
+      });
+
+      $body.on('click', function () {
+        close();
+      });
     }
 
     function open() {
@@ -17111,58 +17128,68 @@ if (!Date.now) Date.now = function () {
       close: close
     }
   })();
+  var Overlay = (function () {
 
-  function overlayInit() {
+    var $trigger, $overlay, isOpen;
 
-    var $trigger = $('.js-overlay-trigger'),
-        $overlay = $('.overlay'),
-        isOpen = false;
+    function init() {
+      $trigger = $('.js-overlay-trigger');
+      $overlay = $('.overlay');
+      isOpen = false;
+      bindEvents();
+    }
 
+    function bindEvents() {
+      // Toggle navigation on click
+      $trigger.on('click touchstart', navToggle);
 
-    // Toggle navigation on click
-    $trigger.on('click touchstart', navToggle);
+      // Close menu with ESC key
+      $(document).on('keydown', function (e) {
+        if (e.keyCode == 27 && isOpen) {
+          navToggle(e);
+        }
+      });
+    }
 
+    function open() {
+      $overlay.css('left', 0);
+      TweenMax.to($overlay, 0.3, {
+        opacity: 1
+      });
+      $('html').css('overflow', 'hidden');
+      isOpen = true;
+    }
 
-    // Close menu with ESC key
-    $(document).on('keydown', function (e) {
-      if (e.keyCode == 27 && isOpen) {
-        navToggle(e);
-      }
-    });
+    function close() {
+      TweenMax.to($overlay, 0.3, {
+        opacity: 0,
+        onComplete: function () {
+          $overlay.css('left', '100%');
+        }
+      });
+
+      $('html').css('overflow', '');
+      isOpen = false;
+    }
+
 
     function navToggle(e) {
       e.preventDefault();
       e.stopPropagation();
 
-      isOpen = !isOpen;
-
       if (isOpen) {
-
-        $overlay.css('left', 0);
-
-        TweenMax.to($overlay, 0.3, {
-          opacity: 1
-        });
-
-        $('html').css('overflow', 'hidden');
-
-        isOpen = true;
-
+        close();
       } else {
-
-        TweenMax.to($overlay, 0.3, {
-          opacity: 0,
-          onComplete: function () {
-            $overlay.css('left', '100%');
-          }
-        });
-
-        $('html').css('overflow', '');
-
-        isOpen = false;
+        open();
       }
     }
-  }
+
+    return {
+      init: init,
+      open: open,
+      close: close
+    }
+  })();
   var Placeholder = (function () {
     var $items;
 
@@ -17662,7 +17689,7 @@ if (!Date.now) Date.now = function () {
       }
 
       start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
-      end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
+      end = contentWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
       max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
 
@@ -17796,7 +17823,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
     }
 
     function addImageToFullView($source) {
@@ -17836,8 +17863,6 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
-      $('.site-content').addClass('site-content--fullview');
-
       morph($source, $target);
 
       setTimeout(function () {
@@ -17872,10 +17897,13 @@ if (!Date.now) Date.now = function () {
         onComplete: function () {
           morph($source, $target, {}, function () {
             $('.site-content').removeClass('site-content--fullview');
+            // setTimeout(function() {
+            // });
           });
           setTimeout(function () {
-            $('.fullview__image').remove();
+            $('.site-content').addClass('site-content--fullview');
             $fullview.removeClass('fullview--visible');
+            $source.remove();
           });
         }
       });
@@ -18266,6 +18294,10 @@ if (!Date.now) Date.now = function () {
     scrollToTop();
     Loader.init();
     Nav.init();
+    Overlay.init();
+
+    //Loads the addThis script - this should be run just once
+    AddThisIcons.init();
 
     $(".pixcode--tabs").organicTabs();
 
@@ -18296,10 +18328,8 @@ if (!Date.now) Date.now = function () {
 
     frontpageSlider.init();
 
-    AddThisIcons.init();
-    overlayInit();
+    AddThisIcons.softInit();
     royalSliderInit();
-    socialLinks.init();
     videos.init();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
@@ -18353,11 +18383,7 @@ if (!Date.now) Date.now = function () {
 
     $window.on('scroll', function () {
       latestKnownScrollY = window.scrollY;
-      requestTick();
-    });
-
-    $('.site-content').on('scroll', function () {
-      latestKnownScrollX = $('.site-content').scrollLeft();
+      latestKnownScrollX = window.scrollX;
       requestTick();
     });
 
