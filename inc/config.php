@@ -351,7 +351,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							        'step'  => 10,
 							    ),
 								'live' => true,
-								'default'   => 50,
+								'default'   => 0,
 								'css'  => array(
 									array(
 										'property' => 'padding-top',
@@ -372,7 +372,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							        'step'  => 10,
 							    ),
 								'live' => true,
-								'default'   => 50,
+								'default'   => 0,
 								'css'  => array(
 									array(
 										'property' => 'padding-top',
