@@ -16136,26 +16136,29 @@ if (!Date.now) Date.now = function () {
         if (globalDebug) {
           console.log("addthis::Ready");
         }
-        addThisInit();
+        softInit();
         },
         
         
          /* --- AddThis Init --- */
         
-        addThisInit = function () {
+        softInit = function () {
         if (window.addthis) {
           if (globalDebug) {
             console.log("addthis::Toolbox INIT");
           }
 
           addthis.toolbox(addThisToolBox);
+
+          socialLinks.init();
         }
         }
         
         
         
         return {
-        init: init
+        init: init,
+        softInit: softInit
         }
   })();
 
@@ -18274,6 +18277,8 @@ if (!Date.now) Date.now = function () {
     scrollToTop();
     Loader.init();
     Nav.init();
+    //Loads the addThis script - this should be run just once
+    AddThisIcons.init();
 
     $(".pixcode--tabs").organicTabs();
 
@@ -18304,10 +18309,9 @@ if (!Date.now) Date.now = function () {
 
     frontpageSlider.init();
 
-    AddThisIcons.init();
+    AddThisIcons.softInit();
     overlayInit();
     royalSliderInit();
-    socialLinks.init();
     videos.init();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
