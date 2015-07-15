@@ -27,10 +27,10 @@ if ( ! class_exists( 'Timber_Image_Widget' ) ) :
 		public function __construct() {
 			parent::__construct(
 				'timber-image',
-				apply_filters( 'timber_widget_name', esc_html__( 'Timber Image Widget', 'timber' ) ),
+				apply_filters( 'timber_widget_name', esc_html__( 'Profile Image', 'timber' ) ),
 				array(
 					'classname'   => 'widget_timber_image',
-					'description' => __( 'Display a full height image.', 'timber' )
+					'description' => __( 'Display a full-height image within the "Overlay — Content" widget area.', 'timber' )
 				)
 			);
 
