@@ -102,11 +102,7 @@ function eventHandlers() {
 
     $window.on('scroll', function () {
     	latestKnownScrollY = window.scrollY;
-        requestTick();
-    });
-
-    $('.site-content').on('scroll', function() {
-    	latestKnownScrollX = $('.site-content').scrollLeft();
+        latestKnownScrollX = window.scrollX;
         requestTick();
     });
 

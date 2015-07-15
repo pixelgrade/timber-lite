@@ -2,12 +2,6 @@
     box-sizing: border-box;
 }
 
-html[lang] {
-    @include query-above($small) {
-        margin: 0.88vh !important;
-    }
-}
-
 html, body, #page, .site, #djaxContainer {
     height: 100%;
 

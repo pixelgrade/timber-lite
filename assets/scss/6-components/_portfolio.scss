@@ -170,9 +170,9 @@ img {
 
     &--filmstrip {
         // max-width: 100%;
+        // overflow-x: auto;
         z-index: 350;
         opacity: 0;
-        overflow-x: auto;
 
         &.portfolio--visible {
             opacity: 1;

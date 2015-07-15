@@ -17675,7 +17675,7 @@ if (!Date.now) Date.now = function () {
       }
 
       start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
-      end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
+      end = contentWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
       max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
 
@@ -17809,7 +17809,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
     }
 
     function addImageToFullView($source) {
@@ -17849,8 +17849,6 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
-      $('.site-content').addClass('site-content--fullview');
-
       morph($source, $target);
 
       setTimeout(function () {
@@ -17885,10 +17883,13 @@ if (!Date.now) Date.now = function () {
         onComplete: function () {
           morph($source, $target, {}, function () {
             $('.site-content').removeClass('site-content--fullview');
+            // setTimeout(function() {
+            // });
           });
           setTimeout(function () {
-            $('.fullview__image').remove();
+            $('.site-content').addClass('site-content--fullview');
             $fullview.removeClass('fullview--visible');
+            $source.remove();
           });
         }
       });
@@ -18366,11 +18367,7 @@ if (!Date.now) Date.now = function () {
 
     $window.on('scroll', function () {
       latestKnownScrollY = window.scrollY;
-      requestTick();
-    });
-
-    $('.site-content').on('scroll', function () {
-      latestKnownScrollX = $('.site-content').scrollLeft();
+      latestKnownScrollX = window.scrollX;
       requestTick();
     });
 
