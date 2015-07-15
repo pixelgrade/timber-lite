@@ -389,15 +389,15 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
 								 'input_attrs' => array(
 							        'min'   => 0,
-							        'max'   => 50,
-							        'step'  => 0.1,
+							        'max'   => 100,
+							        'step'  => 1,
 							    ),
 								'live' => true,
-								'default'   => 0.625,
+								'default'   => 10,
 								'css'  => array(
 									array(
 										'property' => 'margin-right',
-										'unit'	=> 'em',
+										'unit'	=> 'px',
 										'selector' => '.portfolio__item',
 									)
 								),

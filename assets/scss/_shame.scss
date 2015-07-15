@@ -3,15 +3,37 @@
 }
 
 html[lang] {
-    margin-top: 0 !important;
+    margin: 0.88vh !important;
 }
 
 html, body, #page, .site, #djaxContainer {
     height: 100%;
 
-    .page & {
-        height: auto;
+    // .page & {
+    //     height: auto;
+    // }
+}
+
+#djaxContainer {
+    position: relative;
+
+    .portfolio_page_type-project_slider & {
+        overflow: hidden;
     }
+}
+
+.portfolio_page_type-project_slider {
+    overflow-x: hidden;
+}
+
+.slider_height-full-height {
+
+    .nav-toggle,
+    .mobile-header a,
+    .toggle {
+        color: white;
+    }
+
 }
 
 .entry-meta + .entry-featured {
@@ -25,8 +47,6 @@ html, body, #page, .site, #djaxContainer {
 .show-details {
     margin: 0;
     padding: 0;
-    position: relative;
-    top: -1px;
 
     &:before {
         color: $headingColour;

@@ -29,6 +29,24 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(-90deg);
+
+    .entry-meta {
+        @extend %delta;
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .divider {
+        margin: 0 1em;
+    }
+
+    .entry-header,
+    .divider,
+    .entry-meta {
+        display: inline-block;
+    }
 }
 
 .site-sidebar__text {
