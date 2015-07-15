@@ -26,14 +26,6 @@
 .theme-name, .back-to-top {
     @extend %bar-piece;
     @extend %bar-side;
-
-    @include query-above($small) {
-        padding: 0.75em 0;
-    }
-
-    @include query-above($lap) {
-        padding: 0;
-    }
 }
 
 .theme-name {

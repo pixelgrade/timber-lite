@@ -286,8 +286,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'    => 'typography',
 								'label'   => __( 'Caption Text', 'timber' ),
 								'default' => 'Libre Baskerville',
-								'selector' => '.caption, small, .photometa__caption, .photometa__description,
-												.site-footer--single',
+								'selector' => '.caption, small, .photometa__caption, .photometa__description',
 								'load_all_weights' => true,
 								'recommended' => array(
 									'Libre Baskerville',
