@@ -5,10 +5,10 @@
     }
 
     body {
-        margin: 7px;
+        padding: 7px;
 
         &.admin-bar {
-            margin-top: 0;
+            padding-top: 0;
 
             &:after {
                 border-top-width: 0;
