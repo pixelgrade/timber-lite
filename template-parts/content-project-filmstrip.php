@@ -34,8 +34,4 @@
 
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->
 
-<div class="js-last"></div>
-<div class="js-reference"></div>
-<div class="js-current"></div>
-
 <div class="site-content__mask  mask--project"></div>

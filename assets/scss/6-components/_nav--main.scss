@@ -47,8 +47,8 @@
 
         > .menu-item {
             > a {
-                padding-left: 1em;
-                padding-right: 1em;
+                padding-left: 0.75em;
+                padding-right: 0.75em;
             }
         }
 
@@ -176,7 +176,7 @@
 
 .nav-toggle {
     position: absolute;
-    top: 6.5vh;
+    top: $header-height/2;
     transform: translate(0, -50%);
     left: 100%;
     margin-left: 0.8em;

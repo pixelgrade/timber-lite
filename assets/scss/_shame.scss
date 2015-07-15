@@ -11,9 +11,9 @@ html, body, #page, .site, #djaxContainer {
 }
 
 #djaxContainer {
-    position: relative;
 
     .portfolio_page_type-project_slider & {
+        position: relative;
         overflow: hidden;
     }
 }

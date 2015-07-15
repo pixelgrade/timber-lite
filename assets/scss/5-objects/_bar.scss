@@ -23,14 +23,9 @@
     @extend %bar;
     @extend %position--fixed;
     @extend %transform--0;
-    left: 0;
-    right: 0;
+    left: 7px;
+    right: 7px;
     width: auto;
-
-    .page & {
-        width: 100%;
-        flex: initial;
-    }
 }
 
 %bar-piece {

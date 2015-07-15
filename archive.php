@@ -23,7 +23,7 @@ get_header(); ?>
         ?>
 		<div class="filmstrip" <?php echo $data; ?>>
 			<div class="site-sidebar">
-				<div class="site-sidebar__content"><?php the_archive_title(); ?></div>
+				<div class="site-sidebar__content site-sidebar__text"><?php the_archive_title(); ?></div>
 			</div>
 
 			<?php
@@ -40,11 +40,13 @@ get_header(); ?>
 				?>
 			<?php endwhile; ?>
 		    <?php timber_paging_nav(); ?>
-
+            <?php get_template_part( 'template-parts/preloader' ); ?>
 		</div>
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content', 'none' ); ?>
 	<?php endif; ?>
 </div>
+
+<div class="site-footer"></div>
 
 <?php get_footer(); ?>

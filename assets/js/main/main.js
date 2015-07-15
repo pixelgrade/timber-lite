@@ -20,11 +20,11 @@ function init() {
 
     $(".pixcode--tabs").organicTabs();
 
-    if ($('body').hasClass('blog')
-        || $('body').hasClass('project_layout-filmstrip')
-        || $('body').hasClass('project_layout-thumbnails')) {
+    if ($body.hasClass('blog')
+     || $body.hasClass('project_layout-filmstrip')
+     || $body.hasClass('project_layout-thumbnails')) {
 
-        if( !$('html').hasClass('is--ie9') )
+        if( ! $html.hasClass('is--ie9') )
         // html body are for ie
         $('html, body, *').mousewheel(function (event, delta) {
             // this.scrollLeft -= (delta * 30);

@@ -16279,6 +16279,28 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
+      $filmstrip_container.find('.filmstrip__item').each(function (i, obj) {
+        var $item = $(obj).show(),
+            $thumb = $item.find('.entry-thumbnail'),
+            thumbWidth = $thumb.outerWidth(),
+            thumbHeight = $thumb.outerHeight(),
+            $image = $thumb.find('img'),
+            imageWidth = $image.width(),
+            imageHeight = $image.height(),
+            scaleX = thumbWidth / imageWidth,
+            scaleY = thumbHeight / imageHeight,
+            scale = Math.max(scaleX, scaleY);
+
+        $image.css({
+          'min-width': 0,
+          'min-height': 0,
+          'width': imageWidth * scale,
+          'height': imageHeight * scale
+        });
+
+        $item.hide();
+      });
+
       $('.navigation').hide();
 
       //mixitup init without filtering
@@ -18301,9 +18323,9 @@ if (!Date.now) Date.now = function () {
 
     $(".pixcode--tabs").organicTabs();
 
-    if ($('body').hasClass('blog') || $('body').hasClass('project_layout-filmstrip') || $('body').hasClass('project_layout-thumbnails')) {
+    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
 
-      if (!$('html').hasClass('is--ie9'))
+      if (!$html.hasClass('is--ie9'))
       // html body are for ie
       $('html, body, *').mousewheel(function (event, delta) {
         // this.scrollLeft -= (delta * 30);
