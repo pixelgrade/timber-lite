@@ -18409,6 +18409,8 @@ if (!Date.now) Date.now = function () {
     royalSliderInit();
     videos.init();
 
+    checkProfileImageWidget();
+
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
     TweenMax.fromTo('.loader', .6, {
@@ -18595,4 +18597,17 @@ if (!Date.now) Date.now = function () {
     });
 
   }
+
+  function checkProfileImageWidget() {
+    var $widget_container = $('.overlay__col.col1');
+    if ($widget_container.length) {
+      //if ($widget_container.find('.widget_timber_image')) {
+      if ($widget_container.find('.widget_timber_image').length) {
+        $widget_container.addClass('has--widget-profile-image');
+      } else {
+        $('.overlay').addClass('is--scrollable');
+      }
+    }
+  }
+
 })(jQuery);

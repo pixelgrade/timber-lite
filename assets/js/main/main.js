@@ -53,6 +53,8 @@ function softInit() {
     royalSliderInit();
     videos.init();
 
+    checkProfileImageWidget();
+
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
     TweenMax.fromTo('.loader', .6, {
