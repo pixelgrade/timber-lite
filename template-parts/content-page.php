@@ -12,7 +12,7 @@ $background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'fu
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php if ( ! empty( $background_image ) ) : ?>
 
-	<header class="entry-header  cover  full-height" style="background-image: url('<?php  echo $background_image; ?>');">
+	<header class="entry-header  cover  full-height" style="background-image: url('<?php echo esc_url( $background_image ); ?>');">
 
 	<?php else : ?>
 

@@ -17562,7 +17562,8 @@ if (!Date.now) Date.now = function () {
             $description = $('<div class="photometa__description"></div>').html('<div>' + descriptionText + '</div>'),
             $exif = $('<ul class="photometa__exif  exif"></ul>'),
             $meta = $('<div class="portfolio__meta  photometa"></div>'),
-            exifText = $item.data('exif');
+            exifText = $item.data('exif'),
+            $full = $('<button class="button-full js-button-full"></button>');
 
         if (!empty(exifText)) {
           $.each(exifText, function (key, value) {
@@ -17570,6 +17571,7 @@ if (!Date.now) Date.now = function () {
           });
         }
 
+        $full.prependTo($item);
         $caption.appendTo($meta);
         $exif.appendTo($meta);
         $description.appendTo($meta);

@@ -4,14 +4,14 @@
     <title>Slice 1</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <rect id="Rectangle-3" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="26" width="5" height="1"></rect>
-        <rect id="Rectangle-4" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="1" width="1" height="25"></rect>
-        <rect id="Rectangle-5" fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="0" width="36" height="1"></rect>
-        <rect id="Rectangle-6" fill="#FFFFFF" sketch:type="MSShapeGroup" x="35" y="1" width="1" height="4"></rect>
-        <rect id="Rectangle-7" fill="#FFFFFF" sketch:type="MSShapeGroup" x="6" y="6" width="36" height="1"></rect>
-        <rect id="Rectangle-8" fill="#FFFFFF" sketch:type="MSShapeGroup" x="41" y="7" width="1" height="25"></rect>
-        <rect id="Rectangle-9" fill="#FFFFFF" sketch:type="MSShapeGroup" x="6" y="32" width="36" height="1"></rect>
-        <rect id="Rectangle-10" fill="#FFFFFF" sketch:type="MSShapeGroup" x="6" y="7" width="1" height="25"></rect>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="26" width="5" height="1"></rect>
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="1" width="1" height="25"></rect>
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="0" y="0" width="36" height="1"></rect>
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="35" y="1" width="1" height="4"></rect>
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="6" y="6" width="36" height="1"></rect>
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="41" y="7" width="1" height="25"></rect>
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="6" y="32" width="36" height="1"></rect>
+        <rect fill="#FFFFFF" sketch:type="MSShapeGroup" x="6" y="7" width="1" height="25"></rect>
     </g>
 </svg>
