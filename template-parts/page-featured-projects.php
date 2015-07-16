@@ -16,7 +16,7 @@ $featured = timber_get_featured_projects();
 if ( ! empty( $featured ) ) : ?>
 
 <div id="primary" class="content-area">
-	<main id="main" class="site-main <?php echo 'slider--' . $show_adjacent_projects . ' slider--' . $projects_slider_height ?>" role="main">
+	<main id="main" class="site-main <?php echo 'slider--' . $show_adjacent_projects . ' slider--' . $projects_slider_height ?>">
 		<div class="projects-slider">
 
 			<?php
