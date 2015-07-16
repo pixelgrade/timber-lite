@@ -17263,13 +17263,13 @@ if (!Date.now) Date.now = function () {
       });
 
       $(window).on('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
-      $('.site-content').on('scroll', bindImageLoad);
+      $('.portfolio--grid').on('scroll', bindImageLoad);
 
       bindImageLoad();
 
       $(window).on('djaxClick', function () {
         $(window).off('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
-        $('.site-content').off('scroll', bindImageLoad);
+        $('.portfolio--grid').off('scroll', bindImageLoad);
       });
     }
 
@@ -17849,7 +17849,8 @@ if (!Date.now) Date.now = function () {
       $('.site-content').css('overflow-x', '');
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
-        opacity: 1
+        opacity: 1,
+        delay: .3
       });
       $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
@@ -18384,8 +18385,10 @@ if (!Date.now) Date.now = function () {
       // html body are for ie
       $('html, body, *').mousewheel(function (event, delta) {
         // this.scrollLeft -= (delta * 30);
-        this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-        event.preventDefault();
+        if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
+          this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+          event.preventDefault();
+        }
       });
     }
   }
@@ -18408,6 +18411,8 @@ if (!Date.now) Date.now = function () {
     AddThisIcons.softInit();
     royalSliderInit();
     videos.init();
+
+    checkProfileImageWidget();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -18595,4 +18600,17 @@ if (!Date.now) Date.now = function () {
     });
 
   }
+
+  function checkProfileImageWidget() {
+    var $widget_container = $('.overlay__col.col1');
+    if ($widget_container.length) {
+      //if ($widget_container.find('.widget_timber_image')) {
+      if ($widget_container.find('.widget_timber_image').length) {
+        $widget_container.addClass('has--widget-profile-image');
+      } else {
+        $('.overlay').addClass('is--scrollable');
+      }
+    }
+  }
+
 })(jQuery);

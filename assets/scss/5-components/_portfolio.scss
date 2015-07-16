@@ -139,8 +139,11 @@ img {
     &--grid {
         @extend %position--fixed;
         @extend %transform--0;
-        height: auto;
+        height: 100%;
+        overflow-y: auto;
+        padding-bottom: 2 * $header-height;
         flex-wrap: wrap;
+        align-content: flex-start;
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
@@ -166,6 +169,10 @@ img {
             .portfolio__item {
                 opacity: 1;
             }
+        }
+
+        .portfolio-archive & {
+            padding-bottom: 0;
         }
     }
 

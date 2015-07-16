@@ -48,7 +48,7 @@ gulp.task('styles', ['styles-admin'], function () {
 		.pipe(sass({sourcemap: false, style: 'expanded'}))
 		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
 		// .pipe(cmq())
-		// .pipe(csscomb())
+		.pipe(csscomb())
 		.pipe(chmod(644))
 		.pipe(gulp.dest('./'));
 });
