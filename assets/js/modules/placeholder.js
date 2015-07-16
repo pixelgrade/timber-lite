@@ -25,13 +25,13 @@ var Placeholder = (function() {
         });
 
         $(window).on('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
-        $('.site-content').on('scroll', bindImageLoad);
+        $('.portfolio--grid').on('scroll', bindImageLoad);
 
         bindImageLoad();
 
         $(window).on('djaxClick', function() {
             $(window).off('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
-            $('.site-content').off('scroll', bindImageLoad);
+            $('.portfolio--grid').off('scroll', bindImageLoad);
         });
     }
 

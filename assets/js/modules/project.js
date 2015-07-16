@@ -317,7 +317,7 @@ var Project = (function() {
 
 		$('.site-content').css('overflow-x', '');
 
-		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1 });
+		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1, delay: .3 });
 		$('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
 		$('.js-portfolio-item').addClass('no-transition');
