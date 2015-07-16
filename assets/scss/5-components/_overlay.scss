@@ -15,6 +15,10 @@
 
 	-webkit-overflow-scrolling: touch;
 
+	&.is--scrollable {
+		overflow-y: scroll;
+	}
+
 	* {
 		text-shadow: none;
 	}
@@ -57,6 +61,11 @@
 			-webkit-flex-grow: 1;
 			flex-shrink: 1;
 			-webkit-flex-shrink: 1;
+			overflow-y: scroll;
+
+			.is--scrollable & {
+				overflow-y: auto;
+			}
 
 			&.col1 {
 				position: relative;
@@ -65,14 +74,18 @@
 				-webkit-flex-shrink: 1;
 				height: calc(100vh - 260px);
 				padding: 0 40px;
+
+				.widget {
+					max-width: 560px;
+				}
+			}
+
+			&.col1.has--widget-profile-image {
+				overflow: hidden;
 			}
 
 			&.col2 {
-				flex-shrink: 1;
-				-webkit-flex-shrink: 1;
-
 				height: calc(100vh - 250px);
-				overflow-y: scroll;
 
 				display: flex;
 				display: -webkit-flex;
@@ -84,6 +97,8 @@
 				-webkit-align-items: flex-start;
 				align-content: flex-start;
 				-webkit-align-content: flex-start;
+				flex-shrink: 1;
+				-webkit-flex-shrink: 1;
 
 				margin-bottom: 100px;
 			}
@@ -93,6 +108,8 @@
 				-webkit-flex-basis: 760px;
 				flex-grow: 0;
 				-webkit-flex-grow: 0;
+				flex-shrink: 0;
+				-webkit-flex-shrink: 0;
 
 				padding-left: 40px;
 
