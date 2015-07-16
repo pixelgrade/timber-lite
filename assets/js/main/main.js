@@ -83,6 +83,7 @@ $window.load(function () {
 
 function onResize() {
 	browserSize();
+    Project.onResize();
 }
 
 function requestTick() {
@@ -109,7 +110,7 @@ function eventHandlers() {
     });
 
     $document.mousemove(function (e) {
-    	latestKnownMouseX = e.pageX;
+    	latestKnownMouseX = e.pageX - latestKnownScrollX;
     	latestKnownMouseY = e.pageY - latestKnownScrollY;
     });
 }

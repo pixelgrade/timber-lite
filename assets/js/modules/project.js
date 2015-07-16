@@ -53,6 +53,32 @@ var Project = (function() {
 		initialized = true;
 	}
 
+	function onResize() {
+		$document.off('mousemove', panFullview);
+
+		var $target 		= $('.fullview__image'),
+			targetWidth 	= $target.width(),
+			targetHeight 	= $target.height(),
+			newWidth 		= $fullview.width(),
+			newHeight 		= $fullview.height(),
+			scaleX 			= newWidth / targetWidth,
+			scaleY 			= newHeight / targetHeight,
+			scale 			= Math.max(scaleX, scaleY);
+
+		fullviewWidth = targetWidth * scale;
+		fullviewHeight = targetHeight * scale;
+
+		$target.find('img').removeAttr('style');
+		$target.css({
+			width: fullviewWidth,
+			height: fullviewHeight,
+			top: (fullviewHeight - newHeight) / -2,
+			left: (fullviewWidth - newWidth) / -2
+		});
+
+		$document.on('mousemove', panFullview);
+	}
+
 	function addMetadata() {
 		$film.find('.js-portfolio-item').each(function(i, obj) {
 			var $item 			= $(obj),
@@ -341,15 +367,15 @@ var Project = (function() {
 
 	function addImageToFullView($source) {
 		// prepare current for fullview
-		var width = $source.data('width'),
-			height = $source.data('height'),
-			newWidth = $fullview.width(),
-			newHeight = $fullview.height(),
-			scaleX = newWidth / width,
-			scaleY = newHeight / height,
-			scale = Math.max(scaleX, scaleY),
-			$target = $('<div>').addClass('fullview__image'),
-			$image = $(document.createElement('img'));
+		var width 		= $source.data('width'),
+			height 		= $source.data('height'),
+			newWidth 	= $fullview.width(),
+			newHeight 	= $fullview.height(),
+			scaleX 		= newWidth / width,
+			scaleY 		= newHeight / height,
+			scale 		= Math.max(scaleX, scaleY),
+			$target 	= $('<div>').addClass('fullview__image'),
+			$image 		= $(document.createElement('img'));
 
 		fullviewWidth 	= width * scale;
 		fullviewHeight 	= height * scale;
@@ -506,6 +532,7 @@ var Project = (function() {
 	return {
 		init: init,
 		prepare: prepare,
+		onResize: onResize,
 		getCurrent: getCurrent,
 		destroy: destroy
 	}
