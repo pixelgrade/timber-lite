@@ -43,7 +43,7 @@ if ( $wpGrade_importerError !== false ) {
 		ob_start();
 		$wp_import                    = new wpGrade_import();
 		$wp_import->fetch_attachments = true;
-		$response['id']               = $wp_import->import_posts_pages( $import_filepath . '.xml', $response['supplemental']['stepNumber'], $response['supplemental']['numberOfSteps'] );
+		$response['id']               = $wp_import->import_posts_pages( $import_filepath . '.xml', $import_filepath . '.php', $response['supplemental']['stepNumber'], $response['supplemental']['numberOfSteps'] );
 		//after the last step we assign the menus to the proper locations
 		if ( $response['supplemental']['stepNumber'] == 1 ) {
 			$wp_import->set_menus( $import_filepath . '.php' );

@@ -12,12 +12,17 @@ class wpGrade_import extends WPGrade_WP_Import {
 	var $saveOptions;
 	var $termNames;
 
-	function import_posts_pages( $option_file, $stepNumber = 1, $numberOfSteps = 1 ) {
+	function import_posts_pages( $xml_file, $option_file, $stepNumber = 1, $numberOfSteps = 1 ) {
 		//do the actual import
-		$this->import_stepped( $option_file, $stepNumber, $numberOfSteps );
+		$this->import_stepped( $xml_file, $stepNumber, $numberOfSteps );
 
 		//only set the pages after the last step
 		if ( $stepNumber == $numberOfSteps ) {
+
+			if ( file_exists( $option_file ) ) {
+				@include_once( $option_file );
+			}
+
 			//set the front and blog page
 			// Use a static front page
 			if ( isset( $demo_reading_pages['front'] ) && ! empty( $demo_reading_pages['front'] ) ) {
@@ -434,7 +439,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 	}
 
 	function import_theme_options( $option_file ) {
-		if ( $option_file ) {
+		if ( file_exists( $option_file ) ) {
 			@include_once( $option_file );
 		}
 
@@ -470,7 +475,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 		//get all created menus
 		$wpGrade_menus = wp_get_nav_menus();
 
-		if ( $option_file ) {
+		if ( file_exists( $option_file ) ) {
 			@include_once( $option_file );
 		}
 
@@ -504,7 +509,7 @@ class wpGrade_import extends WPGrade_WP_Import {
 	 * Parse JSON import file and load data - pass to import
 	 */
 	function import_widget_data( $option_file ) {
-		if ( $option_file ) {
+		if ( file_exists( $option_file ) ) {
 			@include_once( $option_file );
 		}
 
