@@ -150,7 +150,8 @@ var Loader = (function() {
     function init() {
 
         var $svg = $("#loaderSvg"),
-            svg;
+            svg,
+            text = '';
 
         svg = Snap("#loaderSvg");;
         text = svg.text('50%', '20%', 't').attr({

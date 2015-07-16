@@ -3,7 +3,9 @@ var Project = (function() {
 	var $film, $grid, $fullview,
 		start, end,
 		current,
-		initialized = false;
+		initialized = false,
+		fullviewWidth = 0,
+		fullviewHeight = 0;
 
 		fullviewWidth = windowWidth;
 		fullviewHeight = windowHeight;

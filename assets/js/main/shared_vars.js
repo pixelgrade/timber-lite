@@ -38,6 +38,10 @@ var ua                  = navigator.userAgent.toLowerCase(),
 
     latestKnownScrollY  = window.scrollY,
     latestKnownScrollX  = window.scrollX,
+
+    latestKnownMouseX   = 0,
+    latestKnownMouseY   = 0,
+
     ticking             = false,
 
     globalDebug         = false;

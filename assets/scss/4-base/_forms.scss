@@ -56,6 +56,25 @@ input[type="color"],
 }
 
 
+input, textarea {
+	font-weight: 300;
+	border-radius: 3px;
+	border: 1px solid $input-borders-color;
+	box-shadow: none;
+
+	font-size: 14px;
+
+	@include placeholder {
+		font-style: normal;
+		font-weight: 300;
+		opacity: 0.7;
+	}
+}
+
+input[type="submit"]{
+	@extend .btn;
+}
+
 
 
 
@@ -206,23 +225,4 @@ input[type="color"],
 	width: 1%;
 	white-space: nowrap;
 	vertical-align: middle; // Match the inputs
-}
-
-input, textarea {
-	font-weight: 300;
-	border-radius: 3px;
-	border: 1px solid $input-borders-color;
-	box-shadow: none;
-
-	font-size: 14px;
-
-	@include placeholder {
-		font-style: normal;
-		font-weight: 300;
-		opacity: 0.7;
-	}
-}
-
-input[type="submit"]{
-	@extend .btn;
 }
