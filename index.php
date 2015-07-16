@@ -18,7 +18,7 @@ get_header(); ?>
 	<?php if ( have_posts() ) : ?>
 		<div class="filmstrip">
 			<div class="site-sidebar">
-				<div class="site-sidebar__content"><?php _e( 'Journal', 'timber' ); ?></div>
+				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber' ); ?></div>
 			</div>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>

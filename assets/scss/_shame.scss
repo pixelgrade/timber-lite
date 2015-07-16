@@ -2,12 +2,6 @@
     box-sizing: border-box;
 }
 
-html[lang] {
-    @include query-above($small) {
-        margin: 0.88vh !important;
-    }
-}
-
 html, body, #page, .site, #djaxContainer {
     height: 100%;
 
@@ -17,9 +11,9 @@ html, body, #page, .site, #djaxContainer {
 }
 
 #djaxContainer {
-    position: relative;
 
     .portfolio_page_type-project_slider & {
+        position: relative;
         overflow: hidden;
     }
 }

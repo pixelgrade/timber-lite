@@ -1,5 +1,9 @@
 .site-content--fullview {
     z-index: 10000;
+
+    .site-content__mask {
+        display: none;
+    }
 }
 
 .fullview {
@@ -9,7 +13,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 500;
+    z-index: 600;
     opacity: 0;
     pointer-events: none;
 
@@ -39,15 +43,29 @@
     }
 
     .rsArrow {
-        width: auto;
-        height: auto;
+        opacity: .5;
+        transition: opacity .3s linear;
+        padding: 1.5em;
+
+        &:hover {
+            opacity: 1;
+        }
 
         .rsArrowIcn {
-            margin: 0;
+            margin: 0 auto;
             border-color: white;
+            width: 1.250em;
+            height: 1.250em;
         }
     }
 
-    .rsArrowLeft    { left: 3.7em }
-    .rsArrowRight   { right: 3.7em }
+    .rsArrowLeft {
+        left: 3.7em;
+        margin-left: -1.5em;
+    }
+
+    .rsArrowRight {
+        right: 3.7em;
+        margin-right: -1.5em;
+    }
 }

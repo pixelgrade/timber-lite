@@ -10,14 +10,18 @@
 }
 
 .filmstrip__item {
-    width: 22vw;
+    width: 23vw;
     flex-shrink: 0;
     -webkit-flex-shrink: 0;
     flex-grow: 0;
     -webkit-flex-grow: 0;
-    margin-right: 1em;
+    margin-right: 10px;
     display: none;
     overflow: hidden;
+
+    .entry-content {
+        font-size: 0.875em;
+    }
 
     .is--ie9 & {
         vertical-align: top;

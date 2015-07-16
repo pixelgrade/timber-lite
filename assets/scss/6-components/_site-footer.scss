@@ -38,6 +38,8 @@
 
 .back-to-top {
     @extend %bar-right;
+
+    color: $hoverColour;
 }
 
 .site-footer--single {
@@ -47,4 +49,14 @@
     color: $hoverColour;
     font-weight: 300;
     font-size: 14px;
+
+    @include query-below($lap) {
+        flex-direction: column;
+        -webkit-flex-direction: column;
+
+        .theme-name, .back-to-top {
+            justify-content: center;
+            -webkit-justify-content: center;
+        }
+    }
 }

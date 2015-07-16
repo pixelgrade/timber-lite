@@ -1,6 +1,8 @@
 .site-title {
     @extend %box--0;
-    @extend %gamma;
+    font-size: 1.75rem;
+    margin: 0;
+    padding: 0;
 }
 
 .site-branding {

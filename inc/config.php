@@ -342,48 +342,48 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 									)
 								),
 							),
-							'spacing_header'   => array(
-								'type'      => 'range',
-								'label'     => __( 'Header Spacing', 'timber' ),
-								 'input_attrs' => array(
-							        'min'   => 0,
-							        'max'   => 100,
-							        'step'  => 10,
-							    ),
-								'live' => true,
-								'default'   => 50,
-								'css'  => array(
-									array(
-										'property' => 'padding-top',
-										'selector' => '.site-header .bar--fixed',
-									),
-									array(
-										'property' => 'padding-bottom',
-										'selector' => '.site-header .bar--fixed',
-									)
-								),
-							),
-							'spacing_footer'   => array(
-								'type'      => 'range',
-								'label'     => __( 'Footer Spacing', 'timber' ),
-								 'input_attrs' => array(
-							        'min'   => 0,
-							        'max'   => 100,
-							        'step'  => 10,
-							    ),
-								'live' => true,
-								'default'   => 50,
-								'css'  => array(
-									array(
-										'property' => 'padding-top',
-										'selector' => '.site-footer .bar--fixed',
-									),
-									array(
-										'property' => 'padding-bottom',
-										'selector' => '.site-footer .bar--fixed',
-									)
-								),
-							),
+							// 'spacing_header'   => array(
+							// 	'type'      => 'range',
+							// 	'label'     => __( 'Header Spacing', 'timber' ),
+							// 	 'input_attrs' => array(
+							//         'min'   => 0,
+							//         'max'   => 100,
+							//         'step'  => 10,
+							//     ),
+							// 	'live' => true,
+							// 	'default'   => 50,
+							// 	'css'  => array(
+							// 		array(
+							// 			'property' => 'padding-top',
+							// 			'selector' => '.site-header .bar--fixed',
+							// 		),
+							// 		array(
+							// 			'property' => 'padding-bottom',
+							// 			'selector' => '.site-header .bar--fixed',
+							// 		)
+							// 	),
+							// ),
+							// 'spacing_footer'   => array(
+							// 	'type'      => 'range',
+							// 	'label'     => __( 'Footer Spacing', 'timber' ),
+							// 	 'input_attrs' => array(
+							//         'min'   => 0,
+							//         'max'   => 100,
+							//         'step'  => 10,
+							//     ),
+							// 	'live' => true,
+							// 	'default'   => 0,
+							// 	'css'  => array(
+							// 		array(
+							// 			'property' => 'padding-top',
+							// 			'selector' => '.site-footer .bar--fixed',
+							// 		),
+							// 		array(
+							// 			'property' => 'padding-bottom',
+							// 			'selector' => '.site-footer .bar--fixed',
+							// 		)
+							// 	),
+							// ),
 							'filmstrip_spacing'   => array(
 								'type'      => 'range',
 								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
@@ -444,17 +444,16 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								//'desc' => __( 'The copyright text which should appear in footer.', 'timber' ),
 								'default'  => esc_html__( 'All contents &copy; Pixelgrade 2011-2015', 'timber' ),
 								'sanitize_callback' => 'wp_kses_post',
+								'live' => array( '.site-info' )
 							),
 
 							'custom_js' => array(
-								'id'       => '',
 								'type'     => 'ace_editor',
 								'label'    => __( 'Custom JavaScript (header)', 'timber' ),
 								'desc' => __( 'Enter your custom Javascript code. This code will be loaded in the head section of your pages.', 'timber' ),
 								'editor_type'     => 'javascript',
 							),
 							'custom_js_footer' => array(
-								'id'       => '',
 								'type'     => 'ace_editor',
 								'label'    => __( 'Custom JavaScript (footer)', 'timber' ),
 								'desc' => __( 'This javascript code will be loaded in the footer. You can paste here your <strong>Google Analytics tracking code</strong> (or for what matters any tracking code) and we will put it on every page.', 'timber' ),

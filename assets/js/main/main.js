@@ -13,16 +13,18 @@ function init() {
     scrollToTop();
     Loader.init();
     Nav.init();
+    Overlay.init();
+
     //Loads the addThis script - this should be run just once
     AddThisIcons.init();
 
     $(".pixcode--tabs").organicTabs();
 
-    if ($('body').hasClass('blog')
-        || $('body').hasClass('project_layout-filmstrip')
-        || $('body').hasClass('project_layout-thumbnails')) {
+    if ($body.hasClass('blog')
+     || $body.hasClass('project_layout-filmstrip')
+     || $body.hasClass('project_layout-thumbnails')) {
 
-        if( !$('html').hasClass('is--ie9') )
+        if( ! $html.hasClass('is--ie9') )
         // html body are for ie
         $('html, body, *').mousewheel(function (event, delta) {
             // this.scrollLeft -= (delta * 30);
@@ -48,7 +50,6 @@ function softInit() {
     frontpageSlider.init();
 
     AddThisIcons.softInit();
-    overlayInit();
     royalSliderInit();
     videos.init();
 
@@ -103,11 +104,7 @@ function eventHandlers() {
 
     $window.on('scroll', function () {
     	latestKnownScrollY = window.scrollY;
-        requestTick();
-    });
-
-    $('.site-content').on('scroll', function() {
-    	latestKnownScrollX = $('.site-content').scrollLeft();
+        latestKnownScrollX = window.scrollX;
         requestTick();
     });
 

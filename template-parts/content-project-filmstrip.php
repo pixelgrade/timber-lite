@@ -34,18 +34,4 @@
 
 </article><!-- #post-<?php the_ID(); ?> .entry-content -->
 
-<!-- <div class="js-last"></div>
-<div class="js-reference"></div>
-<div class="js-current"></div> -->
-
 <div class="site-content__mask  mask--project"></div>
-
-<div class="fullview">
-    <div class="rsArrow rsArrowLeft">
-        <div class="rsArrowIcn"></div>
-    </div>
-    <div class="rsArrow rsArrowRight">
-        <div class="rsArrowIcn"></div>
-    </div>
-    <div class="fullview__close"></div>
-</div>

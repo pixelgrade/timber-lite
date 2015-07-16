@@ -16279,6 +16279,28 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
+      $filmstrip_container.find('.filmstrip__item').each(function (i, obj) {
+        var $item = $(obj).show(),
+            $thumb = $item.find('.entry-thumbnail'),
+            thumbWidth = $thumb.outerWidth(),
+            thumbHeight = $thumb.outerHeight(),
+            $image = $thumb.find('img'),
+            imageWidth = $image.width(),
+            imageHeight = $image.height(),
+            scaleX = thumbWidth / imageWidth,
+            scaleY = thumbHeight / imageHeight,
+            scale = Math.max(scaleX, scaleY);
+
+        $image.css({
+          'min-width': 0,
+          'min-height': 0,
+          'width': imageWidth * scale,
+          'height': imageHeight * scale
+        });
+
+        $item.hide();
+      });
+
       $('.navigation').hide();
 
       //mixitup init without filtering
@@ -16513,7 +16535,8 @@ if (!Date.now) Date.now = function () {
 
     function onDjaxClick(e) {
       Nav.close();
-      // $html.css('overflow', 'hidden');
+      Overlay.close();
+
       TweenMax.fromTo('.loader', .6, {
         left: '100%'
       }, {
@@ -17127,58 +17150,68 @@ if (!Date.now) Date.now = function () {
       close: close
     }
   })();
+  var Overlay = (function () {
 
-  function overlayInit() {
+    var $trigger, $overlay, isOpen;
 
-    var $trigger = $('.js-overlay-trigger'),
-        $overlay = $('.overlay'),
-        isOpen = false;
+    function init() {
+      $trigger = $('.js-overlay-trigger');
+      $overlay = $('.overlay');
+      isOpen = false;
+      bindEvents();
+    }
 
+    function bindEvents() {
+      // Toggle navigation on click
+      $trigger.on('click touchstart', navToggle);
 
-    // Toggle navigation on click
-    $trigger.on('click touchstart', navToggle);
+      // Close menu with ESC key
+      $(document).on('keydown', function (e) {
+        if (e.keyCode == 27 && isOpen) {
+          navToggle(e);
+        }
+      });
+    }
 
+    function open() {
+      $overlay.css('left', 0);
+      TweenMax.to($overlay, 0.3, {
+        opacity: 1
+      });
+      $('html').css('overflow', 'hidden');
+      isOpen = true;
+    }
 
-    // Close menu with ESC key
-    $(document).on('keydown', function (e) {
-      if (e.keyCode == 27 && isOpen) {
-        navToggle(e);
-      }
-    });
+    function close() {
+      TweenMax.to($overlay, 0.3, {
+        opacity: 0,
+        onComplete: function () {
+          $overlay.css('left', '100%');
+        }
+      });
+
+      $('html').css('overflow', '');
+      isOpen = false;
+    }
+
 
     function navToggle(e) {
       e.preventDefault();
       e.stopPropagation();
 
-      isOpen = !isOpen;
-
       if (isOpen) {
-
-        $overlay.css('left', 0);
-
-        TweenMax.to($overlay, 0.3, {
-          opacity: 1
-        });
-
-        $('html').css('overflow', 'hidden');
-
-        isOpen = true;
-
+        close();
       } else {
-
-        TweenMax.to($overlay, 0.3, {
-          opacity: 0,
-          onComplete: function () {
-            $overlay.css('left', '100%');
-          }
-        });
-
-        $('html').css('overflow', '');
-
-        isOpen = false;
+        open();
       }
     }
-  }
+
+    return {
+      init: init,
+      open: open,
+      close: close
+    }
+  })();
   var Placeholder = (function () {
     var $items;
 
@@ -17678,7 +17711,7 @@ if (!Date.now) Date.now = function () {
       }
 
       start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
-      end = contentWidth - sidebarWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
+      end = contentWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
       max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
 
@@ -17812,7 +17845,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
     }
 
     function addImageToFullView($source) {
@@ -17852,8 +17885,6 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
-      $('.site-content').addClass('site-content--fullview');
-
       morph($source, $target);
 
       setTimeout(function () {
@@ -17888,10 +17919,13 @@ if (!Date.now) Date.now = function () {
         onComplete: function () {
           morph($source, $target, {}, function () {
             $('.site-content').removeClass('site-content--fullview');
+            // setTimeout(function() {
+            // });
           });
           setTimeout(function () {
-            $('.fullview__image').remove();
+            $('.site-content').addClass('site-content--fullview');
             $fullview.removeClass('fullview--visible');
+            $source.remove();
           });
         }
       });
@@ -18282,14 +18316,16 @@ if (!Date.now) Date.now = function () {
     scrollToTop();
     Loader.init();
     Nav.init();
+    Overlay.init();
+
     //Loads the addThis script - this should be run just once
     AddThisIcons.init();
 
     $(".pixcode--tabs").organicTabs();
 
-    if ($('body').hasClass('blog') || $('body').hasClass('project_layout-filmstrip') || $('body').hasClass('project_layout-thumbnails')) {
+    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
 
-      if (!$('html').hasClass('is--ie9'))
+      if (!$html.hasClass('is--ie9'))
       // html body are for ie
       $('html, body, *').mousewheel(function (event, delta) {
         // this.scrollLeft -= (delta * 30);
@@ -18315,7 +18351,6 @@ if (!Date.now) Date.now = function () {
     frontpageSlider.init();
 
     AddThisIcons.softInit();
-    overlayInit();
     royalSliderInit();
     videos.init();
 
@@ -18370,11 +18405,7 @@ if (!Date.now) Date.now = function () {
 
     $window.on('scroll', function () {
       latestKnownScrollY = window.scrollY;
-      requestTick();
-    });
-
-    $('.site-content').on('scroll', function () {
-      latestKnownScrollX = $('.site-content').scrollLeft();
+      latestKnownScrollX = window.scrollX;
       requestTick();
     });
 

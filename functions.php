@@ -116,7 +116,7 @@ add_action( 'init', 'timber_remove_custom_post_comment' );
  */
 function timber_widgets_init() {
 	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay widget area 1', 'timber' ),
+		'name'          => esc_html__( 'Overlay — Left Sidebar (1/4)', 'timber' ),
 		'id'            => 'overlay-widget-area-1',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
@@ -126,7 +126,7 @@ function timber_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay widget area 2', 'timber' ),
+		'name'          => esc_html__( 'Overlay — Right Sidebar (1/4)', 'timber' ),
 		'id'            => 'overlay-widget-area-2',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
@@ -136,9 +136,9 @@ function timber_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay widget area 3', 'timber' ),
+		'name'          => esc_html__( 'Overlay — Content (2/4)', 'timber' ),
 		'id'            => 'overlay-widget-area-3',
-		'description'   => '',
+		'description'   => 'Add a full-height photo using the Profile Image widget.',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h4 class="widget-title">',
@@ -186,7 +186,7 @@ function timber_scripts_styles() {
 	$project_template = get_post_meta( timber_get_post_id(), 'project_template', true );
 
 	// For vertical scroll to be interpreted as horizontal scroll
-	if( is_front_page() && is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
+	if( is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
 		wp_enqueue_script('mousewheel' , get_template_directory_uri() . '/assets/js/plugins/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
 	}
 

@@ -26,7 +26,7 @@
 .site-header.site-header--placeholder {
     position: static !important;
     z-index: 0;
-    height: 13vh !important;
+    height: $header-height !important;
 
     // @include query-below($small) {
     //     display: none;
@@ -71,7 +71,7 @@
     flex-basis: 1.25em;
     -webkit-flex-basis: 1.25em;
     padding: 0 0 0 .5em;
-    height: 1.7em;
+    height: 2.1em;
 
     // for safari
     svg {
@@ -94,7 +94,7 @@
         display: block;
         width: 1em;
         position: absolute;
-        top: 6.5vh;
+        top: $header-height/2;
         transform: translate(0, -50%);
         left: 200%;
         margin-left: 1.9em;
