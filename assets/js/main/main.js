@@ -28,8 +28,10 @@ function init() {
         // html body are for ie
         $('html, body, *').mousewheel(function (event, delta) {
             // this.scrollLeft -= (delta * 30);
-            this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-            event.preventDefault();
+            if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
+                this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+                event.preventDefault();
+            }
         });
     }
 }
