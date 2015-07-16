@@ -193,8 +193,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'color',
-										'selector' => '.caption, small, .photometa__caption, .photometa__description,
-														.site-footer--single',
+										'selector' => '.caption, small, .site-footer--single',
 									)
 								)
 							),
@@ -286,7 +285,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'type'    => 'typography',
 								'label'   => __( 'Caption Text', 'timber' ),
 								'default' => 'Libre Baskerville',
-								'selector' => '.caption, small, .photometa__caption, .photometa__description',
+								'selector' => '.caption, small',
 								'load_all_weights' => true,
 								'recommended' => array(
 									'Libre Baskerville',

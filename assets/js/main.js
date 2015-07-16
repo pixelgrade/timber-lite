@@ -16054,6 +16054,7 @@ if (!Date.now) Date.now = function () {
 }));
 
 (function ($, undefined) {
+  "use strict";
   /**
    * Shared variables
    */
@@ -16098,6 +16099,12 @@ if (!Date.now) Date.now = function () {
       
       latestKnownScrollY = window.scrollY,
       latestKnownScrollX = window.scrollX,
+      
+      
+      latestKnownMouseX = 0,
+      latestKnownMouseY = 0,
+      
+      
       ticking = false,
       
       
@@ -16642,7 +16649,7 @@ if (!Date.now) Date.now = function () {
     function init() {
 
       var $svg = $("#loaderSvg"),
-          svg;
+          svg, text = '';
 
       svg = Snap("#loaderSvg");;
       text = svg.text('50%', '20%', 't').attr({
@@ -17494,7 +17501,9 @@ if (!Date.now) Date.now = function () {
   })();
   var Project = (function () {
 
-    var $film, $grid, $fullview, start, end, current, initialized = false;
+    var $film, $grid, $fullview, start, end, current, initialized = false,
+        fullviewWidth = 0,
+        fullviewHeight = 0;
 
     fullviewWidth = windowWidth;
     fullviewHeight = windowHeight;
@@ -17553,7 +17562,8 @@ if (!Date.now) Date.now = function () {
             $description = $('<div class="photometa__description"></div>').html('<div>' + descriptionText + '</div>'),
             $exif = $('<ul class="photometa__exif  exif"></ul>'),
             $meta = $('<div class="portfolio__meta  photometa"></div>'),
-            exifText = $item.data('exif');
+            exifText = $item.data('exif'),
+            $full = $('<button class="button-full js-button-full"></button>');
 
         if (!empty(exifText)) {
           $.each(exifText, function (key, value) {
@@ -17561,6 +17571,7 @@ if (!Date.now) Date.now = function () {
           });
         }
 
+        $full.prependTo($item);
         $caption.appendTo($meta);
         $exif.appendTo($meta);
         $description.appendTo($meta);
@@ -18498,7 +18509,8 @@ if (!Date.now) Date.now = function () {
    */
 
   function setQueryParameter(uri, key, value) {
-    var re = new RegExp("([?|&])" + key + "=.*?(&|$)", "i");
+    var re = new RegExp("([?|&])" + key + "=.*?(&|$)", "i"),
+        separator = '';
     separator = uri.indexOf('?') !== -1 ? "&" : "?";
     if (uri.match(re)) {
       return uri.replace(re, '$1' + key + "=" + value + '$2');

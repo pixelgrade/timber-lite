@@ -34,7 +34,7 @@
 		<p class="site-description"><?php bloginfo( 'description' ); ?></p>
 	</div><!-- .site-branding -->
 
-	<nav id="site-navigation" class="main-navigation">
+	<nav id="site-navigation" class="main-navigation djax-updatable">
 		<?php wp_nav_menu( array(
 			'theme_location' => 'primary',
 			'menu_class' => 'nav nav--main',
