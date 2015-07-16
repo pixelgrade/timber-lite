@@ -64,10 +64,12 @@
 
 .projects-slider {
 	@extend .fullscreen-slider;
-	top: $header-height;
-	bottom: $header-height;
+	top: $small-bar-height;
+	bottom: $small-bar-height;
 
 	@include query-above($small) {
+		top: $header-height;
+		bottom: $footer-height;
 		margin: 0 100px;
 
 		.slider--show_next & {
@@ -93,7 +95,11 @@
 		z-index: 101;
 
 		width: 100%;
-		height: $header-height;
+		height: $small-bar-height;
+
+		@include query-above($small) {
+			height: $footer-height;
+		}
 
 		text-align: center;
 
@@ -298,21 +304,22 @@
 .page-has-featured-image:not(.page-template) {
 	overflow-x: hidden;
 
-	.bar--fixed, .site-header, .site-footer {
-		background: transparent;
-		opacity: 1 !important;
-
-		* {
-			color: white;
-			text-shadow: none;
-		}
-	}
-
-	.mobile-header a {
+	.mobile-header a, .toggle, .nav-toggle {
 		color: white;
 	}
 
 	@include query-above($small) {
+
+		.bar--fixed, .site-header, .site-footer {
+			background: transparent;
+			opacity: 1 !important;
+
+			* {
+				color: white;
+				text-shadow: none;
+			}
+		}
+
 		.nav--main .sub-menu {
 			background: transparent;
 	        box-shadow: none;

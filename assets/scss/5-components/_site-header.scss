@@ -26,11 +26,11 @@
 .site-header.site-header--placeholder {
     position: static !important;
     z-index: 0;
-    height: $header-height !important;
+    height: $small-bar-height !important;
 
-    // @include query-below($small) {
-    //     display: none;
-    // }
+    @include query-above($small) {
+        height: $header-height !important;
+    }
 }
 
 .site-header--placeholder {
@@ -94,7 +94,7 @@
         display: block;
         width: 1em;
         position: absolute;
-        top: $header-height/2;
+        top: $small-bar-height/2;
         transform: translate(0, -50%);
         left: 200%;
         margin-left: 1.9em;

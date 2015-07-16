@@ -1,7 +1,7 @@
 .mobile-header {
     @include wp-offset(0, margin-top);
     position: absolute;
-    top: $header-height/2;
+    top: $small-bar-height/2;
     transform: translate(0, -50%);
     left: 0;
     width: 100%;

@@ -17263,13 +17263,13 @@ if (!Date.now) Date.now = function () {
       });
 
       $(window).on('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
-      $('.portfolio--grid').on('scroll', bindImageLoad);
+      $('.portfolio--grid, .site-content').on('scroll', bindImageLoad);
 
       bindImageLoad();
 
       $(window).on('djaxClick', function () {
         $(window).off('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
-        $('.portfolio--grid').off('scroll', bindImageLoad);
+        $('.portfolio--grid, .site-content').off('scroll', bindImageLoad);
       });
     }
 
