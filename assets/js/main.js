@@ -16983,8 +16983,8 @@ if (!Date.now) Date.now = function () {
     }
 
     function updateBullets(offset) {
-      var $selectedBullet = $('.rsNavSelected');
-      count = $selectedBullet.index();
+      var $selectedBullet = $('.rsNavSelected'),
+          count = $selectedBullet.index();
 
       $selectedBullet.removeClass('rsNavSelected');
 
@@ -18235,9 +18235,9 @@ if (!Date.now) Date.now = function () {
     // don't need it if we have only one slide
     if (royalSlider && slidesNumber > 1) {
 
-      $slides_total = $('.js-gallery-slides-total');
-      $decimal = $('.js-decimal');
-      $unit = $('.js-unit');
+      var $slides_total = $('.js-gallery-slides-total'),
+          $decimal = $('.js-decimal'),
+          $unit = $('.js-unit');
 
       //slidesNumber = (slidesNumber < 10) ? padLeft(slidesNumber, 2) : slidesNumber;
       $slides_total.html(slidesNumber);

@@ -203,7 +203,7 @@ var frontpageSlider = (function() {
     }
 
     function updateBullets(offset) {
-        var $selectedBullet = $('.rsNavSelected');
+        var $selectedBullet = $('.rsNavSelected' ),
             count = $selectedBullet.index();
 
         $selectedBullet.removeClass('rsNavSelected');
