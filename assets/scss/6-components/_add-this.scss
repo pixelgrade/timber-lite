@@ -14,18 +14,20 @@
 
 .project-addthis-container {
 	.share-button {
-		padding: 12px 18px;
-		margin-left: -12px;
+		width: 22px;
+		height: 22px;
+		display: inline-block;
+		vertical-align: middle;
 
-		font-size: 22px;
-		line-height: 22px;
+		background: url('assets/svg/share-icon.svg') no-repeat;
+		background-size: cover;
 	}
 
 	.share-text {
 		@extend .caption;
 
 		position: absolute;
-		left: 0;
+		left: -10px;
 		top: 50%;
 		transform: translateY(-50%) translateZ(0);
 
@@ -64,7 +66,7 @@
 	left: 0;
 	min-width: 33vw;
 
-	padding-left: 4.5em;
+	padding-left: 3em;
 	transform: translateY(-50%);
 	pointer-events: none;
 
@@ -92,7 +94,7 @@
 }
 
 .addthis_toolbox.addthis_32x32_style span {
-	background-size: 85% !important;
+	background-size: 70% !important;
 	background-position: center center !important;
 }
 
@@ -123,4 +125,12 @@
 //AddThis hide the tooltip shown on hover over the plus button
 #at15s.atm {
 	display: none !important;
+}
+
+.addthis_toolbox.addthis_32x32_style span.at4-icon.aticon-facebook {
+	background-position: 3px 3px !important;
+}
+
+.addthis_toolbox.addthis_32x32_style span.at4-icon.aticon-pinterest_share {
+	background-position: 5px 3px !important;
 }
