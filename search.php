@@ -7,14 +7,14 @@
  */
 
 get_header(); ?>
-
+<div class="site-header  site-header--placeholder"></div>
 <div class="site-container  site-content">
 
 	<?php if ( have_posts() ) :
         $search_term = get_search_query();
         $data = '';
         if ( ! empty( $search_term ) ) {
-            $data .= ' data-search="' . $search_term .'"';
+            $data .= ' data-search="' . esc_attr( $search_term ) .'"';
         }
         ?>
 

@@ -13,5 +13,5 @@
     data-link="<?php the_permalink(); ?>"
     data-link-title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>"
 >
-	<?php the_post_thumbnail( 'full', array( 'class' => 'project-slide__image  rsImg' ) ); ?>
+	<?php timber_the_post_thumbnail( get_the_ID(), 'full', array( 'class' => 'project-slide__image  rsImg' ) ); ?>
 </div><!-- .project-slide -->

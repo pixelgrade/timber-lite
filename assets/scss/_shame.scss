@@ -57,6 +57,13 @@ html, body, #page, .site, #djaxContainer {
     }
 }
 
+.show-details,
+.show-button {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 // WP DEBUGGER
 #querylist * {
     text-shadow: none !important;
