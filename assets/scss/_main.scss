@@ -1,0 +1,360 @@
+// Settings     -- Default, settings and variables.
+// Tools        -- Functions and mixins.
+// Resets
+// Base         -- Basic, high-level styling
+// Object       -- Objects and abstractions.
+// Components   -- Your designed UI elements.
+// Overrides
+// Shortcodes   -- Style for shortcodes (Pixcodes)
+// Shame        -- the place for prototyping and quick fixes
+
+
+/**
+ *
+ * Table of Contents
+ * --------------------------------------------------
+ *  1.0 - Settings
+ *  2.0 - Tools
+ *    2.1 - Icon fonts
+ *    2.2 - Sassline
+ *    2.3 - Clearfix
+ *    2.4 - Widths
+ *    2.5 - Mixins
+ *    2.6 - Queries
+ *    2.7 - WP Offset
+ *  3.0 - Resets
+ *  4.0 - Base
+ *    4.1 - Typography
+ *    4.2 - Forms
+ *    4.3 - WP Core
+ *    4.4 - WP Align
+ *  5.0 - Objects
+ *    5.1 - Bar
+ *    5.2 - Nav
+ *    5.3 - Grid
+ *    5.4 - Buttons
+ *    5.5 - Media
+ *    5.6 - Images
+ *    5.7 - Separators
+ *  6.0 - Components
+ *    6.1 - Site header
+ *    6.2 - Mobile header
+ *    6.3 - Site branding
+ *    6.4 - Site container
+ *    6.5 - Site sidebar
+ *    6.6 - Site content
+ *    6.7 - Site footer
+ *    6.8 - Navigation main
+ *    6.9 - Navigation social
+ *    6.10 - Single header
+ *    6.11 - Single content
+ *    6.12 - Single footer
+ *    6.13 - Comments
+ *    6.14 - Filmstrip
+ *    6.15 - Full view
+ *    6.16 - Portfolio
+ *    6.17 - Filter
+ *    6.18 - Photo meta
+ *    6.19 - Exif
+ *    6.20 - Preloader
+ *    6.21 - Entry thumbnail
+ *    6.22 - Entry header
+ *    6.23 - Overlay
+ *    6.24 - Search form
+ *    6.25 - Add This
+ *    6.26 - RoyalSlider
+ *    6.27 - Fullscreen slider
+ *    6.28 - Loader
+ *    6.29 - Border
+ *    6.30 - Widgets
+ *  7.0 - Overrides
+ *  8.0 - Shortcodes
+ *    8.1 - Icons
+ *    8.2 - Tabs
+ *  9.0 - Shame
+ *
+ */
+
+
+
+
+
+// #SETTINGS
+
+/**
+ * 1.0 - Settings
+ */
+@import "1-settings/default";
+
+
+
+
+
+// #TOOLS
+
+/**
+ * 2.0 - Tools
+ *   2.1 - Icons fonts
+ */
+@import "2-tools/icon-fonts";
+/**
+ *   2.2 - Sassline
+ */
+@import "2-tools/sassline/sassline";
+/**
+ *   2.3 - Clearfix
+ */
+@import "2-tools/clearfix";
+/**
+ *   2.4 - Widths
+ */
+@import "2-tools/widths";
+/**
+ *   2.5 - Mixins
+ */
+@import "2-tools/mixins";
+/**
+ *   2.6 - Queries
+ */
+@import "2-tools/queries";
+/**
+ *   2.7 - WP Offset
+ */
+@import "2-tools/wp-offset";
+
+
+
+
+
+// #RESETS
+
+/**
+ * 3.0 - Resets
+ */
+@import "3-generic/reset";
+
+
+
+
+
+// #BASE
+
+/**
+ * 4.0 - Base
+ *   4.1 - Typography
+ */
+@import "4-base/typography";
+/**
+ *   4.2 - Forms
+ */
+@import "4-base/forms";
+/**
+ *   4.3 - WP Core
+ */
+@import "4-base/wpcore";
+/**
+ *   4.4 - WP Align
+ */
+@import "4-base/wp-align";
+
+
+
+
+
+// #OBJECTS
+
+/**
+ * 5.0 - Objects
+ *   5.1 - Bar
+ */
+@import "5-objects/bar";
+/**
+ *   5.2 - Nav
+ */
+@import "5-objects/nav";
+/**
+ *   5.3 - Grid
+ */
+@import "5-objects/grid";
+/**
+ *   5.4 - Buttons
+ */
+@import "5-objects/beautons";
+/**
+ *   5.5 - Media
+ */
+@import "5-objects/media";
+/**
+ *   5.6 - Images
+ */
+@import "5-objects/images";
+/**
+ *   5.7 - Separators
+ */
+@import "5-objects/separators";
+
+
+
+
+
+// #COMPONENTS
+
+/**
+ * 6.0 - Components
+ *   6.1 - Site header
+ */
+@import "6-components/site-header";
+/**
+ *   6.2 - Mobile header
+ */
+@import "6-components/mobile-header";
+/**
+ *   6.3 - Site branding
+ */
+@import "6-components/site-branding";
+/**
+ *   6.4 - Site container
+ */
+@import "6-components/site-container";
+/**
+ *   6.5 - Site sidebar
+ */
+@import "6-components/site-sidebar";
+/**
+ *   6.6 - Site content
+ */
+@import "6-components/site-content";
+/**
+ *   6.7 - Site footer
+ */
+@import "6-components/site-footer";
+/**
+ *   6.8 - Navigation main
+ */
+@import "6-components/nav--main";
+/**
+ *   6.9 - Navigation social
+ */
+@import "6-components/nav--social";
+/**
+ *   6.10 - Single header
+ */
+@import "6-components/single-header";
+/**
+ *   6.11 - Single content
+ */
+@import "6-components/single-content";
+/**
+ *   6.12 - Single footer
+ */
+@import "6-components/single-footer";
+/**
+ *   6.13 - Comments
+ */
+@import "6-components/comments";
+/**
+ *   6.14 - Filmstrip
+ */
+@import "6-components/filmstrip";
+/**
+ *   6.15 - Full view
+ */
+@import "6-components/fullview";
+/**
+ *   6.16 - Portfolio
+ */
+@import "6-components/portfolio";
+/**
+ *   6.17 - Filter
+ */
+@import "6-components/filter";
+/**
+ *   6.18 - Photo meta
+ */
+@import "6-components/photometa";
+/**
+ *   6.19 - Exif
+ */
+@import "6-components/exif";
+/**
+ *   6.20 - Preloader
+ */
+@import "6-components/preloader";
+/**
+ *   6.21 - Entry thumbnail
+ */
+@import "6-components/entry-thumbnail";
+/**
+ *   6.22 - Entry header
+ */
+@import "6-components/entry-header";
+/**
+ *   6.23 - Overlay
+ */
+@import "6-components/overlay";
+/**
+ *   6.24 - Search form
+ */
+@import "6-components/search-form";
+/**
+ *   6.25 - Add This
+ */
+@import "6-components/add-this";
+/**
+ *   6.26 - RoyalSlider
+ */
+@import "6-components/royalslider";
+/**
+ *   6.27 - Fullscreen slider
+ */
+@import "6-components/fullscreen-slider";
+/**
+ *   6.28 - Loader
+ */
+@import "6-components/loader";
+/**
+ *   6.29 - Border
+ */
+@import "6-components/border";
+/**
+ *   6.30 - Widgets
+ */
+@import "6-components/widgets";
+
+
+
+
+
+// #OVERRIDES
+
+/**
+ * 7.0 - Overrides
+ */
+@import "7-overrides/winners";
+
+
+
+
+
+// #SHORTCODES
+
+/**
+ * 8.0 - Widgets
+ *   8.1 - Icons
+ */
+@import "8-shortcodes/icons";
+/**
+ *   8.2 - Tabs
+ */
+@import "8-shortcodes/tabs";
+
+
+
+
+
+// #SHAME
+
+/**
+ * 9.0 - Shame
+ */
+@import "shame";
