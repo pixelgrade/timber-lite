@@ -13,65 +13,57 @@
  *
  * Table of Contents
  * --------------------------------------------------
- *  1.0 - Settings
- *  2.0 - Tools
- *    2.1 - Icon fonts
- *    2.2 - Sassline
- *    2.3 - Clearfix
- *    2.4 - Widths
- *    2.5 - Mixins
- *    2.6 - Queries
- *    2.7 - WP Offset
- *  3.0 - Resets
- *  4.0 - Base
- *    4.1 - Typography
- *    4.2 - Forms
- *    4.3 - WP Core
- *    4.4 - WP Align
- *  5.0 - Objects
- *    5.1 - Bar
- *    5.2 - Nav
- *    5.3 - Grid
- *    5.4 - Buttons
- *    5.5 - Media
- *    5.6 - Images
- *    5.7 - Separators
- *  6.0 - Components
- *    6.1 - Site header
- *    6.2 - Mobile header
- *    6.3 - Site branding
- *    6.4 - Site container
- *    6.5 - Site sidebar
- *    6.6 - Site content
- *    6.7 - Site footer
- *    6.8 - Navigation main
- *    6.9 - Navigation social
- *    6.10 - Single header
- *    6.11 - Single content
- *    6.12 - Single footer
- *    6.13 - Comments
- *    6.14 - Filmstrip
- *    6.15 - Full view
- *    6.16 - Portfolio
- *    6.17 - Filter
- *    6.18 - Photo meta
- *    6.19 - Exif
- *    6.20 - Preloader
- *    6.21 - Entry thumbnail
- *    6.22 - Entry header
- *    6.23 - Overlay
- *    6.24 - Search form
- *    6.25 - Add This
- *    6.26 - RoyalSlider
- *    6.27 - Fullscreen slider
- *    6.28 - Loader
- *    6.29 - Border
- *    6.30 - Widgets
- *  7.0 - Overrides
- *  8.0 - Shortcodes
- *    8.1 - Icons
- *    8.2 - Tabs
- // *  9.0 - Shame
+ *  1.0 - Tools
+ *    1.1 - Clearfix
+ *    1.2 - Widths
+ *    1.3 - Icon fonts
+ *  2.0 - Resets
+ *  3.0 - Base
+ *    3.1 - Typography
+ *    3.2 - Forms
+ *    3.3 - WP Core
+ *    3.4 - WP Align
+ *  4.0 - Objects
+ *    4.1 - Bar
+ *    4.2 - Nav
+ *    4.3 - Grid
+ *    4.4 - Buttons
+ *    4.5 - Media
+ *    4.6 - Images
+ *    4.7 - Separators
+ *  5.0 - Components
+ *    5.1 - Site header
+ *    5.2 - Mobile header
+ *    5.3 - Site branding
+ *    5.4 - Site container
+ *    5.5 - Site sidebar
+ *    5.6 - Site content
+ *    5.7 - Site footer
+ *    5.8 - Navigation main
+ *    5.9 - Navigation social
+ *    5.10 - Single header
+ *    5.11 - Single content
+ *    5.12 - Single footer
+ *    5.13 - Comments
+ *    5.14 - Filmstrip
+ *    5.15 - Full view
+ *    5.16 - Portfolio
+ *    5.17 - Filter
+ *    5.18 - Photo meta
+ *    5.19 - Exif
+ *    5.20 - Preloader
+ *    5.21 - Entry thumbnail
+ *    5.22 - Entry header
+ *    5.23 - Overlay
+ *    5.24 - Search form
+ *    5.25 - Add This
+ *    5.26 - RoyalSlider
+ *    5.27 - Fullscreen slider
+ *    5.28 - Loader
+ *    5.29 - Border
+ *    5.30 - Widgets
+ *    5.31 - Shortcodes
+ *  6.0 - Overrides
  *
  */
 
@@ -81,10 +73,7 @@
 
 // #SETTINGS
 
-// /**
-//  * 1.0 - Settings
-//  */
-@import "1-settings/default";
+@import "0-settings/default";
 
 
 
@@ -93,34 +82,34 @@
 // #TOOLS
 
 /**
- * 2.0 - Tools
- *   2.1 - Icons fonts
+ * 1.0 - Tools
+ *   1.1 - Clearfix
  */
-@import "2-tools/icon-fonts";
+@import "1-tools/clearfix";
 /**
- *   2.2 - Sassline
+ *   1.2 - Widths
  */
-@import "2-tools/sassline/sassline";
+@import "1-tools/widths";
 /**
- *   2.3 - Clearfix
+ *   1.3 - Icon fonts
  */
-@import "2-tools/clearfix";
-/**
- *   2.4 - Widths
- */
-@import "2-tools/widths";
-/**
- *   2.5 - Mixins
- */
-@import "2-tools/mixins";
-/**
- *   2.6 - Queries
- */
-@import "2-tools/queries";
-/**
- *   2.7 - WP Offset
- */
-@import "2-tools/wp-offset";
+@import "1-tools/icon-fonts";
+// /**
+//  *   1.4 - Sassline
+//  */
+@import "1-tools/sassline/sassline";
+// /**
+//  *   1.5 - Mixins
+//  */
+@import "1-tools/mixins";
+// /**
+//  *   1.6 - Queries
+//  */
+@import "1-tools/queries";
+// /**
+//  *   1.7 - WP Offset
+//  */
+@import "1-tools/wp-offset";
 
 
 
@@ -129,9 +118,9 @@
 // #RESETS
 
 /**
- * 3.0 - Resets
+ * 2.0 - Resets
  */
-@import "3-generic/reset";
+@import "2-generic/reset";
 
 
 
@@ -140,22 +129,22 @@
 // #BASE
 
 /**
- * 4.0 - Base
- *   4.1 - Typography
+ * 3.0 - Base
+ *   3.1 - Typography
  */
-@import "4-base/typography";
+@import "3-base/typography";
 /**
- *   4.2 - Forms
+ *   3.2 - Forms
  */
-@import "4-base/forms";
+@import "3-base/forms";
 /**
- *   4.3 - WP Core
+ *   3.3 - WP Core
  */
-@import "4-base/wpcore";
+@import "3-base/wpcore";
 /**
- *   4.4 - WP Align
+ *   3.4 - WP Align
  */
-@import "4-base/wp-align";
+@import "3-base/wp-align";
 
 
 
@@ -164,34 +153,34 @@
 // #OBJECTS
 
 /**
- * 5.0 - Objects
- *   5.1 - Bar
+ * 4.0 - Objects
+ *   4.1 - Bar
  */
-@import "5-objects/bar";
+@import "4-objects/bar";
 /**
- *   5.2 - Nav
+ *   4.2 - Nav
  */
-@import "5-objects/nav";
+@import "4-objects/nav";
 /**
- *   5.3 - Grid
+ *   4.3 - Grid
  */
-@import "5-objects/grid";
+@import "4-objects/grid";
 /**
- *   5.4 - Buttons
+ *   4.4 - Buttons
  */
-@import "5-objects/beautons";
+@import "4-objects/beautons";
 /**
- *   5.5 - Media
+ *   4.5 - Media
  */
-@import "5-objects/media";
+@import "4-objects/media";
 /**
- *   5.6 - Images
+ *   4.6 - Images
  */
-@import "5-objects/images";
+@import "4-objects/images";
 /**
- *   5.7 - Separators
+ *   4.7 - Separators
  */
-@import "5-objects/separators";
+@import "4-objects/separators";
 
 
 
@@ -200,126 +189,131 @@
 // #COMPONENTS
 
 /**
- * 6.0 - Components
- *   6.1 - Site header
+ * 5.0 - Components
+ *   5.1 - Site header
  */
-@import "6-components/site-header";
+@import "5-components/site-header";
 /**
- *   6.2 - Mobile header
+ *   5.2 - Mobile header
  */
-@import "6-components/mobile-header";
+@import "5-components/mobile-header";
 /**
- *   6.3 - Site branding
+ *   5.3 - Site branding
  */
-@import "6-components/site-branding";
+@import "5-components/site-branding";
 /**
- *   6.4 - Site container
+ *   5.4 - Site container
  */
-@import "6-components/site-container";
+@import "5-components/site-container";
 /**
- *   6.5 - Site sidebar
+ *   5.5 - Site sidebar
  */
-@import "6-components/site-sidebar";
+@import "5-components/site-sidebar";
 /**
- *   6.6 - Site content
+ *   5.6 - Site content
  */
-@import "6-components/site-content";
+@import "5-components/site-content";
 /**
- *   6.7 - Site footer
+ *   5.7 - Site footer
  */
-@import "6-components/site-footer";
+@import "5-components/site-footer";
 /**
- *   6.8 - Navigation main
+ *   5.8 - Navigation main
  */
-@import "6-components/nav--main";
+@import "5-components/nav--main";
 /**
- *   6.9 - Navigation social
+ *   5.9 - Navigation social
  */
-@import "6-components/nav--social";
+@import "5-components/nav--social";
 /**
- *   6.10 - Single header
+ *   5.10 - Single header
  */
-@import "6-components/single-header";
+@import "5-components/single-header";
 /**
- *   6.11 - Single content
+ *   5.11 - Single content
  */
-@import "6-components/single-content";
+@import "5-components/single-content";
 /**
- *   6.12 - Single footer
+ *   5.12 - Single footer
  */
-@import "6-components/single-footer";
+@import "5-components/single-footer";
 /**
- *   6.13 - Comments
+ *   5.13 - Comments
  */
-@import "6-components/comments";
+@import "5-components/comments";
 /**
- *   6.14 - Filmstrip
+ *   5.14 - Filmstrip
  */
-@import "6-components/filmstrip";
+@import "5-components/filmstrip";
 /**
- *   6.15 - Full view
+ *   5.15 - Full view
  */
-@import "6-components/fullview";
+@import "5-components/fullview";
 /**
- *   6.16 - Portfolio
+ *   5.16 - Portfolio
  */
-@import "6-components/portfolio";
+@import "5-components/portfolio";
 /**
- *   6.17 - Filter
+ *   5.17 - Filter
  */
-@import "6-components/filter";
+@import "5-components/filter";
 /**
- *   6.18 - Photo meta
+ *   5.18 - Photo meta
  */
-@import "6-components/photometa";
+@import "5-components/photometa";
 /**
- *   6.19 - Exif
+ *   5.19 - Exif
  */
-@import "6-components/exif";
+@import "5-components/exif";
 /**
- *   6.20 - Preloader
+ *   5.20 - Preloader
  */
-@import "6-components/preloader";
+@import "5-components/preloader";
 /**
- *   6.21 - Entry thumbnail
+ *   5.21 - Entry thumbnail
  */
-@import "6-components/entry-thumbnail";
+@import "5-components/entry-thumbnail";
 /**
- *   6.22 - Entry header
+ *   5.22 - Entry header
  */
-@import "6-components/entry-header";
+@import "5-components/entry-header";
 /**
- *   6.23 - Overlay
+ *   5.23 - Overlay
  */
-@import "6-components/overlay";
+@import "5-components/overlay";
 /**
- *   6.24 - Search form
+ *   5.24 - Search form
  */
-@import "6-components/search-form";
+@import "5-components/search-form";
 /**
- *   6.25 - Add This
+ *   5.25 - Add This
  */
-@import "6-components/add-this";
+@import "5-components/add-this";
 /**
- *   6.26 - RoyalSlider
+ *   5.26 - RoyalSlider
  */
-@import "6-components/royalslider";
+@import "5-components/royalslider";
 /**
- *   6.27 - Fullscreen slider
+ *   5.27 - Fullscreen slider
  */
-@import "6-components/fullscreen-slider";
+@import "5-components/fullscreen-slider";
 /**
- *   6.28 - Loader
+ *   5.28 - Loader
  */
-@import "6-components/loader";
+@import "5-components/loader";
 /**
- *   6.29 - Border
+ *   5.29 - Border
  */
-@import "6-components/border";
+@import "5-components/border";
 /**
- *   6.30 - Widgets
+ *   5.30 - Widgets
  */
-@import "6-components/widgets";
+@import "5-components/widgets";
+/**
+ *   5.31 - Shortcodes
+ */
+@import "5-components/shortcode-icon";
+@import "5-components/shortcode-tabs";
 
 
 
@@ -328,25 +322,9 @@
 // #OVERRIDES
 
 /**
- * 7.0 - Overrides
+ * 6.0 - Overrides
  */
-@import "7-overrides/winners";
-
-
-
-
-
-// #SHORTCODES
-
-/**
- * 8.0 - Widgets
- *   8.1 - Icons
- */
-@import "8-shortcodes/icons";
-/**
- *   8.2 - Tabs
- */
-@import "8-shortcodes/tabs";
+@import "6-overrides/winners";
 
 
 
@@ -354,7 +332,4 @@
 
 // #SHAME
 
-// /**
-//  * 9.0 - Shame
-//  */
 @import "shame";
