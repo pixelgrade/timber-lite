@@ -10,16 +10,10 @@ global $post;
 
 if ( empty( $post ) ) {
     return;
-}
-
-$username = timber_get_option( 'share_buttons_addthis_username' );
-$ga_id = timber_get_option('share_buttons_ga_id'); ?>
+} ?>
 
 <script type="text/javascript">
 addthis_config = {
-	<?php if ( ! empty( $username ) ) {
-		echo 'username : "' . $username . '",';
-	} ?>
 	ui_click : false,
 	ui_delay : 100,
 	ui_offset_top: 0,
@@ -27,10 +21,6 @@ addthis_config = {
 	ui_use_css : true,
 	data_track_addressbar : false,
 	data_track_clickback : false
-	<?php if ( ! empty( $ga_id ) ) {
-		echo ', data_ga_property: "' . $ga_id .'"';
-		echo ', data_ga_social : true';
-	} ?>
 };
 
 addthis_share = {

@@ -26,8 +26,9 @@ if ( $custom_portfolio_page_type === 'project' ) {
 
 	if ( is_numeric($homepage_project) ) {
 		global $post;
+
 		$the_project = get_post( $homepage_project );
-		$post     = $the_project;
+		$post = $the_project;
 		setup_postdata( $post );
 		get_template_part( 'template-parts/single-jetpack-portfolio');
 		wp_reset_postdata();
@@ -37,5 +38,4 @@ if ( $custom_portfolio_page_type === 'project' ) {
 	get_template_part( $template_part );
 }
 
-wp_reset_query();
 get_footer();

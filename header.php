@@ -21,7 +21,7 @@
 
 <body <?php body_class(); ?> <?php timber_body_attributes(); ?>>
 
-<header id="masthead" class="site-header" role="banner">
+<header id="masthead" class="site-header">
 	<div class="bar--fixed">
 
 	<div class="site-branding">
@@ -34,7 +34,7 @@
 		<p class="site-description"><?php bloginfo( 'description' ); ?></p>
 	</div><!-- .site-branding -->
 
-	<nav id="site-navigation" class="main-navigation djax-updatable" role="navigation">
+	<nav id="site-navigation" class="main-navigation djax-updatable">
 		<?php wp_nav_menu( array(
 			'theme_location' => 'primary',
 			'menu_class' => 'nav nav--main',
@@ -43,7 +43,7 @@
 		) ); ?>
 	</nav><!-- #site-navigation -->
 
-	<nav class="social-navigation" role="navigation">
+	<nav class="social-navigation">
 		<?php wp_nav_menu( array(
 			'theme_location' => 'social',
 			'menu_class' => 'nav nav--social',

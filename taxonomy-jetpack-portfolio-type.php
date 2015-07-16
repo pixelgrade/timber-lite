@@ -7,15 +7,15 @@
  * @package Timber
  * @since Timber 1.0
  */
-global $wp_query;
 
 get_header(); ?>
+
 <div class="site-header  site-header--placeholder"></div>
 <div class="site-container">
 
     <div class="site-sidebar">
         <div class="site-sidebar__content">
-            <h1 class="site-sidebar__text"><?php echo $wp_query->queried_object->name; ?></h1>
+            <h1 class="site-sidebar__text"><?php $tax = get_queried_object(); echo esc_html( $tax->name ); ?></h1>
         </div>
     </div>
     <div class="site-content">

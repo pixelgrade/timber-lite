@@ -250,10 +250,9 @@ function timber_add_admin_page_scripts( $hook ){
 /// add custom css to the new-project admin page
 add_action('admin_head','timber_add_new_project_admin_style');
 function timber_add_new_project_admin_style( $hook ){
-	global $pagenow;
 	global $typenow;
 
-	if ( $typenow === 'jetpack-portfolio' ) {
+	if ( 'jetpack-portfolio' === $typenow ) {
 
 $output = '
 <style>
@@ -269,10 +268,9 @@ $output = '
 }
 
 function timber_add_new_project_admin_editor_style() {
-	global $pagenow;
 	global $typenow;
 
-	if ( $typenow === 'jetpack-portfolio' ) {
+	if ( 'jetpack-portfolio' === $typenow ) {
 		add_editor_style( 'assets/css/admin/project-editor-style.css' );
 	}
 }

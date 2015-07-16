@@ -17,8 +17,8 @@ get_header(); ?>
         $queried_object = get_queried_object();
         $data = '';
         if ( ! empty( $queried_object->taxonomy ) ) {
-            $data .= ' data-taxonomy="' . $queried_object->taxonomy .'"';
-            $data .= ' data-termid="' . $queried_object->term_taxonomy_id .'"';
+            $data .= ' data-taxonomy="' . esc_attr( $queried_object->taxonomy ) .'"';
+            $data .= ' data-termid="' . esc_attr( $queried_object->term_taxonomy_id ) .'"';
         }
         ?>
 		<div class="filmstrip" <?php echo $data; ?>>

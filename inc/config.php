@@ -456,7 +456,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'custom_js_footer' => array(
 								'type'     => 'ace_editor',
 								'label'    => __( 'Custom JavaScript (footer)', 'timber' ),
-								'desc' => __( 'This javascript code will be loaded in the footer. You can paste here your <strong>Google Analytics tracking code</strong> (or for what matters any tracking code) and we will put it on every page.', 'timber' ),
+								'desc' => __( 'This javascript code will be loaded in the footer.', 'timber' ),
 								'editor_type'     => 'javascript',
 							),
 						)
@@ -475,26 +475,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'default' => 'preferred,preferred,preferred,preferred,more',
 								'label' => __( 'Share Services', 'timber' ),
 								'desc' => __( 'Add here the share services you want to use, single comma delimited (no spaces). You can find the full list of services here: http://www.addthis.com/services/list. Also you can use the more tag to show the plus sign and the counter tag to show a global share counter.', 'timber' ),
-							),
-							'share_buttons_addthis_username' => array(
-								'type'     => 'text',
-								'label'    => __( 'AddThis Username', 'timber' ),
-								'desc' => __( 'Enter here your AddThis username so you will receive analytics data.', 'timber' ),
-								'default'  => '',
-							),
-							'share_buttons_ga_id' => array(
-								'type'     => 'text',
-								'label'    => __( 'GA Property ID', 'timber' ),
-								'desc' => __( 'Enter here your GA property ID (generally a serial number of the form UA-xxxxxx-x).', 'timber' ),
-								'default'  => '',
-								'required' => array( 'share_buttons_enable_ga_tracking', '=', 1 ),
-							),
-							'share_buttons_enable_ga_social_tracking' => array(
-								'type'     => 'checkbox',
-								'label'    => __( 'GA Social Tracking', 'timber' ),
-								'desc' => __( 'If you are using the latest version of GA code, you can take advantage of Google\'s new <a href="http://bit.ly/1iVvkbk">social interaction analytics</a>.', 'timber' ),
-								'default'  => false,
-							),
+							)
 						)
 					),
 
