@@ -17553,6 +17553,32 @@ if (!Date.now) Date.now = function () {
       initialized = true;
     }
 
+    function onResize() {
+      $document.off('mousemove', panFullview);
+
+      var $target = $('.fullview__image'),
+          targetWidth = $target.width(),
+          targetHeight = $target.height(),
+          newWidth = $fullview.width(),
+          newHeight = $fullview.height(),
+          scaleX = newWidth / targetWidth,
+          scaleY = newHeight / targetHeight,
+          scale = Math.max(scaleX, scaleY);
+
+      fullviewWidth = targetWidth * scale;
+      fullviewHeight = targetHeight * scale;
+
+      $target.find('img').removeAttr('style');
+      $target.css({
+        width: fullviewWidth,
+        height: fullviewHeight,
+        top: (fullviewHeight - newHeight) / -2,
+        left: (fullviewWidth - newWidth) / -2
+      });
+
+      $document.on('mousemove', panFullview);
+    }
+
     function addMetadata() {
       $film.find('.js-portfolio-item').each(function (i, obj) {
         var $item = $(obj),
@@ -18032,6 +18058,7 @@ if (!Date.now) Date.now = function () {
     return {
       init: init,
       prepare: prepare,
+      onResize: onResize,
       getCurrent: getCurrent,
       destroy: destroy
     }
@@ -18395,6 +18422,7 @@ if (!Date.now) Date.now = function () {
 
   function onResize() {
     browserSize();
+    Project.onResize();
   }
 
   function requestTick() {
@@ -18421,7 +18449,7 @@ if (!Date.now) Date.now = function () {
     });
 
     $document.mousemove(function (e) {
-      latestKnownMouseX = e.pageX;
+      latestKnownMouseX = e.pageX - latestKnownScrollX;
       latestKnownMouseY = e.pageY - latestKnownScrollY;
     });
   } /* ====== HELPER FUNCTIONS ====== */
