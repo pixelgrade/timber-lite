@@ -16711,6 +16711,23 @@ if (!Date.now) Date.now = function () {
           offset;
 
       // assure minimum number of slides
+      if (slidesNumber < 2) {
+        $slider.css({
+          opacity: 1,
+          margin: 0
+        });
+        animateContentIn();
+        return;
+      }
+
+      if (slidesNumber < 3) {
+        $slider.css({
+          marginLeft: 0
+        });
+        sliderWidth = $slider.width();
+        $prevTrigger.hide();
+      }
+
       if (slidesNumber < minSlides) {
         $slides.clone().appendTo($slider);
         $slides = $slider.children();
@@ -16983,8 +17000,8 @@ if (!Date.now) Date.now = function () {
     }
 
     function updateBullets(offset) {
-      var $selectedBullet = $('.rsNavSelected');
-      count = $selectedBullet.index();
+      var $selectedBullet = $('.rsNavSelected'),
+          count = $selectedBullet.index();
 
       $selectedBullet.removeClass('rsNavSelected');
 
