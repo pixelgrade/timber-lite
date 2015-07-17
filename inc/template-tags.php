@@ -436,13 +436,13 @@ if ( ! function_exists( 'timber_get_option' ) ) :
 
 		} elseif ( $pixcustomify_plugin !== null ) {
 
-			$cutomify_value = $pixcustomify_plugin::get_option( $option, $default );
+			$customify_value = $pixcustomify_plugin->get_option( $option, $default );
 
-			return $cutomify_value;
+			return $customify_value;
 
 			// in the future get theme options if this is null
-//			if ( $cutomify_value !== null ) {
-//				return $cutomify_value;
+//			if ( $customify_value !== null ) {
+//				return $customify_value;
 //			} else {
 //			}
 		}
