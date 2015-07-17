@@ -19,7 +19,7 @@
 <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?> <?php timber_body_attributes(); ?>>
+<body <?php body_class(); ?> <?php timber_body_attributes(); ?> data-first-letter="<?php echo timber_first_site_title_character(); ?>">
 
 <header id="masthead" class="site-header">
 	<div class="bar--fixed">

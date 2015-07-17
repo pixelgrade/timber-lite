@@ -1199,3 +1199,40 @@ if ( ! function_exists( 'timber_get_post_title_class' ) ) :
 	} #function
 
 endif;
+
+if ( ! function_exists( 'timber_first_site_title_character' ) ) :
+    /**
+     * Returns the first UTF-8 character of the site title
+     * returns empty string if nothing found
+     *
+     * @param bool $data_attribute
+     *
+     * @return string
+     */
+    function timber_first_site_title_character() {
+        $title = get_bloginfo('name');
+
+        if ( empty($title) ) {
+            return;
+        }
+
+        $first_letter = '';
+        //find the first alphanumeric character - multibyte
+        preg_match( '/[\p{Xan}]/u', $title, $results );
+
+        if ( isset( $results ) && ! empty( $results[0] ) ) {
+            $first_letter = $results[0];
+        } else {
+            //lets try the old fashion way
+            //find the first alphanumeric character - non-multibyte
+            preg_match( '/[a-zA-Z\d]/', $title, $results );
+
+            if ( isset( $results ) && ! empty( $results[0] ) ) {
+                $first_letter = $results[0];
+            }
+        };
+
+        return $first_letter;
+    }
+
+endif;

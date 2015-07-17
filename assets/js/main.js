@@ -16626,27 +16626,28 @@ if (!Date.now) Date.now = function () {
     function init() {
 
       var $svg = $("#loaderSvg"),
-          svg, text = '';
+          svg, text = '',
+          letter = $('body').data('first-letter').toLowerCase();
 
-      svg = Snap("#loaderSvg");;
-      text = svg.text('50%', '20%', 't').attr({
+      svg = Snap("#loaderSvg");
+      text = svg.text('50%', '20%', letter).attr({
         'text-anchor': 'middle',
         'id': 'letter',
         'font-size': '180',
         'font-weight': 'bold',
-        'dy': '100'
+        'dy': '150'
       });
 
       var patterns = [],
           index = 0;
 
       $.each(loaderRandomImages, function (i, src) {
-        var img = svg.image(src).toPattern();
+        var img = svg.image(src, -75, 0, 300, 300).toPattern();
 
         img.attr({
-          width: 150,
-          height: 150,
-          viewBox: '0 0 150 150'
+          width: 300,
+          height: 300,
+          viewBox: '0 0 300 300'
         });
         patterns.push(img);
       });
