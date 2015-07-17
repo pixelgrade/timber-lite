@@ -1,16 +1,18 @@
-$mobile: 					320px;
-$xsmall:					480px;
-$small:						740px;
-$lap: 						900px;
-$desk: 						1200px;
-$large:						1450px;
+$mobile:     					320px;
+$xsmall:    					480px;
+$small: 						740px;
+$lap:    						900px;
+$desk:   						1200px;
+$large: 						1450px;
 
 $default-font-size:             16px;
 $default-line-height:           1.5;
 $default-transition-duration:   0.3s;
 
-$header-height: 130px;
-$sidebar-width: 110px;
-$single-width: 675px;
+$small-bar-height:              60px;
+$header-height:                 125px;
+$footer-height:                 105px;
+$sidebar-width:                 110px;
+$single-width:                  675px;
 
-$editor-style: false;
+$editor-style:                  false;

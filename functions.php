@@ -312,17 +312,14 @@ function timber_load_custom_js_footer() {
  *
  */
 function timber_wp_enqueue_media() {
-	/*
-	 * Register the about-me.js here so we can upload images in the customizer
-	 */
-	if ( ! wp_script_is( 'timber-image-widget-admin', 'registered' ) ) {
-		wp_register_script( 'timber-image-widget-admin', get_template_directory_uri() . '/inc/widgets/assets/image.js', array(
-			'media-upload',
-			'media-views',
-		) );
-	}
 
-	wp_enqueue_script( 'timber-image-widget-admin' );
+	// this will ensure all the resources needed for the media modal
+	wp_enqueue_media();
+
+	wp_enqueue_script( 'timber-image-widget-admin', get_template_directory_uri() . '/inc/widgets/assets/image.js', array(
+		'media-upload',
+		'media-views',
+	) );
 
 	wp_localize_script(
 		'timber-image-widget-admin',
@@ -336,7 +333,7 @@ function timber_wp_enqueue_media() {
 	);
 }
 
-add_action( 'wp_enqueue_media', 'timber_wp_enqueue_media' );
+add_action( 'admin_enqueue_scripts', 'timber_wp_enqueue_media' );
 
 /**
  * Add the global AddThis configuration in the <head>

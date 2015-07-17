@@ -14,7 +14,6 @@
     @include query-above($small) {
         height: $header-height;
         flex-basis: $header-height;
-        -webkit-flex-basis: $header-height;
     }
 
 }

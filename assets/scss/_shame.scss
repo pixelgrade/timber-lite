@@ -16,6 +16,11 @@ html, body, #page, .site, #djaxContainer {
         position: relative;
         overflow: hidden;
     }
+
+    // @include query-below($small) {
+    //     position: relative;
+    //     overflow-x: hidden;
+    // }
 }
 
 .portfolio_page_type-project_slider {

@@ -4,6 +4,10 @@
     flex-grow: 1;
     -webkit-flex-grow: 1;
 
+    @include query-below($small) {
+        overflow-x: auto;
+    }
+
     &__mask {
         @extend %transform--0;
         position: fixed;

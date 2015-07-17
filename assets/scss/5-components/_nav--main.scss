@@ -54,8 +54,8 @@
 
         // styling of current menu items
         [class*="current-menu-"] > a:before {
-            left: 1em;
-            right: 1em;
+            left: 0.75em;
+            right: 0.75em;
         }
 
         [class*="current-menu-"] [class*="current-menu-"] > a:before {
@@ -176,7 +176,7 @@
 
 .nav-toggle {
     position: absolute;
-    top: $header-height/2;
+    top: $small-bar-height/2;
     transform: translate(0, -50%);
     left: 100%;
     margin-left: 0.8em;

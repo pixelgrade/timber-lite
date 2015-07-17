@@ -5,6 +5,14 @@
     .is--ie9 & {
         position: fixed;
     }
+
+    &, .bar--fixed {
+
+        @include query-above($small) {
+            height: $footer-height;
+            flex-basis: $footer-height;
+        }
+    }
 }
 
 .site-info {

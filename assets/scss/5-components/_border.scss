@@ -5,7 +5,9 @@
     }
 
     body {
-        padding: 7px;
+        //@todo
+        border: 7px solid transparent;
+        // position: relative;
 
         &.admin-bar {
             padding-top: 0;

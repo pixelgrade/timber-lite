@@ -143,6 +143,7 @@ img {
         overflow-y: auto;
         padding-bottom: 2 * $header-height;
         flex-wrap: wrap;
+        align-content: flex-start;
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
