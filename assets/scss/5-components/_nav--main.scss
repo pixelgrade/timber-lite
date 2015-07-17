@@ -54,8 +54,8 @@
 
         // styling of current menu items
         [class*="current-menu-"] > a:before {
-            left: 1em;
-            right: 1em;
+            left: 0.75em;
+            right: 0.75em;
         }
 
         [class*="current-menu-"] [class*="current-menu-"] > a:before {
@@ -181,4 +181,8 @@
     left: 100%;
     margin-left: 0.8em;
     font-size: 1.5em;
+
+    @include query-above($small) {
+        display: none;
+    }
 }

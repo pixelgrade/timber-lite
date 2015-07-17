@@ -18353,21 +18353,6 @@ if (!Date.now) Date.now = function () {
 
     //Loads the addThis script - this should be run just once
     AddThisIcons.init();
-
-    $(".pixcode--tabs").organicTabs();
-
-    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
-
-      if (!$html.hasClass('is--ie9'))
-      // html body are for ie
-      $('html, body, *').mousewheel(function (event, delta) {
-        // this.scrollLeft -= (delta * 30);
-        if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
-          this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-          event.preventDefault();
-        }
-      });
-    }
   }
 
   function softInit() {
@@ -18409,6 +18394,21 @@ if (!Date.now) Date.now = function () {
     });
 
     sizeColumns();
+
+    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
+
+      if (!$html.hasClass('is--ie9'))
+      // html body are for ie
+      $('html, body, *').mousewheel(function (event, delta) {
+        // this.scrollLeft -= (delta * 30);
+        if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
+          this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+          event.preventDefault();
+        }
+      });
+    }
+
+    $(".pixcode--tabs").organicTabs();
   }
 
   // /* ====== ON WINDOW LOAD ====== */

@@ -63,6 +63,11 @@
 
 //Fullwidth page template
 .page-template-fullwidth-page .site-main {
-	padding-left: 130px;
-	padding-right: 32px;
+	padding-left: 30px;
+	padding-right: 30px;
+
+	@include query-above($lap) {
+		padding-left: 130px;
+		padding-right: 32px;
+	}
 }
