@@ -16509,7 +16509,7 @@ if (!Date.now) Date.now = function () {
 
       $(window).on('djaxClick', onDjaxClick);
       $(window).on('djaxLoad', onDjaxLoad);
-      $(window).bind('popstate', onDjaxClick);
+      // $(window).bind('popstate', onDjaxClick);
     }
 
     function djaxTransition($new) {
