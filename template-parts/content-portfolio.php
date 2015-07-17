@@ -17,7 +17,7 @@
 
 		<?php timber_the_project_types( get_the_ID(), '<div class="portfolio__type">', '</div>' ); ?>
 
-		<h2 <?php echo timber_get_post_title_class_attr( 'portfolio__title h1' ); ?> >
+		<h2 class="portfolio__title h1">
 			<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
 				<?php
 					if ( get_the_title() != '' ) :
