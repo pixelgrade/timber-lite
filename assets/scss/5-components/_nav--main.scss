@@ -181,4 +181,8 @@
     left: 100%;
     margin-left: 0.8em;
     font-size: 1.5em;
+
+    @include query-above($small) {
+        display: none;
+    }
 }
