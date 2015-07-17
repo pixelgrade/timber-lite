@@ -9,9 +9,9 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('filmstrip__item'); ?>>
 	<a href="<?php the_permalink(); ?>">
-		<aside class="entry-thumbnail">
+		<?php $src = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'timber-image-square' ); ?>
+		<aside class="entry-thumbnail" <?php echo 'style="background-image: url('. $src[0] .')"';?>>
 
-			<?php timber_the_post_thumbnail( get_the_ID(), 'timber-image-square' ); ?>
 
 			<?php if ( 'post' == get_post_type() && in_array( get_post_format(), array( 'gallery', 'video', 'audio' ) ) ) : ?>
 

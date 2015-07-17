@@ -16286,28 +16286,6 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      $filmstrip_container.find('.filmstrip__item').each(function (i, obj) {
-        var $item = $(obj).show(),
-            $thumb = $item.find('.entry-thumbnail'),
-            thumbWidth = $thumb.outerWidth(),
-            thumbHeight = $thumb.outerHeight(),
-            $image = $thumb.find('img'),
-            imageWidth = $image.width(),
-            imageHeight = $image.height(),
-            scaleX = thumbWidth / imageWidth,
-            scaleY = thumbHeight / imageHeight,
-            scale = Math.max(scaleX, scaleY);
-
-        $image.css({
-          'min-width': 0,
-          'min-height': 0,
-          'width': imageWidth * scale,
-          'height': imageHeight * scale
-        });
-
-        $item.hide();
-      });
-
       $('.navigation').hide();
 
       //mixitup init without filtering
@@ -16454,9 +16432,7 @@ if (!Date.now) Date.now = function () {
             if (globalDebug) {
               console.log("MixItUp Filtering - Images Loaded");
             }
-
             $filmstrip_container.mixItUp('append', $result);
-
             isLoadingPosts = false;
           });
         } else {
@@ -16533,6 +16509,7 @@ if (!Date.now) Date.now = function () {
 
       $(window).on('djaxClick', onDjaxClick);
       $(window).on('djaxLoad', onDjaxLoad);
+      $(window).bind('popstate', onDjaxClick);
     }
 
     function djaxTransition($new) {
