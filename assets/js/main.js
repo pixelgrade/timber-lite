@@ -16569,11 +16569,11 @@ if (!Date.now) Date.now = function () {
     }
 
     function onPopState() {
-      console.log('onpopstate');
+
     }
 
     function onDjaxClick() {
-      console.log('djax:click');
+
     }
 
     function djaxTransition($new) {
@@ -16651,7 +16651,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function onDjaxLoad(e, data) {
-      console.log('djax:load');
+
       // get data and replace the body tag with a nobody tag
       // because jquery strips the body tag when creating objects from data
       data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
