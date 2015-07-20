@@ -44,9 +44,11 @@ var djax = (function() {
     }
 
     function onDjaxLoading(e) {
+        console.log('loading');
         wait = true;
 
         loadingTimeout = setTimeout(function() {
+            console.log('timeout');
             if (!wait) {
                 transitionIn();
             }
@@ -89,6 +91,7 @@ var djax = (function() {
     }
 
     function onDjaxLoad(e, data) {
+        console.log('load');
         // get data and replace the body tag with a nobody tag
         // because jquery strips the body tag when creating objects from data
         data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
