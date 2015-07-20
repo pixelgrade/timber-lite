@@ -17686,17 +17686,21 @@ if (!Date.now) Date.now = function () {
     }
 
     function fullViewTransition($source) {
-      var $target = addImageToFullView($source);
+      var $target = addImageToFullView($source),
+          $toRemove = $('.fullview__image').not($target);
+
+      setCurrent($source);
+      panFullview();
+
       TweenMax.fromTo($target, .3, {
         opacity: 0
       }, {
         opacity: 1,
         onComplete: function () {
-          $('.fullview__image').not($target).remove();
+          $toRemove.remove();
           centerFilmToTarget($source);
         }
       });
-      setCurrent($source);
     }
 
     // loop through each portfolio item and find the one closest to center
@@ -17935,10 +17939,24 @@ if (!Date.now) Date.now = function () {
     }
 
     function panFullview() {
-      TweenMax.to($('.fullview__image img'), 0, {
-        x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
-        y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight
-      });
+
+      $('.fullview__image img').each(function (i, obj) {
+        var $img = $(obj),
+            imgWidth = $img.width(),
+            imgHeight = $img.height();
+
+        if (imgWidth > windowWidth) {
+          TweenMax.to($img, 0, {
+            x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
+          });
+        }
+
+        if (imgHeight > windowHeight) {
+          TweenMax.to($img, 0, {
+            y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
+          });
+        }
+      })
     }
 
     function hideFullView() {
@@ -17946,6 +17964,8 @@ if (!Date.now) Date.now = function () {
           $target = $('.portfolio__item--active');
 
       $document.off('mousemove', panFullview);
+      $('.site-content').addClass('site-content--fullview');
+
       TweenMax.to($('.fullview__image img'), .3, {
         x: 0,
         y: 0,
@@ -17956,7 +17976,6 @@ if (!Date.now) Date.now = function () {
             // });
           });
           setTimeout(function () {
-            $('.site-content').addClass('site-content--fullview');
             $fullview.removeClass('fullview--visible');
             $source.remove();
           });
