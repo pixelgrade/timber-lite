@@ -17551,6 +17551,27 @@ if (!Date.now) Date.now = function () {
     }
 
     function onResize() {
+      resizeFullView();
+      resizeFilmstrip();
+      getMiddlePoints();
+      getReferenceBounds();
+    }
+
+    function resizeFilmstrip() {
+      $('.portfolio__item').each(function (i, item) {
+
+        var $item = $(item),
+            width = $item.data('width'),
+            height = $item.data('height'),
+            newHeight = $item.height(),
+            newWidth = newHeight * $item.data('width') / $item.data('height');
+
+        $item.width(newWidth);
+
+      });
+    }
+
+    function resizeFullView() {
       $document.off('mousemove', panFullview);
 
       var $target = $('.fullview__image'),
@@ -18443,6 +18464,7 @@ if (!Date.now) Date.now = function () {
 
   function onResize() {
     browserSize();
+    sizeColumns();
     Project.onResize();
   }
 
@@ -18590,7 +18612,7 @@ if (!Date.now) Date.now = function () {
   function sizeColumns() {
 
     $('.portfolio__item--text').each(function (i, obj) {
-      var $item = $(obj),
+      var $item = $(obj).css('width', ''),
           itemOffset = $item.offset().left,
           $children, $last, width;
 

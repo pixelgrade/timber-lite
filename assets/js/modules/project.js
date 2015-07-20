@@ -56,6 +56,27 @@ var Project = (function() {
 	}
 
 	function onResize() {
+		resizeFullView();
+		resizeFilmstrip();
+		getMiddlePoints();
+		getReferenceBounds();
+	}
+
+	function resizeFilmstrip() {
+        $('.portfolio__item').each(function(i, item) {
+
+            var $item       = $(item),
+                width       = $item.data('width'),
+                height      = $item.data('height'),
+                newHeight   = $item.height(),
+                newWidth    = newHeight * $item.data('width') / $item.data('height');
+
+            $item.width(newWidth);
+
+        });
+	}
+
+	function resizeFullView() {
 		$document.off('mousemove', panFullview);
 
 		var $target 		= $('.fullview__image'),

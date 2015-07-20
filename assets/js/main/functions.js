@@ -119,7 +119,7 @@ function isElementInViewport(el) {
 function sizeColumns() {
 
     $('.portfolio__item--text').each(function(i, obj) {
-        var $item 		= $(obj),
+        var $item 		= $(obj).css('width', ''),
             itemOffset 	= $item.offset().left,
             $children, $last, width;
 
