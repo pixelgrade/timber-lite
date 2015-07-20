@@ -124,7 +124,7 @@ function sizeColumns() {
             $last = $(obj).children().last(),
             width = $last.offset().left - itemOffset + $last.outerWidth();
 
-        $item.outerWidth(width);
+        $item.width(width);
     });
 
 }
