@@ -21,6 +21,8 @@ function init() {
 
 function softInit() {
 
+    sizeColumns();
+
     if ($('.single-jetpack-portfolio').length) {
         Project.init();
         Placeholder.update();
@@ -56,8 +58,6 @@ function softInit() {
             $('.mask--page').removeClass('is-on-top');
         }
     });
-
-    sizeColumns();
 
     if ($body.hasClass('blog')
         || $body.hasClass('project_layout-filmstrip')

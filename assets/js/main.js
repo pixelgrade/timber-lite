@@ -18358,6 +18358,8 @@ if (!Date.now) Date.now = function () {
 
   function softInit() {
 
+    sizeColumns();
+
     if ($('.single-jetpack-portfolio').length) {
       Project.init();
       Placeholder.update();
@@ -18393,8 +18395,6 @@ if (!Date.now) Date.now = function () {
         $('.mask--page').removeClass('is-on-top');
       }
     });
-
-    sizeColumns();
 
     if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
 
