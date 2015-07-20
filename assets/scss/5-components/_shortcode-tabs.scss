@@ -47,6 +47,7 @@
 
 	&.not-shown {
 		opacity: 0;
-		z-index: 10;
+		z-index: 5;
+		pointer-events: none;
 	}
 }

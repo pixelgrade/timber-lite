@@ -5864,7 +5864,8 @@ window.Modernizr = function (a, b, c) {
         if ((listID != curList) && (base.$el.find(":animated").length == 0)) {
           base.$el.find("#" + curList).css({
             opacity: 0,
-            "z-index": 10
+            "z-index": 10,
+            "pointer-events": "none"
           });
           var newHeight = base.$el.find("#" + listID).height();
           $allListWrap.css({
@@ -5874,7 +5875,8 @@ window.Modernizr = function (a, b, c) {
             base.$el.find("#" + curList);
             base.$el.find("#" + listID).css({
               opacity: 1,
-              "z-index": 13
+              "z-index": 100,
+              "pointer-events": "auto"
             });
             base.$el.find(".tabs__nav li a").removeClass("current");
             $newList.addClass("current");
