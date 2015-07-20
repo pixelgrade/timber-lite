@@ -755,7 +755,7 @@ function timber_mce_before_init( $settings ) {
 		array( 'title' => __( 'Dropcap', 'timber' ), 'inline' => 'span', 'classes' => 'dropcap'),
 		array( 'title' => __( 'Highlight', 'timber' ), 'inline' => 'span', 'classes' => 'highlight' ),
 		array( 'title' => __( 'Two Columns', 'timber' ), 'selector' => 'p', 'classes' => 'twocolumn', 'wrapper' => true ),
-		array( 'title' => __( 'Caption', 'timber' ), 'inline' => 'span', 'classes' => 'caption' )
+		array( 'title' => __( 'Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption' )
 	);
 
 	$settings['style_formats'] = json_encode( $style_formats );
