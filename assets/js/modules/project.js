@@ -56,10 +56,12 @@ var Project = (function() {
 	}
 
 	function onResize() {
-		resizeFullView();
-		resizeFilmstrip();
-		getMiddlePoints();
-		getReferenceBounds();
+		if ($('.single-jetpack-portfolio').length) {
+			resizeFullView();
+			resizeFilmstrip();
+			getMiddlePoints();
+			getReferenceBounds();
+		}
 	}
 
 	function resizeFilmstrip() {

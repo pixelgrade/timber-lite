@@ -16750,6 +16750,24 @@ if (!Date.now) Date.now = function () {
       });
     }
 
+    function onResize() {
+      // sliderWidth     = $slider.width();
+      // sliderHeight    = $slider.height();
+      // totalWidth      = 0;
+      // $current.prevAll().remove();
+      // $slides.each(function(i, obj) {
+      //     var $slide = $(obj);
+      //     console.log(i, sliderWidth + (i - 1) * nextWidth);
+      //     if (i != 0) {
+      //         totalWidth += nextWidth;
+      //         $slide.css('left', sliderWidth + (i - 1) * nextWidth);
+      //     } else {
+      //         totalWidth += sliderWidth;
+      //     }
+      //     scaleImage($slide.find('img'));
+      // });
+    }
+
     function scaleImage($img) {
       var imageWidth = $img.width(),
           imageHeight = $img.height(),
@@ -17105,7 +17123,8 @@ if (!Date.now) Date.now = function () {
     }
 
     return {
-      init: init
+      init: init,
+      onResize: onResize
     }
 
   })();
@@ -17549,10 +17568,12 @@ if (!Date.now) Date.now = function () {
     }
 
     function onResize() {
-      resizeFullView();
-      resizeFilmstrip();
-      getMiddlePoints();
-      getReferenceBounds();
+      if ($('.single-jetpack-portfolio').length) {
+        resizeFullView();
+        resizeFilmstrip();
+        getMiddlePoints();
+        getReferenceBounds();
+      }
     }
 
     function resizeFilmstrip() {
@@ -18464,6 +18485,7 @@ if (!Date.now) Date.now = function () {
     browserSize();
     sizeColumns();
     Project.onResize();
+    frontpageSlider.onResize();
   }
 
   function requestTick() {
