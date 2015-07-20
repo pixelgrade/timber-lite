@@ -50,7 +50,7 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		//used for blog archive
 		add_image_size( 'timber-square-image', 350, 350, false );
 
-		// This theme uses wp_nav_menu() in one location.
+		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
 			'primary' => esc_html__( 'Primary Menu', 'timber' ),
 			'social' => esc_html__( 'Social Menu', 'timber' )
@@ -183,12 +183,7 @@ function timber_scripts_styles() {
 		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
 	}
 
-	$project_template = get_post_meta( timber_get_post_id(), 'project_template', true );
-
-	// For vertical scroll to be interpreted as horizontal scroll
-	//	if( is_home() || $project_template == 'filmstrip' || $project_template == 'thumbnails' ) {
 	wp_enqueue_script('mousewheel' , get_template_directory_uri() . '/assets/js/plugins/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
-	//	}
 
 	// For back to top link
 	global $timber_show_footer;
@@ -392,8 +387,12 @@ require get_template_directory() . '/inc/jetpack.php';
 require get_template_directory() . '/inc/required-plugins/required-plugins.php';
 
 /**
+ * Load the custom Image widget
+ */
+require get_template_directory() . '/inc/widgets/image-widget.php';
+
+/**
  * Load the theme update logic
  */
 require_once( get_template_directory() . '/inc/wp-updates-theme.php');
-require get_template_directory() . '/inc/widgets/image-widget.php';
 new WPUpdatesThemeUpdater_1447( 'http://wp-updates.com/api/2/theme', basename( get_template_directory() ) );

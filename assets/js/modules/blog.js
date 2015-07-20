@@ -44,7 +44,7 @@ var Blog = (function() {
 
 	function bindEvents() {
 		//we will handle the binding of filter links because we need to load all posts on first filter click
-		$('.filter__item').click(function() {
+		$('.filter').on('click', '.filter__item', (function() {
 			filterBy = $(this).data('filter');
 
 			// first make the current filter link active
@@ -62,7 +62,7 @@ var Blog = (function() {
 			}
 
 			return false;
-		});
+		}));
 	}
 
 	function loadAllPosts() {
