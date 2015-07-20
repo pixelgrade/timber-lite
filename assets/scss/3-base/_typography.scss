@@ -127,6 +127,8 @@ small, .caption {
     font-weight: map-get($alttype, regular);
 
     @include fontsize(theta, all);
+
+    margin-bottom: 0;
 }
 
 small {
@@ -134,9 +136,16 @@ small {
 }
 
 .caption {
+    @include baseline(theta, $alttype, 2, 2, all);
     color: $captionColour;
 
-    @include baseline(theta, $alttype, 2, 2, all);
+    margin-bottom: 0 !important;
+    line-height: 0.875em;
+
+    & + p {
+        padding-top: 0;
+        margin-top: -5px;
+    }
 }
 
 // Nice spacing for captions.
