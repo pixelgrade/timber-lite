@@ -18,7 +18,7 @@ get_header(); ?>
             <h1 class="site-sidebar__text"><?php $tax = get_queried_object(); echo esc_html( $tax->name ); ?></h1>
         </div>
     </div>
-    <div class="site-content">
+    <div class="site-content  portfolio-archive  portfolio-category">
 
         <?php
             if ( have_posts() ) :

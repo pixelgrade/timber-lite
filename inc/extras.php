@@ -47,9 +47,7 @@ function timber_body_classes( $classes ) {
 	}
 
 	// let the body_class know what project layout we have and what height has the page slider
-	global $post;
-
-	if ( isset( $post->post_type ) ) {
+	if ( is_singular() && false !== get_post_type() ) {
 
 		// add classes for a project layout
 		if ( timber_post_is_project() ) {
@@ -63,8 +61,6 @@ function timber_body_classes( $classes ) {
 		}
 
 		// add classes for a custom portfolio page
-		$this_template = '';
-
 		// get_page_template() will trigger a notice if is called on a non-page template, so check this out first
 		if ( is_page() ) {
 			$this_template = basename( get_page_template() );
@@ -75,19 +71,20 @@ function timber_body_classes( $classes ) {
 			} else {
 				$classes[] = 'page-no-featured-image';
 			}
-		}
 
-		if ( $post->post_type === 'page' && $this_template  === 'custom-portfolio-page.php' ) {
-			if( timber_has_featured_projects() )
-				$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
-				$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true );
+			if ( 'custom-portfolio-page.php' === $this_template ) {
+				if ( timber_has_featured_projects() ) {
+					$projects_slider_height = get_post_meta(timber_get_post_id(), 'projects_slider_height', true);
+					$custom_portfolio_page_type = get_post_meta(timber_get_post_id(), 'custom_portfolio_page_type', true);
+				}
 
-			if ( ! empty( $projects_slider_height ) ) {
-				$classes[] = 'slider_height-' . $projects_slider_height;
-			}
+				if ( ! empty( $projects_slider_height ) ) {
+					$classes[] = 'slider_height-' . $projects_slider_height;
+				}
 
-			if ( ! empty( $custom_portfolio_page_type ) ) {
-				$classes[] = 'portfolio_page_type-' . $custom_portfolio_page_type;
+				if ( ! empty( $custom_portfolio_page_type ) ) {
+					$classes[] = 'portfolio_page_type-' . $custom_portfolio_page_type;
+				}
 			}
 		}
 	}
@@ -758,7 +755,7 @@ function timber_mce_before_init( $settings ) {
 		array( 'title' => __( 'Dropcap', 'timber' ), 'inline' => 'span', 'classes' => 'dropcap'),
 		array( 'title' => __( 'Highlight', 'timber' ), 'inline' => 'span', 'classes' => 'highlight' ),
 		array( 'title' => __( 'Two Columns', 'timber' ), 'selector' => 'p', 'classes' => 'twocolumn', 'wrapper' => true ),
-		array( 'title' => __( 'Caption', 'timber' ), 'inline' => 'span', 'classes' => 'caption' )
+		array( 'title' => __( 'Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption' )
 	);
 
 	$settings['style_formats'] = json_encode( $style_formats );
