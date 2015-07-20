@@ -16487,8 +16487,8 @@ if (!Date.now) Date.now = function () {
   })();
   var djax = (function () {
 
-    var preparing = false,
-        loading = false;
+    var wait = false,
+        loadingTimeout;
 
     /**
      *
@@ -16520,9 +16520,9 @@ if (!Date.now) Date.now = function () {
 
       $('body').djax('.djax-updatable', ignored_links, djaxTransition);
 
-      $(window).on('djaxClick', onDjaxClick);
+      // $(window).on('djaxClick', onDjaxClick);
+      $(window).on('djaxLoading', onDjaxLoading);
       $(window).on('djaxLoad', onDjaxLoad);
-      // $(window).bind('popstate', onDjaxClick);
     }
 
     function djaxTransition($new) {
@@ -16530,7 +16530,16 @@ if (!Date.now) Date.now = function () {
       $old.replaceWith($new);
     }
 
-    function onDjaxClick(e) {
+    function onDjaxLoading(e) {
+      wait = true;
+
+      loadingTimeout = setTimeout(function () {
+        if (!wait) {
+          transitionIn();
+        }
+        wait = false;
+      }, 600);
+
       Nav.close();
       Overlay.close();
 
@@ -16548,18 +16557,7 @@ if (!Date.now) Date.now = function () {
       Project.destroy();
     }
 
-    function onDjaxLoad(e, data) {
-      // get data and replace the body tag with a nobody tag
-      // because jquery strips the body tag when creating objects from data
-      data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
-      // get the nobody tag's classes
-      var nobodyClass = $(data).filter('notbody').attr("class");
-      // set it to current body tag
-      $body.attr('class', nobodyClass);
-
-      softInit();
-      $(window).scrollLeft(0);
-      $(window).scrollTop(0);
+    function transitionIn() {
       TweenMax.fromTo('.loader', .6, {
         left: 0
       }, {
@@ -16574,6 +16572,20 @@ if (!Date.now) Date.now = function () {
           // $html.css('overflow', '');
         }
       });
+    }
+
+    function onDjaxLoad(e, data) {
+      // get data and replace the body tag with a nobody tag
+      // because jquery strips the body tag when creating objects from data
+      data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
+      // get the nobody tag's classes
+      var nobodyClass = $(data).filter('notbody').attr("class");
+      // set it to current body tag
+      $body.attr('class', nobodyClass);
+
+      $(window).scrollLeft(0);
+      $(window).scrollTop(0);
+      softInit();
 
       // Change the toolbar edit button accordingly
       // need to get the id and edit string from the data attributes
@@ -16587,6 +16599,12 @@ if (!Date.now) Date.now = function () {
       if (window._gaq) {
         _gaq.push(['_trackPageview']);
       }
+
+      if (!wait) {
+        transitionIn();
+      }
+
+      wait = false;
     }
 
     // here we change the link of the Edit button in the Admin Bar
