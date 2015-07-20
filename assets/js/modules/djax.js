@@ -74,6 +74,7 @@ var djax = (function() {
     }
 
     function transitionIn() {
+        console.log('transition');
         TweenMax.fromTo('.loader', .6, {
             left: 0
         }, {

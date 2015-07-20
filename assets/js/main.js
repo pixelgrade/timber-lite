@@ -16560,6 +16560,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function transitionIn() {
+      console.log('transition')
       TweenMax.fromTo('.loader', .6, {
         left: 0
       }, {
