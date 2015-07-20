@@ -89,6 +89,7 @@ function onResize() {
 	browserSize();
     sizeColumns();
     Project.onResize();
+    frontpageSlider.onResize();
 }
 
 function requestTick() {
