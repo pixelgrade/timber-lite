@@ -1,6 +1,7 @@
 var djax = (function() {
 
     var wait = false,
+        transitionedOut = true,
         loadingTimeout;
 
     /**
@@ -12,17 +13,6 @@ var djax = (function() {
         //     return;
         // }
 
-        var that = this,
-            transition = function ($new) {
-                var $old = this;
-            };
-
-        //$('body').djax( {
-        //  'selector': '.djax-updatable',
-        //  'ignoreClass' : 'djax-ignore',
-        //  'exceptions': ['.pdf', '.doc', '.eps', '.png', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '?lang=', '&lang=', '&add-to-cart=', '?add-to-cart=', '?remove_item'],
-        //  'replaceBlockFunction': transition
-        //} );
         var ignored_links = ['.pdf', '.doc', '.eps', '.png', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '?lang=', '&lang=', '&add-to-cart=', '?add-to-cart=', '?remove_item'];
 
         // djax_ignored_links is localized in /inc/functions/callbacks/woocommerce.php
@@ -33,14 +23,30 @@ var djax = (function() {
 
         $('body').djax('.djax-updatable', ignored_links, djaxTransition);
 
-        // $(window).on('djaxClick', onDjaxClick);
+        $(window).on('djaxClick', onDjaxClick);
         $(window).on('djaxLoading', onDjaxLoading);
+        $(window).on('popstate', onPopState);
         $(window).on('djaxLoad', onDjaxLoad);
+    }
+
+    function onPopState() {
+        console.log('onpopstate');
+    }
+
+    function onDjaxClick() {
+        console.log('djax:click');
     }
 
     function djaxTransition($new) {
         var $old = this;
-        $old.replaceWith($new);
+
+        if (transitionedOut) {
+            $old.replaceWith($new);
+        } else {
+            $window.one('djax:transitionOutEnd', function() {
+                $old.replaceWith($new);
+            });
+        }
     }
 
     function onDjaxLoading(e) {
@@ -51,43 +57,57 @@ var djax = (function() {
                 transitionIn();
             }
             wait = false;
-        }, 600);
+        }, 900);
 
         Nav.close();
         Overlay.close();
 
-        TweenMax.fromTo('.loader', .6, {
-            left: '100%'
-        }, {
-            left: 0,
-            ease: Expo.easeInOut,
-        });
-        TweenMax.to('.mask--page', .6, {
-            left: 0,
-            ease: Expo.easeInOut,
-            onComplete: function() {
-            }
-        });
+        transitionOut();
+
         Project.destroy();
     }
 
-    function transitionIn() {
-        TweenMax.fromTo('.loader', .6, {
-            left: 0
-        }, {
-            left: '-100%',
-            ease: Expo.easeInOut,
+    function transitionOut() {
+        transitionedOut = false;
+
+        requestAnimationFrame(function() {
+            TweenMax.fromTo('.loader', .6, {
+                left: '100%'
+            }, {
+                left: 0,
+                ease: Expo.easeInOut
+            });
+            TweenMax.to('.mask--page', .6, {
+                left: 0,
+                ease: Expo.easeInOut,
+                onComplete: function() {
+                    $window.trigger('djax:transitionOutEnd');
+                    transitionedOut = true;
+                }
+            });
         });
-        TweenMax.to('.mask--page', .6, {
-            left: '100%',
-            ease: Expo.easeInOut,
-            onComplete: function() {
-                $('.mask--page').css('left', '-100%');
-            }
+    }
+
+    function transitionIn() {
+        requestAnimationFrame(function() {
+            TweenMax.fromTo('.loader', .6, {
+                left: 0
+            }, {
+                left: '-100%',
+                ease: Expo.easeInOut
+            });
+            TweenMax.to('.mask--page', .6, {
+                left: '100%',
+                ease: Expo.easeInOut,
+                onComplete: function() {
+                    $('.mask--page').css('left', '-100%');
+                }
+            });
         });
     }
 
     function onDjaxLoad(e, data) {
+        console.log('djax:load');
         // get data and replace the body tag with a nobody tag
         // because jquery strips the body tag when creating objects from data
         data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
@@ -96,9 +116,17 @@ var djax = (function() {
         // set it to current body tag
         $body.attr('class', nobodyClass);
 
-        $(window).scrollLeft(0);
-        $(window).scrollTop(0);
-        softInit();
+        if (transitionedOut) {
+            $(window).scrollLeft(0);
+            $(window).scrollTop(0);
+            softInit();
+        } else {
+            $window.one('djax:transitionOutEnd', function() {
+                $(window).scrollLeft(0);
+                $(window).scrollTop(0);
+                softInit();
+            });
+        }
 
         // Change the toolbar edit button accordingly
         // need to get the id and edit string from the data attributes
@@ -162,50 +190,3 @@ var djax = (function() {
     }
 
 })();
-
-var Loader = (function() {
-
-    function init() {
-
-        var $svg = $("#loaderSvg"),
-            svg,
-            text = '',
-            letter = $('body').data('first-letter').toLowerCase();
-
-        svg = Snap("#loaderSvg");
-        text = svg.text('50%', '20%', letter).attr({
-            'text-anchor': 'middle',
-            'id': 'letter',
-            'font-size': '180',
-            'font-weight': 'bold',
-            'dy': '150'
-        });
-
-        var patterns = [],
-            index    = 0;
-
-        $.each(loaderRandomImages, function(i, src) {
-            var img = svg.image(src, -75, 0, 300, 300).toPattern();
-
-            img.attr({
-                width: 300,
-                height: 300,
-                viewBox: '0 0 300 300'
-            });
-            patterns.push(img);
-        });
-
-        setInterval(function() {
-            if (index == patterns.length) {
-                index = 0;
-            }
-            text.attr('fill', patterns[index]);
-            index = index + 1;
-        }, 300);
-    }
-
-    return {
-        init: init
-    }
-
-})()
