@@ -1,6 +1,6 @@
 <?php
 /**
- * The template used for displaying Jetpack Portfolio posts on the Porfolio landing page
+ * The template used for displaying Jetpack Portfolio posts on the Porfolio landing page and on Portfolio archives
  *
  * @package Timber
  * @since Timber 1.0
@@ -15,7 +15,9 @@
 	?>
 	<div class="portfolio__header">
 
-		<?php timber_the_project_types( get_the_ID(), '<div class="portfolio__type">', '</div>' ); ?>
+		<?php if ( ! is_tax("jetpack-portfolio-type") ) { //do not show single project types on types archives
+			timber_the_project_types( get_the_ID(), '<div class="portfolio__type">', '</div>' );
+		} ?>
 
 		<h2 class="portfolio__title h1">
 			<a href="<?php the_permalink(); ?>" class="block-link" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">
