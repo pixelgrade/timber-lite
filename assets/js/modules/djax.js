@@ -53,7 +53,7 @@ var djax = (function() {
                 transitionIn();
             }
             wait = false;
-        }, 600);
+        }, 3000);
 
         Nav.close();
         Overlay.close();

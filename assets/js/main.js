@@ -16540,7 +16540,7 @@ if (!Date.now) Date.now = function () {
           transitionIn();
         }
         wait = false;
-      }, 600);
+      }, 3000);
 
       Nav.close();
       Overlay.close();
@@ -16560,7 +16560,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function transitionIn() {
-      console.log('transition')
+      console.log('transition');
       TweenMax.fromTo('.loader', .6, {
         left: 0
       }, {
