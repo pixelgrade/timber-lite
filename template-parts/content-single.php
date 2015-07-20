@@ -31,7 +31,7 @@
 		<?php if( has_post_thumbnail() ) : ?>
 
 		<div class="entry-featured">
-			<?php the_post_thumbnail(); ?>
+			<?php the_post_thumbnail( 'timber-large-image' ); ?>
 		</div><!-- .entry-featured -->
 
 		<?php endif; ?>
