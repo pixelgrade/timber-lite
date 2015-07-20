@@ -2,7 +2,7 @@
 <div class="site-container">
 
 	<div class="site-sidebar"></div>
-	<div class="site-content portfolio-archive">
+	<div class="site-content  portfolio-archive">
 
 		<?php
 		/**
