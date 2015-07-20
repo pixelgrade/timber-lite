@@ -94,27 +94,20 @@ var frontpageSlider = (function() {
     }
 
     function onResize() {
-        // sliderWidth     = $slider.width();
-        // sliderHeight    = $slider.height();
 
-        // totalWidth      = 0;
+        var newWidth    = $slider.width(),
+            $nextSlides = $current.nextAll(),
+            difference   = newWidth - sliderWidth;
 
-        // $current.prevAll().remove();
+        sliderHeight    = $slider.height();
+        totalWidth      = totalWidth + difference;
+        sliderWidth     = newWidth;
 
-        // $slides.each(function(i, obj) {
-        //     var $slide = $(obj);
+        $current.width(sliderWidth);
 
-        //     console.log(i, sliderWidth + (i - 1) * nextWidth);
-
-        //     if (i != 0) {
-        //         totalWidth += nextWidth;
-        //         $slide.css('left', sliderWidth + (i - 1) * nextWidth);
-        //     } else {
-        //         totalWidth += sliderWidth;
-        //     }
-
-        //     scaleImage($slide.find('img'));
-        // });
+        $nextSlides.each(function(i, obj) {
+            $(obj).css('left', '+=' + difference);
+        });
     }
 
     function scaleImage($img) {

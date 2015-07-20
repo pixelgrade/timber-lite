@@ -16,7 +16,6 @@ img {
 .portfolio {
     @extend %display--flex;
     @extend %position--absolute;
-    // @extend %transform--0;
     opacity: 0;
 
     height: 100%;
@@ -93,8 +92,6 @@ img {
     }
 
     &__item {
-        // @extend %transform--0;
-        // display: inline-block;
         position: relative;
         background: #eee;
         flex-shrink: 0;
@@ -122,24 +119,19 @@ img {
     }
 
     &__item--text {
-        // display: flex;
-        // max-width: 80vw;
-        // width: 29em;
-        // > .wrap {
-            background: white;
-            -webkit-column-width: 24em;
-            column-width: 24em;
-            -webkit-column-gap: 4em;
-            column-gap: 4em;
-            padding: 0 3em 0 1em;
-            cursor: default;
+        background: white;
+        -webkit-column-width: 24em;
+        column-width: 24em;
+        -webkit-column-gap: 4em;
+        column-gap: 4em;
+        padding: 0 3em 0 1em;
+        cursor: default;
 
-            font-size: 0.875em;
+        font-size: 0.875em;
 
-            > :first-child {
-                margin-top: 0;
-            }
-        // }
+        > :first-child {
+            margin-top: 0;
+        }
     }
 
     &--grid {
@@ -162,7 +154,6 @@ img {
 
             img {
                 opacity: 0;
-                // transition: none !important;
 
                 .page-template-portfolio-page & {
                     opacity: 1;
@@ -188,8 +179,6 @@ img {
     }
 
     &--filmstrip {
-        // max-width: 100%;
-        // overflow-x: auto;
         z-index: 350;
         opacity: 0;
 
@@ -300,8 +289,6 @@ img {
     position: absolute;
     top: 100%;
     left: 0;
-    // width: 5px;
-    // height: 50px;
     padding: 0 0.5em;
     z-index: 99999999999;
 }
