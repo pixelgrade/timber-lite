@@ -14,8 +14,11 @@ function init() {
     Loader.init();
     Nav.init();
     Overlay.init();
+    $html.addClass('ready');
 
-    //Loads the addThis script - this should be run just once
+    $('.site-header, #page, .site-footer').css('opacity', 1);
+
+    // Loads the addThis script - this should be run just once
     AddThisIcons.init();
 }
 
@@ -42,8 +45,6 @@ function softInit() {
 
     checkProfileImageWidget();
 
-    $('.site-header, #page, .site-footer').css('opacity', 1);
-
     if ($body.hasClass('blog')
         || $body.hasClass('project_layout-filmstrip')
         || $body.hasClass('project_layout-thumbnails')) {
@@ -68,6 +69,10 @@ $window.load(function () {
     eventHandlers();
 
     requestAnimationFrame(function() {
+        TweenMax.to('.loader', .3, {
+            opacity: 0,
+            ease: Expo.easeInOut
+        });
         TweenMax.fromTo('.loader', .6, {
             left: 0
         }, {
@@ -80,6 +85,7 @@ $window.load(function () {
             onComplete: function() {
                 $('.mask--page').css('left', '-100%');
                 $('.mask--page').removeClass('is-on-top');
+                $('.loader').css('opacity', 1);
             }
         });
     });

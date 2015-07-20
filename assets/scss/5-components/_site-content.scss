@@ -24,14 +24,14 @@
 
         &.mask--page {
             z-index: 551;
-
-            &.is-on-top {
-                z-index: 9999999999;
-            }
         }
 
         &.mask--project {
             // left: 0 !important;
+        }
+
+        &.is-on-top {
+            z-index: 9000;
         }
     }
 

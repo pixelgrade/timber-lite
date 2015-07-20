@@ -30,6 +30,11 @@ var Loader = (function() {
             patterns.push(img);
         });
 
+        TweenMax.to($svg, .3, {
+            opacity: 1,
+            ease: Power3.easeOut
+        });
+
         setInterval(function() {
             if (index == patterns.length) {
                 index = 0;

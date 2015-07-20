@@ -90,6 +90,10 @@ var djax = (function() {
 
     function transitionIn() {
         requestAnimationFrame(function() {
+            TweenMax.to('.loader', .3, {
+                opacity: 0,
+                ease: Expo.easeInOut
+            });
             TweenMax.fromTo('.loader', .6, {
                 left: 0
             }, {
@@ -101,6 +105,7 @@ var djax = (function() {
                 ease: Expo.easeInOut,
                 onComplete: function() {
                     $('.mask--page').css('left', '-100%');
+                    $('.loader').css('opacity', 1);
                 }
             });
         });

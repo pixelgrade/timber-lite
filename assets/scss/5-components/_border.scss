@@ -23,15 +23,20 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 9999;
+            z-index: 9990;
             width: 100%;
             bottom: 0;
             pointer-events: none;
-            border: 0.9vh solid $bodyColour;
+            border: 0 solid $bodyColour;
+            transition: border-width .3s ease-out;
 
             .admin-bar & {
                 border-top: 0;
             }
+        }
+
+        .ready &:after {
+            border-width: 0.9vh;
         }
     }
 }

@@ -16144,6 +16144,11 @@ if (!Date.now) Date.now = function () {
         patterns.push(img);
       });
 
+      TweenMax.to($svg, .3, {
+        opacity: 1,
+        ease: Power3.easeOut
+      });
+
       setInterval(function () {
         if (index == patterns.length) {
           index = 0;
@@ -16624,6 +16629,10 @@ if (!Date.now) Date.now = function () {
 
     function transitionIn() {
       requestAnimationFrame(function () {
+        TweenMax.to('.loader', .3, {
+          opacity: 0,
+          ease: Expo.easeInOut
+        });
         TweenMax.fromTo('.loader', .6, {
           left: 0
         }, {
@@ -16635,6 +16644,7 @@ if (!Date.now) Date.now = function () {
           ease: Expo.easeInOut,
           onComplete: function () {
             $('.mask--page').css('left', '-100%');
+            $('.loader').css('opacity', 1);
           }
         });
       });
@@ -18471,8 +18481,11 @@ if (!Date.now) Date.now = function () {
     Loader.init();
     Nav.init();
     Overlay.init();
+    $html.addClass('ready');
 
-    //Loads the addThis script - this should be run just once
+    $('.site-header, #page, .site-footer').css('opacity', 1);
+
+    // Loads the addThis script - this should be run just once
     AddThisIcons.init();
   }
 
@@ -18499,8 +18512,6 @@ if (!Date.now) Date.now = function () {
 
     checkProfileImageWidget();
 
-    $('.site-header, #page, .site-footer').css('opacity', 1);
-
     if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
 
       if (!$html.hasClass('is--ie9'))
@@ -18523,6 +18534,10 @@ if (!Date.now) Date.now = function () {
     eventHandlers();
 
     requestAnimationFrame(function () {
+      TweenMax.to('.loader', .3, {
+        opacity: 0,
+        ease: Expo.easeInOut
+      });
       TweenMax.fromTo('.loader', .6, {
         left: 0
       }, {
@@ -18535,6 +18550,7 @@ if (!Date.now) Date.now = function () {
         onComplete: function () {
           $('.mask--page').css('left', '-100%');
           $('.mask--page').removeClass('is-on-top');
+          $('.loader').css('opacity', 1);
         }
       });
     });
