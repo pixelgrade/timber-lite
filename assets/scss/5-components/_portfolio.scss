@@ -80,6 +80,10 @@ img {
             font-size: 0.75em;
             margin-bottom: -0.75em
         }
+
+        .portfolio-category & {
+            display: none;
+        }
     }
 
     &__position {
@@ -234,6 +238,10 @@ img {
         bottom: 0; left: 0;
         width: 100%;
     }
+}
+
+.tax-jetpack-portfolio-type .portfolio--grid {
+    padding-bottom: 0;
 }
 
 .is--ie9 .portfolio-wrapper {
