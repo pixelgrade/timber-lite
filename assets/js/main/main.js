@@ -87,6 +87,7 @@ $window.load(function () {
 
 function onResize() {
 	browserSize();
+    sizeColumns();
     Project.onResize();
 }
 
