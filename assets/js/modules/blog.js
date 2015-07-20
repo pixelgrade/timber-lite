@@ -112,6 +112,13 @@ var Blog = (function() {
 
 						if (globalDebug) {console.log("MixItUp Filtering - Filter by "+filterBy);}
 					});
+				} else {
+					//something didn't quite make it - maybe there are no more posts
+					//so we will assume that all posts are already loaded and proceed as usual
+					isFirstFilterClick = false;
+					isLoadingPosts = false;
+
+					$filmstrip_container.mixItUp( 'filter', filterBy);
 				}
 			}
 		);
