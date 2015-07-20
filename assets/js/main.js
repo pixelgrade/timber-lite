@@ -18590,8 +18590,17 @@ if (!Date.now) Date.now = function () {
     $('.portfolio__item--text').each(function (i, obj) {
       var $item = $(obj),
           itemOffset = $item.offset().left,
-          $last = $(obj).children().last(),
-          width = $last.offset().left - itemOffset + $last.outerWidth();
+          $children, $last, width;
+
+      $children = $(obj).children();
+
+      if (!$children.length) {
+        $item.remove();
+        return;
+      }
+
+      $last = $children.last();
+      width = $last.offset().left - itemOffset + $last.outerWidth()
 
       $item.width(width);
     });
