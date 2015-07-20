@@ -44,7 +44,7 @@ var Blog = (function() {
 
 	function bindEvents() {
 		//we will handle the binding of filter links because we need to load all posts on first filter click
-		$('.filter__item').click(function() {
+		$('.filter').on('click', '.filter__item', (function() {
 			filterBy = $(this).data('filter');
 
 			// first make the current filter link active
@@ -62,7 +62,7 @@ var Blog = (function() {
 			}
 
 			return false;
-		});
+		}));
 	}
 
 	function loadAllPosts() {
@@ -112,6 +112,15 @@ var Blog = (function() {
 
 						if (globalDebug) {console.log("MixItUp Filtering - Filter by "+filterBy);}
 					});
+				} else {
+					//something didn't quite make it - maybe there are no more posts (be optimistic about it)
+					//so we will assume that all posts are already loaded and proceed as usual
+					if (globalDebug) {console.log("MixItUp Filtering - There were no more posts to load - so filter please");}
+
+					isFirstFilterClick = false;
+					isLoadingPosts = false;
+
+					$filmstrip_container.mixItUp( 'filter', filterBy);
 				}
 			}
 		);

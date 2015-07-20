@@ -16311,7 +16311,7 @@ if (!Date.now) Date.now = function () {
 
     function bindEvents() {
       //we will handle the binding of filter links because we need to load all posts on first filter click
-      $('.filter__item').click(function () {
+      $('.filter').on('click', '.filter__item', (function () {
         filterBy = $(this).data('filter');
 
         // first make the current filter link active
@@ -16329,7 +16329,7 @@ if (!Date.now) Date.now = function () {
         }
 
         return false;
-      });
+      }));
     }
 
     function loadAllPosts() {

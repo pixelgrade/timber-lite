@@ -9,7 +9,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('filmstrip__item'); ?>>
 	<a href="<?php the_permalink(); ?>">
-		<?php $src = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'timber-image-square' ); ?>
+		<?php $src = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'timber-square-image' ); ?>
 		<aside class="entry-thumbnail" <?php echo 'style="background-image: url('. $src[0] .')"';?>>
 
 
