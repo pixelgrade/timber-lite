@@ -113,8 +113,10 @@ var Blog = (function() {
 						if (globalDebug) {console.log("MixItUp Filtering - Filter by "+filterBy);}
 					});
 				} else {
-					//something didn't quite make it - maybe there are no more posts
+					//something didn't quite make it - maybe there are no more posts (be optimistic about it)
 					//so we will assume that all posts are already loaded and proceed as usual
+					if (globalDebug) {console.log("MixItUp Filtering - There were no more posts to load - so filter please");}
+
 					isFirstFilterClick = false;
 					isLoadingPosts = false;
 
