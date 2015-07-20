@@ -320,6 +320,14 @@
 			}
 		}
 
+		.nav--main .menu-item a {
+			transition: opacity .15s ease-in-out;
+		}
+
+		.nav--main .menu-item:hover a {
+			opacity: 0.5;
+		}
+
 		.nav--main .sub-menu {
 			background: transparent;
 	        box-shadow: none;

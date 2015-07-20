@@ -79,6 +79,7 @@ function softInit() {
 
 // /* ====== ON WINDOW LOAD ====== */
 $window.load(function () {
+    console.log('load');
     softInit();
     eventHandlers();
 });
