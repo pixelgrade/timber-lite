@@ -44,21 +44,6 @@ function softInit() {
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
-    TweenMax.fromTo('.loader', .6, {
-        left: 0
-    }, {
-        left: '-100%',
-        ease: Expo.easeInOut,
-    });
-    TweenMax.to('.mask--page', .6, {
-        left: '100%',
-        ease: Expo.easeInOut,
-        onComplete: function() {
-            $('.mask--page').css('left', '-100%');
-            $('.mask--page').removeClass('is-on-top');
-        }
-    });
-
     if ($body.hasClass('blog')
         || $body.hasClass('project_layout-filmstrip')
         || $body.hasClass('project_layout-thumbnails')) {
@@ -79,9 +64,23 @@ function softInit() {
 
 // /* ====== ON WINDOW LOAD ====== */
 $window.load(function () {
-    console.log('load');
     softInit();
     eventHandlers();
+
+    TweenMax.fromTo('.loader', .6, {
+        left: 0
+    }, {
+        left: '-100%',
+        ease: Expo.easeInOut,
+    });
+    TweenMax.to('.mask--page', .6, {
+        left: '100%',
+        ease: Expo.easeInOut,
+        onComplete: function() {
+            $('.mask--page').css('left', '-100%');
+            $('.mask--page').removeClass('is-on-top');
+        }
+    });
 });
 
 // /* ====== ON RESIZE ====== */

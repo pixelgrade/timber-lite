@@ -16531,16 +16531,14 @@ if (!Date.now) Date.now = function () {
     }
 
     function onDjaxLoading(e) {
-      console.log('loading');
       wait = true;
 
       loadingTimeout = setTimeout(function () {
-        console.log('timeout');
         if (!wait) {
           transitionIn();
         }
         wait = false;
-      }, 3000);
+      }, 600);
 
       Nav.close();
       Overlay.close();
@@ -16560,7 +16558,6 @@ if (!Date.now) Date.now = function () {
     }
 
     function transitionIn() {
-      console.log('transition');
       TweenMax.fromTo('.loader', .6, {
         left: 0
       }, {
@@ -16572,13 +16569,11 @@ if (!Date.now) Date.now = function () {
         ease: Expo.easeInOut,
         onComplete: function () {
           $('.mask--page').css('left', '-100%');
-          // $html.css('overflow', '');
         }
       });
     }
 
     function onDjaxLoad(e, data) {
-      console.log('load');
       // get data and replace the body tag with a nobody tag
       // because jquery strips the body tag when creating objects from data
       data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
@@ -18476,21 +18471,6 @@ if (!Date.now) Date.now = function () {
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
-    TweenMax.fromTo('.loader', .6, {
-      left: 0
-    }, {
-      left: '-100%',
-      ease: Expo.easeInOut,
-    });
-    TweenMax.to('.mask--page', .6, {
-      left: '100%',
-      ease: Expo.easeInOut,
-      onComplete: function () {
-        $('.mask--page').css('left', '-100%');
-        $('.mask--page').removeClass('is-on-top');
-      }
-    });
-
     if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
 
       if (!$html.hasClass('is--ie9'))
@@ -18509,9 +18489,23 @@ if (!Date.now) Date.now = function () {
 
   // /* ====== ON WINDOW LOAD ====== */
   $window.load(function () {
-    console.log('load');
     softInit();
     eventHandlers();
+
+    TweenMax.fromTo('.loader', .6, {
+      left: 0
+    }, {
+      left: '-100%',
+      ease: Expo.easeInOut,
+    });
+    TweenMax.to('.mask--page', .6, {
+      left: '100%',
+      ease: Expo.easeInOut,
+      onComplete: function () {
+        $('.mask--page').css('left', '-100%');
+        $('.mask--page').removeClass('is-on-top');
+      }
+    });
   });
 
   // /* ====== ON RESIZE ====== */
