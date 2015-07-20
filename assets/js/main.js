@@ -16658,27 +16658,27 @@ if (!Date.now) Date.now = function () {
       // get the nobody tag's classes
       var nobodyClass = $(data).filter('notbody').attr("class");
       // set it to current body tag
-      $body.attr('class', nobodyClass);
-
-      if (transitionedOut) {
-        $(window).scrollLeft(0);
-        $(window).scrollTop(0);
-        softInit();
-      } else {
-        $window.one('djax:transitionOutEnd', function () {
-          $(window).scrollLeft(0);
-          $(window).scrollTop(0);
-          softInit();
-        });
-      }
-
       // Change the toolbar edit button accordingly
       // need to get the id and edit string from the data attributes
       var curPostID = $(data).filter('notbody').data("curpostid"),
           curPostTax = $(data).filter('notbody').data("curtaxonomy"),
           curPostEditString = $(data).filter('notbody').data("curpostedit");
 
-      adminBarEditFix(curPostID, curPostEditString, curPostTax);
+      if (transitionedOut) {
+        $(window).scrollLeft(0);
+        $(window).scrollTop(0);
+        softInit();
+        $body.attr('class', nobodyClass);
+        adminBarEditFix(curPostID, curPostEditString, curPostTax);
+      } else {
+        $window.one('djax:transitionOutEnd', function () {
+          $(window).scrollLeft(0);
+          $(window).scrollTop(0);
+          softInit();
+          $body.attr('class', nobodyClass);
+          adminBarEditFix(curPostID, curPostEditString, curPostTax);
+        });
+      }
 
       //lets do some Google Analytics Tracking, in case it is there
       if (window._gaq) {
