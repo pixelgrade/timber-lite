@@ -1,9 +1,16 @@
 .blog, .archive, .search {
+
     .site {
         display: flex;
         display: -webkit-flex;
         flex-direction: column;
         -webkit-flex-direction: column;
+    }
+
+    .site-footer {
+        @include query-below($small) {
+            display: none;
+        }
     }
 
     .entry-header {

@@ -16660,6 +16660,7 @@ if (!Date.now) Date.now = function () {
         $body.attr('class', nobodyClass);
         adminBarEditFix(curPostID, curPostEditString, curPostTax);
         softInit();
+        $('body').trigger('post-load');
       } else {
         $window.one('djax:transitionOutEnd', function () {
           $(window).scrollLeft(0);
@@ -16667,6 +16668,7 @@ if (!Date.now) Date.now = function () {
           $body.attr('class', nobodyClass);
           adminBarEditFix(curPostID, curPostEditString, curPostTax);
           softInit();
+          $('body').trigger('post-load');
         });
       }
 

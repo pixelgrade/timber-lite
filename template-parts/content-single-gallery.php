@@ -19,8 +19,6 @@
 
 			<?php timber_posted_on(); ?>
 
-			<?php timber_post_format_link( get_the_ID(), '<span class="divider"></span>' ); ?>
-
 			<?php if ( $category_list && timber_categorized_blog() ) : ?>
 
 				<span class="divider"></span>
