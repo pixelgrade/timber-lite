@@ -2,9 +2,9 @@ var niceScroll = (function() {
 
     function init() {
 
-        var smoothScroll = $('body').data('smoothscrolling') !== undefined;
+        // var smoothScroll = $('body').data('smoothscrolling') !== undefined;
 
-        if (smoothScroll && !Modernizr.touch && !ieMobile && !iOS && !isMac) {
+        // if (smoothScroll && !Modernizr.touch && !ieMobile && !iOS && !isMac) {
 
             var $window = $window || $(window);     // Window object
 
@@ -40,7 +40,7 @@ var niceScroll = (function() {
                     });
                 }
             });
-        }
+        // }
     }
 
     return {
