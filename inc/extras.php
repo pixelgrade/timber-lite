@@ -74,9 +74,10 @@ function timber_body_classes( $classes ) {
 			}
 
 			if ( 'custom-portfolio-page.php' === $this_template ) {
+				$custom_portfolio_page_type = get_post_meta(timber_get_post_id(), 'custom_portfolio_page_type', true);
+
 				if ( timber_has_featured_projects() ) {
 					$projects_slider_height = get_post_meta(timber_get_post_id(), 'projects_slider_height', true);
-					$custom_portfolio_page_type = get_post_meta(timber_get_post_id(), 'custom_portfolio_page_type', true);
 				}
 
 				if ( ! empty( $projects_slider_height ) ) {
@@ -107,7 +108,16 @@ function timber_post_classes( $classes ) {
 
 	//add classes for portfolio
 	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
-		if ( is_singular() && timber_post_is_project() ) {
+		$custom_portfolio_page_type = '';
+		//test to see if we are on a page with the Custom Portfolio Template and the Single project option
+		if ( is_page() ) {
+			$this_template = basename( get_page_template_slug( get_queried_object_id() ) );
+			if ( 'custom-portfolio-page.php' === $this_template ) {
+				$custom_portfolio_page_type = get_post_meta( get_queried_object_id(), 'custom_portfolio_page_type', true );
+			}
+		}
+
+		if ( is_single() ||  'project' === $custom_portfolio_page_type ) {
 			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
 			//this is the default layout - just in case something went wrong and the defaults didn't kick in
 			if ( empty( $project_template ) ) {
