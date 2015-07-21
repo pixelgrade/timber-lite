@@ -16562,18 +16562,8 @@ if (!Date.now) Date.now = function () {
 
       $('body').djax('.djax-updatable', ignored_links, djaxTransition);
 
-      $(window).on('djaxClick', onDjaxClick);
       $(window).on('djaxLoading', onDjaxLoading);
-      $(window).on('popstate', onPopState);
       $(window).on('djaxLoad', onDjaxLoad);
-    }
-
-    function onPopState() {
-
-    }
-
-    function onDjaxClick() {
-
     }
 
     function djaxTransition($new) {
@@ -16667,16 +16657,16 @@ if (!Date.now) Date.now = function () {
       if (transitionedOut) {
         $(window).scrollLeft(0);
         $(window).scrollTop(0);
-        softInit();
         $body.attr('class', nobodyClass);
         adminBarEditFix(curPostID, curPostEditString, curPostTax);
+        softInit();
       } else {
         $window.one('djax:transitionOutEnd', function () {
           $(window).scrollLeft(0);
           $(window).scrollTop(0);
-          softInit();
           $body.attr('class', nobodyClass);
           adminBarEditFix(curPostID, curPostEditString, curPostTax);
+          softInit();
         });
       }
 
