@@ -10,7 +10,6 @@ function init() {
     platformDetect();
     browserSize();
     scrollToTop();
-    niceScroll.init();
     djax.init();
     Loader.init();
     Nav.init();

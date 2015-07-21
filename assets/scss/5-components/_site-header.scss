@@ -28,7 +28,7 @@
     z-index: 0;
     height: $small-bar-height !important;
 
-    @include query-above($small) {
+    @include query-above($lap) {
         height: $header-height !important;
     }
 }
@@ -82,7 +82,7 @@
         color: currentColor;
     }
 
-    @include query-below($small) {
+    @include query-below($lap) {
         display: none;
     }
 }
@@ -90,7 +90,7 @@
 .toggle--mobile {
     display: none;
 
-    @include query-below($small) {
+    @include query-below($lap) {
         display: block;
         width: 1em;
         position: absolute;

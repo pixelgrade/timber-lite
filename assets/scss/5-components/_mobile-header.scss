@@ -8,7 +8,7 @@
     z-index: 9998;
     text-align: center;
 
-    @include query-above($small) {
+    @include query-above($lap) {
         display: none;
     }
 }

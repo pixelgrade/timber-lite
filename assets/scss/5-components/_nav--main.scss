@@ -39,7 +39,7 @@
         @extend %display--inline-block;
     }
 
-    @include query-above($small) {
+    @include query-above($lap) {
 
         a {
             padding: .25em 0;
@@ -124,7 +124,7 @@
 }
 
 
-@include query-below($small) {
+@include query-below($lap) {
 
     .main-navigation {
         display: block;
