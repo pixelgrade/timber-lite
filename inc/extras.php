@@ -58,11 +58,12 @@ function timber_body_classes( $classes ) {
 				$project_layout = get_post_meta( $homepage_project, 'project_template', true );
 			}
 			$classes[] = 'project_layout-' . $project_layout;
-		}
 
-		// add classes for a custom portfolio page
-		// get_page_template() will trigger a notice if is called on a non-page template, so check this out first
-		if ( is_page() ) {
+			$classes[] = 'single';
+			$classes[] = 'single-jetpack-portfolio';
+		} elseif ( is_page() ) {
+			// add classes for a custom portfolio page
+			// get_page_template() will trigger a notice if is called on a non-page template, so check this out first
 			$this_template = basename( get_page_template() );
 
 			// also see if the page has a featured-image
