@@ -107,8 +107,9 @@ function timber_post_classes( $classes ) {
 
 	//add classes for portfolio
 	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
-		if ( is_single() ) {
+		if ( is_singular() && timber_post_is_project() ) {
 			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true);
+			//this is the default layout - just in case something went wrong and the defaults didn't kick in
 			if ( empty( $project_template ) ) {
 				$project_template = 'filmstrip';
 			}
