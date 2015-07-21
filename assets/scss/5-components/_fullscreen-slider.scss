@@ -29,7 +29,7 @@
 		padding-right: 42px;
 	}
 
-	@include query-below($small) {
+	@include query-below($lap) {
 		.rsArrow {
 			width: 56px;
 		}
@@ -50,7 +50,7 @@
 		height: 25px;
 	}
 
-	@include query-below($small) {
+	@include query-below($lap) {
 
 		.rsArrow {
 			opacity: 0.75;
@@ -67,7 +67,7 @@
 	top: $small-bar-height;
 	bottom: $small-bar-height;
 
-	@include query-above($small) {
+	@include query-above($lap) {
 		top: $header-height;
 		bottom: $footer-height;
 		margin: 0 100px;
@@ -77,7 +77,7 @@
 		}
 	}
 
-	@include query-below($small) {
+	@include query-below($lap) {
 		margin-right: 60px !important;
 		margin-left: 0 !important;
 	}
@@ -97,7 +97,7 @@
 		width: 100%;
 		height: $small-bar-height;
 
-		@include query-above($small) {
+		@include query-above($lap) {
 			height: $footer-height;
 		}
 
@@ -167,7 +167,7 @@
 	transform: translateY(-50%);
 	left: 2em;
 
-	@include query-above($small) {
+	@include query-above($lap) {
 		left: 260px;
 
 		.slider--show_next & {
@@ -175,7 +175,7 @@
 		}
 	}
 
-	@include query-below($small) {
+	@include query-below($lap) {
 		transform: translateY(-50%) !important;
 	}
 
@@ -227,7 +227,7 @@
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 	-webkit-tap-highlight-color: transparent;
 
-	@include query-below($small) {
+	@include query-below($lap) {
 		width: 160px !important;
 	}
 
@@ -256,7 +256,7 @@
 		left: -100px;
 
 		.slider--show_prev_next & {
-			@include query-above($small) {
+			@include query-above($lap) {
 				display: block;
 			}
 		}
@@ -268,7 +268,7 @@
 		span {
 			left: 25%;
 
-			@include query-below($small) {
+			@include query-below($lap) {
 				left: 20%;
 			}
 		}
@@ -308,7 +308,7 @@
 		color: white;
 	}
 
-	@include query-above($small) {
+	@include query-above($lap) {
 
 		.bar--fixed, .site-header, .site-footer {
 			background: transparent;

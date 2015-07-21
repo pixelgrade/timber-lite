@@ -11,7 +11,7 @@
     // above .site-content which is 500
     z-index: 550;
 
-    @include query-above($small) {
+    @include query-above($lap) {
         height: $header-height;
         flex-basis: $header-height;
     }
@@ -56,7 +56,7 @@
     justify-content: flex-end;
 }
 
-@include query-below($small) {
+@include query-below($lap) {
 
     %bar-piece {
         // display: block;

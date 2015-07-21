@@ -8,7 +8,7 @@
 
     &, .bar--fixed {
 
-        @include query-above($small) {
+        @include query-above($lap) {
             height: $footer-height;
             flex-basis: $footer-height;
         }

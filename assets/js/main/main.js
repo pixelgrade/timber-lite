@@ -60,6 +60,8 @@ function softInit() {
             });
     }
 
+    $('.site-header, #page, .site-footer').css('opacity', 1);
+
     $(".pixcode--tabs").organicTabs();
 }
 

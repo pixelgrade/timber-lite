@@ -18515,6 +18515,8 @@ if (!Date.now) Date.now = function () {
       });
     }
 
+    $('.site-header, #page, .site-footer').css('opacity', 1);
+
     $(".pixcode--tabs").organicTabs();
   }
 
