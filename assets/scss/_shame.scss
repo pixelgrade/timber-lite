@@ -62,6 +62,15 @@ html, body, #page, .site, #djaxContainer {
     }
 }
 
+.show-details,
+.show-button {
+    line-height: initial;
+}
+
+.show-button.caption {
+    padding-top: 0;
+}
+
 .show-details:hover span,
 .show-button:hover {
     text-decoration: underline;
