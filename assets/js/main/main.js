@@ -9,8 +9,9 @@ function init() {
     browserSupport();
     platformDetect();
     browserSize();
-    djax.init();
     scrollToTop();
+    niceScroll.init();
+    djax.init();
     Loader.init();
     Nav.init();
     Overlay.init();

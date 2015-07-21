@@ -83,7 +83,11 @@ function timber_body_classes( $classes ) {
 				}
 
 				if ( ! empty( $custom_portfolio_page_type ) ) {
-					$classes[] = 'portfolio_page_type-' . $custom_portfolio_page_type;
+					if ( $custom_portfolio_page_type == 'project' ) {
+						$classes[] = 'single-jetpack-portfolio';
+					} else {
+						$classes[] = 'portfolio_page_type-' . $custom_portfolio_page_type;
+					}
 				}
 			}
 		}
