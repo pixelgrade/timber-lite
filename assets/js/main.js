@@ -16560,6 +16560,10 @@ if (!Date.now) Date.now = function () {
         ignored_links = ignored_links.concat(djax_ignored_links);
       }
 
+      if (typeof user_ignored_links === "object") {
+        ignored_links = ignored_links.concat(user_ignored_links);
+      }
+
       $('body').djax('.djax-updatable', ignored_links, djaxTransition);
 
       $(window).on('djaxLoading', onDjaxLoading);
