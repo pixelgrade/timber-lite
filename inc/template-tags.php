@@ -590,7 +590,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 
             if ( false == $ignore_videos ) {
                 //now let's handle the current video match
-                $markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div>' . PHP_EOL;
+                $markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div><!-- .portfolio__item--video -->' . PHP_EOL;
             }
 
         }
@@ -608,7 +608,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 			//first a little bit of safety - better safe than sorry
 			$before_content = balanceTags( $before_content, true );
 			//let's make a text box
-			$markup .= '<div class="portfolio__item portfolio__item--text">' . $before_content . '</div>' . PHP_EOL;
+			$markup .= '<div class="portfolio__item portfolio__item--text">' . $before_content . '</div><!-- .portfolio__item--text -->' . PHP_EOL;
 		}
 
 		//delete everything in front of the current match including it
@@ -637,7 +637,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 		//first a little bit of safety - better safe than sorry
 		$content = balanceTags( $content, true );
 		//let's make a text box
-		$markup .= '<div class="portfolio__item portfolio__item--text">' . $content . '</div>' . PHP_EOL;
+		$markup .= '<div class="portfolio__item portfolio__item--text">' . $content . '</div><!-- .portfolio__item--text -->' . PHP_EOL;
 	}
 
 	return $markup;
@@ -683,7 +683,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			<noscript>
 				<img src="' . $image_small_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_small_size[1] . '" height="' . $image_small_size[2] . '">
 			</noscript>
-		</div>' . PHP_EOL;
+		</div><!-- .portfolio__item -->' . PHP_EOL;
 
 		return $markup;
 	}
@@ -718,7 +718,7 @@ if ( ! function_exists( 'timber_get_slider_image' ) ) :
         if ( ! empty($caption) ) {
             $markup .= '<figure class="rsCaption">' . $caption . '</figure>';
         }
-		$markup .= '</div>' . PHP_EOL;
+		$markup .= '</div><!-- .project-slide -->' . PHP_EOL;
 
         return $markup;
     }
@@ -1201,38 +1201,33 @@ if ( ! function_exists( 'timber_get_post_title_class' ) ) :
 endif;
 
 if ( ! function_exists( 'timber_first_site_title_character' ) ) :
-    /**
-     * Returns the first UTF-8 character of the site title
-     * returns empty string if nothing found
-     *
-     * @param bool $data_attribute
-     *
-     * @return string
-     */
-    function timber_first_site_title_character() {
-        $title = get_bloginfo('name');
-
-        if ( empty($title) ) {
-            return;
-        }
-
-        $first_letter = '';
-        //find the first alphanumeric character - multibyte
-        preg_match( '/[\p{Xan}]/u', $title, $results );
-
-        if ( isset( $results ) && ! empty( $results[0] ) ) {
-            $first_letter = $results[0];
-        } else {
-            //lets try the old fashion way
-            //find the first alphanumeric character - non-multibyte
-            preg_match( '/[a-zA-Z\d]/', $title, $results );
-
-            if ( isset( $results ) && ! empty( $results[0] ) ) {
-                $first_letter = $results[0];
-            }
-        };
-
-        return $first_letter;
-    }
-
+	/**
+	 * Returns the first UTF-8 character of the site title
+	 * returns empty string if nothing found
+	 *
+	 * @param bool $data_attribute
+	 *
+	 * @return string
+	 */
+	function timber_first_site_title_character() {
+		$title = get_bloginfo('name');
+		if ( empty($title) ) {
+			return;
+		}
+		$first_letter = '';
+		//find the first alphanumeric character - multibyte
+		//suppress warnings and errors since this might fail if there is no appropiate UTF8 PHP support
+		@preg_match( '/[\p{Xan}]/u', $title, $results );
+		if ( isset( $results ) && ! empty( $results[0] ) ) {
+			$first_letter = $results[0];
+		} else {
+			//lets try the old fashion way
+			//find the first alphanumeric character - non-multibyte
+			preg_match( '/[a-zA-Z\d]/', $title, $results );
+			if ( isset( $results ) && ! empty( $results[0] ) ) {
+				$first_letter = $results[0];
+			}
+		};
+		return $first_letter;
+	}
 endif;
