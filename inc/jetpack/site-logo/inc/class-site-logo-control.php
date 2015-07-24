@@ -55,8 +55,8 @@ class Site_Logo_Image_Control extends WP_Customize_Control {
 		wp_enqueue_media();
 
 		// Enqueue our control script and styles.
-		wp_enqueue_style( 'site-logo-control', get_stylesheet_directory_uri() . '/inc/jetpack/site-logo/css/site-logo-control.css' );
-		wp_enqueue_script( 'site-logo-control', get_stylesheet_directory_uri() . '/inc/jetpack/site-logo/js/site-logo-control.js', array( 'media-views', 'customize-controls', 'underscore' ), '', true );
+		wp_enqueue_style( 'site-logo-control', get_template_directory_uri() . '/inc/jetpack/site-logo/css/site-logo-control.css' );
+		wp_enqueue_script( 'site-logo-control', get_template_directory_uri() . '/inc/jetpack/site-logo/js/site-logo-control.js', array( 'media-views', 'customize-controls', 'underscore' ), '', true );
 	}
 
 	/**
