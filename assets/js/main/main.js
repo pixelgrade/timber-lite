@@ -100,6 +100,7 @@ function onResize() {
     sizeColumns();
     Project.onResize();
     frontpageSlider.onResize();
+    videos.resize();
 }
 
 function requestTick() {
