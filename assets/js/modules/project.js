@@ -81,6 +81,10 @@ var Project = (function() {
 	function resizeFullView() {
 		$document.off('mousemove', panFullview);
 
+		if (typeof $fullview == "undefined") {
+			return;
+		}
+
 		var $target 		= $('.fullview__image'),
 			targetWidth 	= $target.width(),
 			targetHeight 	= $target.height(),
@@ -233,6 +237,10 @@ var Project = (function() {
 	// loop through each portfolio item and find the one closest to center
 	function getCurrent() {
 
+		if (typeof $film == "undefined") {
+			return;
+		}
+
 		if (!$('.single-jetpack-portfolio').length) {
 			return;
 		}
@@ -263,6 +271,11 @@ var Project = (function() {
 	}
 
 	function getReferenceBounds() {
+
+		if (typeof $film == "undefined") {
+			return;
+		}
+
 		var $items 			= $film.find('.js-portfolio-item'),
 			items 			= $items.length,
 			max;

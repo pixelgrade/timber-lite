@@ -17664,6 +17664,10 @@ if (!Date.now) Date.now = function () {
     function resizeFullView() {
       $document.off('mousemove', panFullview);
 
+      if (typeof $fullview == "undefined") {
+        return;
+      }
+
       var $target = $('.fullview__image'),
           targetWidth = $target.width(),
           targetHeight = $target.height(),
@@ -17821,6 +17825,10 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
+      if (typeof $film == "undefined") {
+        return;
+      }
+
       if (!$('.single-jetpack-portfolio').length) {
         return;
       }
@@ -17851,6 +17859,11 @@ if (!Date.now) Date.now = function () {
     }
 
     function getReferenceBounds() {
+
+      if (typeof $film == "undefined") {
+        return;
+      }
+
       var $items = $film.find('.js-portfolio-item'),
           items = $items.length,
           max;
