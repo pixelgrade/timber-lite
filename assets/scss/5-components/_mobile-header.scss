@@ -8,6 +8,10 @@
     z-index: 9998;
     text-align: center;
 
+    .site-title {
+        margin: 0 auto;
+    }
+
     @include query-above($lap) {
         display: none;
     }

@@ -24,9 +24,12 @@
     // general styling of links inside menu
     a {
         @extend %display--inline-block;
-        @extend %delta;
         background: none !important;
         padding: 0.25em;
+
+        font-size: 1.07143rem;
+        margin-bottom: 0.0982rem;
+        padding-top: 0.4018rem;
     }
 
     [class*="current-menu-"] > a {

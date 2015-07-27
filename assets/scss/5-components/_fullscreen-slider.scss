@@ -311,26 +311,37 @@
 	@include query-above($lap) {
 
 		.bar--fixed, .site-header, .site-footer {
-			background: transparent;
-			opacity: 1 !important;
+			transition: all .3s ease-in-out !important;
 
 			* {
-				color: white;
-				text-shadow: none;
+				transition: color .3s ease-in-out;
 			}
 		}
 
-		.nav--main .menu-item a {
-			transition: opacity .15s ease-in-out;
-		}
+		&:not(.header--not-light) {
 
-		.nav--main .menu-item:hover a {
-			opacity: 0.5;
-		}
+			.bar--fixed, .site-header, .site-footer {
+				background-color: transparent;
+				opacity: 1 !important;
 
-		.nav--main .sub-menu {
-			background: transparent;
-	        box-shadow: none;
+				* {
+					color: white;
+					text-shadow: none;
+				}
+			}
+
+			.nav--main .menu-item a {
+				transition: opacity .15s ease-in-out;
+			}
+
+			.nav--main .menu-item:hover a {
+				opacity: 0.5;
+			}
+
+			.nav--main .sub-menu {
+				background: transparent;
+		        box-shadow: none;
+			}
 		}
 	}
 }

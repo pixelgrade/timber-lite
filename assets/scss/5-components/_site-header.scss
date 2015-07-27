@@ -3,11 +3,6 @@
     @extend %display--none;
 }
 
-.site-title {
-    max-width: 7em;
-    line-height: 1;
-}
-
 .site-header {
     @extend %bar;
     z-index: 552;

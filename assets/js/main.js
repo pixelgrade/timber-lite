@@ -18511,6 +18511,7 @@ if (!Date.now) Date.now = function () {
     Loader.init();
     Nav.init();
     Overlay.init();
+    updateHeader();
     $html.addClass('ready');
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
@@ -18598,7 +18599,16 @@ if (!Date.now) Date.now = function () {
     Project.getCurrent();
     Portfolio.maybeloadNextProjects();
     Blog.maybeLoadNextPosts();
+    updateHeader();
     ticking = false;
+  }
+
+  function updateHeader() {
+    if ($('.page-has-featured-image').length && latestKnownScrollY > windowHeight - 62) {
+      $('body').addClass('header--not-light');
+    } else {
+      $('body').removeClass('header--not-light');
+    }
   }
 
   function eventHandlers() {
