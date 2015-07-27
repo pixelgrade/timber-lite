@@ -149,3 +149,21 @@ function checkProfileImageWidget() {
 		}
 	}
 }
+
+function bindVertToHorScroll() {
+	if ($body.hasClass('blog')
+		|| $body.hasClass('project_layout-filmstrip')
+		|| $body.hasClass('project_layout-thumbnails')
+		&& ! $html.hasClass('is--ie9') ) {
+		// html body are for ie
+			$('html, body, *').bind('mousewheel',  vertToHorScroll);
+	}
+}
+
+function vertToHorScroll (event, delta) {
+	// this.scrollLeft -= (delta * 30);
+	if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
+		this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+		event.preventDefault();
+	}
+}
