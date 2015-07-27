@@ -16573,6 +16573,8 @@ if (!Date.now) Date.now = function () {
     function djaxTransition($new) {
       var $old = this;
 
+      $('html, body, *').unbind('mousewheel', vertToHorScroll);
+
       if (transitionedOut) {
         $old.replaceWith($new);
       } else {
@@ -17266,6 +17268,8 @@ if (!Date.now) Date.now = function () {
       });
       $('html').css('overflow', 'hidden');
       isOpen = true;
+
+      $('html, body, *').unbind('mousewheel', vertToHorScroll);
     }
 
     function close() {
@@ -17278,6 +17282,8 @@ if (!Date.now) Date.now = function () {
 
       $('html').css('overflow', '');
       isOpen = false;
+
+      bindVertToHorScroll();
     }
 
 
@@ -18523,18 +18529,7 @@ if (!Date.now) Date.now = function () {
 
     checkProfileImageWidget();
 
-    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
-
-      if (!$html.hasClass('is--ie9'))
-      // html body are for ie
-      $('html, body, *').mousewheel(function (event, delta) {
-        // this.scrollLeft -= (delta * 30);
-        if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
-          this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-          event.preventDefault();
-        }
-      });
-    }
+    bindVertToHorScroll();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -18754,4 +18749,18 @@ if (!Date.now) Date.now = function () {
     }
   }
 
+  function bindVertToHorScroll() {
+    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') && !$html.hasClass('is--ie9')) {
+      // html body are for ie
+      $('html, body, *').bind('mousewheel', vertToHorScroll);
+    }
+  }
+
+  function vertToHorScroll(event, delta) {
+    // this.scrollLeft -= (delta * 30);
+    if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
+      this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+      event.preventDefault();
+    }
+  }
 })(jQuery);

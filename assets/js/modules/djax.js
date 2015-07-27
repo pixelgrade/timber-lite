@@ -34,6 +34,8 @@ var djax = (function() {
     function djaxTransition($new) {
         var $old = this;
 
+        $('html, body, *').unbind('mousewheel', vertToHorScroll);
+
         if (transitionedOut) {
             $old.replaceWith($new);
         } else {

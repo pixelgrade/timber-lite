@@ -28,6 +28,8 @@ var Overlay = (function () {
 		TweenMax.to($overlay, 0.3, {opacity: 1});
 		$('html').css('overflow', 'hidden');
 		isOpen = true;
+
+		$('html, body, *').unbind('mousewheel', vertToHorScroll);
 	}
 
 	function close() {
@@ -40,6 +42,8 @@ var Overlay = (function () {
 
 		$('html').css('overflow', '');
 		isOpen = false;
+
+		bindVertToHorScroll();
 	}
 
 
