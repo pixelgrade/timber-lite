@@ -3,10 +3,11 @@ window.videos = (function() {
     function init() {
         if (globalDebug) {console.group("videos::init");}
 
-        var videos = $('.jetpack-video-wrapper iframe, .youtube-player, .entry-media iframe, .entry-media video, .entry-media embed, .entry-media object, iframe[width][height]');
+        var videos = $('.portfolio__item--video iframe, iframe[width][height]');
 
         // Figure out and save aspect ratio for each video
         videos.each(function () {
+
             var w = $(this).attr('width') ? $(this).attr('width') : $(this).width(),
                 h = $(this).attr('height') ? $(this).attr('height') : $(this).height();
 
@@ -18,8 +19,6 @@ window.videos = (function() {
                 .height(h);
         });
 
-        resize();
-
         // Firefox Opacity Video Hack
         $('iframe').each(function () {
             var url = $(this).attr("src");
@@ -27,13 +26,19 @@ window.videos = (function() {
                 $(this).attr("src", setQueryParameter(url, "wmode", "transparent"));
         });
 
+
+        setTimeout(function(){
+            resize();
+        }, 100);
+
+
         if (globalDebug) {console.groupEnd();}
     }
 
     function resize() {
         if (globalDebug) {console.group("videos::resize");}
 
-        var videos = $('.jetpack-video-wrapper iframe, .youtube-player, .entry-media iframe, .entry-media video, .entry-media embed, .entry-media object, iframe[data-aspectRatio]');
+        var videos = $('.portfolio__item--video iframe, iframe[data-aspectRatio]');
 
         videos.each(function () {
             var video = $(this),
@@ -47,7 +52,8 @@ window.videos = (function() {
 
                 video.width( w );
                 video.height( h );
-            } else {
+            }
+            else {
                 w = video.css('width', '100%').width(),
                 h = w / ratio;
 
@@ -63,11 +69,6 @@ window.videos = (function() {
                         .height( h );
                 }
             }
-
-            var $parent =
-
-            video.height(h);
-            video.width(w);
         });
 
         if (globalDebug) {console.groupEnd();}

@@ -45,6 +45,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						'editor',
 						'thumbnail',
 						'comments',
+						'revisions',
 						'publicize',
 						'wpcom-markdown',
 					),

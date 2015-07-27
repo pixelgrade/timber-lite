@@ -45,20 +45,7 @@ function softInit() {
 
     checkProfileImageWidget();
 
-    if ($body.hasClass('blog')
-        || $body.hasClass('project_layout-filmstrip')
-        || $body.hasClass('project_layout-thumbnails')) {
-
-        if( ! $html.hasClass('is--ie9') )
-        // html body are for ie
-            $('html, body, *').mousewheel(function (event, delta) {
-                // this.scrollLeft -= (delta * 30);
-                if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
-                    this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-                    event.preventDefault();
-                }
-            });
-    }
+    bindVertToHorScroll();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 

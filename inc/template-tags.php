@@ -592,7 +592,6 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
                 //now let's handle the current video match
                 $markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div><!-- .portfolio__item--video -->' . PHP_EOL;
             }
-
         }
     }
 

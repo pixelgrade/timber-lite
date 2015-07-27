@@ -16573,6 +16573,8 @@ if (!Date.now) Date.now = function () {
     function djaxTransition($new) {
       var $old = this;
 
+      $('html, body, *').unbind('mousewheel', vertToHorScroll);
+
       if (transitionedOut) {
         $old.replaceWith($new);
       } else {
@@ -17266,6 +17268,8 @@ if (!Date.now) Date.now = function () {
       });
       $('html').css('overflow', 'hidden');
       isOpen = true;
+
+      $('html, body, *').unbind('mousewheel', vertToHorScroll);
     }
 
     function close() {
@@ -17278,6 +17282,8 @@ if (!Date.now) Date.now = function () {
 
       $('html').css('overflow', '');
       isOpen = false;
+
+      bindVertToHorScroll();
     }
 
 
@@ -17658,6 +17664,10 @@ if (!Date.now) Date.now = function () {
     function resizeFullView() {
       $document.off('mousemove', panFullview);
 
+      if (typeof $fullview == "undefined") {
+        return;
+      }
+
       var $target = $('.fullview__image'),
           targetWidth = $target.width(),
           targetHeight = $target.height(),
@@ -17815,6 +17825,10 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
+      if (typeof $film == "undefined") {
+        return;
+      }
+
       if (!$('.single-jetpack-portfolio').length) {
         return;
       }
@@ -17845,6 +17859,11 @@ if (!Date.now) Date.now = function () {
     }
 
     function getReferenceBounds() {
+
+      if (typeof $film == "undefined") {
+        return;
+      }
+
       var $items = $film.find('.js-portfolio-item'),
           items = $items.length,
           max;
@@ -18402,10 +18421,11 @@ if (!Date.now) Date.now = function () {
         console.group("videos::init");
       }
 
-      var videos = $('.jetpack-video-wrapper iframe, .youtube-player, .entry-media iframe, .entry-media video, .entry-media embed, .entry-media object, iframe[width][height]');
+      var videos = $('.portfolio__item--video iframe, iframe[width][height]');
 
       // Figure out and save aspect ratio for each video
       videos.each(function () {
+
         var w = $(this).attr('width') ? $(this).attr('width') : $(this).width(),
             h = $(this).attr('height') ? $(this).attr('height') : $(this).height();
 
@@ -18414,13 +18434,17 @@ if (!Date.now) Date.now = function () {
         .removeAttr('height').removeAttr('width').width(w).height(h);
       });
 
-      resize();
-
       // Firefox Opacity Video Hack
       $('iframe').each(function () {
         var url = $(this).attr("src");
         if (!empty(url)) $(this).attr("src", setQueryParameter(url, "wmode", "transparent"));
       });
+
+
+      setTimeout(function () {
+        resize();
+      }, 100);
+
 
       if (globalDebug) {
         console.groupEnd();
@@ -18432,7 +18456,7 @@ if (!Date.now) Date.now = function () {
         console.group("videos::resize");
       }
 
-      var videos = $('.jetpack-video-wrapper iframe, .youtube-player, .entry-media iframe, .entry-media video, .entry-media embed, .entry-media object, iframe[data-aspectRatio]');
+      var videos = $('.portfolio__item--video iframe, iframe[data-aspectRatio]');
 
       videos.each(function () {
         var video = $(this),
@@ -18448,7 +18472,8 @@ if (!Date.now) Date.now = function () {
 
           video.width(w);
           video.height(h);
-        } else {
+        }
+        else {
           w = video.css('width', '100%').width(), h = w / ratio;
 
           var container_width = video.parent().width();
@@ -18459,11 +18484,6 @@ if (!Date.now) Date.now = function () {
             video.width(w).height(h);
           }
         }
-
-        var $parent =
-
-        video.height(h);
-        video.width(w);
       });
 
       if (globalDebug) {
@@ -18522,18 +18542,7 @@ if (!Date.now) Date.now = function () {
 
     checkProfileImageWidget();
 
-    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails')) {
-
-      if (!$html.hasClass('is--ie9'))
-      // html body are for ie
-      $('html, body, *').mousewheel(function (event, delta) {
-        // this.scrollLeft -= (delta * 30);
-        if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
-          this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
-          event.preventDefault();
-        }
-      });
-    }
+    bindVertToHorScroll();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -18753,4 +18762,18 @@ if (!Date.now) Date.now = function () {
     }
   }
 
+  function bindVertToHorScroll() {
+    if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') && !$html.hasClass('is--ie9')) {
+      // html body are for ie
+      $('html, body, *').bind('mousewheel', vertToHorScroll);
+    }
+  }
+
+  function vertToHorScroll(event, delta) {
+    // this.scrollLeft -= (delta * 30);
+    if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
+      this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
+      event.preventDefault();
+    }
+  }
 })(jQuery);
