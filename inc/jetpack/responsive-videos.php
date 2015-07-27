@@ -47,9 +47,9 @@ function timber_jetpack_responsive_videos_embed_html( $html ) {
 	}
 
 	if ( defined( 'SCRIPT_DEBUG' ) && true == SCRIPT_DEBUG ) {
-		wp_enqueue_script( 'jetpack-responsive-videos-script', get_stylesheet_directory_uri() . '/inc/jetpack/responsive-videos/responsive-videos.js', array( 'jquery' ), '1.1', true );
+		wp_enqueue_script( 'jetpack-responsive-videos-script', get_template_directory_uri() . '/inc/jetpack/responsive-videos/responsive-videos.js', array( 'jquery' ), '1.1', true );
 	} else {
-		wp_enqueue_script( 'jetpack-responsive-videos-min-script', get_stylesheet_directory_uri() . '/inc/jetpack/responsive-videos/responsive-videos.min.js', array( 'jquery' ), '1.1', true );
+		wp_enqueue_script( 'jetpack-responsive-videos-min-script', get_template_directory_uri() . '/inc/jetpack/responsive-videos/responsive-videos.min.js', array( 'jquery' ), '1.1', true );
 	}
 
 	return '<div class="jetpack-video-wrapper">' . $html . '</div>';
