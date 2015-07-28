@@ -271,6 +271,12 @@ img {
     overflow: hidden;
 }
 
+.portfolio_page_type-portfolio, .tax-jetpack-portfolio-type {
+    .site-container {
+        overflow-x: hidden;
+    }
+}
+
 .button-full {
     position: absolute;
     top: 3px;
