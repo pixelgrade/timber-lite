@@ -570,11 +570,11 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
     }
 
 
-    //FIRST split this content by videos (by the <div class="jetpack-video-wrapper"> )
+    //FIRST split this content by special videos (by the <div class="jetpack-video-wrapper"> )
     //this will use recursion to process content between the videos
     $num_matches = preg_match_all( "!<div \s*class=[\"|']jetpack-video-wrapper[\"|']\s*>.*</div\s*>!i", $content, $matches );
 
-    //if no videos found, continue to processing images and text
+    //if no videos found, continue to processing videos that are not wrapped by Jetpack
     if ( $num_matches > 0 ) {
         for ( $idx = 0; $idx < $num_matches; $idx++ ) {
             //first let's see if there is some content before the current match
@@ -595,7 +595,34 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
         }
     }
 
-	//SECOND, once done with the videos, we are left with the content after the last video (it there was any)
+	//SECOND, split by iframes and embeds that were not wrapped by Jetpack
+	//this will use recursion to process content between the videos
+	$tags = implode( '|', array( 'video', 'audio', 'iframe', 'embed' ) );
+	$num_matches = preg_match_all( '#<(?P<tag>' . $tags . ')[^<]*?(?:>[\s\S]*?<\/(?P=tag)>|\s*\/>)#', $content, $matches );
+
+	//if no videos found, continue to processing images and text
+	if ( $num_matches > 0 ) {
+		for ( $idx = 0; $idx < $num_matches; $idx++ ) {
+			//first let's see if there is some content before the current match
+			$pos = strpos( $content, $matches[0][ $idx ] );
+
+			$before_content = trim( substr( $content, 0, $pos ) );
+
+			//process the before content recursively
+			$markup .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, false, $image_callback );
+
+			//delete everything in front of the current match including it
+			$content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
+
+			if ( false == $ignore_videos ) {
+				//now let's handle the current video match
+				$markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div><!-- .portfolio__item--video -->' . PHP_EOL;
+			}
+		}
+	}
+
+
+	//THIRD, once done with the videos, we are left with the content after the last video (it there was any)
 	//split this content by images (<img>,<figure>)
 	$num_matches = preg_match_all( "!(?:<\s*p\s?[^>]*>\s*)?(?:<\s*figure\s?.*>\s*)?(?:<\s*?a\s?.*>\s*)?<\s*img\s?.*src=[\"|']([^\"']*)[\"|'].*alt=[\"|']([^\"']*)[\"|'].*/>(?:\s*</a\s*>)?(?:\s*<\s*figcaption\s?[^>]*>([^>]*)\s*</figcaption\s*>)?(?:\s*</figure>)?(?:\s*</p\s*>)?!i", $content, $matches );
 
@@ -606,8 +633,13 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 		if ( ! $ignore_text && ! empty( $before_content ) ) {
 			//first a little bit of safety - better safe than sorry
 			$before_content = balanceTags( $before_content, true );
-			//let's make a text box
-			$markup .= '<div class="portfolio__item portfolio__item--text">' . $before_content . '</div><!-- .portfolio__item--text -->' . PHP_EOL;
+
+			//a quick text to see if we have some actual content
+			$temp_content = strip_tags($before_content, 'img');
+			if ( ! empty( $temp_content ) ) {
+				//let's make a text box
+				$markup .= '<div class="portfolio__item portfolio__item--text">' . $before_content . '</div><!-- .portfolio__item--text -->' . PHP_EOL;
+			}
 		}
 
 		//delete everything in front of the current match including it
@@ -635,8 +667,13 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 
 		//first a little bit of safety - better safe than sorry
 		$content = balanceTags( $content, true );
-		//let's make a text box
-		$markup .= '<div class="portfolio__item portfolio__item--text">' . $content . '</div><!-- .portfolio__item--text -->' . PHP_EOL;
+
+		//a quick text to see if we have some actual content (we don't strip images as that is content)
+		$temp_content = strip_tags($content, 'img');
+		if ( ! empty( $temp_content ) ) {
+			//let's make a text box
+			$markup .= '<div class="portfolio__item portfolio__item--text">' . $content . '</div><!-- .portfolio__item--text -->' . PHP_EOL;
+		}
 	}
 
 	return $markup;
