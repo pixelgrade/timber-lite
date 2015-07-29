@@ -167,11 +167,14 @@ function timber_scripts_styles() {
 		'infscrLoadingText' => __("<em>Loading more...</em>", 'timber'),
 		'infscrReachedEnd' => __("<em>Nothing left to load.</em>", 'timber'),
 	);
+
 	wp_localize_script( 'timber-scripts', 'objectl10n', $translation_array );
+
 	wp_localize_script( 'timber-scripts', 'timber_ajax', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'nonce' => wp_create_nonce( 'timber_ajax' ),
 	) );
+
 	// Enqueued script with localized data.
 	wp_enqueue_script( 'timber-scripts' );
 
@@ -300,6 +303,134 @@ function timber_load_custom_js_footer() {
 			echo "<script type=\"text/javascript\">\n;(function($){\n" . $custom_js . "\n})(jQuery);\n</script>\n";
 		}
 	}
+}
+
+/**
+ * Get an array with all queued scripts
+ *
+ * @return array
+ */
+function timber_get_queued_scripts() {
+	global $wp_scripts;
+
+	$loading_scripts = array();
+	foreach ( $wp_scripts->queue as $key => $handle ) {
+		$loading_scripts[ $handle ] = $wp_scripts->registered[ $handle ]->src;
+	}
+	return $loading_scripts;
+}
+
+/**
+ * Get an array with all queued styles
+ *
+ * @return array
+ */
+function timber_get_queued_styles() {
+	global $wp_styles;
+
+	$loading_styles = array();
+	foreach ( $wp_styles->queue as $key => $handle ) {
+		$loading_styles[ $handle ] = $wp_styles->registered[ $handle ]->src;
+	}
+	return $loading_styles;
+}
+
+add_action( 'wp_enqueue_scripts', 'timber_localize_scripts_and_styles', 999999999 );
+/**
+ * Localize a static list with resources already loaded on the first page load this lists will be filled on
+ * each d-jax request which has new resources
+ *
+ * Note: make this dependent to timber-scripts because we know for sure it is there
+ */
+function timber_localize_scripts_and_styles() {
+
+	wp_localize_script( 'timber-scripts', 'timber_static_resources', array(
+		'scripts' => timber_get_queued_scripts(),
+		'styles'  => timber_get_queued_styles()
+	) );
+}
+
+add_action('wp_footer', 'timber_last_function', 999999999);
+
+function timber_last_function(){
+	/**
+	 * Display dynamic generated data while runing d-jax requests :
+	 *
+	 * a script which will load others scripts on the run
+	 */
+	$dynamic_scripts = timber_get_queued_scripts();
+	$dynamic_styles  = timber_get_queued_styles();?>
+	<div id="djax_list_scripts_and_styles">
+		<script id="timber_list_scripts_and_styles"  class="djax-updatable">
+			(function ($) {
+				// wait for all dom elements
+				$(document).ready(function () {
+					var globalDebug = false;
+					// run this only if we have resources
+					if (!window.hasOwnProperty('timber_static_resources')) return;
+					window.timber_dynamic_loaded_scripts = <?php echo json_encode( $dynamic_scripts ); ?>;
+					window.timber_dynamic_loaded_styles = <?php echo json_encode( $dynamic_styles ); ?>;
+
+					// run this only if we have resources
+					if (!window.hasOwnProperty('timber_static_resources')) return;
+
+					// timber_dynamic_loaded_scripts is generated in footer when all the scripts should be already enqueued
+					$.each( window.timber_dynamic_loaded_scripts, function (key, url) {
+
+						if (key in timber_static_resources.scripts) return;
+
+						if (globalDebug) {console.dir("Scripts loaded dynamic");}
+						if (globalDebug) {console.dir(key);}
+						if (globalDebug) {console.log(url);}
+
+						// add this script to our global stack so we don't enqueue it again
+						timber_static_resources.scripts[key] = url;
+
+						$.getScript(url)
+							.done(function (script, textStatus) {
+								//console.log(textStatus);
+							})
+							.fail(function (jqxhr, settings, exception) {
+								if (globalDebug) {
+									console.log('I failed');
+									console.log( exception );
+								}
+							});
+
+						if (globalDebug) {console.groupEnd();}
+
+						$(document).trigger('timber:page_scripts:loaded');
+					});
+
+					$.each( window.timber_dynamic_loaded_styles, function (key, url) {
+
+						if (key in timber_static_resources.styles) return;
+
+						if (globalDebug) {console.dir("Styles loaded dynamic");}
+						if (globalDebug) {console.dir(key);}
+						if (globalDebug) {console.log(url);}
+
+						// add this style to our global stack so we don't enqueue it again
+						timber_static_resources.styles[key] = url;
+
+						// sorry no cache this time
+						$.ajax({
+							url: url,
+							dataType: 'html',
+							success: function (data) {
+								$('<style type="text/css">\n' + data + '</style>').appendTo("head");
+							}
+						});
+
+						if (globalDebug) {console.groupEnd();}
+
+						$(document).trigger('timber:page_styles:loaded');
+					});
+				});
+			})(jQuery);
+		</script>
+	</div>
+	<?php
 }
 
 /**
