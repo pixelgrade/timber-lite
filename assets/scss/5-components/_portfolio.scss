@@ -324,3 +324,23 @@ img {
     border-left: 0.2em solid gray;
     background-color: rgba(gray, 0.25);
 }
+
+
+
+
+
+// Embeds
+.portfolio__item--video {
+    .wp-audio-shortcode {
+        min-width: 500px;
+
+        .mejs-mediaelement {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .mejs-mediaelement {
+        position: static;
+    }
+}
