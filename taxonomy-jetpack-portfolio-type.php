@@ -19,17 +19,17 @@ get_header(); ?>
         </div>
     </div>
     <div class="site-content  portfolio-archive  portfolio-category">
-
+        <div class="portfolio-wrapper">
         <?php
-            if ( have_posts() ) :
-                while ( have_posts() ) : the_post();
-                    get_template_part( 'template-parts/content', 'portfolio' );
-                endwhile;
-            else :
-                get_template_part( 'template-parts/content', 'none' );
-            endif;
+        if ( have_posts() ) :
+            while ( have_posts() ) : the_post();
+                get_template_part( 'template-parts/content', 'portfolio' );
+            endwhile;
+        else :
+            get_template_part( 'template-parts/content', 'none' );
+        endif;
         ?>
-
+        </div>
     </div>
 </div>
 
