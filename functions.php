@@ -469,6 +469,9 @@ function timber_setup_addthis() {
 }
 add_action( 'wp_head', 'timber_setup_addthis' );
 
+// @todo move this where it belongs
+add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
+
 /**
  * Load theme's configuration file.
  */

@@ -12,8 +12,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 get_header(); ?>
-<div class="site-header  site-header--placeholder"></div>
-<div class="site-container  site-content">
 	<?php
 		/**
 		 * woocommerce_before_main_content hook
@@ -28,10 +26,9 @@ get_header(); ?>
 
 		<?php endif; ?>
 
-		<?php do_action( 'woocommerce_archive_description' ); ?>
+		<?php //do_action( 'woocommerce_archive_description' ); ?>
 
 		<?php if ( have_posts() ) : ?>
-
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook
@@ -40,7 +37,7 @@ get_header(); ?>
 				 * @hooked woocommerce_catalog_ordering - 30
 				 */
 				get_template_part('woocommerce/loop/orderby');
-//				do_action( 'woocommerce_before_shop_loop' );
+				do_action( 'woocommerce_before_shop_loop' );
 			?>
 
 			<?php woocommerce_product_loop_start(); ?>
@@ -63,13 +60,11 @@ get_header(); ?>
 				 */
 				do_action( 'woocommerce_after_shop_loop' );
 			?>
-
 		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
 			<?php wc_get_template( 'loop/no-products-found.php' ); ?>
 
 		<?php endif; ?>
-
 	<?php
 		/**
 		 * woocommerce_after_main_content hook

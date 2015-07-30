@@ -7,5 +7,7 @@
  * @version     2.0.0
  */
 ?>
-<div class="site-header  site-header--placeholder"></div>
-<div class="site-container  site-content  shop">
+	<div class="filmstrip">
+		<div class="site-sidebar">
+			<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
+		</div>
