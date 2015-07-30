@@ -1,13 +1,14 @@
 <?php
 /**
- * Show options for ordering
+ * Related Products
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     2.2.0
+ * @version     1.6.4
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+
 return;
