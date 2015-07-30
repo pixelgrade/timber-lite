@@ -68,7 +68,7 @@ if ( ! function_exists( 'timber_setup' ) ) :
 			'caption',
 		) );
 
-		/*
+		/**
 		 * Enable support for Post Formats.
 		 * See http://codex.wordpress.org/Post_Formats
 		 */
@@ -85,6 +85,12 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		// custom javascript handlers - make sure it is the last one added
 		add_action( 'wp_head', 'timber_load_custom_js_header', 999 );
 		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );
+
+		/**
+		 * Enable Woocommerce support
+		 * See http://docs.woothemes.com/document/third-party-custom-theme-compatibility/
+		 */
+		add_theme_support( 'woocommerce' );
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
@@ -468,9 +474,6 @@ function timber_setup_addthis() {
     }
 }
 add_action( 'wp_head', 'timber_setup_addthis' );
-
-// @todo move this where it belongs
-add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
 
 /**
  * Load theme's configuration file.
