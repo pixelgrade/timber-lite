@@ -1,15 +1,19 @@
 // Taken from WooCommerce Styles themselves
 
 .star-rating {
-	position: absolute;
-	right: 0;
-	top: 0;
+	position: relative;
 	overflow: hidden;
 	height: 1em;
 	line-height: 1;
 	font-size: 1em;
 	width: 5.4em;
 	font-family: 'star';
+
+	.comment & {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
 
 	&:before {
 		content: "\73\73\73\73\73";

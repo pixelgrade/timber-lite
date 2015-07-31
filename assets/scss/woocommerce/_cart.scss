@@ -1,0 +1,55 @@
+.shop_table .actions {
+	padding: 1.5em 0;
+}
+
+.coupon {
+	position: relative;
+}
+
+	.btn--apply-coupon {
+		position: absolute;
+		right: 4px;
+		bottom: 25px;
+	}
+
+	.btn--update-cart {
+		float: right;
+	}
+
+	.input-coupon-code {
+		margin-bottom: 1.5em;
+	}
+
+.wc-proceed-to-checkout {
+	text-align: right;
+
+	a {
+		margin-right: 0;
+	}
+}
+
+.product-remove {
+	text-align: center;
+}
+
+	.remove {
+		width: 20px;
+		height: 20px;
+		display: inline-block;
+
+		font-size: 20px;
+		line-height: 20px;
+		text-align: center;
+		font-weight: 900;
+
+		background-color: black;
+		border-radius: 50%;
+		color: white;
+
+		transition: background-color .2s linear;
+
+		&:hover {
+			color: white;
+			background-color: #d94f4f;
+		}
+	}

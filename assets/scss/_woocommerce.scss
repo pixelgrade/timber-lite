@@ -1,9 +1,14 @@
 @import "woocommerce/archive";
 @import "woocommerce/single-product";
+@import "woocommerce/cart";
 @import "woocommerce/stars";
 
 
 // common
+
+.button {
+	@extend .btn;
+}
 
 .onsale {
 	position: absolute;
@@ -12,4 +17,15 @@
 	z-index: 1;
 
 	@extend .btn;
+}
+
+.woocommerce-message {
+	margin-bottom: 3em;
+	padding: 1.5em;
+	border: 1px solid $hoverColour;
+
+	.button {
+		@extend .btn;
+		margin-right: 10px;
+	}
 }
