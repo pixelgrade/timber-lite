@@ -10,8 +10,18 @@
 	}
 }
 
+.single-product-tabs {
+	@extend %single-width;
+}
+
 .product-post {
 	position: relative;
+
+	.price {
+		@extend .h2;
+		padding-top: 0;
+		margin: 0.75em 0;
+	}
 }
 
 .woocommerce-main-image {
@@ -19,5 +29,42 @@
 
 	&, img {
 		width: 100%;
+	}
+}
+
+.product_title {
+	margin: 0;
+	padding-top: 0;
+}
+
+form.cart {
+	max-width: 500px;
+}
+
+.single_add_to_cart_button {
+	@extend .btn;
+	margin: 1.5em 0;
+}
+
+// Comments / reviews
+
+#reviews {
+	.comment {
+		padding-left: 0;
+	}
+
+	.avatar {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	.meta {
+		padding-top: 0;
+		margin-bottom: 0;
+	}
+
+	.comment_container {
+		padding-left: 5.250em;
 	}
 }

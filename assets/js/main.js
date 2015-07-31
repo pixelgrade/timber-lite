@@ -5846,7 +5846,7 @@ window.Modernizr = function (a, b, c) {
 // --- MODIFIED
 // https://github.com/CSS-Tricks/jQuery-Organic-Tabs
 (function ($) {
-
+  "use strict";
   $.organicTabs = function (el, options) {
     var base = this;
     base.$el = $(el);

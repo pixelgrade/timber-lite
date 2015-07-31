@@ -12,11 +12,11 @@
 
 .grid{
 	@extend %grid;
+}
 
-    > li,
-    > .grid__item {
-        padding-left: 24px;
-    }
+.grid__item {
+    @extend %grid__item;
+    padding-left: 24px;
 }
 
 .grid,
