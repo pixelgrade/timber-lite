@@ -11,7 +11,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-get_header(); ?>
+get_header('shop'); ?>
 	<?php
 		/**
 		 * woocommerce_before_main_content hook
@@ -21,6 +21,8 @@ get_header(); ?>
 		 */
 		do_action( 'woocommerce_before_main_content' );
 	?>
+		<div class="site-header  site-header--placeholder"></div>
+		<div class="site-container  site-content  shop">
 
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 
@@ -65,6 +67,40 @@ get_header(); ?>
 			<?php wc_get_template( 'loop/no-products-found.php' ); ?>
 
 		<?php endif; ?>
+
+		</div><!-- .site-container  .site-content  .shop -->
+
+		<div class="site-footer">
+			<div class="bar--fixed">
+				<?php
+				global $wp_query;
+
+				// get all product categories
+				$terms = get_terms('product_cat');
+
+				// if there is a category queried cache it
+				$current_term =	get_queried_object();
+
+				if ( !empty( $terms ) /*&& wpgrade::option('display_product_filters', '0')*/ ) {
+					// create a link which should link to the shop
+					$all_link = get_post_type_archive_link('product');
+
+					echo '<ul class="filter  filter--shop">';
+					// display the shop link first if there is one
+					if ( !empty($all_link) ) {
+						// also if the current_term doesn't have a term_id it means we are quering the shop and the "all categories" should be active
+						echo '<li class="filter__item active" data-filter="*">' . _e( 'All', 'timber' ) . '</li>';
+					}
+
+					// display a link for each product category
+					foreach ($terms as $key => $term ) {
+						echo '<li class="filter__item" data-filter=".category-' . $term->slug . '">' . $term->name . '</li>';
+					}
+					echo '</ul>';
+				} // close if !empty($terms)
+				?>
+			</div>
+		</div>
 	<?php
 		/**
 		 * woocommerce_after_main_content hook

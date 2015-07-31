@@ -1,0 +1,23 @@
+.single-product {
+	.site-main {
+		padding-left: 30px;
+		padding-right: 30px;
+
+		@include query-above($lap) {
+			padding-left: 130px;
+			padding-right: 32px;
+		}
+	}
+}
+
+.product-post {
+	position: relative;
+}
+
+.woocommerce-main-image {
+	display: block;
+
+	&, img {
+		width: 100%;
+	}
+}

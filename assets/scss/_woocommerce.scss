@@ -1,1 +1,14 @@
 @import "woocommerce/archive";
+@import "woocommerce/single-product";
+
+
+// common
+
+.onsale {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+
+	@extend .btn;
+}

@@ -1,16 +1,8 @@
 .product__item {
 	position: relative;
 
-	.onsale {
-		position: absolute;
-		left: 0;
-		top: 0;
-		z-index: 1;
-
-		@extend .btn;
-	}
-
 	.price {
+		@include sassline($fontsize: delta, $font: $headingtype, $lineheight: 1.5, $below: 1, $breakpoint: all);
 		display: block;
 	}
 
@@ -18,7 +10,22 @@
 		width: 100%;
 	}
 }
+	.product__title {
+		margin-top: 0;
+	}
 
 	.product__link {
 		display: block;
+	}
+
+	.add_to_cart_button, .added_to_cart {
+		display: inline-block;
+	}
+
+	.added_to_cart {
+		margin-left: 20px;
+
+		&:after {
+			content: "\2192";
+		}
 	}
