@@ -15,7 +15,7 @@
  * --------------------------------------------------
  *  1.0 - Tools
  *    1.1 - Clearfix
- *    1.2 - Widths
+ *    1.2 - Queries
  *    1.3 - Icon fonts
  *  2.0 - Resets
  *  3.0 - Base
@@ -87,9 +87,9 @@
  */
 @import "1-tools/clearfix";
 /**
- *   1.2 - Widths
+ *   1.2 - Queries
  */
-@import "1-tools/widths";
+@import "1-tools/queries";
 /**
  *   1.3 - Icon fonts
  */
@@ -103,9 +103,9 @@
 //  */
 @import "1-tools/mixins";
 // /**
-//  *   1.6 - Queries
+//  *   1.6 - Widths
 //  */
-@import "1-tools/queries";
+@import "1-tools/widths";
 // /**
 //  *   1.7 - WP Offset
 //  */

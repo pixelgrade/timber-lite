@@ -4,7 +4,8 @@
 	margin-left: -24px;
 }
 
-%grid__item{
+%grid__item {
+    @extend .one-whole;
 	float: left;
 	padding-left: 24px;
 }

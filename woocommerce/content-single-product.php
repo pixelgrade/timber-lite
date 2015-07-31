@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article itemscope itemtype="<?php echo woocommerce_get_product_schema(); ?>" id="product-<?php the_ID(); ?>" <?php post_class('product-post'); ?>>
 
 	<div class="grid">
-		<div class="grid__item  one-half">
+		<div class="grid__item  lap-one-half">
 			<?php
 			/**
 			 * woocommerce_before_single_product_summary hook
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'woocommerce_before_single_product_summary' );
 			?>
 		</div>
-		<div class="grid__item  one-half">
+		<div class="grid__item  lap-one-half">
 			<div class="product__summary">
 
 				<?php

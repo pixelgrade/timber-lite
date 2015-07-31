@@ -1,6 +1,8 @@
 @import "woocommerce/archive";
 @import "woocommerce/single-product";
 @import "woocommerce/cart";
+@import "woocommerce/checkout";
+
 @import "woocommerce/stars";
 
 
@@ -28,4 +30,8 @@
 		@extend .btn;
 		margin-right: 10px;
 	}
+}
+
+.woocommerce-info a {
+	@extend %a;
 }
