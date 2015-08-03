@@ -32,9 +32,8 @@ get_header( 'shop' ); ?>
 		<?php do_action( 'woocommerce_archive_description' ); ?>
 
 		<?php if ( have_posts() ) : ?>
-			<?php
 
-				get_template_part('woocommerce/loop/orderby');
+			<?php
 
 				/**
 				 * woocommerce_before_shop_loop hook
@@ -44,19 +43,21 @@ get_header( 'shop' ); ?>
 				 */
 				do_action( 'woocommerce_before_shop_loop' );
 
-			$data = 'data-post_type="product"';
+				$data = 'data-post_type="product"';
 
-			$this_tax = get_query_var( 'taxonomy' );
+				$this_tax = get_query_var( 'taxonomy' );
 
-			if ( ! empty( $this_tax ) ) {
-				$data .= ' data-taxonomy="' . $this_tax . '"';
-			}
+				if ( ! empty( $this_tax ) ) {
+					$data .= ' data-taxonomy="' . $this_tax . '"';
+				}
 
-			$this_term = get_query_var( 'term' );
+				$this_term = get_query_var( 'term' );
 
-			if ( ! empty( $this_term ) ) {
-				$data .= ' data-term_id="' . get_queried_object()->term_id . '"';
-			} ?>
+				if ( ! empty( $this_term ) ) {
+					$data .= ' data-term_id="' . get_queried_object()->term_id . '"';
+				}
+			?>
+
 			<ul class="filmstrip" <?php echo $data; ?>>
 				<li class="site-sidebar">
 					<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
@@ -80,6 +81,7 @@ get_header( 'shop' ); ?>
 				 */
 				do_action( 'woocommerce_after_shop_loop' );
 			?>
+
 		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
 			<?php wc_get_template( 'loop/no-products-found.php' ); ?>
@@ -87,46 +89,7 @@ get_header( 'shop' ); ?>
 		<?php endif; ?>
 
 		</div><!-- .site-container  .site-content  .shop -->
-		<?php
-		$shop_page_display = get_option('woocommerce_shop_page_display');
-		if ( $shop_page_display !== '' ) { ?>
-			<div class="site-footer">
-				<div class="bar--fixed">
-					<?php
-					global $wp_query;
 
-					// get all product categories
-					$terms = get_terms('product_cat');
-
-					// if there is a category queried cache it
-					$current_term =	get_queried_object();
-
-					if ( !empty( $terms ) /*&& wpgrade::option('display_product_filters', '0')*/ ) {
-						// create a link which should link to the shop
-						$all_link = get_post_type_archive_link('product');
-
-						echo '<ul class="filter  filter--shop">';
-						// display the shop link first if there is one
-						if ( ! empty( $all_link ) && $shop_page_display !== 'subcategories') {
-							// also if the current_term doesn't have a term_id it means we are quering the shop and the "all categories" should be active
-							echo '<li class="filter__item active" data-filter="*">' . _e( 'All', 'timber' ) . '</li>';
-						}
-
-						// display a link for each product category
-						foreach ($terms as $key => $term ) {
-							if ( $shop_page_display === 'subcategories' ) {
-								echo '<li class="filter__item" data-filter=".category-' . $term->slug . '"><a href="' . get_term_link($term) . '">' . $term->name . '</a></li>';
-							} else {
-								echo '<li class="filter__item" data-filter=".category-' . $term->slug . '">' . $term->name . '</li>';
-							}
-
-						}
-						echo '</ul>';
-					} // close if !empty($terms)
-					?>
-				</div>
-			</div>
-		<?php } ?>
 	<?php
 		/**
 		 * woocommerce_after_main_content hook
@@ -134,6 +97,15 @@ get_header( 'shop' ); ?>
 		 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 		 */
 		do_action( 'woocommerce_after_main_content' );
+	?>
+
+	<?php
+		/**
+		 * woocommerce_sidebar hook
+		 *
+		 * @hooked woocommerce_get_sidebar - 10
+		 */
+		do_action( 'woocommerce_sidebar' );
 	?>
 
 <?php get_footer( 'shop' ); ?>
