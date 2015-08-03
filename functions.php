@@ -216,6 +216,11 @@ function timber_scripts_styles() {
 	}
 
 	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
+
+	if ( ! function_exists( 'is_plugin_active' ) ) {
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	}
+
 	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option('woocommerce_enable_lightbox') ) {
 		$url = plugins_url();
 		$path = parse_url($url);
