@@ -68,3 +68,14 @@ form.cart {
 		padding-left: 5.250em;
 	}
 }
+
+.related.products ul.products {
+	@extend .filmstrip;
+	position: relative;
+
+	.product__item {
+		display: inline-block;
+		width: calc(50% - 5px);
+	}
+
+}
