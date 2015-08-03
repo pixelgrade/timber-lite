@@ -69,13 +69,14 @@ form.cart {
 	}
 }
 
-.related.products ul.products {
-	@extend .filmstrip;
-	position: relative;
+.related.products, .cross-sells, .upsells.products {
+	ul.products {
+		@extend .filmstrip;
+		position: relative;
 
-	.product__item {
-		display: inline-block;
-		width: calc(50% - 5px);
+		.product__item {
+			display: inline-block;
+			width: calc(50% - 5px);
+		}
 	}
-
 }
