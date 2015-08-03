@@ -169,5 +169,9 @@ function vertToHorScroll (event, delta) {
 }
 
 function niceScrollInit() {
-	if( isWindows ) $("html").niceScroll( niceScrollOptions )
+	var niceScrollOptions = {
+		zindex: 5000
+	}
+
+	if( isWindows ) $("html").niceScroll( niceScrollOptions );
 }

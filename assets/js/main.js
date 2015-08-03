@@ -20502,10 +20502,6 @@ if (!Date.now) Date.now = function () {
     init();
   });
 
-  var niceScrollOptions = {
-    zindex: 5000
-  }
-
   function init() {
     browserSupport();
     platformDetect();
@@ -20794,7 +20790,11 @@ if (!Date.now) Date.now = function () {
   }
 
   function niceScrollInit() {
-    if (isWindows) $("html").niceScroll(niceScrollOptions)
+    var niceScrollOptions = {
+      zindex: 5000
+    }
+
+    if (isWindows) $("html").niceScroll(niceScrollOptions);
   }
 
 })(jQuery);

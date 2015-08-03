@@ -4,10 +4,6 @@ $(document).ready(function () {
 	init();
 });
 
-var niceScrollOptions = {
-    zindex: 5000
-}
-
 function init() {
     browserSupport();
     platformDetect();
