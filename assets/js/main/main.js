@@ -4,6 +4,9 @@ $(document).ready(function () {
 	init();
 });
 
+var niceScrollOptions = {
+    zindex: 5000
+}
 
 function init() {
     browserSupport();
@@ -16,6 +19,7 @@ function init() {
     Overlay.init();
     updateHeader();
     $html.addClass('ready');
+    niceScrollInit();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -25,6 +29,7 @@ function init() {
 
 function softInit() {
 
+    niceScrollInit();
     sizeColumns();
 
     if ($('.single-jetpack-portfolio').length) {
@@ -46,7 +51,8 @@ function softInit() {
 
     checkProfileImageWidget();
 
-    bindVertToHorScroll();
+    if( ! isWindows )
+        bindVertToHorScroll();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 

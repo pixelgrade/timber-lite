@@ -28,6 +28,7 @@ function platformDetect() {
     iOS             = getIOSVersion();
     android         = getAndroidVersion();
     isMac           = navigator.platform.toUpperCase().indexOf('MAC')>=0;
+    isWindows       = navigator.platform.toUpperCase().indexOf('WIN')!==-1;
 
     if (Modernizr.touch) {
         $html.addClass('touch');

@@ -167,3 +167,7 @@ function vertToHorScroll (event, delta) {
 		event.preventDefault();
 	}
 }
+
+function niceScrollInit() {
+	if( isWindows ) $("html").niceScroll( niceScrollOptions )
+}
