@@ -214,6 +214,14 @@ function timber_scripts_styles() {
 	if( $timber_show_footer ) {
 		wp_enqueue_script('scrolltotop' , get_template_directory_uri() . '/assets/js/plugins/ScrollToPlugin.min.js', array('jquery'), '1.0.0', true );
 	}
+
+	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
+	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option('woocommerce_enable_lightbox') ) {
+		$url = plugins_url();
+		$path = parse_url($url);
+		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $path['path'] . '/woocommerce/assets/css/prettyPhoto.css' );
+	}
+
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
 
