@@ -44,7 +44,7 @@ function timber_add_categories_on_shop() {
 					// display the shop link first if there is one
 					if ( ! empty( $all_link ) && $shop_page_display !== 'subcategories') {
 						// also if the current_term doesn't have a term_id it means we are quering the shop and the "all categories" should be active
-						echo '<li class="filter__item active" data-filter="*">' . _e( 'All', 'timber' ) . '</li>';
+						echo '<li class="filter__item active" data-filter="*">' . __( 'All', 'timber' ) . '</li>';
 					}
 
 					// display a link for each product category
