@@ -43,9 +43,21 @@ get_header( 'shop' ); ?>
 				 * @hooked woocommerce_catalog_ordering - 30
 				 */
 				do_action( 'woocommerce_before_shop_loop' );
-			?>
 
-			<ul class="filmstrip" data-post_type="product">
+			$data = 'data-post_type="product"';
+
+			$this_tax = get_query_var( 'taxonomy' );
+
+			if ( ! empty( $this_tax ) ) {
+				$data .= ' data-taxonomy="' . $this_tax . '"';
+			}
+
+			$this_term = get_query_var( 'term' );
+
+			if ( ! empty( $this_term ) ) {
+				$data .= ' data-term_id="' . get_queried_object()->term_id . '"';
+			} ?>
+			<ul class="filmstrip" <?php echo $data; ?>>
 				<li class="site-sidebar">
 					<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
 				</li>
@@ -75,38 +87,46 @@ get_header( 'shop' ); ?>
 		<?php endif; ?>
 
 		</div><!-- .site-container  .site-content  .shop -->
+		<?php
+		$shop_page_display = get_option('woocommerce_shop_page_display');
+		if ( $shop_page_display !== '' ) { ?>
+			<div class="site-footer">
+				<div class="bar--fixed">
+					<?php
+					global $wp_query;
 
-		<div class="site-footer">
-			<div class="bar--fixed">
-				<?php
-				global $wp_query;
+					// get all product categories
+					$terms = get_terms('product_cat');
 
-				// get all product categories
-				$terms = get_terms('product_cat');
+					// if there is a category queried cache it
+					$current_term =	get_queried_object();
 
-				// if there is a category queried cache it
-				$current_term =	get_queried_object();
+					if ( !empty( $terms ) /*&& wpgrade::option('display_product_filters', '0')*/ ) {
+						// create a link which should link to the shop
+						$all_link = get_post_type_archive_link('product');
 
-				if ( !empty( $terms ) /*&& wpgrade::option('display_product_filters', '0')*/ ) {
-					// create a link which should link to the shop
-					$all_link = get_post_type_archive_link('product');
+						echo '<ul class="filter  filter--shop">';
+						// display the shop link first if there is one
+						if ( ! empty( $all_link ) && $shop_page_display !== 'subcategories') {
+							// also if the current_term doesn't have a term_id it means we are quering the shop and the "all categories" should be active
+							echo '<li class="filter__item active" data-filter="*">' . _e( 'All', 'timber' ) . '</li>';
+						}
 
-					echo '<ul class="filter  filter--shop">';
-					// display the shop link first if there is one
-					if ( !empty($all_link) ) {
-						// also if the current_term doesn't have a term_id it means we are quering the shop and the "all categories" should be active
-						echo '<li class="filter__item active" data-filter="*">' . _e( 'All', 'timber' ) . '</li>';
-					}
+						// display a link for each product category
+						foreach ($terms as $key => $term ) {
+							if ( $shop_page_display === 'subcategories' ) {
+								echo '<li class="filter__item" data-filter=".category-' . $term->slug . '"><a href="' . get_term_link($term) . '">' . $term->name . '</a></li>';
+							} else {
+								echo '<li class="filter__item" data-filter=".category-' . $term->slug . '">' . $term->name . '</li>';
+							}
 
-					// display a link for each product category
-					foreach ($terms as $key => $term ) {
-						echo '<li class="filter__item" data-filter=".category-' . $term->slug . '">' . $term->name . '</li>';
-					}
-					echo '</ul>';
-				} // close if !empty($terms)
-				?>
+						}
+						echo '</ul>';
+					} // close if !empty($terms)
+					?>
+				</div>
 			</div>
-		</div>
+		<?php } ?>
 	<?php
 		/**
 		 * woocommerce_after_main_content hook

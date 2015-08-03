@@ -16,7 +16,7 @@ var Blog = (function() {
 		isLoadingPosts = false;
 		filterBy = '';
 
-		if (!$filmstrip_container.length) {
+		if (!$filmstrip_container.length || ! $filmstrip_container.children('.filmstrip__item' ).length ) {
 			//this is not a blog archive so bail
 			return;
 		}
@@ -152,7 +152,7 @@ var Blog = (function() {
 
 		if ( ! empty($filmstrip_container.data('taxonomy')) ) {
 			args['taxonomy'] = $filmstrip_container.data('taxonomy');
-			args['term_id'] = $filmstrip_container.data('termid');
+			args['term_id'] = $filmstrip_container.data('term_id');
 		} else if ( !empty($filmstrip_container.data('search')) ) {
 			args['search'] = $filmstrip_container.data('search');
 		}
