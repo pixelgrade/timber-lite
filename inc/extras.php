@@ -906,6 +906,11 @@ function timber_load_next_posts() {
 	//set the query args
 	$args = array( 'post_type' => 'post' );
 
+	//check if we have a post_type in $_POST
+	if ( isset( $_POST['post_type'] ) ) {
+		$args['post_type'] = $_POST['post_type'];
+	}
+
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
 		$args['posts_per_page'] = 999;
 	} else {

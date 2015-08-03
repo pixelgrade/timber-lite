@@ -16397,8 +16397,13 @@ if (!Date.now) Date.now = function () {
         action: 'timber_load_next_posts',
         nonce: timber_ajax.nonce,
         offset: offset,
+        post_type: 'post',
         posts_number: 'all'
       };
+
+      if (!empty($filmstrip_container.data('post_type'))) {
+        args['post_type'] = $filmstrip_container.data('post_type');
+      }
 
       if (!empty($filmstrip_container.data('taxonomy'))) {
         args['taxonomy'] = $filmstrip_container.data('taxonomy');
@@ -16469,8 +16474,13 @@ if (!Date.now) Date.now = function () {
       var args = {
         action: 'timber_load_next_posts',
         nonce: timber_ajax.nonce,
+        post_type: 'post',
         offset: offset
       };
+
+      if (!empty($filmstrip_container.data('post_type'))) {
+        args['post_type'] = $filmstrip_container.data('post_type');
+      }
 
       if (!empty($filmstrip_container.data('taxonomy'))) {
         args['taxonomy'] = $filmstrip_container.data('taxonomy');
