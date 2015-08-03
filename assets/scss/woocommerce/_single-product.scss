@@ -10,7 +10,7 @@
 	}
 }
 
-.single-product-tabs {
+.single-product-tabs, .upsells.products, .related.products {
 	@extend %single-width;
 }
 

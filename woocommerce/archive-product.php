@@ -11,7 +11,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-get_header('shop'); ?>
+get_header( 'shop' ); ?>
+
 	<?php
 		/**
 		 * woocommerce_before_main_content hook
@@ -28,21 +29,26 @@ get_header('shop'); ?>
 
 		<?php endif; ?>
 
-		<?php //do_action( 'woocommerce_archive_description' ); ?>
+		<?php do_action( 'woocommerce_archive_description' ); ?>
 
 		<?php if ( have_posts() ) : ?>
 			<?php
+
+				get_template_part('woocommerce/loop/orderby');
+
 				/**
 				 * woocommerce_before_shop_loop hook
 				 *
 				 * @hooked woocommerce_result_count - 20
 				 * @hooked woocommerce_catalog_ordering - 30
 				 */
-				get_template_part('woocommerce/loop/orderby');
 				do_action( 'woocommerce_before_shop_loop' );
 			?>
 
-			<?php woocommerce_product_loop_start(); ?>
+			<ul class="filmstrip" data-post_type="product">
+				<li class="site-sidebar">
+					<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
+				</li>
 
 				<?php woocommerce_product_subcategories(); ?>
 
@@ -52,7 +58,7 @@ get_header('shop'); ?>
 
 				<?php endwhile; // end of the loop. ?>
 
-			<?php woocommerce_product_loop_end(); ?>
+			</ul><!-- .filmstrip -->
 
 			<?php
 				/**
