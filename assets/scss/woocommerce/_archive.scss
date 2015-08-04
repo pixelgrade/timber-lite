@@ -50,3 +50,12 @@
 		width: 100%;
 	}
 }
+
+.filter--shop {
+	transition: .3s opacity linear;
+
+	.tax-product_cat & {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
