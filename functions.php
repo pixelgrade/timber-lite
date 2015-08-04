@@ -225,7 +225,6 @@ function timber_scripts_styles() {
 		$url = plugins_url( '/woocommerce/assets/css/prettyPhoto.css', WP_PLUGIN_DIR . '/' );
 		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $url );
 	}
-
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
 
