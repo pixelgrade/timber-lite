@@ -170,8 +170,12 @@ function vertToHorScroll (event, delta) {
 
 function niceScrollInit() {
 	var niceScrollOptions = {
-		zindex: 5000
+		zindex: 5000,
+		smoothscroll: false // because it interferes with the hor to ver scroll script
 	}
 
-	if( isWindows ) $("html").niceScroll( niceScrollOptions );
+	if( isWindows ) {
+		$("html").niceScroll( niceScrollOptions);
+		$("html").addClass('has--nicescroll');
+	}
 }

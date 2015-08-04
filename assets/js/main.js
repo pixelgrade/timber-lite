@@ -20513,7 +20513,6 @@ if (!Date.now) Date.now = function () {
     Overlay.init();
     updateHeader();
     $html.addClass('ready');
-    niceScrollInit();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -20524,6 +20523,7 @@ if (!Date.now) Date.now = function () {
   function softInit() {
 
     niceScrollInit();
+
     sizeColumns();
 
     if ($('.single-jetpack-portfolio').length) {
@@ -20545,7 +20545,7 @@ if (!Date.now) Date.now = function () {
 
     checkProfileImageWidget();
 
-    if (!isWindows) bindVertToHorScroll();
+    bindVertToHorScroll();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -20782,7 +20782,7 @@ if (!Date.now) Date.now = function () {
   }
 
   function vertToHorScroll(event, delta) {
-    // this.scrollLeft -= (delta * 30);
+    //this.scrollLeft -= (delta * 30);
     if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
       this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
       event.preventDefault();
@@ -20791,10 +20791,14 @@ if (!Date.now) Date.now = function () {
 
   function niceScrollInit() {
     var niceScrollOptions = {
-      zindex: 5000
+      zindex: 5000,
+      smoothscroll: false // because it interferes with the hor to ver scroll script
     }
 
-    if (isWindows) $("html").niceScroll(niceScrollOptions);
+    if (isWindows) {
+      $("html").niceScroll(niceScrollOptions);
+      $("html").addClass('has--nicescroll');
+    }
   }
 
 })(jQuery);
