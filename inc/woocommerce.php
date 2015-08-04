@@ -24,7 +24,7 @@ function timber_add_categories_on_shop() {
 	}
 
 	$shop_page_display = get_option('woocommerce_shop_page_display');
-	if ( $shop_page_display !== '' ) { ?>
+	if ( $shop_page_display !== 'subcategories' ) { ?>
 		<div class="site-footer">
 			<div class="bar--fixed">
 				<?php
@@ -42,19 +42,14 @@ function timber_add_categories_on_shop() {
 
 					echo '<ul class="filter  filter--shop">';
 					// display the shop link first if there is one
-					if ( ! empty( $all_link ) && $shop_page_display !== 'subcategories') {
+					if ( ! empty( $all_link ) ) {
 						// also if the current_term doesn't have a term_id it means we are quering the shop and the "all categories" should be active
 						echo '<li class="filter__item active" data-filter="*">' . __( 'All', 'timber' ) . '</li>';
 					}
 
 					// display a link for each product category
 					foreach ($terms as $key => $term ) {
-						if ( $shop_page_display === 'subcategories' ) {
-							echo '<li class="filter__item" data-filter=".product_cat-' . $term->slug . '"><a href="' . get_term_link($term) . '">' . $term->name . '</a></li>';
-						} else {
-							echo '<li class="filter__item" data-filter=".product_cat-' . $term->slug . '">' . $term->name . '</li>';
-						}
-
+						echo '<li class="filter__item" data-filter=".product_cat-' . $term->slug . '">' . $term->name . '</li>';
 					}
 					echo '</ul>';
 				} // close if !empty($terms)

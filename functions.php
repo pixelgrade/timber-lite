@@ -221,10 +221,9 @@ function timber_scripts_styles() {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	}
 
-	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option('woocommerce_enable_lightbox') ) {
-		$url = plugins_url();
-		$path = parse_url($url);
-		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $path['path'] . '/woocommerce/assets/css/prettyPhoto.css' );
+	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
+		$url = plugins_url( '/woocommerce/assets/css/prettyPhoto.css', WP_PLUGIN_DIR . '/' );
+		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $url );
 	}
 
 }
