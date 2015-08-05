@@ -9,17 +9,20 @@
 	font-weight: map-get($bodytype, bold);
 	font-size: 14px;
 	text-transform: uppercase;
+	text-shadow: none;
 
 	border: 1px solid black;
 	border-radius: 0;
 	background-color: black;
+	background-image: none;
 	color: white;
 	transition: all .15s;
 
 	cursor: pointer;
 
-	&:hover {
+	&:hover, &:active, &:focus {
 		background-color: white;
+		background-image: none;
 		color: black;
 	}
 

@@ -30,6 +30,10 @@
 		@extend .btn;
 		margin-right: 10px;
 	}
+
+	a:not(.button) {
+		@extend %a;
+	}
 }
 
 .woocommerce-info a {
