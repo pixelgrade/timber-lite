@@ -912,7 +912,7 @@ function timber_load_next_posts() {
 	}
 
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
-		$args['posts_per_page'] = 999;
+		$args['posts_per_page'] = -1;
 	} else {
 		$args['posts_per_page'] = get_option( 'posts_per_page' );
 	}
