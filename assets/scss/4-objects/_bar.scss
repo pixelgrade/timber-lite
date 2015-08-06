@@ -59,15 +59,10 @@
 @include query-below($lap) {
 
     %bar-piece {
-        // display: block;
         margin: 0;
         flex-basis: 33%;
         flex-grow: 1;
         flex-shrink: 1;
-    }
-
-    .site-footer %bar-side {
-        padding: 1.25em;
     }
 
     %bar-right {

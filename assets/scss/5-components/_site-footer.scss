@@ -13,6 +13,16 @@
             flex-basis: $footer-height;
         }
     }
+
+    @include query-below($lap) {
+        padding-bottom: 1.25em;
+
+        %bar-piece {
+            display: block;
+            text-align: center;
+            padding: 1.25em;
+        }
+    }
 }
 
 .site-info {
