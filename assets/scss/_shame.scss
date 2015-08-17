@@ -23,6 +23,10 @@ html, body, #page, .site, #djaxContainer {
     // }
 }
 
+html.has--nicescroll {
+    overflow: hidden;
+}
+
 .portfolio_page_type-project_slider {
     overflow-x: hidden;
 }

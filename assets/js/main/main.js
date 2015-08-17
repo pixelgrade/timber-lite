@@ -4,7 +4,6 @@ $(document).ready(function () {
 	init();
 });
 
-
 function init() {
     browserSupport();
     platformDetect();
@@ -24,6 +23,8 @@ function init() {
 }
 
 function softInit() {
+
+    niceScrollInit();
 
     sizeColumns();
 
