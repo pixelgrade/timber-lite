@@ -19836,11 +19836,15 @@ if (!Date.now) Date.now = function () {
         $current = $items.eq(current);
         $next = $items.eq(next);
 
-        TweenLite.to(window, 0.3, {
+        var mymid = $current.data('middle');
+
+        console.log(start, mymid, end);
+
+        TweenLite.to(window, 0.6, {
           scrollTo: {
             x: $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
           },
-          ease: Power2.easeOut
+          ease: Power1.easeInOut
         });
 
         e.preventDefault();
