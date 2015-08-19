@@ -19803,7 +19803,7 @@ if (!Date.now) Date.now = function () {
 
       $(document).keydown(function (e) {
 
-        if (!$('.js-portfolio--filmstrip.portfolio--visible').length) {
+        if (!$('.portfolio--filmstrip.portfolio--visible').length) {
           return;
         }
 
@@ -19832,8 +19832,6 @@ if (!Date.now) Date.now = function () {
         default:
           return;
         }
-
-
 
         $current = $items.eq(current);
         $next = $items.eq(next);

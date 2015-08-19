@@ -169,7 +169,7 @@ var Project = (function() {
 
 		$(document).keydown(function(e) {
 
-			if (!$('.js-portfolio--filmstrip.portfolio--visible').length) {
+			if (!$('.portfolio--filmstrip.portfolio--visible').length) {
 				return;
 			}
 
@@ -199,8 +199,6 @@ var Project = (function() {
 				default:
 					return;
 			}
-
-
 
 			$current = $items.eq(current);
 			$next = $items.eq(next);
