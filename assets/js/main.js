@@ -19842,11 +19842,11 @@ if (!Date.now) Date.now = function () {
 
         console.log(start, mymid, end);
 
-        TweenLite.to(window, 0.3, {
+        TweenLite.to(window, 0.6, {
           scrollTo: {
             x: $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
           },
-          ease: Power2.easeOut
+          ease: Power1.easeInOut
         });
 
         e.preventDefault();
