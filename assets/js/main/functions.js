@@ -106,13 +106,15 @@ function isElementInViewport(el) {
 		el = el[0];
 	}
 
-	var rect = el.getBoundingClientRect();
+	var rect = el.getBoundingClientRect(),
+		height = window.innerHeight || document.documentElement.clientHeight,
+		width = window.innerWidth || document.documentElement.clientWidth;
 
 	return (
-	rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-	rect.left <= (window.innerWidth || document.documentElement.clientWidth) && /*or $(window).width() */
-	rect.bottom >= 0 &&
-	rect.right >= 0
+	rect.top <= height * 1.5 && /*or $(window).height() */
+	rect.left <= width * 1.5 && /*or $(window).width() */
+	rect.bottom >= -0.5 * height &&
+	rect.right >= -0.5 * width
 	);
 }
 
