@@ -166,6 +166,66 @@ var Project = (function() {
 		$('.fullview .rsArrowRight').on('click', showNext);
 		$('.fullview .rsArrowLeft').on('click', showPrev);
 		$('.js-details').on('click', toggleDetails);
+
+		$(document).keydown(function(e) {
+
+			if (!$('.js-portfolio--filmstrip.portfolio--visible').length) {
+				return;
+			}
+
+			var $items = $film.find('.js-portfolio-item'),
+				current, $current,
+				next, $next;
+
+			$items.each(function(i, obj) {
+				if ($(obj).hasClass('portfolio__item--active')) {
+					current = i;
+				}
+			});
+
+			if (typeof current == "undefined") {
+				return;
+			}
+
+			switch(e.which) {
+				case 37:
+					if (current == 0) return;
+					next = current - 1;
+					break; // left
+				case 39:
+					if (current == $items.length - 1) return;
+					next = current + 1;
+					break; // right
+				default:
+					return;
+			}
+
+
+
+			$current = $items.eq(current);
+			$next = $items.eq(next);
+
+			var mymid = $current.data('middle');
+
+			console.log(start, mymid, end);
+
+			TweenLite.to(window, 0.3, {
+				scrollTo: {
+					x: $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+				},
+				ease: Power2.easeOut
+			});
+
+			e.preventDefault();
+		});
+	}
+
+	function goLeft() {
+		console.log('left', current);
+	}
+
+	function goRight() {
+		console.log('right', current);
 	}
 
 	function unbindEvents() {
