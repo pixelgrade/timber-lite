@@ -19803,7 +19803,7 @@ if (!Date.now) Date.now = function () {
 
       $(document).keydown(function (e) {
 
-        if (!$('.js-portfolio--filmstrip.portfolio--visible').length) {
+        if (!$('.portfolio--filmstrip.portfolio--visible').length) {
           return;
         }
 
@@ -19833,14 +19833,8 @@ if (!Date.now) Date.now = function () {
           return;
         }
 
-
-
         $current = $items.eq(current);
         $next = $items.eq(next);
-
-        var mymid = $current.data('middle');
-
-        console.log(start, mymid, end);
 
         TweenLite.to(window, 0.3, {
           scrollTo: {
