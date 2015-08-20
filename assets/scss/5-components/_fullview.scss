@@ -40,6 +40,11 @@
         z-index: 10;
         background: url('assets/svg/close-button.svg') no-repeat;
         background-size: cover;
+        
+        @include query-below($xsmall) {
+            top: 2em;
+            right: 1.5em;
+        }
     }
 
     .rsArrow {
@@ -52,7 +57,7 @@
         }
 
         .rsArrowIcn {
-            margin: 0 auto;
+            margin-left: -0.625em;
             border-color: white;
             width: 1.250em;
             height: 1.250em;
@@ -62,10 +67,18 @@
     .rsArrowLeft {
         left: 3.7em;
         margin-left: -1.5em;
+
+        @include query-below($xsmall) {
+            left: 2em;
+        }
     }
 
     .rsArrowRight {
         right: 3.7em;
         margin-right: -1.5em;
+
+        @include query-below($xsmall) {
+            right: 2em;
+        }
     }
 }

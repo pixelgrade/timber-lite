@@ -106,13 +106,15 @@ function isElementInViewport(el) {
 		el = el[0];
 	}
 
-	var rect = el.getBoundingClientRect();
+	var rect = el.getBoundingClientRect(),
+		height = window.innerHeight || document.documentElement.clientHeight,
+		width = window.innerWidth || document.documentElement.clientWidth;
 
 	return (
-	rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-	rect.left <= (window.innerWidth || document.documentElement.clientWidth) && /*or $(window).width() */
-	rect.bottom >= 0 &&
-	rect.right >= 0
+	rect.top <= height * 1.5 && /*or $(window).height() */
+	rect.left <= width * 1.5 && /*or $(window).width() */
+	rect.bottom >= -0.5 * height &&
+	rect.right >= -0.5 * width
 	);
 }
 
@@ -165,5 +167,17 @@ function vertToHorScroll (event, delta) {
 	if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
 		this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
 		event.preventDefault();
+	}
+}
+
+function niceScrollInit() {
+	var niceScrollOptions = {
+		zindex: 5000,
+		smoothscroll: false // because it interferes with the hor to ver scroll script
+	}
+
+	if( isWindows ) {
+		$("html").niceScroll( niceScrollOptions);
+		$("html").addClass('has--nicescroll');
 	}
 }

@@ -17,6 +17,7 @@ img {
     @extend %display--flex;
     @extend %position--absolute;
     opacity: 0;
+    -webkit-overflow-scrolling: touch;
 
     height: 100%;
     pointer-events: none;

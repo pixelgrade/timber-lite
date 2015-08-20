@@ -587,3 +587,9 @@ img.rsImg {
 		background: black;
 	}
 }
+
+@include query-below($lap) {
+	.pixslider[data-arrows] .slide {
+		padding: 0 35px;
+	}
+}

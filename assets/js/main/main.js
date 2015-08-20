@@ -4,7 +4,6 @@ $(document).ready(function () {
 	init();
 });
 
-
 function init() {
     browserSupport();
     platformDetect();
@@ -24,6 +23,8 @@ function init() {
 }
 
 function softInit() {
+
+    niceScrollInit();
 
     sizeColumns();
 
@@ -89,6 +90,25 @@ function onResize() {
     Project.onResize();
     frontpageSlider.onResize();
     videos.resize();
+
+    var $items = $container.find('.js-placeholder');
+
+    $items.each(function(i, item) {
+        var $item = $(item);
+        $item.data('actualHeight', $item.height());
+    });
+
+    $items.each(function(i, item) {
+        var $item       = $(item).data('loaded', false),
+            width       = $item.data('width'),
+            height      = $item.data('height'),
+            newHeight   = $item.height(),
+            newWidth    = newHeight * $item.data('width') / $item.data('height'),
+            $image      = $(document.createElement('img')).css('opacity', 0);
+
+        $item.width(newWidth);
+        $item.data('image', $image);
+    });
 }
 
 function requestTick() {
