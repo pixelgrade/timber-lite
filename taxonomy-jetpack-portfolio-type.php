@@ -19,7 +19,16 @@ get_header(); ?>
         </div>
     </div>
     <div class="site-content  portfolio-archive  portfolio-category">
-        <div class="portfolio-wrapper">
+        <?php
+        $data = '';
+        if ( have_posts() ) {
+            $queried_object = get_queried_object();
+            if ( ! empty( $queried_object->taxonomy ) ) {
+                $data .= ' data-taxonomy="' . esc_attr( $queried_object->taxonomy ) .'"';
+                $data .= ' data-termid="' . esc_attr( $queried_object->term_taxonomy_id ) .'"';
+            }
+        } ?>
+        <div class="portfolio-wrapper" <?php echo $data; ?>>
         <?php
         if ( have_posts() ) :
             while ( have_posts() ) : the_post();

@@ -17477,13 +17477,20 @@ if (!Date.now) Date.now = function () {
 
         isLoadingProjects = true;
 
-        $.post(
-        timber_ajax.ajax_url, {
+        var args = {
           action: 'timber_load_next_projects',
           nonce: timber_ajax.nonce,
           offset: offset,
           posts_number: 'all'
-        }, function (response_data) {
+        };
+
+        if (!empty($portfolio_container.data('taxonomy'))) {
+          args['taxonomy'] = $portfolio_container.data('taxonomy');
+          args['term_id'] = $portfolio_container.data('termid');
+        }
+
+        $.post(
+        timber_ajax.ajax_url, args, function (response_data) {
 
           if (response_data.success) {
             if (globalDebug) {
@@ -17520,12 +17527,19 @@ if (!Date.now) Date.now = function () {
 
         isLoadingProjects = true;
 
-        $.post(
-        timber_ajax.ajax_url, {
+        var args = {
           action: 'timber_load_next_projects',
           nonce: timber_ajax.nonce,
           offset: offset
-        }, function (response_data) {
+        };
+
+        if (!empty($portfolio_container.data('taxonomy'))) {
+          args['taxonomy'] = $portfolio_container.data('taxonomy');
+          args['term_id'] = $portfolio_container.data('termid');
+        }
+
+        $.post(
+        timber_ajax.ajax_url, args, function (response_data) {
 
           if (response_data.success) {
             if (globalDebug) {
