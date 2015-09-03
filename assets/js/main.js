@@ -20771,8 +20771,6 @@ if (!Date.now) Date.now = function () {
         latestKnownScrollX = document.documentElement.scrollLeft;
       }
 
-      console.log(latestKnownScrollX);
-
       requestTick();
     });
 

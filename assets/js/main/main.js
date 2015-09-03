@@ -147,8 +147,6 @@ function eventHandlers() {
             latestKnownScrollX = document.documentElement.scrollLeft;
         }
 
-        console.log(latestKnownScrollX);
-
         requestTick();
     });
 
