@@ -138,8 +138,17 @@ function eventHandlers() {
     $window.on('debouncedresize', onResize);
 
     $window.on('scroll', function () {
-    	latestKnownScrollY = window.scrollY;
-        latestKnownScrollX = window.scrollX;
+
+        if(!isIE) {
+            latestKnownScrollY = window.scrollY;
+            latestKnownScrollX = window.scrollX;
+        } else {
+            latestKnownScrollY = document.documentElement.scrollTop;
+            latestKnownScrollX = document.documentElement.scrollLeft;
+        }
+
+        console.log(latestKnownScrollX);
+
         requestTick();
     });
 
