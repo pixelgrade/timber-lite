@@ -20183,6 +20183,8 @@ if (!Date.now) Date.now = function () {
         });
       }, 500);
 
+      toggleScroll(false);
+
       $fullview.addClass('fullview--visible');
     }
 
@@ -20208,6 +20210,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function hideFullView() {
+
       var $source = $('.fullview__image'),
           $target = $('.portfolio__item--active');
 
@@ -20229,6 +20232,8 @@ if (!Date.now) Date.now = function () {
           });
         }
       });
+
+      toggleScroll(true);
     }
 
     function morph($source, $target, options, callback, remove) {
@@ -20943,4 +20948,26 @@ if (!Date.now) Date.now = function () {
     }
   }
 
+  function toggleScroll(switcher) {
+
+    if (switcher == false) {
+
+      $('body').data('previous-overflow', $('body').css('overflow')).css({
+        'overflow': 'hidden'
+      });
+
+
+      var scrollPosition = [
+      self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft, self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop];
+
+      $('body').data('scroll-position', scrollPosition);
+
+    } else if (switcher == true) {
+
+      var scrollPosition = $('body').data('scroll-position');
+
+      $('body').css('overflow', $('body').data('previous-overflow'));
+      window.scrollTo(scrollPosition[0], scrollPosition[1]);
+    }
+  }
 })(jQuery);

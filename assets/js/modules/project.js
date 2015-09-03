@@ -517,6 +517,8 @@ var Project = (function() {
 			});
 		}, 500);
 
+		toggleScroll(false);
+
 		$fullview.addClass('fullview--visible');
 	}
 
@@ -542,6 +544,7 @@ var Project = (function() {
 	}
 
 	function hideFullView() {
+
 		var $source = $('.fullview__image'),
 			$target = $('.portfolio__item--active');
 
@@ -563,6 +566,8 @@ var Project = (function() {
 				});
 			}
 		});
+
+		toggleScroll(true);
 	}
 
 	function morph($source, $target, options, callback, remove) {
