@@ -5,6 +5,10 @@
     -webkit-flex-direction: column;
 }
 
+.touch .single-jetpack-portfolio .site-footer {
+    padding-bottom: 0;
+}
+
 img {
     will-change: opacity;
 }
@@ -159,6 +163,7 @@ img {
 
         @include query-below($small) {
             padding: 0 1em;
+            padding-bottom: 70px;
         }
 
         .portfolio__item {

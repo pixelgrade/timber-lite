@@ -20018,8 +20018,12 @@ if (!Date.now) Date.now = function () {
           $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
-        opacity: 0
+        opacity: 0,
+        onComplete: function () {
+          $('.site-footer').css('display', 'none');
+        }
       });
+
       $('.site-footer, .site-sidebar').css('pointer-events', 'none');
       $grid.css('opacity', 1);
 
@@ -20080,7 +20084,10 @@ if (!Date.now) Date.now = function () {
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1,
-        delay: .3
+        delay: .3,
+        onComplete: function () {
+          $('.site-footer').css('display', 'block');
+        }
       });
       $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
@@ -20130,7 +20137,8 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      if ($('html').hasClass('touch')) $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      else $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
     }
 
     function addImageToFullView($source) {
