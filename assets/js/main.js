@@ -19405,7 +19405,7 @@ if (!Date.now) Date.now = function () {
         if ($item.data('loaded')) return;
 
         if (isElementInViewport($item)) {
-          $item.data('loaded', true).removeClass('js-placeholder');
+          $item.data('loaded', true);
           $image.attr('src', src);
           $image.prependTo($item);
           $image.imagesLoaded(function () {
@@ -20715,23 +20715,21 @@ if (!Date.now) Date.now = function () {
     frontpageSlider.onResize();
     videos.resize();
 
-    var $items = $container.find('.js-placeholder');
+    var $items = $('.site-content').find('.js-placeholder');
 
     $items.each(function (i, item) {
-      var $item = $(item);
-      $item.data('actualHeight', $item.height());
-    });
-
-    $items.each(function (i, item) {
-      var $item = $(item).data('loaded', false),
+      var $item = $(item),
           width = $item.data('width'),
           height = $item.data('height'),
           newHeight = $item.height(),
-          newWidth = newHeight * $item.data('width') / $item.data('height'),
-          $image = $(document.createElement('img')).css('opacity', 0);
+          newWidth = newHeight * width / height;
 
-      $item.width(newWidth);
-      $item.data('image', $image);
+      $item.data('newWidth', newWidth);
+    });
+
+    $items.each(function (i, item) {
+      var $item = $(item);
+      $item.width($item.data('newWidth'));
     });
   }
 
