@@ -52,3 +52,29 @@
         }
     }
 }
+
+
+// Journal / Blog filmstrip item
+.blog {
+    @include query-below($small) {
+        .filmstrip {
+            height: initial;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+
+    .filmstrip__item {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .item__thumb {
+        flex: 0 1 23vw;
+        overflow: hidden;
+    }
+
+    .item__text {
+        flex: 1 1;
+    }
+}

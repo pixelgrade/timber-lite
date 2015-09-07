@@ -1,6 +1,6 @@
 <?php
 /**
- * Template part for displaying posts.
+ * Template part for displaying posts on archive.
  *
  * @package Timber
  * @since Timber 1.0
@@ -8,7 +8,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('filmstrip__item'); ?>>
-	<a href="<?php the_permalink(); ?>">
+	<a href="<?php the_permalink(); ?>" class="item__thumb">
 		<?php $src = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'timber-square-image' ); ?>
 		<aside class="entry-thumbnail" <?php echo 'style="background-image: url('. $src[0] .')"';?>>
 
@@ -32,33 +32,34 @@
 			<?php endif; ?>
 		</aside>
 	</a>
+	<div class="item__text">
+		<header class="entry-header">
+			<div class="entry-meta">
 
-	<header class="entry-header">
-		<div class="entry-meta">
+				<?php if ( 'post' == get_post_type() ) {
+					timber_posted_on();
+					timber_first_category();
+				} else {
+					echo get_post_type();
+				} ?>
 
-			<?php if ( 'post' == get_post_type() ) {
-                timber_posted_on();
-                timber_first_category();
-            } else {
-                echo get_post_type();
-            } ?>
+			</div><!-- .entry-meta -->
 
-		</div><!-- .entry-meta -->
+			<?php the_title( sprintf( '<h1 ' . timber_get_post_title_class_attr( 'entry-title h3' ) . '><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
-		<?php the_title( sprintf( '<h1 ' . timber_get_post_title_class_attr( 'entry-title h3' ) . '><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+		</header><!-- .entry-header -->
 
-	</header><!-- .entry-header -->
+		<div class="entry-content">
 
-	<div class="entry-content">
+			<?php timber_post_excerpt(); ?>
 
-		<?php timber_post_excerpt(); ?>
-
-		<?php
+			<?php
 			wp_link_pages( array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'timber' ),
 				'after'  => '</div>',
 			) );
-		?>
-	</div><!-- .entry-content -->
+			?>
+		</div><!-- .entry-content -->
+	</div>
 
 </article><!-- #post-## -->

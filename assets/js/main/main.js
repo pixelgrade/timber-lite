@@ -47,7 +47,10 @@ function softInit() {
 
     checkProfileImageWidget();
 
-    bindVertToHorScroll();
+    if( windowWidth > 740 ) {
+        bindVertToHorScroll();
+    }
+
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -107,6 +110,12 @@ function onResize() {
         var $item = $(item);
         $item.width($item.data('newWidth'));
     });
+
+    if(windowWidth > 740) {
+        bindVertToHorScroll();
+    } else {
+        $('html, body, *').unbind('mousewheel', vertToHorScroll);
+    }
 }
 
 function requestTick() {
