@@ -5,7 +5,7 @@
     -webkit-flex-grow: 1;
     -webkit-overflow-scrolling: touch;
 
-    @include query-below($small) {
+    .touch & {
         overflow-x: auto;
     }
 

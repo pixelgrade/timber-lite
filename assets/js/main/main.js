@@ -150,8 +150,11 @@ function eventHandlers() {
         requestTick();
     });
 
-    $document.mousemove(function (e) {
-    	latestKnownMouseX = e.pageX - latestKnownScrollX;
-    	latestKnownMouseY = e.pageY - latestKnownScrollY;
+    $('.touch .site-content').on('scroll', function () {
+
+        latestKnownScrollY = window.scrollY;
+        latestKnownScrollX = $(this).scrollLeft();
+
+        requestTick();
     });
 }
