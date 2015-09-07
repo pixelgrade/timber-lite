@@ -111,7 +111,7 @@ function onResize() {
         $item.width($item.data('newWidth'));
     });
 
-    if(windowWidth > 740) {
+    if( windowWidth > 740 && !horToVertScroll ) {
         bindVertToHorScroll();
     } else {
         $('html, body, *').unbind('mousewheel', vertToHorScroll);

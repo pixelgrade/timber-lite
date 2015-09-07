@@ -44,6 +44,7 @@ var ua                  = navigator.userAgent.toLowerCase(),
     latestKnownMouseY   = 0,
 
     ticking             = false,
+    horToVertScroll     = false,
 
     globalDebug         = false;
 

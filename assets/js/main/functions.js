@@ -159,6 +159,8 @@ function bindVertToHorScroll() {
 		&& ! $html.hasClass('is--ie9') ) {
 		// html body are for ie
 			$('html, body, *').bind('mousewheel',  vertToHorScroll);
+
+		vertToHorScroll = true;
 	}
 }
 
