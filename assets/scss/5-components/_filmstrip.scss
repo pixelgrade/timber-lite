@@ -55,11 +55,23 @@
 }
 
 
-// Journal / Blog filmstrip item
+
+
+
+
+
+// Journal / Blog filmstrip items
 .blog {
     .site-sidebar {
         display: block;
         padding: 34px 7vw;
+        padding-bottom: 26px;
+        font-size: 0;
+
+        > * {
+            width: 50%;
+            display: inline-block;
+        }
 
         .site-sidebar__text {
             transform: none;

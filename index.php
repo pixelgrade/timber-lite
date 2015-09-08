@@ -19,6 +19,7 @@ get_header(); ?>
 		<div class="filmstrip">
 			<div class="site-sidebar">
 				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber' ); ?></div>
+				<?php timber_the_mobile_categories_nav(); ?>
 			</div>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
