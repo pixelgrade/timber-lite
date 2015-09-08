@@ -17,16 +17,25 @@
         overflow: hidden;
         width: 2em;
         height: 2.4em;
-        line-height: 2.3 !important;
+//        line-height: 2.3 !important;
     }
 
     a {
+        @extend %display--block;
+        position: relative;
+        padding-top: 50px;
+
         &:before {
             @extend %display--block;
             @extend %visibility--visible;
             @extend %pointer-events--auto;
             @extend %fa;
             content: $fa-var-share-alt;
+
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         // default share icon used as a fallback

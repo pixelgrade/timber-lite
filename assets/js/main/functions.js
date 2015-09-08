@@ -159,6 +159,8 @@ function bindVertToHorScroll() {
 		&& ! $html.hasClass('is--ie9') ) {
 		// html body are for ie
 			$('html, body, *').bind('mousewheel',  vertToHorScroll);
+
+		vertToHorScroll = true;
 	}
 }
 
@@ -179,5 +181,31 @@ function niceScrollInit() {
 	if( isWindows ) {
 		$("html").niceScroll( niceScrollOptions);
 		$("html").addClass('has--nicescroll');
+	}
+}
+
+function toggleScroll(switcher) {
+
+	if ( switcher == false ) {
+
+		$('body').data('previous-overflow', $('body').css('overflow'))
+				.css({
+					'overflow': 'hidden'
+				});
+
+
+		var scrollPosition = [
+			self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
+			self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
+		];
+
+		$('body').data('scroll-position', scrollPosition);
+
+	} else if ( switcher == true ) {
+
+		var scrollPosition = $('body').data('scroll-position');
+
+		$('body').css('overflow', $('body').data('previous-overflow'));
+		window.scrollTo(scrollPosition[0], scrollPosition[1]);
 	}
 }

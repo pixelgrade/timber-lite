@@ -18107,7 +18107,13 @@ if (!Date.now) Date.now = function () {
       latestKnownMouseY = 0,
       
       
+      latestDeviceAlpha = 0,
+      latestDeviceBeta = 0,
+      latestDeviceGamma = 0,
+      
+      
       ticking = false,
+      horToVertScroll = false,
       
       
       globalDebug = false;
@@ -19405,7 +19411,7 @@ if (!Date.now) Date.now = function () {
         if ($item.data('loaded')) return;
 
         if (isElementInViewport($item)) {
-          $item.data('loaded', true).removeClass('js-placeholder');
+          $item.data('loaded', true);
           $image.attr('src', src);
           $image.prependTo($item);
           $image.imagesLoaded(function () {
@@ -19528,13 +19534,20 @@ if (!Date.now) Date.now = function () {
 
         isLoadingProjects = true;
 
-        $.post(
-        timber_ajax.ajax_url, {
+        var args = {
           action: 'timber_load_next_projects',
           nonce: timber_ajax.nonce,
           offset: offset,
           posts_number: 'all'
-        }, function (response_data) {
+        };
+
+        if (!empty($portfolio_container.data('taxonomy'))) {
+          args['taxonomy'] = $portfolio_container.data('taxonomy');
+          args['term_id'] = $portfolio_container.data('termid');
+        }
+
+        $.post(
+        timber_ajax.ajax_url, args, function (response_data) {
 
           if (response_data.success) {
             if (globalDebug) {
@@ -19571,12 +19584,19 @@ if (!Date.now) Date.now = function () {
 
         isLoadingProjects = true;
 
-        $.post(
-        timber_ajax.ajax_url, {
+        var args = {
           action: 'timber_load_next_projects',
           nonce: timber_ajax.nonce,
           offset: offset
-        }, function (response_data) {
+        };
+
+        if (!empty($portfolio_container.data('taxonomy'))) {
+          args['taxonomy'] = $portfolio_container.data('taxonomy');
+          args['term_id'] = $portfolio_container.data('termid');
+        }
+
+        $.post(
+        timber_ajax.ajax_url, args, function (response_data) {
 
           if (response_data.success) {
             if (globalDebug) {
@@ -19639,7 +19659,11 @@ if (!Date.now) Date.now = function () {
 
     var $film, $grid, $fullview, start, end, current, initialized = false,
         fullviewWidth = 0,
-        fullviewHeight = 0;
+        fullviewHeight = 0,
+        initialAlpha = 0,
+        initialBeta = 0,
+        initialGamma = 0,
+        imageScaling = 'fill';
 
     fullviewWidth = windowWidth;
     fullviewHeight = windowHeight;
@@ -19652,6 +19676,10 @@ if (!Date.now) Date.now = function () {
 
       if (initialized) {
         return;
+      }
+
+      if ($('.image-scaling--fit').length) {
+        imageScaling = 'fit';
       }
 
       if ($('.project_layout-filmstrip').length) {
@@ -19714,6 +19742,7 @@ if (!Date.now) Date.now = function () {
 
     function resizeFullView() {
       $document.off('mousemove', panFullview);
+      $(window).off('deviceorientation', panFullview);
 
       if (typeof $fullview == "undefined") {
         return;
@@ -19726,7 +19755,7 @@ if (!Date.now) Date.now = function () {
           newHeight = $fullview.height(),
           scaleX = newWidth / targetWidth,
           scaleY = newHeight / targetHeight,
-          scale = Math.max(scaleX, scaleY);
+          scale = imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY);
 
       fullviewWidth = targetWidth * scale;
       fullviewHeight = targetHeight * scale;
@@ -19740,6 +19769,7 @@ if (!Date.now) Date.now = function () {
       });
 
       $document.on('mousemove', panFullview);
+      $(window).on('deviceorientation', panFullview);
     }
 
     function addMetadata() {
@@ -20004,8 +20034,12 @@ if (!Date.now) Date.now = function () {
           $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
-        opacity: 0
+        opacity: 0,
+        onComplete: function () {
+          $('.site-footer').css('display', 'none');
+        }
       });
+
       $('.site-footer, .site-sidebar').css('pointer-events', 'none');
       $grid.css('opacity', 1);
 
@@ -20066,7 +20100,10 @@ if (!Date.now) Date.now = function () {
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1,
-        delay: .3
+        delay: .3,
+        onComplete: function () {
+          $('.site-footer').css('display', 'block');
+        }
       });
       $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
@@ -20116,7 +20153,8 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      if ($('html').hasClass('touch')) $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      else $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
     }
 
     function addImageToFullView($source) {
@@ -20127,7 +20165,7 @@ if (!Date.now) Date.now = function () {
           newHeight = $fullview.height(),
           scaleX = newWidth / width,
           scaleY = newHeight / height,
-          scale = Math.max(scaleX, scaleY),
+          scale = imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY),
           $target = $('<div>').addClass('fullview__image'),
           $image = $(document.createElement('img'));
 
@@ -20156,6 +20194,10 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
+      initialAlpha = latestDeviceAlpha;
+      initialBeta = latestDeviceBeta;
+      initialGamma = latestDeviceGamma;
+
       morph($source, $target);
 
       setTimeout(function () {
@@ -20165,9 +20207,12 @@ if (!Date.now) Date.now = function () {
           ease: Back.easeOut,
           onComplete: function () {
             $document.on('mousemove', panFullview);
+            $(window).on('deviceorientation', panFullview);
           }
         });
       }, 500);
+
+      toggleScroll(false);
 
       $fullview.addClass('fullview--visible');
     }
@@ -20179,25 +20224,59 @@ if (!Date.now) Date.now = function () {
             imgWidth = $img.width(),
             imgHeight = $img.height();
 
-        if (imgWidth > windowWidth) {
-          TweenMax.to($img, 0, {
-            x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
-          });
-        }
+        if ($('html').hasClass('touch')) {
 
-        if (imgHeight > windowHeight) {
-          TweenMax.to($img, 0, {
-            y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
-          });
+          var a = initialAlpha - latestDeviceAlpha,
+              b = initialBeta - latestDeviceBeta,
+              g = initialGamma - latestDeviceGamma,
+              x, y;
+
+          b = b < -30 ? -30 : b > 30 ? 30 : b;
+          g = g < -30 ? -30 : g > 30 ? 30 : g;
+
+          x = g;
+          y = b;
+
+          if (latestDeviceAlpha > 45 || latestDeviceAlpha < -45) {
+            x = -b;
+            y = -g;
+          }
+
+          if (imgWidth > windowWidth) {
+            TweenMax.to($img, 0, {
+              x: x / 60 * (imgWidth - windowWidth)
+            });
+          }
+
+          if (imgHeight > windowHeight) {
+            TweenMax.to($img, 0, {
+              y: y / 60 * (imgHeight - windowHeight)
+            });
+          }
+        } else {
+          if (imgWidth > windowWidth) {
+            TweenMax.to($img, 0, {
+              x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
+            });
+          }
+
+          if (imgHeight > windowHeight) {
+            TweenMax.to($img, 0, {
+              y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
+            });
+          }
         }
-      })
+      });
     }
 
     function hideFullView() {
+
       var $source = $('.fullview__image'),
           $target = $('.portfolio__item--active');
 
       $document.off('mousemove', panFullview);
+      $(window).off('deviceorientation', panFullview);
+
       $('.site-content').addClass('site-content--fullview');
 
       TweenMax.to($('.fullview__image img'), .3, {
@@ -20215,6 +20294,8 @@ if (!Date.now) Date.now = function () {
           });
         }
       });
+
+      toggleScroll(true);
     }
 
     function morph($source, $target, options, callback, remove) {
@@ -20652,7 +20733,10 @@ if (!Date.now) Date.now = function () {
 
     checkProfileImageWidget();
 
-    bindVertToHorScroll();
+    if (windowWidth > 740) {
+      bindVertToHorScroll();
+    }
+
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -20696,24 +20780,28 @@ if (!Date.now) Date.now = function () {
     frontpageSlider.onResize();
     videos.resize();
 
-    var $items = $container.find('.js-placeholder');
+    var $items = $('.site-content').find('.js-placeholder');
 
     $items.each(function (i, item) {
-      var $item = $(item);
-      $item.data('actualHeight', $item.height());
-    });
-
-    $items.each(function (i, item) {
-      var $item = $(item).data('loaded', false),
+      var $item = $(item),
           width = $item.data('width'),
           height = $item.data('height'),
           newHeight = $item.height(),
-          newWidth = newHeight * $item.data('width') / $item.data('height'),
-          $image = $(document.createElement('img')).css('opacity', 0);
+          newWidth = newHeight * width / height;
 
-      $item.width(newWidth);
-      $item.data('image', $image);
+      $item.data('newWidth', newWidth);
     });
+
+    $items.each(function (i, item) {
+      var $item = $(item);
+      $item.width($item.data('newWidth'));
+    });
+
+    if (windowWidth > 740 && !horToVertScroll) {
+      bindVertToHorScroll();
+    } else {
+      $('html, body, *').unbind('mousewheel', vertToHorScroll);
+    }
   }
 
   function requestTick() {
@@ -20743,14 +20831,30 @@ if (!Date.now) Date.now = function () {
     $window.on('debouncedresize', onResize);
 
     $window.on('scroll', function () {
-      latestKnownScrollY = window.scrollY;
-      latestKnownScrollX = window.scrollX;
+
+      if (!isIE) {
+        latestKnownScrollY = window.scrollY;
+        latestKnownScrollX = window.scrollX;
+      } else {
+        latestKnownScrollY = document.documentElement.scrollTop;
+        latestKnownScrollX = document.documentElement.scrollLeft;
+      }
+
       requestTick();
     });
 
-    $document.mousemove(function (e) {
-      latestKnownMouseX = e.pageX - latestKnownScrollX;
-      latestKnownMouseY = e.pageY - latestKnownScrollY;
+    $('.touch .site-content').on('scroll', function () {
+
+      latestKnownScrollY = window.scrollY;
+      latestKnownScrollX = $(this).scrollLeft();
+
+      requestTick();
+    });
+
+    $(window).on('deviceorientation', function (e) {
+      latestDeviceAlpha = e.originalEvent.alpha;
+      latestDeviceBeta = e.originalEvent.beta;
+      latestDeviceGamma = e.originalEvent.gamma;
     });
   } /* ====== HELPER FUNCTIONS ====== */
 
@@ -20906,6 +21010,8 @@ if (!Date.now) Date.now = function () {
     if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') && !$html.hasClass('is--ie9')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
+
+      vertToHorScroll = true;
     }
   }
 
@@ -20929,4 +21035,26 @@ if (!Date.now) Date.now = function () {
     }
   }
 
+  function toggleScroll(switcher) {
+
+    if (switcher == false) {
+
+      $('body').data('previous-overflow', $('body').css('overflow')).css({
+        'overflow': 'hidden'
+      });
+
+
+      var scrollPosition = [
+      self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft, self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop];
+
+      $('body').data('scroll-position', scrollPosition);
+
+    } else if (switcher == true) {
+
+      var scrollPosition = $('body').data('scroll-position');
+
+      $('body').css('overflow', $('body').data('previous-overflow'));
+      window.scrollTo(scrollPosition[0], scrollPosition[1]);
+    }
+  }
 })(jQuery);

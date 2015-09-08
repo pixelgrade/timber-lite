@@ -308,14 +308,16 @@
 		color: white;
 	}
 
+	&.header--not-light {
+		.mobile-header a, .toggle, .nav-toggle {
+			color: $bodyColour;
+		}
+	}
+
 	@include query-above($lap) {
 
 		.bar--fixed, .site-header, .site-footer {
 			transition: all .3s ease-in-out !important;
-
-			* {
-				transition: color .3s ease-in-out;
-			}
 		}
 
 		&:not(.header--not-light) {
