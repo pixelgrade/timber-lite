@@ -57,39 +57,103 @@
 
 // Journal / Blog filmstrip item
 .blog {
-    @include query-below($small) {
-        .filmstrip {
-            height: initial;
-            flex-direction: column;
-            justify-content: center;
+    .site-sidebar {
+        display: block;
+        padding: 34px 7vw;
+
+        .site-sidebar__text {
+            transform: none;
+            font-size: 15px;
+            letter-spacing: 0.1em;
         }
     }
 
-    .filmstrip__item {
-        display: flex !important;
+    .filmstrip {
+        height: initial;
         flex-direction: column;
+        justify-content: center;
+        padding: 0;
+
+        border-top: 1px solid #EBEBEB;
     }
+
+    @include query-above($small) {
+        .filmstrip {
+            flex-direction: row;
+        }
+    }
+
+        .filmstrip__item {
+            display: flex !important;
+            flex-direction: column;
+            margin-right: 0;
+            margin-bottom: 52px;
+
+            @include query-below($small) {
+                width: auto;
+                min-width: initial;
+            }
+        }
 
     .item__thumb {
         position: relative;
-
-        flex: 0 1 23vw;
-        overflow: hidden;
 
         background-size: 100% 100%;
         background-size: cover;
         background-position: center;
 
-//        @include query-below($small) {
-//            padding-top: 50%;
-//        }
-//
-//        @media only screen and (max-height: 400px) {
-//            display: none;
-//        }
+        flex: 0 1 35vh;
+
+        @include query-above($small) {
+            flex: 0 1 23vw;
+        }
     }
+
+        .post-meta {
+            left: 7vw;
+            bottom: 20px;
+
+            width: 36px;
+            height: 28px;
+
+            background-size: cover;
+        }
+
+            .post-meta__content {
+                font-size: 12px;
+                top: 17px;
+                left: 20px;
+            }
 
     .item__text {
         flex: 1 1;
+        padding: 0 7vw;
+
+        .entry-meta {
+            font-size: 12px;
+            margin-top: 24px;
+            margin-bottom: 4px;
+
+            a {
+                color: $captionColour;
+            }
+        }
+
+        .entry-title {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
     }
+
+        .divider {
+            display: none;
+        }
+
+        .posted-on {
+            margin-right: 10px;
+        }
+
+        .entry-content p {
+            margin-bottom: 0;
+        }
 }
