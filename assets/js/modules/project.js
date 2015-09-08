@@ -6,6 +6,9 @@ var Project = (function() {
 		initialized = false,
 		fullviewWidth = 0,
 		fullviewHeight = 0,
+		initialAlpha = 0,
+		initialBeta = 0,
+		initialGamma = 0,
 		imageScaling = 'fill';
 
 		fullviewWidth = windowWidth;
@@ -521,6 +524,10 @@ var Project = (function() {
 		var $source = $(this),
 			$target = addImageToFullView($source);
 
+		initialAlpha 	= latestDeviceAlpha;
+		initialBeta 	= latestDeviceBeta;
+		initialGamma 	= latestDeviceGamma;
+
 		morph($source, $target);
 
 		setTimeout(function() {
@@ -549,9 +556,9 @@ var Project = (function() {
 
 			if ($('html').hasClass('touch')) {
 
-				var a = latestDeviceAlpha,
-					b = latestDeviceBeta,
-					g = latestDeviceGamma,
+				var a = initialAlpha - latestDeviceAlpha,
+					b = initialBeta - latestDeviceBeta,
+					g = initialGamma - latestDeviceGamma,
 					x, y;
 
 				b = b < -30 ? -30 : b > 30 ? 30 : b;
@@ -559,6 +566,11 @@ var Project = (function() {
 
 				x = g;
 				y = b;
+
+				if (latestDeviceAlpha > 45 || latestDeviceAlpha < -45) {
+					x = -b;
+					y = -g;
+				}
 
 				if (imgWidth > windowWidth) {
 					TweenMax.to($img, 0, {
