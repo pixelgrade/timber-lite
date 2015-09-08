@@ -14,32 +14,33 @@
 }
 
 .filmstrip__item {
+    margin-right: 10px;
     width: 23vw;
     min-width: 18em;
+    display: none;
+    overflow: hidden;
+
     flex-shrink: 0;
     -webkit-flex-shrink: 0;
     flex-grow: 0;
     -webkit-flex-grow: 0;
-    margin-right: 10px;
-    display: none;
-    overflow: hidden;
 
     .entry-content {
         font-size: 0.875em;
     }
 
     .entry-thumbnail {
-        background-size: 100% 100%;
-        background-size: cover;
-        background-position: center;
-
-        @include query-below($small) {
-            padding-top: 50%;
-        }
-
-        @media only screen and (max-height: 400px) {
-            display: none;
-        }
+//        background-size: 100% 100%;
+//        background-size: cover;
+//        background-position: center;
+//
+//        @include query-below($small) {
+//            padding-top: 50%;
+//        }
+//
+//        @media only screen and (max-height: 400px) {
+//            display: none;
+//        }
     }
 
     .is--ie9 & {
@@ -70,8 +71,22 @@
     }
 
     .item__thumb {
+        position: relative;
+
         flex: 0 1 23vw;
         overflow: hidden;
+
+        background-size: 100% 100%;
+        background-size: cover;
+        background-position: center;
+
+//        @include query-below($small) {
+//            padding-top: 50%;
+//        }
+//
+//        @media only screen and (max-height: 400px) {
+//            display: none;
+//        }
     }
 
     .item__text {
