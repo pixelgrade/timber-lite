@@ -5,7 +5,8 @@ var Project = (function() {
 		current,
 		initialized = false,
 		fullviewWidth = 0,
-		fullviewHeight = 0;
+		fullviewHeight = 0,
+		imageScaling = 'fill';
 
 		fullviewWidth = windowWidth;
 		fullviewHeight = windowHeight;
@@ -18,6 +19,10 @@ var Project = (function() {
 
 		if (initialized) {
 			return;
+		}
+
+		if ($('.image-scaling--fit').length) {
+			imageScaling = 'fit';
 		}
 
 		if ($('.project_layout-filmstrip').length) {
@@ -80,6 +85,7 @@ var Project = (function() {
 
 	function resizeFullView() {
 		$document.off('mousemove', panFullview);
+		$(window).off('deviceorientation', panFullview);
 
 		if (typeof $fullview == "undefined") {
 			return;
@@ -92,7 +98,7 @@ var Project = (function() {
 			newHeight 		= $fullview.height(),
 			scaleX 			= newWidth / targetWidth,
 			scaleY 			= newHeight / targetHeight,
-			scale 			= Math.max(scaleX, scaleY);
+			scale 			= imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY);
 
 		fullviewWidth = targetWidth * scale;
 		fullviewHeight = targetHeight * scale;
@@ -106,6 +112,7 @@ var Project = (function() {
 		});
 
 		$document.on('mousemove', panFullview);
+		$(window).on('deviceorientation', panFullview);
 	}
 
 	function addMetadata() {
@@ -483,7 +490,7 @@ var Project = (function() {
 			newHeight 	= $fullview.height(),
 			scaleX 		= newWidth / width,
 			scaleY 		= newHeight / height,
-			scale 		= Math.max(scaleX, scaleY),
+			scale 		= imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY),
 			$target 	= $('<div>').addClass('fullview__image'),
 			$image 		= $(document.createElement('img'));
 
@@ -523,6 +530,7 @@ var Project = (function() {
 				ease: Back.easeOut,
 				onComplete: function() {
 					$document.on('mousemove', panFullview);
+					$(window).on('deviceorientation', panFullview);
 				}
 			});
 		}, 500);
@@ -539,18 +547,44 @@ var Project = (function() {
 				imgWidth 	= $img.width(),
 				imgHeight 	= $img.height();
 
-			if (imgWidth > windowWidth) {
-				TweenMax.to($img, 0, {
-					x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
-				});
-			}
+			if ($('html').hasClass('touch')) {
 
-			if (imgHeight > windowHeight) {
-				TweenMax.to($img, 0, {
-					y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
-				});
+				var a = latestDeviceAlpha,
+					b = latestDeviceBeta,
+					g = latestDeviceGamma,
+					x, y;
+
+				b = b < -30 ? -30 : b > 30 ? 30 : b;
+				g = g < -30 ? -30 : g > 30 ? 30 : g;
+
+				x = g;
+				y = b;
+
+				if (imgWidth > windowWidth) {
+					TweenMax.to($img, 0, {
+						x: x/60 * (imgWidth - windowWidth)
+					});
+				}
+
+				if (imgHeight > windowHeight) {
+					TweenMax.to($img, 0, {
+						y: y/60 * (imgHeight - windowHeight)
+					});
+				}
+			} else {
+				if (imgWidth > windowWidth) {
+					TweenMax.to($img, 0, {
+						x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
+					});
+				}
+
+				if (imgHeight > windowHeight) {
+					TweenMax.to($img, 0, {
+						y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
+					});
+				}
 			}
-		})
+		});
 	}
 
 	function hideFullView() {
@@ -559,6 +593,8 @@ var Project = (function() {
 			$target = $('.portfolio__item--active');
 
 		$document.off('mousemove', panFullview);
+		$(window).off('deviceorientation', panFullview);
+
 		$('.site-content').addClass('site-content--fullview');
 
 		TweenMax.to($('.fullview__image img'), .3, {

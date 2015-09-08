@@ -43,6 +43,10 @@ var ua                  = navigator.userAgent.toLowerCase(),
     latestKnownMouseX   = 0,
     latestKnownMouseY   = 0,
 
+    latestDeviceAlpha   = 0,
+    latestDeviceBeta    = 0,
+    latestDeviceGamma   = 0,
+
     ticking             = false,
 
     globalDebug         = false;

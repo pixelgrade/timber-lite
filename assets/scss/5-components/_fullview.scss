@@ -16,6 +16,7 @@
     z-index: 10001;
     opacity: 0;
     pointer-events: none;
+    background: #222;
 
     &--visible {
         opacity: 1;
@@ -40,7 +41,7 @@
         z-index: 10;
         background: url('assets/svg/close-button.svg') no-repeat;
         background-size: cover;
-        
+
         @include query-below($xsmall) {
             top: 2em;
             right: 1.5em;

@@ -155,4 +155,10 @@ function eventHandlers() {
 
         requestTick();
     });
+
+    $(window).on('deviceorientation', function(e) {
+        latestDeviceAlpha   = e.originalEvent.alpha;
+        latestDeviceBeta    = e.originalEvent.beta;
+        latestDeviceGamma   = e.originalEvent.gamma;
+    });
 }

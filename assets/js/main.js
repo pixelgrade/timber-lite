@@ -18107,6 +18107,11 @@ if (!Date.now) Date.now = function () {
       latestKnownMouseY = 0,
       
       
+      latestDeviceAlpha = 0,
+      latestDeviceBeta = 0,
+      latestDeviceGamma = 0,
+      
+      
       ticking = false,
       
       
@@ -19653,7 +19658,8 @@ if (!Date.now) Date.now = function () {
 
     var $film, $grid, $fullview, start, end, current, initialized = false,
         fullviewWidth = 0,
-        fullviewHeight = 0;
+        fullviewHeight = 0,
+        imageScaling = 'fill';
 
     fullviewWidth = windowWidth;
     fullviewHeight = windowHeight;
@@ -19666,6 +19672,10 @@ if (!Date.now) Date.now = function () {
 
       if (initialized) {
         return;
+      }
+
+      if ($('.image-scaling--fit').length) {
+        imageScaling = 'fit';
       }
 
       if ($('.project_layout-filmstrip').length) {
@@ -19728,6 +19738,7 @@ if (!Date.now) Date.now = function () {
 
     function resizeFullView() {
       $document.off('mousemove', panFullview);
+      $(window).off('deviceorientation', panFullview);
 
       if (typeof $fullview == "undefined") {
         return;
@@ -19740,7 +19751,7 @@ if (!Date.now) Date.now = function () {
           newHeight = $fullview.height(),
           scaleX = newWidth / targetWidth,
           scaleY = newHeight / targetHeight,
-          scale = Math.max(scaleX, scaleY);
+          scale = imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY);
 
       fullviewWidth = targetWidth * scale;
       fullviewHeight = targetHeight * scale;
@@ -19754,6 +19765,7 @@ if (!Date.now) Date.now = function () {
       });
 
       $document.on('mousemove', panFullview);
+      $(window).on('deviceorientation', panFullview);
     }
 
     function addMetadata() {
@@ -20149,7 +20161,7 @@ if (!Date.now) Date.now = function () {
           newHeight = $fullview.height(),
           scaleX = newWidth / width,
           scaleY = newHeight / height,
-          scale = Math.max(scaleX, scaleY),
+          scale = imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY),
           $target = $('<div>').addClass('fullview__image'),
           $image = $(document.createElement('img'));
 
@@ -20187,6 +20199,7 @@ if (!Date.now) Date.now = function () {
           ease: Back.easeOut,
           onComplete: function () {
             $document.on('mousemove', panFullview);
+            $(window).on('deviceorientation', panFullview);
           }
         });
       }, 500);
@@ -20203,18 +20216,44 @@ if (!Date.now) Date.now = function () {
             imgWidth = $img.width(),
             imgHeight = $img.height();
 
-        if (imgWidth > windowWidth) {
-          TweenMax.to($img, 0, {
-            x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
-          });
-        }
+        if ($('html').hasClass('touch')) {
 
-        if (imgHeight > windowHeight) {
-          TweenMax.to($img, 0, {
-            y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
-          });
+          var a = latestDeviceAlpha,
+              b = latestDeviceBeta,
+              g = latestDeviceGamma,
+              x, y;
+
+          b = b < -30 ? -30 : b > 30 ? 30 : b;
+          g = g < -30 ? -30 : g > 30 ? 30 : g;
+
+          x = g;
+          y = b;
+
+          if (imgWidth > windowWidth) {
+            TweenMax.to($img, 0, {
+              x: x / 60 * (imgWidth - windowWidth)
+            });
+          }
+
+          if (imgHeight > windowHeight) {
+            TweenMax.to($img, 0, {
+              y: y / 60 * (imgHeight - windowHeight)
+            });
+          }
+        } else {
+          if (imgWidth > windowWidth) {
+            TweenMax.to($img, 0, {
+              x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
+            });
+          }
+
+          if (imgHeight > windowHeight) {
+            TweenMax.to($img, 0, {
+              y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
+            });
+          }
         }
-      })
+      });
     }
 
     function hideFullView() {
@@ -20223,6 +20262,8 @@ if (!Date.now) Date.now = function () {
           $target = $('.portfolio__item--active');
 
       $document.off('mousemove', panFullview);
+      $(window).off('deviceorientation', panFullview);
+
       $('.site-content').addClass('site-content--fullview');
 
       TweenMax.to($('.fullview__image img'), .3, {
@@ -20786,6 +20827,12 @@ if (!Date.now) Date.now = function () {
       latestKnownScrollX = $(this).scrollLeft();
 
       requestTick();
+    });
+
+    $(window).on('deviceorientation', function (e) {
+      latestDeviceAlpha = e.originalEvent.alpha;
+      latestDeviceBeta = e.originalEvent.beta;
+      latestDeviceGamma = e.originalEvent.gamma;
     });
   } /* ====== HELPER FUNCTIONS ====== */
 
