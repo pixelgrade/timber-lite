@@ -29,20 +29,6 @@
         font-size: 0.875em;
     }
 
-    .entry-thumbnail {
-//        background-size: 100% 100%;
-//        background-size: cover;
-//        background-position: center;
-//
-//        @include query-below($small) {
-//            padding-top: 50%;
-//        }
-//
-//        @media only screen and (max-height: 400px) {
-//            display: none;
-//        }
-    }
-
     .is--ie9 & {
         vertical-align: top;
     }
@@ -72,13 +58,17 @@
             width: 50%;
             display: inline-block;
         }
+    }
 
         .site-sidebar__text {
-            transform: none;
+            position: static;
+
+            text-align: left;
             font-size: 15px;
             letter-spacing: 0.1em;
+
+            transform: none;
         }
-    }
 
     .filmstrip {
         height: initial;
@@ -89,7 +79,7 @@
         border-top: 1px solid #EBEBEB;
     }
 
-    @include query-above($small) {
+    @include query-above($lap) {
         .filmstrip {
             flex-direction: row;
         }
@@ -101,7 +91,7 @@
             margin-right: 0;
             margin-bottom: 52px;
 
-            @include query-below($small) {
+            @include query-below($lap) {
                 width: auto;
                 min-width: initial;
             }
@@ -116,7 +106,7 @@
 
         flex: 0 1 35vh;
 
-        @include query-above($small) {
+        @include query-above($lap) {
             flex: 0 1 23vw;
         }
     }
@@ -157,6 +147,7 @@
         }
     }
 
+
         .divider {
             display: none;
         }
@@ -165,7 +156,73 @@
             margin-right: 10px;
         }
 
+        .entry-content {
+            font-size: 16px;
+        }
+
         .entry-content p {
             margin-bottom: 0;
         }
-}
+
+    @include query-above($small) {
+        .site-sidebar {
+            padding: 34px 19vw;
+            padding-bottom: 26px;
+        }
+
+            .site-sidebar__text {
+                font-size: 24px;
+            }
+
+        .filmstrip__item {
+            padding: 0 19vw;
+        }
+
+        .post-meta {
+            left: 20px;
+            bottom: 20px;
+
+            width: 43px;
+            height: 34px;
+
+            background-size: cover;
+        }
+
+            .post-meta__content {
+                font-size: 15px;
+                top: 21px;
+                left: 25px;
+            }
+
+        .item__text {
+            padding: 0;
+
+            .entry-meta {
+                font-size: 14px;
+                margin-top: 22px;
+                margin-bottom: 0px;
+
+                a {
+                    color: $linkColour;
+                }
+            }
+
+            .entry-title {
+                margin-bottom: 6px;
+                font-size: 24px;
+            }
+        }
+
+            .posted-on {
+                margin-right: 0;
+            }
+
+            .entry-content {
+                font-size: 18px;
+            }
+
+            .divider {
+                display: inline-block;
+            }
+    }
+} // .blog
