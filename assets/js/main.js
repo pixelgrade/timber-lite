@@ -20561,8 +20561,6 @@ if (!Date.now) Date.now = function () {
 
     $(".pixcode--tabs").organicTabs();
 
-    console.log($('body').hasClass('woocommerce'));
-    console.log($('#rating'));
     if ($('body').hasClass('woocommerce') && $('#rating').length && $('#rating').is(':visible')) {
       $('#rating').hide().before('<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>');
     }
