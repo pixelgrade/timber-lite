@@ -40,6 +40,10 @@
     font-size: 12px;
     color: $hoverColour;
 
+    @include query-above($lap) {
+        display: none !important;
+    }
+
     > * {
         margin-top: -3px;
     }

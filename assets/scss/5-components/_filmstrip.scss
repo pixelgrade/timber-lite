@@ -48,7 +48,7 @@
 
 // Journal / Blog filmstrip items
 .blog {
-    .site-sidebar {
+    .site-sidebar--blog {
         display: block;
         padding: 34px 7vw;
         padding-bottom: 26px;
@@ -58,7 +58,6 @@
             width: 50%;
             display: inline-block;
         }
-    }
 
         .site-sidebar__text {
             position: static;
@@ -69,6 +68,7 @@
 
             transform: none;
         }
+    }
 
     .filmstrip {
         height: initial;
@@ -77,12 +77,6 @@
         padding: 0;
 
         border-top: 1px solid #EBEBEB;
-    }
-
-    @include query-above($lap) {
-        .filmstrip {
-            flex-direction: row;
-        }
     }
 
         .filmstrip__item {
@@ -105,10 +99,6 @@
         background-position: center;
 
         flex: 0 1 35vh;
-
-        @include query-above($lap) {
-            flex: 0 1 23vw;
-        }
     }
 
         .post-meta {
@@ -165,14 +155,14 @@
         }
 
     @include query-above($small) {
-        .site-sidebar {
+        .site-sidebar--blog {
             padding: 34px 19vw;
             padding-bottom: 26px;
-        }
 
             .site-sidebar__text {
                 font-size: 24px;
             }
+        }
 
         .filmstrip__item {
             padding: 0 19vw;
@@ -224,5 +214,76 @@
             .divider {
                 display: inline-block;
             }
+    } // query-above($small)
+
+    @include query-above($lap) {
+        .filmstrip {
+            height: 100%;
+            flex-direction: row;
+            justify-content: initial;
+
+            border: 0;
+        }
+
+            .site-sidebar--blog {
+                padding: 0;
+
+                .site-sidebar__content {
+                    position: absolute;
+                    transform: translate(-50%, -50%) rotate(-90deg);
+                    font-size: 15px;
+                }
+            }
+        
+            .filmstrip__item {
+                padding: 0;
+                margin-right: 30px;
+                margin-bottom: 0;
+                min-width: 30vw;
+            }
+
+        .item__thumb {
+            flex: 0 1 30vw;
+        }
+
+        .entry-header {
+            padding-right: 0;
+        }
+
+        .entry-content {
+            font-size: 16px;
+        }
+
+        .filter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .filter__item {
+                font-size: 14px;
+            }
+        }
+    } // query-above($lap)
+
+    @include query-above($desk) {
+        .filmstrip__item {
+            min-width: 26vw;
+        }
+
+        .item__thumb {
+            flex: 0 1 26vw;
+        }
     }
+
+
+    @include query-above($large) {
+        .filmstrip__item {
+            min-width: 29vw;
+        }
+
+        .item__thumb {
+            flex: 0 1 29vw;
+        }
+    }
+
 } // .blog
