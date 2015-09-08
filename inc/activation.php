@@ -292,6 +292,22 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 									'value' => 'fullscreen'
 								)
 							),
+						),
+						array(
+							'name'		=> __('Fullscreen Image Scaling', 'timber'),
+							'id'		=> 'fullscreen_image_scaling',
+							'type'		=> 'radio',
+							'std'		=> 'fill',
+							'options'	=> array(
+								array(
+									'name' => __( 'FILL - the image covers the entire screen and can be explored using an immersive panning effect', 'timber'),
+									'value' => 'fill'
+								),
+								array(
+									'name' => __( 'FIT - the image is resized to fit inside the container and it\'s fully visible from the start', 'timber' ),
+									'value' => 'fit'
+								),
+							),
 						)
 					)
 				),
