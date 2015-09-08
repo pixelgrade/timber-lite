@@ -48,6 +48,7 @@ var ua                  = navigator.userAgent.toLowerCase(),
     latestDeviceGamma   = 0,
 
     ticking             = false,
+    horToVertScroll     = false,
 
     globalDebug         = false;
 

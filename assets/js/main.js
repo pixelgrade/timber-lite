@@ -18113,6 +18113,7 @@ if (!Date.now) Date.now = function () {
       
       
       ticking = false,
+      horToVertScroll = false,
       
       
       globalDebug = false;
@@ -20720,7 +20721,10 @@ if (!Date.now) Date.now = function () {
 
     checkProfileImageWidget();
 
-    bindVertToHorScroll();
+    if (windowWidth > 740) {
+      bindVertToHorScroll();
+    }
+
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -20780,6 +20784,12 @@ if (!Date.now) Date.now = function () {
       var $item = $(item);
       $item.width($item.data('newWidth'));
     });
+
+    if (windowWidth > 740 && !horToVertScroll) {
+      bindVertToHorScroll();
+    } else {
+      $('html, body, *').unbind('mousewheel', vertToHorScroll);
+    }
   }
 
   function requestTick() {
@@ -20988,6 +20998,8 @@ if (!Date.now) Date.now = function () {
     if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') && !$html.hasClass('is--ie9')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
+
+      vertToHorScroll = true;
     }
   }
 
