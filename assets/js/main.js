@@ -18425,8 +18425,6 @@ if (!Date.now) Date.now = function () {
       $('.filter').on('click', '.filter__item', (function () {
         filterBy = $(this).data('filter');
 
-        console.log($(this));
-
         // first make the current filter link active
         $('.filter__item').removeClass('active');
         $(this).addClass('active');
@@ -21035,8 +21033,6 @@ if (!Date.now) Date.now = function () {
     if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') && !$html.hasClass('is--ie9')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
-
-      console.log(horToVertScroll);
 
       horToVertScroll = true;
     }

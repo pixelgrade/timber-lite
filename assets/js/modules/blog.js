@@ -50,8 +50,6 @@ var Blog = (function() {
 		$('.filter').on('click', '.filter__item', (function() {
 			filterBy = $(this).data('filter');
 
-			console.log($(this));
-
 			// first make the current filter link active
 			$('.filter__item').removeClass('active');
 			$(this).addClass('active');
