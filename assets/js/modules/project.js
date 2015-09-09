@@ -24,7 +24,8 @@ var Project = (function() {
 			return;
 		}
 
-		if ($('.image-scaling--fit').length || (typeof disable_mobile_panning !== "undefined" && disable_mobile_panning == true)) {
+		console.log(window.disable_mobile_panning);
+		if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
 			imageScaling = 'fit';
 		}
 

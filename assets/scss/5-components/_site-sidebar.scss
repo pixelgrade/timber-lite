@@ -1,5 +1,9 @@
 .site-sidebar {
     @extend %position--relative;
+
+    @include query-below($small) {
+        display: none;
+    }
 }
 
 .site-sidebar:not(.site-sidebar--blog) {
