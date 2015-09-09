@@ -31,6 +31,9 @@ var Blog = (function() {
 			selectors: {
 				filter: '.no-real-selector-for-filtering',
 				target: '.filmstrip__item'
+			},
+			layout: {
+				display: 'flex'
 			}
 		});
 

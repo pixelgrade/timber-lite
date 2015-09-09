@@ -160,7 +160,9 @@ function bindVertToHorScroll() {
 		// html body are for ie
 			$('html, body, *').bind('mousewheel',  vertToHorScroll);
 
-		vertToHorScroll = true;
+		console.log(horToVertScroll);
+
+		horToVertScroll = true;
 	}
 }
 

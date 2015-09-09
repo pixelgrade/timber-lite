@@ -18406,6 +18406,9 @@ if (!Date.now) Date.now = function () {
         selectors: {
           filter: '.no-real-selector-for-filtering',
           target: '.filmstrip__item'
+        },
+        layout: {
+          display: 'flex'
         }
       });
 
@@ -21033,7 +21036,9 @@ if (!Date.now) Date.now = function () {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
 
-      vertToHorScroll = true;
+      console.log(horToVertScroll);
+
+      horToVertScroll = true;
     }
   }
 
