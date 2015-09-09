@@ -18935,6 +18935,30 @@ if (!Date.now) Date.now = function () {
       $container.children().first().addClass('rsNavSelected');
     }
 
+    function keydown_function(e) {
+
+      switch (e.which) {
+      case 27:
+
+        break; // close
+      case 37:
+        if ($('.slider--show_next').length > 0 || $current.prev('div').length <= 0) return;
+
+        onPrevClick();
+        e.preventDefault();
+        break; // left
+      case 39:
+
+        if ($current.next('div').length <= 0) return;
+
+        onNextClick();
+        e.preventDefault();
+        break; // right
+      default:
+        return;
+      }
+    }
+
     function bindEvents() {
       if (nextWidth > 70) {
         $nextTrigger.on('mouseenter', onNextEnter);
@@ -18947,6 +18971,9 @@ if (!Date.now) Date.now = function () {
         $prevTrigger.on('mouseleave', onPrevLeave);
       }
       $prevTrigger.on('click', onPrevClick);
+
+      $(document).on('keydown', keydown_function);
+
     }
 
     function onNextEnter() {
@@ -19026,6 +19053,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function onNextClick() {
+      $(document).off('keydown', keydown_function);
       var timeline = new TimelineMax({
         paused: true,
         onComplete: onComplete
@@ -19087,10 +19115,12 @@ if (!Date.now) Date.now = function () {
         $slides = $slider.children();
         setZindex();
         $nextTrigger.on('click', onNextClick);
+        $(document).on('keydown', keydown_function);
       }
     }
 
     function onPrevClick() {
+      $(document).off('keydown', keydown_function);
       var timeline = new TimelineMax({
         paused: true,
         onComplete: onComplete
@@ -19138,6 +19168,7 @@ if (!Date.now) Date.now = function () {
         $slides = $slider.children();
         setZindex();
         $prevTrigger.on('click', onPrevClick);
+        $(document).on('keydown', keydown_function);
       }
     }
 

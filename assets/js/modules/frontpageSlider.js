@@ -131,6 +131,27 @@ var frontpageSlider = (function() {
         $container.children().first().addClass('rsNavSelected');
     }
 
+    function slider_keys_controls_callback (e) {
+
+        switch(e.which) {
+
+            case 37:
+                if ( $('.slider--show_next' ).length > 0 || $current.prev('div').length <= 0 ) return;
+                onPrevClick();
+                e.preventDefault();
+                break; // left
+
+            case 39:
+                if ( $current.next('div').length <= 0 ) return;
+                onNextClick();
+                e.preventDefault();
+                break; // right
+
+            default:
+                return;
+        }
+    }
+
     function bindEvents() {
         if (nextWidth > 70) {
             $nextTrigger.on('mouseenter', onNextEnter);
@@ -143,6 +164,9 @@ var frontpageSlider = (function() {
             $prevTrigger.on('mouseleave', onPrevLeave);
         }
         $prevTrigger.on('click', onPrevClick);
+
+        $(document).on('keydown', slider_keys_controls_callback );
+
     }
 
     function onNextEnter() {
@@ -161,19 +185,20 @@ var frontpageSlider = (function() {
 
     function onNextLeave() {
         TweenMax.to($next.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut});
-        TweenMax.to($next.add($content), .4, {x: 0, ease: Quint.easeOut})
-        TweenMax.to($next, .4, {width: nextWidth, ease: Quint.easeOut})
+        TweenMax.to($next.add($content), .4, {x: 0, ease: Quint.easeOut});
+        TweenMax.to($next, .4, {width: nextWidth, ease: Quint.easeOut});
         TweenMax.to($('.vertical-title.next'), .4, {x: 0, ease: Quint.easeOut});
     }
 
     function onPrevLeave() {
         TweenMax.to($prev.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut});
-        TweenMax.to($prev.add($content), .4, {x: 0, ease: Quint.easeOut})
-        TweenMax.to($prev, .4, {width: nextWidth, ease: Quint.easeOut})
+        TweenMax.to($prev.add($content), .4, {x: 0, ease: Quint.easeOut});
+        TweenMax.to($prev, .4, {width: nextWidth, ease: Quint.easeOut});
         TweenMax.to($('.vertical-title.prev'), .4, {x: 0, ease: Quint.easeOut});
     }
 
     function onNextClick() {
+        $(document).off('keydown', slider_keys_controls_callback );
         var timeline = new TimelineMax({ paused: true, onComplete: onComplete });
 
         timeline.to($next.next().find('.project-slide__image'), 0, {opacity: 1, ease: Power1.easeOut});
@@ -205,10 +230,12 @@ var frontpageSlider = (function() {
             $slides = $slider.children();
             setZindex();
             $nextTrigger.on('click', onNextClick);
+            $(document).on('keydown', slider_keys_controls_callback );
         }
     }
 
     function onPrevClick() {
+        $(document).off('keydown', slider_keys_controls_callback );
         var timeline = new TimelineMax({ paused: true, onComplete: onComplete });
 
         timeline.to($prev.prev().find('.project-slide__image'), 0, {opacity: 1, ease: Quint.easeOut});
@@ -233,6 +260,7 @@ var frontpageSlider = (function() {
             $slides = $slider.children();
             setZindex();
             $prevTrigger.on('click', onPrevClick);
+            $(document).on('keydown', slider_keys_controls_callback );
         }
     }
 
