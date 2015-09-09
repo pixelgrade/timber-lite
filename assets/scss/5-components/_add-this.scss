@@ -6,6 +6,10 @@
 
 .share-box {
 	position: relative;
+
+	@include query-below($lap) {
+		text-align: left;
+	}
 }
 
 .share-text {

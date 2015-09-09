@@ -12,6 +12,11 @@
     z-index: 550;
 
     @include query-above($lap) {
+        height: $header-height*2/3;
+        flex-basis: $header-height*2/3;
+    }
+
+    @include query-above($desk) {
         height: $header-height;
         flex-basis: $header-height;
     }

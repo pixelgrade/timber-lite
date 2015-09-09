@@ -7,6 +7,10 @@
     @extend %bar;
     z-index: 552;
 
+    &.site-header {
+        top: 7px;
+    }
+
     .page & {
         position: absolute;
         left: 0;

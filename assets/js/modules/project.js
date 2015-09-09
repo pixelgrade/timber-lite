@@ -90,6 +90,17 @@ var Project = (function() {
 		$document.off('mousemove', panFullview);
 		$(window).off('deviceorientation', panFullview);
 
+		if ( $('html').hasClass('touch') ) {
+			initialAlpha = latestDeviceAlpha;
+			initialBeta = latestDeviceBeta;
+			initialGamma = latestDeviceGamma;
+
+			TweenMax.to($('.fullview__image img'), 0, {
+				x: 0,
+				y: 0
+			});
+		}
+
 		if (typeof $fullview == "undefined") {
 			return;
 		}
@@ -530,17 +541,23 @@ var Project = (function() {
 
 		morph($source, $target);
 
-		setTimeout(function() {
-			TweenMax.to($('.fullview__image img'), .5, {
-				x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
-				y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
-				ease: Back.easeOut,
-				onComplete: function() {
-					$document.on('mousemove', panFullview);
-					$(window).on('deviceorientation', panFullview);
-				}
-			});
-		}, 500);
+		if ($('html').hasClass('touch')) {
+			$document.on('mousemove', panFullview);
+			$(window).on('deviceorientation', panFullview);
+		} else {
+			setTimeout(function() {
+				TweenMax.to($('.fullview__image img'), .5, {
+					x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+					y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
+					ease: Back.easeOut,
+					onComplete: function() {
+						$document.on('mousemove', panFullview);
+						$(window).on('deviceorientation', panFullview);
+					}
+				});
+			}, 500);
+		}
+
 
 		toggleScroll(false);
 
@@ -567,7 +584,7 @@ var Project = (function() {
 				x = g;
 				y = b;
 
-				if (latestDeviceAlpha > 45 || latestDeviceAlpha < -45) {
+				if (windowWidth > windowHeight) {
 					x = -b;
 					y = -g;
 				}
