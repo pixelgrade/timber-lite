@@ -24,7 +24,8 @@ var Project = (function() {
 			return;
 		}
 
-		if ($('.image-scaling--fit').length) {
+		console.log(window.disable_mobile_panning);
+		if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
 			imageScaling = 'fit';
 		}
 
@@ -315,6 +316,7 @@ var Project = (function() {
 		setCurrent($source);
 		panFullview();
 
+		TweenMax.fromTo($toRemove, .3, { opacity: 1 }, { opacity: 0 });
 		TweenMax.fromTo($target, .3, { opacity: 0 }, { opacity: 1,
 			onComplete: function() {
 				$toRemove.remove();
@@ -551,11 +553,14 @@ var Project = (function() {
 
 		morph($source, $target);
 
-		if ($('html').hasClass('touch')) {
-			$document.on('mousemove', panFullview);
+		if ( imageScaling == 'fit' ) {
+
+		} else if ( $('html').hasClass('touch') ) {
 			$(window).on('deviceorientation', panFullview);
+			$document.on('mousemove', panFullview);
 		} else {
 			setTimeout(function() {
+				console.log(windowWidth, latestKnownMouseX, fullviewWidth);
 				TweenMax.to($('.fullview__image img'), .5, {
 					x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
 					y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
@@ -567,7 +572,6 @@ var Project = (function() {
 				});
 			}, 500);
 		}
-
 
 		toggleScroll(false);
 
@@ -581,7 +585,7 @@ var Project = (function() {
 				imgWidth 	= $img.width(),
 				imgHeight 	= $img.height();
 
-			if ($('html').hasClass('touch')) {
+			if ( $('html').hasClass('touch') ) {
 
 				var a = initialAlpha - latestDeviceAlpha,
 					b = initialBeta - latestDeviceBeta,
@@ -610,6 +614,7 @@ var Project = (function() {
 						y: y/60 * (imgHeight - windowHeight)
 					});
 				}
+
 			} else {
 				if (imgWidth > windowWidth) {
 					TweenMax.to($img, 0, {

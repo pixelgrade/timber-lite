@@ -165,6 +165,11 @@ function eventHandlers() {
         requestTick();
     });
 
+    $(window).on('mousemove', function(e) {
+        latestKnownMouseX   = e.clientX;
+        latestKnownMouseY   = e.clientY;
+    });
+
     $(window).on('deviceorientation', function(e) {
         latestDeviceAlpha   = e.originalEvent.alpha;
         latestDeviceBeta    = e.originalEvent.beta;

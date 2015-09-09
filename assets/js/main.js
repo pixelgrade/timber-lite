@@ -19732,7 +19732,8 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      if ($('.image-scaling--fit').length) {
+      console.log(window.disable_mobile_panning);
+      if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
         imageScaling = 'fit';
       }
 
@@ -20020,6 +20021,11 @@ if (!Date.now) Date.now = function () {
       setCurrent($source);
       panFullview();
 
+      TweenMax.fromTo($toRemove, .3, {
+        opacity: 1
+      }, {
+        opacity: 0
+      });
       TweenMax.fromTo($target, .3, {
         opacity: 0
       }, {
@@ -20273,11 +20279,14 @@ if (!Date.now) Date.now = function () {
 
       morph($source, $target);
 
-      if ($('html').hasClass('touch')) {
-        $document.on('mousemove', panFullview);
+      if (imageScaling == 'fit') {
+
+      } else if ($('html').hasClass('touch')) {
         $(window).on('deviceorientation', panFullview);
+        $document.on('mousemove', panFullview);
       } else {
         setTimeout(function () {
+          console.log(windowWidth, latestKnownMouseX, fullviewWidth);
           TweenMax.to($('.fullview__image img'), .5, {
             x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
             y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
@@ -20289,7 +20298,6 @@ if (!Date.now) Date.now = function () {
           });
         }, 500);
       }
-
 
       toggleScroll(false);
 
@@ -20332,6 +20340,7 @@ if (!Date.now) Date.now = function () {
               y: y / 60 * (imgHeight - windowHeight)
             });
           }
+
         } else {
           if (imgWidth > windowWidth) {
             TweenMax.to($img, 0, {
@@ -20928,6 +20937,11 @@ if (!Date.now) Date.now = function () {
       latestKnownScrollX = $(this).scrollLeft();
 
       requestTick();
+    });
+
+    $(window).on('mousemove', function (e) {
+      latestKnownMouseX = e.clientX;
+      latestKnownMouseY = e.clientY;
     });
 
     $(window).on('deviceorientation', function (e) {
