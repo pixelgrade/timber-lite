@@ -15,4 +15,15 @@
     @include query-above($lap) {
         display: none;
     }
+
+    &:after {
+        content: "";
+
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+
+        width: 100%;
+        border-bottom: 1px solid #ebebeb;
+    }
 }

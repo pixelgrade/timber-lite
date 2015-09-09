@@ -965,6 +965,40 @@ if ( ! function_exists( 'timber_the_categories_nav' ) ) :
 	}
 endif;
 
+if ( ! function_exists( 'timber_the_mobile_categories_nav' ) ) :
+	/**
+	 * Print the categories navigation used for filtering the blog posts
+	 */
+	function timber_the_mobile_categories_nav() {
+		//get only the top level categories
+		$categories = get_categories(array(
+			'orderby' => 'name',
+			'order' => 'ASC',
+			'hide_empty' => 1,
+			'hierarchical' => false,
+			'parent' => 0,
+//			'number' => 15, //15 is the maximum we can beautifully handle
+			'exclude' => get_option( 'default_category' ),
+		) );
+
+		if ( ! empty( $categories ) ) : ?>
+			<div class="mobile-filter-wrapper">
+				<select class="filter  filter--mobile  js-filter-mobile">
+					<option class="filter__item active" data-filter="*"><?php _e( 'All categories', 'timber' ); ?></option>
+
+					<?php foreach ( $categories as $category ) : ?>
+
+						<option class="filter__item" data-filter=".category-<?php echo $category->slug; ?>"><?php echo $category->name; ?></option>
+
+					<?php endforeach; ?>
+
+				</select>
+			</div>
+
+		<?php endif;
+	}
+endif;
+
 /**
  * Prints HTML with the list of project types (categories)
  *
