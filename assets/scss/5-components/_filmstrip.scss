@@ -81,6 +81,7 @@
             flex-direction: column;
             margin-right: 0;
             margin-bottom: 52px;
+            opacity: 0;
 
             @include query-below($lap) {
                 width: auto;
@@ -276,11 +277,11 @@
 
     @include query-above($large) {
         .filmstrip__item {
-            min-width: 20vw;
+            min-width: 25vw;
         }
 
         .item__thumb {
-            flex: 0 10 20vw;
+            flex: 0 10 25vw;
         }
     }
 

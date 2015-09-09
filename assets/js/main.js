@@ -18401,14 +18401,39 @@ if (!Date.now) Date.now = function () {
       //mixitup init without filtering
       $filmstrip_container.mixItUp({
         animation: {
-          effects: 'fade'
+          enable: false
         },
         selectors: {
           filter: '.no-real-selector-for-filtering',
           target: '.filmstrip__item'
         },
-        layout: {
-          display: 'flex'
+        callbacks: {
+          onMixEnd: function (state) {
+            // show the elements that must be shown
+            state.$show.each(function () {
+              var $that = $(this);
+
+              TweenMax.to($(this), .3, {
+                opacity: 1,
+                onStart: function () {
+                  isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
+                  isIE ? $that.css('display', '-ms-flex') : $that.css('display', 'flex');
+                }
+              });
+            });
+
+            // hide the elements that must be hidden
+            state.$hide.each(function () {
+              var $that = $(this);
+
+              TweenMax.to($(this), .3, {
+                opacity: 0,
+                onComplete: function () {
+                  $that.css('display', 'none');
+                }
+              });
+            })
+          }
         }
       });
 
@@ -21033,6 +21058,8 @@ if (!Date.now) Date.now = function () {
     if ($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') && !$html.hasClass('is--ie9')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
+
+      console.log()
 
       horToVertScroll = true;
     }
