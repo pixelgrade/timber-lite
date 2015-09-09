@@ -16,7 +16,7 @@
     z-index: 10001;
     opacity: 0;
     pointer-events: none;
-    background: #222;
+    background: $bodyColour;
 
     &--visible {
         opacity: 1;
@@ -42,9 +42,10 @@
         background: url('assets/svg/close-button.svg') no-repeat;
         background-size: cover;
 
-        @include query-below($xsmall) {
-            top: 2em;
-            right: 1.5em;
+        @include query-below($desk) {
+            top: 1em;
+            right: 1em;
+            opacity: 0.33;
         }
     }
 
@@ -58,10 +59,17 @@
         }
 
         .rsArrowIcn {
-            margin-left: -0.625em;
             border-color: white;
             width: 1.250em;
             height: 1.250em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: 0;
+        }
+
+        @include query-below($desk) {
+            opacity: 0.33;
         }
     }
 
@@ -69,8 +77,12 @@
         left: 3.7em;
         margin-left: -1.5em;
 
-        @include query-below($xsmall) {
-            left: 2em;
+        .rsArrowIcn {
+            transform: translate(0, -50%) rotate(45deg);
+        }
+
+        @include query-below($desk) {
+            left: 1em;
         }
     }
 
@@ -78,8 +90,12 @@
         right: 3.7em;
         margin-right: -1.5em;
 
-        @include query-below($xsmall) {
-            right: 2em;
+        .rsArrowIcn {
+            transform: translate(-100%, -50%) rotate(-45deg);
+        }
+
+        @include query-below($desk) {
+            right: 1em;
         }
     }
 }

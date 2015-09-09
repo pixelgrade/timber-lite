@@ -1,11 +1,15 @@
 .site-sidebar {
     @extend %position--relative;
+
+    @include query-below($small) {
+        display: none;
+    }
 }
 
-@include query-above($small) {
-    .site-sidebar:not(.site-sidebar--blog) {
-        flex-basis: $sidebar-width;
-        -webkit-flex-basis: $sidebar-width;
+.site-sidebar:not(.site-sidebar--blog) {
+    @include query-above($small) {
+        flex-basis: $sidebar-width*2/3;
+        -webkit-flex-basis: $sidebar-width*2/3;
         flex-shrink: 0;
         -webkit-flex-shrink: 0;
         flex-grow: 0;
@@ -21,6 +25,11 @@
             width: 100px;
             height: 100vh;
         }
+    }
+
+    @include query-above($desk) {
+        flex-basis: $sidebar-width;
+        -webkit-flex-basis: $sidebar-width;
     }
 }
 

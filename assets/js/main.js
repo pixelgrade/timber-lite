@@ -19726,7 +19726,7 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      if ($('.image-scaling--fit').length) {
+      if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
         imageScaling = 'fit';
       }
 
@@ -19791,6 +19791,17 @@ if (!Date.now) Date.now = function () {
     function resizeFullView() {
       $document.off('mousemove', panFullview);
       $(window).off('deviceorientation', panFullview);
+
+      if ($('html').hasClass('touch')) {
+        initialAlpha = latestDeviceAlpha;
+        initialBeta = latestDeviceBeta;
+        initialGamma = latestDeviceGamma;
+
+        TweenMax.to($('.fullview__image img'), 0, {
+          x: 0,
+          y: 0
+        });
+      }
 
       if (typeof $fullview == "undefined") {
         return;
@@ -19916,8 +19927,6 @@ if (!Date.now) Date.now = function () {
 
         var mymid = $current.data('middle');
 
-        console.log(start, mymid, end);
-
         TweenLite.to(window, 0.6, {
           scrollTo: {
             x: $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
@@ -19927,14 +19936,6 @@ if (!Date.now) Date.now = function () {
 
         e.preventDefault();
       });
-    }
-
-    function goLeft() {
-      console.log('left', current);
-    }
-
-    function goRight() {
-      console.log('right', current);
     }
 
     function unbindEvents() {
@@ -19995,6 +19996,11 @@ if (!Date.now) Date.now = function () {
       setCurrent($source);
       panFullview();
 
+      TweenMax.fromTo($toRemove, .3, {
+        opacity: 1
+      }, {
+        opacity: 0
+      });
       TweenMax.fromTo($target, .3, {
         opacity: 0
       }, {
@@ -20248,17 +20254,24 @@ if (!Date.now) Date.now = function () {
 
       morph($source, $target);
 
-      setTimeout(function () {
-        TweenMax.to($('.fullview__image img'), .5, {
-          x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
-          y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
-          ease: Back.easeOut,
-          onComplete: function () {
-            $document.on('mousemove', panFullview);
-            $(window).on('deviceorientation', panFullview);
-          }
-        });
-      }, 500);
+      if (imageScaling == 'fit') {
+
+      } else if ($('html').hasClass('touch')) {
+        $(window).on('deviceorientation', panFullview);
+        $document.on('mousemove', panFullview);
+      } else {
+        setTimeout(function () {
+          TweenMax.to($('.fullview__image img'), .5, {
+            x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+            y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
+            ease: Back.easeOut,
+            onComplete: function () {
+              $document.on('mousemove', panFullview);
+              $(window).on('deviceorientation', panFullview);
+            }
+          });
+        }, 500);
+      }
 
       toggleScroll(false);
 
@@ -20285,7 +20298,7 @@ if (!Date.now) Date.now = function () {
           x = g;
           y = b;
 
-          if (latestDeviceAlpha > 45 || latestDeviceAlpha < -45) {
+          if (windowWidth > windowHeight) {
             x = -b;
             y = -g;
           }
@@ -20301,6 +20314,7 @@ if (!Date.now) Date.now = function () {
               y: y / 60 * (imgHeight - windowHeight)
             });
           }
+
         } else {
           if (imgWidth > windowWidth) {
             TweenMax.to($img, 0, {
@@ -20897,6 +20911,11 @@ if (!Date.now) Date.now = function () {
       latestKnownScrollX = $(this).scrollLeft();
 
       requestTick();
+    });
+
+    $(window).on('mousemove', function (e) {
+      latestKnownMouseX = e.clientX;
+      latestKnownMouseY = e.clientY;
     });
 
     $(window).on('deviceorientation', function (e) {

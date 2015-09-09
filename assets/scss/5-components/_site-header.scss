@@ -7,6 +7,12 @@
     @extend %bar;
     z-index: 552;
 
+    @include query-above($lap) {
+        &.site-header {
+            top: 7px;
+        }
+    }
+
     .page & {
         position: absolute;
         left: 0;

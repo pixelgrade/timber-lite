@@ -64,6 +64,10 @@ html.has--nicescroll {
     .portfolio--details & span {
         text-decoration: underline;
     }
+
+    @include query-below($lap) {
+        display: none;
+    }
 }
 
 .show-details,
