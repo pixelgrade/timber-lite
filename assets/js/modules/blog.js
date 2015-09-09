@@ -31,6 +31,9 @@ var Blog = (function() {
 			selectors: {
 				filter: '.no-real-selector-for-filtering',
 				target: '.filmstrip__item'
+			},
+			layout: {
+				display: 'flex'
 			}
 		});
 
@@ -63,6 +66,26 @@ var Blog = (function() {
 
 			return false;
 		}));
+
+		$('.js-filter-mobile').change(function(){
+			filterBy = $(this).children(":selected").data('filter');
+
+			// first make the current filter link active
+			$('.filter__item').removeClass('active');
+			$(this).addClass('active');
+
+			if ( isFirstFilterClick == true ) {
+				//this is the first time the user has clicked a filter link
+				//we need to first load all posts before proceeding
+				loadAllPosts();
+
+			} else {
+				//just regular filtering from the second click onwards
+				$filmstrip_container.mixItUp( 'filter', filterBy);
+			}
+
+			return false;
+		});
 	}
 
 	function loadAllPosts() {

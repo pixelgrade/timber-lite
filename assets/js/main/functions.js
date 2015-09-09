@@ -160,7 +160,7 @@ function bindVertToHorScroll() {
 		// html body are for ie
 			$('html, body, *').bind('mousewheel',  vertToHorScroll);
 
-		vertToHorScroll = true;
+		horToVertScroll = true;
 	}
 }
 

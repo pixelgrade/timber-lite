@@ -26,4 +26,57 @@
         }
     }
 
+    @include query-below($lap) {
+        &:not(.filter--mobile) {
+            display: none;
+        }
+    }
+
+}
+
+
+.mobile-filter-wrapper {
+    text-align: right;
+    font-size: 12px;
+    color: $hoverColour;
+
+    @include query-above($lap) {
+        display: none !important;
+    }
+
+    > * {
+        margin-top: -3px;
+    }
+
+    &:after {
+        content: "+";
+        margin-left: 3px;
+        margin-top: -7px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.filter--mobile {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -6px;
+    max-width: none;
+    width: auto;
+
+    border: 0;
+
+    font-size: 12px;
+    text-transform: uppercase;
+    color: $hoverColour;
+    letter-spacing: 0.078em;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+
+    @include query-above($small) {
+        font-size: 14px;
+        letter-spacing: 0.092em;
+    }
 }
