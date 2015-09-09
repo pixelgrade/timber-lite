@@ -19885,13 +19885,19 @@ if (!Date.now) Date.now = function () {
         }
 
         switch (e.which) {
+        case 27:
+          hideFullView();
+          break; // close
         case 37:
           if (current == 0) return;
           next = current - 1;
+          showNext();
           break; // left
         case 39:
+
           if (current == $items.length - 1) return;
           next = current + 1;
+          showPrev();
           break; // right
         default:
           return;
@@ -19902,7 +19908,7 @@ if (!Date.now) Date.now = function () {
 
         var mymid = $current.data('middle');
 
-        console.log(start, mymid, end);
+        console.log($current, mymid, end);
 
         TweenLite.to(window, 0.6, {
           scrollTo: {
@@ -19956,6 +19962,7 @@ if (!Date.now) Date.now = function () {
           return false;
         }
       });
+      panFullview();
     }
 
     function showNext() {
@@ -19972,6 +19979,7 @@ if (!Date.now) Date.now = function () {
           return false;
         }
       });
+      panFullview();
     }
 
     function fullViewTransition($source) {

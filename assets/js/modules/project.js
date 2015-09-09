@@ -209,14 +209,22 @@ var Project = (function() {
 			}
 
 			switch(e.which) {
+				case 27:
+					hideFullView();
+					break; // close
+
 				case 37:
 					if (current == 0) return;
 					next = current - 1;
+					showNext();
 					break; // left
 				case 39:
+
 					if (current == $items.length - 1) return;
 					next = current + 1;
+					showPrev();
 					break; // right
+
 				default:
 					return;
 			}
@@ -226,7 +234,7 @@ var Project = (function() {
 
 			var mymid = $current.data('middle');
 
-			console.log(start, mymid, end);
+			console.log($current, mymid, end);
 
 			TweenLite.to(window, 0.6, {
 				scrollTo: {
@@ -280,6 +288,7 @@ var Project = (function() {
 				return false;
 			}
 		});
+		panFullview();
 	}
 
 	function showNext() {
@@ -296,6 +305,7 @@ var Project = (function() {
 				return false;
 			}
 		});
+		panFullview();
 	}
 
 	function fullViewTransition($source) {
