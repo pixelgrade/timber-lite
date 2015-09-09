@@ -54,11 +54,21 @@
 %bar-left {
     padding-left: 48px;
     justify-content: flex-start;
+    text-align: left;
+
+    @include query-below($desk) {
+        padding-left: 32px;
+    }
 }
 
 %bar-right {
     padding-right: 48px;
     justify-content: flex-end;
+    text-align: right;
+
+    @include query-below($desk) {
+        padding-right: 32px;
+    }
 }
 
 @include query-below($lap) {
@@ -70,9 +80,6 @@
         flex-shrink: 1;
     }
 
-    %bar-right {
-        text-align: right;
-    }
 }
 
 .no-flexbox {

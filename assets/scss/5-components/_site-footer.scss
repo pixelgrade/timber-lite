@@ -43,19 +43,18 @@
     @include query-below($lap) {
         &.caption.caption {
             padding-top: 0.75em;
-            text-align: right;
         }
     }
 
     .mobile-thumbnails-label {
         display: none;
-        @include query-below($lap) {
+        @include query-below($desk) {
             display: block;
         }
     }
 
     .desktop-thumbnails-label {
-        @include query-below($lap) {
+        @include query-below($desk) {
             display: none;
         }
     }
