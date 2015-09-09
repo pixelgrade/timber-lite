@@ -18401,14 +18401,39 @@ if (!Date.now) Date.now = function () {
       //mixitup init without filtering
       $filmstrip_container.mixItUp({
         animation: {
-          effects: 'fade'
+          enable: false
         },
         selectors: {
           filter: '.no-real-selector-for-filtering',
           target: '.filmstrip__item'
         },
-        layout: {
-          display: 'flex'
+        callbacks: {
+          onMixEnd: function (state) {
+            // show the elements that must be shown
+            state.$show.each(function () {
+              var $that = $(this);
+
+              TweenMax.to($(this), .3, {
+                opacity: 1,
+                onStart: function () {
+                  isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
+                  isIE ? $that.css('display', '-ms-flex') : $that.css('display', 'flex');
+                }
+              });
+            });
+
+            // hide the elements that must be hidden
+            state.$hide.each(function () {
+              var $that = $(this);
+
+              TweenMax.to($(this), .3, {
+                opacity: 0,
+                onComplete: function () {
+                  $that.css('display', 'none');
+                }
+              });
+            })
+          }
         }
       });
 
@@ -19727,7 +19752,6 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      console.log(window.disable_mobile_panning);
       if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
         imageScaling = 'fit';
       }
@@ -19959,14 +19983,6 @@ if (!Date.now) Date.now = function () {
 
         e.preventDefault();
       });
-    }
-
-    function goLeft() {
-      console.log('left', current);
-    }
-
-    function goRight() {
-      console.log('right', current);
     }
 
     function unbindEvents() {
@@ -20294,7 +20310,6 @@ if (!Date.now) Date.now = function () {
         $document.on('mousemove', panFullview);
       } else {
         setTimeout(function () {
-          console.log(windowWidth, latestKnownMouseX, fullviewWidth);
           TweenMax.to($('.fullview__image img'), .5, {
             x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
             y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
