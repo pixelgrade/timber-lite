@@ -209,33 +209,45 @@ var Project = (function() {
 				return;
 			}
 
+			// a close is a close and nothing else
 			switch(e.which) {
 				case 27:
 					hideFullView();
 					break; // close
+			}
 
-				case 37:
-					if (current == 0) return;
-					next = current - 1;
-					showNext();
-					break; // left
-				case 39:
+			// in the fullview mode the next/prev keys should change the entire image
+			if ( $('.fullview--visible' ).length > 0 ) {
+				switch(e.which) {
+					case 37:
+						showNext();
+						break; // left
+					case 39:
+						showPrev();
+						break; // right
 
-					if (current == $items.length - 1) return;
-					next = current + 1;
-					showPrev();
-					break; // right
+					//default:
+					//	return;
+				}
+			} else {// but in the filmstrip mode the next/prev keys should move only the current position of the scroll
+				switch(e.which) {
 
-				default:
-					return;
+					case 37:
+						if (current == 0) return;
+						next = current - 1;
+						break; // left
+					case 39:
+
+						if (current == $items.length - 1) return;
+						next = current + 1;
+						break; // right
+				}
 			}
 
 			$current = $items.eq(current);
 			$next = $items.eq(next);
 
 			var mymid = $current.data('middle');
-
-			console.log($current, mymid, end);
 
 			TweenLite.to(window, 0.6, {
 				scrollTo: {

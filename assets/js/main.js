@@ -18935,22 +18935,17 @@ if (!Date.now) Date.now = function () {
       $container.children().first().addClass('rsNavSelected');
     }
 
-    function keydown_function(e) {
+    function slider_keys_controls_callback(e) {
 
       switch (e.which) {
-      case 27:
 
-        break; // close
       case 37:
         if ($('.slider--show_next').length > 0 || $current.prev('div').length <= 0) return;
-
         onPrevClick();
         e.preventDefault();
         break; // left
       case 39:
-
         if ($current.next('div').length <= 0) return;
-
         onNextClick();
         e.preventDefault();
         break; // right
@@ -18972,7 +18967,7 @@ if (!Date.now) Date.now = function () {
       }
       $prevTrigger.on('click', onPrevClick);
 
-      $(document).on('keydown', keydown_function);
+      $(document).on('keydown', slider_keys_controls_callback);
 
     }
 
@@ -19022,11 +19017,11 @@ if (!Date.now) Date.now = function () {
       TweenMax.to($next.add($content), .4, {
         x: 0,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($next, .4, {
         width: nextWidth,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($('.vertical-title.next'), .4, {
         x: 0,
         ease: Quint.easeOut
@@ -19041,11 +19036,11 @@ if (!Date.now) Date.now = function () {
       TweenMax.to($prev.add($content), .4, {
         x: 0,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($prev, .4, {
         width: nextWidth,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($('.vertical-title.prev'), .4, {
         x: 0,
         ease: Quint.easeOut
@@ -19053,7 +19048,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function onNextClick() {
-      $(document).off('keydown', keydown_function);
+      $(document).off('keydown', slider_keys_controls_callback);
       var timeline = new TimelineMax({
         paused: true,
         onComplete: onComplete
@@ -19115,12 +19110,12 @@ if (!Date.now) Date.now = function () {
         $slides = $slider.children();
         setZindex();
         $nextTrigger.on('click', onNextClick);
-        $(document).on('keydown', keydown_function);
+        $(document).on('keydown', slider_keys_controls_callback);
       }
     }
 
     function onPrevClick() {
-      $(document).off('keydown', keydown_function);
+      $(document).off('keydown', slider_keys_controls_callback);
       var timeline = new TimelineMax({
         paused: true,
         onComplete: onComplete
@@ -19168,7 +19163,7 @@ if (!Date.now) Date.now = function () {
         $slides = $slider.children();
         setZindex();
         $prevTrigger.on('click', onPrevClick);
-        $(document).on('keydown', keydown_function);
+        $(document).on('keydown', slider_keys_controls_callback);
       }
     }
 
@@ -19916,31 +19911,44 @@ if (!Date.now) Date.now = function () {
           return;
         }
 
+        // a close is a close and nothing else
         switch (e.which) {
         case 27:
           hideFullView();
           break; // close
-        case 37:
-          if (current == 0) return;
-          next = current - 1;
-          showNext();
-          break; // left
-        case 39:
+        }
 
-          if (current == $items.length - 1) return;
-          next = current + 1;
-          showPrev();
-          break; // right
-        default:
-          return;
+        // in the fullview mode the next/prev keys should change the entire image
+        if ($('.fullview--visible').length > 0) {
+          switch (e.which) {
+          case 37:
+            showNext();
+            break; // left
+          case 39:
+            showPrev();
+            break; // right
+            //default:
+            //	return;
+          }
+        } else { // but in the filmstrip mode the next/prev keys should move only the current position of the scroll
+          switch (e.which) {
+
+          case 37:
+            if (current == 0) return;
+            next = current - 1;
+            break; // left
+          case 39:
+
+            if (current == $items.length - 1) return;
+            next = current + 1;
+            break; // right
+          }
         }
 
         $current = $items.eq(current);
         $next = $items.eq(next);
 
         var mymid = $current.data('middle');
-
-        console.log($current, mymid, end);
 
         TweenLite.to(window, 0.6, {
           scrollTo: {
