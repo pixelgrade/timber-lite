@@ -21059,8 +21059,6 @@ if (!Date.now) Date.now = function () {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
 
-      console.log()
-
       horToVertScroll = true;
     }
   }
