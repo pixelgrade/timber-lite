@@ -75,8 +75,6 @@
         flex-direction: column;
         justify-content: center;
         padding: 0;
-
-        border-top: 1px solid #EBEBEB;
     }
 
         .filmstrip__item {
@@ -98,7 +96,7 @@
         background-size: cover;
         background-position: center;
 
-        flex: 0 1 35vh;
+        flex: 0 10 35vh;
     }
 
         .post-meta {
@@ -118,7 +116,7 @@
             }
 
     .item__text {
-        flex: 1 1;
+        flex: 1 1 auto;
         padding: 0 7vw;
 
         .entry-meta {
@@ -243,7 +241,7 @@
             }
 
         .item__thumb {
-            flex: 0 1 30vw;
+            flex: 0 10 30vw;
         }
 
         .entry-header {
@@ -271,7 +269,7 @@
         }
 
         .item__thumb {
-            flex: 0 1 26vw;
+            flex: 0 10 26vw;
         }
     }
 
@@ -282,7 +280,7 @@
         }
 
         .item__thumb {
-            flex: 0 1 29vw;
+            flex: 0 10 29vw;
         }
     }
 
