@@ -204,10 +204,6 @@ function timber_scripts_styles() {
 			}
 		}
 	}
-
-	if( $timber_show_footer ) {
-		wp_enqueue_script('scrolltotop' , get_template_directory_uri() . '/assets/js/plugins/ScrollToPlugin.min.js', array('jquery'), '1.0.0', true );
-	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
 
