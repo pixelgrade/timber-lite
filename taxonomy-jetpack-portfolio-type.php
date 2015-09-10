@@ -39,6 +39,18 @@ get_header(); ?>
         endif;
         ?>
         </div>
+
+        <div class="projects-filter">
+            <button class="filter__trigger  js-filter-trigger"></button>
+            <span class="filter__text"><?php _e('Filter:', 'timber'); ?></span>
+            <ul class="filter__list">
+                <li>Filter item</li>
+                <li>Filter item</li>
+                <li>Filter item</li>
+                <li>Filter item</li>
+                <li>Filter item</li>
+            </ul>
+        </div>
     </div>
 </div>
 

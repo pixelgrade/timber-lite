@@ -60,4 +60,18 @@
 
 		endif; ?>
 	</div>
+
+	<div class="projects-filter  js-projects-filter">
+		<button class="filter__trigger  js-projects-filter-trigger"></button>
+		<div class="filter__content  js-projects-filter-content">
+			<span class="filter__text"><?php _e('Filter:', 'timber'); ?></span>
+			<ul class="filter__list  js-projects-filter-list">
+				<li class="active">Filter item</li>
+				<li>Filter item</li>
+				<li>Filter item</li>
+				<li>Filter item</li>
+				<li>Filter item</li>
+			</ul>
+		</div>
+	</div>
 </div>
