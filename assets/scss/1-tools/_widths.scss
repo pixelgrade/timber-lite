@@ -324,16 +324,16 @@ $use-widths: true !default;
 
 	@include widths();
 
-//	@include query-below($lap) {
-//		@include widths('to-lap-');
-//	}
-//
-//	@include query-above($lap) {
-//		@include widths('lap-');
-//	}
-//
-//	@include query-above($desk) {
-//		@include widths('desk-');
-//	}
+	@include query-below($lap) {
+		@include widths('to-lap-');
+	}
+
+	@include query-above($lap) {
+		@include widths('lap-');
+	}
+
+	@include query-above($desk) {
+		@include widths('desk-');
+	}
 
 }
