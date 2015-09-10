@@ -7,7 +7,7 @@ var Portfolio = (function() {
 
 	init = function() {
 		$portfolio_container = $('.portfolio-wrapper');
-		filterBy = '';
+		filterBy = '*';
 		isFirstFilterClick = true;
 		isLoadingProjects = false;
 		
@@ -129,7 +129,7 @@ var Portfolio = (function() {
 
 						//$portfolio_container.append( $result );
 
-						$filmstrip_container.mixItUp( 'append', $result, {filter: filterBy} );
+						$portfolio_container.mixItUp( 'append', $result, {filter: filterBy} );
 
 						//next time the user filters we will know
 						isFirstFilterClick = false;
@@ -196,6 +196,7 @@ var Portfolio = (function() {
 
 					$('.navigation').fadeOut();
 
+					console.log(filterBy);
 					$portfolio_container.mixItUp( 'filter', filterBy);
 
 					//don't make isLoadingProjects true so we won't load any more projects

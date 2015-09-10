@@ -19574,7 +19574,7 @@ if (!Date.now) Date.now = function () {
         
         init = function () {
         $portfolio_container = $('.portfolio-wrapper');
-        filterBy = '';
+        filterBy = '*';
         isFirstFilterClick = true;
         isLoadingProjects = false;
 
@@ -19703,7 +19703,7 @@ if (!Date.now) Date.now = function () {
             $result.imagesLoaded(function () {
 
               //$portfolio_container.append( $result );
-              $filmstrip_container.mixItUp('append', $result, {
+              $portfolio_container.mixItUp('append', $result, {
                 filter: filterBy
               });
 
@@ -19782,6 +19782,7 @@ if (!Date.now) Date.now = function () {
 
             $('.navigation').fadeOut();
 
+            console.log(filterBy);
             $portfolio_container.mixItUp('filter', filterBy);
 
             //don't make isLoadingProjects true so we won't load any more projects
@@ -20925,8 +20926,8 @@ if (!Date.now) Date.now = function () {
     AddThisIcons.softInit();
     royalSliderInit();
     videos.init();
-    filterHandler();
 
+    filterHandler();
     checkProfileImageWidget();
 
     if (windowWidth > 740) {

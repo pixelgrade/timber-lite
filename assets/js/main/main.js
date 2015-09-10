@@ -44,8 +44,8 @@ function softInit() {
     AddThisIcons.softInit();
     royalSliderInit();
     videos.init();
-    filterHandler();
 
+    filterHandler();
     checkProfileImageWidget();
 
     if( windowWidth > 740 ) {
