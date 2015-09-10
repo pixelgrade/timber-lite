@@ -19946,10 +19946,10 @@ if (!Date.now) Date.now = function () {
         if ($('.fullview--visible').length > 0) {
           switch (e.which) {
           case 37:
-            showNext();
+            showPrev();
             break; // left
           case 39:
-            showPrev();
+            showNext();
             break; // right
             //default:
             //	return;
