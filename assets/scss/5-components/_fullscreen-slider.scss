@@ -11,6 +11,7 @@
 	width: auto;
 	height: auto;
 	opacity: 0;
+	background: $bodyColour;
 
 	.rsContent {
 		width: auto;
@@ -154,7 +155,7 @@
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: black;
+	background: $bodyColour;
 }
 
 .project-slide__image {
