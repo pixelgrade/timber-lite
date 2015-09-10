@@ -208,17 +208,39 @@ var Project = (function() {
 				return;
 			}
 
+			// a close is a close and nothing else
 			switch(e.which) {
-				case 37:
-					if (current == 0) return;
-					next = current - 1;
-					break; // left
-				case 39:
-					if (current == $items.length - 1) return;
-					next = current + 1;
-					break; // right
-				default:
-					return;
+				case 27:
+					hideFullView();
+					break; // close
+			}
+
+			// in the fullview mode the next/prev keys should change the entire image
+			if ( $('.fullview--visible' ).length > 0 ) {
+				switch(e.which) {
+					case 37:
+						showPrev();
+						break; // left
+					case 39:
+						showNext();
+						break; // right
+
+					//default:
+					//	return;
+				}
+			} else {// but in the filmstrip mode the next/prev keys should move only the current position of the scroll
+				switch(e.which) {
+
+					case 37:
+						if (current == 0) return;
+						next = current - 1;
+						break; // left
+					case 39:
+
+						if (current == $items.length - 1) return;
+						next = current + 1;
+						break; // right
+				}
 			}
 
 			$current = $items.eq(current);
@@ -270,6 +292,7 @@ var Project = (function() {
 				return false;
 			}
 		});
+		panFullview();
 	}
 
 	function showNext() {
@@ -286,6 +309,7 @@ var Project = (function() {
 				return false;
 			}
 		});
+		panFullview();
 	}
 
 	function fullViewTransition($source) {
