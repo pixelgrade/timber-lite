@@ -73,6 +73,7 @@
 				line-height: 1;
 				text-transform: uppercase;
 				letter-spacing: 0.093em;
+
 				color: $hoverColour;
 
 				cursor: pointer;
@@ -82,6 +83,10 @@
 				&.active, &:hover {
 					color: $bodyColour;
 					border-bottom: 1px solid #EBEBEB;
+				}
+
+				&:before {
+					content: none !important;
 				}
 			}
 		}

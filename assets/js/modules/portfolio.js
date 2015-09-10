@@ -2,15 +2,58 @@ var Portfolio = (function() {
 
 	var $portfolio_container,
 		isLoadingProjects = false,
+		filterBy,
+		isFirstFilterClick,
+		isLoadingPosts,
 
 	init = function() {
 		$portfolio_container = $('.portfolio-wrapper');
+		filterBy = '';
+		isFirstFilterClick = true;
+		isLoadingPosts = false;
 		
 		if (!$portfolio_container.length) {
 			return;
 		}
 
 		$('.navigation').hide();
+
+		//mixitup init without filtering
+		$portfolio_container.mixItUp({
+			animation: {
+				enable: false
+			},
+			selectors: {
+				filter: '.no-real-selector-for-filtering',
+				target: '.portfolio--project'
+			},
+			callbacks : {
+				onMixEnd: function (state) {
+					// show the elements that must be shown
+					state.$show.each(function(){
+						var $that = $(this);
+
+						TweenMax.to($(this), .3 , { opacity: 1, onStart: function() {
+								isSafari ? $that.css('display', '-webkit-flex') :  $that.css('display', 'flex');
+								isIE ? $that.css('display', '-ms-flex') :  $that.css('display', 'flex');
+							}
+							}
+						);
+					});
+
+					// hide the elements that must be hidden
+					state.$hide.each(function(){
+						var $that = $(this);
+
+						TweenMax.to($(this), .3 , { opacity: 0, onComplete: function() {
+								$that.css('display', 'none');
+							}
+							}
+						);
+					})
+				}
+			}
+		});
 
 		bindEvents();
 
@@ -25,6 +68,27 @@ var Portfolio = (function() {
 		$('.site-content.portfolio-archive').on('scroll', function() {
 			requestTick();
 		});
+
+		//we will handle the binding of filter links because we need to load all posts on first filter click
+		$('.js-projects-filter').on('click', '.filter__item', (function() {
+			filterBy = $(this).data('filter');
+
+			// first make the current filter link active
+			$('.filter__item').removeClass('active');
+			$(this).addClass('active');
+
+			if ( isFirstFilterClick == true ) {
+				//this is the first time the user has clicked a filter link
+				//we need to first load all posts before proceeding
+				loadAllProjects();
+
+			} else {
+				//just regular filtering from the second click onwards
+				$portfolio_container.mixItUp( 'filter', filterBy);
+			}
+
+			return false;
+		}));
 
 	},
 
@@ -52,6 +116,7 @@ var Portfolio = (function() {
 			args,
 			function(response_data) {
 
+
 				if( response_data.success ){
 					if (globalDebug) {console.log("Loaded all projects");}
 
@@ -63,12 +128,28 @@ var Portfolio = (function() {
 
 					$result.imagesLoaded(function(){
 
-						$portfolio_container.append( $result );
+						//$portfolio_container.append( $result );
+
+						$filmstrip_container.mixItUp( 'append', $result, {filter: filterBy} );
+
+						//next time the user filters we will know
+						isFirstFilterClick = false;
+
+						isLoadingPosts = false;
 
 						Placeholder.update();
 
 						isLoadingProjects = false;
 					});
+				} else {
+					//something didn't quite make it - maybe there are no more posts (be optimistic about it)
+					//so we will assume that all posts are already loaded and proceed as usual
+					if (globalDebug) {console.log("MixItUp Filtering - There were no more posts to load - so filter please");}
+
+					isFirstFilterClick = false;
+					isLoadingPosts = false;
+
+					$portfolio_container.mixItUp( 'filter', filterBy);
 				}
 			}
 		);
@@ -106,7 +187,9 @@ var Portfolio = (function() {
 
 					$result.imagesLoaded(function(){
 
-						$portfolio_container.append( $result );
+						//$portfolio_container.append( $result );
+						$portfolio_container.mixItUp( 'append', $result, {filter: filterBy} );
+						isLoadingPosts = false;
 
 						Placeholder.update();
 
@@ -118,6 +201,8 @@ var Portfolio = (function() {
 					if (globalDebug) {console.log("It seems that there are no more projects to load");}
 
 					$('.navigation').fadeOut();
+
+					$portfolio_container.mixItUp( 'filter', filterBy);
 
 					//don't make isLoadingProjects true so we won't load any more projects
 				}

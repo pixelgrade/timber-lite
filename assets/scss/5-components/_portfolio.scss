@@ -153,6 +153,7 @@ img {
     &--grid {
         @extend %position--fixed;
         @extend %transform--0;
+        display: none;
         height: 100%;
         overflow-y: auto;
         padding-bottom: 2 * $header-height;
@@ -160,6 +161,8 @@ img {
         align-content: flex-start;
         -webkit-flex-wrap: wrap;
         z-index: 100;
+
+        opacity: 0;
 
         .touch &{
             padding: 0 1em;
