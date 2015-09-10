@@ -19752,7 +19752,7 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+      if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
         imageScaling = 'fit';
       }
 
@@ -19938,8 +19938,22 @@ if (!Date.now) Date.now = function () {
         // a close is a close and nothing else
         switch (e.which) {
         case 27:
-          hideFullView();
-          break; // close
+          if ($('.fullview--visible').length) {
+            hideFullView();
+            e.preventDefault();
+            return;
+          }
+          if ($('.portfolio--filmstrip.portfolio--visible').length) {
+            showThumbnails();
+            e.preventDefault();
+            return;
+          }
+        case 13:
+          if ($('.portfolio--filmstrip.portfolio--visible').length && !$('.fullview--visible').length) {
+            showFullView.call($('.portfolio__item--active'));
+            e.preventDefault();
+            return;
+          }
         }
 
         // in the fullview mode the next/prev keys should change the entire image
@@ -19947,25 +19961,28 @@ if (!Date.now) Date.now = function () {
           switch (e.which) {
           case 37:
             showPrev();
+            e.preventDefault();
             break; // left
           case 39:
             showNext();
+            e.preventDefault();
             break; // right
-            //default:
-            //	return;
           }
+          return;
         } else { // but in the filmstrip mode the next/prev keys should move only the current position of the scroll
           switch (e.which) {
-
           case 37:
             if (current == 0) return;
             next = current - 1;
-            break; // left
+            e.preventDefault();
+            break;
           case 39:
-
             if (current == $items.length - 1) return;
             next = current + 1;
-            break; // right
+            e.preventDefault();
+            break;
+          default:
+            return;
           }
         }
 
@@ -19980,8 +19997,6 @@ if (!Date.now) Date.now = function () {
           },
           ease: Power1.easeInOut
         });
-
-        e.preventDefault();
       });
     }
 
@@ -20066,11 +20081,7 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
-      if (typeof $film == "undefined") {
-        return;
-      }
-
-      if (!$('.single-jetpack-portfolio').length) {
+      if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
         return;
       }
 
@@ -20256,8 +20267,12 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      if ($('html').hasClass('touch')) $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
-      else $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+      TweenLite.to(window, 0, {
+        scrollTo: {
+          x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+        },
+        ease: Power1.easeInOut
+      });
     }
 
     function addImageToFullView($source) {
@@ -20297,6 +20312,8 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
+      $('.button-full').css('opacity', 0);
+
       initialAlpha = latestDeviceAlpha;
       initialBeta = latestDeviceBeta;
       initialGamma = latestDeviceGamma;
@@ -20304,7 +20321,7 @@ if (!Date.now) Date.now = function () {
       morph($source, $target);
 
       if (imageScaling == 'fit') {
-
+        $fullview.css('backgroundColor', '#222222');
       } else if ($('html').hasClass('touch')) {
         $(window).on('deviceorientation', panFullview);
         $document.on('mousemove', panFullview);
@@ -20317,12 +20334,11 @@ if (!Date.now) Date.now = function () {
             onComplete: function () {
               $document.on('mousemove', panFullview);
               $(window).on('deviceorientation', panFullview);
+              setCurrent($source);
             }
           });
         }, 500);
       }
-
-      toggleScroll(false);
 
       $fullview.addClass('fullview--visible');
     }
@@ -20385,28 +20401,41 @@ if (!Date.now) Date.now = function () {
       var $source = $('.fullview__image'),
           $target = $('.portfolio__item--active');
 
+      if (imageScaling == 'fit') {
+        $fullview.css('backgroundColor', 'transparent');
+      }
+
       $document.off('mousemove', panFullview);
       $(window).off('deviceorientation', panFullview);
 
+      setCurrent($target);
+      centerFilmToTarget($target);
+
       $('.site-content').addClass('site-content--fullview');
 
-      TweenMax.to($('.fullview__image img'), .3, {
-        x: 0,
-        y: 0,
-        onComplete: function () {
-          morph($source, $target, {}, function () {
-            $('.site-content').removeClass('site-content--fullview');
-            // setTimeout(function() {
-            // });
-          });
-          setTimeout(function () {
-            $fullview.removeClass('fullview--visible');
-            $source.remove();
-          });
-        }
-      });
+      function finishHideFullView() {
+        morph($source, $target, {}, function () {
+          $('.site-content').removeClass('site-content--fullview');
+          $('.button-full').css('opacity', 1);
+        });
+        setTimeout(function () {
+          $fullview.removeClass('fullview--visible');
+          $source.remove();
+        }, 10);
+      }
 
-      toggleScroll(true);
+      if (imageScaling == 'fill') {
+        TweenMax.to($('.fullview__image img'), .2, {
+          x: 0,
+          y: 0,
+          onComplete: finishHideFullView
+        });
+      } else {
+        $fullview.css('backgroundColor', 'transparent');
+        setTimeout(function () {
+          finishHideFullView();
+        }, 200);
+      }
     }
 
     function morph($source, $target, options, callback, remove) {
@@ -21148,29 +21177,6 @@ if (!Date.now) Date.now = function () {
     if (isWindows) {
       $("html").niceScroll(niceScrollOptions);
       $("html").addClass('has--nicescroll');
-    }
-  }
-
-  function toggleScroll(switcher) {
-
-    if (switcher == false) {
-
-      $('body').data('previous-overflow', $('body').css('overflow')).css({
-        'overflow': 'hidden'
-      });
-
-
-      var scrollPosition = [
-      self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft, self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop];
-
-      $('body').data('scroll-position', scrollPosition);
-
-    } else if (switcher == true) {
-
-      var scrollPosition = $('body').data('scroll-position');
-
-      $('body').css('overflow', $('body').data('previous-overflow'));
-      window.scrollTo(scrollPosition[0], scrollPosition[1]);
     }
   }
 })(jQuery);

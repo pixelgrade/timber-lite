@@ -24,7 +24,7 @@ var Project = (function() {
 			return;
 		}
 
-		if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+		if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
 			imageScaling = 'fit';
 		}
 
@@ -211,35 +211,51 @@ var Project = (function() {
 			// a close is a close and nothing else
 			switch(e.which) {
 				case 27:
-					hideFullView();
-					break; // close
+					if ($('.fullview--visible').length) {
+						hideFullView();
+						e.preventDefault();
+						return;
+					}
+					if ( $('.portfolio--filmstrip.portfolio--visible').length ) {
+						showThumbnails();
+						e.preventDefault();
+						return;
+					}
+				case 13:
+					if ( $('.portfolio--filmstrip.portfolio--visible').length && !$('.fullview--visible').length ) {
+						showFullView.call($('.portfolio__item--active'));
+						e.preventDefault();
+						return;
+					}
 			}
 
 			// in the fullview mode the next/prev keys should change the entire image
-			if ( $('.fullview--visible' ).length > 0 ) {
+			if ( $('.fullview--visible').length > 0 ) {
 				switch(e.which) {
 					case 37:
 						showPrev();
+						e.preventDefault();
 						break; // left
 					case 39:
 						showNext();
+						e.preventDefault();
 						break; // right
-
-					//default:
-					//	return;
 				}
-			} else {// but in the filmstrip mode the next/prev keys should move only the current position of the scroll
+				return;
+			} else { // but in the filmstrip mode the next/prev keys should move only the current position of the scroll
 				switch(e.which) {
-
 					case 37:
 						if (current == 0) return;
 						next = current - 1;
-						break; // left
+						e.preventDefault();
+						break;
 					case 39:
-
 						if (current == $items.length - 1) return;
 						next = current + 1;
-						break; // right
+						e.preventDefault();
+						break;
+					default:
+						return;
 				}
 			}
 
@@ -254,8 +270,6 @@ var Project = (function() {
 				},
 				ease: Power1.easeInOut
 			});
-
-			e.preventDefault();
 		});
 	}
 
@@ -331,11 +345,7 @@ var Project = (function() {
 	// loop through each portfolio item and find the one closest to center
 	function getCurrent() {
 
-		if (typeof $film == "undefined") {
-			return;
-		}
-
-		if (!$('.single-jetpack-portfolio').length) {
+		if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
 			return;
 		}
 
@@ -505,10 +515,12 @@ var Project = (function() {
 	}
 
 	function centerFilmToTarget($target) {
-		if($('html').hasClass('touch'))
-			$('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
-		else
-			$window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+		TweenLite.to(window, 0, {
+			scrollTo: {
+				x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+			},
+			ease: Power1.easeInOut
+		});
 	}
 
 	function addImageToFullView($source) {
@@ -550,6 +562,8 @@ var Project = (function() {
 		var $source = $(this),
 			$target = addImageToFullView($source);
 
+		$('.button-full').css('opacity', 0);
+
 		initialAlpha 	= latestDeviceAlpha;
 		initialBeta 	= latestDeviceBeta;
 		initialGamma 	= latestDeviceGamma;
@@ -557,7 +571,7 @@ var Project = (function() {
 		morph($source, $target);
 
 		if ( imageScaling == 'fit' ) {
-
+			$fullview.css('backgroundColor', '#222222');
 		} else if ( $('html').hasClass('touch') ) {
 			$(window).on('deviceorientation', panFullview);
 			$document.on('mousemove', panFullview);
@@ -570,12 +584,11 @@ var Project = (function() {
 					onComplete: function() {
 						$document.on('mousemove', panFullview);
 						$(window).on('deviceorientation', panFullview);
+						setCurrent($source);
 					}
 				});
 			}, 500);
 		}
-
-		toggleScroll(false);
 
 		$fullview.addClass('fullview--visible');
 	}
@@ -638,28 +651,41 @@ var Project = (function() {
 		var $source = $('.fullview__image'),
 			$target = $('.portfolio__item--active');
 
+		if ( imageScaling == 'fit' ) {
+			$fullview.css('backgroundColor', 'transparent');
+		}
+
 		$document.off('mousemove', panFullview);
 		$(window).off('deviceorientation', panFullview);
 
+		setCurrent($target);
+		centerFilmToTarget($target);
+
 		$('.site-content').addClass('site-content--fullview');
 
-		TweenMax.to($('.fullview__image img'), .3, {
-			x: 0,
-			y: 0,
-			onComplete: function() {
-				morph($source, $target, {}, function() {
-					$('.site-content').removeClass('site-content--fullview');
-					// setTimeout(function() {
-					// });
-				});
-				setTimeout(function() {
-					$fullview.removeClass('fullview--visible');
-					$source.remove();
-				});
-			}
-		});
+		function finishHideFullView() {
+			morph($source, $target, {}, function() {
+				$('.site-content').removeClass('site-content--fullview');
+				$('.button-full').css('opacity', 1);
+			});
+			setTimeout(function() {
+				$fullview.removeClass('fullview--visible');
+				$source.remove();
+			}, 10);
+		}
 
-		toggleScroll(true);
+		if (imageScaling == 'fill') {
+			TweenMax.to($('.fullview__image img'), .2, {
+				x: 0,
+				y: 0,
+				onComplete: finishHideFullView
+			});
+		} else {
+			$fullview.css('backgroundColor', 'transparent');
+			setTimeout(function() {
+				finishHideFullView();
+			}, 200);
+		}
 	}
 
 	function morph($source, $target, options, callback, remove) {
