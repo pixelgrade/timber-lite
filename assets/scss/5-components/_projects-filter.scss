@@ -4,6 +4,8 @@
 	bottom: 36px;
 	z-index: 500;
 
+	display: none !important;
+
 	&.is-open {
 		.filter__trigger {
 			opacity: 0;

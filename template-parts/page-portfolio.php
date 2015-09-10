@@ -69,8 +69,8 @@
 				<li class="filter__item  active" data-filter="*">All</li>
 				<li class="filter__item" data-filter=".post-390">Filter item</li>
 				<li class="filter__item" data-filter=".post-113">Filter item</li>
-				<li class="filter__item">Filter item</li>
-				<li class="filter__item">Filter item</li>
+				<li class="filter__item" data-filter=".post-390">Filter item</li>
+				<li class="filter__item" data-filter=".post-390">Filter item</li>
 			</ul>
 		</div>
 	</div>

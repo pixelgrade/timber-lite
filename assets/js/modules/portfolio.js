@@ -4,13 +4,12 @@ var Portfolio = (function() {
 		isLoadingProjects = false,
 		filterBy,
 		isFirstFilterClick,
-		isLoadingPosts,
 
 	init = function() {
 		$portfolio_container = $('.portfolio-wrapper');
 		filterBy = '';
 		isFirstFilterClick = true;
-		isLoadingPosts = false;
+		isLoadingProjects = false;
 		
 		if (!$portfolio_container.length) {
 			return;
@@ -134,12 +133,9 @@ var Portfolio = (function() {
 
 						//next time the user filters we will know
 						isFirstFilterClick = false;
-
-						isLoadingPosts = false;
+						isLoadingProjects = false;
 
 						Placeholder.update();
-
-						isLoadingProjects = false;
 					});
 				} else {
 					//something didn't quite make it - maybe there are no more posts (be optimistic about it)
@@ -147,7 +143,7 @@ var Portfolio = (function() {
 					if (globalDebug) {console.log("MixItUp Filtering - There were no more posts to load - so filter please");}
 
 					isFirstFilterClick = false;
-					isLoadingPosts = false;
+					isLoadingProjects = false;
 
 					$portfolio_container.mixItUp( 'filter', filterBy);
 				}
@@ -189,11 +185,9 @@ var Portfolio = (function() {
 
 						//$portfolio_container.append( $result );
 						$portfolio_container.mixItUp( 'append', $result, {filter: filterBy} );
-						isLoadingPosts = false;
+						isLoadingProjects = false;
 
 						Placeholder.update();
-
-						isLoadingProjects = false;
 					});
 				} else {
 					//we have failed
