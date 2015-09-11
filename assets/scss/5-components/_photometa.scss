@@ -10,7 +10,7 @@
     padding: 10em 1.5em 1em;
     color: white;
     @extend %transform--0;
-
+    transition: opacity .3s ease-in-out;
     -webkit-font-smoothing: initial;
 
     &:before {
@@ -40,6 +40,10 @@
         .portfolio--details .portfolio__item--active & {
             opacity: 1;
         }
+    }
+
+    .portfolio--details & {
+        opacity: 1 !important;
     }
 
     &__description {

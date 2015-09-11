@@ -100,3 +100,15 @@ html.has--nicescroll {
 .lang_sel_sel {
     transition-duration: 0s;
 }
+
+.page-template-custom-portfolio-page .site-footer--single {
+    display: none;
+}
+
+.touch .single-jetpack-portfolio .site-content {
+    overflow-y: hidden;
+}
+
+html {
+    margin-top: 0 !important;
+}

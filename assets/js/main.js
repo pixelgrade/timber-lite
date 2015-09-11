@@ -19570,58 +19570,16 @@ if (!Date.now) Date.now = function () {
   var Portfolio = (function () {
 
     var $portfolio_container, isLoadingProjects = false,
-        filterBy, isFirstFilterClick, isLoadingPosts,
+        
         
         init = function () {
         $portfolio_container = $('.portfolio-wrapper');
-        filterBy = '';
-        isFirstFilterClick = true;
-        isLoadingPosts = false;
 
         if (!$portfolio_container.length) {
           return;
         }
 
         $('.navigation').hide();
-
-        //mixitup init without filtering
-        $portfolio_container.mixItUp({
-          animation: {
-            enable: false
-          },
-          selectors: {
-            filter: '.no-real-selector-for-filtering',
-            target: '.portfolio--project'
-          },
-          callbacks: {
-            onMixEnd: function (state) {
-              // show the elements that must be shown
-              state.$show.each(function () {
-                var $that = $(this);
-
-                TweenMax.to($(this), .3, {
-                  opacity: 1,
-                  onStart: function () {
-                    isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
-                    isIE ? $that.css('display', '-ms-flex') : $that.css('display', 'flex');
-                  }
-                });
-              });
-
-              // hide the elements that must be hidden
-              state.$hide.each(function () {
-                var $that = $(this);
-
-                TweenMax.to($(this), .3, {
-                  opacity: 0,
-                  onComplete: function () {
-                    $that.css('display', 'none');
-                  }
-                });
-              })
-            }
-          }
-        });
 
         bindEvents();
 
@@ -19637,27 +19595,6 @@ if (!Date.now) Date.now = function () {
         $('.site-content.portfolio-archive').on('scroll', function () {
           requestTick();
         });
-
-        //we will handle the binding of filter links because we need to load all posts on first filter click
-        $('.js-projects-filter').on('click', '.filter__item', (function () {
-          filterBy = $(this).data('filter');
-
-          // first make the current filter link active
-          $('.filter__item').removeClass('active');
-          $(this).addClass('active');
-
-          if (isFirstFilterClick == true) {
-            //this is the first time the user has clicked a filter link
-            //we need to first load all posts before proceeding
-            loadAllProjects();
-
-          } else {
-            //just regular filtering from the second click onwards
-            $portfolio_container.mixItUp('filter', filterBy);
-          }
-
-          return false;
-        }));
 
         },
         
@@ -19686,7 +19623,6 @@ if (!Date.now) Date.now = function () {
         $.post(
         timber_ajax.ajax_url, args, function (response_data) {
 
-
           if (response_data.success) {
             if (globalDebug) {
               console.log("Loaded all projects");
@@ -19702,31 +19638,12 @@ if (!Date.now) Date.now = function () {
 
             $result.imagesLoaded(function () {
 
-              //$portfolio_container.append( $result );
-              $filmstrip_container.mixItUp('append', $result, {
-                filter: filterBy
-              });
-
-              //next time the user filters we will know
-              isFirstFilterClick = false;
-
-              isLoadingPosts = false;
+              $portfolio_container.append($result);
 
               Placeholder.update();
 
               isLoadingProjects = false;
             });
-          } else {
-            //something didn't quite make it - maybe there are no more posts (be optimistic about it)
-            //so we will assume that all posts are already loaded and proceed as usual
-            if (globalDebug) {
-              console.log("MixItUp Filtering - There were no more posts to load - so filter please");
-            }
-
-            isFirstFilterClick = false;
-            isLoadingPosts = false;
-
-            $portfolio_container.mixItUp('filter', filterBy);
           }
         });
         },
@@ -19768,11 +19685,7 @@ if (!Date.now) Date.now = function () {
 
             $result.imagesLoaded(function () {
 
-              //$portfolio_container.append( $result );
-              $portfolio_container.mixItUp('append', $result, {
-                filter: filterBy
-              });
-              isLoadingPosts = false;
+              $portfolio_container.append($result);
 
               Placeholder.update();
 
@@ -19786,8 +19699,6 @@ if (!Date.now) Date.now = function () {
             }
 
             $('.navigation').fadeOut();
-
-            $portfolio_container.mixItUp('filter', filterBy);
 
             //don't make isLoadingProjects true so we won't load any more projects
           }
@@ -19841,7 +19752,7 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      if ($('.image-scaling--fit').length || (typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+      if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
         imageScaling = 'fit';
       }
 
@@ -19958,6 +19869,14 @@ if (!Date.now) Date.now = function () {
             exifText = $item.data('exif'),
             $full = $('<button class="button-full js-button-full"></button>');
 
+        if (empty(captionText)) {
+          $meta.css('opacity', 0);
+
+          if (empty(descriptionText) && empty(exifText)) {
+            $meta.hide();
+          }
+        }
+
         if (!empty(exifText)) {
           $.each(exifText, function (key, value) {
             $('<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>').appendTo($exif);
@@ -20005,6 +19924,14 @@ if (!Date.now) Date.now = function () {
       $('.fullview .rsArrowLeft').on('click', showPrev);
       $('.js-details').on('click', toggleDetails);
 
+      $(window).on('djaxLoad', function () {
+        if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+          imageScaling = 'fit';
+        } else {
+          imageScaling = 'fill';
+        }
+      });
+
       $(document).keydown(function (e) {
 
         if (!$('.portfolio--filmstrip.portfolio--visible').length) {
@@ -20027,8 +19954,22 @@ if (!Date.now) Date.now = function () {
         // a close is a close and nothing else
         switch (e.which) {
         case 27:
-          hideFullView();
-          break; // close
+          if ($('.fullview--visible').length) {
+            hideFullView();
+            e.preventDefault();
+            return;
+          }
+          if ($('.portfolio--filmstrip.portfolio--visible').length) {
+            showThumbnails();
+            e.preventDefault();
+            return;
+          }
+        case 13:
+          if ($('.portfolio--filmstrip.portfolio--visible').length && !$('.fullview--visible').length) {
+            showFullView.call($('.portfolio__item--active'));
+            e.preventDefault();
+            return;
+          }
         }
 
         // in the fullview mode the next/prev keys should change the entire image
@@ -20036,25 +19977,28 @@ if (!Date.now) Date.now = function () {
           switch (e.which) {
           case 37:
             showPrev();
+            e.preventDefault();
             break; // left
           case 39:
             showNext();
+            e.preventDefault();
             break; // right
-            //default:
-            //	return;
           }
+          return;
         } else { // but in the filmstrip mode the next/prev keys should move only the current position of the scroll
           switch (e.which) {
-
           case 37:
             if (current == 0) return;
             next = current - 1;
-            break; // left
+            e.preventDefault();
+            break;
           case 39:
-
             if (current == $items.length - 1) return;
             next = current + 1;
-            break; // right
+            e.preventDefault();
+            break;
+          default:
+            return;
           }
         }
 
@@ -20069,8 +20013,6 @@ if (!Date.now) Date.now = function () {
           },
           ease: Power1.easeInOut
         });
-
-        e.preventDefault();
       });
     }
 
@@ -20134,11 +20076,14 @@ if (!Date.now) Date.now = function () {
       setCurrent($source);
       panFullview();
 
-      TweenMax.fromTo($toRemove, .3, {
-        opacity: 1
-      }, {
-        opacity: 0
-      });
+      if (imageScaling == 'fit') {
+        TweenMax.fromTo($toRemove, .3, {
+          opacity: 1
+        }, {
+          opacity: 0
+        });
+      }
+
       TweenMax.fromTo($target, .3, {
         opacity: 0
       }, {
@@ -20155,11 +20100,7 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
-      if (typeof $film == "undefined") {
-        return;
-      }
-
-      if (!$('.single-jetpack-portfolio').length) {
+      if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
         return;
       }
 
@@ -20345,8 +20286,22 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      if ($('html').hasClass('touch')) $('.site-content').scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
-      else $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+
+      if ($('html').hasClass('touch')) {
+        TweenLite.to('.site-content', 0, {
+          scrollTo: {
+            x: $target.data('middle') - $('.site-content').width() / 2
+          },
+          ease: Power1.easeInOut
+        });
+      } else {
+        TweenLite.to(window, 0, {
+          scrollTo: {
+            x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+          },
+          ease: Power1.easeInOut
+        });
+      }
     }
 
     function addImageToFullView($source) {
@@ -20386,6 +20341,8 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
+      $('.button-full').css('opacity', 0);
+
       initialAlpha = latestDeviceAlpha;
       initialBeta = latestDeviceBeta;
       initialGamma = latestDeviceGamma;
@@ -20393,7 +20350,7 @@ if (!Date.now) Date.now = function () {
       morph($source, $target);
 
       if (imageScaling == 'fit') {
-
+        $fullview.css('backgroundColor', '#222222');
       } else if ($('html').hasClass('touch')) {
         $(window).on('deviceorientation', panFullview);
         $document.on('mousemove', panFullview);
@@ -20406,12 +20363,11 @@ if (!Date.now) Date.now = function () {
             onComplete: function () {
               $document.on('mousemove', panFullview);
               $(window).on('deviceorientation', panFullview);
+              setCurrent($source);
             }
           });
         }, 500);
       }
-
-      toggleScroll(false);
 
       $fullview.addClass('fullview--visible');
     }
@@ -20474,28 +20430,41 @@ if (!Date.now) Date.now = function () {
       var $source = $('.fullview__image'),
           $target = $('.portfolio__item--active');
 
+      if (imageScaling == 'fit') {
+        $fullview.css('backgroundColor', 'transparent');
+      }
+
       $document.off('mousemove', panFullview);
       $(window).off('deviceorientation', panFullview);
 
+      setCurrent($target);
+      centerFilmToTarget($target);
+
       $('.site-content').addClass('site-content--fullview');
 
-      TweenMax.to($('.fullview__image img'), .3, {
-        x: 0,
-        y: 0,
-        onComplete: function () {
-          morph($source, $target, {}, function () {
-            $('.site-content').removeClass('site-content--fullview');
-            // setTimeout(function() {
-            // });
-          });
-          setTimeout(function () {
-            $fullview.removeClass('fullview--visible');
-            $source.remove();
-          });
-        }
-      });
+      function finishHideFullView() {
+        morph($source, $target, {}, function () {
+          $('.site-content').removeClass('site-content--fullview');
+          $('.button-full').css('opacity', 1);
+        });
+        setTimeout(function () {
+          $fullview.removeClass('fullview--visible');
+          $source.remove();
+        }, 10);
+      }
 
-      toggleScroll(true);
+      if (imageScaling == 'fill') {
+        TweenMax.to($('.fullview__image img'), .2, {
+          x: 0,
+          y: 0,
+          onComplete: finishHideFullView
+        });
+      } else {
+        $fullview.css('backgroundColor', 'transparent');
+        setTimeout(function () {
+          finishHideFullView();
+        }, 200);
+      }
     }
 
     function morph($source, $target, options, callback, remove) {
@@ -20545,11 +20514,11 @@ if (!Date.now) Date.now = function () {
             transition: '',
             opacity: ''
           });
-          TweenMax.fromTo($target.children('.photometa'), .3, {
-            opacity: 0
-          }, {
-            opacity: 1
-          });
+
+          if (!empty($target.data('caption'))) {
+            $target.children('.photometa').css('opacity', 1);
+          }
+
           $source.css('opacity', '');
 
           if (remove) {
@@ -20930,7 +20899,6 @@ if (!Date.now) Date.now = function () {
     AddThisIcons.softInit();
     royalSliderInit();
     videos.init();
-    filterHandler();
 
     checkProfileImageWidget();
 
@@ -21239,54 +21207,5 @@ if (!Date.now) Date.now = function () {
       $("html").niceScroll(niceScrollOptions);
       $("html").addClass('has--nicescroll');
     }
-  }
-
-  function toggleScroll(switcher) {
-
-    if (switcher == false) {
-
-      $('body').data('previous-overflow', $('body').css('overflow')).css({
-        'overflow': 'hidden'
-      });
-
-
-      var scrollPosition = [
-      self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft, self.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop];
-
-      $('body').data('scroll-position', scrollPosition);
-
-    } else if (switcher == true) {
-
-      var scrollPosition = $('body').data('scroll-position');
-
-      $('body').css('overflow', $('body').data('previous-overflow'));
-      window.scrollTo(scrollPosition[0], scrollPosition[1]);
-    }
-  }
-
-  function filterHandler() {
-    var $projectsFilter = $('.js-projects-filter');
-    var $filterContent = $('.js-projects-filter-content');
-    var $filterList = $('.js-projects-filter-list');
-
-    $('.js-projects-filter-trigger').on('mouseenter', function () {
-      $projectsFilter.addClass('is-open');
-      TweenMax.to($filterContent, .2, {
-        opacity: 1,
-        onStart: function () {
-          $filterList.css('display', 'block');
-        }
-      })
-    });
-
-    $projectsFilter.on('mouseleave', function () {
-      $projectsFilter.removeClass('is-open');
-      TweenMax.to($filterContent, .2, {
-        opacity: 0,
-        onComplete: function () {
-          $filterList.css('display', 'none');
-        }
-      })
-    })
   }
 })(jQuery);

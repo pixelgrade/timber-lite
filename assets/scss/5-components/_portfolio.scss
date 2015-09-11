@@ -113,6 +113,23 @@ img {
         &--content {
             min-width: 40em;
         }
+
+        .portfolio--filmstrip &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 2px;
+            background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5) 30%, transparent 30%);
+            background-position-x: 0;
+            background-size: 200%;
+            animation-name: mymove;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
     }
 
     &__item--target {
@@ -153,7 +170,6 @@ img {
     &--grid {
         @extend %position--fixed;
         @extend %transform--0;
-        display: none;
         height: 100%;
         overflow-y: auto;
         padding-bottom: 2 * $header-height;
@@ -161,8 +177,6 @@ img {
         align-content: flex-start;
         -webkit-flex-wrap: wrap;
         z-index: 100;
-
-        opacity: 0;
 
         .touch &{
             padding: 0 1em;
@@ -352,4 +366,16 @@ img {
     .mejs-mediaelement {
         position: static;
     }
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    from {background-position-x: 0px;}
+    to {background-position-x: 100px;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+    from {background-position-x: 0px;}
+    to {background-position-x: 100px;}
 }

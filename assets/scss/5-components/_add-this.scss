@@ -12,6 +12,14 @@
 	text-transform: uppercase;
 }
 
+.project_layout-fullscreen {
+	.project-addthis-container {
+		.share-button {
+			background: url('assets/svg/share-icon-white.svg') no-repeat;
+		}
+	}
+}
+
 .project-addthis-container {
 	.share-button {
 		width: 22px;

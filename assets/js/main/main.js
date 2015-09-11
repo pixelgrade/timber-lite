@@ -44,7 +44,6 @@ function softInit() {
     AddThisIcons.softInit();
     royalSliderInit();
     videos.init();
-    filterHandler();
 
     checkProfileImageWidget();
 

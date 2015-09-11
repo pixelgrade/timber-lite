@@ -63,7 +63,6 @@
  *    5.29 - Border
  *    5.30 - Widgets
  *    5.31 - Shortcodes
- *    5.32 - Projects filter
  *  6.0 - Overrides
  *
  */
@@ -87,6 +86,10 @@
  *   1.1 - Clearfix
  */
 @import "1-tools/clearfix";
+// /**
+//  *   1.6 - Queries
+//  */
+@import "1-tools/queries";
 /**
  *   1.2 - Widths
  */
@@ -103,10 +106,6 @@
 //  *   1.5 - Mixins
 //  */
 @import "1-tools/mixins";
-// /**
-//  *   1.6 - Queries
-//  */
-@import "1-tools/queries";
 // /**
 //  *   1.7 - WP Offset
 //  */
@@ -315,10 +314,7 @@
  */
 @import "5-components/shortcode-icon";
 @import "5-components/shortcode-tabs";
-/**
- *   5.32 - Projects filter
- */
-@import "5-components/projects-filter";
+
 
 
 
