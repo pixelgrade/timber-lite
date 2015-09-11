@@ -13,10 +13,8 @@ get_header(); ?>
 <div class="site-header  site-header--placeholder"></div>
 <div class="site-container">
 
-    <div class="site-sidebar">
-        <div class="site-sidebar__content">
-            <h1 class="site-sidebar__text"><?php $tax = get_queried_object(); echo esc_html( $tax->name ); ?></h1>
-        </div>
+    <div class="site-sidebar  site-sidebar--archive">
+        <h1 class="site-sidebar__content  site-sidebar__text"><?php $tax = get_queried_object(); echo esc_html( $tax->name ); ?></h1>
     </div>
     <div class="site-content  portfolio-archive  portfolio-category">
         <?php

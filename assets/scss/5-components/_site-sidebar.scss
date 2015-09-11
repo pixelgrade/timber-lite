@@ -6,7 +6,7 @@
     }
 }
 
-.site-sidebar:not(.site-sidebar--blog) {
+.site-sidebar:not(.site-sidebar--archive) {
     @include query-above($small) {
         flex-basis: $sidebar-width*2/3;
         -webkit-flex-basis: $sidebar-width*2/3;
@@ -92,4 +92,69 @@
     padding: 0;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+
+
+
+
+// Sidebar for archives
+
+.site-sidebar--archive {
+    display: block;
+    padding: 34px 7vw;
+    padding-bottom: 26px;
+    font-size: 0;
+
+    > * {
+        width: 50%;
+        display: inline-block;
+    }
+
+    .site-sidebar__text {
+        position: static;
+
+        text-align: left;
+        font-size: 15px;
+        letter-spacing: 0.1em;
+
+        transform: none;
+    }
+}
+
+@include query-above($small) {
+    .site-sidebar--archive {
+        padding: 34px 19vw;
+        padding-bottom: 26px;
+
+        .site-sidebar__text {
+            font-size: 24px;
+        }
+    }
+}
+
+@include query-above($lap) {
+    .site-sidebar--archive {
+        padding: 0;
+
+        .site-sidebar__content {
+            position: absolute;
+            transform: translate(-50%, -50%) rotate(-90deg);
+            font-size: 15px;
+        }
+    }
+}
+
+// Some special treatment for portfolio archive pages
+@include query-above($lap) {
+    .page-template-custom-portfolio-page, .tax-jetpack-portfolio-type {
+        .site-sidebar--archive {
+            position: fixed;
+            left: 7px;
+            top: 125px;
+
+            width: 110px;
+            height: calc(100vh - 250px);
+        }
+    }
 }

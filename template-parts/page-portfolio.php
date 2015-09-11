@@ -1,8 +1,8 @@
 <div class="site-header  site-header--placeholder"></div>
 <div class="site-container">
 
-	<div class="site-sidebar  site-sidebar--blog">
-		<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber' ); ?></div>
+	<div class="site-sidebar  site-sidebar--archive">
+		<h1 class="site-sidebar__content  site-sidebar__text"><?php the_title(); ?></h1>
 		<?php timber_the_mobile_categories_nav(); ?>
 	</div>
 	<div class="site-content  portfolio-archive">
