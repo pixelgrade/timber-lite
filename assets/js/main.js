@@ -20277,7 +20277,6 @@ if (!Date.now) Date.now = function () {
       });
 
       centerFilmToTarget($target);
-      debugger;
       morph($clicked, $target, {}, function () {
         $target.imagesLoaded(function () {
           $target.find('.portfolio__item--clone').remove();
@@ -20287,12 +20286,22 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      TweenLite.to(window, 0, {
-        scrollTo: {
-          x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
-        },
-        ease: Power1.easeInOut
-      });
+
+      if ($('html').hasClass('touch')) {
+        TweenLite.to('.site-content', 0, {
+          scrollTo: {
+            x: $target.data('middle') - $('.site-content').width() / 2
+          },
+          ease: Power1.easeInOut
+        });
+      } else {
+        TweenLite.to(window, 0, {
+          scrollTo: {
+            x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+          },
+          ease: Power1.easeInOut
+        });
+      }
     }
 
     function addImageToFullView($source) {
