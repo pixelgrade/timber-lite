@@ -2,12 +2,20 @@
     position: absolute;
     padding: 17px;
     height: 60px;
-    top: 0;
+    @include wp-offset(0, top);
     left: 0;
     width: 100%;
     z-index: 9998;
     text-align: center;
     background: white;
+
+    .page-has-featured-image:not(.page-template) & {
+        background: transparent;
+
+        &:after {
+            display: none;
+        }
+    }
 
     .site-title {
         margin: 0 auto;
@@ -24,6 +32,16 @@
         left: 0;
         width: 100%;
         border-bottom: 1px solid #ebebeb;
+    }
+
+    .admin-bar.portfolio_page_type-project_slider & {
+        top: 0 !important;
+    }
+}
+
+.admin-bar .site-header--placeholder {
+    @include query-below($lap) {
+        margin-top: 0 !important;
     }
 }
 

@@ -38,8 +38,6 @@ gulp.task('styles-dev', function () {
 				console.log(e.message);
 			})
 		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
-		// .pipe(cmq());
-		// .pipe(csscomb());
 		.pipe(gulp.dest('./'))
 		.pipe(livereload());
 });
@@ -48,7 +46,7 @@ gulp.task('styles', ['styles-admin'], function () {
 	return gulp.src('assets/scss/**/*.scss')
 		.pipe(sass({sourcemap: false, style: 'expanded'}))
 		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
-		.pipe(cmq())
+		// .pipe(cmq())
 		.pipe(csscomb())
 		.pipe(chmod(644))
 		.pipe(gulp.dest('./'));
