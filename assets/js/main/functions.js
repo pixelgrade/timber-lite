@@ -184,32 +184,6 @@ function niceScrollInit() {
 	}
 }
 
-function toggleScroll(switcher) {
-
-	if ( switcher == false ) {
-
-		$('body').data('previous-overflow', $('body').css('overflow'))
-				.css({
-					'overflow': 'hidden'
-				});
-
-
-		var scrollPosition = [
-			self.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft,
-			self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
-		];
-
-		$('body').data('scroll-position', scrollPosition);
-
-	} else if ( switcher == true ) {
-
-		var scrollPosition = $('body').data('scroll-position');
-
-		$('body').css('overflow', $('body').data('previous-overflow'));
-		window.scrollTo(scrollPosition[0], scrollPosition[1]);
-	}
-}
-
 function filterHandler() {
 	var $projectsFilter = $('.js-projects-filter');
 	var $filterContent = $('.js-projects-filter-content');

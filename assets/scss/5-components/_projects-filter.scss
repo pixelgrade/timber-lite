@@ -83,6 +83,7 @@
 		&.active, &:hover {
 			color: $bodyColour;
 			border-bottom: 1px solid #EBEBEB;
+			font-weight: normal;
 		}
 
 		&:before {

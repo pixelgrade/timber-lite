@@ -1,7 +1,10 @@
 <div class="site-header  site-header--placeholder"></div>
 <div class="site-container">
 
-	<div class="site-sidebar"></div>
+	<div class="site-sidebar  site-sidebar--blog">
+		<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber' ); ?></div>
+		<?php timber_the_mobile_categories_nav(); ?>
+	</div>
 	<div class="site-content  portfolio-archive">
 
 		<?php

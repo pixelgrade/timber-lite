@@ -196,7 +196,6 @@ var Portfolio = (function() {
 
 					$('.navigation').fadeOut();
 
-					console.log(filterBy);
 					$portfolio_container.mixItUp( 'filter', filterBy);
 
 					//don't make isLoadingProjects true so we won't load any more projects

@@ -161,6 +161,9 @@ img {
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
+        display: none;
+        opacity: 0;
+
         .touch &{
             padding: 0 1em;
             padding-bottom: 70px;
@@ -225,7 +228,6 @@ img {
     }
 
     &--project {
-        opacity: 1;
         position: static;
         flex-wrap: nowrap;
         -webkit-flex-wrap: nowrap;
