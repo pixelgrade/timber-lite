@@ -430,8 +430,8 @@ var Project = (function() {
 		var $active = $('.portfolio__item--active'),
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
-		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0, onComplete: function() {
-				// $('.site-footer').css('display', 'none');
+			TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0, onComplete: function() {
+				$('.site-footer').css('display', 'none');
 			}
 		});
 

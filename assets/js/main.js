@@ -20169,7 +20169,7 @@ if (!Date.now) Date.now = function () {
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 0,
         onComplete: function () {
-          // $('.site-footer').css('display', 'none');
+          $('.site-footer').css('display', 'none');
         }
       });
 
