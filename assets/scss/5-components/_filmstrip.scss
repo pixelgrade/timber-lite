@@ -48,27 +48,6 @@
 
 // Journal / Blog filmstrip items
 .blog {
-    .site-sidebar--blog {
-        display: block;
-        padding: 34px 7vw;
-        padding-bottom: 26px;
-        font-size: 0;
-
-        > * {
-            width: 50%;
-            display: inline-block;
-        }
-
-        .site-sidebar__text {
-            position: static;
-
-            text-align: left;
-            font-size: 15px;
-            letter-spacing: 0.1em;
-
-            transform: none;
-        }
-    }
 
     .filmstrip {
         height: initial;
@@ -154,14 +133,6 @@
         }
 
     @include query-above($small) {
-        .site-sidebar--blog {
-            padding: 34px 19vw;
-            padding-bottom: 26px;
-
-            .site-sidebar__text {
-                font-size: 24px;
-            }
-        }
 
         .filmstrip__item {
             padding: 0 19vw;
@@ -223,16 +194,6 @@
 
             border: 0;
         }
-
-            .site-sidebar--blog {
-                padding: 0;
-
-                .site-sidebar__content {
-                    position: absolute;
-                    transform: translate(-50%, -50%) rotate(-90deg);
-                    font-size: 15px;
-                }
-            }
         
             .filmstrip__item {
                 padding: 0;
