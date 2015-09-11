@@ -136,10 +136,15 @@
 }
 
 
+.site-header {
+    @include wp-offset(0, top, true);
+}
+
 @include query-below($lap) {
 
     .main-navigation {
         display: block;
+        text-align: left;
     }
 
     .bar--fixed {
@@ -156,7 +161,6 @@
         height: auto;
         position: fixed !important;
         z-index: 9999;
-        @include wp-offset(0);
         left: 0;
         right: 4em !important;
         bottom: 0;
@@ -188,8 +192,7 @@
 
 .nav-toggle {
     position: absolute;
-    top: $small-bar-height/2;
-    transform: translate(0, -50%);
+    top: 16px;
     left: 100%;
     margin-left: 0.8em;
     font-size: 1.5em;

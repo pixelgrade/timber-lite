@@ -1,12 +1,13 @@
 .mobile-header {
-    @include wp-offset(0, margin-top);
+    @include wp-offset(0, top);
     position: absolute;
-    top: $small-bar-height/2;
-    transform: translate(0, -50%);
+    padding: 17px;
+    height: 60px;
     left: 0;
     width: 100%;
     z-index: 9998;
     text-align: center;
+    background: white;
 
     .site-title {
         margin: 0 auto;
@@ -16,14 +17,29 @@
         display: none;
     }
 
-    // &:after {
-    //     content: "";
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: 1px solid #ebebeb;
+    }
+}
 
-    //     position: absolute;
-    //     bottom: -15px;
-    //     left: 0;
+.project_layout-fullscreen {
 
-    //     width: 100%;
-    //     border-bottom: 1px solid #ebebeb;
-    // }
+    .mobile-header {
+        background: transparent;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .site-footer,
+    .bar--fixed {
+        background: transparent;
+        color: white;
+    }
 }
