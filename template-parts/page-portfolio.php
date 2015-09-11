@@ -73,7 +73,7 @@
 
 			if ( ! is_wp_error($portfolio_types) && ! empty( $portfolio_types ) ) { ?>
 				<ul id="portfolio-category" class="filter__list  js-projects-filter-list">
-					<li><button class="filter__item" data-filter="*"><?php _e( 'All', 'timber' );?></button></li>
+					<li><button class="filter__item  active" data-filter="*"><?php _e( 'All', 'timber' );?></button></li>
 					<?php foreach ( $portfolio_types as $type) { ?>
 						<li><button class="filter__item" data-filter="<?php echo esc_attr( '.jetpack-portfolio-type-' . $type->slug ) ?>"><?php echo $type->name; ?></button></li>
 					<?php } ?>

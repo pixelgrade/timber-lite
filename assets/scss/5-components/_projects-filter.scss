@@ -30,7 +30,7 @@
 }
 
 .filter__content {
-	padding: 6px 9px 6px 70px;
+	padding: 11px 9px 11px 78px;
 	height: 50px;
 
 	background: white;
@@ -66,8 +66,12 @@
 
 	li {
 		padding: 0;
-		margin: 0 7px;
+		margin: 0 6px;
 		display: inline-block;
+	}
+
+	.filter__item {
+		margin: 0;
 
 		font-size: 14px;
 		line-height: 1;
@@ -75,8 +79,6 @@
 		letter-spacing: 0.093em;
 
 		color: $hoverColour;
-
-		cursor: pointer;
 
 		transition: 0.2s color linear;
 
