@@ -141,6 +141,14 @@ var Project = (function() {
 				exifText		= $item.data('exif'),
 				$full 			= $('<button class="button-full js-button-full"></button>');
 
+			if ( empty(captionText) ) {
+				$meta.css('opacity', 0);
+
+				if ( empty(descriptionText) && empty(exifText) ) {
+					$meta.hide();
+				}
+			}
+
 			if ( !empty(exifText) ) {
 				$.each(exifText, function (key, value) {
 					$('<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>').appendTo($exif);
@@ -187,6 +195,14 @@ var Project = (function() {
 		$('.fullview .rsArrowRight').on('click', showNext);
 		$('.fullview .rsArrowLeft').on('click', showPrev);
 		$('.js-details').on('click', toggleDetails);
+
+		$(window).on('djaxLoad', function() {
+			if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+				imageScaling = 'fit';
+			} else {
+				imageScaling = 'fill';
+			}
+		});
 
 		$(document).keydown(function(e) {
 
@@ -333,7 +349,10 @@ var Project = (function() {
 		setCurrent($source);
 		panFullview();
 
-		TweenMax.fromTo($toRemove, .3, { opacity: 1 }, { opacity: 0 });
+		if ( imageScaling == 'fit' ) {
+			TweenMax.fromTo($toRemove, .3, { opacity: 1 }, { opacity: 0 });
+		}
+
 		TweenMax.fromTo($target, .3, { opacity: 0 }, { opacity: 1,
 			onComplete: function() {
 				$toRemove.remove();
@@ -735,7 +754,11 @@ var Project = (function() {
 						transition: '',
 						opacity: ''
 					});
-					TweenMax.fromTo($target.children('.photometa'), .3, {opacity: 0}, {opacity: 1});
+
+					if ( !empty($target.data('caption')) ) {
+						$target.children('.photometa').css('opacity', 1);
+					}
+
 					$source.css('opacity', '');
 
 					if (remove) {
