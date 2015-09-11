@@ -114,9 +114,9 @@ img {
             min-width: 40em;
         }
 
-        .portfolio--filmstrip &:before {
+        .portfolio--filmstrip &:not(.portfolio__item--text):before {
             content: "";
-            display: block;
+            display: none;
             position: absolute;
             top: 50%;
             left: 50%;

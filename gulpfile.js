@@ -38,8 +38,8 @@ gulp.task('styles-dev', function () {
 				console.log(e.message);
 			})
 		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
-		.pipe(cmq());
-		.pipe(csscomb());
+		// .pipe(cmq());
+		// .pipe(csscomb());
 		.pipe(gulp.dest('./'))
 		.pipe(livereload());
 });

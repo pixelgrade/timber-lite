@@ -19877,6 +19877,7 @@ if (!Date.now) Date.now = function () {
 
         if (empty(captionText)) {
           $meta.css('opacity', 0);
+          $meta.addClass('no-caption');
 
           if (empty(descriptionText) && empty(exifText)) {
             $meta.hide();
@@ -20349,6 +20350,8 @@ if (!Date.now) Date.now = function () {
 
       $('.button-full').css('opacity', 0);
 
+      $source.addClass('hide-meta');
+
       initialAlpha = latestDeviceAlpha;
       initialBeta = latestDeviceBeta;
       initialGamma = latestDeviceGamma;
@@ -20434,7 +20437,7 @@ if (!Date.now) Date.now = function () {
     function hideFullView() {
 
       var $source = $('.fullview__image'),
-          $target = $('.portfolio__item--active');
+          $target = $('.portfolio__item--active').addClass('hide-meta');
 
       $target.children().add($target).addClass('no-transition').css('opacity', 0);
       setTimeout(function () {
@@ -20457,6 +20460,7 @@ if (!Date.now) Date.now = function () {
         morph($source, $target, {}, function () {
           $('.site-content').removeClass('site-content--fullview');
           $('.button-full').css('opacity', 1);
+          $target.removeClass('hide-meta');
         });
         setTimeout(function () {
           $fullview.removeClass('fullview--visible');

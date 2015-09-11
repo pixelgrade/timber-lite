@@ -13,6 +13,10 @@
     transition: opacity .3s ease-in-out;
     -webkit-font-smoothing: initial;
 
+    .hide-meta.hide-meta & {
+        opacity: 0 !important;
+    }
+
     &:before {
         content: "";
         display: block;
@@ -40,9 +44,20 @@
         .portfolio--details .portfolio__item--active & {
             opacity: 1;
         }
+
+        .touch .portfolio--details & {
+            @include query-below($lap) {
+                opacity: 1;
+            }
+        }
     }
 
-    .portfolio--details & {
+    .portfolio--details &.no-caption {
+        opacity: 0 !important;
+    }
+
+    .portfolio--details &,
+    .portfolio--details .portfolio__item--active & {
         opacity: 1 !important;
     }
 
@@ -69,8 +84,8 @@
         margin-top: .5em;
         margin-right: 1em;
         opacity: 0.5;
-
         line-height: 1.3em;
+        padding-bottom: 0.5em;
 
         .portfolio__item--active & {
             opacity: 1;
