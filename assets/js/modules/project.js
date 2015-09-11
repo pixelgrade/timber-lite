@@ -431,7 +431,7 @@ var Project = (function() {
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
 			TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0, onComplete: function() {
-				$('.site-footer').css('display', 'none');
+				// $('.site-footer').css('display', 'none');
 			}
 		});
 
@@ -679,6 +679,11 @@ var Project = (function() {
 
 		var $source = $('.fullview__image'),
 			$target = $('.portfolio__item--active');
+
+		$target.children().add($target).addClass('no-transition').css('opacity', 0);
+		setTimeout(function() {
+			$target.children().add($target).removeClass('no-transition');
+		}, 10)
 
 		if ( imageScaling == 'fit' ) {
 			$fullview.css('backgroundColor', 'transparent');

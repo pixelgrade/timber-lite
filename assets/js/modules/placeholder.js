@@ -54,6 +54,7 @@ var Placeholder = (function() {
                 $image.prependTo($item);
                 $image.imagesLoaded(function() {
                     TweenMax.to($image, .3, {opacity: 1});
+                    $item.addClass('js-loaded');
                 });
             };
         });

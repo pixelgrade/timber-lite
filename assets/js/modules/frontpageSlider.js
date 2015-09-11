@@ -199,21 +199,8 @@ var frontpageSlider = (function() {
 
     function onNextClick() {
         $(document).off('keydown', slider_keys_controls_callback );
-        var timeline = new TimelineMax({ paused: true, onComplete: onComplete });
 
-        timeline.to($next.next().find('.project-slide__image'), 0, {opacity: 1, ease: Power1.easeOut});
-        timeline.to($slider, .7, {x: '-=' + nextWidth, ease: Quint.easeOut});
-        timeline.to($current, .7, {width: nextWidth, ease: Quint.easeOut}, '-=.7');
-        timeline.to($next, .7, {width: sliderWidth, left: '-=' + (sliderWidth - nextWidth), x: 0, ease: Quint.easeOut}, '-=.7');
-
-        if (nextWidth > 70) {
-            timeline.to($next.next(), .4, {width: 160, x: -60, ease: Quint.easeOut}, '-=.7');
-        } else {
-            timeline.to($next.find('.project-slide__image'), .4, {opacity: 1, ease: Power1.easeOut}, '-=.4');
-            timeline.to($next.next().find('.project-slide__image'), .4, {opacity: 0.6, ease: Power1.easeOut}, '-=.4');
-        }
-
-        timeline.to($current.find('.project-slide__image'), .4, {opacity: 0.6, ease: Power1.easeOut}, '-=.4');
+        var timeline = getNextTimeline();
 
         $prev       = $current;
         $current    = $next;
@@ -224,26 +211,36 @@ var frontpageSlider = (function() {
         timeline.play();
 
         updateBullets(1);
+    }
 
-        function onComplete() {
-            $slides.first().appendTo($slider).css('left', '+=' + totalWidth);
-            $slides = $slider.children();
-            setZindex();
-            $nextTrigger.on('click', onNextClick);
-            $(document).on('keydown', slider_keys_controls_callback );
+    function onNextComplete() {
+        $slides.first().appendTo($slider).css('left', '+=' + totalWidth);
+        $slides = $slider.children();
+        setZindex();
+        $nextTrigger.on('click', onNextClick);
+        $(document).on('keydown', slider_keys_controls_callback );
+    }
+
+    function getNextTimeline() {
+        var timeline = new TimelineMax({ paused: true, onComplete: onNextComplete });
+        timeline.to($next.next().find('.project-slide__image'), 0, {opacity: 1, ease: Power1.easeOut});
+        timeline.to($slider, .7, {x: '-=' + nextWidth, ease: Quint.easeOut});
+        timeline.to($current, .7, {width: nextWidth, ease: Quint.easeOut}, '-=.7');
+        timeline.to($next, .7, {width: sliderWidth, left: '-=' + (sliderWidth - nextWidth), x: 0, ease: Quint.easeOut}, '-=.7');
+        if (nextWidth > 70) {
+            timeline.to($next.next(), .4, {width: 160, x: -60, ease: Quint.easeOut}, '-=.7');
+        } else {
+            timeline.to($next.find('.project-slide__image'), .4, {opacity: 1, ease: Power1.easeOut}, '-=.4');
+            timeline.to($next.next().find('.project-slide__image'), .4, {opacity: 0.6, ease: Power1.easeOut}, '-=.4');
         }
+        timeline.to($current.find('.project-slide__image'), .4, {opacity: 0.6, ease: Power1.easeOut}, '-=.4');
+        return timeline;
     }
 
     function onPrevClick() {
         $(document).off('keydown', slider_keys_controls_callback );
-        var timeline = new TimelineMax({ paused: true, onComplete: onComplete });
 
-        timeline.to($prev.prev().find('.project-slide__image'), 0, {opacity: 1, ease: Quint.easeOut});
-        timeline.to($slider, .7, {x: '+=' + nextWidth, ease: Quint.easeOut});
-        timeline.to($current, .7, {width: nextWidth, left: '+=' + (sliderWidth - nextWidth), ease: Quint.easeOut}, '-=.7');
-        timeline.to($prev, .7, {width: sliderWidth, x: 0, ease: Quint.easeOut}, '-=.7');
-        timeline.to($prev.prev(), .4, {width: 160, ease: Quint.easeOut}, '-=.7');
-        timeline.to($current.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut}, '-=.4');
+        var timeline = getPrevTimeline();
 
         $next       = $current;
         $current    = $prev;
@@ -254,14 +251,25 @@ var frontpageSlider = (function() {
         timeline.play();
 
         updateBullets(-1);
+    }
 
-        function onComplete() {
-            $slides.last().prependTo($slider).css('left', '-=' + totalWidth);
-            $slides = $slider.children();
-            setZindex();
-            $prevTrigger.on('click', onPrevClick);
-            $(document).on('keydown', slider_keys_controls_callback );
-        }
+    function onPrevComplete() {
+        $slides.last().prependTo($slider).css('left', '-=' + totalWidth);
+        $slides = $slider.children();
+        setZindex();
+        $prevTrigger.on('click', onPrevClick);
+        $(document).on('keydown', slider_keys_controls_callback );
+    }
+
+    function getPrevTimeline() {
+        var timeline = new TimelineMax({ paused: true, onComplete: onPrevComplete });
+        timeline.to($prev.prev().find('.project-slide__image'), 0, {opacity: 1, ease: Quint.easeOut});
+        timeline.to($slider, .7, {x: '+=' + nextWidth, ease: Quint.easeOut});
+        timeline.to($current, .7, {width: nextWidth, left: '+=' + (sliderWidth - nextWidth), ease: Quint.easeOut}, '-=.7');
+        timeline.to($prev, .7, {width: sliderWidth, x: 0, ease: Quint.easeOut}, '-=.7');
+        timeline.to($prev.prev(), .4, {width: 160, ease: Quint.easeOut}, '-=.7');
+        timeline.to($current.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut}, '-=.4');
+        return timeline;
     }
 
     function updateBullets(offset) {

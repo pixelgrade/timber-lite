@@ -120,15 +120,23 @@ img {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 50px;
-            height: 2px;
-            background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5) 30%, transparent 30%);
+            width: 100px;
+            margin-left: -50px;
+            max-width: 90%;
+            height: 4px;
+            background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3) 30%, transparent 30%);
             background-position-x: 0;
             background-size: 200%;
             animation-name: mymove;
             animation-duration: 1s;
             animation-iteration-count: infinite;
             animation-timing-function: linear;
+            border-radius: 2px;
+            transition: opacity .1s ease-out;
+        }
+
+        .portfolio--filmstrip &.js-loaded:before {
+            opacity: 0;
         }
     }
 
@@ -370,12 +378,12 @@ img {
 
 /* Chrome, Safari, Opera */
 @-webkit-keyframes mymove {
-    from {background-position-x: 0px;}
+    from {background-position-x: -100px;}
     to {background-position-x: 100px;}
 }
 
 /* Standard syntax */
 @keyframes mymove {
-    from {background-position-x: 0px;}
+    from {background-position-x: -100px;}
     to {background-position-x: 100px;}
 }
