@@ -26,3 +26,20 @@
         border-bottom: 1px solid #ebebeb;
     }
 }
+
+.project_layout-fullscreen {
+
+    .mobile-header {
+        background: transparent;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .site-footer,
+    .bar--fixed {
+        background: transparent;
+        color: white;
+    }
+}
