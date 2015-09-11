@@ -68,13 +68,18 @@
 		<button class="filter__trigger  js-projects-filter-trigger"></button>
 		<div class="filter__content  js-projects-filter-content">
 			<span class="filter__text"><?php _e('Filter:', 'timber'); ?></span>
-			<ul class="filter__list  js-projects-filter-list">
-				<li class="filter__item  active" data-filter="*">All</li>
-				<li class="filter__item" data-filter=".post-390">Filter item</li>
-				<li class="filter__item" data-filter=".post-113">Filter item</li>
-				<li class="filter__item" data-filter=".post-390">Filter item</li>
-				<li class="filter__item" data-filter=".post-390">Filter item</li>
-			</ul>
+			<?php
+			$portfolio_types = get_terms( 'jetpack-portfolio-type' );
+
+			if ( ! is_wp_error($portfolio_types) && ! empty( $portfolio_types ) ) { ?>
+				<ul id="portfolio-category" class="filter__list  js-projects-filter-list">
+					<li><button class="filter__item" data-filter="*"><?php _e( 'All', 'timber' );?></button></li>
+					<?php foreach ( $portfolio_types as $type) { ?>
+						<li><button class="filter__item" data-filter="<?php echo esc_attr( '.jetpack-portfolio-type-' . $type->slug ) ?>"><?php echo $type->name; ?></button></li>
+					<?php } ?>
+				</ul>
+				<?php
+			} ?>
 		</div>
 	</div>
 </div>
