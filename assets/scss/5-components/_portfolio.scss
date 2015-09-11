@@ -178,9 +178,6 @@ img {
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
-        display: none;
-        opacity: 0;
-
         .touch &{
             padding: 0 1em;
             padding-bottom: 70px;
@@ -270,8 +267,12 @@ img {
     }
 }
 
-.tax-jetpack-portfolio-type .portfolio--grid {
-    padding-bottom: 0;
+.page-template-custom-portfolio-page, .tax-jetpack-portfolio-type {
+    .portfolio--grid {
+        padding-bottom: 0;
+        display: none;
+        opacity: 0;
+    }
 }
 
 .is--ie9 .portfolio-wrapper {
@@ -349,8 +350,6 @@ img {
     border-left: 0.2em solid gray;
     background-color: rgba(gray, 0.25);
 }
-
-
 
 
 

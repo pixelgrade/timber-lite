@@ -9,6 +9,10 @@
 			opacity: 0;
 		}
 	}
+
+	@include query-below($lap) {
+		display: none;
+	}
 }
 
 .filter__trigger {

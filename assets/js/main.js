@@ -18467,7 +18467,7 @@ if (!Date.now) Date.now = function () {
         return false;
       }));
 
-      $('.js-filter-mobile').change(function () {
+      $('.js-filter-mobile-journal').change(function () {
         filterBy = $(this).children(":selected").data('filter');
 
         // first make the current filter link active
@@ -19658,6 +19658,26 @@ if (!Date.now) Date.now = function () {
 
           return false;
         }));
+
+        $('.js-filter-mobile-portfolio').change(function () {
+          filterBy = $(this).children(":selected").data('filter');
+
+          // first make the current filter link active
+          $('.filter__item').removeClass('active');
+          $(this).addClass('active');
+
+          if (isFirstFilterClick == true) {
+            //this is the first time the user has clicked a filter link
+            //we need to first load all posts before proceeding
+            loadAllProjects();
+
+          } else {
+            //just regular filtering from the second click onwards
+            $portfolio_container.mixItUp('filter', filterBy);
+          }
+
+          return false;
+        });
 
         },
         

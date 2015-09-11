@@ -37,7 +37,10 @@
 
     &.portfolio-archive {
         z-index: 200;
-        padding-left: 117px;
+
+        @include query-above($lap) {
+            padding-left: 117px;
+        }
     }
 }
 
