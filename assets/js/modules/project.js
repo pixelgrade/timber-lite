@@ -431,7 +431,7 @@ var Project = (function() {
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
 		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0, onComplete: function() {
-				$('.site-footer').css('display', 'none');
+				// $('.site-footer').css('display', 'none');
 			}
 		});
 
@@ -525,6 +525,7 @@ var Project = (function() {
 		});
 
 		centerFilmToTarget($target);
+		debugger;
 		morph($clicked, $target, {}, function() {
 			$target.imagesLoaded(function() {
 				$target.find('.portfolio__item--clone').remove();

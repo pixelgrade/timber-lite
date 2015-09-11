@@ -20083,6 +20083,7 @@ if (!Date.now) Date.now = function () {
           opacity: 0
         });
       }
+
       TweenMax.fromTo($target, .3, {
         opacity: 0
       }, {
@@ -20168,7 +20169,7 @@ if (!Date.now) Date.now = function () {
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 0,
         onComplete: function () {
-          $('.site-footer').css('display', 'none');
+          // $('.site-footer').css('display', 'none');
         }
       });
 
@@ -20276,6 +20277,7 @@ if (!Date.now) Date.now = function () {
       });
 
       centerFilmToTarget($target);
+      debugger;
       morph($clicked, $target, {}, function () {
         $target.imagesLoaded(function () {
           $target.find('.portfolio__item--clone').remove();
