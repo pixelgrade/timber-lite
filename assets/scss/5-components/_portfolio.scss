@@ -272,6 +272,11 @@ img {
         padding-bottom: 0;
         display: none;
         opacity: 0;
+
+        @include query-below($lap) {
+            padding-left: 7vw;
+            padding-right: 7vw;
+        }
     }
 }
 

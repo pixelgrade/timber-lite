@@ -158,3 +158,12 @@
         }
     }
 }
+
+@include query-below($desk) {
+    .page-template-custom-portfolio-page, .tax-jetpack-portfolio-type {
+        .site-sidebar--archive {
+            padding-left: 7vw;
+            padding-right: 7vw;
+        }
+    }
+}
