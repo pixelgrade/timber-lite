@@ -101,9 +101,12 @@ html.has--nicescroll {
     display: none;
 }
 
-@include query-below($lap) {
-    .single-jetpack-portfolio .site-content {
-        overflow-y: hidden;
+.touch {
+    .single-jetpack-portfolio, .blog {
+        .site-content {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
     }
 }
 
@@ -122,4 +125,45 @@ html {
     @include query-below($small) {
         padding-left: 3em;
     }
+}
+
+.no-flexbox {
+    @include query-below($lap) {
+        .site-branding {
+            display: none;
+        }
+
+        .site-navigation {
+            text-align: left;
+        }
+
+        .site-navigation,
+        .social-navigation {
+            display: block;
+        }
+
+        .site-header {
+            display: block;
+            width: 70%;
+
+            .bar--fixed {
+                top: 0;
+            }
+        }
+    }
+
+    .filmstrip,
+    .single-jetpack-portfolio .site,
+    .jetpack-portfolio .site {
+        display: block;
+
+        .site-content {
+            height: 80vh;
+            height: calc(100vh - 120px);
+        }
+    }
+}
+
+.single-proof_gallery {
+    @extend .single-jetpack-portfolio;
 }
