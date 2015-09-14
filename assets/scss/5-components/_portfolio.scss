@@ -5,6 +5,10 @@
     -webkit-flex-direction: column;
 }
 
+.touch .single-jetpack-portfolio .site-footer {
+    padding-bottom: 0;
+}
+
 img {
     will-change: opacity;
 }
@@ -17,6 +21,7 @@ img {
     @extend %display--flex;
     @extend %position--absolute;
     opacity: 0;
+    -webkit-overflow-scrolling: touch;
 
     height: 100%;
     pointer-events: none;
@@ -108,6 +113,31 @@ img {
         &--content {
             min-width: 40em;
         }
+
+        .portfolio--filmstrip &:not(.portfolio__item--text):before {
+            content: "";
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            margin-left: -50px;
+            max-width: 90%;
+            height: 4px;
+            background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.3) 30%, transparent 30%);
+            background-position-x: 0;
+            background-size: 200%;
+            animation-name: mymove;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+            border-radius: 2px;
+            transition: opacity .1s ease-out;
+        }
+
+        .portfolio--filmstrip &.js-loaded:before {
+            opacity: 0;
+        }
     }
 
     &__item--target {
@@ -156,8 +186,9 @@ img {
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
-        @include query-below($small) {
+        .touch &{
             padding: 0 1em;
+            padding-bottom: 70px;
         }
 
         .portfolio__item {
@@ -343,4 +374,16 @@ img {
     .mejs-mediaelement {
         position: static;
     }
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    from {background-position-x: -100px;}
+    to {background-position-x: 100px;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+    from {background-position-x: -100px;}
+    to {background-position-x: 100px;}
 }

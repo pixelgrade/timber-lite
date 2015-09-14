@@ -26,11 +26,37 @@ var Blog = (function() {
 		//mixitup init without filtering
 		$filmstrip_container.mixItUp({
 			animation: {
-				effects: 'fade'
+				enable: false
 			},
 			selectors: {
 				filter: '.no-real-selector-for-filtering',
 				target: '.filmstrip__item'
+			},
+			callbacks : {
+				onMixEnd: function (state) {
+					// show the elements that must be shown
+					state.$show.each(function(){
+						var $that = $(this);
+
+						TweenMax.to($(this), .3 , { opacity: 1, onStart: function() {
+									isSafari ? $that.css('display', '-webkit-flex') :  $that.css('display', 'flex');
+									isIE ? $that.css('display', '-ms-flex') :  $that.css('display', 'flex');
+								}
+							}
+						);
+					});
+
+					// hide the elements that must be hidden
+					state.$hide.each(function(){
+						var $that = $(this);
+
+						TweenMax.to($(this), .3 , { opacity: 0, onComplete: function() {
+									$that.css('display', 'none');
+								}
+							}
+						);
+					})
+				}
 			}
 		});
 
@@ -63,6 +89,26 @@ var Blog = (function() {
 
 			return false;
 		}));
+
+		$('.js-filter-mobile').change(function(){
+			filterBy = $(this).children(":selected").data('filter');
+
+			// first make the current filter link active
+			$('.filter__item').removeClass('active');
+			$(this).addClass('active');
+
+			if ( isFirstFilterClick == true ) {
+				//this is the first time the user has clicked a filter link
+				//we need to first load all posts before proceeding
+				loadAllPosts();
+
+			} else {
+				//just regular filtering from the second click onwards
+				$filmstrip_container.mixItUp( 'filter', filterBy);
+			}
+
+			return false;
+		});
 	}
 
 	function loadAllPosts() {

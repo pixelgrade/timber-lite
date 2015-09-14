@@ -12,6 +12,14 @@
 	text-transform: uppercase;
 }
 
+.project_layout-fullscreen {
+	.project-addthis-container {
+		.share-button {
+			background: url('assets/svg/share-icon-white.svg') no-repeat;
+		}
+	}
+}
+
 .project-addthis-container {
 	.share-button {
 		width: 22px;
@@ -40,6 +48,10 @@
 		text-transform: none;
 
 		transition: 0.3s opacity linear;
+
+		.single-jetpack-portfolio &:after {
+			content: ":";
+		}
 	}
 
 	.active {
@@ -56,7 +68,6 @@
 .share-button, .share-text {
 	transition-duration: 0.2s;
 }
-
 .social-links-list {
 	@extend %margin--0;
 	@extend %padding--0;
@@ -85,11 +96,43 @@
 		display: inline-block;
 		padding: 10px;
 		transition-duration: 0s;
+
+		@include query-below($lap) {
+
+		}
 	}
 
 	a:hover .at4-icon{
 		-webkit-filter: none;
 		filter: none;
+	}
+}
+
+@include query-below($lap) {
+	.single-post {
+		.social-links-list, .share-text {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		.social-links-list {
+			position: static;
+			padding-left: 0;
+			transform: none;
+
+			a {
+				opacity: 1 !important;
+				transform: none !important;
+			}
+		}
+
+		.share-text {
+			opacity: 1;
+		}
+
+		.share-button {
+			opacity: 0;
+		}
 	}
 }
 

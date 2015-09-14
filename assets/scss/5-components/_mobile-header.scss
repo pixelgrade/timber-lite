@@ -1,12 +1,21 @@
 .mobile-header {
-    @include wp-offset(0, margin-top);
     position: absolute;
-    top: $small-bar-height/2;
-    transform: translate(0, -50%);
+    padding: 17px;
+    height: 60px;
+    @include wp-offset(0, top);
     left: 0;
     width: 100%;
     z-index: 9998;
     text-align: center;
+    background: white;
+
+    .page-has-featured-image:not(.page-template) & {
+        background: transparent;
+
+        &:after {
+            display: none;
+        }
+    }
 
     .site-title {
         margin: 0 auto;
@@ -14,5 +23,41 @@
 
     @include query-above($lap) {
         display: none;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    .admin-bar.portfolio_page_type-project_slider & {
+        top: 0 !important;
+    }
+}
+
+.admin-bar .site-header--placeholder {
+    @include query-below($lap) {
+        margin-top: 0 !important;
+    }
+}
+
+.project_layout-fullscreen {
+
+    .mobile-header {
+        background: transparent;
+
+        &:after {
+            display: none;
+        }
+    }
+
+    .site-footer,
+    .bar--fixed {
+        background: transparent;
+        color: white;
     }
 }

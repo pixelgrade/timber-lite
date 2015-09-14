@@ -122,22 +122,19 @@ var djax = (function() {
           curPostTax = $(data).filter('notbody').data("curtaxonomy"),
           curPostEditString = $(data).filter('notbody').data("curpostedit");
 
-        if (transitionedOut) {
+        function finishTransition() {
             $(window).scrollLeft(0);
             $(window).scrollTop(0);
             $body.attr('class', nobodyClass);
             adminBarEditFix(curPostID, curPostEditString, curPostTax);
             softInit();
             $('body').trigger('post-load');
+        }
+
+        if (transitionedOut) {
+            finishTransition();
         } else {
-            $window.one('djax:transitionOutEnd', function() {
-                $(window).scrollLeft(0);
-                $(window).scrollTop(0);
-                $body.attr('class', nobodyClass);
-                adminBarEditFix(curPostID, curPostEditString, curPostTax);
-                softInit();
-                $('body').trigger('post-load');
-            });
+            $window.one('djax:transitionOutEnd', finishTransition);
         }
 
         //lets do some Google Analytics Tracking, in case it is there

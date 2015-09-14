@@ -47,7 +47,10 @@ function softInit() {
 
     checkProfileImageWidget();
 
-    bindVertToHorScroll();
+    if( windowWidth > 740 ) {
+        bindVertToHorScroll();
+    }
+
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -94,6 +97,29 @@ function onResize() {
     Project.onResize();
     frontpageSlider.onResize();
     videos.resize();
+
+    var $items = $('.site-content').find('.js-placeholder');
+
+    $items.each(function(i, item) {
+        var $item       = $(item),
+            width       = $item.data('width'),
+            height      = $item.data('height'),
+            newHeight   = $item.height(),
+            newWidth    = newHeight * width / height;
+
+            $item.data('newWidth', newWidth);
+    });
+
+    $items.each(function(i, item) {
+        var $item = $(item);
+        $item.width($item.data('newWidth'));
+    });
+
+    if( windowWidth > 740 && !horToVertScroll ) {
+        bindVertToHorScroll();
+    } else {
+        $('html, body, *').unbind('mousewheel', vertToHorScroll);
+    }
 }
 
 function requestTick() {
@@ -123,13 +149,34 @@ function eventHandlers() {
     $window.on('debouncedresize', onResize);
 
     $window.on('scroll', function () {
-    	latestKnownScrollY = window.scrollY;
-        latestKnownScrollX = window.scrollX;
+
+        if(!isIE) {
+            latestKnownScrollY = window.scrollY;
+            latestKnownScrollX = window.scrollX;
+        } else {
+            latestKnownScrollY = document.documentElement.scrollTop;
+            latestKnownScrollX = document.documentElement.scrollLeft;
+        }
+
         requestTick();
     });
 
-    $document.mousemove(function (e) {
-    	latestKnownMouseX = e.pageX - latestKnownScrollX;
-    	latestKnownMouseY = e.pageY - latestKnownScrollY;
+    $('.touch .site-content').on('scroll', function () {
+
+        latestKnownScrollY = window.scrollY;
+        latestKnownScrollX = $(this).scrollLeft();
+
+        requestTick();
+    });
+
+    $(window).on('mousemove', function(e) {
+        latestKnownMouseX   = e.clientX;
+        latestKnownMouseY   = e.clientY;
+    });
+
+    $(window).on('deviceorientation', function(e) {
+        latestDeviceAlpha   = e.originalEvent.alpha;
+        latestDeviceBeta    = e.originalEvent.beta;
+        latestDeviceGamma   = e.originalEvent.gamma;
     });
 }

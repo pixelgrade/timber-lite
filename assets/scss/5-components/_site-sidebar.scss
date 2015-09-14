@@ -1,36 +1,61 @@
 .site-sidebar {
     @extend %position--relative;
-    flex-basis: $sidebar-width;
-    -webkit-flex-basis: $sidebar-width;
-    flex-shrink: 0;
-    -webkit-flex-shrink: 0;
-    flex-grow: 0;
-    -webkit-flex-grow: 0;
-    z-index: 400;
-    margin-left: 7px;
-
-    .is--ie9 & {
-        position: fixed;
-        left: 0;
-        top: 0;
-
-        width: 100px;
-        height: 100vh;
-    }
 
     @include query-below($small) {
         display: none;
     }
 }
 
-.site-sidebar__content {
-    @extend %position--absolute;
-    width: calc(100vh - #{2 * $header-height});
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
+.site-sidebar:not(.site-sidebar--blog) {
+    @include query-above($small) {
+        flex-basis: $sidebar-width*2/3;
+        -webkit-flex-basis: $sidebar-width*2/3;
+        flex-shrink: 0;
+        -webkit-flex-shrink: 0;
+        flex-grow: 0;
+        -webkit-flex-grow: 0;
+        z-index: 400;
+        margin-left: 7px;
 
+        .is--ie9 & {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 100px;
+            height: 100vh;
+        }
+    }
+
+    @include query-above($desk) {
+        flex-basis: $sidebar-width;
+        -webkit-flex-basis: $sidebar-width;
+    }
+}
+
+@include query-above($lap) {
+    .site-sidebar {
+        flex-basis: $sidebar-width;
+        -webkit-flex-basis: $sidebar-width;
+        flex-shrink: 0;
+        -webkit-flex-shrink: 0;
+        flex-grow: 0;
+        -webkit-flex-grow: 0;
+        z-index: 400;
+        margin-left: 7px;
+
+        .is--ie9 & {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 100px;
+            height: 100vh;
+        }
+    }
+}
+
+.site-sidebar__content {
     .entry-meta {
         @extend %delta;
         margin: 0;
@@ -38,15 +63,26 @@
         font-weight: bold;
         text-transform: uppercase;
     }
+}
 
-    .divider {
-        margin: 0 1em;
-    }
+@include query-above($small) {
+    .site-sidebar__content {
+        position: absolute;
+        width: calc(100vh - #{2 * $header-height});
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-90deg);
 
-    .entry-header,
-    .divider,
-    .entry-meta {
-        display: inline-block;
+        .divider {
+            margin: 0 1em;
+        }
+
+        .entry-header,
+        .divider,
+        .entry-meta {
+            display: inline-block;
+        }
     }
 }
 

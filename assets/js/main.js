@@ -18107,7 +18107,13 @@ if (!Date.now) Date.now = function () {
       latestKnownMouseY = 0,
       
       
+      latestDeviceAlpha = 0,
+      latestDeviceBeta = 0,
+      latestDeviceGamma = 0,
+      
+      
       ticking = false,
+      horToVertScroll = false,
       
       
       globalDebug = false;
@@ -18165,6 +18171,56 @@ if (!Date.now) Date.now = function () {
     }
 
   })();
+/*!
+ * VERSION: 1.7.5
+ * DATE: 2015-02-26
+ * UPDATES AND DOCS AT: http://greensock.com
+ *
+ * @license Copyright (c) 2008-2015, GreenSock. All rights reserved.
+ * This work is subject to the terms at http://greensock.com/standard-license or for
+ * Club GreenSock members, the software agreement that was issued with your membership.
+ *
+ * @author: Jack Doyle, jack@greensock.com
+ **/
+  var _gsScope = "undefined" != typeof module && module.exports && "undefined" != typeof global ? global : this || window;
+  (_gsScope._gsQueue || (_gsScope._gsQueue = [])).push(function () {
+    "use strict";
+    var t = document.documentElement,
+        e = window,
+        i = function (i, r) {
+        var s = "x" === r ? "Width" : "Height",
+            n = "scroll" + s,
+            o = "client" + s,
+            a = document.body;
+        return i === e || i === t || i === a ? Math.max(t[n], a[n]) - (e["inner" + s] || t[o] || a[o]) : i[n] - i["offset" + s]
+        },
+        r = _gsScope._gsDefine.plugin({
+        propName: "scrollTo",
+        API: 2,
+        version: "1.7.5",
+        init: function (t, r, s) {
+          return this._wdw = t === e, this._target = t, this._tween = s, "object" != typeof r && (r = {
+            y: r
+          }), this.vars = r, this._autoKill = r.autoKill !== !1, this.x = this.xPrev = this.getX(), this.y = this.yPrev = this.getY(), null != r.x ? (this._addTween(this, "x", this.x, "max" === r.x ? i(t, "x") : r.x, "scrollTo_x", !0), this._overwriteProps.push("scrollTo_x")) : this.skipX = !0, null != r.y ? (this._addTween(this, "y", this.y, "max" === r.y ? i(t, "y") : r.y, "scrollTo_y", !0), this._overwriteProps.push("scrollTo_y")) : this.skipY = !0, !0
+        },
+        set: function (t) {
+          this._super.setRatio.call(this, t);
+          var r = this._wdw || !this.skipX ? this.getX() : this.xPrev,
+              s = this._wdw || !this.skipY ? this.getY() : this.yPrev,
+              n = s - this.yPrev,
+              o = r - this.xPrev;
+          this._autoKill && (!this.skipX && (o > 7 || -7 > o) && i(this._target, "x") > r && (this.skipX = !0), !this.skipY && (n > 7 || -7 > n) && i(this._target, "y") > s && (this.skipY = !0), this.skipX && this.skipY && (this._tween.kill(), this.vars.onAutoKill && this.vars.onAutoKill.apply(this.vars.onAutoKillScope || this._tween, this.vars.onAutoKillParams || []))), this._wdw ? e.scrollTo(this.skipX ? r : this.x, this.skipY ? s : this.y) : (this.skipY || (this._target.scrollTop = this.y), this.skipX || (this._target.scrollLeft = this.x)), this.xPrev = this.x, this.yPrev = this.y
+        }
+      }),
+        s = r.prototype;
+    r.max = i, s.getX = function () {
+      return this._wdw ? null != e.pageXOffset ? e.pageXOffset : null != t.scrollLeft ? t.scrollLeft : document.body.scrollLeft : this._target.scrollLeft
+    }, s.getY = function () {
+      return this._wdw ? null != e.pageYOffset ? e.pageYOffset : null != t.scrollTop ? t.scrollTop : document.body.scrollTop : this._target.scrollTop
+    }, s._kill = function (t) {
+      return t.scrollTo_x && (this.skipX = !0), t.scrollTo_y && (this.skipY = !0), this._super._kill.call(this, t)
+    }
+  }), _gsScope._gsDefine && _gsScope._gsQueue.pop()();
   // AddThis Init
   window.AddThisIcons = (function () {
 
@@ -18345,11 +18401,39 @@ if (!Date.now) Date.now = function () {
       //mixitup init without filtering
       $filmstrip_container.mixItUp({
         animation: {
-          effects: 'fade'
+          enable: false
         },
         selectors: {
           filter: '.no-real-selector-for-filtering',
           target: '.filmstrip__item'
+        },
+        callbacks: {
+          onMixEnd: function (state) {
+            // show the elements that must be shown
+            state.$show.each(function () {
+              var $that = $(this);
+
+              TweenMax.to($(this), .3, {
+                opacity: 1,
+                onStart: function () {
+                  isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
+                  isIE ? $that.css('display', '-ms-flex') : $that.css('display', 'flex');
+                }
+              });
+            });
+
+            // hide the elements that must be hidden
+            state.$hide.each(function () {
+              var $that = $(this);
+
+              TweenMax.to($(this), .3, {
+                opacity: 0,
+                onComplete: function () {
+                  $that.css('display', 'none');
+                }
+              });
+            })
+          }
         }
       });
 
@@ -18382,6 +18466,26 @@ if (!Date.now) Date.now = function () {
 
         return false;
       }));
+
+      $('.js-filter-mobile').change(function () {
+        filterBy = $(this).children(":selected").data('filter');
+
+        // first make the current filter link active
+        $('.filter__item').removeClass('active');
+        $(this).addClass('active');
+
+        if (isFirstFilterClick == true) {
+          //this is the first time the user has clicked a filter link
+          //we need to first load all posts before proceeding
+          loadAllPosts();
+
+        } else {
+          //just regular filtering from the second click onwards
+          $filmstrip_container.mixItUp('filter', filterBy);
+        }
+
+        return false;
+      });
     }
 
     function loadAllPosts() {
@@ -18670,22 +18774,19 @@ if (!Date.now) Date.now = function () {
           curPostTax = $(data).filter('notbody').data("curtaxonomy"),
           curPostEditString = $(data).filter('notbody').data("curpostedit");
 
-      if (transitionedOut) {
+      function finishTransition() {
         $(window).scrollLeft(0);
         $(window).scrollTop(0);
         $body.attr('class', nobodyClass);
         adminBarEditFix(curPostID, curPostEditString, curPostTax);
         softInit();
         $('body').trigger('post-load');
+      }
+
+      if (transitionedOut) {
+        finishTransition();
       } else {
-        $window.one('djax:transitionOutEnd', function () {
-          $(window).scrollLeft(0);
-          $(window).scrollTop(0);
-          $body.attr('class', nobodyClass);
-          adminBarEditFix(curPostID, curPostEditString, curPostTax);
-          softInit();
-          $('body').trigger('post-load');
-        });
+        $window.one('djax:transitionOutEnd', finishTransition);
       }
 
       //lets do some Google Analytics Tracking, in case it is there
@@ -18866,6 +18967,25 @@ if (!Date.now) Date.now = function () {
       $container.children().first().addClass('rsNavSelected');
     }
 
+    function slider_keys_controls_callback(e) {
+
+      switch (e.which) {
+
+      case 37:
+        if ($('.slider--show_next').length > 0 || $current.prev('div').length <= 0) return;
+        onPrevClick();
+        e.preventDefault();
+        break; // left
+      case 39:
+        if ($current.next('div').length <= 0) return;
+        onNextClick();
+        e.preventDefault();
+        break; // right
+      default:
+        return;
+      }
+    }
+
     function bindEvents() {
       if (nextWidth > 70) {
         $nextTrigger.on('mouseenter', onNextEnter);
@@ -18878,6 +18998,9 @@ if (!Date.now) Date.now = function () {
         $prevTrigger.on('mouseleave', onPrevLeave);
       }
       $prevTrigger.on('click', onPrevClick);
+
+      $(document).on('keydown', slider_keys_controls_callback);
+
     }
 
     function onNextEnter() {
@@ -18926,11 +19049,11 @@ if (!Date.now) Date.now = function () {
       TweenMax.to($next.add($content), .4, {
         x: 0,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($next, .4, {
         width: nextWidth,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($('.vertical-title.next'), .4, {
         x: 0,
         ease: Quint.easeOut
@@ -18945,11 +19068,11 @@ if (!Date.now) Date.now = function () {
       TweenMax.to($prev.add($content), .4, {
         x: 0,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($prev, .4, {
         width: nextWidth,
         ease: Quint.easeOut
-      })
+      });
       TweenMax.to($('.vertical-title.prev'), .4, {
         x: 0,
         ease: Quint.easeOut
@@ -18957,11 +19080,34 @@ if (!Date.now) Date.now = function () {
     }
 
     function onNextClick() {
+      $(document).off('keydown', slider_keys_controls_callback);
+
+      var timeline = getNextTimeline();
+
+      $prev = $current;
+      $current = $next;
+      $next = $next.next();
+
+      $nextTrigger.off('click', onNextClick);
+      animateContentTo($current);
+      timeline.play();
+
+      updateBullets(1);
+    }
+
+    function onNextComplete() {
+      $slides.first().appendTo($slider).css('left', '+=' + totalWidth);
+      $slides = $slider.children();
+      setZindex();
+      $nextTrigger.on('click', onNextClick);
+      $(document).on('keydown', slider_keys_controls_callback);
+    }
+
+    function getNextTimeline() {
       var timeline = new TimelineMax({
         paused: true,
-        onComplete: onComplete
+        onComplete: onNextComplete
       });
-
       timeline.to($next.next().find('.project-slide__image'), 0, {
         opacity: 1,
         ease: Power1.easeOut
@@ -18980,7 +19126,6 @@ if (!Date.now) Date.now = function () {
         x: 0,
         ease: Quint.easeOut
       }, '-=.7');
-
       if (nextWidth > 70) {
         timeline.to($next.next(), .4, {
           width: 160,
@@ -18997,36 +19142,42 @@ if (!Date.now) Date.now = function () {
           ease: Power1.easeOut
         }, '-=.4');
       }
-
       timeline.to($current.find('.project-slide__image'), .4, {
         opacity: 0.6,
         ease: Power1.easeOut
       }, '-=.4');
-
-      $prev = $current;
-      $current = $next;
-      $next = $next.next();
-
-      $nextTrigger.off('click', onNextClick);
-      animateContentTo($current);
-      timeline.play();
-
-      updateBullets(1);
-
-      function onComplete() {
-        $slides.first().appendTo($slider).css('left', '+=' + totalWidth);
-        $slides = $slider.children();
-        setZindex();
-        $nextTrigger.on('click', onNextClick);
-      }
+      return timeline;
     }
 
     function onPrevClick() {
+      $(document).off('keydown', slider_keys_controls_callback);
+
+      var timeline = getPrevTimeline();
+
+      $next = $current;
+      $current = $prev;
+      $prev = $prev.prev();
+
+      $prevTrigger.off('click', onPrevClick);
+      animateContentTo($current);
+      timeline.play();
+
+      updateBullets(-1);
+    }
+
+    function onPrevComplete() {
+      $slides.last().prependTo($slider).css('left', '-=' + totalWidth);
+      $slides = $slider.children();
+      setZindex();
+      $prevTrigger.on('click', onPrevClick);
+      $(document).on('keydown', slider_keys_controls_callback);
+    }
+
+    function getPrevTimeline() {
       var timeline = new TimelineMax({
         paused: true,
-        onComplete: onComplete
+        onComplete: onPrevComplete
       });
-
       timeline.to($prev.prev().find('.project-slide__image'), 0, {
         opacity: 1,
         ease: Quint.easeOut
@@ -19053,23 +19204,7 @@ if (!Date.now) Date.now = function () {
         opacity: 0.6,
         ease: Quint.easeOut
       }, '-=.4');
-
-      $next = $current;
-      $current = $prev;
-      $prev = $prev.prev();
-
-      $prevTrigger.off('click', onPrevClick);
-      animateContentTo($current);
-      timeline.play();
-
-      updateBullets(-1);
-
-      function onComplete() {
-        $slides.last().prependTo($slider).css('left', '-=' + totalWidth);
-        $slides = $slider.children();
-        setZindex();
-        $prevTrigger.on('click', onPrevClick);
-      }
+      return timeline;
     }
 
     function updateBullets(offset) {
@@ -19365,13 +19500,14 @@ if (!Date.now) Date.now = function () {
         if ($item.data('loaded')) return;
 
         if (isElementInViewport($item)) {
-          $item.data('loaded', true).removeClass('js-placeholder');
+          $item.data('loaded', true);
           $image.attr('src', src);
           $image.prependTo($item);
           $image.imagesLoaded(function () {
             TweenMax.to($image, .3, {
               opacity: 1
             });
+            $item.addClass('js-loaded');
           });
         };
       });
@@ -19488,13 +19624,20 @@ if (!Date.now) Date.now = function () {
 
         isLoadingProjects = true;
 
-        $.post(
-        timber_ajax.ajax_url, {
+        var args = {
           action: 'timber_load_next_projects',
           nonce: timber_ajax.nonce,
           offset: offset,
           posts_number: 'all'
-        }, function (response_data) {
+        };
+
+        if (!empty($portfolio_container.data('taxonomy'))) {
+          args['taxonomy'] = $portfolio_container.data('taxonomy');
+          args['term_id'] = $portfolio_container.data('termid');
+        }
+
+        $.post(
+        timber_ajax.ajax_url, args, function (response_data) {
 
           if (response_data.success) {
             if (globalDebug) {
@@ -19531,12 +19674,19 @@ if (!Date.now) Date.now = function () {
 
         isLoadingProjects = true;
 
-        $.post(
-        timber_ajax.ajax_url, {
+        var args = {
           action: 'timber_load_next_projects',
           nonce: timber_ajax.nonce,
           offset: offset
-        }, function (response_data) {
+        };
+
+        if (!empty($portfolio_container.data('taxonomy'))) {
+          args['taxonomy'] = $portfolio_container.data('taxonomy');
+          args['term_id'] = $portfolio_container.data('termid');
+        }
+
+        $.post(
+        timber_ajax.ajax_url, args, function (response_data) {
 
           if (response_data.success) {
             if (globalDebug) {
@@ -19599,7 +19749,11 @@ if (!Date.now) Date.now = function () {
 
     var $film, $grid, $fullview, start, end, current, initialized = false,
         fullviewWidth = 0,
-        fullviewHeight = 0;
+        fullviewHeight = 0,
+        initialAlpha = 0,
+        initialBeta = 0,
+        initialGamma = 0,
+        imageScaling = 'fill';
 
     fullviewWidth = windowWidth;
     fullviewHeight = windowHeight;
@@ -19612,6 +19766,10 @@ if (!Date.now) Date.now = function () {
 
       if (initialized) {
         return;
+      }
+
+      if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+        imageScaling = 'fit';
       }
 
       if ($('.project_layout-filmstrip').length) {
@@ -19674,6 +19832,18 @@ if (!Date.now) Date.now = function () {
 
     function resizeFullView() {
       $document.off('mousemove', panFullview);
+      $(window).off('deviceorientation', panFullview);
+
+      if ($('html').hasClass('touch')) {
+        initialAlpha = latestDeviceAlpha;
+        initialBeta = latestDeviceBeta;
+        initialGamma = latestDeviceGamma;
+
+        TweenMax.to($('.fullview__image img'), 0, {
+          x: 0,
+          y: 0
+        });
+      }
 
       if (typeof $fullview == "undefined") {
         return;
@@ -19686,7 +19856,7 @@ if (!Date.now) Date.now = function () {
           newHeight = $fullview.height(),
           scaleX = newWidth / targetWidth,
           scaleY = newHeight / targetHeight,
-          scale = Math.max(scaleX, scaleY);
+          scale = imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY);
 
       fullviewWidth = targetWidth * scale;
       fullviewHeight = targetHeight * scale;
@@ -19700,6 +19870,7 @@ if (!Date.now) Date.now = function () {
       });
 
       $document.on('mousemove', panFullview);
+      $(window).on('deviceorientation', panFullview);
     }
 
     function addMetadata() {
@@ -19713,6 +19884,15 @@ if (!Date.now) Date.now = function () {
             $meta = $('<div class="portfolio__meta  photometa"></div>'),
             exifText = $item.data('exif'),
             $full = $('<button class="button-full js-button-full"></button>');
+
+        if (empty(captionText)) {
+          $meta.css('opacity', 0);
+          $meta.addClass('no-caption');
+
+          if (empty(descriptionText) && empty(exifText)) {
+            $meta.hide();
+          }
+        }
 
         if (!empty(exifText)) {
           $.each(exifText, function (key, value) {
@@ -19760,6 +19940,97 @@ if (!Date.now) Date.now = function () {
       $('.fullview .rsArrowRight').on('click', showNext);
       $('.fullview .rsArrowLeft').on('click', showPrev);
       $('.js-details').on('click', toggleDetails);
+
+      $(window).on('djaxLoad', function () {
+        if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+          imageScaling = 'fit';
+        } else {
+          imageScaling = 'fill';
+        }
+      });
+
+      $(document).keydown(function (e) {
+
+        if (!$('.portfolio--filmstrip.portfolio--visible').length) {
+          return;
+        }
+
+        var $items = $film.find('.js-portfolio-item'),
+            current, $current, next, $next;
+
+        $items.each(function (i, obj) {
+          if ($(obj).hasClass('portfolio__item--active')) {
+            current = i;
+          }
+        });
+
+        if (typeof current == "undefined") {
+          return;
+        }
+
+        // a close is a close and nothing else
+        switch (e.which) {
+        case 27:
+          if ($('.fullview--visible').length) {
+            hideFullView();
+            e.preventDefault();
+            return;
+          }
+          if ($('.portfolio--filmstrip.portfolio--visible').length) {
+            showThumbnails();
+            e.preventDefault();
+            return;
+          }
+        case 13:
+          if ($('.portfolio--filmstrip.portfolio--visible').length && !$('.fullview--visible').length) {
+            showFullView.call($('.portfolio__item--active'));
+            e.preventDefault();
+            return;
+          }
+        }
+
+        // in the fullview mode the next/prev keys should change the entire image
+        if ($('.fullview--visible').length > 0) {
+          switch (e.which) {
+          case 37:
+            showPrev();
+            e.preventDefault();
+            break; // left
+          case 39:
+            showNext();
+            e.preventDefault();
+            break; // right
+          }
+          return;
+        } else { // but in the filmstrip mode the next/prev keys should move only the current position of the scroll
+          switch (e.which) {
+          case 37:
+            if (current == 0) return;
+            next = current - 1;
+            e.preventDefault();
+            break;
+          case 39:
+            if (current == $items.length - 1) return;
+            next = current + 1;
+            e.preventDefault();
+            break;
+          default:
+            return;
+          }
+        }
+
+        $current = $items.eq(current);
+        $next = $items.eq(next);
+
+        var mymid = $current.data('middle');
+
+        TweenLite.to(window, 0.6, {
+          scrollTo: {
+            x: $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+          },
+          ease: Power1.easeInOut
+        });
+      });
     }
 
     function unbindEvents() {
@@ -19795,6 +20066,7 @@ if (!Date.now) Date.now = function () {
           return false;
         }
       });
+      panFullview();
     }
 
     function showNext() {
@@ -19811,6 +20083,7 @@ if (!Date.now) Date.now = function () {
           return false;
         }
       });
+      panFullview();
     }
 
     function fullViewTransition($source) {
@@ -19819,6 +20092,14 @@ if (!Date.now) Date.now = function () {
 
       setCurrent($source);
       panFullview();
+
+      if (imageScaling == 'fit') {
+        TweenMax.fromTo($toRemove, .3, {
+          opacity: 1
+        }, {
+          opacity: 0
+        });
+      }
 
       TweenMax.fromTo($target, .3, {
         opacity: 0
@@ -19836,11 +20117,7 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
-      if (typeof $film == "undefined") {
-        return;
-      }
-
-      if (!$('.single-jetpack-portfolio').length) {
+      if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
         return;
       }
 
@@ -19907,8 +20184,12 @@ if (!Date.now) Date.now = function () {
           $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
-        opacity: 0
+        opacity: 0,
+        onComplete: function () {
+          // $('.site-footer').css('display', 'none');
+        }
       });
+
       $('.site-footer, .site-sidebar').css('pointer-events', 'none');
       $grid.css('opacity', 1);
 
@@ -19969,7 +20250,10 @@ if (!Date.now) Date.now = function () {
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1,
-        delay: .3
+        delay: .3,
+        onComplete: function () {
+          $('.site-footer').css('display', 'block');
+        }
       });
       $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
@@ -20019,7 +20303,22 @@ if (!Date.now) Date.now = function () {
     }
 
     function centerFilmToTarget($target) {
-      $window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+
+      if ($('html').hasClass('touch')) {
+        TweenLite.to('.site-content', 0, {
+          scrollTo: {
+            x: $target.data('middle') - $('.site-content').width() / 2
+          },
+          ease: Power1.easeInOut
+        });
+      } else {
+        TweenLite.to(window, 0, {
+          scrollTo: {
+            x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+          },
+          ease: Power1.easeInOut
+        });
+      }
     }
 
     function addImageToFullView($source) {
@@ -20030,7 +20329,7 @@ if (!Date.now) Date.now = function () {
           newHeight = $fullview.height(),
           scaleX = newWidth / width,
           scaleY = newHeight / height,
-          scale = Math.max(scaleX, scaleY),
+          scale = imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY),
           $target = $('<div>').addClass('fullview__image'),
           $image = $(document.createElement('img'));
 
@@ -20059,18 +20358,35 @@ if (!Date.now) Date.now = function () {
       var $source = $(this),
           $target = addImageToFullView($source);
 
+      $('.button-full').css('opacity', 0);
+
+      $source.addClass('hide-meta');
+
+      initialAlpha = latestDeviceAlpha;
+      initialBeta = latestDeviceBeta;
+      initialGamma = latestDeviceGamma;
+
       morph($source, $target);
 
-      setTimeout(function () {
-        TweenMax.to($('.fullview__image img'), .5, {
-          x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
-          y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
-          ease: Back.easeOut,
-          onComplete: function () {
-            $document.on('mousemove', panFullview);
-          }
-        });
-      }, 500);
+      if (imageScaling == 'fit') {
+        $fullview.css('backgroundColor', '#222222');
+      } else if ($('html').hasClass('touch')) {
+        $(window).on('deviceorientation', panFullview);
+        $document.on('mousemove', panFullview);
+      } else {
+        setTimeout(function () {
+          TweenMax.to($('.fullview__image img'), .5, {
+            x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+            y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
+            ease: Back.easeOut,
+            onComplete: function () {
+              $document.on('mousemove', panFullview);
+              $(window).on('deviceorientation', panFullview);
+              setCurrent($source);
+            }
+          });
+        }, 500);
+      }
 
       $fullview.addClass('fullview--visible');
     }
@@ -20082,42 +20398,98 @@ if (!Date.now) Date.now = function () {
             imgWidth = $img.width(),
             imgHeight = $img.height();
 
-        if (imgWidth > windowWidth) {
-          TweenMax.to($img, 0, {
-            x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
-          });
-        }
+        if ($('html').hasClass('touch')) {
 
-        if (imgHeight > windowHeight) {
-          TweenMax.to($img, 0, {
-            y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
-          });
+          var a = initialAlpha - latestDeviceAlpha,
+              b = initialBeta - latestDeviceBeta,
+              g = initialGamma - latestDeviceGamma,
+              x, y;
+
+          b = b < -30 ? -30 : b > 30 ? 30 : b;
+          g = g < -30 ? -30 : g > 30 ? 30 : g;
+
+          x = g;
+          y = b;
+
+          if (windowWidth > windowHeight) {
+            x = -b;
+            y = -g;
+          }
+
+          if (imgWidth > windowWidth) {
+            TweenMax.to($img, 0, {
+              x: x / 60 * (imgWidth - windowWidth)
+            });
+          }
+
+          if (imgHeight > windowHeight) {
+            TweenMax.to($img, 0, {
+              y: y / 60 * (imgHeight - windowHeight)
+            });
+          }
+
+        } else {
+          if (imgWidth > windowWidth) {
+            TweenMax.to($img, 0, {
+              x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
+            });
+          }
+
+          if (imgHeight > windowHeight) {
+            TweenMax.to($img, 0, {
+              y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
+            });
+          }
         }
-      })
+      });
     }
 
     function hideFullView() {
+
       var $source = $('.fullview__image'),
-          $target = $('.portfolio__item--active');
+          $target = $('.portfolio__item--active').addClass('hide-meta');
+
+      $target.children().add($target).addClass('no-transition').css('opacity', 0);
+      setTimeout(function () {
+        $target.children().add($target).removeClass('no-transition');
+      }, 10)
+
+      if (imageScaling == 'fit') {
+        $fullview.css('backgroundColor', 'transparent');
+      }
 
       $document.off('mousemove', panFullview);
+      $(window).off('deviceorientation', panFullview);
+
+      setCurrent($target);
+      centerFilmToTarget($target);
+
       $('.site-content').addClass('site-content--fullview');
 
-      TweenMax.to($('.fullview__image img'), .3, {
-        x: 0,
-        y: 0,
-        onComplete: function () {
-          morph($source, $target, {}, function () {
-            $('.site-content').removeClass('site-content--fullview');
-            // setTimeout(function() {
-            // });
-          });
-          setTimeout(function () {
-            $fullview.removeClass('fullview--visible');
-            $source.remove();
-          });
-        }
-      });
+      function finishHideFullView() {
+        morph($source, $target, {}, function () {
+          $('.site-content').removeClass('site-content--fullview');
+          $('.button-full').css('opacity', 1);
+          $target.removeClass('hide-meta');
+        });
+        setTimeout(function () {
+          $fullview.removeClass('fullview--visible');
+          $source.remove();
+        }, 10);
+      }
+
+      if (imageScaling == 'fill') {
+        TweenMax.to($('.fullview__image img'), .2, {
+          x: 0,
+          y: 0,
+          onComplete: finishHideFullView
+        });
+      } else {
+        $fullview.css('backgroundColor', 'transparent');
+        setTimeout(function () {
+          finishHideFullView();
+        }, 200);
+      }
     }
 
     function morph($source, $target, options, callback, remove) {
@@ -20167,11 +20539,11 @@ if (!Date.now) Date.now = function () {
             transition: '',
             opacity: ''
           });
-          TweenMax.fromTo($target.children('.photometa'), .3, {
-            opacity: 0
-          }, {
-            opacity: 1
-          });
+
+          if (!empty($target.data('caption'))) {
+            $target.children('.photometa').css('opacity', 1);
+          }
+
           $source.css('opacity', '');
 
           if (remove) {
@@ -20555,7 +20927,10 @@ if (!Date.now) Date.now = function () {
 
     checkProfileImageWidget();
 
-    bindVertToHorScroll();
+    if (windowWidth > 740) {
+      bindVertToHorScroll();
+    }
+
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
@@ -20602,6 +20977,29 @@ if (!Date.now) Date.now = function () {
     Project.onResize();
     frontpageSlider.onResize();
     videos.resize();
+
+    var $items = $('.site-content').find('.js-placeholder');
+
+    $items.each(function (i, item) {
+      var $item = $(item),
+          width = $item.data('width'),
+          height = $item.data('height'),
+          newHeight = $item.height(),
+          newWidth = newHeight * width / height;
+
+      $item.data('newWidth', newWidth);
+    });
+
+    $items.each(function (i, item) {
+      var $item = $(item);
+      $item.width($item.data('newWidth'));
+    });
+
+    if (windowWidth > 740 && !horToVertScroll) {
+      bindVertToHorScroll();
+    } else {
+      $('html, body, *').unbind('mousewheel', vertToHorScroll);
+    }
   }
 
   function requestTick() {
@@ -20631,14 +21029,35 @@ if (!Date.now) Date.now = function () {
     $window.on('debouncedresize', onResize);
 
     $window.on('scroll', function () {
-      latestKnownScrollY = window.scrollY;
-      latestKnownScrollX = window.scrollX;
+
+      if (!isIE) {
+        latestKnownScrollY = window.scrollY;
+        latestKnownScrollX = window.scrollX;
+      } else {
+        latestKnownScrollY = document.documentElement.scrollTop;
+        latestKnownScrollX = document.documentElement.scrollLeft;
+      }
+
       requestTick();
     });
 
-    $document.mousemove(function (e) {
-      latestKnownMouseX = e.pageX - latestKnownScrollX;
-      latestKnownMouseY = e.pageY - latestKnownScrollY;
+    $('.touch .site-content').on('scroll', function () {
+
+      latestKnownScrollY = window.scrollY;
+      latestKnownScrollX = $(this).scrollLeft();
+
+      requestTick();
+    });
+
+    $(window).on('mousemove', function (e) {
+      latestKnownMouseX = e.clientX;
+      latestKnownMouseY = e.clientY;
+    });
+
+    $(window).on('deviceorientation', function (e) {
+      latestDeviceAlpha = e.originalEvent.alpha;
+      latestDeviceBeta = e.originalEvent.beta;
+      latestDeviceGamma = e.originalEvent.gamma;
     });
   } /* ====== HELPER FUNCTIONS ====== */
 
@@ -20746,12 +21165,14 @@ if (!Date.now) Date.now = function () {
       el = el[0];
     }
 
-    var rect = el.getBoundingClientRect();
+    var rect = el.getBoundingClientRect(),
+        height = window.innerHeight || document.documentElement.clientHeight,
+        width = window.innerWidth || document.documentElement.clientWidth;
 
     return (
-    rect.top <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-    rect.left <= (window.innerWidth || document.documentElement.clientWidth) && /*or $(window).width() */
-    rect.bottom >= 0 && rect.right >= 0);
+    rect.top <= height * 1.5 && /*or $(window).height() */
+    rect.left <= width * 1.5 && /*or $(window).width() */
+    rect.bottom >= -0.5 * height && rect.right >= -0.5 * width);
   }
 
   function sizeColumns() {
@@ -20792,6 +21213,8 @@ if (!Date.now) Date.now = function () {
     if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || ($body.hasClass('woocommerce') && $body.hasClass('archive'))) && !$html.hasClass('is--ie9')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
+
+      horToVertScroll = true;
     }
   }
 
@@ -20814,5 +21237,4 @@ if (!Date.now) Date.now = function () {
       $("html").addClass('has--nicescroll');
     }
   }
-
 })(jQuery);

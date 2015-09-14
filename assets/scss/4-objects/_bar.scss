@@ -12,6 +12,11 @@
     z-index: 550;
 
     @include query-above($lap) {
+        height: $header-height*2/3;
+        flex-basis: $header-height*2/3;
+    }
+
+    @include query-above($desk) {
         height: $header-height;
         flex-basis: $header-height;
     }
@@ -37,6 +42,7 @@
     flex-basis: 70%;
     -webkit-flex-basis: 70%;
     justify-content: center;
+    text-align: center;
 }
 
 %bar-side {
@@ -49,30 +55,32 @@
 %bar-left {
     padding-left: 48px;
     justify-content: flex-start;
+    text-align: left;
+
+    @include query-below($desk) {
+        padding-left: 32px;
+    }
 }
 
 %bar-right {
     padding-right: 48px;
     justify-content: flex-end;
+    text-align: right;
+
+    @include query-below($desk) {
+        padding-right: 32px;
+    }
 }
 
 @include query-below($lap) {
 
     %bar-piece {
-        // display: block;
         margin: 0;
         flex-basis: 33%;
         flex-grow: 1;
         flex-shrink: 1;
     }
 
-    .site-footer %bar-side {
-        padding: 1.25em;
-    }
-
-    %bar-right {
-        text-align: right;
-    }
 }
 
 .no-flexbox {

@@ -11,6 +11,7 @@
 	width: auto;
 	height: auto;
 	opacity: 0;
+	background: $bodyColour;
 
 	.rsContent {
 		width: auto;
@@ -68,13 +69,18 @@
 	bottom: $small-bar-height;
 
 	@include query-above($lap) {
-		top: $header-height;
-		bottom: $footer-height;
+		top: $header-height*2/3;
+		bottom: $footer-height*2/3;
 		margin: 0 100px;
 
 		.slider--show_next & {
 			margin-left: 0;
 		}
+	}
+
+	@include query-above($desk) {
+		top: $header-height*2/3;
+		bottom: $footer-height*2/3;
 	}
 
 	@include query-below($lap) {
@@ -98,6 +104,10 @@
 		height: $small-bar-height;
 
 		@include query-above($lap) {
+			height: $footer-height*2/3;
+		}
+
+		@include query-above($desk) {
 			height: $footer-height;
 		}
 
@@ -145,7 +155,7 @@
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: black;
+	background: $bodyColour;
 }
 
 .project-slide__image {
@@ -308,14 +318,16 @@
 		color: white;
 	}
 
+	&.header--not-light {
+		.mobile-header a, .toggle, .nav-toggle {
+			color: $bodyColour;
+		}
+	}
+
 	@include query-above($lap) {
 
 		.bar--fixed, .site-header, .site-footer {
 			transition: all .3s ease-in-out !important;
-
-			* {
-				transition: color .3s ease-in-out;
-			}
 		}
 
 		&:not(.header--not-light) {

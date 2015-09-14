@@ -982,6 +982,16 @@ function timber_load_next_projects() {
 		$args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '7' );
 	}
 
+	if ( isset( $_REQUEST['taxonomy'] ) ) {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => $_REQUEST['taxonomy'],
+				'field'    => 'term_id',
+				'terms'    => array( $_REQUEST['term_id'] ),
+			),
+		);
+	}
+
 	//check if we have a offset in $_REQUEST
 	if ( isset( $_REQUEST['offset'] ) ) {
 		$args['offset'] = (int) $_REQUEST['offset'];

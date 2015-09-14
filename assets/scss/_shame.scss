@@ -50,8 +50,8 @@ html.has--nicescroll {
 }
 
 .show-details {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
 
     &:before {
         color: $headingColour;
@@ -95,4 +95,31 @@ html.has--nicescroll {
 
 .lang_sel_sel {
     transition-duration: 0s;
+}
+
+.page-template-custom-portfolio-page .site-footer--single {
+    display: none;
+}
+
+@include query-below($lap) {
+    .single-jetpack-portfolio .site-content {
+        overflow-y: hidden;
+    }
+}
+
+html {
+    margin-top: 0 !important;
+}
+
+.portfolio__position,
+.show-details:before {
+    @include query-below($lap) {
+        display: none;
+    }
+}
+
+.portfolio-archive {
+    @include query-below($small) {
+        padding-left: 3em;
+    }
 }

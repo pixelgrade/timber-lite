@@ -49,11 +49,12 @@ var Placeholder = (function() {
             if ($item.data('loaded')) return;
 
             if (isElementInViewport($item)) {
-                $item.data('loaded', true).removeClass('js-placeholder');
+                $item.data('loaded', true);
                 $image.attr('src', src);
                 $image.prependTo($item);
                 $image.imagesLoaded(function() {
                     TweenMax.to($image, .3, {opacity: 1});
+                    $item.addClass('js-loaded');
                 });
             };
         });

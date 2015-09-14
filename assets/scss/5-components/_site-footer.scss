@@ -9,8 +9,22 @@
     &, .bar--fixed {
 
         @include query-above($lap) {
+            height: $footer-height*2/3;
+            flex-basis: $footer-height*2/3;
+        }
+
+        @include query-above($desk) {
             height: $footer-height;
             flex-basis: $footer-height;
+        }
+    }
+
+    @include query-below($lap) {
+        padding-bottom: 0.75em;
+
+        %bar-piece {
+            display: block;
+            padding: 0.75em;
         }
     }
 }
@@ -24,6 +38,25 @@
     @extend %bar-piece;
     @extend %bar-side;
     @extend %bar-right;
+
+    @include query-below($lap) {
+        &.caption.caption {
+            padding-top: 0.75em;
+        }
+    }
+
+    .mobile-thumbnails-label {
+        display: none;
+        @include query-below($desk) {
+            display: block;
+        }
+    }
+
+    .desktop-thumbnails-label {
+        @include query-below($desk) {
+            display: none;
+        }
+    }
 }
 
 
@@ -65,6 +98,7 @@
         .theme-name, .back-to-top {
             justify-content: center;
             -webkit-justify-content: center;
+            text-align: center;
         }
     }
 }

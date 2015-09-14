@@ -10,8 +10,12 @@
     padding: 10em 1.5em 1em;
     color: white;
     @extend %transform--0;
-
+    transition: opacity .3s ease-in-out;
     -webkit-font-smoothing: initial;
+
+    .hide-meta.hide-meta & {
+        opacity: 0 !important;
+    }
 
     &:before {
         content: "";
@@ -40,6 +44,21 @@
         .portfolio--details .portfolio__item--active & {
             opacity: 1;
         }
+
+        .touch .portfolio--details & {
+            @include query-below($lap) {
+                opacity: 1;
+            }
+        }
+    }
+
+    .portfolio--details &.no-caption {
+        opacity: 0 !important;
+    }
+
+    .portfolio--details &,
+    .portfolio--details .portfolio__item--active & {
+        opacity: 1 !important;
     }
 
     &__description {
@@ -65,8 +84,8 @@
         margin-top: .5em;
         margin-right: 1em;
         opacity: 0.5;
-
         line-height: 1.3em;
+        padding-bottom: 0.5em;
 
         .portfolio__item--active & {
             opacity: 1;

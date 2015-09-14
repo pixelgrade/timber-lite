@@ -7,6 +7,12 @@
     @extend %bar;
     z-index: 552;
 
+    @include query-above($lap) {
+        &.site-header {
+            top: 7px;
+        }
+    }
+
     .page & {
         position: absolute;
         left: 0;
@@ -19,16 +25,15 @@
         left: auto;
         right: auto;
     }
-
-    @include wp-offset(0px, top, true);
 }
 
 .site-header.site-header--placeholder {
     position: static !important;
     z-index: 0;
-    height: $small-bar-height !important;
+    height: $small-bar-height;
 
     @include query-above($lap) {
+        display: block;
         height: $header-height !important;
     }
 }
@@ -94,8 +99,8 @@
         display: block;
         width: 1em;
         position: absolute;
-        top: $small-bar-height/2;
-        transform: translate(0, -50%);
+        top: 21px;
+        height: auto;
         left: 200%;
         margin-left: 1.9em;
         padding: 0;

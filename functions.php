@@ -159,11 +159,11 @@ add_action( 'widgets_init', 'timber_widgets_init' );
 function timber_scripts_styles() {
 
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
-	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'mediaelement' ) );
+	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'mediaelement' ), '1.3.0' );
 
 	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', array(
 		'jquery', 'mediaelement'
-	), '1.0.0', true );
+	), '1.3.0', true );
 	// Localize the script with new data
 	$translation_array = array
 	(
@@ -210,11 +210,7 @@ function timber_scripts_styles() {
 			}
 		}
 	}
-
-	if( $timber_show_footer ) {
-		wp_enqueue_script('scrolltotop' , get_template_directory_uri() . '/assets/js/plugins/ScrollToPlugin.min.js', array('jquery'), '1.0.0', true );
-	}
-
+	
 	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
 
 	if ( ! function_exists( 'is_plugin_active' ) ) {
@@ -332,7 +328,10 @@ function timber_get_queued_scripts() {
 
 	$loading_scripts = array();
 	foreach ( $wp_scripts->queue as $key => $handle ) {
-		$loading_scripts[ $handle ] = $wp_scripts->registered[ $handle ]->src;
+		$loading_scripts[ $handle ]['src'] = $wp_scripts->registered[ $handle ]->src;
+		if ( isset( $wp_scripts->registered[ $handle ]->extra ) && isset( $wp_scripts->registered[ $handle ]->extra['data'] )){
+			$loading_scripts[ $handle ]['data'] = $wp_scripts->registered[ $handle ]->extra['data'];
+		}
 	}
 	return $loading_scripts;
 }
@@ -360,7 +359,6 @@ add_action( 'wp_enqueue_scripts', 'timber_localize_scripts_and_styles', 99999999
  * Note: make this dependent to timber-scripts because we know for sure it is there
  */
 function timber_localize_scripts_and_styles() {
-
 	wp_localize_script( 'timber-scripts', 'timber_static_resources', array(
 		'scripts' => timber_get_queued_scripts(),
 		'styles'  => timber_get_queued_styles()
@@ -389,16 +387,30 @@ function timber_last_function(){
 					window.timber_dynamic_loaded_styles = <?php echo json_encode( $dynamic_styles ); ?>;
 
 					// timber_dynamic_loaded_scripts is generated in footer when all the scripts should be already enqueued
-					$.each( window.timber_dynamic_loaded_scripts, function (key, url) {
+					$.each( window.timber_dynamic_loaded_scripts, function (key, data) {
 
 						if (key in timber_static_resources.scripts) return;
 
-						if (globalDebug) {console.dir("Scripts loaded dynamic");}
-						if (globalDebug) {console.dir(key);}
-						if (globalDebug) {console.log(url);}
-
+						var url = data['src'];
 						// add this script to our global stack so we don't enqueue it again
 						timber_static_resources.scripts[key] = url;
+
+						// if this script has localized content, we need to ensure that it's presence in page
+						if ( typeof data['data'] !== "undefined" && data['data'].indexOf('=')  > 0 ) {
+
+							var object_name_start = data['data'].indexOf(' ' ) + 1,
+								object_name_end = data['data'].indexOf('=') - 1,
+								object_name = data['data'].substring( object_name_start, object_name_end );
+
+							if ( typeof window[object_name] === "undefined") {
+								// try to parse the data, but please, no errors here
+								try {
+									window[object_name] = JSON.parse( data['data'].substring( data['data'].indexOf('=') + 2, data['data'].length - 1 ) );
+								} catch (e) {
+									console.log( e );
+								}
+							}
+						}
 
 						$.getScript(url)
 							.done(function (script, textStatus) {

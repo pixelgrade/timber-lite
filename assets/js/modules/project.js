@@ -5,7 +5,11 @@ var Project = (function() {
 		current,
 		initialized = false,
 		fullviewWidth = 0,
-		fullviewHeight = 0;
+		fullviewHeight = 0,
+		initialAlpha = 0,
+		initialBeta = 0,
+		initialGamma = 0,
+		imageScaling = 'fill';
 
 		fullviewWidth = windowWidth;
 		fullviewHeight = windowHeight;
@@ -18,6 +22,10 @@ var Project = (function() {
 
 		if (initialized) {
 			return;
+		}
+
+		if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+			imageScaling = 'fit';
 		}
 
 		if ($('.project_layout-filmstrip').length) {
@@ -80,6 +88,18 @@ var Project = (function() {
 
 	function resizeFullView() {
 		$document.off('mousemove', panFullview);
+		$(window).off('deviceorientation', panFullview);
+
+		if ( $('html').hasClass('touch') ) {
+			initialAlpha = latestDeviceAlpha;
+			initialBeta = latestDeviceBeta;
+			initialGamma = latestDeviceGamma;
+
+			TweenMax.to($('.fullview__image img'), 0, {
+				x: 0,
+				y: 0
+			});
+		}
 
 		if (typeof $fullview == "undefined") {
 			return;
@@ -92,7 +112,7 @@ var Project = (function() {
 			newHeight 		= $fullview.height(),
 			scaleX 			= newWidth / targetWidth,
 			scaleY 			= newHeight / targetHeight,
-			scale 			= Math.max(scaleX, scaleY);
+			scale 			= imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY);
 
 		fullviewWidth = targetWidth * scale;
 		fullviewHeight = targetHeight * scale;
@@ -106,6 +126,7 @@ var Project = (function() {
 		});
 
 		$document.on('mousemove', panFullview);
+		$(window).on('deviceorientation', panFullview);
 	}
 
 	function addMetadata() {
@@ -119,6 +140,15 @@ var Project = (function() {
 				$meta 			= $('<div class="portfolio__meta  photometa"></div>'),
 				exifText		= $item.data('exif'),
 				$full 			= $('<button class="button-full js-button-full"></button>');
+
+			if ( empty(captionText) ) {
+				$meta.css('opacity', 0);
+				$meta.addClass('no-caption');
+
+				if ( empty(descriptionText) && empty(exifText) ) {
+					$meta.hide();
+				}
+			}
 
 			if ( !empty(exifText) ) {
 				$.each(exifText, function (key, value) {
@@ -166,6 +196,98 @@ var Project = (function() {
 		$('.fullview .rsArrowRight').on('click', showNext);
 		$('.fullview .rsArrowLeft').on('click', showPrev);
 		$('.js-details').on('click', toggleDetails);
+
+		$(window).on('djaxLoad', function() {
+			if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+				imageScaling = 'fit';
+			} else {
+				imageScaling = 'fill';
+			}
+		});
+
+		$(document).keydown(function(e) {
+
+			if (!$('.portfolio--filmstrip.portfolio--visible').length) {
+				return;
+			}
+
+			var $items = $film.find('.js-portfolio-item'),
+				current, $current,
+				next, $next;
+
+			$items.each(function(i, obj) {
+				if ($(obj).hasClass('portfolio__item--active')) {
+					current = i;
+				}
+			});
+
+			if (typeof current == "undefined") {
+				return;
+			}
+
+			// a close is a close and nothing else
+			switch(e.which) {
+				case 27:
+					if ($('.fullview--visible').length) {
+						hideFullView();
+						e.preventDefault();
+						return;
+					}
+					if ( $('.portfolio--filmstrip.portfolio--visible').length ) {
+						showThumbnails();
+						e.preventDefault();
+						return;
+					}
+				case 13:
+					if ( $('.portfolio--filmstrip.portfolio--visible').length && !$('.fullview--visible').length ) {
+						showFullView.call($('.portfolio__item--active'));
+						e.preventDefault();
+						return;
+					}
+			}
+
+			// in the fullview mode the next/prev keys should change the entire image
+			if ( $('.fullview--visible').length > 0 ) {
+				switch(e.which) {
+					case 37:
+						showPrev();
+						e.preventDefault();
+						break; // left
+					case 39:
+						showNext();
+						e.preventDefault();
+						break; // right
+				}
+				return;
+			} else { // but in the filmstrip mode the next/prev keys should move only the current position of the scroll
+				switch(e.which) {
+					case 37:
+						if (current == 0) return;
+						next = current - 1;
+						e.preventDefault();
+						break;
+					case 39:
+						if (current == $items.length - 1) return;
+						next = current + 1;
+						e.preventDefault();
+						break;
+					default:
+						return;
+				}
+			}
+
+			$current = $items.eq(current);
+			$next = $items.eq(next);
+
+			var mymid = $current.data('middle');
+
+			TweenLite.to(window, 0.6, {
+				scrollTo: {
+					x: $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+				},
+				ease: Power1.easeInOut
+			});
+		});
 	}
 
 	function unbindEvents() {
@@ -201,6 +323,7 @@ var Project = (function() {
 				return false;
 			}
 		});
+		panFullview();
 	}
 
 	function showNext() {
@@ -217,6 +340,7 @@ var Project = (function() {
 				return false;
 			}
 		});
+		panFullview();
 	}
 
 	function fullViewTransition($source) {
@@ -225,6 +349,10 @@ var Project = (function() {
 
 		setCurrent($source);
 		panFullview();
+
+		if ( imageScaling == 'fit' ) {
+			TweenMax.fromTo($toRemove, .3, { opacity: 1 }, { opacity: 0 });
+		}
 
 		TweenMax.fromTo($target, .3, { opacity: 0 }, { opacity: 1,
 			onComplete: function() {
@@ -237,11 +365,7 @@ var Project = (function() {
 	// loop through each portfolio item and find the one closest to center
 	function getCurrent() {
 
-		if (typeof $film == "undefined") {
-			return;
-		}
-
-		if (!$('.single-jetpack-portfolio').length) {
+		if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
 			return;
 		}
 
@@ -307,7 +431,11 @@ var Project = (function() {
 		var $active = $('.portfolio__item--active'),
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
-		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0 });
+			TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0, onComplete: function() {
+				// $('.site-footer').css('display', 'none');
+			}
+		});
+
 		$('.site-footer, .site-sidebar').css('pointer-events', 'none');
 		$grid.css('opacity', 1);
 
@@ -357,7 +485,10 @@ var Project = (function() {
 
 		$('.site-content').css('overflow-x', '');
 
-		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1, delay: .3 });
+		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1, delay: .3, onComplete: function() {
+				$('.site-footer').css('display', 'block');
+			}
+		});
 		$('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
 		$('.js-portfolio-item').addClass('no-transition');
@@ -404,7 +535,22 @@ var Project = (function() {
 	}
 
 	function centerFilmToTarget($target) {
-		$window.scrollLeft($target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width());
+
+		if ( $('html').hasClass('touch') ) {
+			TweenLite.to('.site-content', 0, {
+				scrollTo: {
+					x: $target.data('middle') - $('.site-content').width() / 2
+				},
+				ease: Power1.easeInOut
+			});
+		} else {
+			TweenLite.to(window, 0, {
+				scrollTo: {
+					x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+				},
+				ease: Power1.easeInOut
+			});
+		}
 	}
 
 	function addImageToFullView($source) {
@@ -415,7 +561,7 @@ var Project = (function() {
 			newHeight 	= $fullview.height(),
 			scaleX 		= newWidth / width,
 			scaleY 		= newHeight / height,
-			scale 		= Math.max(scaleX, scaleY),
+			scale 		= imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY),
 			$target 	= $('<div>').addClass('fullview__image'),
 			$image 		= $(document.createElement('img'));
 
@@ -446,18 +592,35 @@ var Project = (function() {
 		var $source = $(this),
 			$target = addImageToFullView($source);
 
+		$('.button-full').css('opacity', 0);
+
+		$source.addClass('hide-meta');
+
+		initialAlpha 	= latestDeviceAlpha;
+		initialBeta 	= latestDeviceBeta;
+		initialGamma 	= latestDeviceGamma;
+
 		morph($source, $target);
 
-		setTimeout(function() {
-			TweenMax.to($('.fullview__image img'), .5, {
-				x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
-				y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
-				ease: Back.easeOut,
-				onComplete: function() {
-					$document.on('mousemove', panFullview);
-				}
-			});
-		}, 500);
+		if ( imageScaling == 'fit' ) {
+			$fullview.css('backgroundColor', '#222222');
+		} else if ( $('html').hasClass('touch') ) {
+			$(window).on('deviceorientation', panFullview);
+			$document.on('mousemove', panFullview);
+		} else {
+			setTimeout(function() {
+				TweenMax.to($('.fullview__image img'), .5, {
+					x: (windowWidth / 2 - latestKnownMouseX) * (fullviewWidth - windowWidth) / windowWidth,
+					y: (windowHeight / 2 - latestKnownMouseY) * (fullviewHeight - windowHeight) / windowHeight,
+					ease: Back.easeOut,
+					onComplete: function() {
+						$document.on('mousemove', panFullview);
+						$(window).on('deviceorientation', panFullview);
+						setCurrent($source);
+					}
+				});
+			}, 500);
+		}
 
 		$fullview.addClass('fullview--visible');
 	}
@@ -469,42 +632,98 @@ var Project = (function() {
 				imgWidth 	= $img.width(),
 				imgHeight 	= $img.height();
 
-			if (imgWidth > windowWidth) {
-				TweenMax.to($img, 0, {
-					x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
-				});
-			}
+			if ( $('html').hasClass('touch') ) {
 
-			if (imgHeight > windowHeight) {
-				TweenMax.to($img, 0, {
-					y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
-				});
+				var a = initialAlpha - latestDeviceAlpha,
+					b = initialBeta - latestDeviceBeta,
+					g = initialGamma - latestDeviceGamma,
+					x, y;
+
+				b = b < -30 ? -30 : b > 30 ? 30 : b;
+				g = g < -30 ? -30 : g > 30 ? 30 : g;
+
+				x = g;
+				y = b;
+
+				if (windowWidth > windowHeight) {
+					x = -b;
+					y = -g;
+				}
+
+				if (imgWidth > windowWidth) {
+					TweenMax.to($img, 0, {
+						x: x/60 * (imgWidth - windowWidth)
+					});
+				}
+
+				if (imgHeight > windowHeight) {
+					TweenMax.to($img, 0, {
+						y: y/60 * (imgHeight - windowHeight)
+					});
+				}
+
+			} else {
+				if (imgWidth > windowWidth) {
+					TweenMax.to($img, 0, {
+						x: (windowWidth / 2 - latestKnownMouseX) * (imgWidth - windowWidth) / windowWidth
+					});
+				}
+
+				if (imgHeight > windowHeight) {
+					TweenMax.to($img, 0, {
+						y: (windowHeight / 2 - latestKnownMouseY) * (imgHeight - windowHeight) / windowHeight
+					});
+				}
 			}
-		})
+		});
 	}
 
 	function hideFullView() {
+
 		var $source = $('.fullview__image'),
-			$target = $('.portfolio__item--active');
+			$target = $('.portfolio__item--active').addClass('hide-meta');
+
+		$target.children().add($target).addClass('no-transition').css('opacity', 0);
+		setTimeout(function() {
+			$target.children().add($target).removeClass('no-transition');
+		}, 10)
+
+		if ( imageScaling == 'fit' ) {
+			$fullview.css('backgroundColor', 'transparent');
+		}
 
 		$document.off('mousemove', panFullview);
+		$(window).off('deviceorientation', panFullview);
+
+		setCurrent($target);
+		centerFilmToTarget($target);
+
 		$('.site-content').addClass('site-content--fullview');
 
-		TweenMax.to($('.fullview__image img'), .3, {
-			x: 0,
-			y: 0,
-			onComplete: function() {
-				morph($source, $target, {}, function() {
-					$('.site-content').removeClass('site-content--fullview');
-					// setTimeout(function() {
-					// });
-				});
-				setTimeout(function() {
-					$fullview.removeClass('fullview--visible');
-					$source.remove();
-				});
-			}
-		});
+		function finishHideFullView() {
+			morph($source, $target, {}, function() {
+				$('.site-content').removeClass('site-content--fullview');
+				$('.button-full').css('opacity', 1);
+				$target.removeClass('hide-meta');
+			});
+			setTimeout(function() {
+				$fullview.removeClass('fullview--visible');
+				$source.remove();
+			}, 10);
+		}
+
+		if (imageScaling == 'fill') {
+			TweenMax.to($('.fullview__image img'), .2, {
+				x: 0,
+				y: 0,
+				onComplete: finishHideFullView
+			});
+		} else {
+			$fullview.css('backgroundColor', 'transparent');
+			setTimeout(function() {
+				finishHideFullView();
+			}, 200);
+		}
 	}
 
 	function morph($source, $target, options, callback, remove) {
@@ -554,7 +773,11 @@ var Project = (function() {
 						transition: '',
 						opacity: ''
 					});
-					TweenMax.fromTo($target.children('.photometa'), .3, {opacity: 0}, {opacity: 1});
+
+					if ( !empty($target.data('caption')) ) {
+						$target.children('.photometa').css('opacity', 1);
+					}
+
 					$source.css('opacity', '');
 
 					if (remove) {

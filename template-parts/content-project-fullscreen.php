@@ -5,13 +5,20 @@
  * @package Timber
  * @since Timber 1.0
  */
+
+$image_scaling 		= get_post_meta( timber_get_post_id(), 'fullscreen_image_scaling', true);
+
+if ( empty( $image_scaling ) ) {
+	$image_scaling = 'fill';
+}
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="fullscreen-slider  royalSlider  js-pixslider"
 	     data-slidertransition="move"
 	     data-imagealigncenter
-	     data-imagescale="fill"
+	     data-imagescale="<?php echo $image_scaling; ?>"
 	     data-arrows
 	     data-keyboardnav >
 
