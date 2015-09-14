@@ -35,7 +35,7 @@ $woocommerce_loop['loop']++;
 
 // Extra post classes
 $classes = array();
-$classes[] = 'filmstrip__item';
+$classes[] = 'portfolio__item  js-portfolio-item';
 $classes[] = 'product__item';
 
 if ( 0 == ( $woocommerce_loop['loop'] - 1 ) % $woocommerce_loop['columns'] || 1 == $woocommerce_loop['columns'] ) {
@@ -45,25 +45,28 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] ) {
 	$classes[] = 'last';
 }
 ?>
-<li <?php post_class( $classes ); ?>>
+<?php $image_meta =  wp_get_attachment_metadata($product->get_image_id()); ?>
+
+<li <?php post_class( $classes ); ?> data-width="<?php echo $image_meta['width']; ?>"  data-height="<?php echo $image_meta['height']; ?>">
 
 	<?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
 
 	<a class="product__link" href="<?php the_permalink(); ?>">
 
 		<?php
-			/**
-			 * woocommerce_before_shop_loop_item_title hook
-			 *
-			 * @hooked woocommerce_show_product_loop_sale_flash - 10
-			 * @hooked woocommerce_template_loop_product_thumbnail - 10
-			 */
-			do_action( 'woocommerce_before_shop_loop_item_title' );
+		/**
+		 * woocommerce_before_shop_loop_item_title hook
+		 *
+		 * @hooked woocommerce_show_product_loop_sale_flash - 10
+		 * @hooked woocommerce_template_loop_product_thumbnail - 10
+		 */
+		do_action( 'woocommerce_before_shop_loop_item_title' );
 		?>
 
-		<h1 class="h3  product__title"><?php the_title(); ?></h1>
+		<span class="product__details">
+			<h1 class="h3  product__title"><?php the_title(); ?></h1>
 
-		<?php
+			<?php
 			/**
 			 * woocommerce_after_shop_loop_item_title hook
 			 *
@@ -71,7 +74,8 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] ) {
 			 * @hooked woocommerce_template_loop_price - 10
 			 */
 			do_action( 'woocommerce_after_shop_loop_item_title' );
-		?>
+			?>
+		</span>
 
 	</a>
 

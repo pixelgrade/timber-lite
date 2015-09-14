@@ -17,7 +17,7 @@ function timber_woocommerce_remove_tabs_header_desc( $desc ){
 }
 add_filter('woocommerce_product_description_heading', 'timber_woocommerce_remove_tabs_header_desc', 11);
 
-function timber_add_categories_on_shop() {
+function timber_add_counter_on_shop() {
 
 	if ( ! is_archive() ) {
 		return;
@@ -27,37 +27,13 @@ function timber_add_categories_on_shop() {
 	if ( $shop_page_display !== 'subcategories' ) { ?>
 		<div class="site-footer">
 			<div class="bar--fixed">
-				<?php
-				global $wp_query;
-
-				// get all product categories
-				$terms = get_terms('product_cat');
-
-				// if there is a category queried cache it
-				$current_term =	get_queried_object();
-
-				if ( !empty( $terms ) /*&& wpgrade::option('display_product_filters', '0')*/ ) {
-					// create a link which should link to the shop
-					$all_link = get_post_type_archive_link('product');
-
-					echo '<ul class="filter  filter--shop">';
-					// display the shop link first if there is one
-					if ( ! empty( $all_link ) ) {
-						// also if the current_term doesn't have a term_id it means we are quering the shop and the "all categories" should be active
-						echo '<li class="filter__item active" data-filter="*">' . __( 'All', 'timber' ) . '</li>';
-					}
-
-					// display a link for each product category
-					foreach ($terms as $key => $term ) {
-						echo '<li class="filter__item" data-filter=".product_cat-' . $term->slug . '">' . $term->name . '</li>';
-					}
-					echo '</ul>';
-				} // close if !empty($terms)
-				?>
+				<div class="site-info">
+					<div class="portfolio__position"></div>
+				</div><!-- .site-info -->
 			</div>
 		</div>
 	<?php }
 
 }
 
-add_action( 'woocommerce_after_main_content', 'timber_add_categories_on_shop' );
+add_action( 'woocommerce_after_main_content', 'timber_add_counter_on_shop' );

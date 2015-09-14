@@ -23,7 +23,7 @@ get_header( 'shop' ); ?>
 		do_action( 'woocommerce_before_main_content' );
 	?>
 		<div class="site-header  site-header--placeholder"></div>
-		<div class="site-container  site-content  shop">
+		<div class="site-content  site-container  shop">
 
 		<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 
@@ -57,11 +57,11 @@ get_header( 'shop' ); ?>
 					$data .= ' data-term_id="' . get_queried_object()->term_id . '"';
 				}
 			?>
+			<div class="site-sidebar  site-sidebar--archive">
+				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
+			</div>
 
-			<ul class="filmstrip" <?php echo $data; ?>>
-				<li class="site-sidebar">
-					<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
-				</li>
+			<ul class="portfolio  entry-content  product-list  js-product-list" <?php echo $data; ?>>
 
 				<?php woocommerce_product_subcategories(); ?>
 
