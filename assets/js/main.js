@@ -21364,7 +21364,7 @@ if (!Date.now) Date.now = function () {
   }
 
   function bindVertToHorScroll() {
-    if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || ($body.hasClass('woocommerce') && $body.hasClass('archive'))) && !$html.hasClass('is--ie9')) {
+    if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || ($('.woocommerce.archive').length)) && !$html.hasClass('is--ie9')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
 
