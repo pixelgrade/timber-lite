@@ -27,23 +27,9 @@
 	margin-bottom: 60px;
 }
 
-.product__title {
+.product_title {
 	text-align: center;
 }
-
-.product_title {
-	// @todo a hook must be done to remove this
-	display: none;
-	margin: 0;
-	padding-top: 0;
-
-	& + .woocommerce-product-rating {
-		display: none;
-	}
-}
-
-
-
 
 
 // Product images

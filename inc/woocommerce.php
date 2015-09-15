@@ -37,3 +37,13 @@ function timber_add_counter_on_shop() {
 }
 
 add_action( 'woocommerce_after_main_content', 'timber_add_counter_on_shop' );
+
+// remove the title from woocommerce_single_product_summary because we are calling it a few lines before
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+
+// remove the breadcrumb from woocommerce_before_main_content because we are calling it after title
+remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+
+// remove rating from woocommerce_single_product_summary, it doesn't apply on our design.
+// if you really need this, override this file with a child theme
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
