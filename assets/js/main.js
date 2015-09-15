@@ -19462,6 +19462,8 @@ if (!Date.now) Date.now = function () {
             newWidth = newHeight * $item.data('width') / $item.data('height'),
             $image = $(document.createElement('img')).css('opacity', 0);
 
+        $item.toggleClass('is--portrait', height > width);
+
         $item.width(newWidth);
         $item.data('image', $image);
       });
@@ -19751,7 +19753,7 @@ if (!Date.now) Date.now = function () {
 
     function init() {
 
-      if (!$('.single-jetpack-portfolio').length) {
+      if (!$('.single-jetpack-portfolio, .single-proof_gallery').length) {
         return;
       }
 
@@ -19931,6 +19933,14 @@ if (!Date.now) Date.now = function () {
       $('.fullview .rsArrowRight').on('click', showNext);
       $('.fullview .rsArrowLeft').on('click', showPrev);
       $('.js-details').on('click', toggleDetails);
+
+      $('.js-plus').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        var $item = $(this).closest('.js-portfolio-item');
+        $item.toggleClass('is--selected');
+      });
 
       $(window).on('djaxLoad', function () {
         if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
@@ -20899,7 +20909,7 @@ if (!Date.now) Date.now = function () {
 
     sizeColumns();
 
-    if ($('.single-jetpack-portfolio').length) {
+    if ($('.single-jetpack-portfolio, .single-proof_gallery').length) {
       Project.init();
       Placeholder.update();
       Project.prepare();

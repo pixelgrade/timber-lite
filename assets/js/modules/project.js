@@ -16,7 +16,7 @@ var Project = (function() {
 
 	function init() {
 
-		if (!$('.single-jetpack-portfolio').length) {
+		if (!$('.single-jetpack-portfolio, .single-proof_gallery').length) {
 			return;
 		}
 
@@ -196,6 +196,14 @@ var Project = (function() {
 		$('.fullview .rsArrowRight').on('click', showNext);
 		$('.fullview .rsArrowLeft').on('click', showPrev);
 		$('.js-details').on('click', toggleDetails);
+
+		$('.js-plus').on('click', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			var $item = $(this).closest('.js-portfolio-item');
+				$item.toggleClass('is--selected');
+		});
 
 		$(window).on('djaxLoad', function() {
 			if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
