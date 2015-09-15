@@ -1,12 +1,17 @@
 .single-product {
 	.site-main {
+		margin: 0 auto;
+		max-width: 1160px;
 		padding-left: 30px;
 		padding-right: 30px;
+	}
 
-		@include query-above($lap) {
-			padding-left: 130px;
-			padding-right: 32px;
-		}
+	.grid {
+		margin-left: -60px;
+	}
+
+	.grid__item {
+		padding-left: 60px;
 	}
 }
 
@@ -16,29 +21,103 @@
 
 .product-post {
 	position: relative;
+}
 
-	.price {
-		@extend .h2;
-		padding-top: 0;
-		margin: 0.75em 0;
+.product__header {
+	margin-bottom: 60px;
+}
+
+.product__title {
+	text-align: center;
+}
+
+.product_title {
+	// @todo a hook must be done to remove this
+	display: none;
+	margin: 0;
+	padding-top: 0;
+
+	& + .woocommerce-product-rating {
+		display: none;
 	}
 }
 
-.woocommerce-main-image {
-	display: block;
 
+
+
+
+// Product images
+.images__container {
+	position: relative;
+}
+
+.woocommerce-main-image {
 	&, img {
+		display: block;
 		width: 100%;
 	}
 }
 
-.product_title {
-	margin: 0;
-	padding-top: 0;
+.thumbnails {
+	a, img {
+		display: block;
+	}
+
+	a {
+		margin-bottom: 20px;
+
+		opacity: .5;
+		transition: opacity .3s ease-in-out;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
 }
 
-form.cart {
-	max-width: 500px;
+@include query-above($lap) {
+
+	.images {
+		display: flex;
+
+		.woocommerce-main-image {
+			flex: 1 1 auto;
+			order: 2;
+		}
+
+		.thumbnails {
+			flex: 1 1 150px;
+			order: 1;
+
+			padding-right: 20px;
+
+			a, img {
+				display: block;
+			}
+
+			a {
+				margin-bottom: 20px;
+
+				opacity: .5;
+				transition: opacity .3s ease-in-out;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+// Price, Description, Add to cart, Variations
+.single-product .price {
+	padding-top: 0;
+	font-size: 38px;
+	font-weight: 900;
 }
 
 .single_add_to_cart_button {
@@ -46,8 +125,11 @@ form.cart {
 	margin: 1.5em 0;
 }
 
-// Comments / reviews
 
+
+
+
+// Comments / reviews
 #reviews {
 	.comment {
 		padding-left: 0;

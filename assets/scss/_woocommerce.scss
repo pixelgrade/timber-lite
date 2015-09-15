@@ -8,13 +8,18 @@
 
 // common
 
+.woocommerce .price {
+	font-family: unquote(map-get($bodytype, font-family));
+	font-feature-settings: initial;
+}
+
 .button {
 	@extend .btn;
 }
 
 .onsale {
 	position: absolute;
-	left: 0;
+	right: 0;
 	top: 0;
 	z-index: 1;
 
