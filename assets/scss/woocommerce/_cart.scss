@@ -28,6 +28,22 @@
 	}
 }
 
+.product-name {
+	*, p {
+		line-height: 16px;
+		display: inline-block;
+	}
+
+	dl.variation {
+		font-size: 14px;
+
+		p {
+			margin: 0;
+			padding: 0;
+		}
+	}
+}
+
 .product-remove {
 	text-align: center;
 }

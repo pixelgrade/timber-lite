@@ -38,6 +38,15 @@
 	}
 }
 
+.create-account {
+	margin-bottom: 0;
+
+	> * {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
 img[alt*="PayPal"] {
 	height: 70px;
 	display: inline-block;

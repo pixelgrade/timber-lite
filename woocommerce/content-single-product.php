@@ -35,10 +35,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		woocommerce_template_single_title();
 
-		woocommerce_breadcrumb( array( 'delimiter' => ' &raquo; ') ); ?>
+		woocommerce_breadcrumb( array(
+				'delimiter' => '<span class="del">&raquo;</span>',
+				'before' => '<span>',
+				'after' => '</span>'
+			)
+		); ?>
 	</div>
 
-	<div class="grid">
+	<div class="grid  product__content">
 		<div class="grid__item  lap-one-half  images__container">
 			<?php
 			/**
