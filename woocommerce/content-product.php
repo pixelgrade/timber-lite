@@ -64,7 +64,7 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] ) {
 		?>
 
 		<span class="product__details">
-			<h1 class="h3  product__title"><?php the_title(); ?></h1>
+			<h1 class="h3  product_title"><?php the_title(); ?></h1>
 
 			<?php
 			/**

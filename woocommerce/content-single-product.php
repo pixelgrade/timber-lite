@@ -32,8 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <article itemscope itemtype="<?php echo woocommerce_get_product_schema(); ?>" id="product-<?php the_ID(); ?>" <?php post_class('product-post'); ?>>
 
 	<div class="product__header">
-		<h1 class="product__title"><?php the_title(); ?></h1>
-		<?php // aici trebuie titlul, andrei xoxoxo si breadcrumbul ?>
+		<?php
+		woocommerce_template_single_title();
+
+		woocommerce_breadcrumb( array( 'delimiter' => ' &raquo; ') ); ?>
 	</div>
 
 	<div class="grid">
