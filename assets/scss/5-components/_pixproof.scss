@@ -14,11 +14,22 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
+		z-index: 999;
 		background: rgba(0,0,0,0.5);
 		opacity: 0;
 		transition: opacity .3s ease-in-out;
 		pointer-events: none;
 		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		transform: translateZ(0);
+	}
+}
+
+.portfolio__item--clone {
+	.proof__overlay {
+		opacity: 0;
 	}
 }
 
@@ -26,6 +37,7 @@
 	position: absolute;
 	bottom: 0;
 	right: 0;
+	z-index: 1000;
 	border: 0 solid transparent;
 	border-bottom-color: #50E3C2;
 	border-right-color: #50E3C2;
@@ -67,25 +79,43 @@
 .proof-btn.proof-btn.proof-btn {
 	width: 3em;
 	height: 3em;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	border-radius: 50%;
+	margin: 0 5%;
 	transition: transform .3s ease-out;
 	background-position: center center;
 	background-size: 100% 100%;
 	background-size: contain;
 	background-repeat: no-repeat;
+	flex: 0 1 3em;
 }
 
 .proof-btn--zoom {
-	transform: translate(-200%, -50%);
 	background: url('assets/svg/zoom-icon.svg');
 }
 
 .proof-btn--plus {
-	transform: translate(100%, -50%);
 	background: url('assets/svg/plus-icon.svg');
+
+	.is--selected & {
+		display: none;
+	}
+}
+
+.proof-btn--minus {
+	display: none;
+	background: url('assets/svg/minus-icon.svg');
+
+	.is--selected & {
+		display: block;
+	}
+}
+
+.proof-btn--thumbs {
+	display: none;
+
+	.portfolio--filmstrip & {
+		display: block;
+		background: url('assets/svg/back-to-thumbs-icon.svg');
+	}
 }
 
 .js-portfolio-item:hover {
@@ -93,28 +123,14 @@
 		opacity: 1;
 		pointer-events: auto;
 	}
-
-	.proof-btn--zoom {
-		transform: translate(-135%, -50%);
-	}
-
-	.proof-btn--plus {
-		transform: translate(35%, -50%);
-	}
-}
-
-.js-portfolio-item.is--portrait:hover {
-	.proof-btn--zoom {
-		transform: translate(-115%, -50%);
-	}
-
-	.proof-btn--plus {
-		transform: translate(15%, -50%);
-	}
 }
 
 .pixproof-data {
 	width: 100%;
+
+	.portfolio--filmstrip & {
+		display: none;
+	}
 
 	&.pixproof-data button {
 		@extend .btn;
@@ -156,4 +172,8 @@
 	width: 100%;
 	margin: 0 auto;
 	margin-top: 3em;
+
+	.portfolio--filmstrip & {
+		display: none;
+	}
 }

@@ -10,7 +10,7 @@ get_header(); ?>
 
 
 <div class="site-header  site-header--placeholder"></div>
-<main id="content" class="site-content site-container  <?php echo 'image-scaling--' . $image_scaling; ?>">
+<main id="content" class="site-content site-container project_layout-grid  <?php echo 'image-scaling--' . $image_scaling; ?>">
 
 		<header class="site-sidebar">
 		    <div class="site-sidebar__content">

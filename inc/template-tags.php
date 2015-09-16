@@ -717,8 +717,10 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			data-height="' . $image_full_size[2] . '">
 
 			<div class="proof__overlay">
+				<button class="proof-btn  proof-btn--thumbs  js-thumbs"></button>
 				<button class="proof-btn  proof-btn--zoom  js-zoom"></button>
 				<button class="proof-btn  proof-btn--plus  js-plus"></button>
+				<button class="proof-btn  proof-btn--minus  js-plus"></button>
 			</div>
 			<div class="proof__selected"></div>
 
