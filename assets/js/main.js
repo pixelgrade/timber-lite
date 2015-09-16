@@ -19938,17 +19938,22 @@ if (!Date.now) Date.now = function () {
       $('.js-details').on('click', toggleDetails);
 
       $('.js-thumbs').on('click', function (e) {
-        e.stopPropagation();
         e.preventDefault();
         showThumbnails();
       });
 
       $('.js-plus').on('click', function (e) {
-        e.stopPropagation();
         e.preventDefault();
 
-        var $item = $(this).closest('.js-portfolio-item');
-        $item.toggleClass('is--selected');
+        var $item = $(this).closest('.js-portfolio-item'),
+            $ancestor = $item.closest('.portfolio');
+
+        if ($ancestor.is('.portfolio--filmstrip')) {
+          $('.portfolio--grid').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected selected');
+        } else {
+          $('.portfolio--filmstrip').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected selected');
+        }
+        $item.toggleClass('is--selected selected');
       });
 
       $(window).on('djaxLoad', function () {
@@ -20258,6 +20263,10 @@ if (!Date.now) Date.now = function () {
 
     function showFilmstrip(e) {
 
+      if ($(e.target).is('.js-thumbs, .js-plus, .js-minus')) {
+        return;
+      }
+
       var $clicked = $(this),
           $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
@@ -20375,6 +20384,10 @@ if (!Date.now) Date.now = function () {
     }
 
     function showFullView(e) {
+
+      if ($(e.target).is('.js-thumbs, .js-plus, .js-minus')) {
+        return;
+      }
 
       // prepare current for fullview
       var $source = $(this),

@@ -13,6 +13,7 @@
     transition: opacity .3s ease-in-out;
     -webkit-font-smoothing: initial;
     z-index: 2000;
+    pointer-events: none;
 
     .hide-meta.hide-meta & {
         opacity: 0 !important;

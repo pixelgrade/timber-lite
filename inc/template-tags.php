@@ -705,7 +705,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-image' );
 		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-image' );
 		$markup .=
-		'<div class="portfolio__item js-placeholder js-portfolio-item"
+		'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo"
 			data-srcsmall="' . $image_small_size[0] . '"
 			data-srclarge="' . $image_large_size[0] . '"
 			data-srcfull="' . $image_full_size[0] . '"
@@ -719,8 +719,8 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			<div class="proof__overlay">
 				<button class="proof-btn  proof-btn--thumbs  js-thumbs"></button>
 				<button class="proof-btn  proof-btn--zoom  js-zoom"></button>
-				<button class="proof-btn  proof-btn--plus  js-plus"></button>
-				<button class="proof-btn  proof-btn--minus  js-plus"></button>
+				<button class="proof-btn  proof-btn--plus  js-plus  select-action"></button>
+				<button class="proof-btn  proof-btn--minus  js-plus  select-action"></button>
 			</div>
 			<div class="proof__selected"></div>
 
