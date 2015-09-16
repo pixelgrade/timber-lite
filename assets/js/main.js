@@ -20203,6 +20203,11 @@ if (!Date.now) Date.now = function () {
 
       $('.js-portfolio-item').addClass('no-transition');
 
+      TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
+        opacity: 1,
+        delay: 1
+      });
+
       TweenMax.to($('.mask--project'), 0, {
         'transform-origin': '0 100%',
         'z-index': 300,
@@ -20256,6 +20261,12 @@ if (!Date.now) Date.now = function () {
 
       $('.site-content').css('overflow-x', '');
 
+      TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
+        opacity: 0
+      });
+
+      $('.proof__overlay').addClass('no-transition').css('opacity', 0);
+
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1,
         delay: .3,
@@ -20292,6 +20303,7 @@ if (!Date.now) Date.now = function () {
             opacity: 1,
             onComplete: function () {
               $('.js-portfolio-item').removeClass('no-transition');
+              $('.proof__overlay').removeClass('no-transition').css('opacity', '');
             }
           });
           $target.removeClass('portfolio__item--target');
@@ -20369,6 +20381,7 @@ if (!Date.now) Date.now = function () {
       $('.button-full').css('opacity', 0);
 
       $source.addClass('hide-meta');
+      $('.proof__overlay').css('opacity', 0);
 
       initialAlpha = latestDeviceAlpha;
       initialBeta = latestDeviceBeta;
@@ -20460,7 +20473,7 @@ if (!Date.now) Date.now = function () {
       $target.children().not('.proof__overlay').add($target).addClass('no-transition').css('opacity', 0);
       setTimeout(function () {
         $target.children().add($target).removeClass('no-transition');
-      }, 10)
+      }, 10);
 
       if (imageScaling == 'fit') {
         $fullview.css('backgroundColor', 'transparent');
@@ -20479,6 +20492,7 @@ if (!Date.now) Date.now = function () {
           $('.site-content').removeClass('site-content--fullview');
           $('.button-full').css('opacity', 1);
           $target.removeClass('hide-meta');
+          $('.proof__overlay').removeClass('no-transition').css('opacity', '');
         });
         setTimeout(function () {
           $fullview.removeClass('fullview--visible');
