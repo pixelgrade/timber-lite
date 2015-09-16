@@ -17,6 +17,10 @@ img {
     padding-bottom: $header-height;
 }
 
+.proof__overlay {
+    display: none;
+}
+
 .portfolio {
     @extend %display--flex;
     @extend %position--absolute;

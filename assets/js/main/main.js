@@ -28,7 +28,7 @@ function softInit() {
 
     sizeColumns();
 
-    if ($('.single-jetpack-portfolio').length) {
+    if ($('.single-jetpack-portfolio, .single-proof_gallery').length) {
         Project.init();
         Placeholder.update();
         Project.prepare();

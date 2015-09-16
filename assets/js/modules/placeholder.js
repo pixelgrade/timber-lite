@@ -20,6 +20,8 @@ var Placeholder = (function() {
                 newWidth    = newHeight * $item.data('width') / $item.data('height'),
                 $image      = $(document.createElement('img')).css('opacity', 0);
 
+            $item.toggleClass('is--portrait', height > width);
+
             $item.width(newWidth);
             $item.data('image', $image);
         });

@@ -716,6 +716,12 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			data-width="' . $image_full_size[1] . '"
 			data-height="' . $image_full_size[2] . '">
 
+			<div class="proof__overlay">
+				<button class="proof-btn  proof-btn--zoom  js-zoom"></button>
+				<button class="proof-btn  proof-btn--plus  js-plus"></button>
+			</div>
+			<div class="proof__selected"></div>
+
 			<noscript>
 				<img src="' . $image_small_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_small_size[1] . '" height="' . $image_small_size[2] . '">
 			</noscript>
