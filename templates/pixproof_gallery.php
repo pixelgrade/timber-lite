@@ -68,7 +68,7 @@ global $post;
 					$image_id_tag = 'item-'.$attachment->ID;
 				}
 
-				echo timber_get_film_strip_image($attachment->ID);
+				echo timber_get_film_strip_image($attachment->ID, $image_name);
 
 				$idx++;
 			} ?>

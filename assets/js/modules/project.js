@@ -130,7 +130,9 @@ var Project = (function() {
 	}
 
 	function addMetadata() {
-		$film.find('.js-portfolio-item').each(function(i, obj) {
+		var $target = $('.single-proof_gallery').length ? $film.add($grid) : $film;
+
+		$target.find('.js-portfolio-item').each(function(i, obj) {
 			var $item 			= $(obj),
 				captionText 	= $item.data('caption'),
 				$caption 		= $('<div class="photometa__caption"></div>').html(captionText),

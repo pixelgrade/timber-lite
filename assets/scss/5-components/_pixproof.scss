@@ -25,6 +25,15 @@
 		align-items: center;
 		transform: translateZ(0);
 	}
+
+	.photometa {
+	    display: flex;
+	    display: -webkit-flex;
+	}
+
+	.photometa__caption {
+		opacity: 1;
+	}
 }
 
 .portfolio__item--clone {
