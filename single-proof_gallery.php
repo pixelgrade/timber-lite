@@ -6,11 +6,13 @@
  * @since Timber 1.0
  */
 
-get_header(); ?>
+get_header();
 
-
+if ( post_password_required() ) {
+	echo get_the_password_form();
+} else { ?>
 <div class="site-header  site-header--placeholder"></div>
-<main id="content" class="site-content site-container project_layout-grid  <?php echo 'image-scaling--' . $image_scaling; ?>">
+<main id="content" class="site-content site-container project_layout-grid  <?php echo 'image-scaling--';// . $image_scaling; ?>">
 
 		<header class="site-sidebar">
 		    <div class="site-sidebar__content">
@@ -78,4 +80,6 @@ get_header(); ?>
 	</div>
 </footer><!-- #colophon -->
 
-<?php get_footer(); ?>
+<?php }
+
+get_footer(); ?>
