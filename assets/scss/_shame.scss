@@ -167,3 +167,78 @@ html {
 .single-proof_gallery {
     @extend .single-jetpack-portfolio;
 }
+
+// @todo move this when is done
+.password_wrap {
+    @extend .filmstrip;
+}
+
+.password-required {
+    color: #fff;
+
+    &, .bar--fixed, .site-header--placeholder {
+        background-color: #000;
+    }
+
+    .site-header {
+        a, button {
+            color: #fff;
+            text-shadow: 0.1rem 0 black, 0.15rem 0 black, -0.1rem 0 black, -0.15rem 0 black;
+        }
+    }
+
+    .content--client-area {
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .form-container {
+        text-align: center;
+        display: inline-block;
+        max-width: 300px;
+        margin-top: 1ç√ç0px; // @todo make this field to vertical-align:center;
+    }
+
+    .lock-icon {
+        display: inline-block;
+        height: 160px;
+        width: 120px;
+        background: url('assets/svg/lock-icon.svg') no-repeat center center;
+        background-size: contain;
+    }
+
+    .protected-area-text {
+        font-size: 16px;
+        margin-top: 15px;
+        line-height: 27px;
+        .gray {
+            color: #D8D8D8;
+        }
+    }
+
+    .auth-form {
+        position: relative;
+        margin-top: 50px;
+
+        .auth__pass {
+            height: 60px;
+            font-size: 24px;
+            border-radius: 8px;
+        }
+    }
+
+    .auth__submit {
+        position: absolute;
+        right: 1px;
+        top:1px;
+        bottom: 1px;
+        width: 60px;
+        text-indent: -999px;
+        background: url('assets/svg/unlock-icon.svg') no-repeat center center #000;
+        background-size: 20px;
+        border-radius: 8px;
+        &:hover {
+            background-color: #D8D8D8;
+        }
+    }
+}

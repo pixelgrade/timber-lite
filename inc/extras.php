@@ -51,6 +51,11 @@ function timber_body_classes( $classes ) {
 	// let the body_class know what project layout we have and what height has the page slider
 	if ( is_singular() && false !== get_post_type() ) {
 
+
+		if ( post_password_required() ) {
+			$classes[] = 'password-required';
+		}
+
 		// add classes for a project layout
 		if ( timber_post_is_project() ) {
 			$project_layout = get_post_meta( timber_get_post_id(), 'project_template', true );
@@ -1001,4 +1006,74 @@ function timber_load_next_projects() {
 	} else {
 		wp_send_json_error();
 	}
+}
+
+
+add_action('the_password_form', 'wpgrade_callback_the_password_form');
+
+function wpgrade_callback_the_password_form($form){
+	global $post;
+	$post = get_post( $post );
+	$post_type = get_post_type( $post );
+	$postID =timber_get_post_id($post->ID, $post_type);
+	$label = 'pwbox-' . ( empty($postID) ? rand() : $postID );
+
+	global $wpgrade_private_post;
+
+	ob_start(); ?>
+	<div class="site-header  site-header--placeholder"></div>
+	<div class="site-container  site-content">
+		<div class="content--client-area">
+			<div class="form-container">
+				<div class="lock-icon"></div>
+				<div class="protected-area-text">
+					<?php
+					_e('This is a protected area.', 'timber');
+
+					if($wpgrade_private_post['error']) {
+						echo $wpgrade_private_post['error']; ?>
+						<span class="gray"><?php _e('Please enter your password again.', 'timber' );?></span>
+					<?php } else { ?>
+						<span class="gray"><?php _e('Please enter your password to continue.', 'timber' );?></span>
+					<?php } ?>
+
+				</div>
+				<form class="auth-form" method="post" action="<?php echo wp_login_url().'?action=postpass'; // just keep this action path ... wordpress will refear for us?>">
+					<?php wp_nonce_field('password_protection','submit_password_nonce'); ?>
+					<input type="hidden" name="submit_password" value="1" />
+					<input type="password" name="post_password" id="auth_password" class="auth__pass" placeholder="<?php _e("Password", 'timber') ?>" />
+					<input type="submit" name="Submit" id="auth_submit" class="auth__submit" value="<?php _e("Authenticate", 'timber') ?>" />
+				</form>
+			</div>
+		</div><!-- .content -->
+	</div>
+<?php
+
+	$form = ob_get_clean();
+	// on form submit put a wrong passwordp msg.
+	if ( get_permalink() != wp_get_referer() ) {
+		return $form;
+	}
+
+	// No cookie, the user has not sent anything until now.
+	if ( ! isset ( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) ){
+		return $form;
+	}
+
+	require_once ABSPATH . 'wp-includes/class-phpass.php';
+	$hasher = new PasswordHash( 8, true );
+
+	$hash = wp_unslash( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] );
+	if ( 0 !== strpos( $hash, '$P$B' ) )
+		return $form;
+
+	if ( !$hasher->CheckPassword( $post->post_password, $hash ) ){
+
+		// We have a cookie, but it does not match the password.
+		$msg = '<span class="wrong-password-message">'.__( 'Sorry, your password did not match', 'timber' ).'</span>';
+		$form = $msg . $form;
+	}
+
+	return $form;
+
 }

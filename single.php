@@ -6,7 +6,11 @@
  * @since Timber 1.0
  */
 
-get_header(); ?>
+get_header();
+
+if ( post_password_required() ) {
+	echo get_the_password_form();
+} else { ?>
 	<div class="site-header site-header--placeholder"></div>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main">
@@ -31,4 +35,6 @@ get_header(); ?>
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
-<?php get_footer(); ?>
+<?php }
+
+get_footer(); ?>
