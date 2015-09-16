@@ -19926,6 +19926,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindEvents() {
+
       $('body').on('click', '.js-show-thumbnails', showThumbnails);
       $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
       $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
@@ -19933,6 +19934,12 @@ if (!Date.now) Date.now = function () {
       $('.fullview .rsArrowRight').on('click', showNext);
       $('.fullview .rsArrowLeft').on('click', showPrev);
       $('.js-details').on('click', toggleDetails);
+
+      $('.js-thumbs').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        showThumbnails();
+      });
 
       $('.js-plus').on('click', function (e) {
         e.stopPropagation();
@@ -20118,7 +20125,7 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
-      if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
+      if (typeof $film == "undefined" || (!$('.single-jetpack-portfolio').length && !$('.single-proof_gallery').length) || $('.fullview--visible').length) {
         return;
       }
 
@@ -20450,7 +20457,7 @@ if (!Date.now) Date.now = function () {
       var $source = $('.fullview__image'),
           $target = $('.portfolio__item--active').addClass('hide-meta');
 
-      $target.children().add($target).addClass('no-transition').css('opacity', 0);
+      $target.children().not('.proof__overlay').add($target).addClass('no-transition').css('opacity', 0);
       setTimeout(function () {
         $target.children().add($target).removeClass('no-transition');
       }, 10)

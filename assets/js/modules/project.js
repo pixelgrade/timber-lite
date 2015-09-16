@@ -189,6 +189,7 @@ var Project = (function() {
 	}
 
 	function bindEvents() {
+
 		$('body').on('click', '.js-show-thumbnails', showThumbnails);
 		$('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
 		$('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
@@ -196,6 +197,12 @@ var Project = (function() {
 		$('.fullview .rsArrowRight').on('click', showNext);
 		$('.fullview .rsArrowLeft').on('click', showPrev);
 		$('.js-details').on('click', toggleDetails);
+
+		$('.js-thumbs').on('click', function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			showThumbnails();
+		});
 
 		$('.js-plus').on('click', function(e) {
 			e.stopPropagation();
@@ -373,7 +380,7 @@ var Project = (function() {
 	// loop through each portfolio item and find the one closest to center
 	function getCurrent() {
 
-		if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
+		if (typeof $film == "undefined" || ( !$('.single-jetpack-portfolio').length && !$('.single-proof_gallery').length ) || $('.fullview--visible').length) {
 			return;
 		}
 
@@ -691,7 +698,7 @@ var Project = (function() {
 		var $source = $('.fullview__image'),
 			$target = $('.portfolio__item--active').addClass('hide-meta');
 
-		$target.children().add($target).addClass('no-transition').css('opacity', 0);
+		$target.children().not('.proof__overlay').add($target).addClass('no-transition').css('opacity', 0);
 		setTimeout(function() {
 			$target.children().add($target).removeClass('no-transition');
 		}, 10)
