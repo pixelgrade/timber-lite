@@ -1,0 +1,56 @@
+.col2-set {
+	@extend .grid;
+
+	.col-1, .col-2 {
+		@extend .grid__item;
+
+		@include query-above($lap) {
+			width: 50% !important;
+		}
+	}
+}
+
+.select2-choice {
+	background: none;
+}
+
+#ship-to-different-address {
+	.checkbox, .input-checkbox {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.checkbox {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.payment_box {
+	padding-left: 1.5em;
+}
+
+.payment_methods {
+	list-style-type: none;
+
+	li {
+		margin-left: 0;
+	}
+}
+
+.create-account {
+	margin-bottom: 0;
+
+	> * {
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
+img[alt*="PayPal"] {
+	height: 70px;
+	display: inline-block;
+	vertical-align: middle;
+
+	margin: 0 10px;
+}

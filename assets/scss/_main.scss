@@ -107,6 +107,10 @@
 //  */
 @import "1-tools/mixins";
 // /**
+//  *   1.6 - Queries
+//  */
+@import "1-tools/queries";
+// /**
 //  *   1.7 - WP Offset
 //  */
 @import "1-tools/wp-offset";
@@ -337,3 +341,7 @@
 // #SHAME
 
 @import "shame";
+
+
+// temporary
+@import "woocommerce";

@@ -51,6 +51,14 @@
 			'menu_id' => 'social-menu',
 			'fallback_cb' => false,
 		) ); ?>
+		<?php
+			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+				global $woocommerce; ?>
+				<div class="cart-widget">
+					<div class="widget_shopping_cart_content"></div>
+				</div>
+			<?php }
+		?>
 		<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ||
 		           is_active_sidebar( 'overlay-widget-area-2' ) ||
 		           is_active_sidebar( 'overlay-widget-area-3' )) : ?>
