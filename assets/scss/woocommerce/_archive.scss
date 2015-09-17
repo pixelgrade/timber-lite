@@ -125,7 +125,7 @@
 		background: url('assets/svg/add_to_cart.svg') center center no-repeat;
 	}
 
-	.product_type_variable, .product_type_simple:not(.add_to_cart_button) {
+	.product_type_variable:not(.add_to_cart_button), .product_type_simple:not(.add_to_cart_button) {
 		.button-text {
 			padding-top: 11px;
 		}
@@ -137,7 +137,7 @@
 		}
 	}
 
-	.product_type_variable:after {
+	.product_type_variable:not(.add_to_cart_button):after {
 		content: $fa-var-cogs;
 	}
 
