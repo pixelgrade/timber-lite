@@ -19768,13 +19768,13 @@ if (!Date.now) Date.now = function () {
       if ($('.project_layout-filmstrip').length) {
 
         $film = $('.js-portfolio');
-        $grid = $film.clone().addClass('portfolio--grid').insertBefore($film);
+        $grid = $film.clone(true, true).addClass('portfolio--grid').insertBefore($film);
         $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
 
       } else if ($('.project_layout-thumbnails').length) {
 
         $grid = $('.js-portfolio');
-        $film = $grid.clone().addClass('portfolio--filmstrip').insertAfter($grid);
+        $film = $grid.clone(true, true).addClass('portfolio--filmstrip').insertAfter($grid);
         $grid.addClass('portfolio--grid').addClass('portfolio--visible');
 
       } else {

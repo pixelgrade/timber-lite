@@ -21,8 +21,6 @@ if ( post_password_required() ) {
 		     * Project Title
 		     */
 		    the_title( '<h1 ' . timber_get_post_title_class_attr( 'site-sidebar__text' ) . '>', '</h1>' );
-		    echo '<div class="divider"></div>';
-		    timber_the_project_types();
 		    ?>
 
 		    </div>
