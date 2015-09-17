@@ -212,11 +212,12 @@ var Project = (function() {
 				$ancestor = $item.closest('.portfolio');
 
 				if ($ancestor.is('.portfolio--filmstrip')) {
-					$('.portfolio--grid').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected selected');
+					$('.portfolio--grid').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected');
 				} else {
-					$('.portfolio--filmstrip').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected selected');
+					$('.portfolio--filmstrip').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected');
 				}
-				$item.toggleClass('is--selected selected');
+				$item.toggleClass('is--selected');
+
 		});
 
 		$(window).on('djaxLoad', function() {
@@ -517,7 +518,7 @@ var Project = (function() {
 		$('.site-content').css('overflow-x', '');
 
 		TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
-			opacity: 0
+			opacity: ''
 		});
 
 		$('.proof__overlay').addClass('no-transition').css('opacity', 0);
