@@ -57,7 +57,7 @@ get_header( 'shop' ); ?>
 					$data .= ' data-term_id="' . get_queried_object()->term_id . '"';
 				}
 			?>
-			<div class="site-sidebar  site-sidebar--archive">
+			<div class="site-sidebar  site-sidebar--archive  site-sidebar--shop">
 				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
 			</div>
 
