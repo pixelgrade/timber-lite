@@ -20193,10 +20193,11 @@ if (!Date.now) Date.now = function () {
 
       $('.site-footer, .site-sidebar').css('pointer-events', 'none');
 
+      $('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
+
       $grid.css('opacity', 1);
 
       $('.js-portfolio-item').addClass('no-transition');
-
 
       TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
         opacity: 1,
@@ -20215,7 +20216,11 @@ if (!Date.now) Date.now = function () {
       if (typeof initial == "undefined") {
         morph($active, $target, {
           delay: .3
+        }, function () {
+          $('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
         });
+      } else {
+        $('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
       }
 
       $grid.find('.js-portfolio-item img').css('opacity', '');
@@ -20244,7 +20249,6 @@ if (!Date.now) Date.now = function () {
           TweenMax.to('.mask--project', 0, {
             scaleX: 0
           });
-          $('.proof__selected, .proof__overlay, .photometa').css('opacity', '');
         }
       });
 
@@ -20260,13 +20264,8 @@ if (!Date.now) Date.now = function () {
           $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
       $('.site-content').css('overflow-x', '');
-      $('.proof__selected, .proof__overlay, .photometa').css('opacity', 0);
 
-      TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
-        opacity: ''
-      });
-
-      $('.proof__overlay').addClass('no-transition').css('opacity', 0);
+      $('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 1,
@@ -20275,6 +20274,7 @@ if (!Date.now) Date.now = function () {
           $('.site-footer').css('display', 'block');
         }
       });
+
       $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
       $('.js-portfolio-item').addClass('no-transition');
