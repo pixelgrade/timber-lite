@@ -688,7 +688,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
      * @param string $caption Optional. The caption
 	 * @return string The image markup
 	 */
-	function timber_get_film_strip_image( $id = null, $caption = "" ) {
+	function timber_get_film_strip_image( $id = null, $caption = "", $class = '' ) {
 		$markup = '';
 
 		//do nothing if we have no ID
@@ -700,21 +700,30 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
             //try to get the caption from the attachment metadata
             $caption = timber_get_img_caption( $id );
         }
-
 		$image_full_size = wp_get_attachment_image_src( $id, 'full' );
 		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-image' );
 		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-image' );
 		$markup .=
-		'<div class="portfolio__item js-placeholder js-portfolio-item"
+		'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . $class . '"
 			data-srcsmall="' . $image_small_size[0] . '"
 			data-srclarge="' . $image_large_size[0] . '"
 			data-srcfull="' . $image_full_size[0] . '"
+			id="' . $id . '"
+			data-attachment_id="' . $id . '"
 			data-alt="' . esc_attr( timber_get_img_alt( $id ) ) . '"
 			data-caption="' . esc_attr( $caption ) . '"
 			data-description="' . esc_attr( timber_get_img_description( $id ) ) . '"
 			data-exif="' . esc_attr( timber_get_img_exif( $id ) ) . '"
 			data-width="' . $image_full_size[1] . '"
 			data-height="' . $image_full_size[2] . '">
+
+			<div class="proof__overlay">
+				<button class="proof-btn  proof-btn--thumbs  js-thumbs"></button>
+				<button class="proof-btn  proof-btn--zoom  js-zoom"></button>
+				<button data-photoid="' . $id . '" class="proof-btn  proof-btn--plus  js-plus  select-action"></button>
+				<button data-photoid="' . $id . '" class="proof-btn  proof-btn--minus  js-plus  select-action"></button>
+			</div>
+			<div class="proof__selected"></div>
 
 			<noscript>
 				<img src="' . $image_small_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_small_size[1] . '" height="' . $image_small_size[2] . '">

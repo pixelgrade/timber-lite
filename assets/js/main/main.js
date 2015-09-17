@@ -28,7 +28,7 @@ function softInit() {
 
     sizeColumns();
 
-    if ($('.single-jetpack-portfolio').length || $('.woocommerce.archive').length ) {
+    if ($('.single-jetpack-portfolio, .single-proof_gallery, .woocommerce.archive').length ) {
         Project.init();
         Placeholder.update();
         Project.prepare();

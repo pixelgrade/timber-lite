@@ -42,7 +42,7 @@ gulp.task('styles-dev', function () {
 		.pipe(livereload());
 });
 
-gulp.task('styles', ['styles-admin'], function () {
+gulp.task('styles', function () {
 	return gulp.src('assets/scss/**/*.scss')
 		.pipe(sass({sourcemap: false, style: 'expanded'}))
 		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))

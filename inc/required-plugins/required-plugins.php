@@ -43,6 +43,11 @@ function timber_register_required_plugins() {
 			'slug'               => 'pixtypes',
 			'required'           => true,
 		),
+		array(
+			'name'               => 'PixProof',
+			'slug'               => 'pixproof',
+			'required'           => false,
+		),
 	);
 
 	$config = array(
