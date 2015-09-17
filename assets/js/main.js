@@ -20882,14 +20882,16 @@ if (!Date.now) Date.now = function () {
   var Woocommerce = (function () {
 
     var $film, start, end, current, initialized = false,
-        filmwidth, contentWidth, sidebarWidth;
+        filmwidth, contentWidth, $portfolio_container, isLoadingProjects = false,
+        sidebarWidth;
 
     function init() {
       initialized = true;
-
+      $portfolio_container = $('.js-product-list');
       if ($('.woocommerce.archive').length) {
         $film = $('.js-product-list');
         $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
+        loadAllProjects();
       }
     }
 
@@ -21008,6 +21010,143 @@ if (!Date.now) Date.now = function () {
         setCurrent($next);
       }
     }
+
+
+
+
+
+
+    function loadAllProjects() {
+      var offset = $portfolio_container.find('.portfolio--project').length;
+
+      if (globalDebug) {
+        console.log("Loading All Projects - AJAX Offset = " + offset);
+      }
+
+      isLoadingProjects = true;
+
+      var args = {
+        action: 'timber_load_next_products',
+        nonce: timber_ajax.nonce,
+        offset: offset,
+        posts_number: 'all'
+      };
+
+      if (!empty($portfolio_container.data('taxonomy'))) {
+        args['taxonomy'] = $portfolio_container.data('taxonomy');
+        args['term_id'] = $portfolio_container.data('termid');
+      }
+
+      $.post(
+      timber_ajax.ajax_url, args, function (response_data) {
+
+        if (response_data.success) {
+          if (globalDebug) {
+            console.log("Loaded all projects");
+          }
+
+          var $result = $(response_data.data.posts).filter('li');
+          if (globalDebug) {
+            console.log("Adding new " + $result.length + " items to the DOM");
+          }
+
+          $('.navigation').hide().remove();
+
+          $result.imagesLoaded(function () {
+
+            $portfolio_container.append($result);
+
+            //Placeholder.update();
+            isLoadingProjects = false;
+
+            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+
+            setCurrent($first);
+
+            resizeFilmstrip();
+
+            prepare();
+
+            onResize();
+
+            $(window).trigger('scroll');
+          });
+        }
+      });
+    }
+
+    function loadNextProjects() {
+      var offset = $portfolio_container.find('.portfolio--project').length;
+
+      if (globalDebug) {
+        console.log("Loading More Projects - AJAX Offset = " + offset);
+      }
+
+      isLoadingProjects = true;
+
+      var args = {
+        action: 'timber_load_next_projects',
+        nonce: timber_ajax.nonce,
+        offset: offset
+      };
+
+      if (!empty($portfolio_container.data('taxonomy'))) {
+        args['taxonomy'] = $portfolio_container.data('taxonomy');
+        args['term_id'] = $portfolio_container.data('termid');
+      }
+
+      $.post(
+      timber_ajax.ajax_url, args, function (response_data) {
+
+        if (response_data.success) {
+          if (globalDebug) {
+            console.log("Loaded next projects");
+          }
+
+          var $result = $(response_data.data.posts).filter('article');
+
+          if (globalDebug) {
+            console.log("Adding new " + $result.length + " items to the DOM");
+          }
+
+          $result.imagesLoaded(function () {
+
+            $portfolio_container.append($result);
+
+            Placeholder.update();
+
+            isLoadingProjects = false;
+          });
+        } else {
+          //we have failed
+          //it's time to call it a day
+          if (globalDebug) {
+            console.log("It seems that there are no more projects to load");
+          }
+
+          $('.navigation').fadeOut();
+
+          //don't make isLoadingProjects true so we won't load any more projects
+        }
+      });
+    }
+
+    function maybeloadNextProjects() {
+      if (!$portfolio_container.length || isLoadingProjects) {
+        return;
+      }
+
+      var $lastChild = $portfolio_container.children('article').last();
+
+      //if the last child is in view then load more projects
+      if ($lastChild.is(':appeared')) {
+        loadNextProjects();
+      }
+
+    }
+
+
+
 
     return {
       init: init,
