@@ -90,7 +90,7 @@ var Blog = (function() {
 			return false;
 		}));
 
-		$('.js-filter-mobile').change(function(){
+		$('.js-filter-mobile-journal').change(function(){
 			filterBy = $(this).children(":selected").data('filter');
 
 			// first make the current filter link active

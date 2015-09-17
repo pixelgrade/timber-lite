@@ -117,9 +117,3 @@ html {
         display: none;
     }
 }
-
-.portfolio-archive {
-    @include query-below($small) {
-        padding-left: 3em;
-    }
-}
