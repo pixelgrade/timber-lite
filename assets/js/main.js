@@ -18764,22 +18764,19 @@ if (!Date.now) Date.now = function () {
           curPostTax = $(data).filter('notbody').data("curtaxonomy"),
           curPostEditString = $(data).filter('notbody').data("curpostedit");
 
-      if (transitionedOut) {
+      function finishTransition() {
         $(window).scrollLeft(0);
         $(window).scrollTop(0);
         $body.attr('class', nobodyClass);
         adminBarEditFix(curPostID, curPostEditString, curPostTax);
         softInit();
         $('body').trigger('post-load');
+      }
+
+      if (transitionedOut) {
+        finishTransition();
       } else {
-        $window.one('djax:transitionOutEnd', function () {
-          $(window).scrollLeft(0);
-          $(window).scrollTop(0);
-          $body.attr('class', nobodyClass);
-          adminBarEditFix(curPostID, curPostEditString, curPostTax);
-          softInit();
-          $('body').trigger('post-load');
-        });
+        $window.one('djax:transitionOutEnd', finishTransition);
       }
 
       //lets do some Google Analytics Tracking, in case it is there
@@ -19074,11 +19071,33 @@ if (!Date.now) Date.now = function () {
 
     function onNextClick() {
       $(document).off('keydown', slider_keys_controls_callback);
+
+      var timeline = getNextTimeline();
+
+      $prev = $current;
+      $current = $next;
+      $next = $next.next();
+
+      $nextTrigger.off('click', onNextClick);
+      animateContentTo($current);
+      timeline.play();
+
+      updateBullets(1);
+    }
+
+    function onNextComplete() {
+      $slides.first().appendTo($slider).css('left', '+=' + totalWidth);
+      $slides = $slider.children();
+      setZindex();
+      $nextTrigger.on('click', onNextClick);
+      $(document).on('keydown', slider_keys_controls_callback);
+    }
+
+    function getNextTimeline() {
       var timeline = new TimelineMax({
         paused: true,
-        onComplete: onComplete
+        onComplete: onNextComplete
       });
-
       timeline.to($next.next().find('.project-slide__image'), 0, {
         opacity: 1,
         ease: Power1.easeOut
@@ -19097,7 +19116,6 @@ if (!Date.now) Date.now = function () {
         x: 0,
         ease: Quint.easeOut
       }, '-=.7');
-
       if (nextWidth > 70) {
         timeline.to($next.next(), .4, {
           width: 160,
@@ -19114,38 +19132,42 @@ if (!Date.now) Date.now = function () {
           ease: Power1.easeOut
         }, '-=.4');
       }
-
       timeline.to($current.find('.project-slide__image'), .4, {
         opacity: 0.6,
         ease: Power1.easeOut
       }, '-=.4');
-
-      $prev = $current;
-      $current = $next;
-      $next = $next.next();
-
-      $nextTrigger.off('click', onNextClick);
-      animateContentTo($current);
-      timeline.play();
-
-      updateBullets(1);
-
-      function onComplete() {
-        $slides.first().appendTo($slider).css('left', '+=' + totalWidth);
-        $slides = $slider.children();
-        setZindex();
-        $nextTrigger.on('click', onNextClick);
-        $(document).on('keydown', slider_keys_controls_callback);
-      }
+      return timeline;
     }
 
     function onPrevClick() {
       $(document).off('keydown', slider_keys_controls_callback);
+
+      var timeline = getPrevTimeline();
+
+      $next = $current;
+      $current = $prev;
+      $prev = $prev.prev();
+
+      $prevTrigger.off('click', onPrevClick);
+      animateContentTo($current);
+      timeline.play();
+
+      updateBullets(-1);
+    }
+
+    function onPrevComplete() {
+      $slides.last().prependTo($slider).css('left', '-=' + totalWidth);
+      $slides = $slider.children();
+      setZindex();
+      $prevTrigger.on('click', onPrevClick);
+      $(document).on('keydown', slider_keys_controls_callback);
+    }
+
+    function getPrevTimeline() {
       var timeline = new TimelineMax({
         paused: true,
-        onComplete: onComplete
+        onComplete: onPrevComplete
       });
-
       timeline.to($prev.prev().find('.project-slide__image'), 0, {
         opacity: 1,
         ease: Quint.easeOut
@@ -19172,24 +19194,7 @@ if (!Date.now) Date.now = function () {
         opacity: 0.6,
         ease: Quint.easeOut
       }, '-=.4');
-
-      $next = $current;
-      $current = $prev;
-      $prev = $prev.prev();
-
-      $prevTrigger.off('click', onPrevClick);
-      animateContentTo($current);
-      timeline.play();
-
-      updateBullets(-1);
-
-      function onComplete() {
-        $slides.last().prependTo($slider).css('left', '-=' + totalWidth);
-        $slides = $slider.children();
-        setZindex();
-        $prevTrigger.on('click', onPrevClick);
-        $(document).on('keydown', slider_keys_controls_callback);
-      }
+      return timeline;
     }
 
     function updateBullets(offset) {
@@ -19492,6 +19497,7 @@ if (!Date.now) Date.now = function () {
             TweenMax.to($image, .3, {
               opacity: 1
             });
+            $item.addClass('js-loaded');
           });
         };
       });
@@ -19975,6 +19981,7 @@ if (!Date.now) Date.now = function () {
 
         if (empty(captionText)) {
           $meta.css('opacity', 0);
+          $meta.addClass('no-caption');
 
           if (empty(descriptionText) && empty(exifText)) {
             $meta.hide();
@@ -20273,7 +20280,7 @@ if (!Date.now) Date.now = function () {
       TweenMax.to('.site-footer, .site-sidebar', .3, {
         opacity: 0,
         onComplete: function () {
-          $('.site-footer').css('display', 'none');
+          // $('.site-footer').css('display', 'none');
         }
       });
 
@@ -20447,6 +20454,8 @@ if (!Date.now) Date.now = function () {
 
       $('.button-full').css('opacity', 0);
 
+      $source.addClass('hide-meta');
+
       initialAlpha = latestDeviceAlpha;
       initialBeta = latestDeviceBeta;
       initialGamma = latestDeviceGamma;
@@ -20532,7 +20541,12 @@ if (!Date.now) Date.now = function () {
     function hideFullView() {
 
       var $source = $('.fullview__image'),
-          $target = $('.portfolio__item--active');
+          $target = $('.portfolio__item--active').addClass('hide-meta');
+
+      $target.children().add($target).addClass('no-transition').css('opacity', 0);
+      setTimeout(function () {
+        $target.children().add($target).removeClass('no-transition');
+      }, 10)
 
       if (imageScaling == 'fit') {
         $fullview.css('backgroundColor', 'transparent');
@@ -20550,6 +20564,7 @@ if (!Date.now) Date.now = function () {
         morph($source, $target, {}, function () {
           $('.site-content').removeClass('site-content--fullview');
           $('.button-full').css('opacity', 1);
+          $target.removeClass('hide-meta');
         });
         setTimeout(function () {
           $fullview.removeClass('fullview--visible');

@@ -50,8 +50,8 @@ html.has--nicescroll {
 }
 
 .show-details {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
 
     &:before {
         color: $headingColour;
@@ -63,10 +63,6 @@ html.has--nicescroll {
 
     .portfolio--details & span {
         text-decoration: underline;
-    }
-
-    @include query-below($lap) {
-        display: none;
     }
 }
 
@@ -105,10 +101,25 @@ html.has--nicescroll {
     display: none;
 }
 
-.touch .single-jetpack-portfolio .site-content {
-    overflow-y: hidden;
+@include query-below($lap) {
+    .single-jetpack-portfolio .site-content {
+        overflow-y: hidden;
+    }
 }
 
 html {
     margin-top: 0 !important;
+}
+
+.portfolio__position,
+.show-details:before {
+    @include query-below($lap) {
+        display: none;
+    }
+}
+
+.portfolio-archive {
+    @include query-below($small) {
+        padding-left: 3em;
+    }
 }

@@ -165,9 +165,13 @@
         right: 4em !important;
         bottom: 0;
         background: white;
-        box-shadow: rgba(black, 0.5) 0 0 10px;
         transform: translate3d(-100%, 0, 0);
-        transition: transform .3s cubic-bezier(0.165, 0.840, 0.440, 1.000); /* easeOutQuart */
+        box-shadow: rgba(0,0,0,0) 0 0 0;
+        transition: transform .3s cubic-bezier(0.165, 0.840, 0.440, 1.000), box-shadow .3s ease-in-out; /* easeOutQuart */
+
+        .navigation--is-visible & {
+            box-shadow: rgba(black, 0.5) 0 0 10px;
+        }
 
         .bar--fixed {
             display: block !important;

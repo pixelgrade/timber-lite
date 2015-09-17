@@ -143,6 +143,7 @@ var Project = (function() {
 
 			if ( empty(captionText) ) {
 				$meta.css('opacity', 0);
+				$meta.addClass('no-caption');
 
 				if ( empty(descriptionText) && empty(exifText) ) {
 					$meta.hide();
@@ -431,7 +432,7 @@ var Project = (function() {
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
 
 			TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0, onComplete: function() {
-				$('.site-footer').css('display', 'none');
+				// $('.site-footer').css('display', 'none');
 			}
 		});
 
@@ -593,6 +594,8 @@ var Project = (function() {
 
 		$('.button-full').css('opacity', 0);
 
+		$source.addClass('hide-meta');
+
 		initialAlpha 	= latestDeviceAlpha;
 		initialBeta 	= latestDeviceBeta;
 		initialGamma 	= latestDeviceGamma;
@@ -678,7 +681,12 @@ var Project = (function() {
 	function hideFullView() {
 
 		var $source = $('.fullview__image'),
-			$target = $('.portfolio__item--active');
+			$target = $('.portfolio__item--active').addClass('hide-meta');
+
+		$target.children().add($target).addClass('no-transition').css('opacity', 0);
+		setTimeout(function() {
+			$target.children().add($target).removeClass('no-transition');
+		}, 10)
 
 		if ( imageScaling == 'fit' ) {
 			$fullview.css('backgroundColor', 'transparent');
@@ -696,6 +704,7 @@ var Project = (function() {
 			morph($source, $target, {}, function() {
 				$('.site-content').removeClass('site-content--fullview');
 				$('.button-full').css('opacity', 1);
+				$target.removeClass('hide-meta');
 			});
 			setTimeout(function() {
 				$fullview.removeClass('fullview--visible');
