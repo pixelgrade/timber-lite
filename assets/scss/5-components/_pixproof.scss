@@ -72,7 +72,7 @@
 	}
 }
 
-.js-portfolio-item.is--selected {
+.js-portfolio-item.selected {
 	.proof__selected {
 		transform: none;
 		border-width: 20px;
@@ -104,7 +104,7 @@
 .proof-btn--plus {
 	background: url('assets/svg/plus-icon.svg');
 
-	.is--selected & {
+	.selected & {
 		display: none;
 	}
 }
@@ -113,7 +113,7 @@
 	display: none;
 	background: url('assets/svg/minus-icon.svg');
 
-	.is--selected & {
+	.selected & {
 		display: block;
 	}
 }

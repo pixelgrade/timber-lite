@@ -205,21 +205,6 @@ var Project = (function() {
 			showThumbnails();
 		});
 
-		$('.js-plus').on('click', function(e) {
-			e.preventDefault();
-
-			var $item = $(this).closest('.js-portfolio-item'),
-				$ancestor = $item.closest('.portfolio');
-
-				if ($ancestor.is('.portfolio--filmstrip')) {
-					$('.portfolio--grid').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected');
-				} else {
-					$('.portfolio--filmstrip').find('.js-portfolio-item').eq($item.data('count')).toggleClass('is--selected');
-				}
-				$item.toggleClass('is--selected');
-
-		});
-
 		$(window).on('djaxLoad', function() {
 			if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
 				imageScaling = 'fit';
