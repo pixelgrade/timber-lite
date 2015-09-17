@@ -5,6 +5,10 @@
 	cursor: default;
 	pointer-events: auto;
 
+	@include query-below($lap) {
+		float: left;
+	}
+
 	* {
 		text-shadow: none;
 	}
