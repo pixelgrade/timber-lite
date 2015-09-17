@@ -6,7 +6,11 @@
  * @since Timber 1.0
  */
 
-get_header(); ?>
+get_header();
+
+if ( post_password_required() ) {
+	echo get_the_password_form();
+} else { ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main">
 
@@ -17,7 +21,8 @@ get_header(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<header class="entry-header">
 						<?php the_title( '<h1 ' . timber_get_post_title_class_attr( 'entry-title  h0' ) . '>', '</h1>' ); ?>
-					</header><!-- .entry-header -->
+					</header>
+					<!-- .entry-header -->
 
 					<div class="entry-content--fullwidth">
 						<?php the_content(); ?>
@@ -27,11 +32,15 @@ get_header(); ?>
 							'after'  => '</div>',
 						) );
 						?>
-					</div><!-- .entry-content -->
+					</div>
+					<!-- .entry-content -->
 				</article><!-- #post-## -->
 
 			<?php endwhile; // End of the loop. ?>
 
-		</main><!-- #main -->
+		</main>
+		<!-- #main -->
 	</div><!-- #primary -->
-<?php get_footer(); ?>
+<?php }
+
+get_footer(); ?>

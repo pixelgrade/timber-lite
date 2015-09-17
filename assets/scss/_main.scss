@@ -64,6 +64,7 @@
  *    5.30 - Widgets
  *    5.31 - Shortcodes
  *    5.32 - PixProof
+ *    5.33 - Password Protected Form
  *  6.0 - Overrides
  *
  */
@@ -319,7 +320,10 @@
  *   5.32 - PixProof
  */
 @import "5-components/pixproof";
-
+/**
+ *   5.33 - PixProof
+ */
+@import "5-components/password-protected";
 
 
 

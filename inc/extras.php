@@ -51,6 +51,11 @@ function timber_body_classes( $classes ) {
 	// let the body_class know what project layout we have and what height has the page slider
 	if ( is_singular() && false !== get_post_type() ) {
 
+
+		if ( post_password_required() ) {
+			$classes[] = 'password-required';
+		}
+
 		// add classes for a project layout
 		if ( timber_post_is_project() ) {
 			$project_layout = get_post_meta( timber_get_post_id(), 'project_template', true );
@@ -842,9 +847,9 @@ function timber_change_pixcodes_button_params( $params ) {
 }
 
 
-add_filter( 'pixcodes_filter_params_for_columns', 'wpgrade_callback_remove_columns_params', 10, 1 );
+add_filter( 'pixcodes_filter_params_for_columns', 'timber_callback_remove_columns_params', 10, 1 );
 
-function wpgrade_callback_remove_columns_params( $params ) {
+function timber_callback_remove_columns_params( $params ) {
 
 	// unset unneeded params
 	if ( isset( $params['full_width'] ) ) {
@@ -1001,4 +1006,111 @@ function timber_load_next_projects() {
 	} else {
 		wp_send_json_error();
 	}
+}
+
+
+add_action('the_password_form', 'timber_callback_the_password_form');
+
+function timber_callback_the_password_form($form){
+	global $post;
+	$post = get_post( $post );
+	$post_type = get_post_type( $post );
+	$postID =timber_get_post_id($post->ID, $post_type);
+	$label = 'pwbox-' . ( empty($postID) ? rand() : $postID );
+
+	global $timber_private_post;
+
+	ob_start(); ?>
+	<div class="site-container  site-content">
+		<div class="content--client-area">
+			<div class="form-container">
+				<div class="lock-icon"></div>
+				<div class="protected-area-text">
+					<?php
+					_e('This is a protected area.', 'timber');
+
+					if($timber_private_post['error']) {
+						echo $timber_private_post['error']; ?>
+						<span class="gray"><?php _e('Please enter your password again.', 'timber' );?></span>
+					<?php } else { ?>
+						<span class="gray"><?php _e('Please enter your password to continue.', 'timber' );?></span>
+					<?php } ?>
+
+				</div>
+				<form class="auth-form" method="post" action="<?php echo wp_login_url().'?action=postpass'; // just keep this action path ... wordpress will refear for us?>">
+					<?php wp_nonce_field('password_protection','submit_password_nonce'); ?>
+					<input type="hidden" name="submit_password" value="1" />
+					<input type="password" name="post_password" id="auth_password" class="auth__pass" placeholder="<?php _e("Password", 'timber') ?>" />
+					<input type="submit" name="Submit" id="auth_submit" class="auth__submit" value="<?php _e("Authenticate", 'timber') ?>" />
+				</form>
+			</div>
+		</div><!-- .content -->
+	</div>
+<?php
+	$form = ob_get_clean();
+	// on form submit put a wrong passwordp msg.
+	if ( get_permalink() != wp_get_referer() ) {
+		return $form;
+	}
+
+	// No cookie, the user has not sent anything until now.
+	if ( ! isset ( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) ){
+		return $form;
+	}
+
+	require_once ABSPATH . 'wp-includes/class-phpass.php';
+	$hasher = new PasswordHash( 8, true );
+
+	$hash = wp_unslash( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] );
+	if ( 0 !== strpos( $hash, '$P$B' ) )
+		return $form;
+
+	return $form;
+
+}
+
+
+function timber_prepare_password_for_custom_post_types(){
+
+	global $timber_private_post;
+
+	$timber_private_post = timber_is_password_protected();
+
+}
+
+add_action('wp', 'timber_prepare_password_for_custom_post_types');
+
+function timber_is_password_protected(){
+	global $post;
+	$private_post = array('allowed' => false, 'error' => '');
+
+	if ( isset( $_POST['submit_password']) ) { // when we have a submision check the password and its submision
+		if ( isset( $_POST['submit_password_nonce'] ) && wp_verify_nonce( $_POST['submit_password_nonce'], 'password_protection') ) {
+			if ( isset ( $_POST['post_password'] ) && !empty($_POST['post_password']) ) { // some simple checks on password
+				// finally test if the password submitted is correct
+				if ( $post->post_password ===  $_POST['post_password'] ) {
+					$private_post['allowed'] = true;
+
+					// ok if we have a correct password we should inform wordpress too
+					// otherwise the mad dog will put the password form again in the_content() and other filters
+					global $wp_hasher;
+					if ( empty( $wp_hasher ) ) {
+						require_once( ABSPATH . 'wp-includes/class-phpass.php' );
+						$wp_hasher = new PasswordHash(8, true);
+					}
+					setcookie( 'wp-postpass_' . COOKIEHASH, $wp_hasher->HashPassword( stripslashes( $_POST['post_password'] ) ), 0, COOKIEPATH );
+
+				} else {
+					$private_post['error'] = '<h3 class="text--error">' . __('Wrong Password', 'timber') . '</h3>';
+				}
+			}
+		}
+	}
+
+	if (isset($_COOKIE['wp-postpass_' . COOKIEHASH]) && get_permalink() == wp_get_referer()) {
+		$private_post['error'] = '<h3 class="text--error">' . __('Wrong Password', 'timber') . '</h3>';
+	}
+
+
+	return $private_post;
 }

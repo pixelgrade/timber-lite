@@ -6,11 +6,13 @@
  * @since Timber 1.0
  */
 
-get_header(); ?>
+get_header();
 
-
+if ( post_password_required() ) {
+	echo get_the_password_form();
+} else { ?>
 <div class="site-header  site-header--placeholder"></div>
-<main id="content" class="site-content site-container project_layout-grid  <?php echo 'image-scaling--' . $image_scaling; ?>">
+<main id="content" class="site-content site-container project_layout-grid  <?php echo 'image-scaling--';// . $image_scaling; ?>">
 
 		<header class="site-sidebar">
 		    <div class="site-sidebar__content">
@@ -30,7 +32,10 @@ get_header(); ?>
 		<article id="post-<?php the_ID(); ?>" <?php post_class('js-portfolio  portfolio  project_layout-thumbnails'); ?>>
 
 					<?php while ( have_posts() ) : the_post();
-
+						if ( post_password_required() ) {
+							echo get_the_password_form();
+							continue;
+						}
 						/* Include the Post-Format-specific template for the content.
 						* If you want to override this in a child theme, then include a file
 						* called content-___.php (where ___ is the Post Format name) in a template-parts directory and that will be used instead.
@@ -75,4 +80,6 @@ get_header(); ?>
 	</div>
 </footer><!-- #colophon -->
 
-<?php get_footer(); ?>
+<?php }
+
+get_footer(); ?>
