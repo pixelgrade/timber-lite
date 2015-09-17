@@ -64,7 +64,7 @@ var Project = (function() {
 	}
 
 	function onResize() {
-		if ($('.single-jetpack-portfolio').length) {
+		if ($('.single-jetpack-portfolio, .single-proof_gallery').length) {
 			resizeFullView();
 			resizeFilmstrip();
 			getMiddlePoints();
@@ -456,9 +456,10 @@ var Project = (function() {
 
 	function showThumbnails(e, initial) {
 		var $active = $('.portfolio__item--active'),
-			$target = $grid.find('.js-portfolio-item').eq($active.data('count'));
+			$target = $grid.find('.js-portfolio-item').eq($active.data('count')),
+			selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
-			TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 0, onComplete: function() {
+			TweenMax.to(selector, .3, { opacity: 0, onComplete: function() {
 				// $('.site-footer').css('display', 'none');
 			}
 		});
@@ -519,18 +520,19 @@ var Project = (function() {
 
 	function showFilmstrip(e) {
 
-		if ( $(e.target).is('.js-thumbs, .js-plus, .js-minus') ) {
+		if ( typeof e !== "undefined" && $(e.target).is('.js-thumbs, .js-plus, .js-minus') ) {
 			return;
 		}
 
 		var $clicked = $(this),
-			$target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
+			$target = $film.find('.js-portfolio-item').eq($clicked.data('count')),
+			selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
 		$('.site-content').css('overflow-x', '');
 
 		$('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
-		TweenMax.to('.site-footer, .site-sidebar', .3, { opacity: 1, delay: .3, onComplete: function() {
+		TweenMax.to(selector, .3, { opacity: 1, delay: .3, onComplete: function() {
 				$('.site-footer').css('display', 'block');
 			}
 		});
@@ -636,7 +638,7 @@ var Project = (function() {
 
 	function showFullView(e) {
 
-		if ( $(e.target).is('.js-thumbs, .js-plus, .js-minus') ) {
+		if ( typeof e !== "undefined" && $(e.target).is('.js-thumbs, .js-plus, .js-minus') ) {
 			return;
 		}
 

@@ -106,7 +106,9 @@ html.has--nicescroll {
 }
 
 .touch {
-    .single-jetpack-portfolio, .blog {
+    .single-jetpack-portfolio,
+    .blog,
+    .single-proof_gallery {
         .site-content {
             overflow-x: auto;
             overflow-y: hidden;

@@ -156,6 +156,7 @@ function bindVertToHorScroll() {
 	if ($body.hasClass('blog')
 		|| $body.hasClass('project_layout-filmstrip')
 		|| $body.hasClass('project_layout-thumbnails')
+		|| $body.hasClass('single-proof_gallery')
 		&& ! $html.hasClass('is--ie9') ) {
 		// html body are for ie
 			$('html, body, *').bind('mousewheel',  vertToHorScroll);
