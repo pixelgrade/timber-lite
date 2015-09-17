@@ -157,6 +157,7 @@ function bindVertToHorScroll() {
 		|| $body.hasClass('project_layout-filmstrip')
 		|| $body.hasClass('project_layout-thumbnails')
 		|| $('.woocommerce.archive').length ) 
+		|| $body.hasClass('single-proof_gallery')
 		&& ! $html.hasClass('is--ie9') ) {
 		// html body are for ie
 			$('html, body, *').bind('mousewheel',  vertToHorScroll);

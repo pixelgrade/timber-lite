@@ -10,6 +10,11 @@ get_header();
 
 while ( have_posts() ) : the_post();
 
+	if ( post_password_required() ) {
+		echo get_the_password_form();
+		continue;
+	}
+
 	get_template_part( 'template-parts/single-jetpack-portfolio');
 
 endwhile;

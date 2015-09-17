@@ -1,11 +1,13 @@
 .single-jetpack-portfolio .site,
-.jetpack-portfolio .site {
+.jetpack-portfolio .site,
+.single-proof_gallery .site {
     @extend %display--flex;
     flex-direction: column;
     -webkit-flex-direction: column;
 }
 
-.touch .single-jetpack-portfolio .site-footer {
+.touch .single-jetpack-portfolio .site-footer,
+.touch .single-proof_gallery .site-footer {
     padding-bottom: 0;
 }
 
@@ -15,6 +17,10 @@ img {
 
 .is--ie9 .portfolio-wrapper {
     padding-bottom: $header-height;
+}
+
+.proof__overlay {
+    display: none;
 }
 
 .portfolio {

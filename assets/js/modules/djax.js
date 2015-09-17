@@ -33,7 +33,7 @@ var djax = (function() {
 
     function djaxTransition($new) {
         var $old = this;
-
+        console.log('djaxTransition');
         $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
         if (transitionedOut) {
@@ -108,6 +108,7 @@ var djax = (function() {
     }
 
     function onDjaxLoad(e, data) {
+        console.log('ondjaxLoad');
 
         // get data and replace the body tag with a nobody tag
         // because jquery strips the body tag when creating objects from data

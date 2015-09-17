@@ -18686,7 +18686,7 @@ if (!Date.now) Date.now = function () {
 
     function djaxTransition($new) {
       var $old = this;
-
+      console.log('djaxTransition');
       $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
       if (transitionedOut) {
@@ -18761,6 +18761,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function onDjaxLoad(e, data) {
+      console.log('ondjaxLoad');
 
       // get data and replace the body tag with a nobody tag
       // because jquery strips the body tag when creating objects from data
@@ -19471,6 +19472,8 @@ if (!Date.now) Date.now = function () {
             newWidth = newHeight * $item.data('width') / $item.data('height'),
             $image = $(document.createElement('img')).css('opacity', 0);
 
+        $item.toggleClass('is--portrait', height > width);
+
         $item.width(newWidth);
         $item.data('image', $image);
       });
@@ -19864,7 +19867,7 @@ if (!Date.now) Date.now = function () {
 
     function init() {
 
-      if (!$('.single-jetpack-portfolio').length) {
+      if (!$('.single-jetpack-portfolio, .single-proof_gallery').length) {
         return;
       }
 
@@ -19879,13 +19882,13 @@ if (!Date.now) Date.now = function () {
       if ($('.project_layout-filmstrip').length) {
 
         $film = $('.js-portfolio');
-        $grid = $film.clone().addClass('portfolio--grid').insertBefore($film);
+        $grid = $film.clone(true, true).addClass('portfolio--grid').insertBefore($film);
         $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
 
       } else if ($('.project_layout-thumbnails').length) {
 
         $grid = $('.js-portfolio');
-        $film = $grid.clone().addClass('portfolio--filmstrip').insertAfter($grid);
+        $film = $grid.clone(true, true).addClass('portfolio--filmstrip').insertAfter($grid);
         $grid.addClass('portfolio--grid').addClass('portfolio--visible');
 
       } else {
@@ -19912,7 +19915,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function onResize() {
-      if ($('.single-jetpack-portfolio').length) {
+      if ($('.single-jetpack-portfolio, .single-proof_gallery').length) {
         resizeFullView();
         resizeFilmstrip();
         getMiddlePoints();
@@ -19978,7 +19981,9 @@ if (!Date.now) Date.now = function () {
     }
 
     function addMetadata() {
-      $film.find('.js-portfolio-item').each(function (i, obj) {
+      var $target = $('.single-proof_gallery').length ? $film.add($grid) : $film;
+
+      $target.find('.js-portfolio-item').each(function (i, obj) {
         var $item = $(obj),
             captionText = $item.data('caption'),
             $caption = $('<div class="photometa__caption"></div>').html(captionText),
@@ -20037,6 +20042,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindEvents() {
+
       $('body').on('click', '.js-show-thumbnails', showThumbnails);
       $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
       $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
@@ -20044,6 +20050,30 @@ if (!Date.now) Date.now = function () {
       $('.fullview .rsArrowRight').on('click', showNext);
       $('.fullview .rsArrowLeft').on('click', showPrev);
       $('.js-details').on('click', toggleDetails);
+
+      $('.pixproof_photo_ref').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var href = $(this).data('href');
+
+        if (!href.length) {
+          return;
+        }
+
+        href = href.slice(6);
+
+        var $target = $grid.find('[id=' + href + ']');
+
+        if ($target.length) {
+          $target.trigger('click');
+        }
+      });
+
+      $('.js-thumbs').on('click', function (e) {
+        e.preventDefault();
+        showThumbnails();
+      });
 
       $(window).on('djaxLoad', function () {
         if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
@@ -20221,7 +20251,7 @@ if (!Date.now) Date.now = function () {
 
     function getCurrent() {
 
-      if (typeof $film == "undefined" || !$('.single-jetpack-portfolio').length || $('.fullview--visible').length) {
+      if (typeof $film == "undefined" || (!$('.single-jetpack-portfolio').length && !$('.single-proof_gallery').length) || $('.fullview--visible').length) {
         return;
       }
 
@@ -20285,9 +20315,10 @@ if (!Date.now) Date.now = function () {
 
     function showThumbnails(e, initial) {
       var $active = $('.portfolio__item--active'),
-          $target = $grid.find('.js-portfolio-item').eq($active.data('count'));
+          $target = $grid.find('.js-portfolio-item').eq($active.data('count')),
+          selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
-      TweenMax.to('.site-footer, .site-sidebar', .3, {
+      TweenMax.to(selector, .3, {
         opacity: 0,
         onComplete: function () {
           // $('.site-footer').css('display', 'none');
@@ -20295,9 +20326,17 @@ if (!Date.now) Date.now = function () {
       });
 
       $('.site-footer, .site-sidebar').css('pointer-events', 'none');
+
+      $('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
+
       $grid.css('opacity', 1);
 
       $('.js-portfolio-item').addClass('no-transition');
+
+      TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
+        opacity: 1,
+        delay: 1
+      });
 
       TweenMax.to($('.mask--project'), 0, {
         'transform-origin': '0 100%',
@@ -20311,7 +20350,11 @@ if (!Date.now) Date.now = function () {
       if (typeof initial == "undefined") {
         morph($active, $target, {
           delay: .3
+        }, function () {
+          $('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
         });
+      } else {
+        $('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
       }
 
       $grid.find('.js-portfolio-item img').css('opacity', '');
@@ -20347,18 +20390,26 @@ if (!Date.now) Date.now = function () {
 
     function showFilmstrip(e) {
 
+      if (typeof e !== "undefined" && $(e.target).is('.js-thumbs, .js-plus, .js-minus')) {
+        return;
+      }
+
       var $clicked = $(this),
-          $target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
+          $target = $film.find('.js-portfolio-item').eq($clicked.data('count')),
+          selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
       $('.site-content').css('overflow-x', '');
 
-      TweenMax.to('.site-footer, .site-sidebar', .3, {
+      $('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
+
+      TweenMax.to(selector, .3, {
         opacity: 1,
         delay: .3,
         onComplete: function () {
           $('.site-footer').css('display', 'block');
         }
       });
+
       $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
 
       $('.js-portfolio-item').addClass('no-transition');
@@ -20388,6 +20439,8 @@ if (!Date.now) Date.now = function () {
             opacity: 1,
             onComplete: function () {
               $('.js-portfolio-item').removeClass('no-transition');
+              $('.proof__overlay').removeClass('no-transition').css('opacity', '');
+              $film.find('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
             }
           });
           $target.removeClass('portfolio__item--target');
@@ -20458,6 +20511,10 @@ if (!Date.now) Date.now = function () {
 
     function showFullView(e) {
 
+      if (typeof e !== "undefined" && $(e.target).is('.js-thumbs, .js-plus, .js-minus')) {
+        return;
+      }
+
       // prepare current for fullview
       var $source = $(this),
           $target = addImageToFullView($source);
@@ -20465,6 +20522,7 @@ if (!Date.now) Date.now = function () {
       $('.button-full').css('opacity', 0);
 
       $source.addClass('hide-meta');
+      $('.proof__overlay').css('opacity', 0);
 
       initialAlpha = latestDeviceAlpha;
       initialBeta = latestDeviceBeta;
@@ -20553,10 +20611,10 @@ if (!Date.now) Date.now = function () {
       var $source = $('.fullview__image'),
           $target = $('.portfolio__item--active').addClass('hide-meta');
 
-      $target.children().add($target).addClass('no-transition').css('opacity', 0);
+      $target.children().not('.proof__overlay').add($target).addClass('no-transition').css('opacity', 0);
       setTimeout(function () {
         $target.children().add($target).removeClass('no-transition');
-      }, 10)
+      }, 10);
 
       if (imageScaling == 'fit') {
         $fullview.css('backgroundColor', 'transparent');
@@ -20575,6 +20633,7 @@ if (!Date.now) Date.now = function () {
           $('.site-content').removeClass('site-content--fullview');
           $('.button-full').css('opacity', 1);
           $target.removeClass('hide-meta');
+          $('.proof__overlay, .proof__selected').removeClass('no-transition').css('opacity', '');
         });
         setTimeout(function () {
           $fullview.removeClass('fullview--visible');
@@ -21286,7 +21345,7 @@ if (!Date.now) Date.now = function () {
 
     sizeColumns();
 
-    if ($('.single-jetpack-portfolio').length || $('.woocommerce.archive').length) {
+    if ($('.single-jetpack-portfolio, .single-proof_gallery, .woocommerce.archive').length) {
       Project.init();
       Placeholder.update();
       Project.prepare();
@@ -21605,7 +21664,7 @@ if (!Date.now) Date.now = function () {
   }
 
   function bindVertToHorScroll() {
-    if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length) && !$html.hasClass('is--ie9')) {
+    if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length) || $body.hasClass('single-proof_gallery') && !$html.hasClass('is--ie9')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
 
