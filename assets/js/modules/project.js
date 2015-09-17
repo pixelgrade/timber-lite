@@ -200,6 +200,25 @@ var Project = (function() {
 		$('.fullview .rsArrowLeft').on('click', showPrev);
 		$('.js-details').on('click', toggleDetails);
 
+		$('.pixproof_photo_ref').on('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var href = $(this).data('href');
+
+			if (!href.length) {
+				return;
+			}
+
+			href = href.slice(6);
+
+			var $target = $grid.find('[id=' + href + ']');
+
+			if ( $target.length ) {
+				$target.trigger('click');
+			}
+		});
+
 		$('.js-thumbs').on('click', function(e) {
 			e.preventDefault();
 			showThumbnails();
@@ -546,7 +565,7 @@ var Project = (function() {
 					onComplete: function() {
 						$('.js-portfolio-item').removeClass('no-transition');
 						$('.proof__overlay').removeClass('no-transition').css('opacity', '');
-						$film.find('.proof__selected, .proof__overlay, .photometa').css('opacity', '');
+						$film.find('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
 					}
 				});
 				$target.removeClass('portfolio__item--target');
