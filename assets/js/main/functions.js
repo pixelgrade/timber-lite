@@ -183,3 +183,23 @@ function niceScrollInit() {
 		$("html").addClass('has--nicescroll');
 	}
 }
+
+function filterHandler() {
+	var $projectsFilter = $('.js-projects-filter');
+	var $filterContent = $('.js-projects-filter-content');
+	var $filterList = $('.js-projects-filter-list');
+
+	$('.js-projects-filter-trigger').on('mouseenter', function() {
+		$projectsFilter.addClass('is-open');
+		TweenMax.to($filterContent, .2, {opacity: 1, onStart: function(){
+			$filterList.css('display', 'block');
+		}})
+	});
+
+	$projectsFilter.on('mouseleave', function() {
+		$projectsFilter.removeClass('is-open');
+		TweenMax.to($filterContent, .2, {opacity: 0, onComplete: function(){
+			$filterList.css('display', 'none');
+		}})
+	})
+}

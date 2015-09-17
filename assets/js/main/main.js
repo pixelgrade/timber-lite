@@ -45,6 +45,7 @@ function softInit() {
     royalSliderInit();
     videos.init();
 
+    filterHandler();
     checkProfileImageWidget();
 
     if( windowWidth > 740 ) {

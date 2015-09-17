@@ -983,7 +983,7 @@ if ( ! function_exists( 'timber_the_mobile_categories_nav' ) ) :
 
 		if ( ! empty( $categories ) ) : ?>
 			<div class="mobile-filter-wrapper">
-				<select class="filter  filter--mobile  js-filter-mobile">
+				<select class="filter  filter--mobile  js-filter-mobile-journal">
 					<option class="filter__item active" data-filter="*"><?php _e( 'All categories', 'timber' ); ?></option>
 
 					<?php foreach ( $categories as $category ) : ?>
