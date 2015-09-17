@@ -197,72 +197,69 @@ var Woocommerce = (function() {
 	}
 
 	function loadNextProjects () {
-	var offset = $portfolio_container.find('.portfolio--project').length;
+		var offset = $portfolio_container.find('.portfolio--project').length;
 
-	if (globalDebug) {console.log("Loading More Projects - AJAX Offset = " + offset);}
+		if (globalDebug) {console.log("Loading More Projects - AJAX Offset = " + offset);}
 
-	isLoadingProjects = true;
+		isLoadingProjects = true;
 
-	var args = {
-		action : 'timber_load_next_projects',
-		nonce : timber_ajax.nonce,
-		offset : offset
-	};
+		var args = {
+			action : 'timber_load_next_projects',
+			nonce : timber_ajax.nonce,
+			offset : offset
+		};
 
-	if ( !empty($portfolio_container.data('taxonomy')) ) {
-		args['taxonomy'] = $portfolio_container.data('taxonomy');
-		args['term_id'] = $portfolio_container.data('termid');
-	}
-
-	$.post(
-		timber_ajax.ajax_url,
-		args,
-		function(response_data) {
-
-			if( response_data.success ){
-				if (globalDebug) {console.log("Loaded next projects");}
-
-				var $result = $( response_data.data.posts).filter('article');
-
-				if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
-
-				$result.imagesLoaded(function(){
-
-					$portfolio_container.append( $result );
-
-					Placeholder.update();
-
-					isLoadingProjects = false;
-				});
-			} else {
-				//we have failed
-				//it's time to call it a day
-				if (globalDebug) {console.log("It seems that there are no more projects to load");}
-
-				$('.navigation').fadeOut();
-
-				//don't make isLoadingProjects true so we won't load any more projects
-			}
+		if ( !empty($portfolio_container.data('taxonomy')) ) {
+			args['taxonomy'] = $portfolio_container.data('taxonomy');
+			args['term_id'] = $portfolio_container.data('termid');
 		}
-	);
-}
+
+		$.post(
+			timber_ajax.ajax_url,
+			args,
+			function(response_data) {
+
+				if( response_data.success ){
+					if (globalDebug) {console.log("Loaded next projects");}
+
+					var $result = $( response_data.data.posts).filter('article');
+
+					if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
+
+					$result.imagesLoaded(function(){
+
+						$portfolio_container.append( $result );
+
+						Placeholder.update();
+
+						isLoadingProjects = false;
+					});
+				} else {
+					//we have failed
+					//it's time to call it a day
+					if (globalDebug) {console.log("It seems that there are no more projects to load");}
+
+					$('.navigation').fadeOut();
+
+					//don't make isLoadingProjects true so we won't load any more projects
+				}
+			}
+		);
+	}
 
 	function maybeloadNextProjects () {
-	if (!$portfolio_container.length || isLoadingProjects ) {
-		return;
+		if (!$portfolio_container.length || isLoadingProjects ) {
+			return;
+		}
+
+		var $lastChild = $portfolio_container.children('article').last();
+
+		//if the last child is in view then load more projects
+		if ( $lastChild.is(':appeared') ) {
+			loadNextProjects();
+		}
+
 	}
-
-	var $lastChild = $portfolio_container.children('article').last();
-
-	//if the last child is in view then load more projects
-	if ( $lastChild.is(':appeared') ) {
-		loadNextProjects();
-	}
-
-}
-
-
-
 
 	return {
 		init: init,

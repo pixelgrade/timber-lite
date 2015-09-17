@@ -21145,9 +21145,6 @@ if (!Date.now) Date.now = function () {
 
     }
 
-
-
-
     return {
       init: init,
       prepare: prepare,
