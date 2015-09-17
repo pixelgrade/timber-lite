@@ -288,6 +288,10 @@ img {
     }
 }
 
+.portfolio-wrapper .portfolio--project:last-of-type {
+    margin-bottom: 30px;
+}
+
 .is--ie9 .portfolio-wrapper {
     .portfolio__link-wrap, .portfolio__header, .portfolio__item {
         display: inline-block;
