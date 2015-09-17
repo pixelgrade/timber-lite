@@ -906,8 +906,13 @@ function timber_load_next_posts() {
 	//set the query args
 	$args = array( 'post_type' => 'post' );
 
+	//check if we have a post_type in $_POST
+	if ( isset( $_POST['post_type'] ) ) {
+		$args['post_type'] = $_POST['post_type'];
+	}
+
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
-		$args['posts_per_page'] = 999;
+		$args['posts_per_page'] = -1;
 	} else {
 		$args['posts_per_page'] = get_option( 'posts_per_page' );
 	}
@@ -934,7 +939,15 @@ function timber_load_next_posts() {
 		ob_start();
 
 		foreach ( $posts as $post ) : setup_postdata( $post );
-			get_template_part( 'template-parts/content', get_post_format() );
+			$template_path = 'template-parts/content';
+			$template_slug = get_post_format();
+
+			if ( $post->post_type === 'product' ) {
+				$template_path = 'woocommerce/content';
+				$template_slug = 'product';
+			}
+
+			get_template_part( $template_path, $template_slug );
 		endforeach;
 
 		/* Restore original Post Data */
@@ -990,6 +1003,62 @@ function timber_load_next_projects() {
 
 		foreach ( $posts as $post ) : setup_postdata( $post );
 			get_template_part( 'template-parts/content', 'portfolio' );
+		endforeach;
+
+		/* Restore original Post Data */
+		wp_reset_postdata();
+
+		wp_send_json_success( array(
+			'posts' => ob_get_clean(),
+		) );
+	} else {
+		wp_send_json_error();
+	}
+}
+
+/*
+ * Ajax loading projects
+ */
+add_action( 'wp_ajax_timber_load_next_products', 'timber_load_next_products' );
+add_action( 'wp_ajax_nopriv_timber_load_next_products', 'timber_load_next_products' );
+function timber_load_next_products() {
+	global $post;
+
+	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
+		wp_send_json_error();
+	}
+
+	//set the query args
+	$args = array( 'post_type' => 'product' );
+
+	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
+		$args['posts_per_page'] = 999;
+	} else {
+		$args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '7' );
+	}
+
+	if ( isset( $_REQUEST['taxonomy'] ) ) {
+		$args['tax_query'] = array(
+			array(
+				'taxonomy' => $_REQUEST['taxonomy'],
+				'field'    => 'term_id',
+				'terms'    => array( $_REQUEST['term_id'] ),
+			),
+		);
+	}
+
+	//check if we have a offset in $_REQUEST
+	if ( isset( $_REQUEST['offset'] ) ) {
+		$args['offset'] = (int) $_REQUEST['offset'];
+	}
+
+	$posts = get_posts( $args );
+	if ( ! empty( $posts ) ) {
+		ob_start();
+
+		foreach ( $posts as $post ) : setup_postdata( $post );
+//			get_template_part( 'template-parts/content', 'portfolio' );
+			wc_get_template_part( 'content', 'product' );
 		endforeach;
 
 		/* Restore original Post Data */

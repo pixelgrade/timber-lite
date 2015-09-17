@@ -153,9 +153,10 @@ function checkProfileImageWidget() {
 }
 
 function bindVertToHorScroll() {
-	if ($body.hasClass('blog')
+	if ( ( $body.hasClass('blog')
 		|| $body.hasClass('project_layout-filmstrip')
 		|| $body.hasClass('project_layout-thumbnails')
+		|| $('.woocommerce.archive').length ) 
 		&& ! $html.hasClass('is--ie9') ) {
 		// html body are for ie
 			$('html, body, *').bind('mousewheel',  vertToHorScroll);

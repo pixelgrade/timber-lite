@@ -1,0 +1,343 @@
+.single-product {
+	.site-main {
+		margin: 0 auto;
+		max-width: 1160px;
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	.grid {
+		margin-left: -60px;
+	}
+
+	.grid__item {
+		padding-left: 60px;
+	}
+}
+
+.product-post {
+	position: relative;
+}
+
+.product__content {
+	margin-bottom: 60px;
+}
+
+.product__header {
+	margin-top: 15px;
+	margin-bottom: 25px;
+
+	@include query-above($lap) {
+		margin-top: 0;
+		margin-bottom: 60px;
+	}
+}
+
+.product_title {
+	text-align: center;
+}
+
+.woocommerce-breadcrumb {
+	font-size: 15px;
+	font-weight: 300;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+
+	span {
+		color: $hoverColour;
+	}
+
+	a {
+		color: $bodyColour;
+	}
+
+	.del {
+		color: $bodyColour;
+		font-size: 17px;
+		margin: 0 3px;
+	}
+}
+
+
+
+
+
+// Product images
+.images__container {
+	position: relative;
+}
+
+.woocommerce-main-image {
+	&, img {
+		display: block;
+		width: 100%;
+	}
+}
+
+.thumbnails {
+	a, img {
+		display: block;
+	}
+
+	a {
+		margin-bottom: 20px;
+
+		opacity: .5;
+		transition: opacity .3s ease-in-out;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
+}
+
+.images {
+	display: flex;
+	flex-direction: column;
+
+	.woocommerce-main-image {
+		flex: 1 1 auto;
+	}
+
+	.thumbnails {
+		flex: 1 1 auto;
+
+		@include query-below($lap) {
+			margin: 10px -5px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			a {
+				padding: 0 5px;
+				flex: 1 1 auto;
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+@include query-above($lap) {
+
+	.images {
+		flex-direction: row;
+
+		.woocommerce-main-image {
+			flex: 1 1 auto;
+			order: 2;
+		}
+
+		.thumbnails {
+			flex: 1 1 150px;
+			order: 1;
+
+			padding-right: 20px;
+
+			a, img {
+				display: block;
+			}
+
+			a {
+				margin-bottom: 20px;
+
+				opacity: .5;
+				transition: opacity .3s ease-in-out;
+
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+// Price, Description, Add to cart, Variations
+
+.product__summary .price {
+	margin-top: -18px;
+}
+
+.single-product .price {
+	padding-top: 0;
+
+	font-size: 25px;
+	line-height: normal;
+	font-weight: 900;
+
+	@include query-above($lap) {
+		font-size: 38px;
+	}
+}
+
+div[itemprop="description"] {
+	padding-bottom: 10px;
+	margin-bottom: 40px;
+
+	border-bottom: 1px solid #DADADA;
+}
+
+.single_add_to_cart_button {
+	@extend .btn;
+	margin: 1.5em 0;
+}
+
+.variations.grid {
+	margin-left: -30px;
+
+	.grid__item {
+		padding-left: 30px;
+	}
+}
+
+.variation-content {
+	position: relative;
+
+	@include query-below($lap) {
+		margin-bottom: 10px;
+	}
+
+	&:after {
+		@extend %fa;
+		content: $fa-var-chevron-down;
+
+		position: absolute;
+		top: 48%;
+		right: 15px;
+
+		font-size: 14px;
+		color: $hoverColour;
+
+		transform: translateY(-50%);
+	}
+}
+
+.variation-name, .reset_variations {
+	display: block;
+	margin-bottom: 4px;
+
+	font-size: 13px;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+.reset_variations {
+//	display: inline-block;
+	display: none;
+
+	padding: 6px;
+	padding-right: 0;
+	margin-bottom: 0;
+}
+
+.single_variation, .variations_button {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.single_variation_wrap {
+	margin-top: 20px;
+}
+
+.single_variation {
+	margin-right: 32px;
+}
+
+.quantity {
+	display: inline-block;
+	vertical-align: middle;
+
+	max-width: 100px;
+	margin-right: 7px;
+}
+
+.single_add_to_cart_button {
+	display: inline-block;
+	vertical-align: middle;
+
+	margin: 0;
+	height: 41px;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+// @todo remove this with a hook or smt
+.product_meta {
+	display: none;
+}
+
+
+
+
+
+// Comments / reviews
+#reviews {
+	.comment {
+		padding-left: 0;
+	}
+
+	.avatar {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	.meta {
+		padding-top: 0;
+		margin-bottom: 0;
+	}
+
+	.comment_container {
+		padding-left: 5.250em;
+	}
+}
+
+.related.products, .cross-sells, .upsells.products {
+	ul.products {
+		@extend .filmstrip;
+		position: relative;
+
+		.product__item {
+			display: inline-block;
+			width: calc(50% - 5px);
+		}
+	}
+}
+
+
+
+
+
+.related.products {
+	// hidden by default.
+	// display: block !important for
+	//users that really want it
+	display: none;
+
+	ul.products {
+		display: block;
+		font-size: 0;
+		margin: 0 -5px;
+
+		li.product__item {
+			margin: 0;
+			background: none;
+			padding: 0 5px;
+			font-size: 16px;
+			width: 25%;
+			
+			.onsale {
+				right: 5px;
+			}
+
+			.product__details {
+				opacity: 1;
+			}
+		}
+	}
+
+}

@@ -2,8 +2,8 @@
 
 // --- MODIFIED
 // https://github.com/CSS-Tricks/jQuery-Organic-Tabs
-(function($) {
-
+(function ($) {
+    "use strict";
     $.organicTabs = function (el, options) {
         var base = this;
         base.$el = $(el);
@@ -13,7 +13,7 @@
             var $allListWrap = base.$el.find(".tabs__content"),
                 curList = base.$el.find("a.current").attr("href").substring(1);
             $allListWrap.height(base.$el.find("#" + curList).height());
-            base.$nav.find("li > a").click(function(event) {
+            base.$nav.find("li > a").click(function (event) {
 
                 var curList = base.$el.find("a.current").attr("href").substring(1),
                     $newList = $(this),

@@ -68,7 +68,7 @@ if ( ! function_exists( 'timber_setup' ) ) :
 			'caption',
 		) );
 
-		/*
+		/**
 		 * Enable support for Post Formats.
 		 * See http://codex.wordpress.org/Post_Formats
 		 */
@@ -85,6 +85,12 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		// custom javascript handlers - make sure it is the last one added
 		add_action( 'wp_head', 'timber_load_custom_js_header', 999 );
 		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );
+
+		/**
+		 * Enable Woocommerce support
+		 * See http://docs.woothemes.com/document/third-party-custom-theme-compatibility/
+		 */
+		add_theme_support( 'woocommerce' );
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
@@ -203,6 +209,17 @@ function timber_scripts_styles() {
 				$timber_show_footer = false;
 			}
 		}
+	}
+	
+	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
+
+	if ( ! function_exists( 'is_plugin_active' ) ) {
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	}
+
+	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
+		$url = plugins_url( '/woocommerce/assets/css/prettyPhoto.css', WP_PLUGIN_DIR . '/' );
+		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $url );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
@@ -520,6 +537,11 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * Load WooCommerce compatibility file.
+ */
+require get_template_directory() . '/inc/woocommerce.php';
 
 /**
  * Load Recommended/Required plugins notification

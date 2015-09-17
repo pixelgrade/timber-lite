@@ -16,7 +16,7 @@ var Blog = (function() {
 		isLoadingPosts = false;
 		filterBy = '';
 
-		if (!$filmstrip_container.length) {
+		if (!$filmstrip_container.length || ! $filmstrip_container.children('.filmstrip__item' ).length ) {
 			//this is not a blog archive so bail
 			return;
 		}
@@ -63,7 +63,7 @@ var Blog = (function() {
 		bindEvents();
 
 		//if there are not sufficient posts to have scroll - load the next page also (prepending)
-		if ( $filmstrip_container.children('article').last().offset().left == 0 ) {
+		if ( $filmstrip_container.children('.filmstrip__item').last().offset().left == 0 ) {
 			loadNextPosts();
 		}
 	}
@@ -122,13 +122,18 @@ var Blog = (function() {
 				action : 'timber_load_next_posts',
 				nonce : timber_ajax.nonce,
 				offset : offset,
+				post_type: 'post',
 				posts_number: 'all'
 			};
 
-		if ( !empty($filmstrip_container.data('taxonomy')) ) {
+		if ( ! empty($filmstrip_container.data('post_type')) ) {
+			args['post_type'] = $filmstrip_container.data('post_type');
+		}
+
+		if ( ! empty($filmstrip_container.data('taxonomy')) ) {
 			args['taxonomy'] = $filmstrip_container.data('taxonomy');
-			args['term_id'] = $filmstrip_container.data('termid');
-		} else if ( !empty($filmstrip_container.data('search')) ) {
+			args['term_id'] = $filmstrip_container.data('term_id');
+		} else if ( ! empty($filmstrip_container.data('search')) ) {
 			args['search'] = $filmstrip_container.data('search');
 		}
 
@@ -140,7 +145,7 @@ var Blog = (function() {
 				if( response_data.success ){
 					if (globalDebug) {console.log("Loaded all posts");}
 
-					var $result = $( response_data.data.posts).filter('article');
+					var $result = $( response_data.data.posts).filter('.filmstrip__item');
 
 					if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
 
@@ -183,12 +188,17 @@ var Blog = (function() {
 		var args = {
 			action : 'timber_load_next_posts',
 			nonce : timber_ajax.nonce,
+			post_type: 'post',
 			offset : offset
 		};
 
+		if ( ! empty($filmstrip_container.data('post_type')) ) {
+			args['post_type'] = $filmstrip_container.data('post_type');
+		}
+
 		if ( ! empty($filmstrip_container.data('taxonomy')) ) {
 			args['taxonomy'] = $filmstrip_container.data('taxonomy');
-			args['term_id'] = $filmstrip_container.data('termid');
+			args['term_id'] = $filmstrip_container.data('term_id');
 		} else if ( !empty($filmstrip_container.data('search')) ) {
 			args['search'] = $filmstrip_container.data('search');
 		}
@@ -201,7 +211,7 @@ var Blog = (function() {
 				if( response_data.success ){
 					if (globalDebug) {console.log("Loaded next posts");}
 
-					var $result = $( response_data.data.posts).filter('article');
+					var $result = $( response_data.data.posts).filter('.filmstrip__item');
 
 					if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
 
@@ -230,7 +240,7 @@ var Blog = (function() {
 			return;
 		}
 
-		var $lastChild = $filmstrip_container.children('article').last();
+		var $lastChild = $filmstrip_container.children('.filmstrip__item').last();
 
 		//if the last child is in view then load more posts
 		if ( $lastChild.is(':appeared') ) {

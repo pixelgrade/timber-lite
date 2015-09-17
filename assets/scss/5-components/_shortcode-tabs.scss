@@ -34,7 +34,7 @@
 .tabs__content {
 	position: relative;
 	min-height: 1px;
-	transition: height .2s linear;
+	overflow: hidden;
 }
 
 .tabs__pane {
@@ -42,8 +42,8 @@
 	position: absolute;
 	transition: opacity .2s ease-in-out;
 	-webkit-backface-visibility: hidden;
-	transform: translate3d(0,0,0);
-	z-index: 10;
+	transform: translate3d(0, 0, 0);
+	z-index: 20;
 
 	&.not-shown {
 		opacity: 0;
