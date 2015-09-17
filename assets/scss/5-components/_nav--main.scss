@@ -36,12 +36,6 @@
         @extend %current-item;
     }
 
-    .menu-item-has-children > a:after,
-    .sub-menu .menu-item-has-children:after {
-        @extend %fa;
-        @extend %display--inline-block;
-    }
-
     @include query-above($lap) {
 
         a {
@@ -71,53 +65,78 @@
             z-index: 999;
 
             > a:after {
-                content: $fa-var-caret-down;
+                display: none;
+                content: "+";
                 margin-left: .5em;
             }
 
             > a:before {
-                right: 2.2em;
+                // right: 2.2em;
             }
         }
 
         .sub-menu {
+            display: block;
+            opacity: 0;
+            pointer-events: none;
+            border-radius: 4px;
+            text-align: left;
+            text-transform: none;
+            font-size: 15px;
+            line-height: 1.5;
+
+            left: 50%;
+            transform: translate3d(-50%, .5em, 0);
+            background: black;
+            color: #EBEBEB;
+
             width: 10em;
-            padding: 1.25em 1em;
+            padding: 0.75em 1.25em;
             box-shadow: 0 .35em 1em -.5em black;
-            background: white;
             opacity: 0;
             pointer-events: none;
             will-change: transform, opacity;
-            transform: translateY(-.5em);
-            transition: opacity .1s ease-out, transform .1s ease-out;
+            transition: opacity .2s ease-out, transform .2s ease-out;
             transform-origin: 0 0;
+
+            a {
+                color: white;
+                text-shadow: none;
+            }
+
+            &:after {
+                content: "";
+                position: absolute;
+                left: 50%;
+                bottom: 100%;
+                border: 8px solid transparent;
+                border-bottom-color: black;
+                margin-left: -4px;
+            }
+
+            .menu-item:hover > a {
+                color: white;
+            }
         }
 
         .menu-item:hover > .sub-menu {
-            transform: none;
+            transform: translate3d(-50%, 0, 0);
             opacity: 1;
             pointer-events: auto;
-            transition: opacity .1s ease-in, transform .1s ease-in;
-        }
-
-        .sub-menu .menu-item-has-children {
-            display: flex;
-            display: -webkit-flex;
-            justify-content: space-between;
-            -webkit-justify-content: space-between;
-
-            &:after {
-                content: $fa-var-caret-right;
-                margin-right: .5em;
-            }
-
-            > a:after {
-                content: none;
-            }
+            transition: opacity .1s ease-out, transform .1s ease-out;
         }
 
         .sub-menu .sub-menu {
-            margin-top: -1.25em;
+            transform: translate3d(0, .5em, 0);
+            margin-top: -.75em;
+
+            &:after {
+                display: none;
+            }
+        }
+
+        .sub-menu .menu-item:hover > .sub-menu {
+            transform: translateZ(0);
         }
     }
 
