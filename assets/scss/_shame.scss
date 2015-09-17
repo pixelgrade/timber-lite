@@ -105,13 +105,31 @@ html.has--nicescroll {
     display: none;
 }
 
+.single-jetpack-portfolio .site,
+.jetpack-portfolio .site,
+.single-proof_gallery .site,
+.woocommerce .site {
+    @extend %display--flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+}
+
 .touch {
     .single-jetpack-portfolio,
-    .blog,
-    .single-proof_gallery {
+    .single-proof_gallery,
+    .archive.woocommerce {
         .site-content {
             overflow-x: auto;
             overflow-y: hidden;
+        }
+    }
+
+    .blog {
+        @include query-above($lap) {
+            .site-content {
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
         }
     }
 }
