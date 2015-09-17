@@ -445,9 +445,11 @@ var Project = (function() {
 		});
 
 		$('.site-footer, .site-sidebar').css('pointer-events', 'none');
+
 		$grid.css('opacity', 1);
 
 		$('.js-portfolio-item').addClass('no-transition');
+
 
 		TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
 			opacity: 1,
@@ -486,6 +488,7 @@ var Project = (function() {
 				$film.removeClass('portfolio--visible');
 				$grid.addClass('portfolio--visible');
 				TweenMax.to('.mask--project', 0, {scaleX: 0});
+				$('.proof__selected, .proof__overlay, .photometa').css('opacity', '');
 			}
 		});
 
@@ -501,6 +504,7 @@ var Project = (function() {
 			$target = $film.find('.js-portfolio-item').eq($clicked.data('count'));
 
 		$('.site-content').css('overflow-x', '');
+		$('.proof__selected, .proof__overlay, .photometa').css('opacity', 0);
 
 		TweenMax.to('.pixproof-data, .pixproof__wrap', .3, {
 			opacity: ''
@@ -542,6 +546,7 @@ var Project = (function() {
 					onComplete: function() {
 						$('.js-portfolio-item').removeClass('no-transition');
 						$('.proof__overlay').removeClass('no-transition').css('opacity', '');
+						$film.find('.proof__selected, .proof__overlay, .photometa').css('opacity', '');
 					}
 				});
 				$target.removeClass('portfolio__item--target');
@@ -734,7 +739,7 @@ var Project = (function() {
 				$('.site-content').removeClass('site-content--fullview');
 				$('.button-full').css('opacity', 1);
 				$target.removeClass('hide-meta');
-				$('.proof__overlay').removeClass('no-transition').css('opacity', '');
+				$('.proof__overlay, .proof__selected').removeClass('no-transition').css('opacity', '');
 			});
 			setTimeout(function() {
 				$fullview.removeClass('fullview--visible');
