@@ -16,32 +16,32 @@ var Project = (function() {
 
 	function init() {
 
-		if (!$('.single-jetpack-portfolio, .single-proof_gallery').length) {
+		if ( !$('.single-jetpack-portfolio, .single-proof_gallery').length ) {
 			return;
 		}
 
-		if (initialized) {
+		// if ( $('.single-proof_gallery').length ) {
+		// 	$('.site-footer').hide();
+		// }
+
+		if ( initialized ) {
 			return;
 		}
 
-		if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+		if ( $('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true) ) {
 			imageScaling = 'fit';
 		}
 
-		if ($('.project_layout-filmstrip').length) {
-
+		if ( $('.project_layout-filmstrip').length ) {
 			$film = $('.js-portfolio');
 			$grid = $film.clone(true, true).addClass('portfolio--grid').insertBefore($film);
 			$film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
-
-		} else if( $('.project_layout-thumbnails').length ){
-
+		} else if ( $('.project_layout-thumbnails').length ) {
 			$grid = $('.js-portfolio');
 			$film = $grid.clone(true, true).addClass('portfolio--filmstrip').insertAfter($grid);
 			$grid.addClass('portfolio--grid').addClass('portfolio--visible');
-
 		} else {
-			 //this is some project type that we don't handle here - like fullscreen
+			 // this is some project type that we don't handle here - like fullscreen
 			return;
 		}
 
@@ -90,10 +90,10 @@ var Project = (function() {
 		$document.off('mousemove', panFullview);
 		$(window).off('deviceorientation', panFullview);
 
-		if ( $('html').hasClass('touch') ) {
-			initialAlpha = latestDeviceAlpha;
-			initialBeta = latestDeviceBeta;
-			initialGamma = latestDeviceGamma;
+		if ( $('html').hasClass('is--touch') ) {
+			initialAlpha 	= latestDeviceAlpha;
+			initialBeta 	= latestDeviceBeta;
+			initialGamma 	= latestDeviceGamma;
 
 			TweenMax.to($('.fullview__image img'), 0, {
 				x: 0,
@@ -169,8 +169,8 @@ var Project = (function() {
 
 	function prepare() {
 
-		if (!$('.project_layout-filmstrip').length && !$('.project_layout-thumbnails').length) {
-			//we are not in a single project so bail
+		if (!$('.project_layout-filmstrip').length && !$('.single-proof_gallery').length && !$('.project_layout-thumbnails').length) {
+			// we are not in a single project so bail
 			return;
 		}
 
@@ -193,8 +193,14 @@ var Project = (function() {
 	function bindEvents() {
 
 		$('body').on('click', '.js-show-thumbnails', showThumbnails);
-		$('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
-		$('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
+
+		// if ( $('html').hasClass('is--touch') ) {
+		// 	$('.portfolio--grid').on('click', '.js-portfolio-item', showFullView);
+		// } else {
+			$('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
+			$('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
+		// }
+
 		$('.fullview__close').on('click', hideFullView);
 		$('.fullview .rsArrowRight').on('click', showNext);
 		$('.fullview .rsArrowLeft').on('click', showPrev);
@@ -225,7 +231,7 @@ var Project = (function() {
 		});
 
 		$(window).on('djaxLoad', function() {
-			if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+			if ($('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
 				imageScaling = 'fit';
 			} else {
 				imageScaling = 'fill';
@@ -586,7 +592,7 @@ var Project = (function() {
 
 	function centerFilmToTarget($target) {
 
-		if ( $('html').hasClass('touch') ) {
+		if ( $('html').hasClass('is--touch') ) {
 			TweenLite.to('.site-content', 0, {
 				scrollTo: {
 					x: $target.data('middle') - $('.site-content').width() / 2
@@ -659,7 +665,7 @@ var Project = (function() {
 
 		if ( imageScaling == 'fit' ) {
 			$fullview.css('backgroundColor', '#222222');
-		} else if ( $('html').hasClass('touch') ) {
+		} else if ( $('html').hasClass('is--touch') ) {
 			$(window).on('deviceorientation', panFullview);
 			$document.on('mousemove', panFullview);
 		} else {
@@ -687,7 +693,7 @@ var Project = (function() {
 				imgWidth 	= $img.width(),
 				imgHeight 	= $img.height();
 
-			if ( $('html').hasClass('touch') ) {
+			if ( $('html').hasClass('is--touch') ) {
 
 				var a = initialAlpha - latestDeviceAlpha,
 					b = initialBeta - latestDeviceBeta,

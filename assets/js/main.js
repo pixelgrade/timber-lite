@@ -19552,8 +19552,10 @@ if (!Date.now) Date.now = function () {
     isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
     isWindows = navigator.platform.toUpperCase().indexOf('WIN') !== -1;
 
-    if (Modernizr.touch) {
-      $html.addClass('touch');
+    if (typeof document.body.ontouchstart !== "undefined") {
+      $html.addClass('is--touch');
+    } else {
+      $html.addClass('is--no-touch');
     }
 
     if (iOS && iOS < 8) {
@@ -19871,28 +19873,27 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
+      // if ( $('.single-proof_gallery').length ) {
+      // 	$('.site-footer').hide();
+      // }
       if (initialized) {
         return;
       }
 
-      if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+      if ($('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
         imageScaling = 'fit';
       }
 
       if ($('.project_layout-filmstrip').length) {
-
         $film = $('.js-portfolio');
         $grid = $film.clone(true, true).addClass('portfolio--grid').insertBefore($film);
         $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
-
       } else if ($('.project_layout-thumbnails').length) {
-
         $grid = $('.js-portfolio');
         $film = $grid.clone(true, true).addClass('portfolio--filmstrip').insertAfter($grid);
         $grid.addClass('portfolio--grid').addClass('portfolio--visible');
-
       } else {
-        //this is some project type that we don't handle here - like fullscreen
+        // this is some project type that we don't handle here - like fullscreen
         return;
       }
 
@@ -19941,7 +19942,7 @@ if (!Date.now) Date.now = function () {
       $document.off('mousemove', panFullview);
       $(window).off('deviceorientation', panFullview);
 
-      if ($('html').hasClass('touch')) {
+      if ($('html').hasClass('is--touch')) {
         initialAlpha = latestDeviceAlpha;
         initialBeta = latestDeviceBeta;
         initialGamma = latestDeviceGamma;
@@ -20020,8 +20021,8 @@ if (!Date.now) Date.now = function () {
 
     function prepare() {
 
-      if (!$('.project_layout-filmstrip').length && !$('.project_layout-thumbnails').length) {
-        //we are not in a single project so bail
+      if (!$('.project_layout-filmstrip').length && !$('.single-proof_gallery').length && !$('.project_layout-thumbnails').length) {
+        // we are not in a single project so bail
         return;
       }
 
@@ -20044,8 +20045,13 @@ if (!Date.now) Date.now = function () {
     function bindEvents() {
 
       $('body').on('click', '.js-show-thumbnails', showThumbnails);
+
+      // if ( $('html').hasClass('is--touch') ) {
+      // 	$('.portfolio--grid').on('click', '.js-portfolio-item', showFullView);
+      // } else {
       $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
       $('.portfolio--filmstrip').on('click', '.js-portfolio-item', showFullView);
+      // }
       $('.fullview__close').on('click', hideFullView);
       $('.fullview .rsArrowRight').on('click', showNext);
       $('.fullview .rsArrowLeft').on('click', showPrev);
@@ -20076,7 +20082,7 @@ if (!Date.now) Date.now = function () {
       });
 
       $(window).on('djaxLoad', function () {
-        if ($('.image-scaling--fit').length || ($('html').hasClass('touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+        if ($('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
           imageScaling = 'fit';
         } else {
           imageScaling = 'fill';
@@ -20461,7 +20467,7 @@ if (!Date.now) Date.now = function () {
 
     function centerFilmToTarget($target) {
 
-      if ($('html').hasClass('touch')) {
+      if ($('html').hasClass('is--touch')) {
         TweenLite.to('.site-content', 0, {
           scrollTo: {
             x: $target.data('middle') - $('.site-content').width() / 2
@@ -20532,7 +20538,7 @@ if (!Date.now) Date.now = function () {
 
       if (imageScaling == 'fit') {
         $fullview.css('backgroundColor', '#222222');
-      } else if ($('html').hasClass('touch')) {
+      } else if ($('html').hasClass('is--touch')) {
         $(window).on('deviceorientation', panFullview);
         $document.on('mousemove', panFullview);
       } else {
@@ -20560,7 +20566,7 @@ if (!Date.now) Date.now = function () {
             imgWidth = $img.width(),
             imgHeight = $img.height();
 
-        if ($('html').hasClass('touch')) {
+        if ($('html').hasClass('is--touch')) {
 
           var a = initialAlpha - latestDeviceAlpha,
               b = initialBeta - latestDeviceBeta,

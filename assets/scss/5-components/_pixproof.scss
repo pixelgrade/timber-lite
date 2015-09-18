@@ -124,11 +124,16 @@
 	}
 }
 
-.js-portfolio-item:hover {
+.is--no-touch .js-portfolio-item:hover,
+.is--touch .js-portfolio-item {
 	.proof__overlay {
 		opacity: 1;
 		pointer-events: auto;
 	}
+}
+
+.is--touch .js-portfolio-item .proof__overlay {
+	background: rgba(0,0,0,0.3);
 }
 
 .pixproof-data {

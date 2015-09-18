@@ -30,8 +30,10 @@ function platformDetect() {
     isMac           = navigator.platform.toUpperCase().indexOf('MAC')>=0;
     isWindows       = navigator.platform.toUpperCase().indexOf('WIN')!==-1;
 
-    if (Modernizr.touch) {
-        $html.addClass('touch');
+    if (typeof document.body.ontouchstart !== "undefined") {
+        $html.addClass('is--touch');
+    } else {
+        $html.addClass('is--no-touch');
     }
 
     if (iOS && iOS < 8) {
