@@ -159,6 +159,10 @@
 
 	.product__link {
 		display: block;
+
+		+ a { // hide add to cart button, select options button
+			display: none;
+		}
 	}
 
 	.add_to_cart_button, .added_to_cart, .product_type_variable, .product_type_simple {
