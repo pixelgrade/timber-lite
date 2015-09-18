@@ -21311,23 +21311,21 @@ if (!Date.now) Date.now = function () {
     }
 
     function betterWooThumbsNav() {
-      //
-      //$('.thumbnails > a').on('click', function(e) {
-      //	e.preventDefault();
-      //	e.stopPropagation();
-      //
-      //	// When clicking a thumb image
-      //	// change the main image url
-      //	// and the main image src with the
-      //	// thumbnail ones.
-      //
-      //	var newImageURL = $(this).attr('href');
-      //	var newImageSrc = $(this).data('medium-size-url');
-      //	var $wooMainImage = $('.woocommerce-main-image');
-      //
-      //	$wooMainImage.attr('href', newImageURL);
-      //	$wooMainImage.find('img').attr('src', newImageSrc);
-      //});
+      $('.thumbnails > a').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // When clicking a thumb image
+        // change the main image url
+        // and the main image src with the
+        // thumbnail ones.
+        var newImageURL = $(this).attr('href');
+        var newImageSrc = $(this).data('medium-size-url');
+        var $wooMainImage = $('.woocommerce-main-image');
+
+        $wooMainImage.attr('href', newImageURL);
+        $wooMainImage.find('img').attr('src', newImageSrc);
+      });
     }
 
     return {
