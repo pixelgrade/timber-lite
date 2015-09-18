@@ -58,6 +58,10 @@ function softInit() {
         Woocommerce.prepare();
     }
 
+    if( $('.woocommerce.single-product').length ) {
+        Woocommerce.betterWooThumbsNav();
+    }
+
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 

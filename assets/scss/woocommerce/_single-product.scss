@@ -160,6 +160,7 @@
 
 .product__summary .price {
 	margin-top: -18px;
+	margin-bottom: 13px;
 }
 
 .single-product .price {
@@ -179,6 +180,14 @@ div[itemprop="description"] {
 	margin-bottom: 40px;
 
 	border-bottom: 1px solid #DADADA;
+
+	p {
+		line-height: 27px;
+
+		&:first-child {
+			padding-top: 0;
+		}
+	}
 }
 
 .single_add_to_cart_button {
@@ -340,4 +349,11 @@ div[itemprop="description"] {
 		}
 	}
 
+}
+
+.single-product-tabs {
+	// hidden by default.
+	// display: block !important for
+	//users that really want it
+	display: none;
 }
