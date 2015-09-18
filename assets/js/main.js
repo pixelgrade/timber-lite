@@ -18686,7 +18686,6 @@ if (!Date.now) Date.now = function () {
 
     function djaxTransition($new) {
       var $old = this;
-      console.log('djaxTransition');
       $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
       if (transitionedOut) {
@@ -18761,8 +18760,6 @@ if (!Date.now) Date.now = function () {
     }
 
     function onDjaxLoad(e, data) {
-      console.log('ondjaxLoad');
-
       // get data and replace the body tag with a nobody tag
       // because jquery strips the body tag when creating objects from data
       data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
@@ -21062,6 +21059,8 @@ if (!Date.now) Date.now = function () {
         $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
         loadAllProjects();
       }
+
+      betterWooThumbsNav();
     }
 
     function setCurrent($current) {
@@ -21314,12 +21313,31 @@ if (!Date.now) Date.now = function () {
 
     }
 
+    function betterWooThumbsNav() {
+      $('.thumbnails > a').on('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // When clicking a thumb image
+        // change the main image url
+        // and the main image src with the
+        // thumbnail ones.
+        var newImageURL = $(this).attr('href');
+        var newImageSrc = $(this).data('medium-size-url');
+        var $wooMainImage = $('.woocommerce-main-image');
+
+        $wooMainImage.attr('href', newImageURL);
+        $wooMainImage.find('img').attr('src', newImageSrc);
+      });
+    }
+
     return {
       init: init,
       prepare: prepare,
       onResize: onResize,
       getCurrent: getCurrent,
-      resizeFilmstrip: resizeFilmstrip
+      resizeFilmstrip: resizeFilmstrip,
+      betterWooThumbsNav: betterWooThumbsNav
     }
   })();
   // /* ====== ON DOCUMENT READY ====== */
@@ -21379,6 +21397,10 @@ if (!Date.now) Date.now = function () {
       Woocommerce.init();
       Woocommerce.resizeFilmstrip();
       Woocommerce.prepare();
+    }
+
+    if ($('.woocommerce.single-product').length) {
+      Woocommerce.betterWooThumbsNav();
     }
 
 

@@ -33,9 +33,13 @@
             content: $fa-var-share-alt;
 
             position: absolute;
-            top: 0;
+            top: 4px;
             left: 50%;
             transform: translateX(-50%);
+
+            @include query-above(1600px) {
+                top: 0;
+            }
         }
 
         // default share icon used as a fallback

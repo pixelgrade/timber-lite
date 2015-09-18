@@ -44,7 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 
 	<div class="grid  product__content">
-		<div class="grid__item  lap-one-half  images__container">
+		<div class="grid__item  images__container">
 			<?php
 			/**
 			 * woocommerce_before_single_product_summary hook
@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			do_action( 'woocommerce_before_single_product_summary' );
 			?>
 		</div>
-		<div class="grid__item  lap-one-half  details__container">
+		<div class="grid__item  details__container">
 			<div class="product__summary">
 
 				<?php

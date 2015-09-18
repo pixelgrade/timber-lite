@@ -16,7 +16,7 @@ global $woocommerce;
 <?php do_action( 'woocommerce_before_mini_cart' ); ?>
 
 <a href="<?php echo $woocommerce->cart->get_cart_url(); ?>" class="cart-widget-label">
-	<i class="icon icon-shopping-cart"></i>
+<!--	<i class="icon icon-shopping-cart"></i>-->
 </a>
 <span class="cart-items-number"><?php echo sprintf( _n( '%d', $woocommerce->cart->cart_contents_count, 'woothemes' ), $woocommerce->cart->cart_contents_count ); ?></span>
 <div class="cart-widget-details">
