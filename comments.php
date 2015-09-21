@@ -23,9 +23,9 @@ if ( post_password_required() ) {
 			<h3 class="comments-title">
 				<?php
 				if ( have_comments() ):
-					printf( _n( '<span class="comment-number  comment-number--dark  total">1</span>comment', '<span class="comment-number  comment-number--dark  total">%1$s</span>Comments', get_comments_number(), 'timber' ), number_format_i18n( get_comments_number() ) );
+					echo '<span class="comment-number  comment-number--dark  total">' . number_format_i18n( get_comments_number() ) . '</span>' . _n( 'Comment', 'Comments',  number_format_i18n( get_comments_number() ), 'timber' );
 				else:
-					_e( '<span class="comment-number  comment-number--dark">+</span>There are no comments', 'timber');
+					echo '<span class="comment-number  comment-number--dark">+</span>' . __( 'There are no comments', 'timber');
 				endif;
 				?>
 			</h3>
