@@ -184,6 +184,10 @@ img {
         -webkit-flex-wrap: wrap;
         z-index: 100;
 
+        @include query-below($small) {
+            padding-left: 1em;
+        }
+
         .touch &{
             padding: 0 1em;
             padding-bottom: 70px;

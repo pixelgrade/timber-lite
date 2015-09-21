@@ -146,6 +146,16 @@
 
 .pixproof-data {
 	width: 100%;
+	margin-bottom: 2em;
+
+	@include query-below($lap) {
+		margin-top: 1em;
+	}
+
+	.entry__meta-box span {
+		display: block;
+		line-height: 2;
+	}
 
 	.portfolio--filmstrip & {
 		display: none;
@@ -162,6 +172,11 @@
 	    opacity: 1;
 	    margin-top: 0.3em;
 	    transition: opacity .3s ease-in-out;
+
+	    @include query-below($lap) {
+	    	float: left;
+	    	margin-top: 1em;
+	    }
 	}
 
 	.entry__meta-box {
@@ -178,6 +193,10 @@
 		font-style: italic;
 		color: #9B9B9B;
 		margin-bottom: -0.2em;
+	}
+
+	span:not(.meta-box__title) {
+		font-weight: bold;
 	}
 }
 
