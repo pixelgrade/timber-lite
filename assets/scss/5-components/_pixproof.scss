@@ -4,6 +4,10 @@
 		height: 19vh;
 	}
 
+	.button-full {
+		display: none !important;
+	}
+
 	.proof__overlay {
 		display: block;
 		position: absolute;
@@ -85,13 +89,17 @@
 .proof-btn.proof-btn.proof-btn {
 	width: 3em;
 	height: 3em;
-	margin: 0 5%;
+	margin: 0 1em;
 	transition: transform .3s ease-out;
 	background-position: center center;
 	background-size: 100% 100%;
 	background-size: contain;
 	background-repeat: no-repeat;
 	flex: 0 1 3em;
+
+	.portfolio--grid & {
+		margin: 0 5%;
+	}
 }
 
 .proof-btn--zoom {
@@ -125,14 +133,14 @@
 }
 
 .is--no-touch .js-portfolio-item:hover,
-.is--touch .js-portfolio-item {
+.touch .js-portfolio-item {
 	.proof__overlay {
 		opacity: 1;
 		pointer-events: auto;
 	}
 }
 
-.is--touch .js-portfolio-item .proof__overlay {
+.touch .js-portfolio-item .proof__overlay {
 	background: rgba(0,0,0,0.3);
 }
 

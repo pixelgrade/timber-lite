@@ -86,7 +86,7 @@
             line-height: 1.5;
 
             left: 50%;
-            transform: translate3d(-50%, .5em, 0);
+            transform: translate(-50%, .5em);
             background: black;
             color: #EBEBEB;
 
@@ -119,14 +119,14 @@
         }
 
         .menu-item:hover > .sub-menu {
-            transform: translate3d(-50%, 0, 0);
+            transform: translate(-50%, 0);
             opacity: 1;
             pointer-events: auto;
             transition: opacity .1s ease-out, transform .1s ease-out;
         }
 
         .sub-menu .sub-menu {
-            transform: translate3d(0, .5em, 0);
+            transform: translate3d(0, .5em);
             margin-top: -.75em;
 
             &:after {
@@ -183,7 +183,7 @@
         right: 4em !important;
         bottom: 0;
         background: white;
-        transform: translate3d(-100%, 0, 0);
+        transform: translate(-100%, 0);
         box-shadow: rgba(0,0,0,0) 0 0 0;
         transition: transform .3s cubic-bezier(0.165, 0.840, 0.440, 1.000), box-shadow .3s ease-in-out; /* easeOutQuart */
 

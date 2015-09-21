@@ -78,7 +78,7 @@
         margin-left: -1.5em;
 
         .rsArrowIcn {
-            transform: translate(0, -50%) rotate(45deg);
+            transform: translate3d(0, -50%, 0) rotate(45deg);
         }
 
         @include query-below($desk) {
@@ -91,7 +91,7 @@
         margin-right: -1.5em;
 
         .rsArrowIcn {
-            transform: translate(-100%, -50%) rotate(-45deg);
+            transform: translate3d(-100%, -50%, 0) rotate(-45deg);
         }
 
         @include query-below($desk) {
