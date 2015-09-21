@@ -20208,8 +20208,11 @@ if (!Date.now) Date.now = function () {
         morph($active, $target, {
           delay: .3
         }, function () {
-          $('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
-        });
+          $target.imagesLoaded(function () {
+            $target.find('.portfolio__item--clone').remove();
+            $('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
+          });
+        }, false);
       } else {
         $('.proof__selected, .proof__overlay, .photometa').removeClass('no-transition').css('opacity', '');
       }
@@ -20312,7 +20315,7 @@ if (!Date.now) Date.now = function () {
         $target.imagesLoaded(function () {
           $target.find('.portfolio__item--clone').remove();
         });
-      });
+      }, false);
 
     }
 
@@ -20513,6 +20516,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function morph($source, $target, options, callback, remove) {
+
       var sourceOffset = $source.offset(),
           sourceWidth = $source.width(),
           sourceHeight = $source.height(),

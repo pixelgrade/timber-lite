@@ -1,3 +1,9 @@
+.portfolio__item--clone {
+	.proof__overlay {
+		opacity: 0 !important;
+	}
+}
+
 .single-proof_gallery {
 
 	.portfolio--grid .portfolio__item {
@@ -34,12 +40,6 @@
 
 	.photometa__caption {
 		opacity: 1;
-	}
-}
-
-.portfolio__item--clone {
-	.proof__overlay {
-		opacity: 0;
 	}
 }
 
