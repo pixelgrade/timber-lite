@@ -41,13 +41,13 @@ $borders: #d3d3d3;
 
 .comments-area {
 	@extend %single-width;
-
 	position: relative;
 	padding-bottom: 50px;
 
 
 	&:before {
 		border-top: 3px solid #D3D3D3;
+		margin-top: 2em;
 		margin-bottom: 36px;
 
 		content: "";

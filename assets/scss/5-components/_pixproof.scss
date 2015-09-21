@@ -83,6 +83,17 @@
 		&:after {
 			opacity: 1;
 		}
+
+		.portfolio--filmstrip & {
+			border-width: 25px;
+
+			&:after {
+			    width: 23px;
+			    height: 20px;
+			    bottom: -19px;
+			    right: -20px;
+			}
+		}
 	}
 }
 
