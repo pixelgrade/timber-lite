@@ -146,7 +146,7 @@ html {
 
 .portfolio-archive {
     @include query-below($small) {
-        padding-left: 3em;
+        padding-left: 0.5em;
     }
 }
 
