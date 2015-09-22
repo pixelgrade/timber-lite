@@ -1062,7 +1062,6 @@ function timber_load_next_products() {
 		ob_start();
 
 		foreach ( $posts as $post ) : setup_postdata( $post );
-//			get_template_part( 'template-parts/content', 'portfolio' );
 			wc_get_template_part( 'content', 'product' );
 		endforeach;
 
