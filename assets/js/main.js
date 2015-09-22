@@ -18543,15 +18543,15 @@ if (!Date.now) Date.now = function () {
       var $old = this;
       $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
-      if (transitionedOut) {
-        console.log('djax:transition');
-        $old.replaceWith($new);
-      } else {
-        $window.one('djax:transitionOutEnd', function () {
-          console.log('djax:transition');
-          $old.replaceWith($new);
-        });
-      }
+      // if (transitionedOut) {
+      // console.log('djax:transition');
+      $old.replaceWith($new);
+      // } else {
+      //     $window.one('djax:transitionOutEnd', function() {
+      //         console.log('djax:transition');
+      //         $old.replaceWith($new);
+      //     });
+      // }
     }
 
     function onDjaxLoading(e) {
@@ -18642,12 +18642,11 @@ if (!Date.now) Date.now = function () {
         $('body').trigger('post-load');
       }
 
-      if (transitionedOut) {
-        finishTransition();
-      } else {
-        $window.one('djax:transitionOutEnd', finishTransition);
-      }
-
+      // if (transitionedOut) {
+      finishTransition();
+      // } else {
+      //     $window.one('djax:transitionOutEnd', finishTransition);
+      // }
       //lets do some Google Analytics Tracking, in case it is there
       if (window._gaq) {
         _gaq.push(['_trackPageview']);
