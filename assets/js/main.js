@@ -18517,6 +18517,7 @@ if (!Date.now) Date.now = function () {
 
     function init() {
       console.log('djax:init');
+
       // if (typeof $body.data('ajaxloading') == "undefined") {
       //     return;
       // }
