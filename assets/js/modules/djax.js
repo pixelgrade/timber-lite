@@ -8,7 +8,7 @@ var djax = (function() {
      *
      */
     function init() {
-
+        console.log('djax:init');
         // if (typeof $body.data('ajaxloading') == "undefined") {
         //     return;
         // }
@@ -36,15 +36,18 @@ var djax = (function() {
         $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
         if (transitionedOut) {
+            console.log('djax:transition');
             $old.replaceWith($new);
         } else {
             $window.one('djax:transitionOutEnd', function() {
+                console.log('djax:transition');
                 $old.replaceWith($new);
             });
         }
     }
 
     function onDjaxLoading(e) {
+        console.log('djax:loading');
         wait = true;
 
         loadingTimeout = setTimeout(function() {
@@ -63,6 +66,7 @@ var djax = (function() {
     }
 
     function transitionOut() {
+        console.log('djax:transitionOut');
         transitionedOut = false;
 
         requestAnimationFrame(function() {
@@ -84,6 +88,7 @@ var djax = (function() {
     }
 
     function transitionIn() {
+        console.log('djax:transitionIn');
         requestAnimationFrame(function() {
             TweenMax.to('.loader', .3, {
                 opacity: 0,
@@ -107,6 +112,7 @@ var djax = (function() {
     }
 
     function onDjaxLoad(e, data) {
+        console.log('djax:load');
         // get data and replace the body tag with a nobody tag
         // because jquery strips the body tag when creating objects from data
         data = data.response.replace(/(<\/?)body( .+?)?>/gi, '$1NOTBODY$2>', data);
