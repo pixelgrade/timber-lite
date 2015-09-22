@@ -56,7 +56,11 @@ get_header( 'shop' ); ?>
 				if ( ! empty( $this_term ) ) {
 					$data .= ' data-term_id="' . get_queried_object()->term_id . '"';
 				}
-			?>
+
+			global $wp_query;
+			if ( isset( $wp_query->post_count ) ) {
+				$data .= ' data-offset="' . $wp_query->post_count . '"';
+			} ?>
 			<div class="site-sidebar  site-sidebar--archive  site-sidebar--shop">
 				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
 			</div>

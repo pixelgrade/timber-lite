@@ -45,12 +45,12 @@ if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] ) {
 	$classes[] = 'last';
 }
 $image_meta =  wp_get_attachment_metadata($product->get_image_id());
-if (empty($image_meta['width'])) {
+if ( ! isset( $image_meta['width'] ) || empty( $image_meta['width'] ) ) {
 	$image_meta['width'] = 500;
 }
 
-if (empty($image_meta['height'])) {
-	$image_meta['width'] = 500;
+if ( ! isset( $image_meta['height'] ) || empty( $image_meta['height'] ) ) {
+	$image_meta['height'] = 500;
 }
 ?>
 

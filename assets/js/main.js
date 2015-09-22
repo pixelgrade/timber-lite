@@ -21043,14 +21043,13 @@ if (!Date.now) Date.now = function () {
 
 
     function loadAllProjects() {
-      var offset = $portfolio_container.find('.portfolio--project').length;
+      var offset = $portfolio_container.data('offset');
 
       if (globalDebug) {
         console.log("Loading All Projects - AJAX Offset = " + offset);
       }
 
       isLoadingProjects = true;
-
       var args = {
         action: 'timber_load_next_products',
         nonce: timber_ajax.nonce,
