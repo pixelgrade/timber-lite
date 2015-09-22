@@ -332,23 +332,10 @@ div[itemprop="description"] {
 	}
 }
 
+
+
+
 .related.products, .cross-sells, .upsells.products {
-	ul.products {
-		@extend .filmstrip;
-		position: relative;
-
-		.product__item {
-			display: inline-block;
-			width: calc(50% - 5px);
-		}
-	}
-}
-
-
-
-
-
-.related.products {
 	// hidden by default.
 	// display: block !important for
 	//users that really want it
@@ -365,7 +352,7 @@ div[itemprop="description"] {
 			padding: 0 5px;
 			font-size: 16px;
 			width: 25%;
-			
+
 			.onsale {
 				right: 5px;
 			}
@@ -375,7 +362,6 @@ div[itemprop="description"] {
 			}
 		}
 	}
-
 }
 
 .single-product-tabs {
