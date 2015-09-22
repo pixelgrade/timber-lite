@@ -214,6 +214,16 @@
 .pixproof__wrap {
 	width: 100%;
 	padding-right: 5em;
+
+	@include query-below($small) {
+		padding-right: 1em;
+
+		.comments-area,
+		.comment-respond {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
 }
 
 .pixproof__content {

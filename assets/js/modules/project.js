@@ -169,7 +169,7 @@ var Project = (function() {
 
 	function prepare() {
 
-		if (!$('.project_layout-filmstrip').length && !$('.single-proof_gallery').length && !$('.project_layout-thumbnails').length) {
+		if (!$('.project_layout-filmstrip').length && !$('.single-proof_gallery').length && !$('.project_layout-thumbnails').length || $('.password-required').length) {
 			// we are not in a single project so bail
 			return;
 		}

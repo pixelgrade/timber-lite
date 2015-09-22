@@ -55,7 +55,7 @@ $borders: #d3d3d3;
 		display: block;
 	}
 
-	@include query-above($small) {
+	@include query-above($lap) {
 		&:after {
 			content: "";
 			position: absolute;
