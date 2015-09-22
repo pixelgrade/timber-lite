@@ -326,6 +326,18 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 		}
 		$types_options[ 'timber_pixtypes_theme' ] = $pixtypes_conf_settings;
 		update_option( 'pixtypes_themes_settings', $types_options );
+
+		// force some pixproof settings
+		$pixproof_settings = get_option( 'pixproof_settings' );
+		if ( is_array($pixproof_settings) ) {
+			$pixproof_settings['disable_pixproof_style'] = '1';
+			update_option( 'pixproof_settings', $pixproof_settings );
+		} else {
+			$pixproof_settings = array (
+				'disable_pixproof_style' => '1'
+			);
+			update_option( 'pixproof_settings', $pixproof_settings );
+		}
 	}
 endif; // end timber_config_getting_active
 
