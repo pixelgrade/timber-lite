@@ -21185,6 +21185,8 @@ if (!Date.now) Date.now = function () {
 
         $wooMainImage.attr('href', newImageURL);
         $wooMainImage.find('img').attr('src', newImageSrc);
+
+        return false;
       });
     }
 
