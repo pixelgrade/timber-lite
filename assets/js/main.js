@@ -21222,7 +21222,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function check_product_variations() {
-      $(function () {
+      $(function () { // wait for others
         if (typeof wc_add_to_cart_variation_params !== 'undefined') {
           $('.variations_form').each(function () {
             if ($.fn.hasOwnProperty('wc_variation_form')) {
@@ -21230,7 +21230,6 @@ if (!Date.now) Date.now = function () {
             }
           });
         }
-
       });
     }
 
