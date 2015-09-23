@@ -1,0 +1,28 @@
+.progressbar {
+	&__title {
+		@extend .h4;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+
+	&__bar {
+		height: 8px;
+		background: #EBEBEB;
+		margin: 0.65em 0 1.3em;
+	}
+
+	&__progress {
+		height: 8px;
+		background: $bodyColour;
+		position: relative;
+	}
+
+	&__tooltip {
+		position: absolute;
+		bottom: 100%;
+		right: 0;
+		transform: translate(50%, 0);
+		line-height: 1.4;
+		margin-bottom: 0.6em;
+	}
+}

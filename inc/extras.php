@@ -809,7 +809,8 @@ function timber_mce_before_init( $settings ) {
 			'classes'  => 'twocolumn',
 			'wrapper'  => true
 		),
-		array( 'title' => __( 'Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption' )
+		array( 'title' => __( 'Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption' ),
+		array( 'title' => __( 'Small Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption caption--small' )
 	);
 
 	$settings['style_formats'] = json_encode( $style_formats );
