@@ -18633,6 +18633,10 @@ if (!Date.now) Date.now = function () {
         adminBarEditFix(curPostID, curPostEditString, curPostTax);
         softInit();
         $('body').trigger('post-load');
+
+        if ($('.woocommerce.single-product').length) {
+          Woocommerce.check_product_variations();
+        }
       }
 
       if (transitionedOut) {
@@ -21220,24 +21224,17 @@ if (!Date.now) Date.now = function () {
 
     }
 
-    function ensure_variations_visibility() {
-
-      if ($.fn.hasOwnProperty('wc_variation_form')) {
-        check_product_variations();
-      } else {
-        $(document).on('timber:wc-add-to-cart-variation:script:loaded', function () { // wait for others
-          check_product_variations();
-        });
-      }
-    }
-
     function check_product_variations() {
-      $(document.body).trigger('wc_fragments_loaded');
+
       var $variation_forms = $('.variations_form');
+
       if (typeof wc_add_to_cart_variation_params !== 'undefined') {
-        $variation_forms.each(function () {
-          $(this).wc_variation_form().find('.variations select:eq(0)').change();
-        });
+        //wc_variation_form comes a little too late so we better wait for the js file to load
+        setTimeout(function () {
+          if ($.fn.hasOwnProperty('wc_variation_form')) {
+            $variation_forms.wc_variation_form().find('.variations select:eq(0)').change();
+          }
+        }, 700);
       }
     }
 
@@ -21249,7 +21246,7 @@ if (!Date.now) Date.now = function () {
       resizeFilmstrip: resizeFilmstrip,
       betterWooThumbsNav: betterWooThumbsNav,
       checkCart: checkCart,
-      check_product_variations: ensure_variations_visibility
+      check_product_variations: check_product_variations
     }
   })();
   // /* ====== ON DOCUMENT READY ====== */
@@ -21313,7 +21310,6 @@ if (!Date.now) Date.now = function () {
 
     if ($('.woocommerce.single-product').length) {
       Woocommerce.betterWooThumbsNav();
-      Woocommerce.check_product_variations();
     }
 
     Woocommerce.checkCart();

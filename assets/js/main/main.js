@@ -60,7 +60,6 @@ function softInit() {
 
     if( $('.woocommerce.single-product').length ) {
         Woocommerce.betterWooThumbsNav();
-        Woocommerce.check_product_variations();
     }
 
     Woocommerce.checkCart();

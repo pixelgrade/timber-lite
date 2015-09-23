@@ -127,6 +127,10 @@ var djax = (function() {
             adminBarEditFix(curPostID, curPostEditString, curPostTax);
             softInit();
             $('body').trigger('post-load');
+
+            if( $('.woocommerce.single-product').length ) {
+                Woocommerce.check_product_variations();
+            }
         }
 
         if (transitionedOut) {
