@@ -198,7 +198,7 @@ function timber_scripts_styles() {
 	global $timber_show_footer;
 
 	$timber_show_footer = false;
-	if ( ! get_post_type() == 'proof_gallery' && ! timber_post_is_project() && ( is_page() || is_single() ) ) {
+	if ( ! (get_post_type() == 'proof_gallery') && ! timber_post_is_project() && ( is_page() || is_single() ) ) {
 		$timber_show_footer = true;
 		$this_template = basename( get_page_template() );
 
