@@ -24,7 +24,7 @@ if ( $attachment_ids ) {
 
 		foreach ( $attachment_ids as $attachment_id ) {
 
-			$classes = array( 'zoom' );
+			$classes = array( );
 
 			if ( $loop == 0 || $loop % $columns == 0 )
 				$classes[] = 'first';
@@ -50,7 +50,7 @@ if ( $attachment_ids ) {
 			$image_medium_url = wp_get_attachment_image_src( $attachment_id, apply_filters( 'single_product_large_thumbnail_size', 'shop_single' ) );
 			$image_medium_url = $image_medium_url[0];
 
-			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s" title="%s" data-rel="prettyPhoto[product-gallery]" data-medium-size-url="%s">%s</a>', $image_link, $image_class, $image_caption, $image_medium_url, $image ), $attachment_id, $post->ID, $image_class );
+			echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', sprintf( '<a href="%s" class="%s" title="%s" data-medium-size-url="%s">%s</a>', $image_link, $image_class, $image_caption, $image_medium_url, $image ), $attachment_id, $post->ID, $image_class );
 
 			$loop++;
 		}

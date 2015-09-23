@@ -144,7 +144,7 @@
 	}
 } // .product__item
 
-.portfolio__item--active {
+.portfolio__item:hover {
 	&:after {
 		opacity: 1;
 	}
