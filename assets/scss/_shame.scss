@@ -196,7 +196,7 @@ p.caption {
     padding: 0;
     margin: 0;
     // e un margin-bottom 0 !important pe caption pe undeva
-    margin-bottom: 1.5em !important;
+    margin-bottom: 2em !important;
     font-size: 14px;
 
     &:first-child {
@@ -221,6 +221,18 @@ p.caption {
             color: $bodyColour;
         }
     }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    + p.caption {
+        margin-top: 0.5em;
+        margin-bottom: 1.5em !important;
+    }
+}
+
+.caption.caption--small {
+    font-size: 12px;
+    text-shadow: none;
 }
 
 .entry-content hr {
