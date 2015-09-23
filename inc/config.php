@@ -528,7 +528,7 @@ if ( ! function_exists( 'timber_pixcodes_setup' ) ) :
 			'Icon',
 			'Tabs',
 			'Separator',
-			'Progressbar',
+			'ProgressBar',
 			'Slider',
 		);
 
