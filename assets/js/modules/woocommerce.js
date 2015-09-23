@@ -317,6 +317,18 @@ var Woocommerce = (function() {
 
 	}
 
+	function check_product_variations() {
+		$( function() { // wait for others
+			if ( typeof wc_add_to_cart_variation_params !== 'undefined' ) {
+				$( '.variations_form' ).each( function() {
+					if ( $.fn.hasOwnProperty( 'wc_variation_form' ) ) {
+						$( this ).wc_variation_form().find('.variations select:eq(0)').change();
+					}
+				});
+			}
+		});
+	}
+
 	return {
 		init:               init,
 		prepare:            prepare,
@@ -324,6 +336,7 @@ var Woocommerce = (function() {
 		getCurrent:         getCurrent,
 		resizeFilmstrip:    resizeFilmstrip,
 		betterWooThumbsNav: betterWooThumbsNav,
-		checkCart:          checkCart
+		checkCart:          checkCart,
+		check_product_variations: check_product_variations
 	}
 })();
