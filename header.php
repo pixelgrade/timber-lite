@@ -54,7 +54,7 @@
 		<?php
 			if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				global $woocommerce; ?>
-				<div class="cart-widget">
+				<div class="cart-widget" data-shop-url="<?php echo get_permalink( get_option( 'woocommerce_shop_page_id' ) ); ?>" data-cart-url="<?php echo get_permalink( get_option( 'woocommerce_cart_page_id' ) ); ?>">
 					<div class="widget_shopping_cart_content"></div>
 				</div>
 			<?php }

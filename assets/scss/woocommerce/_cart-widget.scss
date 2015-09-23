@@ -70,7 +70,7 @@
 		height: 0;
 		border-left: 10px solid transparent;
 		border-right: 10px solid transparent;
-		border-bottom: 12px solid $bodyColour;
+		border-bottom: 12px solid black;
 	}
 
 	&:after {
@@ -84,7 +84,8 @@
 
 		width: 100%;
 
-		background: $bodyColour;
+		background: black;
+		border-radius: 4px;
 	}
 
 	a {
@@ -123,7 +124,7 @@
 	.product-name,
 	.quantity,
 	.amount {
-		float: left;
+		display: inline-block;
 		padding: 0;
 		margin-top: 0;
 		margin-bottom: 0;
@@ -144,19 +145,20 @@
 
 	.product-name {
 		text-align: left;
-		width: 50%;
+		width: 68%;
 		background: none;
+		line-height: 16px;
 	}
 
 	div.quantity {
-		text-align: right;
-		width: 15%;
+		text-align: center;
+		width: 12%;
 		margin-right: 0;
 	}
 
 	.amount {
 		text-align: right;
-		width: 35%;
+		width: 18%;
 	}
 
 	.wc-forward {
@@ -200,7 +202,7 @@
 
 		strong, .amount {
 			position: relative;
-			background: $bodyColour;
+			background: black;
 			padding: 0 5px;
 		}
 
@@ -269,12 +271,6 @@
 	.background--dark & {
 		color: white;
 	}
-
-	body &.background--light-menu,
-	body &.background--light-scroll,
-	body .site-header--show & {
-		color: $bodyColour;
-	}
 }
 
 .cart-widget-label {
@@ -284,19 +280,6 @@
 
 	color: $bodyColour;
 	transition: color .3s ease-in-out;
-
-	.background--dark & {
-		color: white;
-	}
-}
-
-body .background--light-menu,
-body .background--light-scroll,
-body .site-header--show {
-
-	.cart-widget-label {
-		color: $bodyColour;
-	}
 }
 
 .cart-widget-summary,
@@ -341,16 +324,6 @@ body .site-header--show {
 		height: 3px;
 		background-color: black;
 		transition: background-color .3s ease-in-out;
-
-		.background--dark & {
-			background-color: white;
-		}
-
-		body .background--light-menu &,
-		body .background--light-scroll &,
-		body .site-header--show & {
-			background-color: $bodyColour;
-		}
 	}
 }
 

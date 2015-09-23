@@ -34,7 +34,7 @@
 }
 
 .filter__content {
-	padding: 6px 9px 6px 78px;
+	padding: 11px 9px 11px 78px;
 	height: 50px;
 
 	background: white;
@@ -42,6 +42,10 @@
 	border-radius: 4px;
 
 	opacity: 0;
+
+	@include query-above(1600px) {
+		padding: 6px 9px 6px 78px;
+	}
 }
 
 .filter__text {

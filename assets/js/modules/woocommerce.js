@@ -283,12 +283,47 @@ var Woocommerce = (function() {
 		});
 	}
 
+	function checkCart() {
+		var $cart = $('.cart-widget');
+
+		if( $cart ) {
+			var $productCount = $cart.find('.cart-items-number');
+			var $cartContent = $cart.find('.cart-widget-details');
+			var shopURL = $cart.data('shop-url');
+			var cartURL = $cart.data('cart-url');
+
+			// if there is no product, hide cart details and change the URL to shop page
+			if ( $productCount.html() == '0' ) {
+
+				$cartContent.css('display', 'none');
+
+				if( shopURL )
+					$cart.find('.cart-widget-label').attr('href', shopURL);
+
+				// add this to know that we f-ed it
+				$cart.addClass('mod');
+
+			} else if( $cart.hasClass('mod') ) {
+				// now, if we f-ed it and there are products in cart, we reset it
+
+				$cartContent.css('display', 'block');
+
+				if( cartURL )
+					$cart.find('.cart-widget-label').attr('href', cartURL);
+
+			}
+
+		}
+
+	}
+
 	return {
-		init: init,
-		prepare: prepare,
-		onResize: onResize,
-		getCurrent: getCurrent,
-		resizeFilmstrip: resizeFilmstrip,
-		betterWooThumbsNav: betterWooThumbsNav
+		init:               init,
+		prepare:            prepare,
+		onResize:           onResize,
+		getCurrent:         getCurrent,
+		resizeFilmstrip:    resizeFilmstrip,
+		betterWooThumbsNav: betterWooThumbsNav,
+		checkCart:          checkCart
 	}
 })();
