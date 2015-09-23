@@ -190,3 +190,39 @@ html {
 .single-proof_gallery {
     @extend .single-jetpack-portfolio;
 }
+
+p.caption {
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+    // e un margin-bottom 0 !important pe caption pe undeva
+    margin-bottom: 1.5em !important;
+    font-size: 14px;
+
+    &:first-child {
+        margin-top: 1.5em;
+    }
+
+    p + & {
+        margin-top: 3em;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        background: none;
+
+        .pixcode--icon {
+            color: inherit;
+            transition: none;
+        }
+
+        &:hover {
+            color: $bodyColour;
+        }
+    }
+}
+
+.entry-content hr {
+    opacity: 0.35;
+}
