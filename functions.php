@@ -415,6 +415,8 @@ function timber_last_function(){
 						$.getScript(url)
 							.done(function (script, textStatus) {
 								//console.log(textStatus);
+								$(document).trigger('timber' + key + ':script:loaded');
+								console.log( 'timber:' + key + ':script:loaded' );
 							})
 							.fail(function (jqxhr, settings, exception) {
 								if (globalDebug) {
