@@ -62,6 +62,8 @@ function softInit() {
         Woocommerce.betterWooThumbsNav();
     }
 
+    Woocommerce.checkCart();
+
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
