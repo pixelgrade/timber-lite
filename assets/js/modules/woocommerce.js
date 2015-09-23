@@ -317,16 +317,24 @@ var Woocommerce = (function() {
 
 	}
 
-	function check_product_variations() {
-		$( function() { // wait for others
-			if ( typeof wc_add_to_cart_variation_params !== 'undefined' ) {
-				$( '.variations_form' ).each( function() {
-					if ( $.fn.hasOwnProperty( 'wc_variation_form' ) ) {
-						$( this ).wc_variation_form().find('.variations select:eq(0)').change();
-					}
-				});
-			}
-		});
+	function ensure_variations_visibility() {
+
+		if ( $.fn.hasOwnProperty( 'wc_variation_form' ) ) {
+			check_product_variations();
+		} else {
+			$(document ).on('timber:wc-add-to-cart-variation:script:loaded', function() { // wait for others
+				check_product_variations();
+			});
+		}
+	}
+
+	function check_product_variations () {
+		var $variation_forms = $( '.variations_form' );
+		if ( typeof wc_add_to_cart_variation_params !== 'undefined' ) {
+			$variation_forms.each( function() {
+				$( this ).wc_variation_form().find('.variations select:eq(0)').change();
+			});
+		}
 	}
 
 	return {
@@ -337,6 +345,6 @@ var Woocommerce = (function() {
 		resizeFilmstrip:    resizeFilmstrip,
 		betterWooThumbsNav: betterWooThumbsNav,
 		checkCart:          checkCart,
-		check_product_variations: check_product_variations
+		check_product_variations: ensure_variations_visibility
 	}
 })();
