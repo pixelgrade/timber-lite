@@ -218,8 +218,12 @@ function timber_scripts_styles() {
 	}
 
 	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
-		$url = plugins_url( '/woocommerce/assets/css/prettyPhoto.css', WP_PLUGIN_DIR . '/' );
-		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $url );
+		$url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $url . 'css/prettyPhoto.css' );
+		wp_enqueue_script( 'prettyPhoto-init', $url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
+		wp_enqueue_script( 'prettyPhoto', $url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
