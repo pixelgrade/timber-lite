@@ -21212,7 +21212,6 @@ if (!Date.now) Date.now = function () {
         } else if ($cart.hasClass('mod')) {
           // now, if we f-ed it and there are products in cart, we reset it
           $cartContent.css('display', 'block');
-
           if (cartURL) $cart.find('.cart-widget-label').attr('href', cartURL);
 
         }
@@ -21233,6 +21232,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function check_product_variations() {
+      $(document.body).trigger('wc_fragments_loaded');
       var $variation_forms = $('.variations_form');
       if (typeof wc_add_to_cart_variation_params !== 'undefined') {
         $variation_forms.each(function () {
