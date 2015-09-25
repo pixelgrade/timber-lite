@@ -16,7 +16,7 @@
         flex-basis: $header-height*2/3;
     }
 
-    @include query-above($desk) {
+    @include query-above($large) {
         height: $header-height;
         flex-basis: $header-height;
     }

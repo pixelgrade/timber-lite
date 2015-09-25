@@ -69,8 +69,6 @@
 	bottom: $small-bar-height;
 
 	@include query-above($lap) {
-		top: $header-height*2/3;
-		bottom: $footer-height*2/3;
 		margin: 0 100px;
 
 		.slider--show_next & {
@@ -78,9 +76,14 @@
 		}
 	}
 
-	@include query-above($desk) {
+	@include query-above($lap) {
 		top: $header-height*2/3;
 		bottom: $footer-height*2/3;
+	}
+
+	@include query-above($large) {
+		top: $header-height;
+		bottom: $footer-height;
 	}
 
 	@include query-below($lap) {
@@ -107,7 +110,7 @@
 			height: $footer-height*2/3;
 		}
 
-		@include query-above($desk) {
+		@include query-above($large) {
 			height: $footer-height;
 		}
 

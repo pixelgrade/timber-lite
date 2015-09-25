@@ -13,7 +13,7 @@
             flex-basis: $footer-height*2/3;
         }
 
-        @include query-above($desk) {
+        @include query-above($large) {
             height: $footer-height;
             flex-basis: $footer-height;
         }

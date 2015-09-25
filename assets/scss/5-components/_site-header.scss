@@ -34,6 +34,10 @@
 
     @include query-above($lap) {
         display: block;
+        height: $header-height*2/3 !important;
+    }
+
+    @include query-above($large) {
         height: $header-height !important;
     }
 }
