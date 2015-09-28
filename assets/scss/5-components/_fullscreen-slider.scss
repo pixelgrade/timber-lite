@@ -325,6 +325,22 @@
 		.mobile-header a, .toggle, .nav-toggle {
 			color: $bodyColour;
 		}
+
+		.cart-widget-label {
+	    	filter: initial;
+		}
+
+		.cart-items-number:after {
+			background: black;
+		}
+	}
+
+	.cart-widget-label {
+    	filter: invert(1);
+	}
+
+	.cart-items-number:after {
+		background: white;
 	}
 
 	@include query-above($lap) {
