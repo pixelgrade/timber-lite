@@ -19910,6 +19910,7 @@ if (!Date.now) Date.now = function () {
       $('.fullview__close').on('click', hideFullView);
       $('.fullview .rsArrowRight').on('click', showNext);
       $('.fullview .rsArrowLeft').on('click', showPrev);
+      $('.fullview').on('click', hideFullView);
       $('.js-details').on('click', toggleDetails);
 
       $('.pixproof_photo_ref').on('click', function (e) {
@@ -20035,6 +20036,7 @@ if (!Date.now) Date.now = function () {
       $('.fullview__close').off('click', hideFullView);
       $('.fullview .rsArrowRight').off('click', showNext);
       $('.fullview .rsArrowLeft').off('click', showPrev);
+      $('.fullview').off('click', hideFullView);
       $('.js-details').off('click', toggleDetails);
     }
 
@@ -20047,9 +20049,14 @@ if (!Date.now) Date.now = function () {
       initialized = false;
     }
 
-    function showPrev() {
+    function showPrev(e) {
       var $items = $film.find('.js-portfolio-item'),
           items = $items.length;
+
+      if (typeof e !== "undefined") {
+        e.stopPropagation();
+        e.preventDefault();
+      }
 
       $items.each(function (i, obj) {
         if ($(obj).hasClass('portfolio__item--active')) {
@@ -20064,9 +20071,14 @@ if (!Date.now) Date.now = function () {
       panFullview();
     }
 
-    function showNext() {
+    function showNext(e) {
       var $items = $film.find('.js-portfolio-item'),
           items = $items.length;
+
+      if (typeof e !== "undefined") {
+        e.stopPropagation();
+        e.preventDefault();
+      }
 
       $items.each(function (i, obj) {
         if ($(obj).hasClass('portfolio__item--active')) {
@@ -20470,10 +20482,15 @@ if (!Date.now) Date.now = function () {
       });
     }
 
-    function hideFullView() {
+    function hideFullView(e) {
 
       var $source = $('.fullview__image'),
           $target = $('.portfolio__item--active').addClass('hide-meta');
+
+      if (typeof e !== "undefined") {
+        e.stopPropagation();
+        e.preventDefault();
+      }
 
       $target.children().not('.proof__overlay').add($target).addClass('no-transition').css('opacity', 0);
       setTimeout(function () {
