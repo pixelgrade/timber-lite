@@ -10,7 +10,7 @@ var Portfolio = (function() {
 		filterBy = '*';
 		isFirstFilterClick = true;
 		isLoadingProjects = false;
-		
+
 		if (!$portfolio_container.length) {
 			return;
 		}
@@ -33,11 +33,9 @@ var Portfolio = (function() {
 						var $that = $(this);
 
 						TweenMax.to($(this), .3 , { opacity: 1, onStart: function() {
-								isSafari ? $that.css('display', '-webkit-flex') :  $that.css('display', 'flex');
-								isIE ? $that.css('display', '-ms-flex') :  $that.css('display', 'flex');
-							}
-							}
-						);
+							isSafari ? $that.css('display', '-webkit-flex') :  $that.css('display', 'flex');
+							isIE ? $that.css('display', '-ms-flex') :  $that.css('display', 'block');
+						}});
 					});
 
 					// hide the elements that must be hidden
