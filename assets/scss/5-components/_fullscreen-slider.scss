@@ -20,6 +20,10 @@
 
 	.rsArrow {
 		width: 78px;
+
+		.is--ie-le10 & {
+			background: rgba(0, 0, 0, 1);
+		}
 	}
 
 	.rsArrowLeft {
@@ -49,6 +53,12 @@
 		border-width: 1px;
 		width: 25px;
 		height: 25px;
+
+		.is--ie-le10 & {
+			border-width: 10px;
+			width: 35px;
+			height: 35px;
+		}
 	}
 
 	@include query-below($lap) {
