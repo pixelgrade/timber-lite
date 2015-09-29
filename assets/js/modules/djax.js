@@ -35,7 +35,7 @@ var djax = (function() {
         var $old = this;
         $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
-        if (transitionedOut || $('html').hasClass('touch')) {
+        if (transitionedOut) {
             $old.replaceWith($new);
         } else {
             $window.one('djax:transitionOutEnd', function() {
@@ -76,8 +76,8 @@ var djax = (function() {
                 left: 0,
                 ease: Expo.easeInOut,
                 onComplete: function() {
-                    $window.trigger('djax:transitionOutEnd');
                     transitionedOut = true;
+                    $window.trigger('djax:transitionOutEnd');
                 }
             });
         });
@@ -133,7 +133,7 @@ var djax = (function() {
             }
         }
 
-        if (transitionedOut || $('html').hasClass('touch')) {
+        if (transitionedOut) {
             finishTransition();
         } else {
             $window.one('djax:transitionOutEnd', finishTransition);
