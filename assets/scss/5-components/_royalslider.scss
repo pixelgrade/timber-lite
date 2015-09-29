@@ -399,6 +399,10 @@ img.rsImg {
 
 	.rsArrowIcn {
 		border-bottom: 2px solid black;
+
+		.is--ie & {
+			background: rgba(0, 0, 0, 0.01);
+		}
 	}
 }
 
@@ -486,7 +490,7 @@ img.rsImg {
 
 	opacity: 0.5;
 
-	z-index: 21;
+	z-index: 500;
 
 	transform: translateY(-50%);
 

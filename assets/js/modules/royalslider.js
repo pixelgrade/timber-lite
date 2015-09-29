@@ -196,5 +196,4 @@ function sliderInit($slider) {
 			.fromTo($arrows, 0.3, {opacity: 0}, {opacity: 1});
 		tl.play();
 	}
-
 }
