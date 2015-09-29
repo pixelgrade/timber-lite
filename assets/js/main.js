@@ -18843,13 +18843,13 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindEvents() {
-      if (nextWidth > 70) {
+      if (nextWidth > 70 && !$('html').hasClass('is--ie9')) {
         $nextTrigger.on('mouseenter', onNextEnter);
         $nextTrigger.on('mouseleave', onNextLeave);
       }
       $nextTrigger.on('click', onNextClick);
 
-      if (nextWidth > 70) {
+      if (nextWidth > 70 && !$('html').hasClass('is--ie9')) {
         $prevTrigger.on('mouseenter', onPrevEnter);
         $prevTrigger.on('mouseleave', onPrevLeave);
       }
@@ -18982,7 +18982,7 @@ if (!Date.now) Date.now = function () {
         x: 0,
         ease: Quint.easeOut
       }, '-=.7');
-      if (nextWidth > 70) {
+      if (nextWidth > 70 && !$('html').hasClass('is--ie9')) {
         timeline.to($next.next(), .4, {
           width: 160,
           x: -60,
@@ -19052,10 +19052,12 @@ if (!Date.now) Date.now = function () {
         x: 0,
         ease: Quint.easeOut
       }, '-=.7');
-      timeline.to($prev.prev(), .4, {
-        width: 160,
-        ease: Quint.easeOut
-      }, '-=.7');
+      if (!$('html').hasClass('is--ie9')) {
+        timeline.to($prev.prev(), .4, {
+          width: 160,
+          ease: Quint.easeOut
+        }, '-=.7');
+      }
       timeline.to($current.find('.project-slide__image'), .4, {
         opacity: 0.6,
         ease: Quint.easeOut

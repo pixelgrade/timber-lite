@@ -169,6 +169,7 @@
 	max-width: none;
 	min-width: 100%;
 	min-height: 100%;
+	transform: translate(-50%, -50%);
 	transform: translate3d(-50%, -50%, 0);
 	opacity: 0.6;
 }
@@ -177,7 +178,7 @@
 	position: absolute;
 	top: 50%;
 	z-index: 20;
-	transform: translateY(-50%);
+	transform: translate(0, -50%);
 	left: 2em;
 
 	@include query-above($lap) {
@@ -189,7 +190,7 @@
 	}
 
 	@include query-below($lap) {
-		transform: translateY(-50%) !important;
+		transform: translate(0, -50%) !important;
 	}
 
 	* {
@@ -233,7 +234,6 @@
 	top: 0;
 	height: 100%;
 	z-index: 100;
-	// pointer-events: none;
 	width: 200px;
 	cursor: pointer;
 	margin-left: -0.01em;
@@ -258,6 +258,7 @@
 		color: white;
 		white-space: nowrap;
 		transform-origin: 50% 50%;
+		// pointer-events: none;
 	}
 
 	.rsActiveSlide & {
@@ -384,5 +385,19 @@ body.page-template-default.page .site-footer {
 
 	* {
 		color: #9B9B9B;
+	}
+}
+
+.is--ie9 {
+	.projects-slider__bullets {
+		display: block;
+
+		.rsBullet {
+			margin-top: 25px;
+
+			@include query-above($large) {
+				margin-top: 45px;
+			}
+		}
 	}
 }
