@@ -909,8 +909,12 @@ function timber_load_next_posts() {
 		wp_send_json_error();
 	}
 
-	//set the query args
-	$args = array( 'post_type' => 'post' );
+//	if( defined( 'DOING_AJAX' ) ) {
+//		$may = 'be';
+//	}
+
+		//set the query args
+	$args = array( 'post_type' => 'post', 'suppress_filters' => false );
 
 	//check if we have a post_type in $_POST
 	if ( isset( $_POST['post_type'] ) ) {
@@ -940,11 +944,12 @@ function timber_load_next_posts() {
 		$args['offset'] = (int) $_POST['offset'];
 	}
 
-	$posts = get_posts( $args );
-	if ( ! empty( $posts ) ) {
+	$new_query = new WP_Query( $args );
+//	if ( ! empty( $posts ) ) {
+	if ( $new_query->have_posts() ) {
 		ob_start();
 
-		foreach ( $posts as $post ) : setup_postdata( $post );
+		while ( $new_query->have_posts() ) : $new_query->the_post();
 			$template_path = 'template-parts/content';
 			$template_slug = get_post_format();
 
@@ -954,7 +959,7 @@ function timber_load_next_posts() {
 			}
 
 			get_template_part( $template_path, $template_slug );
-		endforeach;
+		endwhile;
 
 		/* Restore original Post Data */
 		wp_reset_postdata();
@@ -963,6 +968,11 @@ function timber_load_next_posts() {
 			'posts' => ob_get_clean(),
 		) );
 	} else {
+
+		wp_send_json_success( array(
+			'failed_query' => $new_query->request,
+		) );
+
 		wp_send_json_error();
 	}
 }

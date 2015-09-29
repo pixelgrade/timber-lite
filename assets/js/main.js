@@ -18520,7 +18520,7 @@ if (!Date.now) Date.now = function () {
       // if (typeof $body.data('ajaxloading') == "undefined") {
       //     return;
       // }
-      var ignored_links = ['.pdf', '.doc', '.eps', '.png', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '?lang=', '&lang=', '&add-to-cart=', '?add-to-cart=', '?remove_item'];
+      var ignored_links = ['.pdf', '.doc', '.eps', '.png', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '&add-to-cart=', '?add-to-cart=', '?remove_item'];
 
       // djax_ignored_links is localized in /inc/functions/callbacks/woocommerce.php
       // if there are localized ignored links, add them
@@ -18532,7 +18532,7 @@ if (!Date.now) Date.now = function () {
         ignored_links = ignored_links.concat(user_ignored_links);
       }
 
-      $('body').djax('.djax-updatable', ignored_links, djaxTransition);
+      $('body').djax('.djax-updatable, #lang_sel_list', ignored_links, djaxTransition);
 
       $(window).on('djaxLoading', onDjaxLoading);
       $(window).on('djaxLoad', onDjaxLoad);
