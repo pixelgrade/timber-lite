@@ -35,13 +35,13 @@ var djax = (function() {
         var $old = this;
         $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
-        if (transitionedOut) {
+        // if (transitionedOut) {
             $old.replaceWith($new);
-        } else {
-            $window.one('djax:transitionOutEnd', function() {
-                $old.replaceWith($new);
-            });
-        }
+        // } else {
+            // $window.one('djax:transitionOutEnd', function() {
+            //     $old.replaceWith($new);
+            // });
+        // }
     }
 
     function onDjaxLoading(e) {
@@ -133,11 +133,11 @@ var djax = (function() {
             }
         }
 
-        if (transitionedOut) {
+        // if (transitionedOut) {
             finishTransition();
-        } else {
-            $window.one('djax:transitionOutEnd', finishTransition);
-        }
+        // } else {
+        //     $window.one('djax:transitionOutEnd', finishTransition);
+        // }
 
         //lets do some Google Analytics Tracking, in case it is there
         if (window._gaq) {
