@@ -399,3 +399,25 @@ img {
     from {background-position-x: -100px;}
     to {background-position-x: 100px;}
 }
+
+.is--ie9,
+.no-flexbox {
+    .portfolio-archive {
+        white-space: nowrap;
+
+        .portfolio--project,
+        .portfolio__header {
+            display: inline-block;
+        }
+    }
+
+    .portfolio--filmstrip {
+        width: 100%;
+        white-space: nowrap;
+
+        &, > .portfolio__item {
+            height: calc(100vh - #{$header-height + $footer-height});
+            display: inline-block;
+        }
+    }
+}
