@@ -5,7 +5,7 @@ var Loader = (function() {
         var $svg = $("#loaderSvg"),
             svg,
             text = '',
-            letter = $('body').data('first-letter').toLowerCase();
+            letter = $('body').data('first-letter').toString().toLowerCase();
 
         svg = Snap("#loaderSvg");
         text = svg.text('50%', '20%', letter).attr({
