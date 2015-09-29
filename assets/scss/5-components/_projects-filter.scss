@@ -101,3 +101,18 @@
 		}
 	}
 }
+
+.is--ie9 .projects-filter {
+	.filter__trigger {
+		opacity: 0 !important;
+	}
+
+	.filter__list {
+		display: block !important;
+	}
+
+	.filter__text,
+	.filter__content {
+		opacity: 1 !important;
+	}
+}

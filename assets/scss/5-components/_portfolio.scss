@@ -402,13 +402,17 @@ img {
 
 .is--ie9,
 .no-flexbox {
+
     .portfolio-archive {
-        white-space: nowrap;
 
         .portfolio--project,
         .portfolio__header {
             display: inline-block;
         }
+    }
+
+    .portfolio--project {
+        white-space: nowrap;
     }
 
     .portfolio--grid {
