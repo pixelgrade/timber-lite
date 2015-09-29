@@ -158,12 +158,14 @@ add_action( 'widgets_init', 'timber_widgets_init' );
  */
 function timber_scripts_styles() {
 
+	$theme_data = wp_get_theme();
+
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
-	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'mediaelement' ), '1.3.0' );
+	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'mediaelement' ), $theme_data->get( 'Version' ) );
 
 	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', array(
 		'jquery', 'mediaelement'
-	), '1.3.0', true );
+	), $theme_data->get( 'Version' ), true );
 	// Localize the script with new data
 	$translation_array = array
 	(
@@ -212,7 +214,6 @@ function timber_scripts_styles() {
 	}
 
 	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
-
 	if ( ! function_exists( 'is_plugin_active' ) ) {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	}

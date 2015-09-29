@@ -325,7 +325,8 @@
 
 .slider_height-full-height,
 .project_layout-fullscreen,
-.page-has-featured-image:not(.page-template) {
+.page-has-featured-image:not(.page-template),
+.password-required {
 	overflow-x: hidden;
 
 	.mobile-header a, .toggle, .nav-toggle {
@@ -346,15 +347,15 @@
 		}
 	}
 
-	.cart-widget-label {
-    	filter: invert(1);
-	}
-
-	.cart-items-number:after {
-		background: white;
-	}
-
 	@include query-above($lap) {
+
+		.cart-items-number:after {
+			background: white;
+		}
+
+		.cart-widget-label {
+	    	filter: invert(1);
+		}
 
 		.bar--fixed, .site-header, .site-footer {
 			transition: all .3s ease-in-out !important;

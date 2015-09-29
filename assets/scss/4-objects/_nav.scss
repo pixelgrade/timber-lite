@@ -43,7 +43,7 @@
         }
     }
 
-    @include query-above($small) {
+    @include query-above($lap) {
         .sub-menu {
             display: none;
             position: absolute;

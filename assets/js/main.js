@@ -18543,7 +18543,7 @@ if (!Date.now) Date.now = function () {
       var $old = this;
       $('html, body, *').unbind('mousewheel', vertToHorScroll);
 
-      if (transitionedOut || $('html').hasClass('touch')) {
+      if (transitionedOut) {
         $old.replaceWith($new);
       } else {
         $window.one('djax:transitionOutEnd', function () {
@@ -18584,8 +18584,8 @@ if (!Date.now) Date.now = function () {
           left: 0,
           ease: Expo.easeInOut,
           onComplete: function () {
-            $window.trigger('djax:transitionOutEnd');
             transitionedOut = true;
+            $window.trigger('djax:transitionOutEnd');
           }
         });
       });
@@ -18640,7 +18640,7 @@ if (!Date.now) Date.now = function () {
         }
       }
 
-      if (transitionedOut || $('html').hasClass('touch')) {
+      if (transitionedOut) {
         finishTransition();
       } else {
         $window.one('djax:transitionOutEnd', finishTransition);
