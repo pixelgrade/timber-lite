@@ -20860,7 +20860,6 @@ if (!Date.now) Date.now = function () {
       });
       tl.play();
     }
-
   }
   window.videos = (function () {
 
