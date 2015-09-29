@@ -29,6 +29,11 @@
 		background: url('assets/svg/cart-empty.svg') center center no-repeat;
 		background-size: cover;
 	}
+
+	.is--ie9 & {
+		vertical-align: top;
+	}
+
 }
 
 .widget_shopping_cart_content {

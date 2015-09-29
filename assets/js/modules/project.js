@@ -418,6 +418,8 @@ var Project = (function() {
 			init();
 		}
 
+		console.log(latestKnownScrollX, start, end, filmWidth, contentWidth);
+
 		var current 	= $('.portfolio__item--active').data('middle'),
 			reference 	= latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
 			min 		= Math.abs(reference - current),
@@ -457,6 +459,9 @@ var Project = (function() {
 		end 	= contentWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
 		max 	= Math.max(contentWidth/2 - start, end - contentWidth/2, 10);
+
+		console.log(contentWidth);
+		console.log(max);
 
 		start   = contentWidth/2 - max;
 		end 	= contentWidth/2 + max;

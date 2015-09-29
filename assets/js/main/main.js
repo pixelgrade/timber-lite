@@ -177,6 +177,7 @@ function eventHandlers() {
             latestKnownScrollY = window.scrollY;
             latestKnownScrollX = window.scrollX;
         } else {
+
             latestKnownScrollY = document.documentElement.scrollTop;
             latestKnownScrollX = document.documentElement.scrollLeft;
         }

@@ -24,6 +24,7 @@ function platformDetect() {
     isAndroidPhone  = navPlat.indexOf("android");
     isSafari        = navUA.indexOf('safari') != -1 && navUA.indexOf('chrome') == -1;
     isIE            = typeof (is_ie) !== "undefined" || (!(window.ActiveXObject) && "ActiveXObject" in window);
+    isiele10        = ua.match(/msie (9|([1-9][0-9]))/i),
     ieMobile        = ua.match(/Windows Phone/i) ? true : false;
     iOS             = getIOSVersion();
     android         = getAndroidVersion();
@@ -42,6 +43,10 @@ function platformDetect() {
 
     if (isIE) {
         $html.addClass('is--ie');
+    }
+
+    if (isiele10) {
+        $html.addClass('is--ie-le10');
     }
 
     if (ieMobile) {

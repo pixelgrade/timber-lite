@@ -153,6 +153,21 @@
     }
 }
 
+.is--ie-le10 {
+    .menu-main-menu-container {
+        margin: 0 auto;
+
+        .nav--main {
+            display: block;
+            width: 100%;
+        }
+
+        li {
+            display: inline-block;
+        }
+    }
+}
+
 .site-header {
     @include wp-offset(0, top, true);
 }

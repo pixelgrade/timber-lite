@@ -17936,6 +17936,7 @@ if (!Date.now) Date.now = function () {
       isSafari = false,
       isMac = false,
       isWindows = false,
+      isiele10 = false,
       
       
       firefox = ua.indexOf('gecko') != -1,
@@ -19403,7 +19404,7 @@ if (!Date.now) Date.now = function () {
     isAndroidPhone = navPlat.indexOf("android");
     isSafari = navUA.indexOf('safari') != -1 && navUA.indexOf('chrome') == -1;
     isIE = typeof(is_ie) !== "undefined" || (!(window.ActiveXObject) && "ActiveXObject" in window);
-    ieMobile = ua.match(/Windows Phone/i) ? true : false;
+    isiele10 = ua.match(/msie (9|([1-9][0-9]))/i), ieMobile = ua.match(/Windows Phone/i) ? true : false;
     iOS = getIOSVersion();
     android = getAndroidVersion();
     isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
@@ -19421,6 +19422,10 @@ if (!Date.now) Date.now = function () {
 
     if (isIE) {
       $html.addClass('is--ie');
+    }
+
+    if (isiele10) {
+      $html.addClass('is--ie-le10');
     }
 
     if (ieMobile) {
@@ -20134,6 +20139,8 @@ if (!Date.now) Date.now = function () {
         init();
       }
 
+      console.log(latestKnownScrollX, start, end, filmWidth, contentWidth);
+
       var current = $('.portfolio__item--active').data('middle'),
           reference = latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
           min = Math.abs(reference - current),
@@ -20173,6 +20180,9 @@ if (!Date.now) Date.now = function () {
       end = contentWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
       max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
+
+      console.log(contentWidth);
+      console.log(max);
 
       start = contentWidth / 2 - max;
       end = contentWidth / 2 + max;
@@ -21466,6 +21476,7 @@ if (!Date.now) Date.now = function () {
         latestKnownScrollY = window.scrollY;
         latestKnownScrollX = window.scrollX;
       } else {
+
         latestKnownScrollY = document.documentElement.scrollTop;
         latestKnownScrollX = document.documentElement.scrollLeft;
       }

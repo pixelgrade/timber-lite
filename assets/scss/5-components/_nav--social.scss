@@ -99,8 +99,18 @@
     .menu-short-container, .toggle {
         display: inline-block;
     }
+}
 
-    .toggle {
-        width: 40px;
+.is--ie-le10 {
+    .menu-social-menu-container {
+        position: relative;
+        top: 5px;
+        display: inline-block;
+    }
+}
+
+.is--ie9{
+    .menu-social-menu-container {
+        top: 0;
     }
 }

@@ -72,6 +72,10 @@
     @extend %bar-side;
     @extend %bar-right;
     font-size: 16px;
+
+    .is--ie-le10 & {
+        white-space: nowrap;
+    }
 }
 
 .toggle {
@@ -93,6 +97,11 @@
 
     @include query-below($lap) {
         display: none;
+    }
+
+    .is--ie-le10 & {
+        display: inline-block;
+        width: 22px;
     }
 }
 
