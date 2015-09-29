@@ -159,7 +159,7 @@ add_action( 'widgets_init', 'timber_widgets_init' );
 function timber_scripts_styles() {
 
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
-	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'mediaelement' ), '1.3.0' );
+	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'mediaelement' ), '1.4.1' );
 
 	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', array(
 		'jquery', 'mediaelement'
