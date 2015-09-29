@@ -411,13 +411,22 @@ img {
         }
     }
 
+    .portfolio--grid {
+        padding-left: 2em;
+    }
+
     .portfolio--filmstrip {
         width: 100%;
         white-space: nowrap;
+        padding-left: $sidebar-width;
 
         &, > .portfolio__item {
             height: calc(100vh - #{$header-height + $footer-height});
             display: inline-block;
+        }
+
+        .portfolio__item {
+            overflow: hidden;
         }
     }
 }
