@@ -5,13 +5,17 @@
 }
 
 .social-navigation {
-    @include query-below($small) {
+    @include query-below($lap) {
         display: block;
-        margin: 2em 0;
+        margin: 1em 0;
     }
 }
 
 .nav--social {
+
+    @include query-below($lap) {
+        float: left;
+    }
 
     .menu-item {
         overflow: hidden;
@@ -109,7 +113,7 @@
     }
 }
 
-.is--ie9{
+.is--ie9 {
     .menu-social-menu-container {
         top: 0;
     }

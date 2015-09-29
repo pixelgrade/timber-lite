@@ -24,10 +24,10 @@
     // general styling of links inside menu
     a {
         @extend %display--inline-block;
+        padding: 0.5em;
+        font-size: 18px;
+        line-height: 1.7;
         background: none !important;
-        font-size: 15px;
-        padding: 0.25em;
-        line-height: 1.8;
     }
 
     [class*="current-menu-"] > a {
@@ -37,6 +37,8 @@
     @include query-above($lap) {
 
         a {
+            font-size: 15px;
+            line-height: 1.8;
             padding: .25em 0;
         }
 
@@ -174,6 +176,17 @@
 
 @include query-below($lap) {
 
+    .nav--main [class*="current-menu-"] > a:before, .filter__item.active:before {
+        left: 0.5em;
+        right: 0.5em;
+        bottom: 0.5em;
+        display: none;
+    }
+
+    .nav--main .current-menu-item > a:before, .filter__item.active:before {
+        display: block;
+    }
+
     .main-navigation {
         display: block;
         text-align: left;
@@ -185,7 +198,7 @@
     }
 
     .nav--main .sub-menu {
-        padding-left: 1em;
+        padding-left: 1.5em;
     }
 
     .site-header {
@@ -209,7 +222,7 @@
             display: block !important;
             transform: none !important;
             overflow-y: auto;
-            padding: 2em;
+            padding: 0.5em 1em;
         }
 
         .navigation--is-visible & {

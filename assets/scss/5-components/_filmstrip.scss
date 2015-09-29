@@ -77,6 +77,10 @@
         background-size: 100% 100%;
         background-size: cover;
         background-position: center;
+
+        @media only screen and (max-height: 480px) and (min-width: 400px) {
+            flex: 0 10 100vh;
+        }
     }
 
         .post-meta {
@@ -194,7 +198,7 @@
 
             border: 0;
         }
-        
+
             .filmstrip__item {
                 padding: 0;
                 margin-right: 30px;
