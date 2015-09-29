@@ -19486,7 +19486,15 @@ if (!Date.now) Date.now = function () {
                   opacity: 1,
                   onStart: function () {
                     isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
-                    isIE ? $that.css('display', '-ms-flex') : $that.css('display', 'block');
+                    if (isIE) {
+                      if ($('html').hasClass('is--ie9')) {
+                        $that.css('display', 'block');
+                      } else {
+                        $that.css('display', '-ms-flex');
+                      }
+                    } else {
+                      $that.css('display', 'flex');
+                    }
                   }
                 });
               });
