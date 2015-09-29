@@ -228,6 +228,10 @@ img {
             @include query-below($small) {
                 min-height: 13vh;
             }
+
+            @media only screen and (max-height: 480px) and (min-width: 400px) {
+                min-height: 40vh;
+            }
         }
     }
 
@@ -252,6 +256,10 @@ img {
 
         @include query-below($small) {
             height: 13vh;
+        }
+
+        @media only screen and (max-height: 480px) and (min-width: 400px) {
+            height: 40vh;
         }
     }
 
