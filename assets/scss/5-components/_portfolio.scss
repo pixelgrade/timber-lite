@@ -400,7 +400,8 @@ img {
     to {background-position-x: 100px;}
 }
 
-.is--ie9 {
+.is--ie9,
+.no-flexbox {
     .portfolio-archive {
         white-space: nowrap;
 

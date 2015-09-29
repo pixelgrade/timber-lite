@@ -388,7 +388,8 @@ body.page-template-default.page .site-footer {
 	}
 }
 
-.is--ie9 {
+.is--ie9,
+.no-flexbox {
 	.projects-slider__bullets {
 		display: block;
 
