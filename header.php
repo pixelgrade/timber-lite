@@ -47,7 +47,7 @@
 	<nav class="social-navigation">
 		<?php wp_nav_menu( array(
 			'theme_location' => 'social',
-			'menu_class' => 'nav nav--social',
+			'menu_class' => 'nav nav--main nav--social',
 			'menu_id' => 'social-menu',
 			'fallback_cb' => false,
 		) ); ?>
