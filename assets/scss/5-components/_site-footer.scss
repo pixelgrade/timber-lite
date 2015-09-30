@@ -2,7 +2,7 @@
     @extend %bar;
     bottom: 0;
 
-    .is--ie9 & {
+    .is--ie-le10 & {
         position: fixed;
     }
 

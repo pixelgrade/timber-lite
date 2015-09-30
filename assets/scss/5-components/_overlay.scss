@@ -55,7 +55,7 @@
 			flex: 1 1 auto;
 			overflow-y: scroll;
 
-			.is--ie9 & {
+			.is--ie-le10 & {
 				display: inline-block;
 				width: 49%;
 				vertical-align: top;

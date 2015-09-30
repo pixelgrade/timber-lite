@@ -94,12 +94,12 @@
         &[href*="twitch.tv"]:before     {content: $fa-var-twitch;}
     }
 
-    .is--ie9 & li {
+    .is--ie-le10 & li {
         display: inline-block;
     }
 }
 
-.is--ie9 {
+.is--ie-le10 {
     .menu-short-container, .toggle {
         display: inline-block;
     }
@@ -113,7 +113,7 @@
     }
 }
 
-.is--ie9 {
+.is--ie-le10 {
     .menu-social-menu-container {
         top: 0;
     }

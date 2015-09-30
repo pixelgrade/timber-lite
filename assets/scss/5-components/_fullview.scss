@@ -18,9 +18,17 @@
     pointer-events: none;
     transition: background-color .3s ease-in-out;
 
+    .is--ie-le10 & {
+        display: none;
+    }
+
     &--visible {
         opacity: 1;
         pointer-events: auto;
+
+        .is--ie-le10 & {
+            display: block;
+        }
     }
 
     &__image {
