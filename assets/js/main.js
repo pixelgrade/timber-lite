@@ -21318,7 +21318,11 @@ if (!Date.now) Date.now = function () {
     platformDetect();
     browserSize();
     scrollToTop();
-    djax.init();
+
+    if (!$html.hasClass('.is--ie')) {
+      djax.init();
+    }
+
     Loader.init();
     Nav.init();
     Overlay.init();
