@@ -215,7 +215,7 @@ if ( ! function_exists( 'timber_comment' ) ) :
 		}
 
 		$GLOBALS['comment'] = $comment; ?>
-	<li <?php comment_class(); ?>>
+		<li <?php comment_class(); ?>>
 		<article id="comment-<?php comment_ID() ?>" class="comment-article  media">
 			<span class="comment-number"><?php echo $comment_number ?></span>
 			<?php
@@ -909,12 +909,8 @@ function timber_load_next_posts() {
 		wp_send_json_error();
 	}
 
-//	if( defined( 'DOING_AJAX' ) ) {
-//		$may = 'be';
-//	}
-
-		//set the query args
-	$args = array( 'post_type' => 'post', 'suppress_filters' => false );
+	//set the query args
+	$args = array( 'post_type' => 'post', 'suppress_filters' => false, 'lang' => ICL_LANGUAGE_CODE );
 
 	//check if we have a post_type in $_POST
 	if ( isset( $_POST['post_type'] ) ) {
@@ -944,12 +940,11 @@ function timber_load_next_posts() {
 		$args['offset'] = (int) $_POST['offset'];
 	}
 
-	$new_query = new WP_Query( $args );
-//	if ( ! empty( $posts ) ) {
-	if ( $new_query->have_posts() ) {
+	$posts = get_posts( $args );
+	if ( ! empty( $posts ) ) {
 		ob_start();
 
-		while ( $new_query->have_posts() ) : $new_query->the_post();
+		foreach ( $posts as $post ) : setup_postdata( $post );
 			$template_path = 'template-parts/content';
 			$template_slug = get_post_format();
 
@@ -959,7 +954,7 @@ function timber_load_next_posts() {
 			}
 
 			get_template_part( $template_path, $template_slug );
-		endwhile;
+		endforeach;
 
 		/* Restore original Post Data */
 		wp_reset_postdata();
@@ -968,11 +963,6 @@ function timber_load_next_posts() {
 			'posts' => ob_get_clean(),
 		) );
 	} else {
-
-		wp_send_json_success( array(
-			'failed_query' => $new_query->request,
-		) );
-
 		wp_send_json_error();
 	}
 }
@@ -990,7 +980,7 @@ function timber_load_next_projects() {
 	}
 
 	//set the query args
-	$args = array( 'post_type' => 'jetpack-portfolio' );
+	$args = array( 'post_type' => 'jetpack-portfolio', 'suppress_filters' => false, 'lang' => ICL_LANGUAGE_CODE );
 
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
 		$args['posts_per_page'] = 999;
@@ -1045,7 +1035,7 @@ function timber_load_next_products() {
 	}
 
 	//set the query args
-	$args = array( 'post_type' => 'product' );
+	$args = array( 'post_type' => 'product', 'suppress_filters' => false, 'lang' => ICL_LANGUAGE_CODE );
 
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
 		$args['posts_per_page'] = 999;
@@ -1125,7 +1115,7 @@ function timber_callback_the_password_form($form){
 			</div>
 		</div><!-- .content -->
 	</div>
-<?php
+	<?php
 	$form = ob_get_clean();
 	// on form submit put a wrong passwordp msg.
 	if ( get_permalink() != wp_get_referer() ) {
