@@ -122,6 +122,10 @@
             display: block;
         }
     }
+
+    .is--ie-le10 & {
+        display: none;
+    }
 }
 
 .site-logo-link img {
