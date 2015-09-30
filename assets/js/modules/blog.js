@@ -23,6 +23,10 @@ var Blog = (function() {
 
 		$('.navigation').hide();
 
+		if( isiele10 ) {
+			calcIEFilmstrip();
+		}
+
 		//mixitup init without filtering
 		$filmstrip_container.mixItUp({
 			animation: {
@@ -64,6 +68,10 @@ var Blog = (function() {
 							}
 						);
 					})
+
+					if( isiele10 ){
+						calcIEFilmstrip();
+					}
 				}
 			}
 		});
@@ -226,6 +234,11 @@ var Blog = (function() {
 					$result.imagesLoaded(function(){
 						if (globalDebug) {console.log("MixItUp Filtering - Images Loaded");}
 						$filmstrip_container.mixItUp( 'append', $result );
+
+						if( isiele10 ) {
+							calcIEFilmstrip();
+						}
+
 						isLoadingPosts = false;
 					});
 				} else {
@@ -257,10 +270,15 @@ var Blog = (function() {
 
 	}
 
+	function calcIEFilmstrip() {
+		$filmstrip_container.width( ( $('.filmstrip__item ').first().width() + 50 ) * $('.filmstrip__item').length + 100);
+	}
+
 	return {
 		init: init,
 		loadAllPosts: loadAllPosts,
 		loadNextPosts: loadNextPosts,
-		maybeLoadNextPosts: maybeLoadNextPosts
+		maybeLoadNextPosts: maybeLoadNextPosts,
+		calcIeFilmstrip: calcIEFilmstrip
 	}
 })();

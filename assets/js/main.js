@@ -18253,6 +18253,10 @@ if (!Date.now) Date.now = function () {
 
       $('.navigation').hide();
 
+      if (isiele10) {
+        calcIEFilmstrip();
+      }
+
       //mixitup init without filtering
       $filmstrip_container.mixItUp({
         animation: {
@@ -18296,6 +18300,10 @@ if (!Date.now) Date.now = function () {
                 }
               });
             })
+
+            if (isiele10) {
+              calcIEFilmstrip();
+            }
           }
         }
       });
@@ -18475,6 +18483,11 @@ if (!Date.now) Date.now = function () {
               console.log("MixItUp Filtering - Images Loaded");
             }
             $filmstrip_container.mixItUp('append', $result);
+
+            if (isiele10) {
+              calcIEFilmstrip();
+            }
+
             isLoadingPosts = false;
           });
         } else {
@@ -18507,11 +18520,16 @@ if (!Date.now) Date.now = function () {
 
     }
 
+    function calcIEFilmstrip() {
+      $filmstrip_container.width(($('.filmstrip__item ').first().width() + 50) * $('.filmstrip__item').length + 100);
+    }
+
     return {
       init: init,
       loadAllPosts: loadAllPosts,
       loadNextPosts: loadNextPosts,
-      maybeLoadNextPosts: maybeLoadNextPosts
+      maybeLoadNextPosts: maybeLoadNextPosts,
+      calcIeFilmstrip: calcIEFilmstrip
     }
   })();
   var djax = (function () {
@@ -21429,6 +21447,10 @@ if (!Date.now) Date.now = function () {
 
     frontpageSlider.onResize();
     videos.resize();
+
+    if (isiele10) {
+      Blog.calcIeFilmstrip();
+    }
 
     var $items = $('.site-content').find('.js-placeholder');
 

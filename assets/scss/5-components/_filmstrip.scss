@@ -250,4 +250,42 @@
         }
     }
 
+    .is--ie-le10 & {
+        .filmstrip {
+            width: 10000px;
+        }
+
+        .filmstrip__item {
+            display: inline-block !important;
+            height: 100%;
+        }
+
+        .site-sidebar--archive {
+            display: inline-block;
+            height: 100%;
+            width: 50px;
+            margin-left: 20px;
+        }
+
+        .item__thumb {
+            height: 19vw;
+        }
+    }
+
+    .is--ie9 & {
+        .filmstrip__item {
+            overflow: visible;
+        }
+
+        .site-sidebar--archive {
+            position: relative !important;
+            padding-top: 15%;
+        }
+
+        .post-meta__content {
+            top: 2px;
+            left: 19px;
+        }
+    }
+
 } // .blog

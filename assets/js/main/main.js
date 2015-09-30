@@ -116,6 +116,10 @@ function onResize() {
     frontpageSlider.onResize();
     videos.resize();
 
+    if( isiele10 ) {
+        Blog.calcIeFilmstrip();
+    }
+
     var $items = $('.site-content').find('.js-placeholder');
 
     $items.each(function(i, item) {

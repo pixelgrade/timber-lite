@@ -10,6 +10,12 @@ html, body, #page, .site, #djaxContainer {
     // }
 }
 
+[class*="is--ie"] {
+    body.page-template-default {
+        height: auto !important;
+    }
+}
+
 #djaxContainer {
 
     .portfolio_page_type-project_slider & {
