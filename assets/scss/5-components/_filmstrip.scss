@@ -81,6 +81,26 @@
         @media only screen and (max-height: 480px) and (min-width: 400px) {
             flex: 0 10 100vh;
         }
+
+        &:not([style]) {
+            background: #ebebeb;
+            position: relative;
+
+            &:before {
+                @extend %fa;
+
+                content: $fa-var-picture-o;
+                color: white;
+
+                position: absolute;
+                top: 50%;
+                left: 50%;
+
+                font-size: 15vh;
+
+                transform: translateX(-50%) translateY(-50%);
+            }
+        }
     }
 
         .post-meta {
