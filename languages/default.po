@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Timber\n"
-"POT-Creation-Date: 2015-09-21 14:56+0300\n"
-"PO-Revision-Date: 2015-09-21 14:56+0300\n"
+"POT-Creation-Date: 2015-09-30 13:47+0300\n"
+"PO-Revision-Date: 2015-09-30 13:47+0300\n"
 "Last-Translator: Vlad Olaru <vlad.olaru@pixelgrade.com>\n"
 "Language-Team: Vlad Olaru <vlad.olaru@pixelgrade.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -142,23 +142,23 @@ msgstr ""
 msgid "<em>Nothing left to load.</em>"
 msgstr ""
 
-#: functions.php:241
+#: functions.php:245
 msgid ""
 "The import didn't work completely! <br/> Check out the errors given. You "
 "might want to try reloading the page and then try again."
 msgstr ""
 
-#: functions.php:242
+#: functions.php:246
 msgid ""
 "Importing the demo data will overwrite your current Theme Options settings. "
 "Proceed anyway?"
 msgstr ""
 
-#: functions.php:243
+#: functions.php:247
 msgid "Phew...that was a hard one!"
 msgstr ""
 
-#: functions.php:244
+#: functions.php:248
 msgid ""
 "The demo data was imported without a glitch! Awesome! <br/><br/><b style="
 "\"color:red\">Remember to update the passwords and roles of imported users. "
@@ -166,60 +166,60 @@ msgid ""
 "data!</i>"
 msgstr ""
 
-#: functions.php:245
+#: functions.php:249
 msgid "All done!"
 msgstr ""
 
-#: functions.php:246
+#: functions.php:250
 msgid "Working..."
 msgstr ""
 
-#: functions.php:247
+#: functions.php:251
 msgid "The setting up of the demo widgets failed..."
 msgstr ""
 
-#: functions.php:248
+#: functions.php:252
 msgid ""
 "The setting up of the demo widgets failed</i><br />(The script returned the "
 "following message"
 msgstr ""
 
-#: functions.php:249
+#: functions.php:253
 msgid "Finished setting up the demo widgets..."
 msgstr ""
 
-#: functions.php:250 functions.php:253
+#: functions.php:254 functions.php:257
 msgid "The importing of the theme options has failed..."
 msgstr ""
 
-#: functions.php:251
+#: functions.php:255
 msgid ""
 "The importing of the theme options has failed</i><br />(The script returned "
 "the following message"
 msgstr ""
 
-#: functions.php:252
+#: functions.php:256
 msgid "Finished importing the demo theme options..."
 msgstr ""
 
-#: functions.php:254
+#: functions.php:258
 msgid "Importing posts | Step"
 msgstr ""
 
-#: functions.php:255
+#: functions.php:259
 msgid "Error:"
 msgstr ""
 
-#: functions.php:256
+#: functions.php:260
 msgid "You can reload the page and try again."
 msgstr ""
 
-#: functions.php:481 inc/widgets/image-widget.php:115
+#: functions.php:487 inc/widgets/image-widget.php:115
 #: inc/widgets/image-widget.php:123
 msgid "Choose an Image"
 msgstr ""
 
-#: functions.php:482 inc/widgets/image-widget.php:116
+#: functions.php:488 inc/widgets/image-widget.php:116
 msgid "Update Image"
 msgstr ""
 
@@ -675,6 +675,10 @@ msgstr ""
 
 #: inc/extras.php:812
 msgid "Caption"
+msgstr ""
+
+#: inc/extras.php:813
+msgid "Small Caption"
 msgstr ""
 
 #: inc/extras.php:1099
@@ -1782,7 +1786,7 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: woocommerce/archive-product.php:61
+#: woocommerce/archive-product.php:65
 msgid "Shop"
 msgstr ""
 
