@@ -347,6 +347,10 @@
 
 		.cart-items-number:after {
 			background: white;
+
+			.is--ie-le10 & {
+				background: $bodyColour;
+			}
 		}
 
 		.cart-widget-label {
@@ -367,6 +371,10 @@
 					color: white;
 					text-shadow: none;
 				}
+			}
+
+			.is--ie-le10 & .cart-items-number {
+				color: $bodyColour;
 			}
 
 			.nav--main .menu-item a {
@@ -407,5 +415,13 @@ body.page-template-default.page .site-footer {
 				margin-top: 45px;
 			}
 		}
+	}
+}
+
+.is--ie-le10 {
+	.cart-widget {
+		background: white;
+		padding-right: 4px;
+		border-radius: 3px;
 	}
 }

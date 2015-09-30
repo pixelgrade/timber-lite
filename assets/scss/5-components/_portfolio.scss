@@ -312,14 +312,14 @@ img {
     margin-bottom: 30px;
 }
 
-.is--ie9 .portfolio-wrapper {
+.is--ie-le10 .portfolio-wrapper {
     .portfolio__link-wrap, .portfolio__header, .portfolio__item {
         display: inline-block;
         vertical-align: middle;
     }
 }
 
-.is--ie9 .portfolio__item {
+.is--ie-le10 .portfolio__item {
     display: inline-block;
 }
 
@@ -418,7 +418,7 @@ img {
     to {background-position-x: 100px;}
 }
 
-.is--ie9,
+.is--ie-le10,
 .no-flexbox {
 
     .portfolio-archive {

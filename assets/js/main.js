@@ -18272,7 +18272,15 @@ if (!Date.now) Date.now = function () {
                 opacity: 1,
                 onStart: function () {
                   isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
-                  isIE ? $that.css('display', '-ms-flex') : $that.css('display', 'flex');
+                  if (isIE) {
+                    if ($('html').hasClass('is--ie9')) {
+                      $that.css('display', 'block');
+                    } else {
+                      $that.css('display', '-ms-flex');
+                    }
+                  } else {
+                    $that.css('display', 'flex');
+                  }
                 }
               });
             });
@@ -18844,13 +18852,13 @@ if (!Date.now) Date.now = function () {
     }
 
     function bindEvents() {
-      if (nextWidth > 70 && !$('html').hasClass('is--ie9')) {
+      if (nextWidth > 70 && !$('html').is('.is--ie9, .is--ie-le10')) {
         $nextTrigger.on('mouseenter', onNextEnter);
         $nextTrigger.on('mouseleave', onNextLeave);
       }
       $nextTrigger.on('click', onNextClick);
 
-      if (nextWidth > 70 && !$('html').hasClass('is--ie9')) {
+      if (nextWidth > 70 && !$('html').is('.is--ie9, .is--ie-le10')) {
         $prevTrigger.on('mouseenter', onPrevEnter);
         $prevTrigger.on('mouseleave', onPrevLeave);
       }
@@ -18983,7 +18991,7 @@ if (!Date.now) Date.now = function () {
         x: 0,
         ease: Quint.easeOut
       }, '-=.7');
-      if (nextWidth > 70 && !$('html').hasClass('is--ie9')) {
+      if (nextWidth > 70 && !$('html').is('.is--ie9, .is--ie-le10')) {
         timeline.to($next.next(), .4, {
           width: 160,
           x: -60,
@@ -19053,7 +19061,7 @@ if (!Date.now) Date.now = function () {
         x: 0,
         ease: Quint.easeOut
       }, '-=.7');
-      if (!$('html').hasClass('is--ie9')) {
+      if (!$('html').is('.is--ie9, .is--ie-le10')) {
         timeline.to($prev.prev(), .4, {
           width: 160,
           ease: Quint.easeOut

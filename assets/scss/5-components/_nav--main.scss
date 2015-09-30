@@ -86,6 +86,12 @@
             font-size: 15px;
             line-height: 1.5;
 
+            .is--ie-le10 & {
+                transform: none !important;
+                left: 0;
+                pointer-events: auto !important;
+            }
+
             left: 50%;
             transform: translate(-50%, .5em);
             background: black;
@@ -122,6 +128,11 @@
                 border-top: 0;
                 border-bottom-color: black;
                 margin-left: -10px;
+
+                .is--ie-le10 & {
+                    left: 12px;
+                    margin-bottom: -2px;
+                }
             }
 
             .menu-item:hover > a {
@@ -150,7 +161,7 @@
         }
     }
 
-    .is--ie9 & li {
+    .is--ie-le10 & li {
         display: inline-block;
     }
 }
