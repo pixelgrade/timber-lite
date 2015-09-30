@@ -18273,7 +18273,7 @@ if (!Date.now) Date.now = function () {
                 onStart: function () {
                   isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
                   if (isIE) {
-                    if ($('html').hasClass('is--ie9')) {
+                    if ($('html').hasClass('is--ie-le10')) {
                       $that.css('display', 'block');
                     } else {
                       $that.css('display', '-ms-flex');
@@ -19495,7 +19495,7 @@ if (!Date.now) Date.now = function () {
                   onStart: function () {
                     isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
                     if (isIE) {
-                      if ($('html').hasClass('is--ie9')) {
+                      if ($('html').hasClass('is--ie-le10')) {
                         $that.css('display', 'block');
                       } else {
                         $that.css('display', '-ms-flex');
@@ -20155,8 +20155,6 @@ if (!Date.now) Date.now = function () {
         init();
       }
 
-      console.log(latestKnownScrollX, start, end, filmWidth, contentWidth);
-
       var current = $('.portfolio__item--active').data('middle'),
           reference = latestKnownScrollX + start + (end - start) * latestKnownScrollX / (filmWidth - contentWidth),
           min = Math.abs(reference - current),
@@ -20196,9 +20194,6 @@ if (!Date.now) Date.now = function () {
       end = contentWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
 
       max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
-
-      console.log(contentWidth);
-      console.log(max);
 
       start = contentWidth / 2 - max;
       end = contentWidth / 2 + max;
@@ -20365,7 +20360,7 @@ if (!Date.now) Date.now = function () {
 
     function centerFilmToTarget($target) {
 
-      if ($('html').hasClass('is--touch')) {
+      if ($('html').hasClass('is--touch, .is--ie-le10')) {
         TweenLite.to('.site-content', 0, {
           scrollTo: {
             x: $target.data('middle') - $('.site-content').width() / 2
@@ -21487,14 +21482,8 @@ if (!Date.now) Date.now = function () {
 
     $window.on('scroll', function () {
 
-      if (!isIE) {
-        latestKnownScrollY = window.scrollY;
-        latestKnownScrollX = window.scrollX;
-      } else {
-
-        latestKnownScrollY = document.documentElement.scrollTop;
-        latestKnownScrollX = document.documentElement.scrollLeft;
-      }
+      latestKnownScrollY = $window.scrollTop();
+      latestKnownScrollX = $window.scrollLeft();
 
       requestTick();
     });
@@ -21668,7 +21657,7 @@ if (!Date.now) Date.now = function () {
   }
 
   function bindVertToHorScroll() {
-    if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length) || $body.hasClass('single-proof_gallery') && !$html.hasClass('is--ie9')) {
+    if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length) || $body.hasClass('single-proof_gallery') && !$html.hasClass('is--ie-le10')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
 

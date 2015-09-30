@@ -4,7 +4,7 @@
     height: 100%;
     position: absolute;
 
-    .is--ie9 & {
+    .is--ie-le10 & {
         padding-left: 100px;
     }
 
@@ -29,7 +29,7 @@
         font-size: 0.875em;
     }
 
-    .is--ie9 & {
+    .is--ie-le10 & {
         vertical-align: top;
     }
 

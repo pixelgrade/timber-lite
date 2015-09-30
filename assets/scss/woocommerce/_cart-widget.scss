@@ -30,7 +30,7 @@
 		background-size: cover;
 	}
 
-	.is--ie9 & {
+	.is--ie-le10 & {
 		vertical-align: top;
 	}
 
@@ -73,7 +73,7 @@
 			pointer-events: auto;
 		}
 	}
-	
+
 	// Top Right Arrow
 	&:before {
 		content: "";

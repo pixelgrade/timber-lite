@@ -173,14 +173,8 @@ function eventHandlers() {
 
     $window.on('scroll', function () {
 
-        if(!isIE) {
-            latestKnownScrollY = window.scrollY;
-            latestKnownScrollX = window.scrollX;
-        } else {
-
-            latestKnownScrollY = document.documentElement.scrollTop;
-            latestKnownScrollX = document.documentElement.scrollLeft;
-        }
+        latestKnownScrollY = $window.scrollTop();
+        latestKnownScrollX = $window.scrollLeft();
 
         requestTick();
     });

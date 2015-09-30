@@ -242,3 +242,10 @@ h1, h2, h3, h4, h5, h6 {
 .entry-content hr {
     opacity: 0.35;
 }
+
+.is--ie {
+    .portfolio__position,
+    .show-details:before {
+        display: none;
+    }
+}
