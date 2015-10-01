@@ -41,7 +41,7 @@
                 transform: translateX(-50%);
 
                 @include query-above(1600px) {
-                    top: 0;
+                    top: 6px;
                 }
             }
 
