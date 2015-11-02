@@ -947,7 +947,7 @@ function timber_load_next_posts() {
 
 		// the offset argument doesn't work if 'post_per_page' is -1.
 		// in this case we get the total number of posts and get only the difference from the offset
-		if ( 'all' == $args['posts_per_page'] ) {
+		if ( 'all' == $_REQUEST['posts_number'] ) {
 			$args['posts_per_page'] = (int) $count_posts - (int) $_POST['offset'];
 		}
 	}
@@ -992,10 +992,17 @@ function timber_load_next_projects() {
 	}
 
 	//set the query args
-	$args = array( 'post_type' => 'jetpack-portfolio', 'suppress_filters' => false, 'lang' => ICL_LANGUAGE_CODE );
+	$args = array( 'post_type' => 'jetpack-portfolio', 'suppress_filters' => false );
+
+	$count_projects = wp_count_posts( 'jetpack-portfolio' );
+	$count_projects = $count_projects->publish;
+
+	if ( defined('ICL_LANGUAGE_CODE' ) ) {
+		$args['lang'] = ICL_LANGUAGE_CODE;
+	}
 
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
-		$args['posts_per_page'] = 999;
+		$args['posts_per_page'] = $count_projects;
 	} else {
 		$args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '7' );
 	}
@@ -1013,6 +1020,10 @@ function timber_load_next_projects() {
 	//check if we have a offset in $_REQUEST
 	if ( isset( $_REQUEST['offset'] ) ) {
 		$args['offset'] = (int) $_REQUEST['offset'];
+
+		if ( 'all' == $_REQUEST['posts_number'] ) {
+			$args['posts_per_page'] = (int) $count_projects - (int) $_POST['offset'];
+		}
 	}
 
 	$posts = get_posts( $args );
@@ -1047,10 +1058,18 @@ function timber_load_next_products() {
 	}
 
 	//set the query args
-	$args = array( 'post_type' => 'product', 'suppress_filters' => false, 'lang' => ICL_LANGUAGE_CODE );
+	$args = array( 'post_type' => 'product', 'suppress_filters' => false );
+
+
+	$count_products = wp_count_posts( 'product' );
+	$count_products = $count_products->publish;
+
+	if ( defined('ICL_LANGUAGE_CODE' ) ) {
+		$args['lang'] = ICL_LANGUAGE_CODE;
+	}
 
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
-		$args['posts_per_page'] = 999;
+		$args['posts_per_page'] = $count_products;
 	} else {
 		$args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '7' );
 	}
@@ -1068,6 +1087,10 @@ function timber_load_next_products() {
 	//check if we have a offset in $_REQUEST
 	if ( isset( $_REQUEST['offset'] ) ) {
 		$args['offset'] = (int) $_REQUEST['offset'];
+
+		if ( 'all' == $_REQUEST['posts_number'] ) {
+			$args['posts_per_page'] = (int) $count_products - (int) $_POST['offset'];
+		}
 	}
 
 	$posts = get_posts( $args );
