@@ -910,7 +910,13 @@ function timber_load_next_posts() {
 	}
 
 	//set the query args
-	$args = array( 'post_type' => 'post', 'suppress_filters' => false, 'lang' => ICL_LANGUAGE_CODE );
+	$args = array( 'post_type' => 'post', 'suppress_filters' => false );
+	$count_posts = wp_count_posts();
+	$count_posts = $count_posts->publish;
+
+	if ( defined('ICL_LANGUAGE_CODE' ) ) {
+		$args['lang'] = ICL_LANGUAGE_CODE;
+	}
 
 	//check if we have a post_type in $_POST
 	if ( isset( $_POST['post_type'] ) ) {
@@ -918,7 +924,7 @@ function timber_load_next_posts() {
 	}
 
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
-		$args['posts_per_page'] = -1;
+		$args['posts_per_page'] = $count_posts;
 	} else {
 		$args['posts_per_page'] = get_option( 'posts_per_page' );
 	}
@@ -938,6 +944,12 @@ function timber_load_next_posts() {
 	//check if we have a offset in $_POST
 	if ( isset( $_POST['offset'] ) ) {
 		$args['offset'] = (int) $_POST['offset'];
+
+		// the offset argument doesn't work if 'post_per_page' is -1.
+		// in this case we get the total number of posts and get only the difference from the offset
+		if ( 'all' == $args['posts_per_page'] ) {
+			$args['posts_per_page'] = (int) $count_posts - (int) $_POST['offset'];
+		}
 	}
 
 	$posts = get_posts( $args );
