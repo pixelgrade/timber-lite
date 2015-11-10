@@ -125,6 +125,7 @@ gulp.task('build', ['copy-folder'], function () {
 		'build',
 		'css',
 		'.idea',
+		'.travis.yml',
 		'**/.svn*',
 		'**/*.css.map',
 		'**/.sass*',
