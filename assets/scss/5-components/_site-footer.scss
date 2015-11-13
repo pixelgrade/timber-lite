@@ -21,6 +21,7 @@
 
     @include query-below($lap) {
         padding-bottom: 0.75em;
+        overflow: hidden;
 
         %bar-piece {
             display: block;
