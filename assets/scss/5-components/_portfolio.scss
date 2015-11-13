@@ -78,9 +78,13 @@ img {
         text-transform: uppercase;
         font-weight: bold;
 
+        @include query-below($desk) {
+            font-size: 0.9em;
+        }
+
         @include query-below($small) {
             font-size: 0.75em;
-            margin-bottom: -0.75em
+            margin-bottom: -0.75em;
         }
 
         .portfolio-category & {
