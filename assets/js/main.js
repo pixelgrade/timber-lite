@@ -20820,7 +20820,7 @@ if (!Date.now)
                 scaleX: 1,
                 ease: Expo.easeInOut,
                 onComplete: function() {
-                    $('.site-content').css('overflow-x', 'hidden');
+                    $('.site').css('overflow-x', 'hidden');
                     $film.removeClass('portfolio--visible');
                     $grid.addClass('portfolio--visible');
                     TweenMax.to('.mask--project', 0, {
@@ -20841,7 +20841,7 @@ if (!Date.now)
                 $target = $film.find('.js-portfolio-item').eq($clicked.data('count')),
                 selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
-            $('.site-content').css('overflow-x', '');
+            $('.site').css('overflow-x', '');
 
             $('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
