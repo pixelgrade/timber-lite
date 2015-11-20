@@ -18948,7 +18948,8 @@ if (!Date.now)
                 action: 'timber_load_next_posts',
                 nonce: timber_ajax.nonce,
                 post_type: 'post',
-                offset: offset
+                offset: offset,
+                posts_number: timber_ajax.posts_number
             };
 
             if (!empty($filmstrip_container.data('post_type'))) {

@@ -181,6 +181,7 @@ function timber_scripts_styles() {
 	wp_localize_script( 'timber-scripts', 'timber_ajax', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'nonce' => wp_create_nonce( 'timber_ajax' ),
+		'posts_number' => get_option( 'posts_per_page' ),
 	) );
 
 	// Enqueued script with localized data.
