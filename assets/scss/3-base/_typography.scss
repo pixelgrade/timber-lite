@@ -83,19 +83,19 @@ h1, .h1, %alpha {
 
 // Heading level 2.
 h2, .h2, %beta {
-    @include sassline(gamma, $headingtype, 3, 1, all);
+    @include sassline($fontsize: gamma, $font: $headingtype, $lineheight: 3, $below: 1, $breakpoint: all);
 
     margin-top: 2rem;
 }
 
 // Heading level 3.
 h3, .h3, %gamma {
-    @include sassline(delta, $headingtype, 2, 1, all);
+    @include sassline($fontsize: delta,$font: $headingtype, $lineheight: 2, $below: 1, $breakpoint: all);
 }
 
 // Heading level 4, 5, 6
 h4, h5, h6, .h4, .h5, .h6, %delta {
-    @include sassline(epsilon, $headingtype, 1.5, 0.5, all);
+    @include sassline($fontsize: epsilon, $font: $headingtype, $lineheight: 1.5, $below: 0.5, $breakpoint: all);
     letter-spacing: 0.075rem;
 }
 

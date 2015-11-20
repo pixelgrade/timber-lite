@@ -14,7 +14,7 @@ global $pixproof_plugin;
 
 $idx = 1;
 foreach ( $attachments as $attachment ) {
-	$class = $pixproof_plugin::get_attachment_class( $attachment );
+	$class = PixProofPlugin::get_attachment_class( $attachment );
 
 	if ( 'selected' == $class ) {
 		$select_label = __( 'Deselect', 'timber' );
