@@ -152,16 +152,18 @@ img {
 
     &__item--text {
         background: white;
-        -webkit-column-width: 24em;
-        column-width: 24em;
-        -webkit-column-gap: 4em;
-        column-gap: 4em;
-    -moz-column-fill: auto; /* Firefox */
-        column-fill: auto;
         padding: 0 3em 0 1em;
         cursor: default;
-
         font-size: 0.875em;
+
+        // magic starts here
+        width: 33em;
+        -webkit-column-width: 24em;
+                column-width: 24em;
+        -webkit-column-gap: 4em;
+                column-gap: 4em;
+        -moz-column-fill: auto; /* Firefox */
+             column-fill: auto;
 
         > :first-child {
             margin-top: 0;
