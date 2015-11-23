@@ -108,11 +108,15 @@ var frontpageSlider = (function() {
         $nextSlides.each(function(i, obj) {
             $(obj).css('left', '+=' + difference);
         });
+
+        $slides.each(function(i, obj) {
+            scaleImage($(obj).find('img'));
+        });
     }
 
     function scaleImage($img) {
-        var imageWidth      = $img.width(),
-            imageHeight     = $img.height(),
+        var imageWidth      = $img.attr('width'),
+            imageHeight     = $img.attr('height'),
             scaleX          = sliderWidth / imageWidth,
             scaleY          = sliderHeight / imageHeight,
             scale           = Math.max(scaleX, scaleY);
