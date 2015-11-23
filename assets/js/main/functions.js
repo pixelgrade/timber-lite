@@ -123,10 +123,7 @@ function sizeColumns() {
     $('.portfolio__item--text').each(function(i, obj) {
         var $item 		= $(obj).css('width', ''),
             itemOffset 	= $item.offset().left,
-            itemBottom  = $item.offset().top + $item.outerHeight(),
-            columnWidth = $item.outerWidth(),
-            count 		= 1,
-            $children, $last, width, lastBottom;
+            $children, $last, width;
 
         $children = $(obj).children();
 
@@ -136,26 +133,9 @@ function sizeColumns() {
         }
 
         $last = $children.last();
-
-    	console.log(lastBottom, itemBottom);
-
-        // avoid infinite loop?
-        while (count < 100) {
-        	lastBottom = $last.offset().top + $last.outerHeight();
-
-        	console.log(lastBottom, itemBottom);
-
-        	if (lastBottom > itemBottom) {
-        		count++;
-        		$item.width(count * columnWidth);
-        	} else {
-        		break;
-        	}
-        }
-
         width = $last.offset().left - itemOffset + $last.outerWidth()
-        $item.width(width);
 
+        $item.width(width);
     });
 
 }
