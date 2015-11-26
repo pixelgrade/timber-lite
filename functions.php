@@ -238,13 +238,26 @@ function timber_scripts_styles() {
 	}
 
 	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
-		$url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
+		$woo_asssets_url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $url . 'css/prettyPhoto.css' );
-		wp_enqueue_script( 'prettyPhoto-init', $url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
-		wp_enqueue_script( 'prettyPhoto', $url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
+		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $woo_asssets_url . 'css/prettyPhoto.css' );
+		wp_enqueue_script( 'prettyPhoto-init', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
+		wp_enqueue_script( 'prettyPhoto', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
 	}
+
+	// if jetpack's carousel is enabled, enqueue the scripts in root
+	// this way the assets will get registered with the proper root url
+	if ( class_exists( 'Jetpack_Carousel' ) ) {
+		// Create new carousel so we can use the enqueue_assets() method. Not ideal, but there is a decent amount
+		// of logic in that method that shouldn't be duplicated.
+		$carousel = new Jetpack_Carousel();
+
+		// First parameter is $output, which comes from filters, and causes bypass of the asset enqueuing. Passing null is correct.
+		$carousel->enqueue_assets( null );
+	}
+	add_filter( 'jp_carousel_force_enable', true );
+
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
 
