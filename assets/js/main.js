@@ -18948,7 +18948,8 @@ if (!Date.now)
                 action: 'timber_load_next_posts',
                 nonce: timber_ajax.nonce,
                 post_type: 'post',
-                offset: offset
+                offset: offset,
+                posts_number: timber_ajax.posts_number
             };
 
             if (!empty($filmstrip_container.data('post_type'))) {
@@ -19340,11 +19341,15 @@ if (!Date.now)
             $nextSlides.each(function(i, obj) {
                 $(obj).css('left', '+=' + difference);
             });
+
+            $slides.each(function(i, obj) {
+                scaleImage($(obj).find('img'));
+            });
         }
 
         function scaleImage($img) {
-            var imageWidth = $img.width(),
-                imageHeight = $img.height(),
+            var imageWidth = $img.attr('width'),
+                imageHeight = $img.attr('height'),
                 scaleX = sliderWidth / imageWidth,
                 scaleY = sliderHeight / imageHeight,
                 scale = Math.max(scaleX, scaleY);

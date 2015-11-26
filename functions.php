@@ -91,9 +91,27 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		 * See http://docs.woothemes.com/document/third-party-custom-theme-compatibility/
 		 */
 		add_theme_support( 'woocommerce' );
+
+		add_filter( 'attachment_link', 'timber_filter_attachment_links_on_singles', 2, 2 );
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
+
+/**
+ * We need to force ajax off attachment links on posts and pages since it is a chance to trigger a modal opening
+ * and an ajax call
+ * @param $link
+ * @param $id
+ *
+ * @return string
+ */
+function timber_filter_attachment_links_on_singles( $link, $id  ){
+	if ( wp_attachment_is_image( $id ) && ( is_singular( 'post' ) || is_page()) ) {
+		return $link . '#';
+	}
+	return $link;
+}
+
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -181,6 +199,7 @@ function timber_scripts_styles() {
 	wp_localize_script( 'timber-scripts', 'timber_ajax', array(
 		'ajax_url' => admin_url('admin-ajax.php'),
 		'nonce' => wp_create_nonce( 'timber_ajax' ),
+		'posts_number' => get_option( 'posts_per_page' ),
 	) );
 
 	// Enqueued script with localized data.

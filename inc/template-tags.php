@@ -703,6 +703,10 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		$image_full_size = wp_get_attachment_image_src( $id, 'full' );
 		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-image' );
 		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-image' );
+
+		//get directly the raw metadata because Jetpack Photon ruins stuff for us - no dimensions are returned by wp_get_attachment_image_src()
+		$image_data = wp_get_attachment_metadata( $id );
+
 		$markup .=
 		'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . $class . '"
 			data-srcsmall="' . $image_small_size[0] . '"
@@ -714,8 +718,8 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			data-caption="' . esc_attr( $caption ) . '"
 			data-description="' . esc_attr( timber_get_img_description( $id ) ) . '"
 			data-exif="' . esc_attr( timber_get_img_exif( $id ) ) . '"
-			data-width="' . $image_full_size[1] . '"
-			data-height="' . $image_full_size[2] . '">
+			data-width="' . $image_data["width"] . '"
+			data-height="' . $image_data["height"] . '">
 
 			<div class="proof__overlay">
 				<button class="proof-btn  proof-btn--thumbs  js-thumbs"></button>
@@ -757,9 +761,13 @@ if ( ! function_exists( 'timber_get_slider_image' ) ) :
         }
 
         $image_full_size = wp_get_attachment_image_src( $id, 'full' );
+
+		//get directly the raw metadata because Jetpack Photon ruins stuff for us - no dimensions are returned by wp_get_attachment_image_src()
+		$image_data = wp_get_attachment_metadata( $id );
+
         $markup .=
             '<div class="project-slide  rsContent">' .
-				'<img itemprop="image" src="' . $image_full_size[0] . '" class="rsImg" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_full_size[1] . '" height="' . $image_full_size[2] . '">';
+				'<img itemprop="image" src="' . $image_full_size[0] . '" class="rsImg" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_data["width"] . '" height="' . $image_data["height"] . '">';
         if ( ! empty($caption) ) {
             $markup .= '<figure class="rsCaption">' . $caption . '</figure>';
         }
