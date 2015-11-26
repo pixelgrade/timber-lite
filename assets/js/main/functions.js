@@ -206,17 +206,17 @@ function filterHandler() {
 	})
 }
 
-function prepareParentMenuItems() {
-	if ( $html.hasClass('is--touch') ) {
-		$('.menu-item-has-children > a').each(function(){
-			$(this).addClass('prevent-one');
-			$(this).attr('href', $(this).attr('href') + '#');
-		});
-	}
-
-	//$('a.prevent-one').on('click', function(e) {
-	//	console.log('prevent one');
-	//	e.preventDefault();
-	//	e.stopPropagation();
-	//})
-}
+//function prepareParentMenuItems() {
+//	if ( $html.hasClass('is--touch') ) {
+//		$('.menu-item-has-children > a').each(function(){
+//			$(this).addClass('prevent-one');
+//			$(this).attr('href', $(this).attr('href') + '#');
+//		});
+//	}
+//
+//	$('a.prevent-one').on('click', function(e) {
+//		console.log('prevent one');
+//		e.preventDefault();
+//		e.stopPropagation();
+//	})
+//}

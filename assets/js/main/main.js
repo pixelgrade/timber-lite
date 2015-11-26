@@ -28,7 +28,7 @@ function init() {
 
 function softInit() {
 
-    prepareParentMenuItems();
+    //prepareParentMenuItems();
     niceScrollInit();
     sizeColumns();
 

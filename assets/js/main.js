@@ -19060,11 +19060,11 @@ if (!Date.now)
             if (typeof user_ignored_links === "object") {
                 ignored_links = ignored_links.concat(user_ignored_links);
             }
-            //
-            //$('body').djax('.djax-updatable, #lang_sel_list', ignored_links, djaxTransition);
-            //
-            //$(window).on('djaxLoading', onDjaxLoading);
-            //$(window).on('djaxLoad', onDjaxLoad);
+
+            $('body').djax('.djax-updatable, #lang_sel_list', ignored_links, djaxTransition);
+
+            $(window).on('djaxLoading', onDjaxLoading);
+            $(window).on('djaxLoad', onDjaxLoad);
         }
 
         function djaxTransition($new) {
@@ -22301,13 +22301,13 @@ if (!Date.now)
     }
 
     function prepareParentMenuItems() {
-        //if ( $html.hasClass('is--touch') ) {
-        $('.menu-item-has-children > a').each(function() {
-            $(this).addClass('prevent-one');
-            $(this).attr('href', $(this).attr('href') + '#');
-        });
-        //}
-        //
+        if ($html.hasClass('is--touch')) {
+            $('.menu-item-has-children > a').each(function() {
+                $(this).addClass('prevent-one');
+                $(this).attr('href', $(this).attr('href') + '#');
+            });
+        }
+
         //$('a.prevent-one').on('click', function(e) {
         //	console.log('prevent one');
         //	e.preventDefault();
