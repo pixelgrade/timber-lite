@@ -352,7 +352,13 @@ function timber_get_queued_scripts() {
 
 	$loading_scripts = array();
 	foreach ( $wp_scripts->queue as $key => $handle ) {
-		$loading_scripts[ $handle ]['src'] = $wp_scripts->registered[ $handle ]->src;
+
+		if ( strpos( $wp_scripts->registered[ $handle ]->src, 'http' ) ) {
+			$loading_scripts[ $handle ]['src'] = site_url() . $wp_scripts->registered[ $handle ]->src;
+		} else {
+			$loading_scripts[ $handle ]['src'] = $wp_scripts->registered[ $handle ]->src;
+		}
+
 		if ( isset( $wp_scripts->registered[ $handle ]->extra ) && isset( $wp_scripts->registered[ $handle ]->extra['data'] )){
 			$loading_scripts[ $handle ]['data'] = $wp_scripts->registered[ $handle ]->extra['data'];
 		}
