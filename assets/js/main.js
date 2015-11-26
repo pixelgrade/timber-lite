@@ -19049,7 +19049,7 @@ if (!Date.now)
             //     return;
             // }
 
-            var ignored_links = ['.pdf', '.doc', '.eps', '.png', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '&add-to-cart=', '?add-to-cart=', '?remove_item'];
+            var ignored_links = ['.pdf', '.doc', '.eps', '.png', '.jpg', '.jpeg', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '&add-to-cart=', '?add-to-cart=', '?remove_item'];
 
             // djax_ignored_links is localized in /inc/functions/callbacks/woocommerce.php
             // if there are localized ignored links, add them
@@ -21913,8 +21913,8 @@ if (!Date.now)
 
     function softInit() {
 
+        prepareParentMenuItems();
         niceScrollInit();
-
         sizeColumns();
 
         if ($('.single-jetpack-portfolio, .single-proof_gallery, .woocommerce.archive').length) {
@@ -22300,4 +22300,18 @@ if (!Date.now)
         })
     }
 
+    function prepareParentMenuItems() {
+        if ($html.hasClass('is--touch')) {
+            $('.menu-item-has-children > a').each(function() {
+                $(this).addClass('prevent-one');
+                $(this).attr('href', $(this).attr('href') + '#');
+            });
+        }
+
+        //$('a.prevent-one').on('click', function(e) {
+        //	console.log('prevent one');
+        //	e.preventDefault();
+        //	e.stopPropagation();
+        //})
+    }
 })(jQuery);

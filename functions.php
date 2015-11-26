@@ -365,8 +365,7 @@ function timber_get_queued_scripts() {
 
 	$loading_scripts = array();
 	foreach ( $wp_scripts->queue as $key => $handle ) {
-
-		if ( strpos( $wp_scripts->registered[ $handle ]->src, 'http' ) ) {
+		if ( strpos( $wp_scripts->registered[ $handle ]->src, 'http' ) === false && strpos( $wp_scripts->registered[ $handle ]->src, '//' ) !== 0 ) {
 			$loading_scripts[ $handle ]['src'] = site_url() . $wp_scripts->registered[ $handle ]->src;
 		} else {
 			$loading_scripts[ $handle ]['src'] = $wp_scripts->registered[ $handle ]->src;
@@ -389,7 +388,11 @@ function timber_get_queued_styles() {
 
 	$loading_styles = array();
 	foreach ( $wp_styles->queue as $key => $handle ) {
-		$loading_styles[ $handle ] = $wp_styles->registered[ $handle ]->src;
+		if ( strpos( $wp_styles->registered[ $handle ]->src, 'http' ) === false && strpos( $wp_styles->registered[ $handle ]->src, '//' ) !== 0 ) {
+			$loading_styles[ $handle ] = site_url() . $wp_styles->registered[ $handle ]->src;
+		} else {
+			$loading_styles[ $handle ] = $wp_styles->registered[ $handle ]->src;
+		}
 	}
 	return $loading_styles;
 }
