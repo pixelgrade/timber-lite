@@ -28,8 +28,8 @@ function init() {
 
 function softInit() {
 
+    prepareParentMenuItems();
     niceScrollInit();
-
     sizeColumns();
 
     if ($('.single-jetpack-portfolio, .single-proof_gallery, .woocommerce.archive').length ) {
