@@ -91,9 +91,27 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		 * See http://docs.woothemes.com/document/third-party-custom-theme-compatibility/
 		 */
 		add_theme_support( 'woocommerce' );
+
+		add_filter( 'attachment_link', 'timber_filter_attachment_links_on_singles', 2, 2 );
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
+
+/**
+ * We need to force ajax off attachment links on posts and pages since it is a chance to trigger a modal opening
+ * and an ajax call
+ * @param $link
+ * @param $id
+ *
+ * @return string
+ */
+function timber_filter_attachment_links_on_singles( $link, $id  ){
+	if ( wp_attachment_is_image( $id ) && ( is_singular( 'post' ) || is_page()) ) {
+		return $link . '#';
+	}
+	return $link;
+}
+
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -161,10 +179,10 @@ function timber_scripts_styles() {
 	$theme_data = wp_get_theme();
 
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
-	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'mediaelement' ), $theme_data->get( 'Version' ) );
+	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'wp-mediaelement' ), $theme_data->get( 'Version' ) );
 
 	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', array(
-		'jquery', 'mediaelement'
+		'jquery', 'wp-mediaelement'
 	), $theme_data->get( 'Version' ), true );
 	// Localize the script with new data
 	$translation_array = array
@@ -220,13 +238,26 @@ function timber_scripts_styles() {
 	}
 
 	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
-		$url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
+		$woo_asssets_url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $url . 'css/prettyPhoto.css' );
-		wp_enqueue_script( 'prettyPhoto-init', $url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
-		wp_enqueue_script( 'prettyPhoto', $url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
+		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $woo_asssets_url . 'css/prettyPhoto.css' );
+		wp_enqueue_script( 'prettyPhoto-init', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
+		wp_enqueue_script( 'prettyPhoto', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
 	}
+
+	// if jetpack's carousel is enabled, enqueue the scripts in root
+	// this way the assets will get registered with the proper root url
+	if ( class_exists( 'Jetpack_Carousel' ) ) {
+		// Create new carousel so we can use the enqueue_assets() method. Not ideal, but there is a decent amount
+		// of logic in that method that shouldn't be duplicated.
+		$carousel = new Jetpack_Carousel();
+
+		// First parameter is $output, which comes from filters, and causes bypass of the asset enqueuing. Passing null is correct.
+		$carousel->enqueue_assets( null );
+	}
+	add_filter( 'jp_carousel_force_enable', true );
+
 }
 add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
 
@@ -334,7 +365,12 @@ function timber_get_queued_scripts() {
 
 	$loading_scripts = array();
 	foreach ( $wp_scripts->queue as $key => $handle ) {
-		$loading_scripts[ $handle ]['src'] = $wp_scripts->registered[ $handle ]->src;
+		if ( strpos( $wp_scripts->registered[ $handle ]->src, 'http' ) === false && strpos( $wp_scripts->registered[ $handle ]->src, '//' ) !== 0 ) {
+			$loading_scripts[ $handle ]['src'] = site_url() . $wp_scripts->registered[ $handle ]->src;
+		} else {
+			$loading_scripts[ $handle ]['src'] = $wp_scripts->registered[ $handle ]->src;
+		}
+
 		if ( isset( $wp_scripts->registered[ $handle ]->extra ) && isset( $wp_scripts->registered[ $handle ]->extra['data'] )){
 			$loading_scripts[ $handle ]['data'] = $wp_scripts->registered[ $handle ]->extra['data'];
 		}
@@ -352,7 +388,11 @@ function timber_get_queued_styles() {
 
 	$loading_styles = array();
 	foreach ( $wp_styles->queue as $key => $handle ) {
-		$loading_styles[ $handle ] = $wp_styles->registered[ $handle ]->src;
+		if ( strpos( $wp_styles->registered[ $handle ]->src, 'http' ) === false && strpos( $wp_styles->registered[ $handle ]->src, '//' ) !== 0 ) {
+			$loading_styles[ $handle ] = site_url() . $wp_styles->registered[ $handle ]->src;
+		} else {
+			$loading_styles[ $handle ] = $wp_styles->registered[ $handle ]->src;
+		}
 	}
 	return $loading_styles;
 }
