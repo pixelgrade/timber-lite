@@ -24,13 +24,19 @@ function init() {
 
     // Loads the addThis script - this should be run just once
     AddThisIcons.init();
+
+    if( Modernizr.touchevents ) {
+        HandleParentMenuItems.bindOuterNavClick();
+    }
 }
 
 function softInit() {
-
-    //prepareParentMenuItems();
     niceScrollInit();
     sizeColumns();
+
+    if( windowWidth > 900 && Modernizr.touchevents ) {
+        HandleParentMenuItems.handle();
+    }
 
     if ($('.single-jetpack-portfolio, .single-proof_gallery, .woocommerce.archive').length ) {
         Project.init();
@@ -111,6 +117,17 @@ $window.load(function () {
 function onResize() {
 	browserSize();
     sizeColumns();
+
+    if( Modernizr.touchevents ) {
+        if( windowWidth >= 900 ) {
+            // Handle parent menu items
+            HandleParentMenuItems.handle();
+        } else if ( windowWidth < 900 ) {
+            // Remove handlers
+            HandleParentMenuItems.unHandle();
+        }
+    }
+
     Project.onResize();
 
     if( $('.woocommerce.archive').length ) {
