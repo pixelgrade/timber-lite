@@ -169,8 +169,23 @@ var frontpageSlider = (function() {
         }
         $prevTrigger.on('click', onPrevClick);
 
+        if (Modernizr.touchevents) {
+            $slider.hammer().bind("swipeleft", onSwipeLeft);
+            $slider.hammer().bind("swiperight", onSwipeRight);
+        }
+
         $(document).on('keydown', slider_keys_controls_callback );
 
+    }
+
+    function onSwipeLeft() {
+        onNextClick();
+        onNextLeave();
+    }
+
+    function onSwipeRight() {
+        onPrevClick();
+        onPrevLeave();
     }
 
     function onNextEnter() {

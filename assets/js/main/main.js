@@ -29,7 +29,6 @@ function init() {
 function softInit() {
 
     niceScrollInit();
-
     sizeColumns();
 
     if ($('.single-jetpack-portfolio, .single-proof_gallery, .woocommerce.archive').length ) {
