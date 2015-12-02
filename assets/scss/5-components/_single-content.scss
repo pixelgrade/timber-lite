@@ -9,7 +9,7 @@
 	}
 }
 
-.single-post, .page-template-default {
+.single-post, .page-template-default, .attachment {
 	.entry-content, .entry-footer, .post-navigation {
 		@extend %single-width;
 	}
