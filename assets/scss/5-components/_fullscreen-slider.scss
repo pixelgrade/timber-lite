@@ -388,6 +388,11 @@
 	}
 }
 
+// for scroll on Windows + mouse wheel
+.page.page-template-default {
+	overflow: visible;
+}
+
 .slider_height-full-height,
 .project_layout-fullscreen {
 	.site-footer {

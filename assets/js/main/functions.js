@@ -133,7 +133,7 @@ function sizeColumns() {
         }
 
         $last = $children.last();
-        width = $last.offset().left - itemOffset + $last.outerWidth()
+        width = $last.offset().left - itemOffset + $last.outerWidth();
 
         $item.width(width);
     });
@@ -205,3 +205,76 @@ function filterHandler() {
 		}})
 	})
 }
+
+var HandleParentMenuItems = (function() {
+	// Handle parent menu items on tablet in landscape mode;
+	// use case: normal, horizontal menu, touch events,
+	// sub menus are not visible.
+	function handleParentMenuItems() {
+		// Make sure there are no open menu items
+		$('.menu-item-has-children').removeClass('hover');
+
+		$('.menu-item-has-children > a').each(function(){
+			// Add a class so we know the items to handle
+			$(this).addClass('prevent-one');
+
+			// Store the original href
+			$(this).attr('href-original', $(this).attr('href'));
+			// Add a '#' at the end of href so dJax won't interfere
+			$(this).attr('href', $(this).attr('href') + '#');
+		});
+
+		$('a.prevent-one').on('click', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			// When a parent menu item is activated,
+			// close other menu items on the same level
+			$(this).parent().siblings().removeClass('hover');
+
+			// Restore the original href so that
+			// the menu item can now be used
+			$(this).attr('href', $(this).attr('href-original') );
+
+			// Open the sub menu of this parent item
+			$(this).parent().addClass('hover');
+		});
+	}
+
+	// Restore the original behaviour when in portrait mode;
+	// use case: vertical menu, all menu items are visible.
+	function unHandleParentMenuItems() {
+		$('a.prevent-one').each(function(){
+			// Unbind te click handler
+			$(this).unbind();
+			// Restore the original href so dJax can do its job
+			$(this).attr('href', $(this).attr('href-original') );
+			$(this).removeClass('prevent-one');
+		});
+	}
+
+	// When a sub menu is open, close it by a touch on
+	// any other part of the viewport than navigation.
+	// use case: normal, horizontal menu, touch events,
+	// sub menus are not visible.
+	function bindOuterNavClick() {
+		$('body').on( 'touchstart', function (e) {
+			var container = $('.nav--main');
+
+			if (!container.is(e.target) // if the target of the click isn't the container...
+					&& container.has(e.target).length === 0) // ... nor a descendant of the container
+			{
+				$('.menu-item-has-children').removeClass('hover');
+				$('a.prevent-one').each( function(){
+					$(this).attr('href', $(this).attr('href-original') + '#');
+				});
+			}
+		});
+	}
+
+	return {
+		handle: handleParentMenuItems,
+		unHandle: unHandleParentMenuItems,
+		bindOuterNavClick: bindOuterNavClick
+	}
+}());

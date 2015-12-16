@@ -140,7 +140,8 @@
             }
         }
 
-        .menu-item:hover > .sub-menu {
+        .no-touch & .menu-item:hover > .sub-menu,
+        .touch & .menu-item.hover > .sub-menu {
             transform: translate(-50%, 0);
             opacity: 1;
             pointer-events: auto;

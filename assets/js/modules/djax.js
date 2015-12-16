@@ -13,7 +13,7 @@ var djax = (function() {
         //     return;
         // }
 
-        var ignored_links = ['.pdf', '.doc', '.eps', '.png', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '&add-to-cart=', '?add-to-cart=', '?remove_item'];
+        var ignored_links = ['.pdf', '.doc', '.eps', '.png', '.jpg', '.jpeg', '.zip', 'admin', 'wp-', 'wp-admin', 'feed', '#', '&add-to-cart=', '?add-to-cart=', '?remove_item'];
 
         // djax_ignored_links is localized in /inc/functions/callbacks/woocommerce.php
         // if there are localized ignored links, add them
@@ -104,6 +104,12 @@ var djax = (function() {
                 }
             });
         });
+
+        // Make the binding here because
+        // some pages take longer to load
+        if( windowWidth > 740 ) {
+            bindVertToHorScroll();
+        }
     }
 
     function onDjaxLoad(e, data) {
