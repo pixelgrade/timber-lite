@@ -16,12 +16,12 @@ class Site_Logo_Image_Control extends WP_Customize_Control {
 	public function __construct( $wp_customize, $control_id, $args = array() ) {
 		// declare these first so they can be overridden
 		$this->l10n = array(
-			'upload' =>      __( 'Add logo', 'jetpack' ),
-			'set' =>         __( 'Set as logo', 'jetpack' ),
-			'choose' =>      __( 'Choose logo', 'jetpack' ),
-			'change' =>      __( 'Change logo', 'jetpack' ),
-			'remove' =>      __( 'Remove logo', 'jetpack' ),
-			'placeholder' => __( 'No logo set', 'jetpack' ),
+			'upload' =>      esc_html__( 'Add logo', 'jetpack' ),
+			'set' =>         esc_html__( 'Set as logo', 'jetpack' ),
+			'choose' =>      esc_html__( 'Choose logo', 'jetpack' ),
+			'change' =>      esc_html__( 'Change logo', 'jetpack' ),
+			'remove' =>      esc_html__( 'Remove logo', 'jetpack' ),
+			'placeholder' => esc_html__( 'No logo set', 'jetpack' ),
 		);
 
 		parent::__construct( $wp_customize, $control_id, $args );
