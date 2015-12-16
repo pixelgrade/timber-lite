@@ -299,7 +299,7 @@ img {
     }
 }
 
-.page-template-custom-portfolio-page, .tax-jetpack-portfolio-type {
+.page-template-custom-portfolio-page:not(.single-jetpack-portfolio), .tax-jetpack-portfolio-type {
     .portfolio--grid {
         padding-bottom: 0;
         display: none;
