@@ -37,6 +37,14 @@
     .admin-bar.portfolio_page_type-project_slider & {
         top: 0 !important;
     }
+
+    .slider_height-full-height & {
+        background: transparent;
+
+        &:after {
+            border: 0;
+        }
+    }
 }
 
 .admin-bar .site-header--placeholder {
