@@ -21163,6 +21163,10 @@ if (!Date.now)
                     scl.wrapper.on('mouseenter', this.over);
                     scl.wrapper.on('mouseleave', this.out);
 
+                    if (Modernizr.touchevents) {
+                        scl.button.on('click', this.over);
+                    }
+
                 } else {
                     if (globalDebug) {
                         console.log("Social Links Hover - SHOW STOPPER - No social links wrapper found");
@@ -21194,7 +21198,6 @@ if (!Date.now)
                 if (globalDebug) {
                     console.log("Social Links Hover - OVER");
                 }
-
                 scl.anim.play();
             },
 
@@ -22340,7 +22343,7 @@ if (!Date.now)
 
         function bindEvents() {
             // Toggle navigation on click
-            $trigger.on('click touchstart', navToggle);
+            $trigger.on('click', navToggle);
 
             // Close menu with ESC key
             $(document).on('keydown', function(e) {
