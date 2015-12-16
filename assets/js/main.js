@@ -21624,6 +21624,8 @@ if (!Date.now)
                 });
             });
 
+            // Make the binding here because
+            // some pages take longer to load
             if (windowWidth > 740) {
                 bindVertToHorScroll();
             }
@@ -24768,7 +24770,7 @@ if (!Date.now)
             }
 
             $last = $children.last();
-            width = $last.offset().left - itemOffset + $last.outerWidth()
+            width = $last.offset().left - itemOffset + $last.outerWidth();
 
             $item.width(width);
         });
