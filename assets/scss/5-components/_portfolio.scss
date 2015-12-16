@@ -152,20 +152,36 @@ img {
     }
 
     &__item--text {
+        width: 32em;
         background: white;
         -webkit-column-width: 24em;
         column-width: 24em;
         -webkit-column-gap: 4em;
         column-gap: 4em;
-    -moz-column-fill: auto; /* Firefox */
-        column-fill: auto;
+        -moz-column-fill: balance; /* Firefox */
+        column-fill: balance;
         padding: 0 3em 0 1em;
         cursor: default;
 
         font-size: 0.875em;
 
+        @include query-below($lap) {
+            padding-top: 0.75em;
+        }
+
+        @include query-below(600px) {
+            width: 96vw;
+            -webkit-column-width: calc(96vw - 4em - 20px);
+            column-width: calc(96vw - 4em - 20px);
+            -webkit-column-gap: 2em;
+            column-gap: 2em;
+            padding-left: 20px;
+            padding-right: 2em;
+        }
+
         > :first-child {
             margin-top: 0;
+            padding-top: 0;
         }
     }
 

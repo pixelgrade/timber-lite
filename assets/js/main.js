@@ -24245,9 +24245,10 @@ if (!Date.now) Date.now = function () {
     $('.portfolio__item--text').each(function (i, obj) {
       var $item = $(obj).css('width', ''),
           itemOffset = $item.offset().left,
-          $children, $last, width;
+          $children, $last, height, width, totalHeight, totalWidth;
 
       $children = $(obj).children();
+      height = $item.outerHeight();
 
       if (!$children.length) {
         $item.remove();
@@ -24255,7 +24256,14 @@ if (!Date.now) Date.now = function () {
       }
 
       $last = $children.last();
-      width = $last.offset().left - itemOffset + $last.outerWidth();
+      totalHeight = $last.offset().top - $item.offset().top + $last.outerHeight();
+      totalWidth = $last.offset().left - $item.offset().left + $last.outerWidth();
+
+      if (totalHeight > height) {
+        width = $item.outerWidth() * (parseInt(totalHeight / height) + 1);
+      } else {
+        width = $last.offset().left - itemOffset + $last.outerWidth();
+      }
 
       $item.width(width);
     });
