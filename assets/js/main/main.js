@@ -58,10 +58,6 @@ function softInit() {
     filterHandler();
     checkProfileImageWidget();
 
-    if( windowWidth > 740 ) {
-        bindVertToHorScroll();
-    }
-
     if( $('.woocommerce.archive').length ) {
         Woocommerce.init();
         Woocommerce.resizeFilmstrip();

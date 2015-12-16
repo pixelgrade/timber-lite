@@ -21623,6 +21623,10 @@ if (!Date.now)
                     }
                 });
             });
+
+            if (windowWidth > 740) {
+                bindVertToHorScroll();
+            }
         }
 
         function onDjaxLoad(e, data) {
@@ -24467,10 +24471,6 @@ if (!Date.now)
 
         filterHandler();
         checkProfileImageWidget();
-
-        if (windowWidth > 740) {
-            bindVertToHorScroll();
-        }
 
         if ($('.woocommerce.archive').length) {
             Woocommerce.init();
