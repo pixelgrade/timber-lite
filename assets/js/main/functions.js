@@ -133,7 +133,7 @@ function sizeColumns() {
         }
 
         $last = $children.last();
-        width = $last.offset().left - itemOffset + $last.outerWidth()
+        width = $last.offset().left - itemOffset + $last.outerWidth();
 
         $item.width(width);
     });
