@@ -82,6 +82,10 @@ var scl,
 				scl.wrapper.on('mouseenter', this.over);
 				scl.wrapper.on('mouseleave', this.out);
 
+				if( Modernizr.touchevents ) {
+					scl.button.on('click', this.over);
+				}
+
 			} else {
 				if (globalDebug) {console.log("Social Links Hover - SHOW STOPPER - No social links wrapper found");}
 			}

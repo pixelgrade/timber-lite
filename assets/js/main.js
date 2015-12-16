@@ -20718,6 +20718,10 @@ if (!Date.now) Date.now = function () {
         scl.wrapper.on('mouseenter', this.over);
         scl.wrapper.on('mouseleave', this.out);
 
+        if (Modernizr.touchevents) {
+          scl.button.on('click', this.over);
+        }
+
       } else {
         if (globalDebug) {
           console.log("Social Links Hover - SHOW STOPPER - No social links wrapper found");
@@ -21167,6 +21171,12 @@ if (!Date.now) Date.now = function () {
           }
         });
       });
+
+      // Make the binding here because
+      // some pages take longer to load
+      if (windowWidth > 740) {
+        bindVertToHorScroll();
+      }
     }
 
     function onDjaxLoad(e, data) {
@@ -21862,7 +21872,7 @@ if (!Date.now) Date.now = function () {
 
     function bindEvents() {
       // Toggle navigation on click
-      $trigger.on('click touchstart', navToggle);
+      $trigger.on('click', navToggle);
 
       // Close menu with ESC key
       $(document).on('keydown', function (e) {
@@ -23959,10 +23969,6 @@ if (!Date.now) Date.now = function () {
 
     filterHandler();
     checkProfileImageWidget();
-
-    if (windowWidth > 740) {
-      bindVertToHorScroll();
-    }
 
     if ($('.woocommerce.archive').length) {
       Woocommerce.init();

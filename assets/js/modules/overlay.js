@@ -13,7 +13,7 @@ var Overlay = (function () {
 
 	function bindEvents() {
 		// Toggle navigation on click
-		$trigger.on('click touchstart', navToggle);
+		$trigger.on('click', navToggle);
 
 		// Close menu with ESC key
 		$(document).on('keydown' ,function(e) {
