@@ -22361,7 +22361,7 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      if ($('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+      if ($('.image-scaling--fit').length || (Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
         imageScaling = 'fit';
       }
 
@@ -22423,7 +22423,7 @@ if (!Date.now) Date.now = function () {
       $document.off('mousemove', panFullview);
       $(window).off('deviceorientation', panFullview);
 
-      if ($('html').hasClass('is--touch')) {
+      if (Modernizr.touchevents) {
         initialAlpha = latestDeviceAlpha;
         initialBeta = latestDeviceBeta;
         initialGamma = latestDeviceGamma;
@@ -22527,7 +22527,7 @@ if (!Date.now) Date.now = function () {
 
       $('body').on('click', '.js-show-thumbnails', showThumbnails);
 
-      // if ( $('html').hasClass('is--touch') ) {
+      // if ( Modernizr.touchevents ) {
       // 	$('.portfolio--grid').on('click', '.js-portfolio-item', showFullView);
       // } else {
       $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
@@ -22564,7 +22564,7 @@ if (!Date.now) Date.now = function () {
       });
 
       $(window).on('djaxLoad', function () {
-        if ($('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+        if ($('.image-scaling--fit').length || (Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
           imageScaling = 'fit';
         } else {
           imageScaling = 'fill';
@@ -23034,7 +23034,7 @@ if (!Date.now) Date.now = function () {
 
       if (imageScaling == 'fit') {
         $fullview.css('backgroundColor', '#222222');
-      } else if ($('html').hasClass('is--touch')) {
+      } else if (Modernizr.touchevents) {
         $(window).on('deviceorientation', panFullview);
         $document.on('mousemove', panFullview);
       } else {
@@ -23062,7 +23062,7 @@ if (!Date.now) Date.now = function () {
             imgWidth = $img.width(),
             imgHeight = $img.height();
 
-        if ($('html').hasClass('is--touch')) {
+        if (Modernizr.touchevents) {
 
           var a = initialAlpha - latestDeviceAlpha,
               b = initialBeta - latestDeviceBeta,
