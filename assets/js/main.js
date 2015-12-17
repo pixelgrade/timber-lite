@@ -22821,7 +22821,7 @@ if (!Date.now) Date.now = function () {
       TweenMax.to(selector, .3, {
         opacity: 0,
         onComplete: function () {
-          // $('.site-footer').css('display', 'none');
+          $('.site-footer').css('display', 'none');
         }
       });
 

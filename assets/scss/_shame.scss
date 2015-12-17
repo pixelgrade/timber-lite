@@ -10,6 +10,18 @@ html, body, #page, .site, #djaxContainer {
     // }
 }
 
+@include query-below($lap) {
+    body.single-product {
+        &, .site, #djaxContainer {
+            height: auto;
+        }
+
+        .site-footer--single {
+            display: block;
+        }
+    }
+}
+
 [class*="is--ie"] {
     body.page-template-default {
         height: auto !important;
