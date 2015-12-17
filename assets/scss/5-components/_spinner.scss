@@ -1,54 +1,54 @@
-.css_spinner {
-    width: 48px;
-    height: 48px;
+.spinner {
+    width: 40px;
+    height: 40px;
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-top: -24px;
-    margin-left: -24px;
+    margin-top: -20px;
+    margin-left: -20px;
     transition: opacity .1s ease-out, display 0 .1s;
     transform: translateZ(0);
 }
 
-.css_spinner .side {
+.spinner__side {
 	position: absolute;
-    width: 24px;
-    height: 48px;
+    width: 20px;
+    height: 40px;
     top: 0;
     left: 0;
     overflow: hidden;
 }
 
-.css_spinner .s_right {
-    left: 24px;
+.side--right {
+    left: 20px;
 }
 
-.css_spinner .side .fill {
+.spinner__fill {
 	position: absolute;
 	top: 0;
 	left: 0;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     opacity: .6;
     border-radius: 999px;
 }
 
-.css_spinner .s_left .fill {
-    border-left: 24px solid rgba(0,0,0,0.5);
-    animation: cssSpinnerLeft 1.8s infinite linear;
+.side--left .spinner__fill {
+    border-left: 20px solid rgba(0,0,0,0.15);
+    animation: cssSpinnerLeft 2.2s infinite ease-out;
 }
 
-.css_spinner .s_right .fill {
-    border-right: 24px solid rgba(0,0,0,0.5);
-    animation: cssSpinnerRight 1.8s infinite linear;
-    left: -24px;
+.side--right .spinner__fill {
+    border-right: 20px solid rgba(0,0,0,0.15);
+    animation: cssSpinnerRight 2.2s infinite ease-out;
+    left: -20px;
 }
 
-.portfolio__item--text .css_spinner {
+.portfolio__item--text .spinner {
 	display: none;
 }
 
-.portfolio__item.js-loaded .css_spinner {
+.portfolio__item.js-loaded .spinner {
     opacity: 0;
     display: none;
 }
