@@ -71,6 +71,7 @@
 // Product images
 .images__container {
 	position: relative;
+	overflow: hidden;
 
 	@include query-above($lap) {
 		width: 55%;
@@ -119,14 +120,15 @@
 		flex: 1 1 auto;
 
 		@include query-below($lap) {
+			margin-bottom: 50px;
+
 			margin: 10px -5px;
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
+			justify-content: center;
 
 			a {
 				padding: 0 5px;
-				flex: 1 1 auto;
 				margin-bottom: 0;
 			}
 		}

@@ -478,7 +478,7 @@ var Project = (function() {
 			selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
 			TweenMax.to(selector, .3, { opacity: 0, onComplete: function() {
-				// $('.site-footer').css('display', 'none');
+				 $('.site-footer').css('display', 'none');
 			}
 		});
 
