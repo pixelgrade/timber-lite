@@ -35,12 +35,12 @@
 
 .side--left .spinner__fill {
     border-left: 20px solid rgba(0,0,0,0.15);
-    animation: cssSpinnerLeft 2.2s infinite linear;
+    animation: cssSpinnerLeft 1.8s infinite linear;
 }
 
 .side--right .spinner__fill {
     border-right: 20px solid rgba(0,0,0,0.15);
-    animation: cssSpinnerRight 2.2s infinite linear;
+    animation: cssSpinnerRight 1.8s infinite linear;
     left: -20px;
 }
 
@@ -48,7 +48,8 @@
 	display: none;
 }
 
-.portfolio__item.js-loaded .spinner {
+.portfolio__item.js-loaded .spinner,
+.portfolio__item--clone .spinner {
     opacity: 0;
     display: none;
 }

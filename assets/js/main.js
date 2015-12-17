@@ -24264,7 +24264,7 @@ if (!Date.now) Date.now = function () {
         return;
       }
 
-      $last = $children.last();
+      $last = $children.filter(':visible').last();
       totalHeight = $last.offset().top - $item.offset().top + $last.outerHeight();
       totalWidth = $last.offset().left - $item.offset().left + $last.outerWidth();
 
