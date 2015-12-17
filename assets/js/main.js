@@ -22861,18 +22861,20 @@ if (!Date.now) Date.now = function () {
 
       $grid.find('.js-portfolio-item img').css('opacity', '');
 
-      setTimeout(function () {
-        var $items = $grid.find('.js-portfolio-item img');
-        $items.sort(function () {
-          return 0.5 - Math.random()
-        });
+      if (typeof initial == "undefined") {
+        setTimeout(function () {
+          var $items = $grid.find('.js-portfolio-item img');
+          $items.sort(function () {
+            return 0.5 - Math.random()
+          });
 
-        TweenMax.staggerTo($items, .3, {
-          opacity: 1,
-          ease: Quad.easeInOut
-        }, 0.05);
-        $('.js-portfolio-item').removeClass('no-transition');
-      }, 600);
+          TweenMax.staggerTo($items, .3, {
+            opacity: 1,
+            ease: Quad.easeInOut
+          }, 0.05);
+          $('.js-portfolio-item').removeClass('no-transition');
+        }, 600);
+      }
 
       TweenMax.to($('.mask--project'), .6, {
         x: 0,
