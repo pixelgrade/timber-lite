@@ -21101,6 +21101,7 @@ if (!Date.now) Date.now = function () {
     function djaxTransition($new) {
       var $old = this;
       $('html, body, *').unbind('mousewheel', vertToHorScroll);
+      $('.touch .site-content').unbind('scroll');
 
       if (transitionedOut) {
         $old.replaceWith($new);
@@ -23992,6 +23993,13 @@ if (!Date.now) Date.now = function () {
     if ($('body').hasClass('woocommerce') && $('#rating').length && $('#rating').is(':visible')) {
       $('#rating').hide().before('<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>');
     }
+
+    $('.touch .site-content').on('scroll', function () {
+      latestKnownScrollY = window.scrollY;
+      latestKnownScrollX = $(this).scrollLeft();
+
+      requestTick();
+    });
   }
 
   // /* ====== ON WINDOW LOAD ====== */
@@ -24083,6 +24091,7 @@ if (!Date.now) Date.now = function () {
   }
 
   function update() {
+
     Project.getCurrent();
     Portfolio.maybeloadNextProjects();
     Blog.maybeLoadNextPosts();
@@ -24110,14 +24119,6 @@ if (!Date.now) Date.now = function () {
 
       latestKnownScrollY = $window.scrollTop();
       latestKnownScrollX = $window.scrollLeft();
-
-      requestTick();
-    });
-
-    $('.touch .site-content').on('scroll', function () {
-
-      latestKnownScrollY = window.scrollY;
-      latestKnownScrollX = $(this).scrollLeft();
 
       requestTick();
     });
