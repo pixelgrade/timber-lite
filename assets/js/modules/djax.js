@@ -106,8 +106,6 @@ var djax = (function() {
             });
         });
 
-        // Make the binding here because
-        // some pages take longer to load
         if( windowWidth > 740 ) {
             bindVertToHorScroll();
         }

@@ -218,4 +218,8 @@ function eventHandlers() {
         latestDeviceBeta    = e.originalEvent.beta;
         latestDeviceGamma   = e.originalEvent.gamma;
     });
+
+    if( windowWidth > 740 ) {
+        bindVertToHorScroll();
+    }
 }
