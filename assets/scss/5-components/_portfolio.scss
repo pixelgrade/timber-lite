@@ -116,35 +116,6 @@ img {
         &--content {
             min-width: 40em;
         }
-
-        &:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            margin-left: -20px;
-            margin-top: -20px;
-            max-width: 90%;
-            background: transparent url('assets/svg/loader.svg');
-            animation-name: rotate;
-            animation-duration: 1s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-            border-radius: 2px;
-            transition: opacity .1s ease-out, display 0 .1s;
-            opacity: 0.25;
-        }
-
-        &.portfolio__item--text:before {
-            display: none;
-        }
-
-        &.js-loaded:before {
-            opacity: 0;
-            display: none;
-        }
     }
 
     &__item--target {

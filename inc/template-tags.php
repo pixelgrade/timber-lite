@@ -721,6 +721,11 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			data-width="' . $image_data["width"] . '"
 			data-height="' . $image_data["height"] . '">
 
+			<div class="spinner">
+			    <span class="spinner__side side--left"><span class="spinner__fill"></span></span>
+			    <span class="spinner__side side--right"><span class="spinner__fill"></span></span>
+			</div>
+
 			<div class="proof__overlay">
 				<button class="proof-btn  proof-btn--thumbs  js-thumbs"></button>
 				<button class="proof-btn  proof-btn--zoom  js-zoom"></button>
