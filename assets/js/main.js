@@ -22843,7 +22843,7 @@ if (!Date.now)
                 return;
             }
 
-            if ($('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+            if ($('.image-scaling--fit').length || (Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
                 imageScaling = 'fit';
             }
 
@@ -22905,7 +22905,7 @@ if (!Date.now)
             $document.off('mousemove', panFullview);
             $(window).off('deviceorientation', panFullview);
 
-            if ($('html').hasClass('is--touch')) {
+            if (Modernizr.touchevents) {
                 initialAlpha = latestDeviceAlpha;
                 initialBeta = latestDeviceBeta;
                 initialGamma = latestDeviceGamma;
@@ -23009,7 +23009,7 @@ if (!Date.now)
 
             $('body').on('click', '.js-show-thumbnails', showThumbnails);
 
-            // if ( $('html').hasClass('is--touch') ) {
+            // if ( Modernizr.touchevents ) {
             // 	$('.portfolio--grid').on('click', '.js-portfolio-item', showFullView);
             // } else {
             $('.portfolio--grid').on('click', '.js-portfolio-item', showFilmstrip);
@@ -23047,7 +23047,7 @@ if (!Date.now)
             });
 
             $(window).on('djaxLoad', function() {
-                if ($('.image-scaling--fit').length || ($('html').hasClass('is--touch') && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+                if ($('.image-scaling--fit').length || (Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
                     imageScaling = 'fit';
                 } else {
                     imageScaling = 'fill';
@@ -23518,7 +23518,7 @@ if (!Date.now)
 
             if (imageScaling == 'fit') {
                 $fullview.css('backgroundColor', '#222222');
-            } else if ($('html').hasClass('is--touch')) {
+            } else if (Modernizr.touchevents) {
                 $(window).on('deviceorientation', panFullview);
                 $document.on('mousemove', panFullview);
             } else {
@@ -23546,7 +23546,7 @@ if (!Date.now)
                     imgWidth = $img.width(),
                     imgHeight = $img.height();
 
-                if ($('html').hasClass('is--touch')) {
+                if (Modernizr.touchevents) {
 
                     var a = initialAlpha - latestDeviceAlpha,
                         b = initialBeta - latestDeviceBeta,
@@ -24765,9 +24765,10 @@ if (!Date.now)
         $('.portfolio__item--text').each(function(i, obj) {
             var $item = $(obj).css('width', ''),
                 itemOffset = $item.offset().left,
-                $children, $last, width;
+                $children, $last, height, width, totalHeight, totalWidth;
 
             $children = $(obj).children();
+            height = $item.outerHeight();
 
             if (!$children.length) {
                 $item.remove();
@@ -24775,7 +24776,14 @@ if (!Date.now)
             }
 
             $last = $children.last();
-            width = $last.offset().left - itemOffset + $last.outerWidth();
+            totalHeight = $last.offset().top - $item.offset().top + $last.outerHeight();
+            totalWidth = $last.offset().left - $item.offset().left + $last.outerWidth();
+
+            if (totalHeight > height) {
+                width = $item.outerWidth() * (parseInt(totalHeight / height) + 1);
+            } else {
+                width = $last.offset().left - itemOffset + $last.outerWidth();
+            }
 
             $item.width(width);
         });

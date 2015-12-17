@@ -188,10 +188,10 @@
 	left: 2em;
 
 	@include query-above($lap) {
-		left: 260px;
+		left: 200px;
 
 		.slider--show_next & {
-			left: 160px;
+			left: 100px;
 		}
 	}
 

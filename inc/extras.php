@@ -805,7 +805,7 @@ function timber_mce_before_init( $settings ) {
 		array( 'title' => __( 'Highlight', 'timber' ), 'inline' => 'span', 'classes' => 'highlight' ),
 		array(
 			'title'    => __( 'Two Columns', 'timber' ),
-			'selector' => 'p',
+			'block' => 'div',
 			'classes'  => 'twocolumn',
 			'wrapper'  => true
 		),

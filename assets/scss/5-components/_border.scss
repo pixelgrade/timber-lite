@@ -1,5 +1,9 @@
 @include query-above($lap) {
 
+    .site-header--placeholder {
+        margin-top: 0.9vh;
+    }
+
     html[lang] {
         margin-top: 0 !important;
     }

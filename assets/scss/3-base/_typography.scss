@@ -55,6 +55,7 @@ p {
     font-feature-settings: 'kern' 1, 'onum' 1, 'liga' 1;
 
     @include baseline($fontsize: zeta, $font: $bodytype, $lineheight: 2, $below: 2, $breakpoint: all);
+    line-height: 2;
 }
 
 // Headings. OpenType ligatures, discretionary ligatures and lining figures enabled if available.
@@ -326,7 +327,7 @@ code {
 // Two Column
 .twocolumn {
 
-    @include query-above($small) {
+    // @include query-above($small) {
         // https://css-tricks.com/almanac/properties/b/break-inside/
         -webkit-column-break-inside: avoid; /* Chrome, Safari, Opera */
         page-break-inside: avoid; /* Firefox */
@@ -339,7 +340,7 @@ code {
         -webkit-column-gap: 40px;
         -moz-column-gap: 40px;
         column-gap: 40px;
-    }
+    // }
 
     @include query-above($lap) {
         -webkit-column-gap: 60px;
