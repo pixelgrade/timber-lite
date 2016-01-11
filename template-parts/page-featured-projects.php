@@ -41,7 +41,7 @@ if ( ! empty( $featured ) ) : ?>
 
 			<?php timber_the_project_types( $featured[0]->ID, '<div class="portfolio_types">', '</div>' ); ?>
 
-			<a href="<?php echo esc_url( $featured[0]->permalink ); ?>"
+			<a href="<?php echo esc_url( get_the_permalink( $featured[0]->ID ) ); ?>"
 			   class="project-slide__link"
 			   title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( array( 'echo' => 0, 'post' => $featured[0]->ID) ) ) ); ?>"
 			   rel="bookmark">
