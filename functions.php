@@ -535,6 +535,7 @@ function timber_wp_enqueue_media() {
 
 add_action( 'admin_enqueue_scripts', 'timber_wp_enqueue_media' );
 
+//Automagical updates
 function wupdates_check_JkElr( $transient ) {
 	// Nothing to do here if the checked transient entry is empty
 	if ( empty( $transient->checked ) ) {
@@ -669,7 +670,7 @@ function wupdates_process_purchase_code_JkElr() {
 			);
 
 			//make the call to the purchase code check API
-			$raw_response = wp_remote_post( 'https://wupdates.com/wp-json/wup/v1/front/wup_theme/JkElr', $http_args );
+			$raw_response = wp_remote_post( 'https://wupdates.com/wp-json/wup/v1/front/check_envato_purchase_code/JkElr', $http_args );
 			// In case the server hasn't responded properly, show error
 			if ( is_wp_error( $raw_response ) || $raw_response['response']['code'] !== 200 ) {
 				$errors[] = esc_html__( 'Bummer... We couldn\'t connect to the verification server. Please try again later.' );
@@ -706,7 +707,7 @@ function wupdates_process_purchase_code_JkElr() {
 		//redirect back to the themes page and open popup
 		wp_redirect( add_query_arg( 'theme', $slug ) );
 		exit;
-	}
+	} //@todo should check from time to time or only on the themes.php page if the purchase code is still in it's support period
 }
 add_action( 'admin_init', 'wupdates_process_purchase_code_JkElr' );
 
