@@ -1,5 +1,6 @@
 assets/.sass-cache
 assets/inc/metaboxes/.sass-cache
+assets/js/main.js
 inc/vendor/twitter-api/cache.tweetcache
 
 .DS_Store

@@ -609,7 +609,7 @@ var Project = (function() {
 
 	function centerFilmToTarget($target) {
 
-		if ( $('html').hasClass('is--touch, .is--ie-le10') ) {
+		if ( Modernizr.touchevents || $('html').hasClass('.is--ie-le10') ) {
 			TweenLite.to('.site-content', 0, {
 				scrollTo: {
 					x: $target.data('middle') - $('.site-content').width() / 2

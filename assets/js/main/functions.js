@@ -6,7 +6,7 @@
  */
 
 function browserSupport() {
-	$.support.touch = 'ontouchend' in document;
+	$.support.touch = Modernizr.touchevents;
 	$.support.svg = (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) ? true : false;
 	$.support.transform = getSupportedTransform();
 
@@ -168,9 +168,9 @@ function bindVertToHorScroll() {
 		|| $body.hasClass('single-proof_gallery')
 		&& ! $html.hasClass('is--ie-le10') ) {
 		// html body are for ie
-			$('html, body, *').bind('mousewheel',  vertToHorScroll);
 
-		horToVertScroll = true;
+			$('html, body, *').bind('mousewheel',  vertToHorScroll);
+			horToVertScroll = true;
 	}
 }
 
