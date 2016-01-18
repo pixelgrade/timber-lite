@@ -48,7 +48,7 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		add_image_size( 'timber-large-image', 1920, 9999, false );
 
 		//used for blog archive
-		add_image_size( 'timber-square-image', 350, 350, false );
+		add_image_size( 'timber-square-image', 350, 350, true );
 
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
@@ -707,7 +707,7 @@ function wupdates_process_purchase_code_JkElr() {
 		//redirect back to the themes page and open popup
 		wp_redirect( add_query_arg( 'theme', $slug ) );
 		exit;
-	} //@todo should check from time to time or only on the themes.php page if the purchase code is still in it's support period
+	}
 }
 add_action( 'admin_init', 'wupdates_process_purchase_code_JkElr' );
 
