@@ -78,13 +78,6 @@ function softInit() {
     if ( $('body' ).hasClass('woocommerce') && $( '#rating' ).length && $('#rating').is(':visible') ) {
         $( '#rating' ).hide().before( '<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>' );
     }
-
-    $('.touch .site-content').on('scroll', function() {
-        latestKnownScrollY = window.scrollY;
-        latestKnownScrollX = $(this).scrollLeft();
-
-        requestTick();
-    });
 }
 
 // /* ====== ON WINDOW LOAD ====== */
@@ -203,20 +196,25 @@ function updateHeader() {
 function eventHandlers() {
     $window.on('debouncedresize', onResize);
 
-    $window.on('scroll', function () {
+    var $container;
+    if ( Modernizr.touchevents ) {
+        $container = $('.site-content');
+    } else {
+        $container = $window;
+    }
 
-        latestKnownScrollY = $window.scrollTop();
-        latestKnownScrollX = $window.scrollLeft();
-
+    $container.on('scroll', function () {
+        latestKnownScrollY = $container.scrollTop();
+        latestKnownScrollX = $container.scrollLeft();
         requestTick();
     });
 
-    $(window).on('mousemove', function(e) {
+    $window.on('mousemove', function(e) {
         latestKnownMouseX   = e.clientX;
         latestKnownMouseY   = e.clientY;
     });
 
-    $(window).on('deviceorientation', function(e) {
+    $window.on('deviceorientation', function(e) {
         latestDeviceAlpha   = e.originalEvent.alpha;
         latestDeviceBeta    = e.originalEvent.beta;
         latestDeviceGamma   = e.originalEvent.gamma;

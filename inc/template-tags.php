@@ -590,7 +590,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 
             if ( false == $ignore_videos ) {
                 //now let's handle the current video match
-                $markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div><!-- .portfolio__item--video -->' . PHP_EOL;
+                $markup .= '<div class="portfolio__item portfolio__item--video js-portfolio-item">' . $matches[0][ $idx ] . '</div><!-- .portfolio__item--video -->' . PHP_EOL;
             }
         }
     }
@@ -616,7 +616,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 
 			if ( false == $ignore_videos ) {
 				//now let's handle the current video match
-				$markup .= '<div class="portfolio__item portfolio__item--video">' . $matches[0][ $idx ] . '</div><!-- .portfolio__item--video -->' . PHP_EOL;
+				$markup .= '<div class="portfolio__item portfolio__item--video js-portfolio-item">' . $matches[0][ $idx ] . '</div><!-- .portfolio__item--video -->' . PHP_EOL;
 			}
 		}
 	}
