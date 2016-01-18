@@ -168,9 +168,9 @@ function bindVertToHorScroll() {
 		|| $body.hasClass('single-proof_gallery')
 		&& ! $html.hasClass('is--ie-le10') ) {
 		// html body are for ie
-			$('html, body, *').bind('mousewheel',  vertToHorScroll);
 
-		horToVertScroll = true;
+			$('html, body, *').bind('mousewheel',  vertToHorScroll);
+			horToVertScroll = true;
 	}
 }
 

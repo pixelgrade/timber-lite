@@ -161,10 +161,13 @@ function onResize() {
         $item.width($item.data('newWidth'));
     });
 
-    if( windowWidth > 740 && !horToVertScroll ) {
-        bindVertToHorScroll();
-    } else {
+    if ( Modernizr.touchevents ) {
         $('html, body, *').unbind('mousewheel', vertToHorScroll);
+        horToVertScroll = false;
+    } else {
+        if ( ! horToVertScroll ) {
+            bindVertToHorScroll();
+        }
     }
 }
 
