@@ -27,7 +27,7 @@ var djax = (function() {
 
         $('body').djax('.djax-updatable, #lang_sel_list', ignored_links, djaxTransition);
 
-        $(window).on('djaxClick', onDjaxLoading);
+        $(window).on('djaxLoading', onDjaxLoading);
         $(window).on('djaxLoad', onDjaxLoad);
     }
 
