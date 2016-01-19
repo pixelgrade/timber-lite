@@ -96,8 +96,9 @@ function timber_body_classes( $classes ) {
 				}
 			}
 		}
+	} elseif ( is_category() || is_tag() ) {
+		$classes[] = 'blog'; //blog archives are blog also :)
 	}
-
 
 	return $classes;
 }
