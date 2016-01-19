@@ -38,34 +38,24 @@ var djax = (function() {
 
         if (transitionedOut) {
             $old.replaceWith($new);
+            transitionIn();
         } else {
             $window.one('djax:transitionOutEnd', function() {
                 $old.replaceWith($new);
+                transitionIn();
             });
         }
     }
 
     function onDjaxLoading(e) {
-        wait = true;
-
-        loadingTimeout = setTimeout(function() {
-            if (!wait) {
-                transitionIn();
-            }
-            wait = false;
-        }, 900);
-
+        transitionedOut = false;
         Nav.close();
         Overlay.close();
-
         transitionOut();
-
         Project.destroy();
     }
 
     function transitionOut() {
-        transitionedOut = false;
-
         TweenMax.fromTo('.loader', .6, {
             left: '100%'
         }, {
@@ -144,12 +134,6 @@ var djax = (function() {
         if (window._gaq) {
             _gaq.push(['_trackPageview']);
         }
-
-        if (!wait) {
-            transitionIn();
-        }
-
-        wait = false;
     }
 
     // here we change the link of the Edit button in the Admin Bar
