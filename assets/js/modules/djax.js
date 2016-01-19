@@ -66,44 +66,40 @@ var djax = (function() {
     function transitionOut() {
         transitionedOut = false;
 
-        requestAnimationFrame(function() {
-            TweenMax.fromTo('.loader', .6, {
-                left: '100%'
-            }, {
-                left: 0,
-                ease: Expo.easeInOut
-            });
-            TweenMax.to('.mask--page', .6, {
-                left: 0,
-                ease: Expo.easeInOut,
-                onComplete: function() {
-                    transitionedOut = true;
-                    $window.trigger('djax:transitionOutEnd');
-                }
-            });
+        TweenMax.fromTo('.loader', .6, {
+            left: '100%'
+        }, {
+            left: 0,
+            ease: Expo.easeInOut
+        });
+        TweenMax.to('.mask--page', .6, {
+            left: 0,
+            ease: Expo.easeInOut,
+            onComplete: function() {
+                transitionedOut = true;
+                $window.trigger('djax:transitionOutEnd');
+            }
         });
     }
 
     function transitionIn() {
-        requestAnimationFrame(function() {
-            TweenMax.to('.loader', .3, {
-                opacity: 0,
-                ease: Expo.easeInOut
-            });
-            TweenMax.fromTo('.loader', .6, {
-                left: 0
-            }, {
-                left: '-100%',
-                ease: Expo.easeInOut
-            });
-            TweenMax.to('.mask--page', .6, {
-                left: '100%',
-                ease: Expo.easeInOut,
-                onComplete: function() {
-                    $('.mask--page').css('left', '-100%');
-                    $('.loader').css('opacity', 1);
-                }
-            });
+        TweenMax.to('.loader', .3, {
+            opacity: 0,
+            ease: Expo.easeInOut
+        });
+        TweenMax.fromTo('.loader', .6, {
+            left: 0
+        }, {
+            left: '-100%',
+            ease: Expo.easeInOut
+        });
+        TweenMax.to('.mask--page', .6, {
+            left: '100%',
+            ease: Expo.easeInOut,
+            onComplete: function() {
+                $('.mask--page').css('left', '-100%');
+                $('.loader').css('opacity', 1);
+            }
         });
 
         if( windowWidth > 740 ) {
