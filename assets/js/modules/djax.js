@@ -38,11 +38,9 @@ var djax = (function() {
 
         if (transitionedOut) {
             $old.replaceWith($new);
-            transitionIn();
         } else {
             $window.one('djax:transitionOutEnd', function() {
                 $old.replaceWith($new);
-                transitionIn();
             });
         }
     }
@@ -114,6 +112,7 @@ var djax = (function() {
         function finishTransition() {
             $(window).scrollLeft(0);
             $(window).scrollTop(0);
+            transitionIn();
             $body.attr('class', nobodyClass);
             adminBarEditFix(curPostID, curPostEditString, curPostTax);
             softInit();
