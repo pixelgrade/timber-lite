@@ -454,3 +454,28 @@ img {
         }
     }
 }
+
+.portfolio__item--nav {
+    padding-left: 30px;
+    flex-basis: 210px;
+
+    a {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .caption {
+        padding-top: 0;
+    }
+
+    .nav__label {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 16px;
+        margin-top: 4px;
+    }
+
+    .nav__link--archive {
+        margin-top: 35px;
+    }
+}
