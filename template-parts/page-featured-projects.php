@@ -12,7 +12,7 @@ $show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_pr
 
 //get the featured projects
 $featured = timber_get_featured_projects();
-
+var_dump($featured);
 if ( ! empty( $featured ) ) : ?>
 
 <div id="primary" class="content-area">
@@ -24,7 +24,8 @@ if ( ! empty( $featured ) ) : ?>
 
 				get_template_part( 'template-parts/content', 'project-featured' );
 
-			endforeach; ?>
+			endforeach;
+			wp_reset_postdata(); ?>
 
 		</div><!-- .featured-projects-slider -->
 
