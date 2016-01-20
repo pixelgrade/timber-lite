@@ -1219,11 +1219,3 @@ function timber_is_password_protected(){
 
 	return $private_post;
 }
-
-/*
- * Do not limit the maxwidth of images - Responsive Images introduced in WP 4.4
- */
-function timber_remove_max_srcset_image_width( $max_width ) {
-	return false;
-}
-add_filter( 'max_srcset_image_width', 'timber_remove_max_srcset_image_width' );
