@@ -26,7 +26,7 @@
 			$paged = 1;
 		endif;
 
-		$posts_per_page = get_option( 'jetpack_portfolio_posts_per_page', '7' );
+		$posts_per_page = get_option( 'jetpack_portfolio_posts_per_page', '12' );
 
 		$portfolio_types = get_terms( 'jetpack-portfolio-type' );
 

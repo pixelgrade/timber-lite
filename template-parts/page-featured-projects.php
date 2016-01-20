@@ -12,7 +12,6 @@ $show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_pr
 
 //get the featured projects
 $featured = timber_get_featured_projects();
-var_dump($featured);
 if ( ! empty( $featured ) ) : ?>
 
 <div id="primary" class="content-area">
