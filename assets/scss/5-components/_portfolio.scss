@@ -271,11 +271,12 @@ img {
     }
 
     &--project {
+        width: 100%;
+        height: auto;
         position: static;
         flex-wrap: nowrap;
         -webkit-flex-wrap: nowrap;
         margin-bottom: .5em;
-        height: auto;
     }
 
     &--project &__item {
@@ -295,13 +296,18 @@ img {
         bottom: 0; left: 0;
         width: 100%;
     }
+
+    &__flex {
+        display: flex;
+    }
 }
 
-.page-template-custom-portfolio-page:not(.single-jetpack-portfolio), .tax-jetpack-portfolio-type {
+.page-template-custom-portfolio-page:not(.single-jetpack-portfolio),
+.tax-jetpack-portfolio-type {
     .portfolio--grid {
         padding-bottom: 0;
         display: none;
-        opacity: 0;
+        opacity: 1;
 
         @include query-below($lap) {
             padding-left: 7vw;

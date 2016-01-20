@@ -313,7 +313,20 @@ var Project = (function() {
 			$current = $items.eq(current);
 			$next = $items.eq(next);
 
-			var mymid = $current.data('middle');
+			var mymid 		= $current.data('middle'),
+				newScrollX 	= $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+
+			// if we are at either end of the filmstrip
+			// we may need to make sure we move the filmstrip in the right direction
+			if (e.which == 37 && newScrollX >= latestKnownScrollX ) {
+				$next 		= $items.eq(next - 1);
+				newScrollX 	= $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+			}
+
+			if (e.which == 39 && newScrollX <= latestKnownScrollX ) {
+				$next 		= $items.eq(next + 1);
+				newScrollX 	= $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+			}
 
 			TweenLite.to(window, 0.6, {
 				scrollTo: {

@@ -40,25 +40,25 @@
 
 		if ( $project_query -> have_posts() ) : ?>
 
-			<div class="portfolio-wrapper">
+			<div class="site-sidebar  site-sidebar--archive">
+				<h1 class="site-sidebar__content  site-sidebar__text"><?php the_title(); ?></h1>
+				<?php if ( ! is_wp_error($portfolio_types) && ! empty( $portfolio_types ) ) : ?>
+				<div class="mobile-filter-wrapper">
+					<select class="filter  filter--mobile  js-filter-mobile-portfolio">
+						<option class="filter__item active" data-filter="*"><?php _e( 'All categories', 'timber' ); ?></option>
 
-				<div class="site-sidebar  site-sidebar--archive">
-					<h1 class="site-sidebar__content  site-sidebar__text"><?php the_title(); ?></h1>
-					<?php if ( ! is_wp_error($portfolio_types) && ! empty( $portfolio_types ) ) : ?>
-					<div class="mobile-filter-wrapper">
-						<select class="filter  filter--mobile  js-filter-mobile-portfolio">
-							<option class="filter__item active" data-filter="*"><?php _e( 'All categories', 'timber' ); ?></option>
+						<?php foreach ( $portfolio_types as $type ) : ?>
 
-							<?php foreach ( $portfolio_types as $type ) : ?>
+							<option class="filter__item" data-filter=".jetpack-portfolio-type-<?php echo $type->slug; ?>"><?php echo $type->name; ?></option>
 
-								<option class="filter__item" data-filter=".jetpack-portfolio-type-<?php echo $type->slug; ?>"><?php echo $type->name; ?></option>
+						<?php endforeach; ?>
 
-							<?php endforeach; ?>
-
-						</select>
-					</div>
-					<?php endif; ?>
+					</select>
 				</div>
+				<?php endif; ?>
+			</div>
+
+			<div class="portfolio-wrapper">
 
 				<?php while ( $project_query -> have_posts() ) : $project_query -> the_post();
 
@@ -70,6 +70,7 @@
 
 				wp_reset_postdata(); ?>
 
+				<?php get_template_part( 'template-parts/preloader' ); ?>
 			</div>
 
 		<?php else :

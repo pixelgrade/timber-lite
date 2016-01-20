@@ -46,64 +46,48 @@ var djax = (function() {
     }
 
     function onDjaxLoading(e) {
-        wait = true;
-
-        loadingTimeout = setTimeout(function() {
-            if (!wait) {
-                transitionIn();
-            }
-            wait = false;
-        }, 900);
-
+        transitionedOut = false;
         Nav.close();
         Overlay.close();
-
         transitionOut();
-
         Project.destroy();
     }
 
     function transitionOut() {
-        transitionedOut = false;
-
-        requestAnimationFrame(function() {
-            TweenMax.fromTo('.loader', .6, {
-                left: '100%'
-            }, {
-                left: 0,
-                ease: Expo.easeInOut
-            });
-            TweenMax.to('.mask--page', .6, {
-                left: 0,
-                ease: Expo.easeInOut,
-                onComplete: function() {
-                    transitionedOut = true;
-                    $window.trigger('djax:transitionOutEnd');
-                }
-            });
+        TweenMax.fromTo('.loader', .6, {
+            left: '100%'
+        }, {
+            left: 0,
+            ease: Expo.easeInOut
+        });
+        TweenMax.to('.mask--page', .6, {
+            left: 0,
+            ease: Expo.easeInOut,
+            onComplete: function() {
+                transitionedOut = true;
+                $window.trigger('djax:transitionOutEnd');
+            }
         });
     }
 
     function transitionIn() {
-        requestAnimationFrame(function() {
-            TweenMax.to('.loader', .3, {
-                opacity: 0,
-                ease: Expo.easeInOut
-            });
-            TweenMax.fromTo('.loader', .6, {
-                left: 0
-            }, {
-                left: '-100%',
-                ease: Expo.easeInOut
-            });
-            TweenMax.to('.mask--page', .6, {
-                left: '100%',
-                ease: Expo.easeInOut,
-                onComplete: function() {
-                    $('.mask--page').css('left', '-100%');
-                    $('.loader').css('opacity', 1);
-                }
-            });
+        TweenMax.to('.loader', .3, {
+            opacity: 0,
+            ease: Expo.easeInOut
+        });
+        TweenMax.fromTo('.loader', .6, {
+            left: 0
+        }, {
+            left: '-100%',
+            ease: Expo.easeInOut
+        });
+        TweenMax.to('.mask--page', .6, {
+            left: '100%',
+            ease: Expo.easeInOut,
+            onComplete: function() {
+                $('.mask--page').css('left', '-100%');
+                $('.loader').css('opacity', 1);
+            }
         });
 
         if( windowWidth > 740 ) {
@@ -128,6 +112,7 @@ var djax = (function() {
         function finishTransition() {
             $(window).scrollLeft(0);
             $(window).scrollTop(0);
+            transitionIn();
             $body.attr('class', nobodyClass);
             adminBarEditFix(curPostID, curPostEditString, curPostTax);
             softInit();
@@ -148,12 +133,6 @@ var djax = (function() {
         if (window._gaq) {
             _gaq.push(['_trackPageview']);
         }
-
-        if (!wait) {
-            transitionIn();
-        }
-
-        wait = false;
     }
 
     // here we change the link of the Edit button in the Admin Bar
