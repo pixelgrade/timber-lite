@@ -34,6 +34,9 @@ function softInit() {
     niceScrollInit();
     sizeColumns();
 
+    $('html, body, *').unbind('mousewheel', vertToHorScroll);
+    horToVertScroll = false;
+
     if( windowWidth > 900 && Modernizr.touchevents ) {
         HandleParentMenuItems.handle();
     }
@@ -70,13 +73,16 @@ function softInit() {
 
     Woocommerce.checkCart();
 
-
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
     $(".pixcode--tabs").organicTabs();
 
     if ( $('body' ).hasClass('woocommerce') && $( '#rating' ).length && $('#rating').is(':visible') ) {
         $( '#rating' ).hide().before( '<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>' );
+    }
+
+    if ( ! Modernizr.touchevents && ! horToVertScroll ) {
+        bindVertToHorScroll();
     }
 }
 
@@ -153,15 +159,6 @@ function onResize() {
         var $item = $(item);
         $item.width($item.data('newWidth'));
     });
-
-    if ( Modernizr.touchevents ) {
-        $('html, body, *').unbind('mousewheel', vertToHorScroll);
-        horToVertScroll = false;
-    } else {
-        if ( ! horToVertScroll ) {
-            bindVertToHorScroll();
-        }
-    }
 }
 
 function requestTick() {
