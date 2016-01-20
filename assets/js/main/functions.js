@@ -134,6 +134,11 @@ function sizeColumns() {
         }
 
         $last = $children.filter(':visible').last();
+
+        if ( ! $last.length ) {
+        	return;
+        }
+
         totalHeight = $last.offset().top - $item.offset().top + $last.outerHeight();
         totalWidth = $last.offset().left - $item.offset().left + $last.outerWidth();
 
