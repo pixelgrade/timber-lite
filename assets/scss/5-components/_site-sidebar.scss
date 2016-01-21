@@ -122,7 +122,7 @@
     }
 }
 
-@include query-above($small) {
+@include query-above($lap) {
     .site-sidebar--archive {
         padding: 34px 19vw;
         padding-bottom: 26px;
