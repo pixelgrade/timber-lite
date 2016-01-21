@@ -56,6 +56,7 @@
 }
 
 .site-sidebar__content {
+
     .entry-meta {
         @extend %delta;
         margin: 0;
@@ -65,7 +66,7 @@
     }
 }
 
-@include query-above($small) {
+@include query-above($lap) {
     .site-sidebar__content {
         position: absolute;
         width: calc(100vh - #{2 * $header-height});
@@ -106,30 +107,34 @@
     padding-bottom: 26px;
     font-size: 0;
 
-    > * {
-        width: 50%;
-        display: inline-block;
-    }
+    @include query-below($lap) {
+        &:not(.site-sidebar--journal) > * {
+            width: 50%;
+            display: inline-block;
+        }
 
-    .site-sidebar__text {
-        position: static;
-
-        text-align: left;
-        font-size: 15px;
-        letter-spacing: 0.1em;
-
-        transform: none;
+        .site-sidebar__text {
+            position: static;
+            text-align: left;
+            font-size: 15px;
+            letter-spacing: 0.1em;
+            transform: none;
+        }
     }
 }
 
-@include query-above($lap) {
+@include query-above($small) {
     .site-sidebar--archive {
-        padding: 34px 19vw;
         padding-bottom: 26px;
 
         .site-sidebar__text {
             font-size: 24px;
         }
+    }
+
+    .site-sidebar--journal {
+        padding-left: 19vw;
+        padding-right: 19vw;
     }
 }
 
@@ -142,6 +147,11 @@
             transform: translate(-50%, -50%) rotate(-90deg);
             font-size: 15px;
         }
+    }
+
+    .site-sidebar--journal {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
