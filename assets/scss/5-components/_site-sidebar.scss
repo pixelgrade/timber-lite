@@ -1,12 +1,9 @@
 .site-sidebar {
     @extend %position--relative;
-
-    @include query-below($small) {
-        display: none;
-    }
 }
 
 .site-sidebar:not(.site-sidebar--archive) {
+
     @include query-above($small) {
         flex-basis: $sidebar-width*2/3;
         -webkit-flex-basis: $sidebar-width*2/3;
@@ -25,6 +22,10 @@
             width: 100px;
             height: 100vh;
         }
+    }
+
+    @include query-below($lap) {
+        display: none;
     }
 
     @include query-above($desk) {
@@ -108,9 +109,10 @@
     font-size: 0;
 
     @include query-below($lap) {
-        &:not(.site-sidebar--journal) > * {
-            width: 50%;
-            display: inline-block;
+        html.flexbox &:not(.site-sidebar--journal) {
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
         }
 
         .site-sidebar__text {

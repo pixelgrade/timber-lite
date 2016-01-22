@@ -60,7 +60,7 @@ if ( ! isset( $image_meta['height'] ) || empty( $image_meta['height'] ) ) {
 }
 ?>
 
-<li <?php post_class( $classes ); ?> data-width="<?php echo $image_meta['width']; ?>"  data-height="<?php echo $image_meta['height']; ?>">
+<div <?php post_class( $classes ); ?> data-width="<?php echo $image_meta['width']; ?>"  data-height="<?php echo $image_meta['height']; ?>">
 
 	<?php
 	/**
@@ -109,4 +109,4 @@ if ( ! isset( $image_meta['height'] ) || empty( $image_meta['height'] ) ) {
 
 	?>
 
-</li>
+</div>
