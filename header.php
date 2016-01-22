@@ -83,4 +83,9 @@
 	<div id="djaxContainer" class="hfeed site djax-updatable">
 		<div class="mobile-header">
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ||
+			           is_active_sidebar( 'overlay-widget-area-2' ) ||
+			           is_active_sidebar( 'overlay-widget-area-3' )) : ?>
+			<button class="toggle  toggle--mobile  js-overlay-trigger"><?php get_template_part('assets/svg/navgrid-svg'); ?></button>
+			<?php endif; ?>
 		</div>
