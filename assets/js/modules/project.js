@@ -492,7 +492,8 @@ var Project = (function() {
 
 		TweenMax.to(selector, .3, { opacity: 0 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'none');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'none')
+		$('.site-footer').fadeOut();
 
 		$('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
@@ -567,7 +568,8 @@ var Project = (function() {
 
 		TweenMax.to(selector, .3, { opacity: 1, delay: .3 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'auto');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'auto')
+		$('.site-footer').fadeIn();
 
 		$('.js-portfolio-item').addClass('no-transition');
 

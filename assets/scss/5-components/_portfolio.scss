@@ -186,25 +186,19 @@ img {
         z-index: 100;
         height: 100%;
         height: calc(100vh - #{$small-bar-height});
-        padding-bottom: $small-bar-height;
+        padding: 0 1em;
+
 
         @include query-above($lap) {
             height: calc(100vh - #{$header-height*2/3});
-            padding-bottom: $header-height*2/3;
         }
 
         @include query-above($large) {
             height: calc(100vh - #{$header-height});
-            padding-bottom: $header-height;
         }
 
         @include query-below($small) {
             padding-left: 1em;
-        }
-
-        .touch &{
-            padding: 0 1em;
-            padding-bottom: 70px;
         }
 
         .portfolio__item {
@@ -266,6 +260,12 @@ img {
         @media only screen and (max-height: 480px) and (min-width: 400px) {
             height: 40vh;
         }
+    }
+
+    &--grid:after {
+        display: block;
+        width: 100%;
+        height: 15vh;
     }
 
     &--grid &__item--content,
