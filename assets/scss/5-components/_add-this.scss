@@ -76,10 +76,11 @@
 	top: 50%;
 	left: 0;
 	min-width: 33vw;
-
+	width: 300%;
 	padding-left: 3em;
 	transform: translateY(-50%);
 	pointer-events: none;
+	margin-top: 5px;
 
 	.active & { pointer-events: auto; }
 
