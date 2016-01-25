@@ -1324,31 +1324,34 @@ if ( ! function_exists( 'timber_first_site_title_character' ) ) :
 	}
 endif;
 
-// Return the slug of the page with the page-templates/custom-portfolio-archive.php template or the post type archive if no page was found
-function  timber_get_portfolio_page_link() {
+if ( ! function_exists( 'timber_get_portfolio_page_link' ) ) :
+	// Return the slug of the page with the page-templates/custom-portfolio-archive.php template or the post type archive if no page was found
+	function timber_get_portfolio_page_link() {
 
-	$pages = get_pages(
-		array(
-			'sort_order'  => 'DESC',
-			'sort_column' => 'ID',
-			'meta_key'    => '_wp_page_template',
-			'meta_value'  => 'page-templates/custom-portfolio-page.php',
-			'parent'      => -1,
-			'suppress_filters' => false, //allow filters - like WPML
-		)
-	);
+	    $pages = get_pages(
+	        array(
+	            'sort_order'  => 'DESC',
+	            'sort_column' => 'ID',
+	            'meta_key'    => '_wp_page_template',
+	            'meta_value'  => 'page-templates/custom-portfolio-page.php',
+	            'parent'      => -1,
+	            'suppress_filters' => false, //allow filters - like WPML
+	        )
+	    );
 
-	if ( ! empty( $pages ) ) {
-		//find the page with the Portfolio Archive option selected
-		foreach ( $pages as $page ) {
-			$custom_portfolio_page_type = get_post_meta( timber_get_post_id( $page->ID, 'page' ), 'custom_portfolio_page_type', true);
-			if ( 'portfolio' === $custom_portfolio_page_type  ) {
-				//found it
-				return get_page_link( timber_get_post_id( $page->ID, 'page' ) );
-			}
-		}
+	    if ( ! empty( $pages ) ) {
+	        //find the page with the Portfolio Archive option selected
+	        foreach ( $pages as $page ) {
+	            $custom_portfolio_page_type = get_post_meta( timber_get_post_id( $page->ID, 'page' ), 'custom_portfolio_page_type', true);
+	            if ( 'portfolio' === $custom_portfolio_page_type  ) {
+	                //found it
+	                return get_page_link( timber_get_post_id( $page->ID, 'page' ) );
+	            }
+	        }
+	    }
+
+	    //fallback to the archive slug
+	    return get_post_type_archive_link( 'jetpack-portfolio' );
 	}
 
-	//fallback to the archive slug
-	return get_post_type_archive_link( 'jetpack-portfolio' );
-}
+endif;

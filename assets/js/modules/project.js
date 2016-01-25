@@ -490,12 +490,10 @@ var Project = (function() {
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count')),
 			selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
-			TweenMax.to(selector, .3, { opacity: 0, onComplete: function() {
-				 $('.site-footer').css('display', 'none');
-			}
-		});
+		TweenMax.to(selector, .3, { opacity: 0 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'none');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'none')
+		$('.site-footer').fadeOut();
 
 		$('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
@@ -568,12 +566,10 @@ var Project = (function() {
 
 		$('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
-		TweenMax.to(selector, .3, { opacity: 1, delay: .3, onComplete: function() {
-				$('.site-footer').css('display', 'block');
-			}
-		});
+		TweenMax.to(selector, .3, { opacity: 1, delay: .3 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'auto');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'auto')
+		$('.site-footer').fadeIn();
 
 		$('.js-portfolio-item').addClass('no-transition');
 

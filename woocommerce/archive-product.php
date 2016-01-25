@@ -65,7 +65,7 @@ get_header( 'shop' ); ?>
 				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
 			</div>
 
-			<ul class="portfolio  entry-content  product-list  js-product-list" <?php echo $data; ?>>
+			<div class="portfolio  entry-content  product-list  js-product-list" <?php echo $data; ?>>
 
 				<?php woocommerce_product_subcategories(); ?>
 
@@ -75,7 +75,7 @@ get_header( 'shop' ); ?>
 
 				<?php endwhile; // end of the loop. ?>
 
-			</ul><!-- .filmstrip -->
+			</div><!-- .filmstrip -->
 
 			<?php
 				/**

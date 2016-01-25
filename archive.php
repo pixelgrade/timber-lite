@@ -22,7 +22,7 @@ get_header(); ?>
         }
         ?>
 		<div class="filmstrip" <?php echo $data; ?>>
-			<div class="site-sidebar">
+			<div class="site-sidebar  site-sidebar--archive  site-sidebar--journal">
 				<div class="site-sidebar__content site-sidebar__text"><?php the_archive_title(); ?></div>
 			</div>
 

@@ -1,6 +1,7 @@
 .site-footer {
     @extend %bar;
     bottom: 0;
+    background: none;
 
     .is--ie-le10 & {
         position: fixed;
