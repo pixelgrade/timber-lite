@@ -84,7 +84,8 @@ var Blog = (function() {
 		bindEvents();
 
 		//if there are not sufficient posts to have scroll - load the next page also (prepending)
-		if ( $filmstrip_container.children('.filmstrip__item').last().offset().left == 0 ) {
+		var $last_child = $filmstrip_container.children('.filmstrip__item').last();
+		if ( windowWidth - ( $last_child.offset().left + $last_child.width() ) > 0 ) {
 			loadNextPosts();
 		}
 	}
