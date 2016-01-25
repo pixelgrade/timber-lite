@@ -177,6 +177,7 @@ function update() {
 
     if( $('.woocommerce.archive').length ) {
         Woocommerce.getCurrent();
+        Woocommerce.maybeloadNextProducts();
     }
 
 	ticking = false;

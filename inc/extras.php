@@ -1072,7 +1072,7 @@ function timber_load_next_products() {
 	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
 		$args['posts_per_page'] = $count_products;
 	} else {
-		$args['posts_per_page'] = get_option( 'jetpack_portfolio_posts_per_page', '7' );
+		$args['posts_per_page'] = get_option( 'posts_per_page' );
 	}
 
 	if ( isset( $_REQUEST['taxonomy'] ) ) {
@@ -1219,3 +1219,11 @@ function timber_is_password_protected(){
 
 	return $private_post;
 }
+
+//Force large image sizes on the shop so we can let the WP 4.4 responsive images do their thing
+//function timber_woo_shop_thumbnail_size( $size ) {
+//	if ( 'shop_catalog' == $size ) {
+//		return 'large';
+//	}
+//}
+//add_filter( 'post_thumbnail_size', 'timber_woo_shop_thumbnail_size' );

@@ -60,6 +60,10 @@ get_header( 'shop' ); ?>
 			global $wp_query;
 			if ( isset( $wp_query->post_count ) ) {
 				$data .= ' data-offset="' . $wp_query->post_count . '"';
+			}
+
+			if ( isset( $wp_query->found_posts ) ) {
+				$data .= ' data-totalposts="' . $wp_query->found_posts . '"';
 			} ?>
 			<div class="site-sidebar  site-sidebar--archive  site-sidebar--shop">
 				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Shop', 'timber' ); ?></div>
