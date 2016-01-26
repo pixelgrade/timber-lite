@@ -34,6 +34,9 @@ function softInit() {
     niceScrollInit();
     sizeColumns();
 
+    $('html, body, *').unbind('mousewheel', vertToHorScroll);
+    horToVertScroll = false;
+
     if( windowWidth > 900 && Modernizr.touchevents ) {
         HandleParentMenuItems.handle();
     }
@@ -70,7 +73,6 @@ function softInit() {
 
     Woocommerce.checkCart();
 
-
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
     $(".pixcode--tabs").organicTabs();
@@ -79,12 +81,9 @@ function softInit() {
         $( '#rating' ).hide().before( '<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>' );
     }
 
-    $('.touch .site-content').on('scroll', function() {
-        latestKnownScrollY = window.scrollY;
-        latestKnownScrollX = $(this).scrollLeft();
-
-        requestTick();
-    });
+    if ( ! Modernizr.touchevents && ! horToVertScroll ) {
+        bindVertToHorScroll();
+    }
 }
 
 // /* ====== ON WINDOW LOAD ====== */
@@ -160,12 +159,6 @@ function onResize() {
         var $item = $(item);
         $item.width($item.data('newWidth'));
     });
-
-    if( windowWidth > 740 && !horToVertScroll ) {
-        bindVertToHorScroll();
-    } else {
-        $('html, body, *').unbind('mousewheel', vertToHorScroll);
-    }
 }
 
 function requestTick() {
@@ -184,6 +177,7 @@ function update() {
 
     if( $('.woocommerce.archive').length ) {
         Woocommerce.getCurrent();
+        Woocommerce.maybeloadNextProducts();
     }
 
 	ticking = false;
@@ -200,20 +194,25 @@ function updateHeader() {
 function eventHandlers() {
     $window.on('debouncedresize', onResize);
 
-    $window.on('scroll', function () {
+    var $container;
+    if ( Modernizr.touchevents ) {
+        $container = $('.site-content');
+    } else {
+        $container = $window;
+    }
 
-        latestKnownScrollY = $window.scrollTop();
-        latestKnownScrollX = $window.scrollLeft();
-
+    $container.on('scroll', function () {
+        latestKnownScrollY = $container.scrollTop();
+        latestKnownScrollX = $container.scrollLeft();
         requestTick();
     });
 
-    $(window).on('mousemove', function(e) {
+    $window.on('mousemove', function(e) {
         latestKnownMouseX   = e.clientX;
         latestKnownMouseY   = e.clientY;
     });
 
-    $(window).on('deviceorientation', function(e) {
+    $window.on('deviceorientation', function(e) {
         latestDeviceAlpha   = e.originalEvent.alpha;
         latestDeviceBeta    = e.originalEvent.beta;
         latestDeviceGamma   = e.originalEvent.gamma;

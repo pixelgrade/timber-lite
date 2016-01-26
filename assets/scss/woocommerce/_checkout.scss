@@ -53,3 +53,8 @@ img[alt*="PayPal"] {
 
 	margin: 0 10px;
 }
+
+.woocommerce-checkout .total strong {
+    color: inherit;
+    letter-spacing: inherit;
+}

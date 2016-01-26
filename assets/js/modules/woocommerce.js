@@ -16,17 +16,30 @@ var Woocommerce = (function() {
 		if ( $('.woocommerce.archive').length ) {
 			$film = $('.js-product-list');
 			$film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
-			loadAllProjects();
+			//loadAllProducts();
 		}
 
 		betterWooThumbsNav();
+
+		//if there are not sufficient posts to have scroll - load the next page also (prepending)
+		var $last_child = $portfolio_container.children('.portfolio__item').last();
+		if ( windowWidth - ( $last_child.offset().left + $last_child.width() ) > 0 ) {
+			loadNextProducts();
+		}
 	}
 
 	function setCurrent($current) {
 		$('.product-list').find('.js-portfolio-item').removeClass('portfolio__item--active');
 
 		$current.addClass('portfolio__item--active');
-		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').not('.portfolio__item--clone').length);
+		var total_products;
+
+		if ( ! empty($portfolio_container.data('totalposts')) ) {
+			total_products = $portfolio_container.data('totalposts');
+		} else {
+			total_products = $film.find('.js-portfolio-item').not('.portfolio__item--clone').length;
+		}
+		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + total_products);
 	}
 
 	function getMiddle($image) {
@@ -91,7 +104,7 @@ var Woocommerce = (function() {
 	function prepare() {
 
 		if (!$('.woocommerce.archive').length) {
-			//we are not in a single project so bail
+			//we are not in a single product so bail
 			return;
 		}
 
@@ -137,14 +150,10 @@ var Woocommerce = (function() {
 	}
 
 
-
-
-
-
-	function loadAllProjects () {
+	function loadAllProducts () {
 		var offset = $portfolio_container.data('offset');
 
-		if (globalDebug) {console.log("Loading All Projects - AJAX Offset = " + offset);}
+		if (globalDebug) {console.log("Loading All Products - AJAX Offset = " + offset);}
 
 		isLoadingProjects = true;
 		var args = {
@@ -154,7 +163,7 @@ var Woocommerce = (function() {
 			posts_number: 'all'
 		};
 
-		if ( !empty($portfolio_container.data('taxonomy')) ) {
+		if ( ! empty($portfolio_container.data('taxonomy')) ) {
 			args['taxonomy'] = $portfolio_container.data('taxonomy');
 			args['term_id'] = $portfolio_container.data('termid');
 		}
@@ -165,9 +174,9 @@ var Woocommerce = (function() {
 			function(response_data) {
 
 				if( response_data.success ){
-					if (globalDebug) {console.log("Loaded all projects");}
+					if (globalDebug) {console.log("Loaded all products");}
 
-					var $result = $( response_data.data.posts).filter('li');
+					var $result = $( response_data.data.posts).filter('.portfolio__item');
 					if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
 
 					$('.navigation').hide().remove();
@@ -197,17 +206,18 @@ var Woocommerce = (function() {
 		);
 	}
 
-	function loadNextProjects () {
-		var offset = $portfolio_container.find('.portfolio--project').length;
+	function loadNextProducts () {
+		var offset = $portfolio_container.find('.portfolio__item').length;
 
-		if (globalDebug) {console.log("Loading More Projects - AJAX Offset = " + offset);}
+		if (globalDebug) {console.log("Loading More Products - AJAX Offset = " + offset);}
 
 		isLoadingProjects = true;
 
 		var args = {
-			action : 'timber_load_next_projects',
+			action : 'timber_load_next_products',
 			nonce : timber_ajax.nonce,
-			offset : offset
+			offset : offset,
+			posts_number: timber_ajax.posts_number
 		};
 
 		if ( !empty($portfolio_container.data('taxonomy')) ) {
@@ -221,9 +231,9 @@ var Woocommerce = (function() {
 			function(response_data) {
 
 				if( response_data.success ){
-					if (globalDebug) {console.log("Loaded next projects");}
+					if (globalDebug) {console.log("Loaded next products");}
 
-					var $result = $( response_data.data.posts).filter('article');
+					var $result = $( response_data.data.posts).filter('.portfolio__item');
 
 					if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
 
@@ -231,33 +241,45 @@ var Woocommerce = (function() {
 
 						$portfolio_container.append( $result );
 
-						Placeholder.update();
+						//Placeholder.update();
 
 						isLoadingProjects = false;
+
+						var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+
+						setCurrent($first);
+
+						resizeFilmstrip();
+
+						prepare();
+
+						onResize();
+
+						$(window ).trigger('scroll');
 					});
 				} else {
 					//we have failed
 					//it's time to call it a day
-					if (globalDebug) {console.log("It seems that there are no more projects to load");}
+					if (globalDebug) {console.log("It seems that there are no more products to load");}
 
 					$('.navigation').fadeOut();
 
-					//don't make isLoadingProjects true so we won't load any more projects
+					//don't make isLoadingProjects true so we won't load any more products
 				}
 			}
 		);
 	}
 
-	function maybeloadNextProjects () {
+	function maybeloadNextProducts () {
 		if (!$portfolio_container.length || isLoadingProjects ) {
 			return;
 		}
 
-		var $lastChild = $portfolio_container.children('article').last();
+		var $lastChild = $portfolio_container.children('.portfolio__item').last();
 
-		//if the last child is in view then load more projects
+		//if the last child is in view then load more products
 		if ( $lastChild.is(':appeared') ) {
-			loadNextProjects();
+			loadNextProducts();
 		}
 
 	}
@@ -362,6 +384,9 @@ var Woocommerce = (function() {
 		resizeFilmstrip:    resizeFilmstrip,
 		betterWooThumbsNav: betterWooThumbsNav,
 		checkCart:          checkCart,
-		check_product_variations: check_product_variations
+		check_product_variations: check_product_variations,
+		loadAllProducts: loadAllProducts,
+		loadNextProducts: loadNextProducts,
+		maybeloadNextProducts: maybeloadNextProducts
 	}
 })();

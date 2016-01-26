@@ -18,6 +18,11 @@ var frontpageSlider = (function() {
     function init() {
 
         $slider         = $('.projects-slider');
+
+        if (typeof $slider.data('loaded') !== "undefined" && $slider.data('loaded') === true) {
+            return;
+        }
+
         $content        = $('.project-slide__content');
         $prevTrigger    = $('.vertical-title.prev');
         $nextTrigger    = $('.vertical-title.next');
@@ -91,6 +96,8 @@ var frontpageSlider = (function() {
             bindEvents();
             animateContentIn();
         });
+
+        $slider.data('loaded', true);
     }
 
     function onResize() {

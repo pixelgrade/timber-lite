@@ -1,12 +1,9 @@
 .site-sidebar {
     @extend %position--relative;
-
-    @include query-below($small) {
-        display: none;
-    }
 }
 
 .site-sidebar:not(.site-sidebar--archive) {
+
     @include query-above($small) {
         flex-basis: $sidebar-width*2/3;
         -webkit-flex-basis: $sidebar-width*2/3;
@@ -25,6 +22,10 @@
             width: 100px;
             height: 100vh;
         }
+    }
+
+    @include query-below($lap) {
+        display: none;
     }
 
     @include query-above($desk) {
@@ -56,6 +57,7 @@
 }
 
 .site-sidebar__content {
+
     .entry-meta {
         @extend %delta;
         margin: 0;
@@ -65,7 +67,7 @@
     }
 }
 
-@include query-above($small) {
+@include query-above($lap) {
     .site-sidebar__content {
         position: absolute;
         width: calc(100vh - #{2 * $header-height});
@@ -92,6 +94,10 @@
     padding: 0;
     font-weight: bold;
     text-transform: uppercase;
+
+    @include query-below($lap) {
+        flex: 1 0 50%;
+    }
 }
 
 
@@ -106,30 +112,35 @@
     padding-bottom: 26px;
     font-size: 0;
 
-    > * {
-        width: 50%;
-        display: inline-block;
-    }
+    @include query-below($lap) {
+        html.flexbox &:not(.site-sidebar--journal) {
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+        }
 
-    .site-sidebar__text {
-        position: static;
-
-        text-align: left;
-        font-size: 15px;
-        letter-spacing: 0.1em;
-
-        transform: none;
+        .site-sidebar__text {
+            position: static;
+            text-align: left;
+            font-size: 15px;
+            letter-spacing: 0.1em;
+            transform: none;
+        }
     }
 }
 
 @include query-above($small) {
     .site-sidebar--archive {
-        padding: 34px 19vw;
         padding-bottom: 26px;
 
         .site-sidebar__text {
             font-size: 24px;
         }
+    }
+
+    .site-sidebar--journal {
+        padding-left: 19vw;
+        padding-right: 19vw;
     }
 }
 
@@ -142,6 +153,11 @@
             transform: translate(-50%, -50%) rotate(-90deg);
             font-size: 15px;
         }
+    }
+
+    .site-sidebar--journal {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 

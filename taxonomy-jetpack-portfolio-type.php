@@ -22,15 +22,16 @@ get_header(); ?>
                 $data .= ' data-termid="' . esc_attr( $queried_object->term_taxonomy_id ) .'"';
             }
         } ?>
+        <div class="site-sidebar  site-sidebar--archive">
+            <h1 class="site-sidebar__content  site-sidebar__text"><?php $tax = get_queried_object(); echo esc_html( $tax->name ); ?></h1>
+        </div>
         <div class="portfolio-wrapper" <?php echo $data; ?>>
-            <div class="site-sidebar  site-sidebar--archive">
-                <h1 class="site-sidebar__content  site-sidebar__text"><?php $tax = get_queried_object(); echo esc_html( $tax->name ); ?></h1>
-            </div>
         <?php
         if ( have_posts() ) :
             while ( have_posts() ) : the_post();
                 get_template_part( 'template-parts/content', 'portfolio' );
             endwhile;
+            get_template_part( 'template-parts/preloader' );
         else :
             get_template_part( 'template-parts/content', 'none' );
         endif;

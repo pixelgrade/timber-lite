@@ -21257,16 +21257,19 @@ if (!Date.now)
                             TweenMax.to($(this), .3, {
                                 opacity: 1,
                                 onStart: function() {
-                                    isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
+                                    if (isSafari) {
+                                        $that.css('display', '-webkit-flex');
+                                        return;
+                                    }
                                     if (isIE) {
                                         if ($('html').hasClass('is--ie-le10')) {
                                             $that.css('display', 'block');
                                         } else {
                                             $that.css('display', '-ms-flex');
                                         }
-                                    } else {
-                                        $that.css('display', 'flex');
+                                        return;
                                     }
+                                    $that.css('display', 'flex');
                                 }
                             });
                         });
@@ -21293,7 +21296,8 @@ if (!Date.now)
             bindEvents();
 
             //if there are not sufficient posts to have scroll - load the next page also (prepending)
-            if ($filmstrip_container.children('.filmstrip__item').last().offset().left == 0) {
+            var $last_child = $filmstrip_container.children('.filmstrip__item').last();
+            if (windowWidth - ($last_child.offset().left + $last_child.width()) > 0) {
                 loadNextPosts();
             }
         }
@@ -21569,64 +21573,48 @@ if (!Date.now)
         }
 
         function onDjaxLoading(e) {
-            wait = true;
-
-            loadingTimeout = setTimeout(function() {
-                if (!wait) {
-                    transitionIn();
-                }
-                wait = false;
-            }, 900);
-
+            transitionedOut = false;
             Nav.close();
             Overlay.close();
-
             transitionOut();
-
             Project.destroy();
         }
 
         function transitionOut() {
-            transitionedOut = false;
-
-            requestAnimationFrame(function() {
-                TweenMax.fromTo('.loader', .6, {
-                    left: '100%'
-                }, {
-                    left: 0,
-                    ease: Expo.easeInOut
-                });
-                TweenMax.to('.mask--page', .6, {
-                    left: 0,
-                    ease: Expo.easeInOut,
-                    onComplete: function() {
-                        transitionedOut = true;
-                        $window.trigger('djax:transitionOutEnd');
-                    }
-                });
+            TweenMax.fromTo('.loader', .6, {
+                left: '100%'
+            }, {
+                left: 0,
+                ease: Expo.easeInOut
+            });
+            TweenMax.to('.mask--page', .6, {
+                left: 0,
+                ease: Expo.easeInOut,
+                onComplete: function() {
+                    transitionedOut = true;
+                    $window.trigger('djax:transitionOutEnd');
+                }
             });
         }
 
         function transitionIn() {
-            requestAnimationFrame(function() {
-                TweenMax.to('.loader', .3, {
-                    opacity: 0,
-                    ease: Expo.easeInOut
-                });
-                TweenMax.fromTo('.loader', .6, {
-                    left: 0
-                }, {
-                    left: '-100%',
-                    ease: Expo.easeInOut
-                });
-                TweenMax.to('.mask--page', .6, {
-                    left: '100%',
-                    ease: Expo.easeInOut,
-                    onComplete: function() {
-                        $('.mask--page').css('left', '-100%');
-                        $('.loader').css('opacity', 1);
-                    }
-                });
+            TweenMax.to('.loader', .3, {
+                opacity: 0,
+                ease: Expo.easeInOut
+            });
+            TweenMax.fromTo('.loader', .6, {
+                left: 0
+            }, {
+                left: '-100%',
+                ease: Expo.easeInOut
+            });
+            TweenMax.to('.mask--page', .6, {
+                left: '100%',
+                ease: Expo.easeInOut,
+                onComplete: function() {
+                    $('.mask--page').css('left', '-100%');
+                    $('.loader').css('opacity', 1);
+                }
             });
 
             if (windowWidth > 740) {
@@ -21651,6 +21639,7 @@ if (!Date.now)
             function finishTransition() {
                 $(window).scrollLeft(0);
                 $(window).scrollTop(0);
+                transitionIn();
                 $body.attr('class', nobodyClass);
                 adminBarEditFix(curPostID, curPostEditString, curPostTax);
                 softInit();
@@ -21671,12 +21660,6 @@ if (!Date.now)
             if (window._gaq) {
                 _gaq.push(['_trackPageview']);
             }
-
-            if (!wait) {
-                transitionIn();
-            }
-
-            wait = false;
         }
 
         // here we change the link of the Edit button in the Admin Bar
@@ -21741,6 +21724,11 @@ if (!Date.now)
         function init() {
 
             $slider = $('.projects-slider');
+
+            if (typeof $slider.data('loaded') !== "undefined" && $slider.data('loaded') === true) {
+                return;
+            }
+
             $content = $('.project-slide__content');
             $prevTrigger = $('.vertical-title.prev');
             $nextTrigger = $('.vertical-title.next');
@@ -21816,6 +21804,8 @@ if (!Date.now)
                 bindEvents();
                 animateContentIn();
             });
+
+            $slider.data('loaded', true);
         }
 
         function onResize() {
@@ -22553,50 +22543,30 @@ if (!Date.now)
 
                 $('.navigation').hide();
 
-                //mixitup init without filtering
+                var layoutMode = 'flex';
+
+                if (isSafari) {
+                    layoutMode = '-webkit-flex';
+                }
+                if (isIE) {
+                    if ($('html').hasClass('is--ie-le10')) {
+                        layoutMode = 'block';
+                    } else {
+                        layoutMode = '-ms-flex';
+                    }
+                }
+
+                // mixitup init without filtering
                 $portfolio_container.mixItUp({
                     animation: {
-                        enable: false
+                        effects: 'fade'
                     },
                     selectors: {
                         filter: '.no-real-selector-for-filtering',
                         target: '.portfolio--project'
                     },
-                    callbacks: {
-                        onMixEnd: function(state) {
-                            // show the elements that must be shown
-                            state.$show.each(function() {
-                                var $that = $(this);
-
-                                TweenMax.to($(this), .3, {
-                                    opacity: 1,
-                                    onStart: function() {
-                                        isSafari ? $that.css('display', '-webkit-flex') : $that.css('display', 'flex');
-                                        if (isIE) {
-                                            if ($('html').hasClass('is--ie-le10')) {
-                                                $that.css('display', 'block');
-                                            } else {
-                                                $that.css('display', '-ms-flex');
-                                            }
-                                        } else {
-                                            $that.css('display', 'flex');
-                                        }
-                                    }
-                                });
-                            });
-
-                            // hide the elements that must be hidden
-                            state.$hide.each(function() {
-                                var $that = $(this);
-
-                                TweenMax.to($(this), .3, {
-                                    opacity: 0,
-                                    onComplete: function() {
-                                        $that.css('display', 'none');
-                                    }
-                                });
-                            })
-                        }
+                    layout: {
+                        display: layoutMode
                     }
                 });
 
@@ -22698,18 +22668,15 @@ if (!Date.now)
                             $('.navigation').hide().remove();
 
                             $result.imagesLoaded(function() {
-
-                                //$portfolio_container.append( $result );
-
                                 $portfolio_container.mixItUp('append', $result, {
                                     filter: filterBy
                                 });
 
-                                //next time the user filters we will know
+                                // next time the user filters we will know
                                 isFirstFilterClick = false;
                                 isLoadingProjects = false;
 
-                                Placeholder.update();
+                                Placeholder.update($result);
                             });
                         } else {
                             //something didn't quite make it - maybe there are no more posts (be optimistic about it)
@@ -22735,6 +22702,7 @@ if (!Date.now)
                 }
 
                 isLoadingProjects = true;
+                $('.preloader').css('opacity', 1);
 
                 var args = {
                     action: 'timber_load_next_projects',
@@ -22771,7 +22739,7 @@ if (!Date.now)
                                 });
                                 isLoadingProjects = false;
 
-                                Placeholder.update();
+                                Placeholder.update($result);
                             });
                         } else {
                             //we have failed
@@ -22786,6 +22754,8 @@ if (!Date.now)
 
                             //don't make isLoadingProjects true so we won't load any more projects
                         }
+
+                        $('.preloader').css('opacity', 0);
                     }
                 );
             },
@@ -23126,7 +23096,20 @@ if (!Date.now)
                 $current = $items.eq(current);
                 $next = $items.eq(next);
 
-                var mymid = $current.data('middle');
+                var mymid = $current.data('middle'),
+                    newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+
+                // if we are at either end of the filmstrip
+                // we may need to make sure we move the filmstrip in the right direction
+                if (e.which == 37 && newScrollX >= latestKnownScrollX) {
+                    $next = $items.eq(next - 1);
+                    newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+                }
+
+                if (e.which == 39 && newScrollX <= latestKnownScrollX) {
+                    $next = $items.eq(next + 1);
+                    newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+                }
 
                 TweenLite.to(window, 0.6, {
                     scrollTo: {
@@ -23298,13 +23281,11 @@ if (!Date.now)
                 selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
             TweenMax.to(selector, .3, {
-                opacity: 0,
-                onComplete: function() {
-                    $('.site-footer').css('display', 'none');
-                }
+                opacity: 0
             });
 
-            $('.site-footer, .site-sidebar').css('pointer-events', 'none');
+            $('.site-footer, .site-sidebar').css('pointer-events', 'none')
+            $('.site-footer').fadeOut();
 
             $('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
@@ -23388,13 +23369,11 @@ if (!Date.now)
 
             TweenMax.to(selector, .3, {
                 opacity: 1,
-                delay: .3,
-                onComplete: function() {
-                    $('.site-footer').css('display', 'block');
-                }
+                delay: .3
             });
 
-            $('.site-footer, .site-sidebar').css('pointer-events', 'auto');
+            $('.site-footer, .site-sidebar').css('pointer-events', 'auto')
+            $('.site-footer').fadeIn();
 
             $('.js-portfolio-item').addClass('no-transition');
 
@@ -23445,7 +23424,7 @@ if (!Date.now)
 
         function centerFilmToTarget($target) {
 
-            if ($('html').hasClass('is--touch, .is--ie-le10')) {
+            if (Modernizr.touchevents || $('html').hasClass('.is--ie-le10')) {
                 TweenLite.to('.site-content', 0, {
                     scrollTo: {
                         x: $target.data('middle') - $('.site-content').width() / 2
@@ -24058,17 +24037,30 @@ if (!Date.now)
             if ($('.woocommerce.archive').length) {
                 $film = $('.js-product-list');
                 $film.addClass('portfolio--filmstrip').addClass('portfolio--visible');
-                loadAllProjects();
+                //loadAllProducts();
             }
 
             betterWooThumbsNav();
+
+            //if there are not sufficient posts to have scroll - load the next page also (prepending)
+            var $last_child = $portfolio_container.children('.portfolio__item').last();
+            if (windowWidth - ($last_child.offset().left + $last_child.width()) > 0) {
+                loadNextProducts();
+            }
         }
 
         function setCurrent($current) {
             $('.product-list').find('.js-portfolio-item').removeClass('portfolio__item--active');
 
             $current.addClass('portfolio__item--active');
-            $('.portfolio__position').text($current.data('count') + 1 + ' of ' + $film.find('.js-portfolio-item').not('.portfolio__item--clone').length);
+            var total_products;
+
+            if (!empty($portfolio_container.data('totalposts'))) {
+                total_products = $portfolio_container.data('totalposts');
+            } else {
+                total_products = $film.find('.js-portfolio-item').not('.portfolio__item--clone').length;
+            }
+            $('.portfolio__position').text($current.data('count') + 1 + ' of ' + total_products);
         }
 
         function getMiddle($image) {
@@ -24133,7 +24125,7 @@ if (!Date.now)
         function prepare() {
 
             if (!$('.woocommerce.archive').length) {
-                //we are not in a single project so bail
+                //we are not in a single product so bail
                 return;
             }
 
@@ -24179,15 +24171,11 @@ if (!Date.now)
         }
 
 
-
-
-
-
-        function loadAllProjects() {
+        function loadAllProducts() {
             var offset = $portfolio_container.data('offset');
 
             if (globalDebug) {
-                console.log("Loading All Projects - AJAX Offset = " + offset);
+                console.log("Loading All Products - AJAX Offset = " + offset);
             }
 
             isLoadingProjects = true;
@@ -24210,10 +24198,10 @@ if (!Date.now)
 
                     if (response_data.success) {
                         if (globalDebug) {
-                            console.log("Loaded all projects");
+                            console.log("Loaded all products");
                         }
 
-                        var $result = $(response_data.data.posts).filter('li');
+                        var $result = $(response_data.data.posts).filter('.portfolio__item');
                         if (globalDebug) {
                             console.log("Adding new " + $result.length + " items to the DOM");
                         }
@@ -24245,19 +24233,20 @@ if (!Date.now)
             );
         }
 
-        function loadNextProjects() {
-            var offset = $portfolio_container.find('.portfolio--project').length;
+        function loadNextProducts() {
+            var offset = $portfolio_container.find('.portfolio__item').length;
 
             if (globalDebug) {
-                console.log("Loading More Projects - AJAX Offset = " + offset);
+                console.log("Loading More Products - AJAX Offset = " + offset);
             }
 
             isLoadingProjects = true;
 
             var args = {
-                action: 'timber_load_next_projects',
+                action: 'timber_load_next_products',
                 nonce: timber_ajax.nonce,
-                offset: offset
+                offset: offset,
+                posts_number: timber_ajax.posts_number
             };
 
             if (!empty($portfolio_container.data('taxonomy'))) {
@@ -24272,10 +24261,10 @@ if (!Date.now)
 
                     if (response_data.success) {
                         if (globalDebug) {
-                            console.log("Loaded next projects");
+                            console.log("Loaded next products");
                         }
 
-                        var $result = $(response_data.data.posts).filter('article');
+                        var $result = $(response_data.data.posts).filter('.portfolio__item');
 
                         if (globalDebug) {
                             console.log("Adding new " + $result.length + " items to the DOM");
@@ -24285,35 +24274,47 @@ if (!Date.now)
 
                             $portfolio_container.append($result);
 
-                            Placeholder.update();
+                            //Placeholder.update();
 
                             isLoadingProjects = false;
+
+                            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+
+                            setCurrent($first);
+
+                            resizeFilmstrip();
+
+                            prepare();
+
+                            onResize();
+
+                            $(window).trigger('scroll');
                         });
                     } else {
                         //we have failed
                         //it's time to call it a day
                         if (globalDebug) {
-                            console.log("It seems that there are no more projects to load");
+                            console.log("It seems that there are no more products to load");
                         }
 
                         $('.navigation').fadeOut();
 
-                        //don't make isLoadingProjects true so we won't load any more projects
+                        //don't make isLoadingProjects true so we won't load any more products
                     }
                 }
             );
         }
 
-        function maybeloadNextProjects() {
+        function maybeloadNextProducts() {
             if (!$portfolio_container.length || isLoadingProjects) {
                 return;
             }
 
-            var $lastChild = $portfolio_container.children('article').last();
+            var $lastChild = $portfolio_container.children('.portfolio__item').last();
 
-            //if the last child is in view then load more projects
+            //if the last child is in view then load more products
             if ($lastChild.is(':appeared')) {
-                loadNextProjects();
+                loadNextProducts();
             }
 
         }
@@ -24418,7 +24419,10 @@ if (!Date.now)
             resizeFilmstrip: resizeFilmstrip,
             betterWooThumbsNav: betterWooThumbsNav,
             checkCart: checkCart,
-            check_product_variations: check_product_variations
+            check_product_variations: check_product_variations,
+            loadAllProducts: loadAllProducts,
+            loadNextProducts: loadNextProducts,
+            maybeloadNextProducts: maybeloadNextProducts
         }
     })();
     // /* ====== ON DOCUMENT READY ====== */
@@ -24457,6 +24461,9 @@ if (!Date.now)
         niceScrollInit();
         sizeColumns();
 
+        $('html, body, *').unbind('mousewheel', vertToHorScroll);
+        horToVertScroll = false;
+
         if (windowWidth > 900 && Modernizr.touchevents) {
             HandleParentMenuItems.handle();
         }
@@ -24493,7 +24500,6 @@ if (!Date.now)
 
         Woocommerce.checkCart();
 
-
         $('.site-header, #page, .site-footer').css('opacity', 1);
 
         $(".pixcode--tabs").organicTabs();
@@ -24502,12 +24508,9 @@ if (!Date.now)
             $('#rating').hide().before('<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>');
         }
 
-        $('.touch .site-content').on('scroll', function() {
-            latestKnownScrollY = window.scrollY;
-            latestKnownScrollX = $(this).scrollLeft();
-
-            requestTick();
-        });
+        if (!Modernizr.touchevents && !horToVertScroll) {
+            bindVertToHorScroll();
+        }
     }
 
     // /* ====== ON WINDOW LOAD ====== */
@@ -24583,12 +24586,6 @@ if (!Date.now)
             var $item = $(item);
             $item.width($item.data('newWidth'));
         });
-
-        if (windowWidth > 740 && !horToVertScroll) {
-            bindVertToHorScroll();
-        } else {
-            $('html, body, *').unbind('mousewheel', vertToHorScroll);
-        }
     }
 
     function requestTick() {
@@ -24607,6 +24604,7 @@ if (!Date.now)
 
         if ($('.woocommerce.archive').length) {
             Woocommerce.getCurrent();
+            Woocommerce.maybeloadNextProducts();
         }
 
         ticking = false;
@@ -24623,20 +24621,25 @@ if (!Date.now)
     function eventHandlers() {
         $window.on('debouncedresize', onResize);
 
-        $window.on('scroll', function() {
+        var $container;
+        if (Modernizr.touchevents) {
+            $container = $('.site-content');
+        } else {
+            $container = $window;
+        }
 
-            latestKnownScrollY = $window.scrollTop();
-            latestKnownScrollX = $window.scrollLeft();
-
+        $container.on('scroll', function() {
+            latestKnownScrollY = $container.scrollTop();
+            latestKnownScrollX = $container.scrollLeft();
             requestTick();
         });
 
-        $(window).on('mousemove', function(e) {
+        $window.on('mousemove', function(e) {
             latestKnownMouseX = e.clientX;
             latestKnownMouseY = e.clientY;
         });
 
-        $(window).on('deviceorientation', function(e) {
+        $window.on('deviceorientation', function(e) {
             latestDeviceAlpha = e.originalEvent.alpha;
             latestDeviceBeta = e.originalEvent.beta;
             latestDeviceGamma = e.originalEvent.gamma;
@@ -24654,7 +24657,7 @@ if (!Date.now)
      */
 
     function browserSupport() {
-        $.support.touch = 'ontouchend' in document;
+        $.support.touch = Modernizr.touchevents;
         $.support.svg = (document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#BasicStructure", "1.1")) ? true : false;
         $.support.transform = getSupportedTransform();
 
@@ -24782,6 +24785,11 @@ if (!Date.now)
             }
 
             $last = $children.filter(':visible').last();
+
+            if (!$last.length) {
+                return;
+            }
+
             totalHeight = $last.offset().top - $item.offset().top + $last.outerHeight();
             totalWidth = $last.offset().left - $item.offset().left + $last.outerWidth();
 
@@ -24811,8 +24819,8 @@ if (!Date.now)
     function bindVertToHorScroll() {
         if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length) || $body.hasClass('single-proof_gallery') && !$html.hasClass('is--ie-le10')) {
             // html body are for ie
-            $('html, body, *').bind('mousewheel', vertToHorScroll);
 
+            $('html, body, *').bind('mousewheel', vertToHorScroll);
             horToVertScroll = true;
         }
     }

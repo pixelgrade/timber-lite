@@ -42,31 +42,36 @@ var Blog = (function() {
 					state.$show.each(function(){
 						var $that = $(this);
 
-						TweenMax.to($(this), .3 , { opacity: 1, onStart: function() {
-									isSafari ? $that.css('display', '-webkit-flex') :  $that.css('display', 'flex');
-									if (isIE) {
-										if ($('html').hasClass('is--ie-le10')) {
-											$that.css('display', 'block');
-										} else {
-											$that.css('display', '-ms-flex');
-										}
-									} else {
-										$that.css('display', 'flex');
-									}
+						TweenMax.to($(this), .3 , {
+							opacity: 1,
+							onStart: function() {
+								if (isSafari) {
+									$that.css('display', '-webkit-flex');
+									return;
 								}
+								if (isIE) {
+									if ($('html').hasClass('is--ie-le10')) {
+										$that.css('display', 'block');
+									} else {
+										$that.css('display', '-ms-flex');
+									}
+									return;
+								}
+								$that.css('display', 'flex');
 							}
-						);
+						});
 					});
 
 					// hide the elements that must be hidden
 					state.$hide.each(function(){
 						var $that = $(this);
 
-						TweenMax.to($(this), .3 , { opacity: 0, onComplete: function() {
-									$that.css('display', 'none');
-								}
+						TweenMax.to($(this), .3 , {
+							opacity: 0,
+							onComplete: function() {
+								$that.css('display', 'none');
 							}
-						);
+						});
 					})
 
 					if( isiele10 ){
@@ -79,7 +84,8 @@ var Blog = (function() {
 		bindEvents();
 
 		//if there are not sufficient posts to have scroll - load the next page also (prepending)
-		if ( $filmstrip_container.children('.filmstrip__item').last().offset().left == 0 ) {
+		var $last_child = $filmstrip_container.children('.filmstrip__item').last();
+		if ( windowWidth - ( $last_child.offset().left + $last_child.width() ) > 0 ) {
 			loadNextPosts();
 		}
 	}

@@ -313,7 +313,20 @@ var Project = (function() {
 			$current = $items.eq(current);
 			$next = $items.eq(next);
 
-			var mymid = $current.data('middle');
+			var mymid 		= $current.data('middle'),
+				newScrollX 	= $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+
+			// if we are at either end of the filmstrip
+			// we may need to make sure we move the filmstrip in the right direction
+			if (e.which == 37 && newScrollX >= latestKnownScrollX ) {
+				$next 		= $items.eq(next - 1);
+				newScrollX 	= $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+			}
+
+			if (e.which == 39 && newScrollX <= latestKnownScrollX ) {
+				$next 		= $items.eq(next + 1);
+				newScrollX 	= $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
+			}
 
 			TweenLite.to(window, 0.6, {
 				scrollTo: {
@@ -477,12 +490,10 @@ var Project = (function() {
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count')),
 			selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
 
-			TweenMax.to(selector, .3, { opacity: 0, onComplete: function() {
-				 $('.site-footer').css('display', 'none');
-			}
-		});
+		TweenMax.to(selector, .3, { opacity: 0 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'none');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'none')
+		$('.site-footer').fadeOut();
 
 		$('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
@@ -555,12 +566,10 @@ var Project = (function() {
 
 		$('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
 
-		TweenMax.to(selector, .3, { opacity: 1, delay: .3, onComplete: function() {
-				$('.site-footer').css('display', 'block');
-			}
-		});
+		TweenMax.to(selector, .3, { opacity: 1, delay: .3 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'auto');
+		$('.site-footer, .site-sidebar').css('pointer-events', 'auto')
+		$('.site-footer').fadeIn();
 
 		$('.js-portfolio-item').addClass('no-transition');
 
@@ -609,7 +618,7 @@ var Project = (function() {
 
 	function centerFilmToTarget($target) {
 
-		if ( $('html').hasClass('is--touch, .is--ie-le10') ) {
+		if ( Modernizr.touchevents || $('html').hasClass('.is--ie-le10') ) {
 			TweenLite.to('.site-content', 0, {
 				scrollTo: {
 					x: $target.data('middle') - $('.site-content').width() / 2

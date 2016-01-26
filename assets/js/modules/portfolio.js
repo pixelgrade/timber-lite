@@ -17,46 +17,30 @@ var Portfolio = (function() {
 
 		$('.navigation').hide();
 
-		//mixitup init without filtering
+		var layoutMode = 'flex';
+
+		if ( isSafari ) {
+			layoutMode = '-webkit-flex';
+		}
+		if ( isIE ) {
+			if ($('html').hasClass('is--ie-le10')) {
+				layoutMode = 'block';
+			} else {
+				layoutMode = '-ms-flex';
+			}
+		}
+
+		// mixitup init without filtering
 		$portfolio_container.mixItUp({
 			animation: {
-				enable: false
+				effects: 'fade'
 			},
 			selectors: {
 				filter: '.no-real-selector-for-filtering',
 				target: '.portfolio--project'
 			},
-			callbacks : {
-				onMixEnd: function (state) {
-					// show the elements that must be shown
-					state.$show.each(function(){
-						var $that = $(this);
-
-						TweenMax.to($(this), .3 , { opacity: 1, onStart: function() {
-							isSafari ? $that.css('display', '-webkit-flex') :  $that.css('display', 'flex');
-							if (isIE) {
-								if ($('html').hasClass('is--ie-le10')) {
-									$that.css('display', 'block');
-								} else {
-									$that.css('display', '-ms-flex');
-								}
-							} else {
-								$that.css('display', 'flex');
-							}
-						}});
-					});
-
-					// hide the elements that must be hidden
-					state.$hide.each(function(){
-						var $that = $(this);
-
-						TweenMax.to($(this), .3 , { opacity: 0, onComplete: function() {
-								$that.css('display', 'none');
-							}
-							}
-						);
-					})
-				}
+			layout: {
+				display: layoutMode
 			}
 		});
 
@@ -152,16 +136,13 @@ var Portfolio = (function() {
 					$('.navigation').hide().remove();
 
 					$result.imagesLoaded(function(){
-
-						//$portfolio_container.append( $result );
-
 						$portfolio_container.mixItUp( 'append', $result, {filter: filterBy} );
 
-						//next time the user filters we will know
+						// next time the user filters we will know
 						isFirstFilterClick = false;
 						isLoadingProjects = false;
 
-						Placeholder.update();
+						Placeholder.update($result);
 					});
 				} else {
 					//something didn't quite make it - maybe there are no more posts (be optimistic about it)
@@ -183,6 +164,7 @@ var Portfolio = (function() {
 		if (globalDebug) {console.log("Loading More Projects - AJAX Offset = " + offset);}
 
 		isLoadingProjects = true;
+		$('.preloader').css('opacity', 1);
 
 		var args = {
 			action : 'timber_load_next_projects',
@@ -203,7 +185,7 @@ var Portfolio = (function() {
 				if( response_data.success ){
 					if (globalDebug) {console.log("Loaded next projects");}
 
-					var $result = $( response_data.data.posts).filter('article');
+					var $result = $(response_data.data.posts).filter('article');
 
 					if (globalDebug) {console.log("Adding new "+$result.length+" items to the DOM");}
 
@@ -213,7 +195,7 @@ var Portfolio = (function() {
 						$portfolio_container.mixItUp( 'append', $result, {filter: filterBy} );
 						isLoadingProjects = false;
 
-						Placeholder.update();
+						Placeholder.update($result);
 					});
 				} else {
 					//we have failed
@@ -226,6 +208,8 @@ var Portfolio = (function() {
 
 					//don't make isLoadingProjects true so we won't load any more projects
 				}
+
+				$('.preloader').css('opacity', 0);
 			}
 		);
 	},
