@@ -645,6 +645,9 @@ function wupdates_add_purchase_code_field_JkElr( $themes ) {
 			</form>';
 	}
 	//finally put the markup after the theme tags
+	if ( ! isset( $themes[ $slug ]['tags'] ) ) {
+		$themes[ $slug ]['tags'] = '';
+	}
 	$themes[ $slug ]['tags'] .= $output;
 
 	return $themes;
