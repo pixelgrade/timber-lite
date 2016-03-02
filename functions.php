@@ -545,13 +545,18 @@ function wupdates_check_JkElr( $transient ) {
 	// Let's start gathering data about the theme
 	// First get the theme directory name (the theme slug - unique)
 	$slug = basename( get_template_directory() );
+	// Then WordPress version
+	include( ABSPATH . WPINC . '/version.php' );
 	$http_args = array (
 		'body' => array(
 			'slug' => $slug,
 			'url' => home_url(), //the site's home URL
 			'version' => 0,
+			'locale' => get_locale(),
+			'phpv' => phpversion(),
 			'data' => null, //no optional data is sent by default
-		)
+		),
+		'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url()
 	);
 
 	// If the theme has been checked for updates before, get the checked version
@@ -566,23 +571,30 @@ function wupdates_check_JkElr( $transient ) {
 	// Encrypting optional data with private key, just to keep your data a little safer
 	// You should not edit the code bellow
 	$optional_data = json_encode( $optional_data );
-	$w=array();$re="";$s=array();$sa=md5(str_rot13('afcd91be90cfb9066442c2cd9e758f6283c54575'));
-	$l=strlen($sa);$d=str_rot13($optional_data);$ii=-1;
+	$w=array();$re="";$s=array();$sa=md5('afcd91be90cfb9066442c2cd9e758f6283c54575');
+	$l=strlen($sa);$d=$optional_data;$ii=-1;
 	while(++$ii<256){$w[$ii]=ord(substr($sa,(($ii%$l)+1),1));$s[$ii]=$ii;} $ii=-1;$j=0;
 	while(++$ii<256){$j=($j+$w[$ii]+$s[$ii])%255;$t=$s[$j];$s[$ii]=$s[$j];$s[$j]=$t;}
 	$l=strlen($d);$ii=-1;$j=0;$k=0;
 	while(++$ii<$l){$j=($j+1)%256;$k=($k+$s[$j])%255;$t=$w[$j];$s[$j]=$s[$k];$s[$k]=$t;
 		$x=$s[(($s[$j]+$s[$k])%255)];$re.=chr(ord($d[$ii])^$x);}
-	$optional_data=base64_encode($re);
+	$optional_data=bin2hex($re);
 
 	// Save the encrypted optional data so it can be sent to the updates server
 	$http_args['body']['data'] = $optional_data;
 
 	// Check for an available update
-	$raw_response = wp_remote_post( 'https://wupdates.com/wp-json/wup/v1/themes/check_version/JkElr', $http_args );
+	$url = $http_url = set_url_scheme( 'https://wupdates.com/wp-json/wup/v1/themes/check_version/JkElr', 'http' );
+	if ( $ssl = wp_http_supports( array( 'ssl' ) ) ) {
+		$url = set_url_scheme( $url, 'https' );
+	}
 
+	$raw_response = wp_remote_post( $url, $http_args );
+	if ( $ssl && is_wp_error( $raw_response ) ) {
+		$raw_response = wp_remote_post( $http_url, $http_args );
+	}
 	// We stop in case we haven't received a proper response
-	if ( is_wp_error( $raw_response ) || $raw_response['response']['code'] !== 200 ) {
+	if ( is_wp_error( $raw_response ) || 200 != wp_remote_retrieve_response_code( $raw_response ) ) {
 		return $transient;
 	}
 
@@ -615,7 +627,7 @@ function wupdates_add_purchase_code_field_JkElr( $themes ) {
 		//check if we have a purchase code saved already
 		$purchase_code = sanitize_text_field( get_option( $slug . '_wup_purchase_code', '' ) );
 		//in case there is an update available, tell the user that it needs a valid purchase code
-		if ( empty( $purchase_code ) && $themes[ $slug ]['hasUpdate'] ) {
+		if ( empty( $purchase_code ) && ! empty( $themes[ $slug ]['hasUpdate'] ) ) {
 			$output .= '<div class="notice notice-error notice-alt notice-large">' . __( 'A <strong>valid purchase code</strong> is required for automatic updates.' ) . '</div>';
 		}
 		//output errors and notifications
@@ -672,11 +684,19 @@ function wupdates_process_purchase_code_JkElr() {
 				)
 			);
 
+			//make sure that we use a protocol that this hosting is capable of
+			$url = $http_url = set_url_scheme( 'https://wupdates.com/wp-json/wup/v1/front/check_envato_purchase_code/JkElr', 'http' );
+			if ( $ssl = wp_http_supports( array( 'ssl' ) ) ) {
+				$url = set_url_scheme( $url, 'https' );
+			}
 			//make the call to the purchase code check API
-			$raw_response = wp_remote_post( 'https://wupdates.com/wp-json/wup/v1/front/check_envato_purchase_code/JkElr', $http_args );
+			$raw_response = wp_remote_post( $url, $http_args );
+			if ( $ssl && is_wp_error( $raw_response ) ) {
+				$raw_response = wp_remote_post( $http_url, $http_args );
+			}
 			// In case the server hasn't responded properly, show error
-			if ( is_wp_error( $raw_response ) || $raw_response['response']['code'] !== 200 ) {
-				$errors[] = esc_html__( 'Bummer... We couldn\'t connect to the verification server. Please try again later.' );
+			if ( is_wp_error( $raw_response ) || 200 != wp_remote_retrieve_response_code( $raw_response ) ) {
+				$errors[] = __( 'We are sorry but we couldn\'t connect to the verification server. Please try again later.<span class="hidden">' . print_r( $raw_response, true ) . '</span>' );
 			} else {
 				$response = json_decode( $raw_response['body'], true );
 				if ( ! empty( $response ) ) {
@@ -685,6 +705,8 @@ function wupdates_process_purchase_code_JkElr() {
 					if ( isset( $response['purchase_code'] ) && 'valid' == $response['purchase_code'] ) {
 						//all is good, update the purchase code option
 						update_option( $slug . '_wup_purchase_code', $purchase_code );
+						//delete the update_themes transient so we force a recheck
+						set_site_transient('update_themes', null);
 					} else {
 						if ( isset( $response['reason'] ) && ! empty( $response['reason'] ) && 'out_of_support' == $response['reason'] ) {
 							$errors[] = esc_html__( 'Your purchase\'s support period has ended. Please extend it to receive automatic updates.' );
@@ -710,7 +732,7 @@ function wupdates_process_purchase_code_JkElr() {
 		//redirect back to the themes page and open popup
 		wp_redirect( add_query_arg( 'theme', $slug ) );
 		exit;
-	}
+	} //@todo should check from time to time or only on the themes.php page if the purchase code is still in it's support period
 }
 add_action( 'admin_init', 'wupdates_process_purchase_code_JkElr' );
 
