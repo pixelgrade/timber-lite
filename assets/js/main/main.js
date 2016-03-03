@@ -10,7 +10,7 @@ function init() {
     browserSize();
     scrollToTop();
 
-    if (!$html.hasClass('.is--ie')) {
+    if (!$html.hasClass('is--ie')) {
         djax.init();
     }
 
