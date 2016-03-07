@@ -84,6 +84,10 @@
                 }
             });
 
+            if ( $(element).is('[target^=_blank], [rel^=external]') ) {
+              exception = true;
+            }
+
             // If the link is one of the exceptions, return early so that
             // the link can be clicked and a full page load as normal
             if (exception) {
