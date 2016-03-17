@@ -107,6 +107,13 @@
 
 .toggle--mobile {
     display: none;
+    z-index: 999;
+    transition: opacity .2s ease-out;
+
+    .navigation--is-visible .mobile-header & {
+        opacity: 0;
+        pointer-events: none;
+    }
 
     @include query-below($lap) {
         display: block;
