@@ -163,7 +163,9 @@
 
 // Some special treatment for portfolio archive pages
 @include query-above($lap) {
-    .page-template-custom-portfolio-page, .tax-jetpack-portfolio-type {
+    .page-template-custom-portfolio-page,
+    .tax-jetpack-portfolio-type,
+    .tax-jetpack-portfolio-tag {
         .site-sidebar--archive {
             position: fixed;
             left: 7px;

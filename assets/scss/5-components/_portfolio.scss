@@ -306,7 +306,8 @@ img {
 }
 
 .page-template-custom-portfolio-page:not(.single-jetpack-portfolio),
-.tax-jetpack-portfolio-type {
+.tax-jetpack-portfolio-type,
+.tax-jetpack-portfolio-tag {
     .portfolio--grid {
         padding-bottom: 0;
         display: none;
@@ -335,6 +336,7 @@ img {
 }
 
 .page-template-portfolio-page,
+.tax-jetpack-portfolio-tag,
 .tax-jetpack-portfolio-type {
 
     .entry-header,
