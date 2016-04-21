@@ -70,7 +70,7 @@ if ( ! isset( $image_meta['height'] ) || empty( $image_meta['height'] ) ) {
 	 */
 	do_action( 'woocommerce_before_shop_loop_item' ); ?>
 
-	<a class="product__link" href="<?php the_permalink(); ?>">
+	<span class="product__link" >
 
 		<?php
 		/**
@@ -87,15 +87,15 @@ if ( ! isset( $image_meta['height'] ) || empty( $image_meta['height'] ) ) {
 
 			<?php
 			/**
-			 * woocommerce_shop_loop_item_title hook.
+			 * woocommerce_after_shop_loop_item_title hook.
 			 *
-			 * @hooked woocommerce_template_loop_product_title - 10
+			 * @hooked woocommerce_template_loop_rating - 5
+			 * @hooked woocommerce_template_loop_price - 10
 			 */
-			do_action( 'woocommerce_shop_loop_item_title' );
-			?>
+			do_action( 'woocommerce_after_shop_loop_item_title' ); ?>
 		</span>
 
-	</a>
+	</span>
 
 	<?php
 
