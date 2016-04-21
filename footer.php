@@ -50,6 +50,8 @@ if ( $timber_show_footer ) {
 	<button class="overlay__close  js-overlay-trigger"></button>
 </div><!-- .overlay -->
 
+<div class="navigation-overlay  js-navigation-overlay"></div>
+
 <div class="fullview">
     <div class="rsArrow rsArrowLeft">
         <div class="rsArrowIcn"></div>

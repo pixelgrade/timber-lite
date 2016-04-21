@@ -8,12 +8,13 @@ var Overlay = (function () {
 		$trigger = $('.js-overlay-trigger');
 		$overlay = $('.overlay');
 		isOpen   = false;
+
 		bindEvents();
 	}
 
 	function bindEvents() {
 		// Toggle navigation on click
-		$trigger.on('click', navToggle);
+		$(document).on('click', '.js-overlay-trigger', navToggle);
 
 		// Close menu with ESC key
 		$(document).on('keydown' ,function(e) {
