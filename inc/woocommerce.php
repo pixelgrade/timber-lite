@@ -47,3 +47,5 @@ remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 // remove rating from woocommerce_single_product_summary, it doesn't apply on our design.
 // if you really need this, override this file with a child theme
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+
+remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
