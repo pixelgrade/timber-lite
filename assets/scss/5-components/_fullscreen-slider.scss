@@ -363,7 +363,7 @@
 
 		&:not(.header--not-light) {
 
-			.bar--fixed, .site-header, .site-footer {
+			.bar--fixed, .site-header, .site-footer:not(.site-footer--single) {
 				background-color: transparent;
 				opacity: 1 !important;
 
