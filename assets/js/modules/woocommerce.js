@@ -372,7 +372,7 @@ var Woocommerce = (function() {
 						.find('.variations select:eq(0)')
 						.change();
 				}
-			}, 700);
+			}, 800);
 		}
 	}
 
