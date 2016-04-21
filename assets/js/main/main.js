@@ -143,22 +143,7 @@ function onResize() {
         Blog.calcIeFilmstrip();
     }
 
-    var $items = $('.site-content').find('.js-placeholder');
-
-    $items.each(function(i, item) {
-        var $item       = $(item),
-            width       = $item.data('width'),
-            height      = $item.data('height'),
-            newHeight   = $item.height(),
-            newWidth    = newHeight * width / height;
-
-            $item.data('newWidth', newWidth);
-    });
-
-    $items.each(function(i, item) {
-        var $item = $(item);
-        $item.width($item.data('newWidth'));
-    });
+    Placeholder.resize();
 }
 
 function requestTick() {
