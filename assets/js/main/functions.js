@@ -37,7 +37,7 @@ function getSupportedTransform() {
  * Handler for the back to top button
  */
 function scrollToTop() {
-	$('a[href="#top"]').click(function (event) {
+	$(document).on('click', 'a[href="#top"]', function (event) {
 		event.preventDefault();
 		event.stopPropagation();
 
