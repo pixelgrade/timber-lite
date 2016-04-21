@@ -237,8 +237,12 @@
             padding: 0.5em 1em;
         }
 
-        .navigation--is-visible & {
+        .navigation--is-visible &:not(.site-header--placeholder) {
             transform: translateZ(0);
+            // above navigation-overlay
+            // nasty but big z-indexes
+            // are all over this theme
+            z-index: 10001;
         }
     }
 
@@ -260,5 +264,29 @@
 
     @include query-above($lap) {
         display: none;
+    }
+}
+
+.navigation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    // nasty but big z-indexes
+    // are all over this theme
+    z-index: 10000;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #FFFFFF;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: .3s opacity ease-in-out;
+
+    .navigation--is-visible & {
+        opacity: .3;
+        pointer-events: auto;
     }
 }

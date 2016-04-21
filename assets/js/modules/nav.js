@@ -16,13 +16,7 @@ var Nav = (function() {
             }
         });
 
-        $('.site-header').on('click', function(e) {
-            e.stopPropagation();
-        });
-
-        $body.on('click', function() {
-            close();
-        });
+        $('.js-navigation-overlay').on('click', close);
     }
 
     function open() {
