@@ -22406,7 +22406,7 @@ if (!Date.now)
                     width = $item.data('width'),
                     height = $item.data('height'),
                     newHeight = $item.height(),
-                    newWidth = newHeight * $item.data('width') / $item.data('height'),
+                    newWidth = Math.round(newHeight * $item.data('width') / $item.data('height')),
                     $image = $(document.createElement('img')).css('opacity', 0);
 
                 $item.toggleClass('is--portrait', height > width);
@@ -22453,8 +22453,26 @@ if (!Date.now)
             });
         }
 
+        function onResize() {
+            $items.each(function(i, item) {
+                var $item = $(item),
+                    width = $item.data('width'),
+                    height = $item.data('height'),
+                    newHeight = $item.height(),
+                    newWidth = Math.round(newHeight * width / height);
+
+                $item.data('newWidth', newWidth);
+            });
+
+            $items.each(function(i, item) {
+                var $item = $(item);
+                $item.width($item.data('newWidth'));
+            });
+        }
+
         return {
-            update: update
+            update: update,
+            resize: onResize
         }
 
     })();
@@ -24571,22 +24589,7 @@ if (!Date.now)
             Blog.calcIeFilmstrip();
         }
 
-        var $items = $('.site-content').find('.js-placeholder');
-
-        $items.each(function(i, item) {
-            var $item = $(item),
-                width = $item.data('width'),
-                height = $item.data('height'),
-                newHeight = $item.height(),
-                newWidth = newHeight * width / height;
-
-            $item.data('newWidth', newWidth);
-        });
-
-        $items.each(function(i, item) {
-            var $item = $(item);
-            $item.width($item.data('newWidth'));
-        });
+        Placeholder.resize();
     }
 
     function requestTick() {
