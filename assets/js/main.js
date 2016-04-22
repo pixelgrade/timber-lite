@@ -23822,6 +23822,7 @@ if (!Date.now) Date.now = function () {
     }
 
     function maybeloadNextProducts() {
+      console.log('here');
       if (!$portfolio_container.length || isLoadingProjects) {
         return;
       }
@@ -23908,7 +23909,6 @@ if (!Date.now) Date.now = function () {
     }
 
     function check_product_variations() {
-
       var $variation_forms = $('.variations_form');
 
       if (typeof wc_add_to_cart_variation_params !== 'undefined') {
@@ -23917,7 +23917,7 @@ if (!Date.now) Date.now = function () {
           if ($.fn.hasOwnProperty('wc_variation_form')) {
             $variation_forms.wc_variation_form().find('.variations select:eq(0)').change();
           }
-        }, 800);
+        }, 1000);
       }
     }
 
