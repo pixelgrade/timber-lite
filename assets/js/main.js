@@ -306,7 +306,8 @@ var _gsScope = "undefined" != typeof module && module.exports && "undefined" != 
                             if (this._rawPrevTime = this._duration || !e || t || this._rawPrevTime === t ? t : r, 0 === t && n)
                                 for (s = this._first; s && 0 === s._startTime;) s._duration || (n = !1), s = s._next;
                             t = 0, this._initted || (h = !0)
-                        } else this._totalTime = this._time = this._rawPrevTime = t;
+                        }
+                    else this._totalTime = this._time = this._rawPrevTime = t;
                     if (this._time !== c && this._first || i || h) {
                         if (this._initted || (this._initted = !0), this._active || !this._paused && this._time !== c && t > 0 && (this._active = !0), 0 === c && this.vars.onStart && 0 !== this._time && (e || this._callback("onStart")), this._time >= c)
                             for (s = this._first; s && (a = s._next, !this._paused || m);)(s._active || s._startTime <= this._time && !s._paused && !s._gc) && (s._reversed ? s.render((s._dirty ? s.totalDuration() : s._totalDuration) - (t - s._startTime) * s._timeScale, e, i) : s.render((t - s._startTime) * s._timeScale, e, i)), s = a;
@@ -444,7 +445,8 @@ var _gsScope = "undefined" != typeof module && module.exports && "undefined" != 
                             if (this._rawPrevTime = f || !e || t || this._rawPrevTime === t ? t : r, 0 === t && n)
                                 for (s = this._first; s && 0 === s._startTime;) s._duration || (n = !1), s = s._next;
                             t = 0, this._initted || (_ = !0)
-                        } else 0 === f && 0 > v && (_ = !0), this._time = this._rawPrevTime = t, this._locked || (this._totalTime = t, 0 !== this._repeat && (u = f + this._repeatDelay, this._cycle = this._totalTime / u >> 0, 0 !== this._cycle && this._cycle === this._totalTime / u && this._cycle--, this._time = this._totalTime - this._cycle * u, this._yoyo && 0 !== (1 & this._cycle) && (this._time = f - this._time), this._time > f ? (this._time = f, t = f + 1e-4) : 0 > this._time ? this._time = t = 0 : t = this._time));
+                        }
+                    else 0 === f && 0 > v && (_ = !0), this._time = this._rawPrevTime = t, this._locked || (this._totalTime = t, 0 !== this._repeat && (u = f + this._repeatDelay, this._cycle = this._totalTime / u >> 0, 0 !== this._cycle && this._cycle === this._totalTime / u && this._cycle--, this._time = this._totalTime - this._cycle * u, this._yoyo && 0 !== (1 & this._cycle) && (this._time = f - this._time), this._time > f ? (this._time = f, t = f + 1e-4) : 0 > this._time ? this._time = t = 0 : t = this._time));
                     if (this._cycle !== T && !this._locked) {
                         var x = this._yoyo && 0 !== (1 & T),
                             w = x === (this._yoyo && 0 !== (1 & this._cycle)),
@@ -6639,7 +6641,8 @@ var _gsScope = "undefined" != typeof module && module.exports && "undefined" != 
                         width: 18,
                         backgroundPosition: "0px 0px"
                     }), a.opt.dblclickzoom && a.bind(a.win, "dblclick", a.doZoom), e.cantouch && a.opt.gesturezoom && (a.ongesturezoom = function(b) {
-                        1.5 < b.scale && a.doZoomIn(b);.8 > b.scale && a.doZoomOut(b);
+                        1.5 < b.scale && a.doZoomIn(b);
+                        .8 > b.scale && a.doZoomOut(b);
                         return a.cancelEvent(b)
                     }, a.bind(a.win, "gestureend", a.ongesturezoom)));
                     a.railh = !1;
@@ -11044,7 +11047,8 @@ if (!Date.now)
                             e._t2 = !1;
                             e.dragSuccess = !1;
                             return
-                        } else e.dragSuccess = !0;
+                        }
+                    else e.dragSuccess = !0;
                     e._t2 = !1;
                     e._z2 = "";
                     var r = e.st.minSlideOffset;
@@ -11315,7 +11319,8 @@ if (!Date.now)
                         this._p1.css(this._g + this._u1, "0ms");
                         b !== f && this._p3(f)
                     }
-                } else 20 < this._m ? this._m = 10 : this._m++
+                }
+            else 20 < this._m ? this._m = 10 : this._m++
         },
         _l4: function() {
             var b = window.getComputedStyle(this._p1.get(0), null).getPropertyValue(this._g + "transform").replace(/^matrix\(/i, "").split(/, |\)$/g),
@@ -19100,7 +19105,11 @@ if (!Date.now)
                         };
                     }
                 }
-                d.push(["C", (-p[0].x + 6 * p[1].x + p[2].x) / 6, (-p[0].y + 6 * p[1].y + p[2].y) / 6, (p[1].x + 6 * p[2].x - p[3].x) / 6, (p[1].y + 6 * p[2].y - p[3].y) / 6,
+                d.push(["C",
+                    (-p[0].x + 6 * p[1].x + p[2].x) / 6,
+                    (-p[0].y + 6 * p[1].y + p[2].y) / 6,
+                    (p[1].x + 6 * p[2].x - p[3].x) / 6,
+                    (p[1].y + 6 * p[2].y - p[3].y) / 6,
                     p[2].x,
                     p[2].y
                 ]);
