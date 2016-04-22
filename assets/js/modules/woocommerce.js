@@ -26,6 +26,12 @@ var Woocommerce = (function() {
 		if ( windowWidth - ( $last_child.offset().left + $last_child.width() ) > 0 ) {
 			loadNextProducts();
 		}
+
+        resizeFilmstrip();
+        prepare();
+
+		var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+		setCurrent($first);
 	}
 
 	function setCurrent($current) {
@@ -114,9 +120,6 @@ var Woocommerce = (function() {
 
 		getMiddlePoints();
 		getReferenceBounds();
-
-		var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-		setCurrent($first);
 	}
 
 	// loop through each portfolio item and find the one closest to center
@@ -189,17 +192,13 @@ var Woocommerce = (function() {
 
 						isLoadingProjects = false;
 
-						var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-
-						setCurrent($first);
-
 						resizeFilmstrip();
 
 						prepare();
 
 						onResize();
 
-						$(window ).trigger('scroll');
+						getCurrent();
 					});
 				}
 			}
@@ -245,17 +244,14 @@ var Woocommerce = (function() {
 
 						isLoadingProjects = false;
 
-						var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-
-						setCurrent($first);
-
 						resizeFilmstrip();
 
 						prepare();
 
 						onResize();
 
-						$(window ).trigger('scroll');
+						getCurrent();
+
 					});
 				} else {
 					//we have failed

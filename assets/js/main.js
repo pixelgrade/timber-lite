@@ -21109,7 +21109,6 @@ if (!Date.now) Date.now = function () {
     function djaxTransition($new) {
       var $old = this;
       $('html, body, *').unbind('mousewheel', vertToHorScroll);
-      $('.touch .site-content').unbind('scroll');
 
       if (transitionedOut) {
         $old.replaceWith($new);
@@ -21188,6 +21187,9 @@ if (!Date.now) Date.now = function () {
         $(window).scrollTop(0);
         transitionIn();
         $body.attr('class', nobodyClass);
+        if (Modernizr.touchevents && isFilmstrip()) {
+          $('.site-content').on('scroll', onScroll);
+        }
         adminBarEditFix(curPostID, curPostEditString, curPostTax);
         softInit();
         $('body').trigger('post-load');
@@ -23571,6 +23573,12 @@ if (!Date.now) Date.now = function () {
       if (windowWidth - ($last_child.offset().left + $last_child.width()) > 0) {
         loadNextProducts();
       }
+
+      resizeFilmstrip();
+      prepare();
+
+      var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+      setCurrent($first);
     }
 
     function setCurrent($current) {
@@ -23659,9 +23667,6 @@ if (!Date.now) Date.now = function () {
 
       getMiddlePoints();
       getReferenceBounds();
-
-      var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-      setCurrent($first);
     }
 
     // loop through each portfolio item and find the one closest to center
@@ -23739,17 +23744,13 @@ if (!Date.now) Date.now = function () {
             //Placeholder.update();
             isLoadingProjects = false;
 
-            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-
-            setCurrent($first);
-
             resizeFilmstrip();
 
             prepare();
 
             onResize();
 
-            $(window).trigger('scroll');
+            getCurrent();
           });
         }
       });
@@ -23797,17 +23798,14 @@ if (!Date.now) Date.now = function () {
             //Placeholder.update();
             isLoadingProjects = false;
 
-            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-
-            setCurrent($first);
-
             resizeFilmstrip();
 
             prepare();
 
             onResize();
 
-            $(window).trigger('scroll');
+            getCurrent();
+
           });
         } else {
           //we have failed
@@ -24001,8 +23999,6 @@ if (!Date.now) Date.now = function () {
 
     if ($('.woocommerce.archive').length) {
       Woocommerce.init();
-      Woocommerce.resizeFilmstrip();
-      Woocommerce.prepare();
     }
 
     if ($('.woocommerce.single-product').length) {
@@ -24114,21 +24110,21 @@ if (!Date.now) Date.now = function () {
     }
   }
 
+  function onScroll(e) {
+    latestKnownScrollY = $(this).scrollTop();
+    latestKnownScrollX = $(this).scrollLeft();
+    requestTick();
+  }
+
+
   function eventHandlers() {
     $window.on('debouncedresize', onResize);
 
-    var $container;
-    if (Modernizr.touchevents && $('.portfolio--filmstrip, .filmstrip').length) {
-      $container = $('.site-content');
-    } else {
-      $container = $window;
-    }
+    $window.on('scroll', onScroll);
 
-    $container.on('scroll', function () {
-      latestKnownScrollY = $container.scrollTop();
-      latestKnownScrollX = $container.scrollLeft();
-      requestTick();
-    });
+    if (Modernizr.touchevents && isFilmstrip()) {
+      $('.site-content').on('scroll', onScroll);
+    }
 
     $window.on('mousemove', function (e) {
       latestKnownMouseX = e.clientX;
@@ -24307,8 +24303,12 @@ if (!Date.now) Date.now = function () {
     }
   }
 
+  function isFilmstrip() {
+    return $body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length || $body.hasClass('single-proof_gallery');
+  }
+
   function bindVertToHorScroll() {
-    if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length) || $body.hasClass('single-proof_gallery') && !$html.hasClass('is--ie-le10')) {
+    if (isFilmstrip() && !$html.hasClass('is--ie-le10')) {
       // html body are for ie
       $('html, body, *').bind('mousewheel', vertToHorScroll);
       horToVertScroll = true;

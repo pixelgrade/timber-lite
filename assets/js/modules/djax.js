@@ -34,7 +34,6 @@ var djax = (function() {
     function djaxTransition($new) {
         var $old = this;
         $('html, body, *').unbind('mousewheel', vertToHorScroll);
-        $('.touch .site-content').unbind('scroll');
 
         if (transitionedOut) {
             $old.replaceWith($new);
@@ -114,6 +113,9 @@ var djax = (function() {
             $(window).scrollTop(0);
             transitionIn();
             $body.attr('class', nobodyClass);
+            if ( Modernizr.touchevents && isFilmstrip() ) {
+                $('.site-content').on('scroll', onScroll);
+            }
             adminBarEditFix(curPostID, curPostEditString, curPostTax);
             softInit();
             $('body').trigger('post-load');
