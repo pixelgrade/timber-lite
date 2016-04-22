@@ -12,10 +12,16 @@
 }
 
 .nav--social {
-
+    //
     @include query-below($lap) {
-        float: left;
+        text-align: left;
+
+        .menu-item {
+            display: inline-block;
+        }
     }
+
+
 
     .menu-item:not(.menu-item-language) {
         overflow: hidden;
@@ -91,6 +97,7 @@
             &[href*="leanpub"]:before       {content: $fa-var-leanpub;}
             &[href*="renren"]:before        {content: $fa-var-renren;}
             &[href*="twitch.tv"]:before     {content: $fa-var-twitch;}
+            &[href*="500px.com"]:before     {content: $fa-var-500px;}
         }
     }
 

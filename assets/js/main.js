@@ -24635,7 +24635,7 @@ if (!Date.now)
         $window.on('debouncedresize', onResize);
 
         var $container;
-        if (Modernizr.touchevents) {
+        if (Modernizr.touchevents && $('.portfolio--filmstrip, .filmstrip').length) {
             $container = $('.site-content');
         } else {
             $container = $window;
