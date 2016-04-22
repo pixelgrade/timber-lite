@@ -60,7 +60,6 @@
             flex-direction: column;
             margin-right: 0;
             margin-bottom: 52px;
-            opacity: 0;
 
             @include query-below($lap) {
                 width: auto;

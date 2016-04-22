@@ -20816,6 +20816,9 @@ if (!Date.now) Date.now = function () {
         },
         callbacks: {
           onMixEnd: function (state) {
+            TweenMax.to($(this), .3, {
+              opacity: 1
+            });
             if (isiele10) {
               calcIEFilmstrip();
             }
