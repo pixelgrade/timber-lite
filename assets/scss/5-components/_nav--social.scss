@@ -12,10 +12,16 @@
 }
 
 .nav--social {
-
+    //
     @include query-below($lap) {
-        float: left;
+        text-align: left;
+
+        .menu-item {
+            display: inline-block;
+        }
     }
+
+
 
     .menu-item:not(.menu-item-language) {
         overflow: hidden;
