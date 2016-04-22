@@ -20793,6 +20793,15 @@ if (!Date.now) Date.now = function () {
         calcIEFilmstrip();
       }
 
+      var layoutMode = 'flex';
+
+      if (isSafari) {
+        layoutMode = '-webkit-flex';
+      }
+      if ($('html').hasClass('is--ie-le10')) {
+        layoutMode = 'block';
+      }
+
       //mixitup init without filtering
       $filmstrip_container.mixItUp({
         animation: {
@@ -20802,44 +20811,11 @@ if (!Date.now) Date.now = function () {
           filter: '.no-real-selector-for-filtering',
           target: '.filmstrip__item'
         },
+        layout: {
+          display: layoutMode,
+        },
         callbacks: {
           onMixEnd: function (state) {
-            // show the elements that must be shown
-            state.$show.each(function () {
-              var $that = $(this);
-
-              TweenMax.to($(this), .3, {
-                opacity: 1,
-                onStart: function () {
-                  if (isSafari) {
-                    $that.css('display', '-webkit-flex');
-                    return;
-                  }
-                  if (isIE) {
-                    if ($('html').hasClass('is--ie-le10')) {
-                      $that.css('display', 'block');
-                    } else {
-                      $that.css('display', '-ms-flex');
-                    }
-                    return;
-                  }
-                  $that.css('display', 'flex');
-                }
-              });
-            });
-
-            // hide the elements that must be hidden
-            state.$hide.each(function () {
-              var $that = $(this);
-
-              TweenMax.to($(this), .3, {
-                opacity: 0,
-                onComplete: function () {
-                  $that.css('display', 'none');
-                }
-              });
-            })
-
             if (isiele10) {
               calcIEFilmstrip();
             }
@@ -22093,12 +22069,8 @@ if (!Date.now) Date.now = function () {
         if (isSafari) {
           layoutMode = '-webkit-flex';
         }
-        if (isIE) {
-          if ($('html').hasClass('is--ie-le10')) {
-            layoutMode = 'block';
-          } else {
-            layoutMode = '-ms-flex';
-          }
+        if ($('html').hasClass('is--ie-le10')) {
+          layoutMode = 'block';
         }
 
         // mixitup init without filtering
@@ -22111,7 +22083,14 @@ if (!Date.now) Date.now = function () {
             target: '.portfolio--project'
           },
           layout: {
-            display: layoutMode
+            display: layoutMode,
+          },
+          callbacks: {
+            onMixEnd: function (state) {
+              if (isiele10) {
+                calcIEFilmstrip();
+              }
+            }
           }
         });
 

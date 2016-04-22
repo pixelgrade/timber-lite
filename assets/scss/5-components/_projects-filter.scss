@@ -10,6 +10,10 @@
 		}
 	}
 
+	.is--ie &.is-open .filter__text {
+		opacity: 1;
+	}
+
 	@include query-below($lap) {
 		display: none;
 	}
@@ -62,6 +66,10 @@
 
 	text-transform: none;
 	color: $hoverColour;
+
+	.is--ie & {
+		opacity: 0;
+	}
 }
 
 .filter__list {
