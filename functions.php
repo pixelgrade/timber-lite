@@ -178,12 +178,30 @@ function timber_scripts_styles() {
 
 	$theme_data = wp_get_theme();
 
+	$dependencies = array( 'jquery', 'wp-mediaelement' );
+
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
 	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'wp-mediaelement' ), $theme_data->get( 'Version' ) );
 
-	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', array(
-		'jquery', 'wp-mediaelement'
-	), $theme_data->get( 'Version' ), true );
+
+	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
+	if ( ! function_exists( 'is_plugin_active' ) ) {
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	}
+
+	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
+		$woo_asssets_url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $woo_asssets_url . 'css/prettyPhoto.css' );
+		wp_enqueue_script( 'prettyPhoto-init', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
+		wp_enqueue_script( 'prettyPhoto', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
+
+		$dependencies[] = 'wp-util';
+	}
+
+	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', $dependencies, $theme_data->get( 'Version' ), true );
+	
 	// Localize the script with new data
 	$translation_array = array
 	(
@@ -230,20 +248,6 @@ function timber_scripts_styles() {
 				$timber_show_footer = false;
 			}
 		}
-	}
-
-	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
-	if ( ! function_exists( 'is_plugin_active' ) ) {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	}
-
-	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
-		$woo_asssets_url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $woo_asssets_url . 'css/prettyPhoto.css' );
-		wp_enqueue_script( 'prettyPhoto-init', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
-		wp_enqueue_script( 'prettyPhoto', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
 	}
 
 	// if jetpack's carousel is enabled, enqueue the scripts in root

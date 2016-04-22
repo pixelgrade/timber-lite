@@ -75,4 +75,7 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	<?php do_action( 'woocommerce_after_variations_form' ); ?>
 </form>
 
-<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
+<?php do_action( 'woocommerce_after_add_to_cart_form' );
+
+
+wc_get_template( 'single-product/add-to-cart/variation.php' ); ?>

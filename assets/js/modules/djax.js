@@ -120,9 +120,12 @@ var djax = (function() {
             softInit();
             $('body').trigger('post-load');
 
-            if( $('.woocommerce.single-product').length ) {
-                Woocommerce.check_product_variations();
-            }
+            setTimeout(function(){
+                if( $('.woocommerce.single-product').length ) {
+                    Woocommerce.check_product_variations();
+                }
+            }, 1000);
+
         }
 
         if (transitionedOut) {
