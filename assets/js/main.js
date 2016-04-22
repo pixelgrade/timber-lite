@@ -24334,7 +24334,6 @@ if (!Date.now)
         }
 
         function maybeloadNextProducts() {
-            console.log('here');
             if (!$portfolio_container.length || isLoadingProjects) {
                 return;
             }
