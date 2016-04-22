@@ -63,8 +63,6 @@ function softInit() {
 
     if( $('.woocommerce.archive').length ) {
         Woocommerce.init();
-        Woocommerce.resizeFilmstrip();
-        Woocommerce.prepare();
     }
 
     if( $('.woocommerce.single-product').length ) {
@@ -176,21 +174,21 @@ function updateHeader() {
     }
 }
 
+function onScroll(e) {
+    latestKnownScrollY = $(this).scrollTop();
+    latestKnownScrollX = $(this).scrollLeft();
+    requestTick();
+}
+
+
 function eventHandlers() {
     $window.on('debouncedresize', onResize);
 
-    var $container;
-    if ( Modernizr.touchevents && $('.portfolio--filmstrip, .filmstrip').length ) {
-        $container = $('.site-content');
-    } else {
-        $container = $window;
-    }
+    $window.on('scroll', onScroll);
 
-    $container.on('scroll', function () {
-        latestKnownScrollY = $container.scrollTop();
-        latestKnownScrollX = $container.scrollLeft();
-        requestTick();
-    });
+    if ( Modernizr.touchevents && isFilmstrip() ) {
+        $('.site-content').on('scroll', onScroll);
+    }
 
     $window.on('mousemove', function(e) {
         latestKnownMouseX   = e.clientX;

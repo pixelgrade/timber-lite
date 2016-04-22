@@ -21252,6 +21252,15 @@ if (!Date.now)
                 calcIEFilmstrip();
             }
 
+            var layoutMode = 'flex';
+
+            if (isSafari) {
+                layoutMode = '-webkit-flex';
+            }
+            if ($('html').hasClass('is--ie-le10')) {
+                layoutMode = 'block';
+            }
+
             //mixitup init without filtering
             $filmstrip_container.mixItUp({
                 animation: {
@@ -21261,44 +21270,11 @@ if (!Date.now)
                     filter: '.no-real-selector-for-filtering',
                     target: '.filmstrip__item'
                 },
+                layout: {
+                    display: layoutMode,
+                },
                 callbacks: {
                     onMixEnd: function(state) {
-                        // show the elements that must be shown
-                        state.$show.each(function() {
-                            var $that = $(this);
-
-                            TweenMax.to($(this), .3, {
-                                opacity: 1,
-                                onStart: function() {
-                                    if (isSafari) {
-                                        $that.css('display', '-webkit-flex');
-                                        return;
-                                    }
-                                    if (isIE) {
-                                        if ($('html').hasClass('is--ie-le10')) {
-                                            $that.css('display', 'block');
-                                        } else {
-                                            $that.css('display', '-ms-flex');
-                                        }
-                                        return;
-                                    }
-                                    $that.css('display', 'flex');
-                                }
-                            });
-                        });
-
-                        // hide the elements that must be hidden
-                        state.$hide.each(function() {
-                            var $that = $(this);
-
-                            TweenMax.to($(this), .3, {
-                                opacity: 0,
-                                onComplete: function() {
-                                    $that.css('display', 'none');
-                                }
-                            });
-                        })
-
                         if (isiele10) {
                             calcIEFilmstrip();
                         }
@@ -21574,7 +21550,6 @@ if (!Date.now)
         function djaxTransition($new) {
             var $old = this;
             $('html, body, *').unbind('mousewheel', vertToHorScroll);
-            $('.touch .site-content').unbind('scroll');
 
             if (transitionedOut) {
                 $old.replaceWith($new);
@@ -21654,6 +21629,9 @@ if (!Date.now)
                 $(window).scrollTop(0);
                 transitionIn();
                 $body.attr('class', nobodyClass);
+                if (Modernizr.touchevents && isFilmstrip()) {
+                    $('.site-content').on('scroll', onScroll);
+                }
                 adminBarEditFix(curPostID, curPostEditString, curPostTax);
                 softInit();
                 $('body').trigger('post-load');
@@ -22576,12 +22554,8 @@ if (!Date.now)
                 if (isSafari) {
                     layoutMode = '-webkit-flex';
                 }
-                if (isIE) {
-                    if ($('html').hasClass('is--ie-le10')) {
-                        layoutMode = 'block';
-                    } else {
-                        layoutMode = '-ms-flex';
-                    }
+                if ($('html').hasClass('is--ie-le10')) {
+                    layoutMode = 'block';
                 }
 
                 // mixitup init without filtering
@@ -22594,7 +22568,14 @@ if (!Date.now)
                         target: '.portfolio--project'
                     },
                     layout: {
-                        display: layoutMode
+                        display: layoutMode,
+                    },
+                    callbacks: {
+                        onMixEnd: function(state) {
+                            if (isiele10) {
+                                calcIEFilmstrip();
+                            }
+                        }
                     }
                 });
 
@@ -24075,6 +24056,12 @@ if (!Date.now)
             if (windowWidth - ($last_child.offset().left + $last_child.width()) > 0) {
                 loadNextProducts();
             }
+
+            resizeFilmstrip();
+            prepare();
+
+            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+            setCurrent($first);
         }
 
         function setCurrent($current) {
@@ -24163,9 +24150,6 @@ if (!Date.now)
 
             getMiddlePoints();
             getReferenceBounds();
-
-            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-            setCurrent($first);
         }
 
         // loop through each portfolio item and find the one closest to center
@@ -24244,17 +24228,13 @@ if (!Date.now)
 
                             isLoadingProjects = false;
 
-                            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-
-                            setCurrent($first);
-
                             resizeFilmstrip();
 
                             prepare();
 
                             onResize();
 
-                            $(window).trigger('scroll');
+                            getCurrent();
                         });
                     }
                 }
@@ -24306,17 +24286,14 @@ if (!Date.now)
 
                             isLoadingProjects = false;
 
-                            var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
-
-                            setCurrent($first);
-
                             resizeFilmstrip();
 
                             prepare();
 
                             onResize();
 
-                            $(window).trigger('scroll');
+                            getCurrent();
+
                         });
                     } else {
                         //we have failed
@@ -24334,6 +24311,7 @@ if (!Date.now)
         }
 
         function maybeloadNextProducts() {
+            console.log('here');
             if (!$portfolio_container.length || isLoadingProjects) {
                 return;
             }
@@ -24517,8 +24495,6 @@ if (!Date.now)
 
         if ($('.woocommerce.archive').length) {
             Woocommerce.init();
-            Woocommerce.resizeFilmstrip();
-            Woocommerce.prepare();
         }
 
         if ($('.woocommerce.single-product').length) {
@@ -24630,21 +24606,21 @@ if (!Date.now)
         }
     }
 
+    function onScroll(e) {
+        latestKnownScrollY = $(this).scrollTop();
+        latestKnownScrollX = $(this).scrollLeft();
+        requestTick();
+    }
+
+
     function eventHandlers() {
         $window.on('debouncedresize', onResize);
 
-        var $container;
-        if (Modernizr.touchevents && $('.portfolio--filmstrip, .filmstrip').length) {
-            $container = $('.site-content');
-        } else {
-            $container = $window;
-        }
+        $window.on('scroll', onScroll);
 
-        $container.on('scroll', function() {
-            latestKnownScrollY = $container.scrollTop();
-            latestKnownScrollX = $container.scrollLeft();
-            requestTick();
-        });
+        if (Modernizr.touchevents && isFilmstrip()) {
+            $('.site-content').on('scroll', onScroll);
+        }
 
         $window.on('mousemove', function(e) {
             latestKnownMouseX = e.clientX;
@@ -24828,10 +24804,13 @@ if (!Date.now)
         }
     }
 
-    function bindVertToHorScroll() {
-        if (($body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length) || $body.hasClass('single-proof_gallery') && !$html.hasClass('is--ie-le10')) {
-            // html body are for ie
+    function isFilmstrip() {
+        return $body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length || $body.hasClass('single-proof_gallery');
+    }
 
+    function bindVertToHorScroll() {
+        if (isFilmstrip() && !$html.hasClass('is--ie-le10')) {
+            // html body are for ie
             $('html, body, *').bind('mousewheel', vertToHorScroll);
             horToVertScroll = true;
         }

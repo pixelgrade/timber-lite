@@ -165,17 +165,19 @@ function checkProfileImageWidget() {
 	}
 }
 
-function bindVertToHorScroll() {
-	if ( ( $body.hasClass('blog')
-		|| $body.hasClass('project_layout-filmstrip')
-		|| $body.hasClass('project_layout-thumbnails')
-		|| $('.woocommerce.archive').length )
-		|| $body.hasClass('single-proof_gallery')
-		&& ! $html.hasClass('is--ie-le10') ) {
-		// html body are for ie
+function isFilmstrip() {
+    return $body.hasClass('blog')
+        || $body.hasClass('project_layout-filmstrip')
+        || $body.hasClass('project_layout-thumbnails')
+        || $('.woocommerce.archive').length
+        || $body.hasClass('single-proof_gallery');
+}
 
-			$('html, body, *').bind('mousewheel',  vertToHorScroll);
-			horToVertScroll = true;
+function bindVertToHorScroll() {
+	if ( isFilmstrip() && ! $html.hasClass('is--ie-le10') ) {
+		// html body are for ie
+		$('html, body, *').bind('mousewheel',  vertToHorScroll);
+		horToVertScroll = true;
 	}
 }
 

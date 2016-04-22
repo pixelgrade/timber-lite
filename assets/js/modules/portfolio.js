@@ -19,15 +19,9 @@ var Portfolio = (function() {
 
 		var layoutMode = 'flex';
 
-		if ( isSafari ) {
-			layoutMode = '-webkit-flex';
-		}
-		if ( isIE ) {
-			if ($('html').hasClass('is--ie-le10')) {
-				layoutMode = 'block';
-			} else {
-				layoutMode = '-ms-flex';
-			}
+		if ( isSafari ) { layoutMode = '-webkit-flex'; }
+		if ($('html').hasClass('is--ie-le10')) {
+			layoutMode = 'block';
 		}
 
 		// mixitup init without filtering
@@ -40,7 +34,14 @@ var Portfolio = (function() {
 				target: '.portfolio--project'
 			},
 			layout: {
-				display: layoutMode
+				display: layoutMode,
+			},
+			callbacks: {
+				onMixEnd: function (state) {
+					if (isiele10) {
+						calcIEFilmstrip();
+					}
+				}
 			}
 		});
 
