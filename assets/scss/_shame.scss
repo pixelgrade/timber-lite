@@ -126,7 +126,7 @@ html.has--nicescroll {
 .single-jetpack-portfolio .site,
 .jetpack-portfolio .site,
 .single-proof_gallery .site,
-.woocommerce .site {
+.woocommerce:not(.single) .site {
     @extend %display--flex;
     flex-direction: column;
     -webkit-flex-direction: column;
