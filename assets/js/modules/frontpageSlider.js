@@ -343,7 +343,6 @@ var frontpageSlider = (function() {
                 $nextTitle.remove();
                 $content.remove();
                 $content = $clone;
-                $content.djax('.djax-updatable', [], djax.transition);
             }});
 
         $clone.find('.project-slide__title h1').text($slide.data('title'));
