@@ -181,9 +181,8 @@ function bindVertToHorScroll() {
 	}
 }
 
-function vertToHorScroll (event, delta) {
-	// this.scrollLeft -= (delta * 30);
-	if ($('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length) {
+function vertToHorScroll(event, delta) {
+	if ( $('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length ) {
 		this.scrollLeft -= (delta * event.deltaFactor); // delta for macos
 		event.preventDefault();
 	}

@@ -110,6 +110,8 @@ $window.load(function () {
             }
         });
     });
+
+    loop();
 });
 
 // /* ====== ON RESIZE ====== */
@@ -144,28 +146,6 @@ function onResize() {
     Placeholder.resize();
 }
 
-function requestTick() {
-	if (!ticking) {
-		requestAnimationFrame(update);
-	}
-	ticking = true;
-}
-
-function update() {
-
-	Project.getCurrent();
-	Portfolio.maybeloadNextProjects();
-	Blog.maybeLoadNextPosts();
-    updateHeader();
-
-    if( $('.woocommerce.archive').length ) {
-        Woocommerce.getCurrent();
-        Woocommerce.maybeloadNextProducts();
-    }
-
-	ticking = false;
-}
-
 function updateHeader() {
     if ($('.page-has-featured-image').length && latestKnownScrollY > windowHeight - 62) {
         $('body').addClass('header--not-light');
@@ -175,9 +155,25 @@ function updateHeader() {
 }
 
 function onScroll(e) {
-    latestKnownScrollY = $(this).scrollTop();
-    latestKnownScrollX = $(this).scrollLeft();
-    requestTick();
+    if ( $('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length ) {
+        latestKnownScrollX = $(this).scrollLeft();
+    } else {
+        latestKnownScrollY = $(this).scrollTop();
+    }
+}
+
+function loop() {
+    Project.getCurrent();
+    Portfolio.maybeloadNextProjects();
+    Blog.maybeLoadNextPosts();
+    updateHeader();
+
+    if( $('.woocommerce.archive').length ) {
+        Woocommerce.getCurrent();
+        Woocommerce.maybeloadNextProducts();
+    }
+
+    requestAnimationFrame(loop)
 }
 
 
