@@ -18411,8 +18411,12 @@ if (!Date.now)
         }
 
         if (isWindows) {
-            $("html").niceScroll(niceScrollOptions);
-            $("html").addClass('has--nicescroll');
+            $html.niceScroll(niceScrollOptions);
+            $html.addClass('has--nicescroll');
+
+            $(document).on('jp_carousel.afterClose', function() {
+                $html.getNiceScroll().resize();
+            });
         }
     }
 
