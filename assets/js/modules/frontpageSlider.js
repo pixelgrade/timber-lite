@@ -183,6 +183,7 @@ var frontpageSlider = (function() {
             $slider.hammer().bind("swiperight", onSwipeRight);
         }
 
+        $(document).off('keydown', slider_keys_controls_callback );
         $(document).on('keydown', slider_keys_controls_callback );
 
     }
