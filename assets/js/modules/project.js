@@ -358,7 +358,7 @@ var Project = (function() {
 	}
 
 	function showPrev(e) {
-		var $items = $film.find('.js-portfolio-item'),
+		var $items = $film.find('.js-portfolio-item').not('.portfolio__item--video'),
 			items = $items.length;
 
 		if (typeof e !== "undefined") {
@@ -380,7 +380,7 @@ var Project = (function() {
 	}
 
 	function showNext(e) {
-		var $items = $film.find('.js-portfolio-item'),
+		var $items = $film.find('.js-portfolio-item').not('.portfolio__item--video'),
 			items = $items.length;
 
 		if (typeof e !== "undefined") {
@@ -402,6 +402,7 @@ var Project = (function() {
 	}
 
 	function fullViewTransition($source) {
+
 		var $target = addImageToFullView($source),
 			$toRemove = $('.fullview__image').not($target);
 
