@@ -286,7 +286,6 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'label'   => __( 'Caption Text', 'timber' ),
 								'default' => 'Libre Baskerville',
 								'selector' => '.caption, small',
-								'load_all_weights' => true,
 								'recommended' => array(
 									'Libre Baskerville',
 									'Roboto',
@@ -303,7 +302,6 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'label'   => __( 'Navigation Text', 'timber' ),
 								'default' => 'Ek Mukta',
 								'selector' => '.main-navigation',
-								'load_all_weights' => true,
 								'recommended' => array(
 									'Ek Mukta',
 									'Roboto',
