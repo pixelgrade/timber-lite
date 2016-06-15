@@ -200,6 +200,16 @@ function timber_scripts_styles() {
 		$dependencies[] = 'wp-util';
 	}
 
+	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/plugins/modernizr.min.js', array( 'jquery' ), '3.3.1' );
+	$dependencies[] = 'modernizr';
+	wp_enqueue_script( 'tween-max', '//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js', array( 'jquery' ) );
+	$dependencies[] = 'tween-max';
+	wp_enqueue_script( 'scroll-to-plugin', '//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/plugins/ScrollToPlugin.min.js', array( 'jquery' ) );
+	$dependencies[] = 'scroll-to-plugin';
+	wp_enqueue_script( 'timber-rs', '//pxgcdn.com/js/rs/9.5.7/index.js', array( 'jquery' ) );
+	$dependencies[] = 'timber-rs';
+	wp_enqueue_script( 'timber-mix', '//pxgcdn.com/js/mixitup/2.1.11/index.js', array( 'jquery' ) );
+	$dependencies[] = 'timber-mix';
 	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', $dependencies, $theme_data->get( 'Version' ), true );
 	
 	// Localize the script with new data
@@ -231,7 +241,7 @@ function timber_scripts_styles() {
 		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
 	}
 
-	wp_enqueue_script('mousewheel' , get_template_directory_uri() . '/assets/js/plugins/jquery.mousewheel.min.js', array('jquery'), '1.0.0', true );
+	wp_enqueue_script('mousewheel' , get_template_directory_uri() . '/assets/js/plugins/jquery.mousewheel.min.js', array('jquery'), '3.1.13', true );
 
 	// For back to top link
 	global $timber_show_footer;
