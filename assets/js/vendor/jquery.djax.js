@@ -255,7 +255,6 @@
         $(this).on('click', '.dJAX_internal', function (event) {
           if (this.hostname !== location.hostname)
               return;
-          event.preventDefault();
           return self.attachClick(this, event);
         });
 
