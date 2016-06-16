@@ -358,7 +358,7 @@ var Project = (function() {
 	}
 
 	function showPrev(e) {
-		var $items = $film.find('.js-portfolio-item').not('.portfolio__item--video'),
+		var $items = $film.find('.js-portfolio-item'),
 			items = $items.length;
 
 		if (typeof e !== "undefined") {
@@ -380,7 +380,7 @@ var Project = (function() {
 	}
 
 	function showNext(e) {
-		var $items = $film.find('.js-portfolio-item').not('.portfolio__item--video'),
+		var $items = $film.find('.js-portfolio-item'),
 			items = $items.length;
 
 		if (typeof e !== "undefined") {
@@ -637,8 +637,10 @@ var Project = (function() {
 	}
 
 	function addImageToFullView($source) {
+
 		// prepare current for fullview
-		var width 		= $source.data('width'),
+		var isVideo 	= $source.is('.portfolio__item--video'),
+			width 		= $source.data('width'),
 			height 		= $source.data('height'),
 			newWidth 	= $fullview.width(),
 			newHeight 	= $fullview.height(),
@@ -662,9 +664,13 @@ var Project = (function() {
 
 		$fullview.append($target);
 
-		$image
-			.attr('src', $source.data('srcfull'))
-			.prependTo($target);
+		if ( isVideo ) {
+			$source.find('iframe').clone().prependTo($target);
+		} else {
+			$image
+				.attr('src', $source.data('srcfull'))
+				.prependTo($target);
+		}
 
 		return $target;
 	}
@@ -769,14 +775,15 @@ var Project = (function() {
 	function hideFullView(e) {
 
 		var $source = $('.fullview__image'),
-			$target = $('.portfolio__item--active').addClass('hide-meta');
+			$target = $('.portfolio__item--active').addClass('hide-meta'),
+			isVideo = $target.is('.portfolio__item--video');
 
 		if (typeof e !== "undefined") {
 			e.stopPropagation();
 			e.preventDefault();
 		}
 
-		$target.children().not('.proof__overlay').add($target).addClass('no-transition').css('opacity', 0);
+		$target.children().not('.proof__overlay, .jetpack-video-wrapper').add($target).addClass('no-transition').css('opacity', 0);
 		setTimeout(function() {
 			$target.children().add($target).removeClass('no-transition');
 		}, 10);
@@ -804,6 +811,11 @@ var Project = (function() {
 				$fullview.removeClass('fullview--visible');
 				$source.remove();
 			}, 10);
+		}
+
+		if (isVideo) {
+			finishHideFullView();
+			return;
 		}
 
 		if (imageScaling == 'fill') {
