@@ -5,6 +5,12 @@
 }
 
 .single-proof_gallery {
+	@include query-above($lap) {
+		// Prevent left site sidebar scroll
+		.site-content {
+			overflow: hidden;
+		}
+	}
 
 	.portfolio--grid .portfolio__item {
 		height: 19vh;
