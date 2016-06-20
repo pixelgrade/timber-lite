@@ -281,3 +281,9 @@ html body .jp-carousel .selected {
     0%      { transform: rotate(180deg) }
     100%    { transform: rotate(-180deg) }
 }
+
+@include query-above($lap) {
+    .nicescroll-rails {
+        bottom: 0.9vh !important;
+    }
+}
