@@ -93,8 +93,16 @@
 	}
 
 	@include query-below($lap) {
-		margin-right: 60px !important;
-		margin-left: 0 !important;
+		// !important around here
+		// because of some inline styles
+		& {
+			margin-right: 60px !important;
+			margin-left: 0 !important;
+		}
+
+		&.has--one-slide {
+			margin-right: 0 !important;
+		}
 	}
 
 	.slider_height-full-height & {

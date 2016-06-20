@@ -12,11 +12,12 @@ $show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_pr
 
 //get the featured projects
 $featured = timber_get_featured_projects();
-if ( ! empty( $featured ) ) : ?>
+if ( ! empty( $featured ) ) :
+	$numFeatured = count( $featured ); ?>
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main <?php echo 'slider--' . $show_adjacent_projects . ' slider--' . $projects_slider_height ?>">
-		<div class="projects-slider">
+		<div class="projects-slider<?php if ( $numFeatured == 1 ) echo '  has--one-slide'; ?>">
 
 			<?php
 			foreach ( $featured as $post ) : setup_postdata( $post );
@@ -28,8 +29,8 @@ if ( ! empty( $featured ) ) : ?>
 
 		</div><!-- .featured-projects-slider -->
 
-		<?php $numFeatured = count( $featured );
-		if ( $numFeatured > 1 ) : ?>
+
+		<?php if ( $numFeatured > 1 ) : ?>
 		<div class="vertical-title prev"><span><?php echo get_the_title( $featured[ $numFeatured - 1 ] ); ?></span></div>
 		<?php endif; ?>
 
@@ -51,7 +52,9 @@ if ( ! empty( $featured ) ) : ?>
 				<div class="project-slide__text"><?php _e( '&#8594; View Project', 'timber' ); ?></div>
 			</a>
 		</div>
+		<?php if ( $numFeatured != 1 ) : ?>
 		<div class="projects-slider__bullets  rsBullets"></div>
+		<?php endif; ?>
 	</main><!-- #main -->
 </div><!-- #primary -->
 
