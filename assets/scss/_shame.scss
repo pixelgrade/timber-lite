@@ -283,6 +283,8 @@ html body .jp-carousel .selected {
 }
 
 @include query-above($lap) {
+    // Place nicescroll rails above body border;
+    // !important to override inline styles.
     .nicescroll-rails {
         bottom: 0.9vh !important;
     }
