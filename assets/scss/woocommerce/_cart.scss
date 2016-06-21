@@ -6,10 +6,12 @@
 	position: relative;
 }
 
-	.btn--apply-coupon {
-		position: absolute;
-		right: 4px;
-		bottom: 25px;
+	@include query-above($lap) {
+		.btn--apply-coupon {
+			position: absolute;
+			right: 4px;
+			bottom: 25px;
+		}
 	}
 
 	.btn--update-cart {
@@ -69,3 +71,95 @@
 			background-color: #d94f4f;
 		}
 	}
+
+// http://css-tricks.com/responsive-data-tables/
+@include query-below($lap) {
+	.shop_table.cart {
+		/* Force table to not be like tables anymore */
+		&, thead, tbody, th, td, tr {
+			display: block;
+		}
+
+		/* Hide table headers (but not display: none;, for accessibility) */
+		thead tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+		tr {
+			border: 1px dotted;
+		}
+
+		td {
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #FAFAFA;
+			position: relative;
+			margin-bottom: 0;
+		}
+
+		td:not(.product-thumbnail):not(.product-remove):not(.actions) {
+			padding-left: 50%;
+			text-align: left;
+		}
+
+		td:before {
+			content: attr(data-mobile-caption);
+
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			top: 50%;
+			left: 12px;
+			width: 45%;
+			padding-right: 10px;
+			white-space: nowrap;
+			text-align: left;
+			transform: translateY(-50%);
+		}
+
+		td.product-thumbnail {
+			display: block;
+
+			&.product-thumbnail {
+				width: 100%;
+			}
+
+			a {
+				display: block;
+				border: 0;
+			}
+
+			img {
+				margin: 0 auto;
+			}
+		}
+
+		td.product-remove.product-remove {
+			border-bottom: 0;
+
+			a {
+				width: 100%;
+				border-radius: 0;
+				text-align: center;
+			}
+		}
+
+		td.actions{
+			padding-left: 12px;
+			padding-right: 12px;
+
+			.coupon{
+				margin-bottom: 12px;
+			}
+
+			input{
+				width: 100% !important;
+				float: none !important;
+				margin-bottom: 12px !important;
+			}
+		}
+	}
+
+}
