@@ -21,7 +21,10 @@ if ( ! empty( $share_buttons_types ) || $share_buttons_types !== 'false' ) :
 		<button class="share-button  js-share-button"></button>
 		<span class="share-text"><?php _e( 'Share', 'timber' ); ?></span>
 
-		<div class="addthis_toolbox addthis_default_style addthis_32x32_style social-links-list">
+		<div class="addthis_toolbox addthis_default_style addthis_32x32_style social-links-list"
+		     addthis:url="<?php echo esc_attr( timber_get_current_canonical_url() ) ?>"
+		     addthis:title="<?php wp_title('|', true, 'right') ?>"
+		     addthis:description="<?php echo esc_attr( trim(strip_tags(get_the_excerpt())) ) ?>">
 
 			<?php if ( ! empty( $buttons ) ) {
 				for ( $k = 0; $k < count( $buttons ); $k ++ ) {
