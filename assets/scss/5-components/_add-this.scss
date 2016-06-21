@@ -147,7 +147,7 @@
 }
 
 .addthis_32x32_style {
-	.at4-icon {
+	span {
 		width: 28px !important;
 		height: 28px !important;
 
@@ -159,9 +159,14 @@
 		-ms-filter: grayscale(1) invert(1) brightness(2.3);
 		filter: grayscale(1) invert(1) brightness(2.3);
 		transition: all .3s linear;
+
+		svg {
+			width: 100% !important;
+			height: 100% !important;
+		}
 	}
 
-	a:hover .at4-icon {
+	a:hover span {
 		-webkit-filter: none;
 		-moz-filter: none;
 		-o-filter: none;
