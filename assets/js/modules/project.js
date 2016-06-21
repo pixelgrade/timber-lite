@@ -429,7 +429,7 @@ var Project = (function() {
 		}
 
 		if (!initialized) {
-			init();
+			return;
 		}
 
 		var current 	= $('.portfolio__item--active').data('middle'),
