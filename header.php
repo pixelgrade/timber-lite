@@ -27,8 +27,8 @@
 
 	<div class="site-branding">
 
-		<?php if ( function_exists( 'jetpack_has_site_logo' ) && jetpack_has_site_logo() ) : // display the Site Logo if present
-			jetpack_the_site_logo();
+		<?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : // display the Site Logo if present
+			timber_the_custom_logo();
 		else : ?>
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 		<?php endif; ?>

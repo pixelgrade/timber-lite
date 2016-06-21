@@ -8,6 +8,12 @@
  * @since Timber 1.0
  */
 
+function timber_the_custom_logo() {
+	if ( function_exists( 'the_custom_logo' ) ) {
+		the_custom_logo();
+	}
+}
+
 if ( ! function_exists( 'timber_paging_nav' ) ) :
 	/**
 	 * Display navigation to next/previous set of posts when applicable.

@@ -335,7 +335,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'css'  => array(
 									array(
 										'property' => 'max-height',
-										'selector' => '.site-logo-link img',
+										'selector' => '.custom-logo-link img',
 									)
 								),
 							),
