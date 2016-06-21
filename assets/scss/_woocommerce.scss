@@ -4,6 +4,7 @@
 @import "woocommerce/cart";
 @import "woocommerce/checkout";
 @import "woocommerce/cart-widget";
+@import "woocommerce/my-account";
 
 @import "woocommerce/stars";
 
@@ -18,6 +19,11 @@
 
 	input, button, select, .btn, .button {
 		border-radius: 3px;
+	}
+
+	a.button {
+		text-shadow: none;
+		background-image: none;
 	}
 
 	input, select {
