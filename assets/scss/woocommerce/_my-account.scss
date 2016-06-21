@@ -1,0 +1,28 @@
+.woocommerce-MyAccount-navigation {
+	ul {
+		display: flex;
+		list-style-type: none;
+		justify-content: space-between;
+	}
+
+	li {
+		margin-left: 0;
+		flex: 1 1 auto;
+	}
+
+	a {
+		display: block;
+		text-align: center;
+
+		border: 1px solid black;
+		background: black;
+		color: white;
+
+		text-shadow: none;
+
+		&:hover {
+			background: white;
+			color: black;
+		}
+	}
+}
