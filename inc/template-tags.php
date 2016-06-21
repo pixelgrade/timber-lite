@@ -329,12 +329,12 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 	} #function
 endif;
 
-if ( ! function_exists( 'timber_the_project_featured_image') ) :
+if ( ! function_exists( 'timber_the_post_thumbnail') ) :
     /**
      * Display the project featured image or the first content image
      *
      * @param int|WP_Post $id Optional. Post ID or post object.
-     * @param string Optional. Thumbnail size. Default full
+     * @param string $size Optional. Thumbnail size. Default full
      * @param string|array $attr Optional. Query string or array of attributes. Default empty.
      */
     function timber_the_post_thumbnail( $post_id = null, $size = 'full', $attr = '' ) {
