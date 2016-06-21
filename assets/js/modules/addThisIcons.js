@@ -33,7 +33,7 @@ window.AddThisIcons = (function() {
 
 				socialLinks.init();
 			}
-		}
+		};
 
 	return {
 		init: init,
