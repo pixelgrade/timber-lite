@@ -335,11 +335,20 @@ var frontpageSlider = (function() {
     }
 
     function animateContentTo($slide) {
-        var $clone      = $content.clone(),
+        var $title      = $content.find('.project-slide__title h1'),
+            $clone      = $content.clone(),
+            $cloneTitle = $clone.find('.project-slide__title h1'),
+            $cloneTypes = $clone.find('.portfolio_types'),
+            slideTitle  = $slide.data('title'),
+            slideTypes  = $slide.data('types'),
+            slideLink   = $slide.data('link'),
+            slideLinkTitle = $slide.data('link-title'),
             $nextTitle  = $('.vertical-title.next span'),
-            $nextClone  = $nextTitle.clone().text($slide.next().data('title')),
+            $nextClone  = $nextTitle.clone(),
+            nextTitle   = $slide.next().data('title'),
             $prevTitle  = $('.vertical-title.prev span'),
-            $prevClone  = $prevTitle.clone().text($slide.prev().data('title')),
+            $prevClone  = $prevTitle.clone(),
+            prevTitle   = $slide.prev().data('title'),
             timeline    = new TimelineMax({ paused: true, onComplete: function() {
                 $prevTitle.remove();
                 $nextTitle.remove();
@@ -347,26 +356,34 @@ var frontpageSlider = (function() {
                 $content = $clone;
             }});
 
-        $clone.find('.project-slide__title h1').text($slide.data('title'));
-        $clone.find('.portfolio_types').html($slide.data('types'));
-        $clone.find('a').attr('href', $slide.data('link')).attr('title', $slide.data('link-title'));
+        $prevClone.text(prevTitle);
+        $nextClone.text(nextTitle);
+        $cloneTitle.text(slideTitle);
+        $cloneTypes.html(slideTypes);
+
+        $clone.find('a').attr({
+            href: slideLink,
+            title: slideLinkTitle
+        });
 
         // les types
         var $fadeOut = $content.find('.portfolio_types').add($nextTitle).add($prevTitle),
-            $fadeIn  = $clone.find('.portfolio_types').add($nextClone).add($prevClone);
+            $fadeIn  = $cloneTypes.add($nextClone).add($prevClone);
 
         timeline.fromTo($fadeOut, .3, {opacity: 1}, {opacity: 0, ease: Quint.easeIn});
         timeline.fromTo($fadeIn, .3, {opacity: 0}, {opacity: 1, ease: Quint.easeIn}, '-=0.2');
 
         // le title
-        timeline.fromTo($content.find('.project-slide__title h1'), .3, {opacity: 1}, {opacity: 0, ease: Quint.easeOut}, '-=0.3');
-        timeline.fromTo($clone.find('.project-slide__title h1'), .5, {y: '-100%'}, {y: '0%', ease: Expo.easeOut}, '-=0.2');
+        timeline.fromTo($title, .3, {opacity: 1}, {opacity: 0, ease: Quint.easeOut}, '-=0.3');
+        timeline.fromTo($cloneTitle, .5, {y: '-100%'}, {y: '0%', ease: Expo.easeOut}, '-=0.2');
         timeline.fromTo($clone.find('.js-title-mask'), .5, {y: '100%'}, {y: '0%', ease: Expo.easeOut}, '-=0.5');
 
         $content.find('.project-slide__text').css('opacity', 0);
+
         $nextClone.insertAfter($nextTitle);
         $prevClone.insertAfter($prevTitle);
         $clone.insertAfter($content);
+
         timeline.play();
 
     }
