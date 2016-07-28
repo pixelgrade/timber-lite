@@ -148,6 +148,7 @@ var frontpageSlider = (function() {
 
             case 37:
                 if ( $('.slider--show_next').length > 0 || $current.prev('div').length <= 0 ) return;
+                onPrevEnter();
                 onPrevClick();
                 onPrevLeave();
                 e.preventDefault();
@@ -155,6 +156,7 @@ var frontpageSlider = (function() {
 
             case 39:
                 if ( $current.next('div').length <= 0 ) return;
+                onNextEnter();
                 onNextClick();
                 onNextLeave();
                 e.preventDefault();
