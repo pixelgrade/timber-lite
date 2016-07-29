@@ -167,6 +167,18 @@ var frontpageSlider = (function() {
         }
     }
 
+    function unbindEvents() {
+        $nextTrigger.off('mouseenter mouseleave click');
+        $prevTrigger.off('mouseenter mouseleave click');
+
+        if ( Modernizr.touchevents ) {
+            $slider.hammer().unbind("swipeleft");
+            $slider.hammer().unbind("swiperight");
+        }
+
+        $(document).off('keydown', slider_keys_controls_callback );
+    }
+
     function bindEvents() {
         if (nextWidth > 70 && !$('html').is('.is--ie9, .is--ie-le10')) {
             $nextTrigger.on('mouseenter', onNextEnter);
@@ -180,12 +192,11 @@ var frontpageSlider = (function() {
         }
         $prevTrigger.on('click', onPrevClick);
 
-        if (Modernizr.touchevents) {
+        if ( Modernizr.touchevents ) {
             $slider.hammer().bind("swipeleft", onSwipeLeft);
             $slider.hammer().bind("swiperight", onSwipeRight);
         }
 
-        $(document).off('keydown', slider_keys_controls_callback );
         $(document).on('keydown', slider_keys_controls_callback );
 
     }
@@ -229,16 +240,15 @@ var frontpageSlider = (function() {
     }
 
     function onNextClick() {
-        $(document).off('keydown', slider_keys_controls_callback );
-
         var timeline = getNextTimeline();
 
         $prev       = $current;
         $current    = $next;
         $next       = $next.next();
 
-        $nextTrigger.off('click', onNextClick);
+        unbindEvents();
         animateContentTo($current);
+
         timeline.play();
 
         updateBullets(1);
@@ -248,8 +258,7 @@ var frontpageSlider = (function() {
         $slides.first().appendTo($slider).css('left', '+=' + totalWidth);
         $slides = $slider.children();
         setZindex();
-        $nextTrigger.on('click', onNextClick);
-        $(document).on('keydown', slider_keys_controls_callback );
+        bindEvents();
     }
 
     function getNextTimeline() {
@@ -269,16 +278,15 @@ var frontpageSlider = (function() {
     }
 
     function onPrevClick() {
-        $(document).off('keydown', slider_keys_controls_callback );
-
         var timeline = getPrevTimeline();
 
         $next       = $current;
         $current    = $prev;
         $prev       = $prev.prev();
 
-        $prevTrigger.off('click', onPrevClick);
+        unbindEvents();
         animateContentTo($current);
+
         timeline.play();
 
         updateBullets(-1);
@@ -288,8 +296,7 @@ var frontpageSlider = (function() {
         $slides.last().prependTo($slider).css('left', '-=' + totalWidth);
         $slides = $slider.children();
         setZindex();
-        $prevTrigger.on('click', onPrevClick);
-        $(document).on('keydown', slider_keys_controls_callback );
+        bindEvents();
     }
 
     function getPrevTimeline() {
