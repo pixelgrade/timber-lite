@@ -176,7 +176,7 @@ function isFilmstrip() {
 function bindVertToHorScroll() {
 	if ( isFilmstrip() && ! $html.hasClass('is--ie-le10') ) {
 		// html body are for ie
-		$('html, body, *').bind('mousewheel',  vertToHorScroll);
+		$('html, body, .filmstrip, .portfolio--filmstrip').bind('mousewheel',  vertToHorScroll);
 		horToVertScroll = true;
 	}
 }
