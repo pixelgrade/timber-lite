@@ -168,8 +168,8 @@ var frontpageSlider = (function() {
     }
 
     function unbindEvents() {
-        $nextTrigger.off('mouseenter mouseleave click');
-        $prevTrigger.off('mouseenter mouseleave click');
+        $nextTrigger.off('click', onNextClick);
+        $prevTrigger.off('click', onPrevClick);
 
         if ( Modernizr.touchevents ) {
             $slider.add('.vertical-title').hammer().unbind("swipeleft");
@@ -181,14 +181,14 @@ var frontpageSlider = (function() {
 
     function bindEvents() {
         if (nextWidth > 70 && !$('html').is('.is--ie9, .is--ie-le10')) {
-            $nextTrigger.on('mouseenter', onNextEnter);
-            $nextTrigger.on('mouseleave', onNextLeave);
+            $nextTrigger.off('mouseenter').on('mouseenter', onNextEnter);
+            $nextTrigger.off('mouseleave').on('mouseleave', onNextLeave);
         }
         $nextTrigger.on('click', onNextClick);
 
         if (nextWidth > 70 && !$('html').is('.is--ie9, .is--ie-le10')) {
-            $prevTrigger.on('mouseenter', onPrevEnter);
-            $prevTrigger.on('mouseleave', onPrevLeave);
+            $prevTrigger.off('mouseenter').on('mouseenter', onPrevEnter);
+            $prevTrigger.off('mouseleave').on('mouseleave', onPrevLeave);
         }
         $prevTrigger.on('click', onPrevClick);
 
@@ -198,7 +198,6 @@ var frontpageSlider = (function() {
         }
 
         $(document).on('keydown', slider_keys_controls_callback );
-
     }
 
     function onSwipeLeft() {
@@ -213,28 +212,28 @@ var frontpageSlider = (function() {
 
     function onNextEnter() {
         TweenMax.to($next.find('.project-slide__image'), .4, {opacity: 1, ease: Quint.easeOut});
-        TweenMax.to($next.add($content), .4, {x: -60, ease: Back.easeOut}, '-=.4');
+        TweenMax.to($next.add('.project-slide__content'), .4, {x: -60, ease: Back.easeOut}, '-=.4');
         TweenMax.to($next, .4, {width: 160, ease: Back.easeOut}, '-=.4');
         TweenMax.to($nextTrigger, .4, {x: -30, ease: Back.easeOut}, '-=.4');
     }
 
     function onPrevEnter() {
         TweenMax.to($prev.find('.project-slide__image'), .4, {opacity: 1, ease: Quint.easeOut});
-        TweenMax.to($content, .4, {x: 60, ease: Back.easeOut});
+        TweenMax.to($('.project-slide__content'), .4, {x: 60, ease: Back.easeOut});
         TweenMax.to($prev, .4, {width: 160, ease: Back.easeOut});
         TweenMax.to($prevTrigger, .4, {x: 30, ease: Back.easeOut});
     }
 
     function onNextLeave() {
         TweenMax.to($next.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut});
-        TweenMax.to($next.add($content), .4, {x: 0, ease: Quint.easeOut});
+        TweenMax.to($next.add('.project-slide__content'), .4, {x: 0, ease: Quint.easeOut});
         TweenMax.to($next, .4, {width: nextWidth, ease: Quint.easeOut});
         TweenMax.to($('.vertical-title.next'), .4, {x: 0, ease: Quint.easeOut});
     }
 
     function onPrevLeave() {
         TweenMax.to($prev.find('.project-slide__image'), .4, {opacity: 0.6, ease: Quint.easeOut});
-        TweenMax.to($prev.add($content), .4, {x: 0, ease: Quint.easeOut});
+        TweenMax.to($prev.add($('.project-slide__content')), .4, {x: 0, ease: Quint.easeOut});
         TweenMax.to($prev, .4, {width: nextWidth, ease: Quint.easeOut});
         TweenMax.to($('.vertical-title.prev'), .4, {x: 0, ease: Quint.easeOut});
     }
