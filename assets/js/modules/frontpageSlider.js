@@ -172,8 +172,8 @@ var frontpageSlider = (function() {
         $prevTrigger.off('mouseenter mouseleave click');
 
         if ( Modernizr.touchevents ) {
-            $slider.hammer().unbind("swipeleft");
-            $slider.hammer().unbind("swiperight");
+            $slider.add('.vertical-title').hammer().unbind("swipeleft");
+            $slider.add('.vertical-title').hammer().unbind("swiperight");
         }
 
         $(document).off('keydown', slider_keys_controls_callback );
@@ -193,8 +193,8 @@ var frontpageSlider = (function() {
         $prevTrigger.on('click', onPrevClick);
 
         if ( Modernizr.touchevents ) {
-            $slider.hammer().bind("swipeleft", onSwipeLeft);
-            $slider.hammer().bind("swiperight", onSwipeRight);
+            $slider.add('.vertical-title').hammer().bind("swipeleft", onSwipeLeft);
+            $slider.add('.vertical-title').hammer().bind("swiperight", onSwipeRight);
         }
 
         $(document).on('keydown', slider_keys_controls_callback );
