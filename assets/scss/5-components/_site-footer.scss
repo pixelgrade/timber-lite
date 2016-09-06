@@ -20,6 +20,12 @@
         }
     }
 
+    .bar--fixed {
+        @include query-above($lap) {
+            padding-bottom: $border-width;
+        }
+    }
+
     @include query-below($lap) {
         padding-bottom: 0.75em;
         overflow: hidden;

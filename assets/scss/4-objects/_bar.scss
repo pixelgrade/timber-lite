@@ -27,8 +27,8 @@
     @extend %bar;
     @extend %position--fixed;
     @extend %transform--0;
-    left: 7px;
-    right: 7px;
+    left: $border-width;
+    right: $border-width;
     width: auto;
 }
 
