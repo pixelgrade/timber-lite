@@ -34,10 +34,6 @@
     &.portfolio-archive {
         z-index: 200;
         width: 100%;
-
-        @include query-above($lap) {
-            padding-left: 117px;
-        }
     }
 }
 
