@@ -37,7 +37,7 @@ gulp.task('styles-dev', function () {
 			.on('error', function (e) {
 				console.log(e.message);
 			})
-		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
+		.pipe(prefix("last 3 versions", "> 1%", "ie 8", "ie 7"))
 		.pipe(gulp.dest('./'))
 		.pipe(notify({message: 'Styles task complete'}))
 		.pipe(livereload());
@@ -46,7 +46,7 @@ gulp.task('styles-dev', function () {
 gulp.task('styles', function () {
 	return gulp.src('assets/scss/**/*.scss')
 		.pipe(sass({'sourcemap=none': true, style: 'expanded'}))
-		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
+		.pipe(prefix("last 3 versions", "> 1%", "ie 8", "ie 7"))
 		// .pipe(cmq())
 		.pipe(csscomb())
 		.pipe(chmod(644))
@@ -87,7 +87,7 @@ gulp.task('styles-admin', function () {
 		.on('error', function (e) {
 			console.log(e.message);
 		})
-		.pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
+		.pipe(prefix("last 3 versions", "> 1%", "ie 8", "ie 7"))
 		.pipe(chmod(644))
 		.pipe(gulp.dest('./assets/css/admin/'));
 });
