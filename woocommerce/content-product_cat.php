@@ -20,19 +20,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+$small_thumbnail_size  	= apply_filters( 'subcategory_archive_thumbnail_size', 'shop_catalog' );
+$dimensions    			= wc_get_image_size( $small_thumbnail_size );
+$thumbnail_id  			= get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
 
-
-$image_meta =  get_woocommerce_term_meta( $category->term_id, 'thumbnail_id', true  );
-if ( ! isset( $image_meta['width'] ) || empty( $image_meta['width'] ) ) {
-	$image_meta['width'] = 500;
-}
-
-if ( ! isset( $image_meta['height'] ) || empty( $image_meta['height'] ) ) {
-	$image_meta['height'] = 500;
+if ( $thumbnail_id ) {
+	$image = wp_get_attachment_image_src( $thumbnail_id, $small_thumbnail_size  );
+} else {
+	$image = array(
+		'1' => '500',
+		'2' => '500'
+	);
 }
 
 ?>
-<div <?php wc_product_cat_class( 'portfolio__item  js-portfolio-item product__item', $category ); ?> data-width="<?php echo $image_meta['width']; ?>"  data-height="<?php echo $image_meta['height']; ?>">
+<div <?php wc_product_cat_class( 'portfolio__item  js-portfolio-item product__item', $category ); ?> data-width="<?php echo $image['1']; ?>"  data-height="<?php echo $image['2']; ?>">
 	<?php
 	/**
 	 * woocommerce_before_subcategory hook.
