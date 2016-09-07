@@ -5,12 +5,6 @@
 }
 
 .single-proof_gallery {
-	@include query-above($lap) {
-		// Prevent left site sidebar scroll
-		.site-content {
-			overflow: hidden;
-		}
-	}
 
 	.portfolio--grid .portfolio__item {
 		height: 19vh;
@@ -219,7 +213,17 @@
 
 .pixproof__wrap {
 	width: 100%;
-	padding-right: 5em;
+	padding-bottom: $header-height/3;
+
+	@include query-above($small) {
+		padding-right: $sidebar-width*2/3;
+		padding-bottom: $header-height*2/3;
+	}
+
+	@include query-above($desk) {
+		padding-right: $sidebar-width;
+		padding-bottom: $header-height;
+	}
 
 	@include query-below($small) {
 		padding-right: 1em;

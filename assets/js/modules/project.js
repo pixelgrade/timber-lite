@@ -489,11 +489,11 @@ var Project = (function() {
 	function showThumbnails(e, initial) {
 		var $active = $('.portfolio__item--active'),
 			$target = $grid.find('.js-portfolio-item').eq($active.data('count')),
-			selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
+			selector = '.site-footer';
 
 		TweenMax.to(selector, .3, { opacity: 0 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'none')
+		$('.site-footer').css('pointer-events', 'none')
 		$('.site-footer').fadeOut();
 
 		$('.proof__selected, .proof__overlay, .photometa').addClass('no-transition').css('opacity', 0);
@@ -561,7 +561,7 @@ var Project = (function() {
 
 		var $clicked = $(this),
 			$target = $film.find('.js-portfolio-item').eq($clicked.data('count')),
-			selector = $('.single-proof_gallery').length ? '.site-footer' : '.site-footer, .site-sidebar';
+			selector = '.site-footer';
 
 		$('.site').css('overflow-x', '');
 
@@ -569,7 +569,7 @@ var Project = (function() {
 
 		TweenMax.to(selector, .3, { opacity: 1, delay: .3 });
 
-		$('.site-footer, .site-sidebar').css('pointer-events', 'auto')
+		$('.site-footer').css('pointer-events', 'auto')
 		$('.site-footer').fadeIn();
 
 		$('.js-portfolio-item').addClass('no-transition');

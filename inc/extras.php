@@ -229,7 +229,8 @@ if ( ! function_exists( 'timber_comment' ) ) :
 				<header class="comment__meta comment-author">
 					<?php printf( '<span class="comment__author-name">%s</span>', get_comment_author_link() ) ?>
 					<time class="comment__time" datetime="<?php comment_time( 'c' ); ?>">
-						<a href="<?php echo esc_url( get_comment_link( get_comment_ID() ) ) ?>" class="comment__timestamp"><?php printf( __( 'on %s at %s', 'timber' ), get_comment_date(), get_comment_time() ); ?></a>
+						<a href="<?php echo esc_url( get_comment_link( get_comment_ID() ) ) ?>"
+						   class="comment__timestamp"><?php printf( __( 'on %s at %s', 'timber' ), get_comment_date(), get_comment_time() ); ?></a>
 					</time>
 					<div class="comment__links">
 						<?php
@@ -364,6 +365,16 @@ function timber_excerpt_length( $length ) {
 }
 
 add_filter( 'excerpt_length', 'timber_excerpt_length', 999 );
+
+
+function timber_remove_shortcode_from_excerpt( $content ) {
+	$content = strip_shortcodes( $content );
+
+	return $content;//always return $content
+}
+
+add_filter( 'get_the_excerpt', 'timber_remove_shortcode_from_excerpt' );
+
 
 /**
  * When dealing with gallery post format, we need to strip the first gallery in the content since we show it at the top
@@ -616,7 +627,7 @@ function timber_get_img_alt( $attachment_ID ) {
 }
 
 function timber_get_img_caption( $attachment_ID ) {
-	$attachment = get_post( $attachment_ID );
+	$attachment  = get_post( $attachment_ID );
 	$img_caption = '';
 	if ( isset( $attachment->post_excerpt ) ) {
 		$img_caption = trim( strip_tags( $attachment->post_excerpt ) );
@@ -626,7 +637,7 @@ function timber_get_img_caption( $attachment_ID ) {
 }
 
 function timber_get_img_description( $attachment_ID ) {
-	$attachment = get_post( $attachment_ID );
+	$attachment      = get_post( $attachment_ID );
 	$img_description = '';
 	if ( isset( $attachment->post_content ) ) {
 		$img_description = trim( strip_tags( $attachment->post_content ) );
@@ -805,10 +816,10 @@ function timber_mce_before_init( $settings ) {
 		array( 'title' => __( 'Dropcap', 'timber' ), 'inline' => 'span', 'classes' => 'dropcap' ),
 		array( 'title' => __( 'Highlight', 'timber' ), 'inline' => 'span', 'classes' => 'highlight' ),
 		array(
-			'title'    => __( 'Two Columns', 'timber' ),
-			'block' => 'div',
-			'classes'  => 'twocolumn',
-			'wrapper'  => true
+			'title'   => __( 'Two Columns', 'timber' ),
+			'block'   => 'div',
+			'classes' => 'twocolumn',
+			'wrapper' => true
 		),
 		array( 'title' => __( 'Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption' ),
 		array( 'title' => __( 'Small Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption caption--small' )
@@ -911,11 +922,11 @@ function timber_load_next_posts() {
 	}
 
 	//set the query args
-	$args = array( 'post_type' => 'post', 'suppress_filters' => false );
+	$args        = array( 'post_type' => 'post', 'suppress_filters' => false );
 	$count_posts = wp_count_posts();
 	$count_posts = $count_posts->publish;
 
-	if ( defined('ICL_LANGUAGE_CODE' ) ) {
+	if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
 		$args['lang'] = ICL_LANGUAGE_CODE;
 	}
 
@@ -998,7 +1009,7 @@ function timber_load_next_projects() {
 	$count_projects = wp_count_posts( 'jetpack-portfolio' );
 	$count_projects = $count_projects->publish;
 
-	if ( defined('ICL_LANGUAGE_CODE' ) ) {
+	if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
 		$args['lang'] = ICL_LANGUAGE_CODE;
 	}
 
@@ -1065,7 +1076,7 @@ function timber_load_next_products() {
 	$count_products = wp_count_posts( 'product' );
 	$count_products = $count_products->publish;
 
-	if ( defined('ICL_LANGUAGE_CODE' ) ) {
+	if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
 		$args['lang'] = ICL_LANGUAGE_CODE;
 	}
 
@@ -1114,14 +1125,14 @@ function timber_load_next_products() {
 }
 
 
-add_action('the_password_form', 'timber_callback_the_password_form');
+add_action( 'the_password_form', 'timber_callback_the_password_form' );
 
-function timber_callback_the_password_form($form){
+function timber_callback_the_password_form( $form ) {
 	global $post;
-	$post = get_post( $post );
+	$post      = get_post( $post );
 	$post_type = get_post_type( $post );
-	$postID =timber_get_post_id($post->ID, $post_type);
-	$label = 'pwbox-' . ( empty($postID) ? rand() : $postID );
+	$postID    = timber_get_post_id( $post->ID, $post_type );
+	$label     = 'pwbox-' . ( empty( $postID ) ? rand() : $postID );
 
 	global $timber_private_post;
 
@@ -1132,21 +1143,25 @@ function timber_callback_the_password_form($form){
 				<div class="lock-icon"></div>
 				<div class="protected-area-text">
 					<?php
-					_e('This is a protected area.', 'timber');
+					_e( 'This is a protected area.', 'timber' );
 
-					if($timber_private_post['error']) {
+					if ( $timber_private_post['error'] ) {
 						echo $timber_private_post['error']; ?>
-						<span class="gray"><?php _e('Please enter your password again.', 'timber' );?></span>
+						<span class="gray"><?php _e( 'Please enter your password again.', 'timber' ); ?></span>
 					<?php } else { ?>
-						<span class="gray"><?php _e('Please enter your password to continue.', 'timber' );?></span>
+						<span class="gray"><?php _e( 'Please enter your password to continue.', 'timber' ); ?></span>
 					<?php } ?>
 
 				</div>
-				<form class="auth-form" method="post" action="<?php echo wp_login_url().'?action=postpass'; // just keep this action path ... wordpress will refear for us?>">
-					<?php wp_nonce_field('password_protection','submit_password_nonce'); ?>
-					<input type="hidden" name="submit_password" value="1" />
-					<input type="password" name="post_password" id="auth_password" class="auth__pass" placeholder="<?php _e("Password", 'timber') ?>" />
-					<input type="submit" name="Submit" id="auth_submit" class="auth__submit" value="<?php _e("Authenticate", 'timber') ?>" />
+				<form class="auth-form" method="post"
+				      action="<?php echo wp_login_url() . '?action=postpass'; // just keep this action path ... wordpress will refear for us
+				      ?>">
+					<?php wp_nonce_field( 'password_protection', 'submit_password_nonce' ); ?>
+					<input type="hidden" name="submit_password" value="1"/>
+					<input type="password" name="post_password" id="auth_password" class="auth__pass"
+					       placeholder="<?php _e( "Password", 'timber' ) ?>"/>
+					<input type="submit" name="Submit" id="auth_submit" class="auth__submit"
+					       value="<?php _e( "Authenticate", 'timber' ) ?>"/>
 				</form>
 			</div>
 		</div><!-- .content -->
@@ -1159,7 +1174,7 @@ function timber_callback_the_password_form($form){
 	}
 
 	// No cookie, the user has not sent anything until now.
-	if ( ! isset ( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) ){
+	if ( ! isset ( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) ) {
 		return $form;
 	}
 
@@ -1167,15 +1182,16 @@ function timber_callback_the_password_form($form){
 	$hasher = new PasswordHash( 8, true );
 
 	$hash = wp_unslash( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] );
-	if ( 0 !== strpos( $hash, '$P$B' ) )
+	if ( 0 !== strpos( $hash, '$P$B' ) ) {
 		return $form;
+	}
 
 	return $form;
 
 }
 
 
-function timber_prepare_password_for_custom_post_types(){
+function timber_prepare_password_for_custom_post_types() {
 
 	global $timber_private_post;
 
@@ -1183,17 +1199,17 @@ function timber_prepare_password_for_custom_post_types(){
 
 }
 
-add_action('wp', 'timber_prepare_password_for_custom_post_types');
+add_action( 'wp', 'timber_prepare_password_for_custom_post_types' );
 
-function timber_is_password_protected(){
+function timber_is_password_protected() {
 	global $post;
-	$private_post = array('allowed' => false, 'error' => '');
+	$private_post = array( 'allowed' => false, 'error' => '' );
 
-	if ( isset( $_POST['submit_password']) ) { // when we have a submision check the password and its submision
-		if ( isset( $_POST['submit_password_nonce'] ) && wp_verify_nonce( $_POST['submit_password_nonce'], 'password_protection') ) {
-			if ( isset ( $_POST['post_password'] ) && !empty($_POST['post_password']) ) { // some simple checks on password
+	if ( isset( $_POST['submit_password'] ) ) { // when we have a submision check the password and its submision
+		if ( isset( $_POST['submit_password_nonce'] ) && wp_verify_nonce( $_POST['submit_password_nonce'], 'password_protection' ) ) {
+			if ( isset ( $_POST['post_password'] ) && ! empty( $_POST['post_password'] ) ) { // some simple checks on password
 				// finally test if the password submitted is correct
-				if ( $post->post_password ===  $_POST['post_password'] ) {
+				if ( $post->post_password === $_POST['post_password'] ) {
 					$private_post['allowed'] = true;
 
 					// ok if we have a correct password we should inform wordpress too
@@ -1201,19 +1217,19 @@ function timber_is_password_protected(){
 					global $wp_hasher;
 					if ( empty( $wp_hasher ) ) {
 						require_once( ABSPATH . 'wp-includes/class-phpass.php' );
-						$wp_hasher = new PasswordHash(8, true);
+						$wp_hasher = new PasswordHash( 8, true );
 					}
 					setcookie( 'wp-postpass_' . COOKIEHASH, $wp_hasher->HashPassword( stripslashes( $_POST['post_password'] ) ), 0, COOKIEPATH );
 
 				} else {
-					$private_post['error'] = '<h3 class="text--error">' . __('Wrong Password', 'timber') . '</h3>';
+					$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber' ) . '</h3>';
 				}
 			}
 		}
 	}
 
-	if (isset($_COOKIE['wp-postpass_' . COOKIEHASH]) && get_permalink() == wp_get_referer()) {
-		$private_post['error'] = '<h3 class="text--error">' . __('Wrong Password', 'timber') . '</h3>';
+	if ( isset( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) && get_permalink() == wp_get_referer() ) {
+		$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber' ) . '</h3>';
 	}
 
 

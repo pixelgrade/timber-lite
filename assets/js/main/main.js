@@ -154,12 +154,26 @@ function updateHeader() {
     }
 }
 
+var scrollTimeout,
+    isScrolling = false;
+
 function onScroll(e) {
     if ( $('.filmstrip').length || $('.portfolio--filmstrip.portfolio--visible').length ) {
         latestKnownScrollX = $(this).scrollLeft();
     } else {
         latestKnownScrollY = $(this).scrollTop();
     }
+    if ( ! isScrolling ) {
+        isScrolling = true;
+        $body.addClass( 'is-scrolling' );
+    }
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(doneScrolling, 1000);
+}
+
+function doneScrolling() {
+    $body.removeClass( 'is-scrolling' );
+    isScrolling = false;
 }
 
 function loop() {

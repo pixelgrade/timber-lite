@@ -5,14 +5,10 @@
 .site-sidebar:not(.site-sidebar--archive) {
 
     @include query-above($small) {
-        flex-basis: $sidebar-width*2/3;
-        -webkit-flex-basis: $sidebar-width*2/3;
-        flex-shrink: 0;
-        -webkit-flex-shrink: 0;
-        flex-grow: 0;
-        -webkit-flex-grow: 0;
+        width: $sidebar-width*2/3;
+        flex: 0 0 $sidebar-width*2/3;
         z-index: 400;
-        margin-left: 7px;
+        margin-left: $border-width;
 
         .is--ie-le10 & {
             position: fixed;
@@ -29,21 +25,17 @@
     }
 
     @include query-above($desk) {
+        width: $sidebar-width;
         flex-basis: $sidebar-width;
-        -webkit-flex-basis: $sidebar-width;
     }
 }
 
 @include query-above($lap) {
     .site-sidebar {
-        flex-basis: $sidebar-width;
-        -webkit-flex-basis: $sidebar-width;
-        flex-shrink: 0;
-        -webkit-flex-shrink: 0;
-        flex-grow: 0;
-        -webkit-flex-grow: 0;
+        width: $sidebar-width;
+        flex: 0 0 $sidebar-width;
         z-index: 400;
-        margin-left: 7px;
+        margin-left: $border-width;
 
         .is--ie-le10 & {
             position: fixed;
@@ -162,26 +154,22 @@
 }
 
 // Some special treatment for portfolio archive pages
-@include query-above($lap) {
-    .page-template-custom-portfolio-page,
-    .tax-jetpack-portfolio-type,
-    .tax-jetpack-portfolio-tag {
-        .site-sidebar--archive {
+.page-template-custom-portfolio-page,
+.tax-jetpack-portfolio-type,
+.tax-jetpack-portfolio-tag {
+    .site-sidebar--archive {
+        @include query-above($lap) {
             position: fixed;
-            left: 7px;
-            top: 125px;
+            left: $border-width;
+            top: $header-height;
 
-            width: 110px;
-            height: calc(100vh - 250px);
+            width: $sidebar-width*2/3;
+            margin-left: 0;
+            height: calc(100vh - #{2 * $header-height});
+        }
+
+        @include query-above($desk) {
+            width: $sidebar-width;
         }
     }
 }
-
-// @include query-below($desk) {
-//     .page-template-custom-portfolio-page, .tax-jetpack-portfolio-type {
-//         .site-sidebar--archive {
-//             padding-left: 7vw;
-//             padding-right: 7vw;
-//         }
-//     }
-// }
