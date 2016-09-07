@@ -66,7 +66,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php endif; ?>
 					<?php echo WC()->cart->get_item_data( $cart_item ); ?>
 
-					<?php echo '<div class="quantity"><span class="cart-items-number">' . $cart_item['quantity'] . '</span></div>' . $product_price; ?>
 					<?php echo apply_filters( 'woocommerce_widget_cart_item_quantity', '<div class="quantity"><span class="cart-items-number">' . $cart_item['quantity'] . '</span></div>' . $product_price, $cart_item, $cart_item_key ); ?>
 				</li>
 			<?php
