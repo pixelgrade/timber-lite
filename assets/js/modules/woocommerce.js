@@ -45,7 +45,7 @@ var Woocommerce = (function() {
 		} else {
 			total_products = $film.find('.js-portfolio-item').not('.portfolio__item--clone').length;
 		}
-		$('.portfolio__position').text($current.data('count') + 1 + ' of ' + total_products);
+		$('.portfolio__position').text($current.data('count') + 1 + ' ' +  objectl10n.tCounter + ' ' + total_products);
 	}
 
 	function getMiddle($image) {
