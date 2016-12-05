@@ -281,6 +281,7 @@ var Woocommerce = (function() {
 	}
 
 	function betterWooThumbsNav() {
+
 		$('.thumbnails > a').on('click', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -302,9 +303,10 @@ var Woocommerce = (function() {
 			return false;
 		});
 
-		$(document).on('timber:prettyPhoto:script:loaded', function () {
-			// Lightbox
-			$("a.zoom").prettyPhoto({
+		// Lightbox
+		if ( typeof $.prettyPhoto !== "undefined" ) {
+
+			$("a.woocommerce-main-image.zoom").prettyPhoto({
 				hook: 'data-rel',
 				social_tools: false,
 				theme: 'pp_woocommerce',
@@ -312,6 +314,7 @@ var Woocommerce = (function() {
 				opacity: 0.8,
 				deeplinking: false
 			});
+
 			$("a[data-rel^='prettyPhoto']").prettyPhoto({
 				hook: 'data-rel',
 				social_tools: false,
@@ -320,7 +323,13 @@ var Woocommerce = (function() {
 				opacity: 0.8,
 				deeplinking: false
 			});
-		} );
+		} else {
+			$("a.woocommerce-main-image.zoom, a[data-rel^='prettyPhoto']").addClass('u-cursor-default').on( 'click', function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+				return false;
+			});
+		}
 	}
 
 	function checkCart() {

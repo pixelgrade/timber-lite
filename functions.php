@@ -191,7 +191,7 @@ function timber_scripts_styles() {
 		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	}
 
-	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
+	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && 'yes' == get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
 		$woo_asssets_url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 

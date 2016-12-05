@@ -12634,6 +12634,10 @@ html body .jp-carousel .selected {
 	}
 }
 
+.u-cursor-default {
+	cursor: default !important;
+}
+
 .product-list {
 	list-style-type: none;
 	margin-bottom: 0; 
