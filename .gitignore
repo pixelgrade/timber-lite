@@ -1,6 +1,5 @@
 assets/.sass-cache
 assets/inc/metaboxes/.sass-cache
-assets/js/main.js
 inc/vendor/twitter-api/cache.tweetcache
 
 .DS_Store
@@ -26,9 +25,4 @@ node_modules/
 .svn
 README.md
 
-style.css
-editor-style.css
-rtl.css
-assets/js/main.js
-admin/project-editor-style.css
 npm-debug.log
