@@ -93,7 +93,10 @@ var frontpageSlider = (function() {
 
             createBullets();
             setZindex();
+
+            unbindEvents();
             bindEvents();
+
             animateContentIn();
         });
 
