@@ -11,7 +11,6 @@ var gulp 		= require('gulp'),
 	beautify 	= require('gulp-beautify'),
 	csscomb 	= require('gulp-csscomb'),
 	cmq 		= require('gulp-combine-media-queries'),
-	chmod 		= require('gulp-chmod'),
 	fs          = require('fs') ;
 
 jsFiles = [
@@ -49,8 +48,7 @@ gulp.task('styles', function () {
 		.pipe(prefix("last 3 versions", "> 1%", "ie 8", "ie 7"))
 		// .pipe(cmq())
 		.pipe(csscomb())
-		.pipe(chmod(644))
-		.pipe(gulp.dest('./'))
+		.pipe(gulp.dest('./', {"mode": "0664"}))
 		.pipe(notify({message: 'Styles task complete'}));
 });
 
@@ -65,8 +63,7 @@ gulp.task('scripts', function () {
 	return gulp.src(jsFiles)
 		.pipe(concat('main.js'))
 		.pipe(beautify({indentSize: 2}))
-		.pipe(chmod(644))
-		.pipe(gulp.dest('./assets/js/'));
+		.pipe(gulp.dest('./assets/js/', {"mode": "0664"}));
 });
 
 gulp.task('scripts-watch', function () {
@@ -88,8 +85,7 @@ gulp.task('styles-admin', function () {
 			console.log(e.message);
 		})
 		.pipe(prefix("last 3 versions", "> 1%", "ie 8", "ie 7"))
-		.pipe(chmod(644))
-		.pipe(gulp.dest('./assets/css/admin/'));
+		.pipe(gulp.dest('./assets/css/admin/', {"mode": "0664"}));
 });
 
 // usually there is a default task for lazy people who just wanna type gulp
