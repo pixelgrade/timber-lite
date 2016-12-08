@@ -168,7 +168,7 @@ var Woocommerce = (function() {
 
 		if ( ! empty($portfolio_container.data('taxonomy')) ) {
 			args['taxonomy'] = $portfolio_container.data('taxonomy');
-			args['term_id'] = $portfolio_container.data('termid');
+			args['term_id'] = $portfolio_container.data('term_id');
 		}
 
 		$.post(
@@ -221,7 +221,7 @@ var Woocommerce = (function() {
 
 		if ( !empty($portfolio_container.data('taxonomy')) ) {
 			args['taxonomy'] = $portfolio_container.data('taxonomy');
-			args['term_id'] = $portfolio_container.data('termid');
+			args['term_id'] = $portfolio_container.data('term_id');
 		}
 
 		$.post(

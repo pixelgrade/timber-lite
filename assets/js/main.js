@@ -3993,7 +3993,7 @@
                         break a
                     }
                 c =
-                "url(//patriciaportfolio.googlecode.com/files/openhand.cur),n-resize"
+                    "url(//patriciaportfolio.googlecode.com/files/openhand.cur),n-resize"
             }
             d.cursorgrabvalue = c;
             d.hasmousecapture = "setCapture" in f;
@@ -4440,8 +4440,7 @@
                             backgroundPosition: "0px 0px"
                         }), a.opt.dblclickzoom && a.bind(a.win, "dblclick", a.doZoom), e.cantouch && a.opt.gesturezoom &&
                         (a.ongesturezoom = function(b) {
-                            1.5 < b.scale && a.doZoomIn(b);
-                            .8 > b.scale && a.doZoomOut(b);
+                            1.5 < b.scale && a.doZoomIn(b);.8 > b.scale && a.doZoomOut(b);
                             return a.cancelEvent(b)
                         }, a.bind(a.win, "gestureend", a.ongesturezoom)));
                     a.railh = !1;
@@ -5994,8 +5993,7 @@ if (!Date.now)
         window.cancelAnimationFrame = (window[vp + 'CancelAnimationFrame'] || window[vp + 'CancelRequestAnimationFrame']);
     }
     if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
-        ||
-        !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+        || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
         var lastTime = 0;
         window.requestAnimationFrame = function(callback) {
             var now = Date.now();
@@ -10198,8 +10196,7 @@ if (!Date.now)
                     value = wrap(value);
                 }
                 if (value instanceof Element) {
-                    if (value.type == "radialGradient" || value.type == "linearGradient" ||
-                        value.type == "pattern") {
+                    if (value.type == "radialGradient" || value.type == "linearGradient" || value.type == "pattern") {
                         if (!value.node.id) {
                             $(value.node, {
                                 id: value.id
@@ -11755,18 +11752,7 @@ if (!Date.now)
         function isBBoxIntersect(bbox1, bbox2) {
             bbox1 = box(bbox1);
             bbox2 = box(bbox2);
-            return isPointInsideBBox(bbox2, bbox1.x, bbox1.y) ||
-                isPointInsideBBox(bbox2, bbox1.x2, bbox1.y) ||
-                isPointInsideBBox(bbox2, bbox1.x, bbox1.y2) ||
-                isPointInsideBBox(bbox2, bbox1.x2, bbox1.y2) ||
-                isPointInsideBBox(bbox1, bbox2.x, bbox2.y) ||
-                isPointInsideBBox(bbox1, bbox2.x2, bbox2.y) ||
-                isPointInsideBBox(bbox1, bbox2.x, bbox2.y2) ||
-                isPointInsideBBox(bbox1, bbox2.x2, bbox2.y2) ||
-                (bbox1.x < bbox2.x2 && bbox1.x > bbox2.x ||
-                    bbox2.x < bbox1.x2 && bbox2.x > bbox1.x) &&
-                (bbox1.y < bbox2.y2 && bbox1.y > bbox2.y ||
-                    bbox2.y < bbox1.y2 && bbox2.y > bbox1.y);
+            return isPointInsideBBox(bbox2, bbox1.x, bbox1.y) || isPointInsideBBox(bbox2, bbox1.x2, bbox1.y) || isPointInsideBBox(bbox2, bbox1.x, bbox1.y2) || isPointInsideBBox(bbox2, bbox1.x2, bbox1.y2) || isPointInsideBBox(bbox1, bbox2.x, bbox2.y) || isPointInsideBBox(bbox1, bbox2.x2, bbox2.y) || isPointInsideBBox(bbox1, bbox2.x, bbox2.y2) || isPointInsideBBox(bbox1, bbox2.x2, bbox2.y2) || (bbox1.x < bbox2.x2 && bbox1.x > bbox2.x || bbox2.x < bbox1.x2 && bbox2.x > bbox1.x) && (bbox1.y < bbox2.y2 && bbox1.y > bbox2.y || bbox2.y < bbox1.y2 && bbox2.y > bbox1.y);
         }
 
         function base3(t, p1, p2, p3, p4) {
@@ -12753,11 +12739,7 @@ if (!Date.now)
                         };
                     }
                 }
-                d.push(["C",
-                    (-p[0].x + 6 * p[1].x + p[2].x) / 6,
-                    (-p[0].y + 6 * p[1].y + p[2].y) / 6,
-                    (p[1].x + 6 * p[2].x - p[3].x) / 6,
-                    (p[1].y + 6 * p[2].y - p[3].y) / 6,
+                d.push(["C", (-p[0].x + 6 * p[1].x + p[2].x) / 6, (-p[0].y + 6 * p[1].y + p[2].y) / 6, (p[1].x + 6 * p[2].x - p[3].x) / 6, (p[1].y + 6 * p[2].y - p[3].y) / 6,
                     p[2].x,
                     p[2].y
                 ]);
@@ -17868,7 +17850,7 @@ if (!Date.now)
 
             if (!empty($portfolio_container.data('taxonomy'))) {
                 args['taxonomy'] = $portfolio_container.data('taxonomy');
-                args['term_id'] = $portfolio_container.data('termid');
+                args['term_id'] = $portfolio_container.data('term_id');
             }
 
             $.post(
@@ -17927,7 +17909,7 @@ if (!Date.now)
 
             if (!empty($portfolio_container.data('taxonomy'))) {
                 args['taxonomy'] = $portfolio_container.data('taxonomy');
-                args['term_id'] = $portfolio_container.data('termid');
+                args['term_id'] = $portfolio_container.data('term_id');
             }
 
             $.post(
@@ -18488,11 +18470,7 @@ if (!Date.now)
     }
 
     function isFilmstrip() {
-        return $body.hasClass('blog') ||
-            $body.hasClass('project_layout-filmstrip') ||
-            $body.hasClass('project_layout-thumbnails') ||
-            $('.woocommerce.archive').length ||
-            $body.hasClass('single-proof_gallery');
+        return $body.hasClass('blog') || $body.hasClass('project_layout-filmstrip') || $body.hasClass('project_layout-thumbnails') || $('.woocommerce.archive').length || $body.hasClass('single-proof_gallery');
     }
 
     function bindVertToHorScroll() {
@@ -18608,8 +18586,7 @@ if (!Date.now)
                 var container = $('.nav--main');
 
                 if (!container.is(e.target) // if the target of the click isn't the container...
-                    &&
-                    container.has(e.target).length === 0) // ... nor a descendant of the container
+                    && container.has(e.target).length === 0) // ... nor a descendant of the container
                 {
                     $('.menu-item-has-children').removeClass('hover');
                     $('a.prevent-one').each(function() {
