@@ -23,6 +23,7 @@ var ua                  = navigator.userAgent.toLowerCase(),
     isMac               = false,
     isWindows           = false,
     isiele10            = false,
+    isiPad              = false,
 
     firefox             = ua.indexOf('gecko') != -1,
     safari              = ua.indexOf('safari') != -1 && ua.indexOf('chrome') == -1,

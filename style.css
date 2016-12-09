@@ -8760,6 +8760,12 @@ li.depth-2:before {
 	-ms-flex: 1 1 auto;
 	flex: 1 1 auto;
 }
+@media screen and (orientation: landscape) {
+	.is--ipad .blog .item__text {
+		-ms-flex: 1 0 100%;
+		flex: 1 0 100%;
+	}
+}
 .blog .item__text .entry-meta {
 	font-size: 12px;
 	margin-bottom: 4px; 

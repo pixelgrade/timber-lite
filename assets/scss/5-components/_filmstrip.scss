@@ -122,6 +122,12 @@
         flex: 1 1 auto;
         padding: 0 7vw;
 
+        @media screen and (orientation: landscape) {
+            .is--ipad & {
+                flex: 1 0 100%;
+            }
+        }
+
         .entry-meta {
             font-size: 12px;
             margin-top: 24px;

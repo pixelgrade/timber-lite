@@ -30,6 +30,7 @@ function platformDetect() {
     android         = getAndroidVersion();
     isMac           = navigator.platform.toUpperCase().indexOf('MAC')>=0;
     isWindows       = navigator.platform.toUpperCase().indexOf('WIN')!==-1;
+    isiPad            = navigator.userAgent.match(/iPad/i) != null;
 
     if (iOS && iOS < 8) {
         $html.addClass('no-scroll-fx')
@@ -45,6 +46,10 @@ function platformDetect() {
 
     if (ieMobile) {
         $html.addClass('is--ie-mobile')
+    }
+
+    if ( isiPad ) {
+        $html.addClass('is--ipad');
     }
 
     var browser = {
