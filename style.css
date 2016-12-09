@@ -10243,11 +10243,16 @@ body.is-scrolling .portfolio__item--video iframe {
 	top: 50%;
 	-webkit-transform: translateY(-50%) translateZ(0);
 	transform: translateY(-50%) translateZ(0);
-	transition: 0.3s opacity linear;
+	transition: 0.3s opacity linear; 
+	z-index: 1;
 }
 .single-jetpack-portfolio .project-addthis-container .share-text:after,
 .single-proof_gallery .project-addthis-container .share-text:after {
 	content: ":";
+}
+
+.project-addthis-container .addthis_toolbox {
+	transition: 0.3s background-color linear;
 }
 
 .project-addthis-container .active .share-text {
@@ -10256,6 +10261,10 @@ body.is-scrolling .portfolio__item--video iframe {
 
 .project-addthis-container .active .share-button {
 	opacity: 0;
+}
+
+.project-addthis-container .active .addthis_toolbox {
+	background-color: white;
 }
 
 .share-button,

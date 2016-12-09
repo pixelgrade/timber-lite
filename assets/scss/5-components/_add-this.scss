@@ -38,6 +38,7 @@
 		left: -10px;
 		top: 50%;
 		transform: translateY(-50%) translateZ(0);
+		z-index: 1;
 
 		padding-top: 0;
 
@@ -54,6 +55,10 @@
 		}
 	}
 
+	.addthis_toolbox {
+		transition: 0.3s background-color linear;
+	}
+
 	.active {
 		.share-text {
 			opacity: 1;
@@ -61,6 +66,10 @@
 
 		.share-button {
 			opacity: 0;
+		}
+
+		.addthis_toolbox {
+			background-color: white;
 		}
 	}
 }
