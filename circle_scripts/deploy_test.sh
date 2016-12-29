@@ -7,13 +7,18 @@ E_XCD=86       # Can't change directory?
 THEME_NAME=timber
 BRANCH=test
 
+echo $GITHUB_USER || GITHUB_USER=andreilupu
+
+echo $GITHUB_USER
+
+exit 0;
+
 echo "Init Deploy ..."
 
-cd ../ || {
+cd ../../ || {
     echo "Cannot change to necessary directory." >&2
     exit $E_XCD;
 }
-
 
 echo "Cloning demos if the folder doesn't exists ..."
 
@@ -25,6 +30,8 @@ cd demo_tester || {
 
 # list just to see where am I
 ls
+
+exit 0;
 
 echo "Move theme in demos"
 
