@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 7.3.0
+
+deployment:
+  test:
+    branch: test
+    commands:
+     - sh ./circle_scripts/deploy_test.sh
