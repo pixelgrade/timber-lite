@@ -7,9 +7,9 @@ E_XCD=86       # Can't change directory?
 THEME_NAME=timber
 BRANCH=test
 
-echo $GITHUB_USER || GITHUB_USER=andreilupu
+echo $DEMOGITHUBUSER || DEMOGITHUBUSER=andreilupu
 
-echo $GITHUB_USER
+echo $DEMOGITHUBUSER
 
 exit 0;
 
@@ -23,9 +23,9 @@ cd ../../ || {
 echo "Cloning demos if the folder doesn't exists ..."
 
 cd demo_tester || {
-    git config --global user.name GITHUB_USER
+    git config --global user.name DEMOGITHUBUSER
     git config --global user.email "andrei.lupu@pixelgrade.com"
-    git clone https://GITHUB_USER:GITHUB_PASS@github.com/pixelgrade/demo_tester.git -b test
+    git clone https://DEMOGITHUBUSER:DEMOGITHUBPASS@github.com/pixelgrade/demo_tester.git -b test
 }
 
 # list just to see where am I
