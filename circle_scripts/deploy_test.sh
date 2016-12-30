@@ -17,10 +17,12 @@ git checkout $THEME_STAGGING_BRANCH || {
 }
 
 echo "=== Init Deploy ..."
-cd ../../ || {
+cd ../ || {
     echo "Cannot change to necessary directory." >&2
     exit $E_XCD
 }
+
+ls
 
 echo "=== Cloning demos if the folder doesn't exists ..."
 
