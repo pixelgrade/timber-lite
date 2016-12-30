@@ -13,7 +13,6 @@ machine:
 general:
   branches:
     only:
-      - timber
       - test
       - master
 

@@ -228,11 +228,6 @@ gulp.task('update-demo', function () {
 		}));
 });
 
-gulp.task('update-demo-production', function () {
-	// silence
-
-});
-
 /**
  * Short commands help
  */
