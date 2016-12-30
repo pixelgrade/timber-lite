@@ -3,57 +3,63 @@
 
 # let's set some variables
 E_XCD=86       # Can't change directory?
-
 THEME_NAME=timber
-BRANCH=test
+THEME_STAGGING_BRANCH=test
+DEMO_REPO=demo_tester
+DEMO_BRANCH=test
 
-echo $DEMOGITHUBUSER || DEMOGITHUBUSER=andreilupu
+#=== Stop your keyboard here ===
 
-echo $DEMOGITHUBUSER
+# Ensure we are on the right branch
+git checkout $THEME_STAGGING_BRANCH || {
+    echo "Cannot find the branch $THEME_STAGGING_BRANCH"
+    exit $E_XCD
+}
 
-exit 0;
-
-echo "Init Deploy ..."
-
+echo "=== Init Deploy ..."
 cd ../../ || {
     echo "Cannot change to necessary directory." >&2
-    exit $E_XCD;
+    exit $E_XCD
 }
 
-echo "Cloning demos if the folder doesn't exists ..."
+echo "=== Cloning demos if the folder doesn't exists ..."
 
-cd demo_tester || {
-    git config --global user.name DEMOGITHUBUSER
-    git config --global user.email "andrei.lupu@pixelgrade.com"
-    git clone https://DEMOGITHUBUSER:DEMOGITHUBPASS@github.com/pixelgrade/demo_tester.git -b test
-}
+if [ -e $DEMO_REPO ]
+ then
+    echo 'folder already exists'
+ else
+    git config --global user.name $DEMOGITHUBUSER
+    git config --global user.email $DEMOGITHUBEMAIL
+    git clone https://$DEMOGITHUBUSER:$DEMOGITHUBPASS@github.com/pixelgrade/$DEMO_REPO.git -b $DEMO_BRANCH
+fi
 
 # list just to see where am I
 ls
 
-exit 0;
+echo "=== Move theme in demos"
 
-echo "Move theme in demos"
-
-cp -R THEME_NAME demo_tester/wp-content/themes || {
+rsync -av --exclude='.git' --exclude='.gitignore' --exclude='.travis' --exclude='circle_scripts' --exclude='.sass_cache' --exclude='node_modules' ./$THEME_NAME $DEMO_REPO/wp-content/themes || {
     echo "Cannot copy in demos." >&2
     exit $E_XCD;
 }
 
-echo "Go in demos"
+echo "=== Go in demos"
 
-cd ./demo_tester/wp-content/THEME_NAME || {
+cd ./$DEMO_REPO/wp-content/themes/$THEME_NAME || {
     echo "Cannot change dir in demos." >&2
     exit $E_XCD;
 }
 
-#echo "Commit new theme"
-#git add .
-#git commit -m "auto-commit"
+echo "=== Commit new theme"
 
-#echo "Push new theme"
+git add .
+git commit -m "CircleCi Commit"
 
-#git push origin test
+echo "=== Push new theme"
+
+echo $DEMO_BRANCH
+
+git push origin $DEMO_BRANCH
 
 echo "Done thing"
 exit 0
