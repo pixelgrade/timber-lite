@@ -14,6 +14,8 @@ general:
   branches:
     only:
       - timber
+      - test
+      - master
 
 dependencies:
   # we automatically cache and restore many dependencies between
