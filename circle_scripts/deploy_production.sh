@@ -17,10 +17,12 @@ git checkout $THEME_STAGGING_BRANCH || {
 }
 
 echo "=== Init Deploy ..."
-cd ../../ || {
+cd ../ || {
     echo "Cannot change to necessary directory." >&2
     exit $E_XCD
 }
+
+ls
 
 echo "=== Cloning demos if the folder doesn't exists ..."
 
@@ -37,8 +39,8 @@ fi
 ls
 
 echo "=== Move theme in demos"
-
-rsync -av --exclude='.git' --exclude='.gitignore' --exclude='.travis' --exclude='circle_scripts' --exclude='.sass_cache' --exclude='node_modules' ./$THEME_NAME $DEMO_REPO/wp-content/themes || {
+#  move the theme in the demos repository but exclude the build files
+rsync -av --exclude='.git' --exclude='.gitignore' --exclude='wp-cli.phar' --exclude='wordpress' --exclude='tests' --exclude='.travis' --exclude='circle_scripts' --exclude='.sass_cache' --exclude='node_modules' ./$THEME_NAME $DEMO_REPO/wp-content/themes || {
     echo "Cannot copy in demos." >&2
     exit $E_XCD;
 }
