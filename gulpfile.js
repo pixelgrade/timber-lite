@@ -209,22 +209,21 @@ gulp.task('update-demo', function () {
 				run_exec('git checkout test; git pull origin ' + main_branch + '; git push origin test; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
 					console.log(stdout);
 					console.log(stderr);
-					// cb(err);
 				});
+				console.log( " ==== The master branch is up-to-date now. But is the CircleCi job to update the remote test.demo.pixelgrade.com" );
 				return true;
 			}
 
 
 			if ( res.demo_update === 'production' ) {
-				console.log( 'No hard feelings!' );
 				run_exec('git checkout master; git pull origin ' + main_branch + '; git push origin master; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
 					console.log(stdout);
 					console.log(stderr);
-					// cb(err);
 				});
+
+				console.log( " ==== The master branch is up-to-date now. But is the CircleCi job to update the remote demo.pixelgrade.com" );
 				return true;
 			}
-
 		}));
 });
 
