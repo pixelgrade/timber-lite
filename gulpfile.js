@@ -1,17 +1,18 @@
-var gulp 		= require('gulp'),
-	sass 		= require('gulp-sass'),
-	prefix 		= require('gulp-autoprefixer'),
-	exec 		= require('gulp-exec'),
-	replace 	= require('gulp-replace'),
-	clean 		= require('gulp-clean'),
-	minify 		= require('gulp-minify-css'),
-	livereload 	= require('gulp-livereload'),
-	concat 		= require('gulp-concat'),
-	notify 		= require('gulp-notify'),
-	beautify 	= require('gulp-beautify'),
-	csscomb 	= require('gulp-csscomb'),
-	cmq 		= require('gulp-combine-media-queries'),
-	fs          = require('fs') ;
+var gulp = require('gulp'),
+	sass = require('gulp-sass'),
+	prefix = require('gulp-autoprefixer'),
+	exec = require('gulp-exec'),
+	replace = require('gulp-replace'),
+	clean = require('gulp-clean'),
+	minify = require('gulp-minify-css'),
+	livereload = require('gulp-livereload'),
+	concat = require('gulp-concat'),
+	notify = require('gulp-notify'),
+	beautify = require('gulp-beautify'),
+	csscomb = require('gulp-csscomb'),
+	prompt = require('gulp-prompt'),
+	cmq = require('gulp-combine-media-queries'),
+	fs = require('fs');
 
 jsFiles = [
 	'./assets/js/vendor/*.js',
@@ -24,18 +25,20 @@ jsFiles = [
 ];
 
 
-var options = {
-	silent: true,
-	continueOnError: true // default: false
-};
+var theme_name = 'timber',
+	main_branch = 'timber',
+	options = {
+		silent: true,
+		continueOnError: true // default: false
+	};
 
 // styles related
 gulp.task('styles-dev', function () {
 	return gulp.src('assets/scss/**/*.scss')
 		.pipe(sass({'sourcemap=auto': true, style: 'compact'}))
-			.on('error', function (e) {
-				console.log(e.message);
-			})
+		.on('error', function (e) {
+			console.log(e.message);
+		})
 		.pipe(prefix("last 3 versions", "> 1%", "ie 8", "ie 7"))
 		.pipe(gulp.dest('./'))
 		.pipe(notify({message: 'Styles task complete'}))
@@ -149,7 +152,7 @@ gulp.task('build', ['copy-folder'], function () {
 /**
  * Create a zip archive out of the cleaned folder and delete the folder
  */
-gulp.task('zip', ['build'], function(){
+gulp.task('zip', ['build'], function () {
 
 	var versionString = '';
 	//get theme version from styles.css
@@ -160,7 +163,7 @@ gulp.task('zip', ['build'], function(){
 
 	function checkIfVersionLine(value, index, ar) {
 		var myRegEx = /^[Vv]ersion:/;
-		if ( myRegEx.test(value) ) {
+		if (myRegEx.test(value)) {
 			return true;
 		}
 		return false;
@@ -169,11 +172,11 @@ gulp.task('zip', ['build'], function(){
 	// apply the filter
 	var versionLine = lines.filter(checkIfVersionLine);
 
-	versionString = versionLine[0].replace(/^[Vv]ersion:/, '' ).trim();
-	versionString = '-' + versionString.replace(/\./g,'-');
+	versionString = versionLine[0].replace(/^[Vv]ersion:/, '').trim();
+	versionString = '-' + versionString.replace(/\./g, '-');
 
 	return gulp.src('./')
-		.pipe(exec('cd ./../; rm -rf Timber*.zip; cd ./build/; zip -r -X ./../Timber-Installer' + versionString +'.zip ./timber; cd ./../; rm -rf build'));
+		.pipe(exec('cd ./../; rm -rf Timber*.zip; cd ./build/; zip -r -X ./../Timber-Installer' + versionString + '.zip ./timber; cd ./../; rm -rf build'));
 
 });
 
@@ -182,29 +185,79 @@ gulp.task('default', ['start'], function () {
 	// silence
 });
 
+gulp.task('update-demo', function () {
+
+	var run_exec = require('child_process').exec;
+
+	gulp.src('./')
+		.pipe(prompt.confirm( "This task will stash all your local changes without commiting them,\n Make sure you did all your commits and pushes to the main " + main_branch + " branch! \n Are you sure you want to continue?!? "))
+		.pipe(prompt.prompt({
+			type: 'list',
+			name: 'demo_update',
+			message: 'Which demo would you like to update?',
+			choices: ['none', 'test', 'production']
+		}, function(res){
+
+			if ( res.demo_update === 'none' ) {
+				console.log( 'No hard feelings!' );
+				return false;
+			}
+
+			console.log('This task may ask for a github user / password or a ssh passphrase');
+
+			if ( res.demo_update === 'test' ) {
+				run_exec('git checkout test; git pull origin ' + main_branch + '; git push origin test; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
+					console.log(stdout);
+					console.log(stderr);
+					// cb(err);
+				});
+				return true;
+			}
+
+
+			if ( res.demo_update === 'production' ) {
+				console.log( 'No hard feelings!' );
+				run_exec('git checkout master; git pull origin ' + main_branch + '; git push origin master; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
+					console.log(stdout);
+					console.log(stderr);
+					// cb(err);
+				});
+				return true;
+			}
+
+		}));
+});
+
+gulp.task('update-demo-production', function () {
+	// silence
+
+});
+
 /**
  * Short commands help
  */
-
 gulp.task('help', function () {
 
 	var $help = '\nCommands available : \n \n' +
 		'=== General Commands === \n' +
-		'start              (default)Compiles all styles and scripts and makes the theme ready to start \n' +
-		'zip               	Generate the zip archive \n' +
-		'build						  Generate the build directory with the cleaned theme \n' +
-		'help               Print all commands \n' +
+		'start                  (default)Compiles all styles and scripts and makes the theme ready to start \n' +
+		'zip                    Generate the zip archive \n' +
+		'build                  Generate the build directory with the cleaned theme \n' +
+		'help                   Print all commands \n' +
 		'=== Style === \n' +
-		'styles             Compiles styles in production mode\n' +
-		'styles-dev         Compiles styles in development mode \n' +
+		'styles                 Compiles styles in production mode\n' +
+		'styles-dev             Compiles styles in development mode \n' +
 		'=== Scripts === \n' +
-		'scripts            Concatenate all js scripts \n' +
-		'scripts-dev        Concatenate all js scripts and live-reload \n' +
+		'scripts                Concatenate all js scripts \n' +
+		'scripts-dev            Concatenate all js scripts and live-reload \n' +
 		'=== Watchers === \n' +
-		'watch              Watches all js and scss files \n' +
-		'styles-watch       Watch only styles\n' +
-		'scripts-watch      Watch scripts only \n';
+		'watch                  Watches all js and scss files \n' +
+		'styles-watch           Watch only styles\n' +
+		'scripts-watch          Watch scripts only \n';
+
+	'=== CircleCI Scripts === \n' +
+	'update-demo-test       Watches all js and scss files \n' +
+	'update-demo-production Watch only styles\n';
 
 	console.log($help);
-
 });

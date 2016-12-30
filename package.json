@@ -1,19 +1,20 @@
 {
-    "name": "timber",
-    "devDependencies": {
-        "gulp": "*",
-        "gulp-sass": "*",
-        "gulp-autoprefixer": "~1.0.1",
-        "gulp-minify-css": "*",
-        "gulp-ignore": "*",
-        "gulp-livereload": "*",
-        "gulp-notify": "*",
-        "gulp-concat": "*",
-        "gulp-exec": "*",
-        "gulp-replace": "*",
-        "gulp-clean": "*",
-        "gulp-beautify": "*",
-        "gulp-csscomb": "*",
-        "gulp-combine-media-queries": "*"
-    }
+  "name": "timber",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-autoprefixer": "~1.0.1",
+    "gulp-beautify": "*",
+    "gulp-clean": "*",
+    "gulp-combine-media-queries": "*",
+    "gulp-concat": "*",
+    "gulp-csscomb": "*",
+    "gulp-exec": "*",
+    "gulp-ignore": "*",
+    "gulp-livereload": "*",
+    "gulp-minify-css": "*",
+    "gulp-notify": "*",
+    "gulp-prompt": "^0.2.0",
+    "gulp-replace": "*",
+    "gulp-sass": "*"
+  }
 }

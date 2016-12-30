@@ -5,7 +5,7 @@ machine:
 general:
   branches:
     only:
-      - circle
+      - timber
 
 deployment:
   test:
