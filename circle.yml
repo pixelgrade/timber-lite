@@ -80,7 +80,7 @@ test:
     - sudo mkdir -p $CIRCLE_TEST_REPORTS/phpunit
 
     # This is just for us to see that the WP Pusher plugin was actually installed and is active
-    - ./wp-cli.phar plugin list --path=wordpress
+    # - ./wp-cli.phar plugin list --path=wordpress
     # Finally, run our Behat features
     - cd wordpress/wp-content/themes/timber/tests; phpunit --log-junit $CIRCLE_TEST_REPORTS/phpunit/junit.xml
 
@@ -89,7 +89,9 @@ deployment:
     branch: test
     commands:
      - sh ./circle_scripts/deploy_test.sh
+     - curl https://test.demos.pixelgrade.com/git-webhook.php
   production:
     branch: master
     commands:
      - sh ./circle_scripts/deploy_production.sh
+     - curl https://demos.pixelgrade.com/git-webhook.php

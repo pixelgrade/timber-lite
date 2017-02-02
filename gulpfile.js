@@ -195,28 +195,28 @@ gulp.task('update-demo', function () {
 			type: 'list',
 			name: 'demo_update',
 			message: 'Which demo would you like to update?',
-			choices: ['none', 'test', 'production']
+			choices: ['cancel', 'test.demos.pixelgrade.com/' + theme_name, 'demos.pixelgrade.com/' + theme_name]
 		}, function(res){
 
-			if ( res.demo_update === 'none' ) {
+			if ( res.demo_update === 'cancel' ) {
 				console.log( 'No hard feelings!' );
 				return false;
 			}
 
 			console.log('This task may ask for a github user / password or a ssh passphrase');
 
-			if ( res.demo_update === 'test' ) {
-				run_exec('git checkout test; git pull origin ' + main_branch + '; git push origin test; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
-					console.log(stdout);
-					console.log(stderr);
+			if ( res.demo_update === 'test.demos.pixelgrade.com/' + theme_name ) {
+				run_exec('git fetch; git checkout test; git pull origin ' + main_branch + '; git push origin test; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
+					// console.log(stdout);
+					// console.log(stderr);
 				});
 				console.log( " ==== The master branch is up-to-date now. But is the CircleCi job to update the remote test.demo.pixelgrade.com" );
 				return true;
 			}
 
 
-			if ( res.demo_update === 'production' ) {
-				run_exec('git checkout master; git pull origin ' + main_branch + '; git push origin master; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
+			if ( res.demo_update === 'demos.pixelgrade.com/' + theme_name ) {
+				run_exec('git fetch; git checkout master; git pull origin test; git push origin master; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
 					console.log(stdout);
 					console.log(stderr);
 				});

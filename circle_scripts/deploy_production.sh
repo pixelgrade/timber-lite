@@ -5,7 +5,7 @@
 E_XCD=86       # Can't change directory?
 THEME_NAME=timber
 THEME_STAGGING_BRANCH=master
-DEMO_REPO=demo_tester
+DEMO_REPO=demos
 DEMO_BRANCH=master
 
 #=== Stop your keyboard here ===
@@ -55,7 +55,7 @@ cd ./$DEMO_REPO/wp-content/themes/$THEME_NAME || {
 echo "=== Commit new theme"
 
 git add .
-git commit -m "CircleCi Commit"
+git commit -m "Auto update $THEME_NAME on branch $THEME_STAGGING_BRANCH via CircleCi"
 
 echo "=== Push new theme"
 
