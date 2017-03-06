@@ -32,19 +32,6 @@ var theme_name = 'timber',
 		continueOnError: true // default: false
 	};
 
-// styles related
-gulp.task('styles-dev', function () {
-	return gulp.src('assets/scss/**/*.scss')
-		.pipe(sass({'sourcemap=auto': true, style: 'compact'}))
-		.on('error', function (e) {
-			console.log(e.message);
-		})
-		.pipe(prefix("last 3 versions", "> 1%", "ie 8", "ie 7"))
-		.pipe(gulp.dest('./'))
-		.pipe(notify({message: 'Styles task complete'}))
-		.pipe(livereload());
-});
-
 gulp.task('styles', function () {
 	return gulp.src('assets/scss/**/*.scss')
 		.pipe(sass({'sourcemap=none': true, style: 'expanded'}))
@@ -104,7 +91,7 @@ gulp.task('server', ['styles', 'scripts'], function () {
 /**
  * Copy theme folder outside in a build folder, recreate styles before that
  */
-gulp.task('copy-folder', ['styles', 'scripts'], function () {
+gulp.task('copy-folder', function () {
 
 	return gulp.src('./')
 		.pipe(exec('rm -Rf ./../build; mkdir -p ./../build/timber; rsync -av --exclude="node_modules" ./* ./../build/timber/', options));
@@ -240,10 +227,8 @@ gulp.task('help', function () {
 		'help                   Print all commands \n' +
 		'=== Style === \n' +
 		'styles                 Compiles styles in production mode\n' +
-		'styles-dev             Compiles styles in development mode \n' +
 		'=== Scripts === \n' +
 		'scripts                Concatenate all js scripts \n' +
-		'scripts-dev            Concatenate all js scripts and live-reload \n' +
 		'=== Watchers === \n' +
 		'watch                  Watches all js and scss files \n' +
 		'styles-watch           Watch only styles\n' +
