@@ -5,7 +5,7 @@ Theme URI: https://pixelgrade.com/demos/timber/
 Author: PixelGrade
 Author URI: https://pixelgrade.com/
 Description: Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience.
-Version: 1.6.6
+Version: 1.6.7
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: timber
@@ -9063,10 +9063,6 @@ img {
 	will-change: opacity;
 }
 
-.is--ie-le10 .portfolio-wrapper {
-	padding-bottom: 125px;
-}
-
 .proof__overlay {
 	display: none;
 }
@@ -9345,7 +9341,7 @@ body.is-scrolling .portfolio__item--video iframe {
 	display: flex;
 }
 
-.page-template-custom-portfolio-page:not(.single-jetpack-portfolio):not(.single-proof_gallery) .portfolio--grid,
+.page-template-custom-portfolio-page:not(.single-jetpack-portfolio):not(.single-proof_gallery):not(.single-proof_gallery) .portfolio--grid,
 .tax-jetpack-portfolio-type .portfolio--grid,
 .tax-jetpack-portfolio-tag .portfolio--grid {
 	display: none;
@@ -9353,7 +9349,7 @@ body.is-scrolling .portfolio__item--video iframe {
 	padding-bottom: 0;
 }
 @media not screen and (min-width: 900px) {
-	.page-template-custom-portfolio-page:not(.single-jetpack-portfolio):not(.single-proof_gallery) .portfolio--grid,
+	.page-template-custom-portfolio-page:not(.single-jetpack-portfolio):not(.single-proof_gallery):not(.single-proof_gallery) .portfolio--grid,
 	.tax-jetpack-portfolio-type .portfolio--grid,
 	.tax-jetpack-portfolio-tag .portfolio--grid {
 		padding-left: 7vw;
@@ -9518,6 +9514,23 @@ body.is-scrolling .portfolio__item--video iframe {
 }
 .portfolio__item--nav .nav__link--archive {
 	margin-top: 35px;
+}
+
+.is--ie .portfolio__header {
+	display: block;
+	float: left;
+}
+
+.is--ie .portfolio__link-wrap {
+	display: block;
+	white-space: nowrap;
+}
+.is--ie .portfolio__link-wrap > * {
+	display: inline-block;
+}
+
+.is--ie-le10 .portfolio-wrapper {
+	padding-bottom: 125px;
 }
 
 /**
