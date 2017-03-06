@@ -20,7 +20,7 @@ var Portfolio = (function() {
 		var layoutMode = 'flex';
 
 		if ( isSafari ) { layoutMode = '-webkit-flex'; }
-		if ($('html').hasClass('is--ie-le10')) {
+		if ($('html').hasClass('is--ie')) {
 			layoutMode = 'block';
 		}
 
@@ -34,7 +34,7 @@ var Portfolio = (function() {
 				target: '.portfolio--project'
 			},
 			layout: {
-				display: layoutMode,
+				display: layoutMode
 			},
 			callbacks: {
 				onMixEnd: function (state) {

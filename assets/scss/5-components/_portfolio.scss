@@ -7,10 +7,6 @@ img {
     will-change: opacity;
 }
 
-.is--ie-le10 .portfolio-wrapper {
-    padding-bottom: $header-height;
-}
-
 .proof__overlay {
     display: none;
 }
@@ -495,4 +491,25 @@ img {
     .nav__link--archive {
         margin-top: 35px;
     }
+}
+
+
+.is--ie {
+    .portfolio__header {
+        display: block;
+        float: left;
+    }
+
+    .portfolio__link-wrap {
+        display: block;
+        white-space: nowrap;
+
+        > * {
+            display: inline-block;
+        }
+    }
+}
+
+.is--ie-le10 .portfolio-wrapper {
+    padding-bottom: $header-height;
 }
