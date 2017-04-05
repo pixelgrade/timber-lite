@@ -6,7 +6,7 @@
 * @since   Timber 1.0
 */
 
-$share_buttons_types = timber_get_option( 'share_buttons_settings' );
+$share_buttons_types = pixelgrade_option( 'share_buttons_settings' );
 
 if ( ! empty( $share_buttons_types ) || $share_buttons_types !== 'false' ) :
 	//lets go through each button type and create the needed markup

@@ -239,7 +239,7 @@ function timber_scripts_styles() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
-	if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
+	if ( is_singular() && pixelgrade_option( 'show_share_links' ) ) {
 		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
 	}
 
@@ -346,7 +346,7 @@ add_action( 'admin_init', 'timber_add_new_project_admin_editor_style' );
  * The function is executed on wp_enqueue_scripts
  */
 function timber_load_custom_js_header() {
-	$custom_js = timber_get_option( 'custom_js' );
+	$custom_js = pixelgrade_option( 'custom_js' );
 	if ( ! empty( $custom_js ) ) {
 		//first lets test is the js code is clean or has <script> tags and such
 		//if we have <script> tags than we will not enclose it in anything - raw output
@@ -359,7 +359,7 @@ function timber_load_custom_js_header() {
 }
 
 function timber_load_custom_js_footer() {
-	$custom_js = timber_get_option( 'custom_js_footer' );
+	$custom_js = pixelgrade_option( 'custom_js_footer' );
 	if ( ! empty( $custom_js ) ) {
 		//first lets test is the js code is clean or has <script> tags and such
 		//if we have <script> tags than we will not enclose it in anything - raw output
@@ -849,7 +849,7 @@ function wupdates_prevalidate_purchase_code_JkElr( $purchase_code ) {
  * Add the global AddThis configuration in the <head>
  */
 function timber_setup_addthis() {
-    if ( is_singular() && timber_get_option( 'show_share_links' ) ) {
+    if ( is_singular() && pixelgrade_option( 'show_share_links' ) ) {
         //here we will configure the AddThis sharing globally
         get_template_part( 'inc/addthis/addthis-js-config' );
     }
