@@ -12965,8 +12965,8 @@ html body .jp-carousel .selected {
 	}
 }
 
-.woocommerce-main-image,
-.woocommerce-main-image img {
+.woocommerce-product-gallery__image,
+.woocommerce-product-gallery__image img {
 	display: block;
 	width: 100%;
 }
@@ -12985,22 +12985,22 @@ html body .jp-carousel .selected {
 	opacity: 1;
 }
 
-.images {
+.woocommerce-product-gallery__wrapper {
 	display: -ms-flexbox;
 	display: flex;
 	-ms-flex-direction: column;
 	flex-direction: column;
 }
-.images .woocommerce-main-image {
+.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image {
 	-ms-flex: 1 1 auto;
 	flex: 1 1 auto;
 }
-.images .thumbnails {
+.woocommerce-product-gallery__wrapper .thumbnails {
 	-ms-flex: 1 1 auto;
 	flex: 1 1 auto;
 }
 @media not screen and (min-width: 900px) {
-	.images .thumbnails {
+	.woocommerce-product-gallery__wrapper .thumbnails {
 		display: -ms-flexbox;
 		display: flex;
 		-ms-flex-align: center;
@@ -13011,25 +13011,25 @@ html body .jp-carousel .selected {
 		align-items: center;
 		justify-content: center;
 	}
-	.images .thumbnails a {
+	.woocommerce-product-gallery__wrapper .thumbnails a {
 		margin-bottom: 0; 
 		padding: 0 5px;
 	}
 }
 
 @media only screen and (min-width: 900px) {
-	.images {
+	.woocommerce-product-gallery__wrapper {
 		-ms-flex-direction: row;
 		flex-direction: row;
 	}
-	.images .woocommerce-main-image {
+	.woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image {
 		-ms-flex-order: 2;
 
 		-ms-flex: 1 1 auto;
 		flex: 1 1 auto;
 		order: 2;
 	}
-	.images .thumbnails {
+	.woocommerce-product-gallery__wrapper .thumbnails {
 		-ms-flex-order: 1;
 		padding-right: 20px; 
 
@@ -13037,16 +13037,16 @@ html body .jp-carousel .selected {
 		flex: 1 1 150px;
 		order: 1;
 	}
-	.images .thumbnails a,
-	.images .thumbnails img {
+	.woocommerce-product-gallery__wrapper .thumbnails a,
+	.woocommerce-product-gallery__wrapper .thumbnails img {
 		display: block;
 	}
-	.images .thumbnails a {
+	.woocommerce-product-gallery__wrapper .thumbnails a {
 		margin-bottom: 20px;
 		opacity: 0.5;
 		transition: opacity 0.3s ease-in-out;
 	}
-	.images .thumbnails a:hover {
+	.woocommerce-product-gallery__wrapper .thumbnails a:hover {
 		opacity: 1;
 	}
 }
@@ -13239,6 +13239,10 @@ div[itemprop="description"] p:first-child {
 
 .single-product-tabs {
 	display: none;
+}
+
+.woocommerce-product-gallery {
+	opacity: 1 !important;
 }
 
 .shop_table .actions {

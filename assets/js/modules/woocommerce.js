@@ -294,7 +294,7 @@ var Woocommerce = (function() {
 			var newImageURL = $(this).attr('href');
 			var newImageSrc = $(this).data('medium-size-url');
 			var newImageSrcset = $(this).data('medium-srcset');
-			var $wooMainImage = $('.woocommerce-main-image');
+			var $wooMainImage = $('.woocommerce-product-gallery__image');
 
 			$wooMainImage.attr('href', newImageURL);
 			$wooMainImage.find('img').attr('src', newImageSrc);
