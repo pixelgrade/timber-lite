@@ -2,11 +2,18 @@
 /**
  * The template for displaying product content in the single-product.php template
  *
- * Override this template by copying it to yourtheme/woocommerce/content-single-product.php
+ * This template can be overridden by copying it to yourtheme/woocommerce/content-single-product.php.
  *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     1.6.4
+ * @version     3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -17,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php
 	/**
-	 * woocommerce_before_single_product hook
+	 * woocommerce_before_single_product hook.
 	 *
 	 * @hooked wc_print_notices - 10
 	 */
@@ -29,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 }
 ?>
 
-<article itemscope itemtype="<?php echo woocommerce_get_product_schema(); ?>" id="product-<?php the_ID(); ?>" <?php post_class('product-post'); ?>>
+<article id="product-<?php the_ID(); ?>" <?php post_class('product-post'); ?>>
 
 	<div class="product__header">
 		<?php
