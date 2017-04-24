@@ -125,7 +125,8 @@ gulp.task('build', ['copy-folder'], function () {
 		'**/.DS_Store',
 		'__MACOSX',
 		'**/__MACOSX',
-		'README.md'
+		'README.md',
+		'.labels'
 	];
 
 	files_to_remove.forEach(function (e, k) {
