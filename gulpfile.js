@@ -205,8 +205,8 @@ gulp.task('update-demo', function () {
 
 			if ( res.demo_update === 'demos.pixelgrade.com/' + theme_name ) {
 				run_exec('git fetch; git checkout master; git pull origin test; git push origin master; git checkout ' + main_branch + ';', function (err, stdout, stderr) {
-					console.log(stdout);
-					console.log(stderr);
+					// console.log(stdout);
+					// console.log(stderr);
 				});
 
 				console.log( " ==== The master branch is up-to-date now. But is the CircleCi job to update the remote demo.pixelgrade.com" );
