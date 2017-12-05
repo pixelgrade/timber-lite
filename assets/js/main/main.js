@@ -215,3 +215,30 @@ function eventHandlers() {
         bindVertToHorScroll();
     }
 }
+
+(function() {
+
+    window.disable_mobile_panning = true;
+
+    window.addEventListener( 'touchstart', function onFirstTouch() {
+        Modernizr.touchevents = true;
+        window.removeEventListener( 'touchstart', onFirstTouch, false );
+    }, false );
+
+    function onPointerDownHandler( event ) {
+        if ( event.pointerType === 'touch' ) {
+            Modernizr.touchevents = true;
+        }
+    }
+
+    // For IE 10
+    window.addEventListener( 'MSPointerDown', onPointerDownHandler );
+    // For IE 11+
+    window.addEventListener( 'pointerdown', onPointerDownHandler );
+    window.addEventListener( "devicemotion", function( event ) {
+        if ( event.rotationRate.alpha || event.rotationRate.beta || event.rotationRate.gamma ) {
+            window.disable_mobile_panning = false;
+        }
+    } );
+
+})();

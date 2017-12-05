@@ -16543,7 +16543,9 @@ if (!Date.now)
                 return;
             }
 
-            if ($('.image-scaling--fit').length || (Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+            if ($('.image-scaling--fit').length || (
+                    Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true
+                )) {
                 imageScaling = 'fit';
             }
 
@@ -16616,7 +16618,7 @@ if (!Date.now)
                 });
             }
 
-            if (typeof $fullview == "undefined") {
+            if (typeof $fullview === "undefined") {
                 return;
             }
 
@@ -16627,7 +16629,7 @@ if (!Date.now)
                 newHeight = $fullview.height(),
                 scaleX = newWidth / targetWidth,
                 scaleY = newHeight / targetHeight,
-                scale = imageScaling == 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY);
+                scale = imageScaling === 'fill' ? Math.max(scaleX, scaleY) : Math.min(scaleX, scaleY);
 
             fullviewWidth = targetWidth * scale;
             fullviewHeight = targetHeight * scale;
@@ -16697,7 +16699,9 @@ if (!Date.now)
             getReferenceBounds();
 
             $grid.show();
+
             var $first = $film.find('.js-portfolio-item').first().addClass('portfolio__item--active');
+
             setCurrent($first);
 
             if (!$('.project_layout-filmstrip').length) {
@@ -16747,7 +16751,7 @@ if (!Date.now)
             });
 
             $(window).on('djaxLoad', function() {
-                if ($('.image-scaling--fit').length || (Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning == true)) {
+                if ($('.image-scaling--fit').length || (Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning === true)) {
                     imageScaling = 'fit';
                 } else {
                     imageScaling = 'fill';
@@ -16770,7 +16774,7 @@ if (!Date.now)
                     }
                 });
 
-                if (typeof current == "undefined") {
+                if (typeof current === "undefined") {
                     return;
                 }
 
@@ -16811,12 +16815,16 @@ if (!Date.now)
                 } else { // but in the filmstrip mode the next/prev keys should move only the current position of the scroll
                     switch (e.which) {
                         case 37:
-                            if (current == 0) return;
+                            if (current === 0) {
+                                return;
+                            }
                             next = current - 1;
                             e.preventDefault();
                             break;
                         case 39:
-                            if (current == $items.length - 1) return;
+                            if (current === $items.length - 1) {
+                                return;
+                            }
                             next = current + 1;
                             e.preventDefault();
                             break;
@@ -16833,12 +16841,12 @@ if (!Date.now)
 
                 // if we are at either end of the filmstrip
                 // we may need to make sure we move the filmstrip in the right direction
-                if (e.which == 37 && newScrollX >= latestKnownScrollX) {
+                if (e.which === 37 && newScrollX >= latestKnownScrollX) {
                     $next = $items.eq(next - 1);
                     newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
                 }
 
-                if (e.which == 39 && newScrollX <= latestKnownScrollX) {
+                if (e.which === 39 && newScrollX <= latestKnownScrollX) {
                     $next = $items.eq(next + 1);
                     newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
                 }
@@ -16883,7 +16891,7 @@ if (!Date.now)
 
             $items.each(function(i, obj) {
                 if ($(obj).hasClass('portfolio__item--active')) {
-                    if (i == 0) {
+                    if (i === 0) {
                         fullViewTransition($items.eq(items - 1));
                     } else {
                         fullViewTransition($items.eq(i - 1));
@@ -16905,7 +16913,7 @@ if (!Date.now)
 
             $items.each(function(i, obj) {
                 if ($(obj).hasClass('portfolio__item--active')) {
-                    if (i == items - 1) {
+                    if (i === items - 1) {
                         fullViewTransition($items.eq(0));
                     } else {
                         fullViewTransition($items.eq(i + 1));
@@ -16946,7 +16954,7 @@ if (!Date.now)
         // loop through each portfolio item and find the one closest to center
         function getCurrent() {
 
-            if (typeof $film == "undefined" || (!$('.single-jetpack-portfolio').length && !$('.single-proof_gallery').length) || $('.fullview--visible').length) {
+            if (typeof $film === "undefined" || (!$('.single-jetpack-portfolio').length && !$('.single-proof_gallery').length) || $('.fullview--visible').length) {
                 return;
             }
 
@@ -16977,7 +16985,7 @@ if (!Date.now)
 
         function getReferenceBounds() {
 
-            if (typeof $film == "undefined") {
+            if (typeof $film === "undefined") {
                 return;
             }
 
@@ -17040,7 +17048,7 @@ if (!Date.now)
             $film.css('z-index', 200);
             $grid.css('z-index', 400);
 
-            if (typeof initial == "undefined") {
+            if (typeof initial === "undefined") {
                 morph($active, $target, {
                     delay: .3
                 }, function() {
@@ -17055,7 +17063,7 @@ if (!Date.now)
 
             $grid.find('.js-portfolio-item img').css('opacity', '');
 
-            if (typeof initial == "undefined") {
+            if (typeof initial === "undefined") {
                 setTimeout(function() {
                     var $items = $grid.find('.js-portfolio-item img');
                     $items.sort(function() {
@@ -17356,7 +17364,7 @@ if (!Date.now)
                 return;
             }
 
-            if (imageScaling == 'fill') {
+            if (imageScaling === 'fill') {
                 TweenMax.to($('.fullview__image img'), .2, {
                     x: 0,
                     y: 0,
@@ -17380,7 +17388,7 @@ if (!Date.now)
                 targetHeight = $target.height(),
                 $clone = $source.clone().addClass('portfolio__item--clone');
 
-            remove = typeof remove == "undefined" ? true : remove;
+            remove = typeof remove === "undefined" ? true : remove;
 
             $clone.css({
                 position: 'absolute',
@@ -18388,6 +18396,34 @@ if (!Date.now)
             bindVertToHorScroll();
         }
     }
+
+    (function() {
+
+        window.disable_mobile_panning = true;
+
+        window.addEventListener('touchstart', function onFirstTouch() {
+            Modernizr.touchevents = true;
+            window.removeEventListener('touchstart', onFirstTouch, false);
+        }, false);
+
+        function onPointerDownHandler(event) {
+            if (event.pointerType === 'touch') {
+                Modernizr.touchevents = true;
+            }
+        }
+
+        // For IE 10
+        window.addEventListener('MSPointerDown', onPointerDownHandler);
+        // For IE 11+
+        window.addEventListener('pointerdown', onPointerDownHandler);
+        window.addEventListener("devicemotion", function(event) {
+            if (event.rotationRate.alpha || event.rotationRate.beta || event.rotationRate.gamma) {
+                window.disable_mobile_panning = false;
+            }
+        });
+
+    })();
+
     /* ====== HELPER FUNCTIONS ====== */
 
 
