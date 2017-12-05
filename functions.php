@@ -462,9 +462,6 @@ function timber_last_function(){
 					window.timber_dynamic_loaded_scripts = <?php echo json_encode( $dynamic_scripts ); ?>;
 					window.timber_dynamic_loaded_styles = <?php echo json_encode( $dynamic_styles ); ?>;
 
-					console.log( window.timber_dynamic_loaded_scripts );
-					console.log( window.timber_dynamic_loaded_styles );
-
 					// timber_dynamic_loaded_scripts is generated in footer when all the scripts should be already enqueued
 					$.each( window.timber_dynamic_loaded_scripts, function (key, data) {
 
