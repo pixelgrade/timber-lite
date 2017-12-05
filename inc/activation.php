@@ -50,7 +50,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						'wpcom-markdown',
 					),
 					'has_archive'   => 'portfolio-archive',
-					'menu_icon'     => 'slider.png',
+					'menu_icon'     => 'dashicons-portfolio',
 					'menu_position' => null,
 
 					'show_ui'         => true,                   // below Pages
