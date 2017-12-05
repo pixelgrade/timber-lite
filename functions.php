@@ -210,8 +210,11 @@ function timber_scripts_styles() {
 		wp_enqueue_script( 'prettyPhoto-init', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
 		wp_enqueue_script( 'prettyPhoto', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
 
-		$dependencies[] = 'wp-util';
 	}
+
+	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+		$dependencies[] = 'wp-util';
+    }
 
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/plugins/modernizr.min.js', array( 'jquery' ), '3.3.1' );
 	$dependencies[] = 'modernizr';
@@ -458,6 +461,9 @@ function timber_last_function(){
 					if (!window.hasOwnProperty('timber_static_resources')) return;
 					window.timber_dynamic_loaded_scripts = <?php echo json_encode( $dynamic_scripts ); ?>;
 					window.timber_dynamic_loaded_styles = <?php echo json_encode( $dynamic_styles ); ?>;
+
+					console.log( window.timber_dynamic_loaded_scripts );
+					console.log( window.timber_dynamic_loaded_styles );
 
 					// timber_dynamic_loaded_scripts is generated in footer when all the scripts should be already enqueued
 					$.each( window.timber_dynamic_loaded_scripts, function (key, data) {
