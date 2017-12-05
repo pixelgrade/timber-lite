@@ -68,7 +68,6 @@
 
 	</div>
 
-	<button class="js-nav-toggle  nav-toggle"><i class="icon icon-bars"></i></button>
 </header><!-- #masthead -->
 
 
@@ -76,7 +75,12 @@
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'timber' ); ?></a>
 	<div id="djaxContainer" class="hfeed site djax-updatable">
 		<div class="mobile-header">
-			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+            <button class="js-nav-toggle  nav-toggle"><i class="icon icon-bars"></i></button>
+			<?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : // display the Site Logo if present
+				timber_the_custom_logo();
+			else : ?>
+                <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+			<?php endif; ?>
 			<?php if ( is_active_sidebar( 'overlay-widget-area-1' ) ||
 			           is_active_sidebar( 'overlay-widget-area-2' ) ||
 			           is_active_sidebar( 'overlay-widget-area-3' )) : ?>

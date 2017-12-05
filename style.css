@@ -6933,11 +6933,13 @@ hr {
 	.toggle--mobile {
 		display: block;
 		height: 1em;
-		overflow: hidden; 
+		overflow: hidden;
 		padding: 0;
 		position: absolute;
-		right: 1em;
-		top: 21px;
+		right: 17px;
+		top: 50%;
+		-webkit-transform: translate(0, -50%);
+		transform: translate(0, -50%); 
 		width: 1em;
 	}
 	.toggle--mobile svg {
@@ -6957,14 +6959,19 @@ hr {
  */
 .mobile-header {
 	background: white; 
-	height: 60px;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-pack: center;
 	left: 0;
+	min-height: 60px;
 	padding: 17px;
 	position: absolute;
 	text-align: center;
 	top: 0;
 	width: 100%;
 	z-index: 9998;
+
+	justify-content: center;
 }
 #demosite-activate-wrap ~ .mobile-header {
 	top: 80px;
@@ -6982,6 +6989,14 @@ hr {
 	.admin-bar #demosite-activate-wrap ~ .mobile-header {
 		top: 126px;
 	}
+}
+.mobile-header a {
+	margin-left: auto;
+	margin-right: auto;
+}
+.mobile-header img {
+	display: block;
+	margin: 0 auto;
 }
 .page-has-featured-image:not(.page-template) .mobile-header {
 	background: transparent;
@@ -7602,7 +7617,7 @@ hr {
 		height: auto;
 		left: 0;
 		position: fixed !important;
-		right: 4em !important;
+		right: 48px !important;
 		-webkit-transform: translate(-100%, 0);
 		transform: translate(-100%, 0);
 		transition: -webkit-transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease-in-out;
@@ -7635,16 +7650,27 @@ hr {
 }
 
 .nav-toggle {
-	font-size: 1.5em; 
-	left: 100%;
-	margin-left: 0.8em;
+	font-size: 1.5em;
+	left: 17px;
+	outline: 0; 
 	position: absolute;
-	top: 16px;
+	top: 50%;
+	-webkit-transform: translate(0, -50%);
+	transform: translate(0, -50%);
+	transition: left 0.2s ease-out, -webkit-transform 0.2s ease-out;
+	transition: left 0.2s ease-out, transform 0.2s ease-out;
+
+	-webkit-tap-highlight-color: transparent;
 }
 @media only screen and (min-width: 900px) {
 	.nav-toggle {
 		display: none;
 	}
+}
+.navigation--is-visible .nav-toggle {
+	left: 100%;
+	-webkit-transform: translate(-31px, -50%);
+	transform: translate(-31px, -50%);
 }
 
 .navigation-overlay {

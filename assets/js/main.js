@@ -15930,23 +15930,36 @@ if (!Date.now)
     }));
     var Nav = (function() {
 
-        var isOpen;
+        var isOpen,
+            $mobileHeader = $('.mobile-header');
 
         function init() {
             isOpen = false;
+            onResize();
             bindEvents();
         }
 
         function bindEvents() {
-            $('.js-nav-toggle').on('click', function() {
-                if (isOpen) {
-                    close();
-                } else {
-                    open();
-                }
-            });
+            $('body')
+                .off('click', '.js-nav-toggle', toggle)
+                .off('click', '.js-navigation-overlay', close)
+                .on('click', '.js-nav-toggle', toggle)
+                .on('click', '.js-navigation-overlay', close);
+        }
 
-            $('.js-navigation-overlay').on('click', close);
+        function toggle() {
+            if (isOpen) {
+                close();
+            } else {
+                open();
+            }
+        }
+
+        function onResize() {
+            $('.js-nav-toggle').css({
+                position: 'fixed',
+                top: $mobileHeader.outerHeight() / 2
+            });
         }
 
         function open() {
@@ -15961,9 +15974,11 @@ if (!Date.now)
 
         return {
             init: init,
+            onResize: onResize,
             open: open,
             close: close
         }
+
     })();
     var Overlay = (function() {
 
