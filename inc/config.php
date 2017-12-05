@@ -210,6 +210,18 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 									)
 								),
 							),
+							'border_color' => array(
+								'type'      => 'color',
+								'label'     => __( 'Border Color', 'timber' ),
+								'live' => true,
+								'default'   => '#171617',
+								'css'  => array(
+									array(
+										'property' => 'border-color',
+										'selector' => 'body:after',
+									)
+								)
+							),
 						)
 					),
 					/**

@@ -11466,9 +11466,6 @@ body.page-template-default.page .site-footer * {
 	body.admin-bar {
 		padding-top: 0;
 	}
-	body.admin-bar:after {
-		border-top-width: 0;
-	}
 	body:after {
 		border: 0 solid #222222;
 		bottom: 0;
@@ -11481,9 +11478,6 @@ body.page-template-default.page .site-footer * {
 		transition: border-width 0.3s ease-out; 
 		width: 100%;
 		z-index: 9990;
-	}
-	.admin-bar body:after {
-		border-top: 0;
 	}
 	.ready body:after {
 		border-width: 0.9vh;
@@ -12687,6 +12681,10 @@ html body .jp-carousel .selected {
 
 .u-cursor-default {
 	cursor: default !important;
+}
+
+body {
+	background-color: #ffffff;
 }
 
 .product-list {
