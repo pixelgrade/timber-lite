@@ -74,10 +74,6 @@ img {
         padding: 0;
     }
 
-    &__title {
-        overflow: hidden;
-    }
-
     &__type {
         @extend %delta;
         text-transform: uppercase;

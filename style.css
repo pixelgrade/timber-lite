@@ -9125,9 +9125,6 @@ img {
 	margin: 0;
 	padding: 0;
 }
-.portfolio__title {
-	overflow: hidden;
-}
 .portfolio__type {
 	font-weight: bold; 
 	text-transform: uppercase;
