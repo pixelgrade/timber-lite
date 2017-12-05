@@ -12962,6 +12962,9 @@ html body .jp-carousel .selected {
 	}
 }
 
+.woocommerce-product-gallery__image {
+	pointer-events: none;
+}
 .woocommerce-product-gallery__image,
 .woocommerce-product-gallery__image img {
 	display: block;
