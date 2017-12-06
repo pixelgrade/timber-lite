@@ -12,10 +12,6 @@
 
         &.admin-bar {
             padding-top: 0;
-
-            &:after {
-                border-top-width: 0;
-            }
         }
 
         &:after {
@@ -30,10 +26,6 @@
             pointer-events: none;
             border: 0 solid $bodyColour;
             transition: border-width .3s ease-out;
-
-            .admin-bar & {
-                border-top: 0;
-            }
         }
 
         .ready &:after {

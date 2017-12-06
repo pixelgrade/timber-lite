@@ -120,10 +120,11 @@
         width: 1em;
         height: 1em;
         position: absolute;
-        top: 21px;
-        right: 1em;
+        top: 50%;
+        right: 17px;
         padding: 0;
         overflow: hidden;
+        transform: translate(0, -50%);
 
         svg {
             display: block;
