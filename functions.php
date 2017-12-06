@@ -662,7 +662,7 @@ add_filter( 'wupdates_gather_ids', 'wupdates_add_id_JkElr', 10, 1 );
 function timber_setup_addthis() {
     if ( is_singular() && pixelgrade_option( 'show_share_links' ) ) {
         //here we will configure the AddThis sharing globally
-        get_template_part( 'inc/addthis/addthis-js-config' );
+        get_template_part( 'inc/integrations/addthis/addthis-js-config' );
     }
 }
 add_action( 'wp_head', 'timber_setup_addthis' );
@@ -708,19 +708,9 @@ require get_template_directory() . '/inc/hybrid-media-grabber.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
- * Load Jetpack compatibility file.
- */
-require get_template_directory() . '/inc/jetpack.php';
-
-/**
- * Load WooCommerce compatibility file.
- */
-require get_template_directory() . '/inc/woocommerce.php';
-
-/**
  * Load Recommended/Required plugins notification
  */
-require get_template_directory() . '/inc/required-plugins/required-plugins.php';
+require get_template_directory() . '/inc/required-plugins.php';
 
 /**
  * Load the custom Image widget
