@@ -612,18 +612,19 @@ var Project = (function() {
 	}
 
 	function centerFilmToTarget( $target ) {
+		var offset = parseInt( $( '.bar--fixed' ).css( 'left' ), 10 );
 
 		if ( Modernizr.touchevents || $( 'html' ).hasClass( '.is--ie-le10' ) ) {
 			TweenLite.to( '.site-content', 0, {
 				scrollTo: {
-					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2
+					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2 + offset
 				},
 				ease: Power1.easeInOut
 			} );
 		} else {
 			TweenLite.to( window, 0, {
 				scrollTo: {
-					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2 + $( '.site-sidebar' ).width()
+					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2 + offset
 				},
 				ease: Power1.easeInOut
 			} );
