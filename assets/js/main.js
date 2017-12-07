@@ -17002,23 +17002,12 @@ if (!Date.now)
             start = Math.min(start, windowWidth / 2) - threshold;
             end = windowWidth - $items.last().width();
             end = Math.max(end, windowWidth / 2) + threshold;
-
-            //		start = $items.eq( 0 ).data( 'middle' );
-            //		end = contentWidth - filmWidth +  $items.eq( items - 1 ).data( 'middle' );
-
-            console.log(contentWidth, filmWidth);
-
-            //		max = Math.max( contentWidth / 2 - start, end - contentWidth / 2, 10 );
-            //
-            //		start = contentWidth / 2 - max;
-            //		end = contentWidth / 2 + max;
         }
 
         function getMiddlePoints() {
             $('.portfolio').each(function(i, portfolio) {
                 $(portfolio).find('.js-portfolio-item').each(function(i, obj) {
                     var $obj = $(obj);
-                    console.log(getMiddle($obj), i, $obj.is('.portfolio__item--video'));
                     $obj.data('middle', getMiddle($obj));
                     $obj.data('count', i);
                 });
