@@ -13,7 +13,7 @@ function timber_load_jetpack_compatibility() {
 	// only if it is not present load the duplicated code from the theme
 	if ( ! class_exists( 'Jetpack' ) ) {
 		//this is not safe -- needed to prefix the functions
-		require_once get_template_directory() . '/inc/jetpack/responsive-videos.php';
+		require_once get_template_directory() . '/inc/integrations/jetpack/responsive-videos.php';
 	}
 }
 add_action( 'after_setup_theme', 'timber_load_jetpack_compatibility' );

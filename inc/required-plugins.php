@@ -6,7 +6,7 @@
  * @since Timber 1.0
  */
 
-require_once dirname( __FILE__ ) . '/class-tgm-plugin-activation.php';
+require_once get_template_directory() . '/inc/required-plugins/class-tgm-plugin-activation.php';
 add_action( 'tgmpa_register', 'timber_register_required_plugins', 999 );
 
 function timber_register_required_plugins() {
@@ -36,7 +36,7 @@ function timber_register_required_plugins() {
 			'required'           => true,
 			'source'             => 'https://wupdates.com/api_wupl_version/JxbVe/2v5t1czd3vw4kmb5xqmyxj1kkwmnt9q0463lhj393r5yxtshdyg05jssgd4jglnfx7A2vdxtfdcf78r9r1sm217k4ht3r2g7pkdng5f6tgwyrk23wryA0pjxvs7gwhhb',
 			'external_url'       => 'https://github.com/pixelgrade/pixelgrade_care',
-			'version'            => '1.3.1',
+			'version'            => '1.3.5',
 			'is_automatic'       => true,
 		),
 		array(
