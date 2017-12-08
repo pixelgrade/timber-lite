@@ -706,6 +706,8 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 	 *
      * @param int $id Optional. Attachment ID
      * @param string $caption Optional. The caption
+	 * @param string $class
+	 *
 	 * @return string The image markup
 	 */
 	function timber_get_film_strip_image( $id = null, $caption = "", $class = '' ) {

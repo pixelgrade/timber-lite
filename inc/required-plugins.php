@@ -7,7 +7,6 @@
  */
 
 require_once get_template_directory() . '/inc/required-plugins/class-tgm-plugin-activation.php';
-add_action( 'tgmpa_register', 'timber_register_required_plugins', 999 );
 
 function timber_register_required_plugins() {
 
@@ -62,18 +61,18 @@ function timber_register_required_plugins() {
 	);
 
 	$config = array(
-		'domain'           => 'timber', // Text domain - likely want to be the same as your theme.
-		'default_path'     => '', // Default absolute path to pre-packaged plugins
-		'menu'             => 'install-required-plugins', // Menu slug
-		'has_notices'      => true, // Show admin notices or not
-		'is_automatic'     => false, // Automatically activate plugins after installation or not
-		'message'          => '', // Message to output right before the plugins table
-		'strings'          => array(
-			'page_title'                      => __( 'Install Required Plugins', 'timber' ),
-			'menu_title'                      => __( 'Install Plugins', 'timber' ),
-			'installing'                      => __( 'Installing Plugin: %s', 'timber' ),
+		'domain'       => 'timber', // Text domain - likely want to be the same as your theme.
+		'default_path' => '', // Default absolute path to pre-packaged plugins
+		'menu'         => 'install-required-plugins', // Menu slug
+		'has_notices'  => true, // Show admin notices or not
+		'is_automatic' => false, // Automatically activate plugins after installation or not
+		'message'      => '', // Message to output right before the plugins table
+		'strings'      => array(
+			'page_title'                      => esc_html__( 'Install Required Plugins', 'timber' ),
+			'menu_title'                      => esc_html__( 'Install Plugins', 'timber' ),
+			'installing'                      => esc_html__( 'Installing Plugin: %s', 'timber' ),
 			// %1$s = plugin name
-			'oops'                            => __( 'Something went wrong with the plugin API.', 'timber' ),
+			'oops'                            => esc_html__( 'Something went wrong with the plugin API.', 'timber' ),
 			'notice_can_install_required'     => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'timber' ),
 			// %1$s = plugin name(s)
 			'notice_can_install_recommended'  => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.', 'timber' ),
@@ -92,13 +91,13 @@ function timber_register_required_plugins() {
 			// %1$s = plugin name(s)
 			'install_link'                    => _n_noop( 'Begin installing plugin', 'Begin installing plugins', 'timber' ),
 			'activate_link'                   => _n_noop( 'Activate installed plugin', 'Activate installed plugins', 'timber' ),
-			'return'                          => __( 'Return to Required Plugins Installer', 'timber' ),
-			'plugin_activated'                => __( 'Plugin activated successfully.', 'timber' ),
-			'complete'                        => __( 'All plugins installed and activated successfully. %s', 'timber' )
+			'return'                          => esc_html__( 'Return to Required Plugins Installer', 'timber' ),
+			'plugin_activated'                => esc_html__( 'Plugin activated successfully.', 'timber' ),
+			'complete'                        => esc_html__( 'All plugins installed and activated successfully. %s', 'timber' )
 			// %1$s = dashboard link
 		)
 	);
 
 	tgmpa( $plugins, $config );
-
-} ?>
+}
+add_action( 'tgmpa_register', 'timber_register_required_plugins', 999 );

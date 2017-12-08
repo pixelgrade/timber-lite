@@ -5,14 +5,16 @@ Theme URI: https://demos.pixelgrade.com/timber/
 Author: Pixelgrade
 Author URI: https://pixelgrade.com/
 Description: Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience.
-Version: 1.6.9
+Version: 1.7.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: timber
 Domain Path: /languages/
 Tags: light, white, one-column, responsive-layout, custom-menu, featured-images, editor-style, infinite-scroll, microformats, post-formats, rtl-language-support, site-logo, sticky-post, theme-options, threaded-comments, translation-ready, blog, journal, lifestream, photography, news, scrapbooking, video, bright, clean, bold, geometric, minimal, modern, smart, adaptive
+Requires at least: 4.7
+Tested up to: 4.9.2
 
-Timber is based on Underscores http://underscores.me/, (C) 2012-2016 Automattic, Inc.
+Timber is based on Underscores http://underscores.me/, (C) 2012-2017 Automattic, Inc.
 
 Resetting and rebuilding styles have been helped along thanks to the fine work of
 Eric Meyer http://meyerweb.com/eric/tools/css/reset/index.html
