@@ -82,6 +82,7 @@ function softInit() {
     if ( ! Modernizr.touchevents && ! horToVertScroll ) {
         bindVertToHorScroll();
     }
+
 }
 
 // /* ====== ON WINDOW LOAD ====== */

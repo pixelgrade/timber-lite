@@ -16550,10 +16550,6 @@ if (!Date.now)
                 return;
             }
 
-            // if ( $('.single-proof_gallery').length ) {
-            // 	$('.site-footer').hide();
-            // }
-
             if (initialized) {
                 return;
             }
@@ -16726,6 +16722,7 @@ if (!Date.now)
 
         function bindEvents() {
 
+            $(window).on('project:resize', onResize);
             $('body').on('click', '.js-show-thumbnails', showThumbnails);
 
             // if ( Modernizr.touchevents ) {
@@ -16848,27 +16845,14 @@ if (!Date.now)
                     }
                 }
 
-                $current = $items.eq(current);
                 $next = $items.eq(next);
 
-                var mymid = $current.data('middle'),
-                    newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
-
-                // if we are at either end of the filmstrip
-                // we may need to make sure we move the filmstrip in the right direction
-                if (e.which === 37 && newScrollX >= latestKnownScrollX) {
-                    $next = $items.eq(next - 1);
-                    newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
-                }
-
-                if (e.which === 39 && newScrollX <= latestKnownScrollX) {
-                    $next = $items.eq(next + 1);
-                    newScrollX = $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width();
-                }
+                var offset = parseInt($('.bar--fixed').css('left'), 10),
+                    newScrollX = $next.data('middle') - $('.site-content').width() / 2 + offset;
 
                 TweenLite.to(window, 0.6, {
                     scrollTo: {
-                        x: $next.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+                        x: newScrollX
                     },
                     ease: Power1.easeInOut
                 });
@@ -16876,6 +16860,7 @@ if (!Date.now)
         }
 
         function unbindEvents() {
+            $(window).off('project:resize', onResize);
             $('body').off('click', '.js-show-thumbnails', showThumbnails);
             $('.portfolio--grid').off('click', '.js-portfolio-item', showFilmstrip);
             $('.portfolio--filmstrip').off('click', '.js-portfolio-item', showFullView);
@@ -17012,13 +16997,11 @@ if (!Date.now)
                 return;
             }
 
-            start = $items.eq(0).data('middle') + ($items.eq(1).data('middle') - $items.eq(0).data('middle')) / 2;
-            end = contentWidth - filmWidth + $items.eq(items - 2).data('middle') + ($items.eq(items - 1).data('middle') - $items.eq(items - 2).data('middle')) / 2;
-
-            max = Math.max(contentWidth / 2 - start, end - contentWidth / 2, 10);
-
-            start = contentWidth / 2 - max;
-            end = contentWidth / 2 + max;
+            var threshold = 10;
+            start = $items.first().offset().left + $items.first().width();
+            start = Math.min(start, windowWidth / 2) - threshold;
+            end = windowWidth - $items.last().width();
+            end = Math.max(end, windowWidth / 2) + threshold;
         }
 
         function getMiddlePoints() {
@@ -17179,18 +17162,19 @@ if (!Date.now)
         }
 
         function centerFilmToTarget($target) {
+            var offset = parseInt($('.bar--fixed').css('left'), 10);
 
             if (Modernizr.touchevents || $('html').hasClass('.is--ie-le10')) {
                 TweenLite.to('.site-content', 0, {
                     scrollTo: {
-                        x: $target.data('middle') - $('.site-content').width() / 2
+                        x: $target.data('middle') - $('.site-content').width() / 2 + offset
                     },
                     ease: Power1.easeInOut
                 });
             } else {
                 TweenLite.to(window, 0, {
                     scrollTo: {
-                        x: $target.data('middle') - $('.site-content').width() / 2 + $('.site-sidebar').width()
+                        x: $target.data('middle') - $('.site-content').width() / 2 + offset
                     },
                     ease: Power1.easeInOut
                 });
@@ -17257,7 +17241,7 @@ if (!Date.now)
 
             morph($source, $target);
 
-            if (imageScaling == 'fit') {
+            if (imageScaling === 'fit') {
                 $fullview.css('backgroundColor', '#222222');
             } else if (Modernizr.touchevents) {
                 $(window).on('deviceorientation', panFullview);
@@ -17723,15 +17707,16 @@ if (!Date.now)
             // Firefox Opacity Video Hack
             $('iframe').each(function() {
                 var url = $(this).attr("src");
-                if (!empty(url))
+
+                if (!empty(url)) {
                     $(this).attr("src", setQueryParameter(url, "wmode", "transparent"));
+                }
+
+                $(this).on('load', function() {
+                    resize();
+                    $(window).trigger('project:resize');
+                });
             });
-
-
-            setTimeout(function() {
-                resize();
-            }, 100);
-
 
             if (globalDebug) {
                 console.groupEnd();
@@ -18278,6 +18263,7 @@ if (!Date.now)
         if (!Modernizr.touchevents && !horToVertScroll) {
             bindVertToHorScroll();
         }
+
     }
 
     // /* ====== ON WINDOW LOAD ====== */

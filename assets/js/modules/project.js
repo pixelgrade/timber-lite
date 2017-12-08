@@ -20,10 +20,6 @@ var Project = (function() {
 			return;
 		}
 
-		// if ( $('.single-proof_gallery').length ) {
-		// 	$('.site-footer').hide();
-		// }
-
 		if ( initialized ) {
 			return;
 		}
@@ -196,7 +192,8 @@ var Project = (function() {
 
 	function bindEvents() {
 
-		$('body').on('click', '.js-show-thumbnails', showThumbnails);
+		$( window ).on( 'project:resize', onResize );
+		$( 'body' ).on( 'click', '.js-show-thumbnails', showThumbnails );
 
 		// if ( Modernizr.touchevents ) {
 		// 	$('.portfolio--grid').on('click', '.js-portfolio-item', showFullView);
@@ -318,27 +315,14 @@ var Project = (function() {
 				}
 			}
 
-			$current = $items.eq( current );
 			$next = $items.eq( next );
 
-			var mymid = $current.data( 'middle' ),
-				newScrollX = $next.data( 'middle' ) - $( '.site-content' ).width() / 2 + $( '.site-sidebar' ).width();
-
-			// if we are at either end of the filmstrip
-			// we may need to make sure we move the filmstrip in the right direction
-			if ( e.which === 37 && newScrollX >= latestKnownScrollX ) {
-				$next = $items.eq( next - 1 );
-				newScrollX = $next.data( 'middle' ) - $( '.site-content' ).width() / 2 + $( '.site-sidebar' ).width();
-			}
-
-			if ( e.which === 39 && newScrollX <= latestKnownScrollX ) {
-				$next = $items.eq( next + 1 );
-				newScrollX = $next.data( 'middle' ) - $( '.site-content' ).width() / 2 + $( '.site-sidebar' ).width();
-			}
+			var offset = parseInt( $( '.bar--fixed' ).css( 'left' ), 10 ),
+				newScrollX = $next.data( 'middle' ) - $( '.site-content' ).width() / 2 + offset;
 
 			TweenLite.to( window, 0.6, {
 				scrollTo: {
-					x: $next.data( 'middle' ) - $( '.site-content' ).width() / 2 + $( '.site-sidebar' ).width()
+					x: newScrollX
 				},
 				ease: Power1.easeInOut
 			} );
@@ -346,6 +330,7 @@ var Project = (function() {
 	}
 
 	function unbindEvents() {
+		$( window ).off( 'project:resize', onResize );
 		$( 'body' ).off( 'click', '.js-show-thumbnails', showThumbnails );
 		$( '.portfolio--grid' ).off( 'click', '.js-portfolio-item', showFilmstrip );
 		$( '.portfolio--filmstrip' ).off( 'click', '.js-portfolio-item', showFullView );
@@ -476,13 +461,11 @@ var Project = (function() {
 			return;
 		}
 
-		start = $items.eq( 0 ).data( 'middle' ) + ( $items.eq( 1 ).data( 'middle' ) - $items.eq( 0 ).data( 'middle' ) ) / 2;
-		end = contentWidth - filmWidth + $items.eq( items - 2 ).data( 'middle' ) + ( $items.eq( items - 1 ).data( 'middle' ) - $items.eq( items - 2 ).data( 'middle' ) ) / 2;
-
-		max = Math.max( contentWidth / 2 - start, end - contentWidth / 2, 10 );
-
-		start = contentWidth / 2 - max;
-		end = contentWidth / 2 + max;
+		var threshold = 10;
+		start = $items.first().offset().left + $items.first().width();
+		start = Math.min(start, windowWidth / 2) - threshold;
+		end = windowWidth - $items.last().width();
+		end = Math.max(end, windowWidth / 2) + threshold;
 	}
 
 	function getMiddlePoints() {
@@ -629,18 +612,19 @@ var Project = (function() {
 	}
 
 	function centerFilmToTarget( $target ) {
+		var offset = parseInt( $( '.bar--fixed' ).css( 'left' ), 10 );
 
 		if ( Modernizr.touchevents || $( 'html' ).hasClass( '.is--ie-le10' ) ) {
 			TweenLite.to( '.site-content', 0, {
 				scrollTo: {
-					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2
+					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2 + offset
 				},
 				ease: Power1.easeInOut
 			} );
 		} else {
 			TweenLite.to( window, 0, {
 				scrollTo: {
-					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2 + $( '.site-sidebar' ).width()
+					x: $target.data( 'middle' ) - $( '.site-content' ).width() / 2 + offset
 				},
 				ease: Power1.easeInOut
 			} );
@@ -707,7 +691,7 @@ var Project = (function() {
 
 		morph( $source, $target );
 
-		if ( imageScaling == 'fit' ) {
+		if ( imageScaling === 'fit' ) {
 			$fullview.css( 'backgroundColor', '#222222' );
 		} else if ( Modernizr.touchevents ) {
 			$( window ).on( 'deviceorientation', panFullview );

@@ -20,17 +20,18 @@ window.videos = (function() {
         });
 
         // Firefox Opacity Video Hack
-        $('iframe').each(function () {
-            var url = $(this).attr("src");
-            if (!empty(url))
-                $(this).attr("src", setQueryParameter(url, "wmode", "transparent"));
-        });
+	    $( 'iframe' ).each( function() {
+		    var url = $( this ).attr( "src" );
 
+		    if ( ! empty( url ) ) {
+			    $( this ).attr( "src", setQueryParameter( url, "wmode", "transparent" ) );
+		    }
 
-        setTimeout(function(){
-            resize();
-        }, 100);
-
+		    $( this ).on( 'load', function() {
+                resize();
+                $( window ).trigger( 'project:resize' );
+            } );
+	    } );
 
         if (globalDebug) {console.groupEnd();}
     }
