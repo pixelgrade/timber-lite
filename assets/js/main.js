@@ -16917,6 +16917,10 @@ if (!Date.now)
                 softInit();
                 $('body').trigger('post-load');
 
+                if (isWindows) {
+                    $html.getNiceScroll().resize();
+                }
+
                 setTimeout(function() {
                     if ($('.woocommerce.single-product').length) {
                         Woocommerce.check_product_variations();
@@ -20297,7 +20301,7 @@ if (!Date.now)
         var niceScrollOptions = {
             zindex: 5000,
             smoothscroll: false // because it interferes with the hor to ver scroll script
-        }
+        };
 
         if (isWindows) {
             $html.niceScroll(niceScrollOptions);

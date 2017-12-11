@@ -192,7 +192,7 @@ function niceScrollInit() {
 	var niceScrollOptions = {
 		zindex: 5000,
 		smoothscroll: false // because it interferes with the hor to ver scroll script
-	}
+	};
 
 	if( isWindows ) {
 		$html.niceScroll( niceScrollOptions );

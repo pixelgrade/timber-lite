@@ -120,6 +120,10 @@ var djax = (function() {
             softInit();
             $('body').trigger('post-load');
 
+            if( isWindows ) {
+		        $html.getNiceScroll().resize();
+	        }
+
             setTimeout(function(){
                 if( $('.woocommerce.single-product').length ) {
                     Woocommerce.check_product_variations();
