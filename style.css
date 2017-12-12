@@ -14039,3 +14039,6 @@ p.stars a.star-5.active:after {
 .woocommerce-message .button {
 	margin-right: 10px;
 }
+.is--windows .woocommerce-message { 
+	margin-top: 10px; 
+}
