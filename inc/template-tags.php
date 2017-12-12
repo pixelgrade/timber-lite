@@ -1377,3 +1377,33 @@ if ( ! function_exists( 'timber_get_portfolio_page_link' ) ) :
 	}
 
 endif;
+
+/**
+ * Display the footer copyright.
+ */
+function pixelgrade_footer_the_copyright() {
+	$copyright_text = pixelgrade_footer_get_copyright_content();
+
+	if ( ! empty( $copyright_text ) ) {
+		echo '<div class="site-info">' . $copyright_text . '</div>';
+	}
+}
+
+/**
+ * Get the footer copyright content (HTML or simple text).
+ * It already has do_shortcode applied.
+ *
+ * @return bool|string
+ */
+function pixelgrade_footer_get_copyright_content() {
+	$copyright_text = pixelgrade_option( 'footer_copyright', sprintf( esc_html__( '%%year%% &copy; Handcrafted with love by the %1$s Team', 'components' ), '<a href="https://pixelgrade.com/" rel="designer">Pixelgrade</a>' ) );
+
+	if ( ! empty( $copyright_text ) ) {
+		// We need to parse some tags
+		// like %year%
+		$copyright_text = str_replace( '%year%', date( 'Y' ), $copyright_text );
+		return do_shortcode( $copyright_text );
+	}
+
+	return '';
+}

@@ -448,10 +448,10 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 //							),
 
 							'footer_copyright' => array(
-								'type'     => 'text',
-								'label'    => __( 'Additional Copyright Text', 'timber' ),
-								//'desc' => __( 'The copyright text which should appear in footer.', 'timber' ),
-								'default'  => esc_html__( 'All contents &copy; Pixelgrade 2011-2015', 'timber' ),
+								'type'     => 'textarea',
+								'label'             => esc_html__( 'Copyright Text', 'timber' ),
+								'desc'              => esc_html__( 'Set the text that will appear in the footer area. Use %year% to display the current year.', 'timber' ),
+								'default'           => sprintf( esc_html__( '%%year%% &copy; Handcrafted with love by the %1$s Team', 'timber' ), '&nbsp;<a href="https://pixelgrade.com/" rel="designer">Pixelgrade</a>&nbsp;' ),
 								'sanitize_callback' => 'wp_kses_post',
 								'live' => array( '.site-info' )
 							),
@@ -484,39 +484,10 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 								'default' => 'preferred,preferred,preferred,preferred,more',
 								'label' => __( 'Share Services', 'timber' ),
 								'desc' => __( 'Add here the share services you want to use, single comma delimited (no spaces). You can find the full list of services here: http://www.addthis.com/services/list. Also you can use the more tag to show the plus sign and the counter tag to show a global share counter.', 'timber' ),
-							)
-						)
+							),
+						),
 					),
-
-					'import_demo_data' => array(
-						'title'    => __( 'Demo Data', 'timber' ),
-						'priority' => 999999,
-						'options' => array(
-							'import_demodata_button' => array(
-								'title' => 'Import',
-								'type' => 'html',
-								'html' => '<input type="hidden" name="wpGrade-nonce-import-posts-pages" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_posts_pages' ) . '" />
-										<input type="hidden" name="wpGrade-nonce-import-theme-options" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_theme_options' ) . '" />
-										<input type="hidden" name="wpGrade-nonce-import-widgets" value="' . wp_create_nonce( 'wpGrade_nonce_import_demo_widgets' ) . '" />
-										<input type="hidden" name="wpGrade_import_ajax_url" value="' . admin_url( "admin-ajax.php" ) . '" />
-
-										<a href="#" class="button button-primary" id="wpGrade_import_demodata_button">
-											' . __( 'Import demo data', 'mies_txtd' ) . '
-										</a>
-
-										<div class="wpGrade-loading-wrap hidden">
-											<span class="wpGrade-loading wpGrade-import-loading"></span>
-											<div class="wpGrade-import-wait">
-												' . __( 'Please wait a few minutes (between 1 and 3 minutes usually, but depending on your hosting it can take longer) and <strong>don\'t reload the page</strong>. You will be notified as soon as the import has finished!', 'mies_txtd' ) . '
-											</div>
-										</div>
-
-										<div class="wpGrade-import-results hidden"></div>
-										<div class="hr"><div class="inner"><span>&nbsp;</span></div></div>'
-							)
-						)
-					)
-				)
+				),
 			),
 		);
 
