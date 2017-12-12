@@ -722,26 +722,64 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
             //try to get the caption from the attachment metadata
             $caption = timber_get_img_caption( $id );
         }
-		$image_full_size = wp_get_attachment_image_src( $id, 'full' );
-		$image_small_size = wp_get_attachment_image_src( $id, 'timber-small-image' );
-		$image_large_size = wp_get_attachment_image_src( $id, 'timber-large-image' );
 
-		//get directly the raw metadata because Jetpack Photon ruins stuff for us - no dimensions are returned by wp_get_attachment_image_src()
+		/*
+		 * Since we get an array without keys, we need to rely on the order (src, width, height, is_intermediate)
+		 * @see wp_get_attachment_image_src()
+		 */
+		$image_small_size        = wp_get_attachment_image_src( $id, 'fargo-grid-image' );
+		$image_small_size_url    = '';
+		$image_small_size_width  = '';
+		$image_small_size_height = '';
+		if ( false !== $image_small_size ) {
+			if ( is_array( $image_small_size ) ) {
+				$image_small_size_url = reset( $image_small_size );
+			}
+			if ( ! empty( $image_small_size[1] ) ) {
+				$image_small_size_width = $image_small_size[1];
+			}
+			if ( ! empty( $image_small_size[2] ) ) {
+				$image_small_size_height = $image_small_size[2];
+			}
+		}
+		$image_large_size     = wp_get_attachment_image_src( $id, 'fargo-filmstrip-image' );
+		$image_large_size_url = '';
+		if ( false !== $image_large_size && is_array( $image_large_size ) ) {
+			$image_large_size_url = reset( $image_large_size );
+		}
+		$image_full_size     = wp_get_attachment_image_src( $id, 'fargo-fullview-image' );
+		$image_full_size_url = '';
+		if ( false !== $image_full_size && is_array( $image_full_size ) ) {
+			$image_full_size_url = reset( $image_full_size );
+		}
+
+		$image_width  = '';
+		$image_height = '';
+		// Get directly the raw metadata because Jetpack Photon ruins stuff for us - no dimensions are returned by wp_get_attachment_image_src()
 		$image_data = wp_get_attachment_metadata( $id );
+		if ( false !== $image_data ) {
+			if ( ! empty( $image_data['width'] ) ) {
+				$image_width = absint( $image_data['width'] );
+			}
+
+			if ( ! empty( $image_data['height'] ) ) {
+				$image_height = absint( $image_data['height'] );
+			}
+		}
 
 		$markup .=
 		'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . $class . '"
-			data-srcsmall="' . $image_small_size[0] . '"
-			data-srclarge="' . $image_large_size[0] . '"
-			data-srcfull="' . $image_full_size[0] . '"
-			id="' . $id . '"
-			data-attachment_id="' . $id . '"
+			data-srcsmall="' . esc_attr( $image_small_size_url ) . '"
+			data-srclarge="' . esc_attr( $image_large_size_url ) . '"
+			data-srcfull="' . esc_attr( $image_full_size_url ) . '"
+			id="' . esc_attr( $id ) . '"
+			data-attachment_id="' . esc_attr( $id ) . '"
 			data-alt="' . esc_attr( timber_get_img_alt( $id ) ) . '"
 			data-caption="' . esc_attr( $caption ) . '"
 			data-description="' . esc_attr( timber_get_img_description( $id ) ) . '"
 			data-exif="' . esc_attr( timber_get_img_exif( $id ) ) . '"
-			data-width="' . $image_data["width"] . '"
-			data-height="' . $image_data["height"] . '">
+			data-width="' . esc_attr( $image_width ) . '"
+			data-height="' . esc_attr( $image_height ) . '">
 
 			<div class="spinner">
 			    <span class="spinner__side side--left"><span class="spinner__fill"></span></span>
@@ -751,13 +789,13 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			<div class="proof__overlay">
 				<button class="proof-btn  proof-btn--thumbs  js-thumbs"></button>
 				<button class="proof-btn  proof-btn--zoom  js-zoom"></button>
-				<button data-photoid="' . $id . '" class="proof-btn  proof-btn--plus  js-plus  select-action"></button>
-				<button data-photoid="' . $id . '" class="proof-btn  proof-btn--minus  js-plus  select-action"></button>
+				<button data-photoid="' . esc_attr( $id ) . '" class="proof-btn  proof-btn--plus  js-plus  select-action"></button>
+				<button data-photoid="' . esc_attr( $id ) . '" class="proof-btn  proof-btn--minus  js-plus  select-action"></button>
 			</div>
 			<div class="proof__selected"></div>
 
 			<noscript>
-				<img src="' . $image_small_size[0] . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_small_size[1] . '" height="' . $image_small_size[2] . '">
+				<img src="' . esc_url( $image_small_size_url ) . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . esc_attr( $image_small_size_width ) . '" height="' . esc_attr( $image_small_size_height ) . '">
 			</noscript>
 		</div><!-- .portfolio__item -->' . PHP_EOL;
 
