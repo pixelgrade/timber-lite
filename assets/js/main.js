@@ -20306,6 +20306,7 @@ if (!Date.now)
         if (isWindows) {
             $html.niceScroll(niceScrollOptions);
             $html.addClass('has--nicescroll');
+            $html.addClass('is--windows');
 
             $(document).on('jp_carousel.afterClose', function() {
                 $html.getNiceScroll().resize();
