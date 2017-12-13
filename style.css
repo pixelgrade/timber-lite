@@ -12689,6 +12689,10 @@ body {
 	background-color: #ffffff;
 }
 
+.is--windows .woocommerce-message {
+	margin-top: 10px;
+}
+
 .product-list {
 	list-style-type: none;
 	margin-bottom: 0; 
