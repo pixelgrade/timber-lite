@@ -1,20 +1,29 @@
 {
-  "name": "timber",
-  "devDependencies": {
+  "name": "boilerplate",
+  "dependencies": {
     "gulp": "*",
-    "gulp-autoprefixer": "~1.0.1",
-    "gulp-beautify": "*",
-    "gulp-clean": "*",
-    "gulp-combine-media-queries": "*",
+    "gulp-autoprefixer": "*",
     "gulp-concat": "*",
-    "gulp-csscomb": "*",
     "gulp-exec": "*",
-    "gulp-ignore": "*",
-    "gulp-livereload": "*",
-    "gulp-minify-css": "*",
-    "gulp-notify": "*",
-    "gulp-prompt": "^0.2.0",
+    "gulp-help": "*",
+    "gulp-json-to-sass-map": "*",
+    "gulp-load-plugins": "*",
+    "gulp-rename": "*",
     "gulp-replace": "*",
-    "gulp-sass": "*"
+    "gulp-rtlcss": "*",
+    "gulp-sass": "*",
+    "gulp-sequence": "*",
+    "gulp-sourcemaps": "*",
+    "gulp-util": "*",
+    "gulp-rsync": "*",
+    "gulp-debug": "*",
+    "del": "*",
+    "browser-sync": "*",
+    "require-dir": "*",
+    "through2": "*",
+    "path": "*"
+  },
+  "devDependencies": {
+    "gulp-prompt": "^0.6.0"
   }
 }

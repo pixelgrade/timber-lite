@@ -328,7 +328,7 @@ function timber_add_new_project_admin_editor_style() {
 	global $typenow;
 
 	if ( 'jetpack-portfolio' === $typenow ) {
-		add_editor_style( 'assets/css/admin/project-editor-style.css' );
+		add_editor_style( 'project-editor-style.css' );
 	}
 }
 add_action( 'admin_init', 'timber_add_new_project_admin_editor_style' );
