@@ -17265,11 +17265,8 @@ var Nav = (function() {
 	}
 
 	function bindEvents() {
-		$( 'body' )
-			.off( 'click', '.js-nav-toggle', toggle )
-			.off( 'click', '.js-navigation-overlay', close )
-			.on( 'click', '.js-nav-toggle', toggle )
-			.on( 'click', '.js-navigation-overlay', close );
+		$('.js-nav-toggle').off( 'click', toggle ).on( 'click', toggle );
+		$('.js-navigation-overlay').off( 'click', close ).on( 'click', close );
 	}
 
 	function toggle(e) {
@@ -17283,8 +17280,7 @@ var Nav = (function() {
 
 	function onResize() {
 		$( '.js-nav-toggle' ).css( {
-			position: 'fixed',
-			top: $mobileHeader.outerHeight() / 2
+			marginTop: $mobileHeader.outerHeight() / 2
 		} );
 	}
 
