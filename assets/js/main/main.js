@@ -1,6 +1,6 @@
 // /* ====== ON DOCUMENT READY ====== */
 
-$(document).ready(function () {
+$(function () {
 	init();
 });
 

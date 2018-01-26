@@ -33,7 +33,7 @@ var ua                  = navigator.userAgent.toLowerCase(),
 	windowHeight        = $window.height(),
 	windowWidth         = $window.width(),
 	documentHeight      = $document.height(),
-	orientation         = windowWidth > windowHeight ? 'portrait' : 'landscape',
+	myOrientation       = windowWidth > windowHeight ? 'portrait' : 'landscape',
 
 	filmWidth,
 	contentWidth,

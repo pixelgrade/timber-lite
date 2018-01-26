@@ -15836,7 +15836,7 @@ var ua                  = navigator.userAgent.toLowerCase(),
 	windowHeight        = $window.height(),
 	windowWidth         = $window.width(),
 	documentHeight      = $document.height(),
-	orientation         = windowWidth > windowHeight ? 'portrait' : 'landscape',
+	myOrientation       = windowWidth > windowHeight ? 'portrait' : 'landscape',
 
 	filmWidth,
 	contentWidth,
@@ -15882,7 +15882,7 @@ function browserSize() {
 	windowHeight = $window.height();
 	windowWidth = $window.width();
 	documentHeight = $document.height();
-	orientation = windowWidth > windowHeight ? 'portrait' : 'landscape';
+	myOrientation = windowWidth > windowHeight ? 'portrait' : 'landscape';
 }
 
 function getSupportedTransform() {
@@ -17255,7 +17255,6 @@ URL: https://github.com/hammerjs/jquery.hammer.js
     })(Hammer.Manager.prototype.emit);
 }));
 var Nav = (function() {
-
 	var isOpen,
 		$mobileHeader = $( '.mobile-header' );
 
@@ -17273,7 +17272,8 @@ var Nav = (function() {
 			.on( 'click', '.js-navigation-overlay', close );
 	}
 
-	function toggle() {
+	function toggle(e) {
+		e.preventDefault();
 		if ( isOpen ) {
 			close();
 		} else {
@@ -19445,7 +19445,7 @@ var Woocommerce = (function() {
 })();
 // /* ====== ON DOCUMENT READY ====== */
 
-$(document).ready(function () {
+$(function () {
 	init();
 });
 

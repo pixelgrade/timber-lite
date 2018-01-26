@@ -20,7 +20,7 @@ function browserSize() {
 	windowHeight = $window.height();
 	windowWidth = $window.width();
 	documentHeight = $document.height();
-	orientation = windowWidth > windowHeight ? 'portrait' : 'landscape';
+	myOrientation = windowWidth > windowHeight ? 'portrait' : 'landscape';
 }
 
 function getSupportedTransform() {

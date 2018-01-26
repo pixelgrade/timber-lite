@@ -1,5 +1,4 @@
 var Nav = (function() {
-
 	var isOpen,
 		$mobileHeader = $( '.mobile-header' );
 
@@ -17,7 +16,8 @@ var Nav = (function() {
 			.on( 'click', '.js-navigation-overlay', close );
 	}
 
-	function toggle() {
+	function toggle(e) {
+		e.preventDefault();
 		if ( isOpen ) {
 			close();
 		} else {
