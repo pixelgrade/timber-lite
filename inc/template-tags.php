@@ -727,7 +727,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		 * Since we get an array without keys, we need to rely on the order (src, width, height, is_intermediate)
 		 * @see wp_get_attachment_image_src()
 		 */
-		$image_small_size        = wp_get_attachment_image_src( $id, 'fargo-grid-image' );
+		$image_small_size        = wp_get_attachment_image_src( $id, 'timber-small-image' );
 		$image_small_size_url    = '';
 		$image_small_size_width  = '';
 		$image_small_size_height = '';
@@ -742,12 +742,12 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 				$image_small_size_height = $image_small_size[2];
 			}
 		}
-		$image_large_size     = wp_get_attachment_image_src( $id, 'fargo-filmstrip-image' );
+		$image_large_size     = wp_get_attachment_image_src( $id, 'timber-large-image' );
 		$image_large_size_url = '';
 		if ( false !== $image_large_size && is_array( $image_large_size ) ) {
 			$image_large_size_url = reset( $image_large_size );
 		}
-		$image_full_size     = wp_get_attachment_image_src( $id, 'fargo-fullview-image' );
+		$image_full_size     = wp_get_attachment_image_src( $id, 'timber-fullview-image' );
 		$image_full_size_url = '';
 		if ( false !== $image_full_size && is_array( $image_full_size ) ) {
 			$image_full_size_url = reset( $image_full_size );

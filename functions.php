@@ -49,6 +49,9 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		//used for the large images of projects
 		add_image_size( 'timber-large-image', 1920, 9999, false );
 
+		// Used for single project full view
+		add_image_size( 'timber-fullview-image', 2560, 2560, false );
+
 		//used for blog archive
 		add_image_size( 'timber-square-image', 350, 350, true );
 
