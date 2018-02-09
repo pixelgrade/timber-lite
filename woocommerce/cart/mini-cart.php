@@ -15,16 +15,13 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 3.2.0
+ * @version 3.3.0
  */
-
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
-?>
-
-<?php do_action( 'woocommerce_before_mini_cart' ); ?>
+do_action( 'woocommerce_before_mini_cart' ); ?>
 
 <a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="cart-widget-label">
 <!--	<i class="icon icon-shopping-cart"></i>-->
@@ -55,13 +52,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$product_name  = apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key );
 				$thumbnail     = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
 				$product_price = apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
+				$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 
 				?>
 				<li class="clearfix">
 					<?php if ( ! $_product->is_visible() ) : ?>
 						<?php echo str_replace( array( 'http:', 'https:' ), '', $thumbnail ) . $product_name . '&nbsp;'; ?>
 					<?php else : ?>
-						<a class="product-name" href="<?php echo esc_url( $_product->get_permalink( $cart_item ) ); ?>">
+						<a class="product-name" href="<?php echo esc_url( $product_permalink ); ?>">
 							<?php echo str_replace( array( 'http:', 'https:' ), '', $thumbnail ) . $product_name . '&nbsp;'; ?>
 						</a>
 					<?php endif; ?>
