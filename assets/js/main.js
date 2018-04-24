@@ -20032,6 +20032,7 @@ function onResize() {
     }
 
     Project.onResize();
+    Nav.onResize();
 
     if( $('.woocommerce.archive').length ) {
         Woocommerce.onResize();
