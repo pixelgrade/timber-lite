@@ -13,23 +13,24 @@
  * @see 	    https://docs.woocommerce.com/document/template-structure/
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version     3.0.0
+ * @version     3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/** @var WC_Product $product */
 global $product;
 
-echo apply_filters( 'woocommerce_loop_add_to_cart_link',
+echo apply_filters( 'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
 	sprintf( '<a href="%s" rel="nofollow" data-product_id="%s" data-product_sku="%s" data-quantity="%s" class="%s product_type_%s"><span class="button-text">%s</span></a>',
 		esc_url( $product->add_to_cart_url() ),
 		esc_attr( $product->get_id() ),
 		esc_attr( $product->get_sku() ),
-		esc_attr( isset( $quantity ) ? $quantity : 1 ),
+		esc_attr( isset( $args['quantity'] ) ? $args['quantity'] : 1 ),
 		$product->is_purchasable() && $product->is_in_stock() ? 'add_to_cart_button' : '',
 		esc_attr( $product->get_type() ),
 		esc_html( $product->add_to_cart_text() )
 	),
-$product );
+$product, $args );

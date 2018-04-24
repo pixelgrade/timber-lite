@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @author  WooThemes
  * @package WooCommerce/Templates
- * @version 3.1.0
+ * @version 3.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -112,7 +112,14 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					<td class="product-remove">
 						<?php
-						echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( WC()->cart->get_remove_url( $cart_item_key ) ), __( 'Remove this item', 'woocommerce' ) ), $cart_item_key );
+						// @codingStandardsIgnoreLine
+						echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
+							'<a href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+							esc_url( wc_get_cart_remove_url( $cart_item_key ) ),
+							__( 'Remove this item', 'woocommerce' ),
+							esc_attr( $product_id ),
+							esc_attr( $_product->get_sku() )
+						), $cart_item_key );
 						?>
 					</td>
 				</tr>
@@ -152,7 +159,15 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 <div class="cart-collaterals">
 
-	<?php do_action( 'woocommerce_cart_collaterals' ); ?>
+	<?php
+	/**
+	 * Cart collaterals hook.
+	 *
+	 * @hooked woocommerce_cross_sell_display
+	 * @hooked woocommerce_cart_totals - 10
+	 */
+	do_action( 'woocommerce_cart_collaterals' );
+	?>
 
 </div>
 
