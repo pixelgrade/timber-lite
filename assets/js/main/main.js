@@ -10,11 +10,11 @@ function init() {
     browserSize();
     scrollToTop();
 
-    if (!$html.hasClass('is--ie')) {
-        djax.init();
+    if ( ! detectIE() ) {
+	    djax.init();
+	    Loader.init();
     }
 
-    Loader.init();
     Nav.init();
     Overlay.init();
     updateHeader();
@@ -237,6 +237,11 @@ function eventHandlers() {
     // For IE 11+
     window.addEventListener( 'pointerdown', onPointerDownHandler );
     window.addEventListener( "devicemotion", function( event ) {
+
+        if ( ! event.rotationRate ) {
+            return;
+        }
+
         if ( event.rotationRate.alpha || event.rotationRate.beta || event.rotationRate.gamma ) {
             window.disable_mobile_panning = false;
         }
