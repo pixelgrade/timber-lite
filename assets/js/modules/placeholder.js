@@ -9,21 +9,24 @@ var Placeholder = (function() {
 
         $items.each(function(i, item) {
             var $item = $(item);
-            $item.data('actualHeight', $item.height());
         });
 
         $items.each(function(i, item) {
-            var $item       = $(item).data('loaded', false),
-                width       = $item.data('width'),
-                height      = $item.data('height'),
-                newHeight   = $item.height(),
-                newWidth    = Math.round(newHeight * $item.data('width') / $item.data('height')),
-                $image      = $(document.createElement('img')).css('opacity', 0);
+	        var $item = $( item ).data( 'loaded', false ),
+		        width = $item.data( 'width' ),
+		        height = $item.data( 'height' ),
+		        newHeight = $item.height(),
+		        newWidth = Math.round( newHeight * width / height ),
+		        $image = $( document.createElement( 'img' ) ).css( 'opacity', 0 );
 
-            $item.toggleClass('is--portrait', height > width);
+	        $item.data( 'newHeight', newHeight );
+	        $item.data( 'newWidth', newWidth );
+	        $item.data( 'image', $image );
+        });
 
-            $item.width(newWidth);
-            $item.data('image', $image);
+        $items.each(function(i, item) {
+            var $item = $( item );
+	        $item.width( $item.data( 'newWidth' ) );
         });
 
         $(window).on('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
@@ -65,10 +68,10 @@ var Placeholder = (function() {
     function onResize() {
         $items.each(function(i, item) {
             var $item       = $(item),
-                    width       = $item.data('width'),
-                    height      = $item.data('height'),
-                    newHeight   = $item.height(),
-                    newWidth    = Math.round(newHeight * width / height);
+                width       = $item.data('width'),
+                height      = $item.data('height'),
+                newHeight   = $item.height(),
+                newWidth    = Math.round(newHeight * width / height);
 
             $item.data('newWidth', newWidth);
         });

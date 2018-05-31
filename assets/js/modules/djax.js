@@ -121,7 +121,9 @@ var djax = (function() {
             $('body').trigger('post-load');
 
             if( isWindows ) {
-		        $html.getNiceScroll().resize();
+                setTimeout( function() {
+	                $html.getNiceScroll().resize();
+                }, 0 );
 	        }
 
             setTimeout(function(){
