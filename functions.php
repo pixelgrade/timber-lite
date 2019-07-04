@@ -92,17 +92,6 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );
 
 		add_filter( 'attachment_link', 'timber_filter_attachment_links_on_singles', 2, 2 );
-
-		/**
-		 * Pixcare Helper Plugin
-		 */
-		add_theme_support( 'pixelgrade_care', array(
-				'support_url'   => 'https://pixelgrade.com/docs/timber/',
-				'changelog_url' => 'https://wupdates.com/timber-changelog',
-				'ock'           => 'Lm12n034gL19',
-				'ocs'           => '6AU8WKBK1yZRDerL57ObzDPM7SGWRp21Csi5Ti5LdVNG9MbP'
-			)
-		);
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
@@ -193,25 +182,6 @@ function timber_scripts_styles() {
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
 	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'wp-mediaelement' ), $theme_data->get( 'Version' ) );
 
-
-	// if the woocommerce user wants prettyPhoto, here is the only way it will work.
-	if ( ! function_exists( 'is_plugin_active' ) ) {
-		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	}
-
-	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) && 'yes' == get_option( 'woocommerce_enable_lightbox' ) && file_exists( WP_PLUGIN_DIR . '/woocommerce/assets/css/prettyPhoto.css' ) ) {
-		$woo_asssets_url = plugins_url( '/woocommerce/assets/', WP_PLUGIN_DIR . '/' );
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-		wp_enqueue_style( 'woocommerce_prettyPhoto_css', $woo_asssets_url . 'css/prettyPhoto.css' );
-		wp_enqueue_script( 'prettyPhoto-init', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
-		wp_enqueue_script( 'prettyPhoto', $woo_asssets_url . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.6', true );
-
-	}
-
-	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-		$dependencies[] = 'wp-util';
-    }
 
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/plugins/modernizr.min.js', array( 'jquery' ), '3.3.1' );
 	$dependencies[] = 'modernizr';
@@ -540,97 +510,6 @@ function timber_wp_enqueue_media() {
 }
 
 add_action( 'admin_enqueue_scripts', 'timber_wp_enqueue_media' );
-
-/* Automagical updates */
-function wupdates_check_JkElr( $transient ) {
-	// First get the theme directory name (the theme slug - unique)
-	$slug = basename( get_template_directory() );
-
-	// Nothing to do here if the checked transient entry is empty or if we have already checked
-	if ( empty( $transient->checked ) || empty( $transient->checked[ $slug ] ) || ! empty( $transient->response[ $slug ] ) ) {
-		return $transient;
-	}
-
-	// Let's start gathering data about the theme
-	// Then WordPress version
-	include( ABSPATH . WPINC . '/version.php' );
-	$http_args = array (
-		'body' => array(
-			'slug' => $slug,
-			'url' => home_url( '/' ), //the site's home URL
-			'version' => 0,
-			'locale' => get_locale(),
-			'phpv' => phpversion(),
-			'child_theme' => is_child_theme(),
-			'data' => null, //no optional data is sent by default
-		),
-		'user-agent' => 'WordPress/' . $wp_version . '; ' . home_url( '/' )
-	);
-
-	// If the theme has been checked for updates before, get the checked version
-	if ( isset( $transient->checked[ $slug ] ) && $transient->checked[ $slug ] ) {
-		$http_args['body']['version'] = $transient->checked[ $slug ];
-	}
-
-	// Use this filter to add optional data to send
-	// Make sure you return an associative array - do not encode it in any way
-	$optional_data = apply_filters( 'wupdates_call_data_request', $http_args['body']['data'], $slug, $http_args['body']['version'] );
-
-	// Encrypting optional data with private key, just to keep your data a little safer
-	// You should not edit the code bellow
-	$optional_data = json_encode( $optional_data );
-	$w=array();$re="";$s=array();$sa=md5('afcd91be90cfb9066442c2cd9e758f6283c54575');
-	$l=strlen($sa);$d=$optional_data;$ii=-1;
-	while(++$ii<256){$w[$ii]=ord(substr($sa,(($ii%$l)+1),1));$s[$ii]=$ii;} $ii=-1;$j=0;
-	while(++$ii<256){$j=($j+$w[$ii]+$s[$ii])%255;$t=$s[$j];$s[$ii]=$s[$j];$s[$j]=$t;}
-	$l=strlen($d);$ii=-1;$j=0;$k=0;
-	while(++$ii<$l){$j=($j+1)%256;$k=($k+$s[$j])%255;$t=$w[$j];$s[$j]=$s[$k];$s[$k]=$t;
-		$x=$s[(($s[$j]+$s[$k])%255)];$re.=chr(ord($d[$ii])^$x);}
-	$optional_data=bin2hex($re);
-
-	// Save the encrypted optional data so it can be sent to the updates server
-	$http_args['body']['data'] = $optional_data;
-
-	// Check for an available update
-	$url = $http_url = set_url_scheme( 'https://wupdates.com/wp-json/wup/v1/themes/check_version/JkElr', 'http' );
-	if ( $ssl = wp_http_supports( array( 'ssl' ) ) ) {
-		$url = set_url_scheme( $url, 'https' );
-	}
-
-	$raw_response = wp_remote_post( $url, $http_args );
-	if ( $ssl && is_wp_error( $raw_response ) ) {
-		$raw_response = wp_remote_post( $http_url, $http_args );
-	}
-	// We stop in case we haven't received a proper response
-	if ( is_wp_error( $raw_response ) || 200 != wp_remote_retrieve_response_code( $raw_response ) ) {
-		return $transient;
-	}
-
-	$response = (array) json_decode($raw_response['body']);
-	if ( ! empty( $response ) ) {
-		// You can use this action to show notifications or take other action
-		do_action( 'wupdates_before_response', $response, $transient );
-		if ( isset( $response['allow_update'] ) && $response['allow_update'] && isset( $response['transient'] ) ) {
-			$transient->response[ $slug ] = (array) $response['transient'];
-		}
-		do_action( 'wupdates_after_response', $response, $transient );
-	}
-
-	return $transient;
-}
-add_filter( 'pre_set_site_transient_update_themes', 'wupdates_check_JkElr' );
-
-function wupdates_add_id_JkElr( $ids = array() ) {
-	// First get the theme directory name (unique)
-	$slug = basename( get_template_directory() );
-
-	// Now add the predefined details about this product
-	// Do not tamper with these please!!!
-	$ids[ $slug ] = array( 'name' => 'Timber', 'slug' => 'timber', 'id' => 'JkElr', 'type' => 'theme', 'digest' => '6fdf8350fea0a50c36aef2bb902b7d24', );
-
-	return $ids;
-}
-add_filter( 'wupdates_gather_ids', 'wupdates_add_id_JkElr', 10, 1 );
 
 /**
  * Add the global AddThis configuration in the <head>

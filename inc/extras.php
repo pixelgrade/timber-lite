@@ -942,11 +942,6 @@ function timber_load_next_posts() {
 			$template_path = 'template-parts/content';
 			$template_slug = get_post_format();
 
-			if ( $post->post_type === 'product' ) {
-				$template_path = 'woocommerce/content';
-				$template_slug = 'product';
-			}
-
 			get_template_part( $template_path, $template_slug );
 		endforeach;
 
