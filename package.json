@@ -1,27 +1,27 @@
 {
   "name": "boilerplate",
   "dependencies": {
-    "gulp": "*",
+    "browser-sync": "*",
+    "del": "*",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "*",
     "gulp-concat": "*",
+    "gulp-debug": "*",
     "gulp-exec": "*",
     "gulp-help": "*",
     "gulp-json-to-sass-map": "*",
     "gulp-load-plugins": "*",
     "gulp-rename": "*",
     "gulp-replace": "*",
+    "gulp-rsync": "*",
     "gulp-rtlcss": "*",
     "gulp-sass": "*",
     "gulp-sequence": "*",
     "gulp-sourcemaps": "*",
     "gulp-util": "*",
-    "gulp-rsync": "*",
-    "gulp-debug": "*",
-    "del": "*",
-    "browser-sync": "*",
+    "path": "*",
     "require-dir": "*",
-    "through2": "*",
-    "path": "*"
+    "through2": "*"
   },
   "devDependencies": {
     "gulp-prompt": "^0.6.0"
