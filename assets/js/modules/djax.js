@@ -126,12 +126,6 @@ var djax = (function() {
                 }, 0 );
 	        }
 
-            setTimeout(function(){
-                if( $('.woocommerce.single-product').length ) {
-                    Woocommerce.check_product_variations();
-                }
-            }, 1000);
-
         }
 
         if (transitionedOut) {

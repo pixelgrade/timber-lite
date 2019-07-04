@@ -91,12 +91,6 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		add_action( 'wp_head', 'timber_load_custom_js_header', 999 );
 		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );
 
-		/**
-		 * Enable Woocommerce support
-		 * See http://docs.woothemes.com/document/third-party-custom-theme-compatibility/
-		 */
-		add_theme_support( 'woocommerce' );
-
 		add_filter( 'attachment_link', 'timber_filter_attachment_links_on_singles', 2, 2 );
 	}
 endif; // timber_setup
