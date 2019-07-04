@@ -98,17 +98,6 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		add_theme_support( 'woocommerce' );
 
 		add_filter( 'attachment_link', 'timber_filter_attachment_links_on_singles', 2, 2 );
-
-		/**
-		 * Pixcare Helper Plugin
-		 */
-		add_theme_support( 'pixelgrade_care', array(
-				'support_url'   => 'https://pixelgrade.com/docs/timber/',
-				'changelog_url' => 'https://wupdates.com/timber-changelog',
-				'ock'           => 'Lm12n034gL19',
-				'ocs'           => '6AU8WKBK1yZRDerL57ObzDPM7SGWRp21Csi5Ti5LdVNG9MbP'
-			)
-		);
 	}
 endif; // timber_setup
 add_action( 'after_setup_theme', 'timber_setup' );
