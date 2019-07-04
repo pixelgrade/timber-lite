@@ -16,7 +16,7 @@ var Project = (function() {
 
 	function init() {
 
-		if ( ! $( '.single-jetpack-portfolio, .single-proof_gallery' ).length ) {
+		if ( ! $( '.single-jetpack-portfolio' ).length ) {
 			return;
 		}
 
@@ -55,14 +55,13 @@ var Project = (function() {
 
 		$fullview = $( '.fullview' );
 
-		addMetadata();
 		bindEvents();
 
 		initialized = true;
 	}
 
 	function onResize() {
-		if ( $( '.single-jetpack-portfolio, .single-proof_gallery' ).length ) {
+		if ( $( '.single-jetpack-portfolio' ).length ) {
 			resizeFullView();
 			resizeFilmstrip();
 			getMiddlePoints();
@@ -127,47 +126,9 @@ var Project = (function() {
 		$(window).on('deviceorientation', panFullview);
 	}
 
-	function addMetadata() {
-		var $target = $( '.single-proof_gallery' ).length ? $film.add( $grid ) : $film;
-
-		$target.find( '.js-portfolio-item' ).each( function( i, obj ) {
-			var $item = $( obj ),
-				captionText = $item.data( 'caption' ),
-				$caption = $( '<div class="photometa__caption"></div>' ).html( captionText ),
-				descriptionText = $item.data( 'description' ),
-				$description = $( '<div class="photometa__description"></div>' ).html( '<div>' + descriptionText + '</div>' ),
-				$exif = $( '<ul class="photometa__exif  exif"></ul>' ),
-				$meta = $( '<div class="portfolio__meta  photometa"></div>' ),
-				exifText = $item.data( 'exif' ),
-				$full = $( '<button class="button-full js-button-full"></button>' );
-
-			if ( empty( captionText ) ) {
-				$meta.css( 'opacity', 0 );
-				$meta.addClass( 'no-caption' );
-
-				if ( empty( descriptionText ) && empty( exifText ) ) {
-					$meta.hide();
-				}
-			}
-
-			if ( ! empty( exifText ) ) {
-				$.each( exifText, function( key, value ) {
-					$( '<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>' ).appendTo( $exif );
-				} );
-			}
-
-			$full.prependTo( $item );
-			$caption.appendTo( $meta );
-			$exif.appendTo( $meta );
-			$description.appendTo( $meta );
-
-			$meta.appendTo( $item );
-		} );
-	}
-
 	function prepare() {
 
-		if ( ! $( '.project_layout-filmstrip' ).length && ! $( '.single-proof_gallery' ).length && ! $( '.project_layout-thumbnails' ).length || $( '.password-required' ).length ) {
+		if ( ! $( '.project_layout-filmstrip' ).length && ! $( '.project_layout-thumbnails' ).length || $( '.password-required' ).length ) {
 			// we are not in a single project so bail
 			return;
 		}
@@ -207,25 +168,6 @@ var Project = (function() {
 		$('.fullview .rsArrowLeft').on('click', showPrev);
 		$('.fullview').on('click', hideFullView);
 		$('.js-details').on('click', toggleDetails);
-
-		$('.pixproof_photo_ref').on('click', function(e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			var href = $(this).data('href');
-
-			if (!href.length) {
-				return;
-			}
-
-			href = href.slice(6);
-
-			var $target = $grid.find('[id=' + href + ']');
-
-			if ( $target.length ) {
-				$target.trigger('click');
-			}
-		});
 
 		$('.js-thumbs').on('click', function(e) {
 			e.preventDefault();
@@ -418,7 +360,7 @@ var Project = (function() {
 	// loop through each portfolio item and find the one closest to center
 	function getCurrent() {
 
-		if ( typeof $film === "undefined" || ( ! $( '.single-jetpack-portfolio' ).length && ! $( '.single-proof_gallery' ).length ) || $( '.fullview--visible' ).length ) {
+		if ( typeof $film === "undefined" || ( ! $( '.single-jetpack-portfolio' ).length) || $( '.fullview--visible' ).length ) {
 			return;
 		}
 
@@ -488,16 +430,11 @@ var Project = (function() {
 		$( '.site-footer' ).css( 'pointer-events', 'none' )
 		$( '.site-footer' ).fadeOut();
 
-		$( '.proof__selected, .proof__overlay, .photometa' ).addClass( 'no-transition' ).css( 'opacity', 0 );
+		$( '.photometa' ).addClass( 'no-transition' ).css( 'opacity', 0 );
 
 		$grid.css( 'opacity', 1 );
 
 		$( '.js-portfolio-item' ).addClass( 'no-transition' );
-
-		TweenMax.to( '.pixproof-data, .pixproof__wrap', .3, {
-			opacity: 1,
-			delay: 1
-		} );
 
 		TweenMax.to( $( '.mask--project' ), 0, {
 			'transform-origin': '0 100%',
@@ -512,11 +449,11 @@ var Project = (function() {
 			morph( $active, $target, {delay: .3}, function() {
 				$target.imagesLoaded( function() {
 					$target.find( '.portfolio__item--clone' ).remove();
-					$( '.proof__selected, .proof__overlay, .photometa' ).removeClass( 'no-transition' ).css( 'opacity', '' );
+					$( '.photometa' ).removeClass( 'no-transition' ).css( 'opacity', '' );
 				} );
 			}, false );
 		} else {
-			$( '.proof__selected, .proof__overlay, .photometa' ).removeClass( 'no-transition' ).css( 'opacity', '' );
+			$( '.photometa' ).removeClass( 'no-transition' ).css( 'opacity', '' );
 		}
 
 		$grid.find( '.js-portfolio-item img' ).css( 'opacity', '' );
@@ -559,7 +496,7 @@ var Project = (function() {
 
 		$( '.site' ).css( 'overflow-x', '' );
 
-		$( '.proof__selected, .proof__overlay, .photometa' ).addClass( 'no-transition' ).css( 'opacity', 0 );
+		$( '.photometa' ).addClass( 'no-transition' ).css( 'opacity', 0 );
 
 		TweenMax.to( selector, .3, {opacity: 1, delay: .3} );
 
@@ -593,8 +530,7 @@ var Project = (function() {
 					opacity: 1,
 					onComplete: function() {
 						$( '.js-portfolio-item' ).removeClass( 'no-transition' );
-						$( '.proof__overlay' ).removeClass( 'no-transition' ).css( 'opacity', '' );
-						$film.find( '.proof__selected, .proof__overlay, .photometa' ).removeClass( 'no-transition' ).css( 'opacity', '' );
+						$film.find( '.photometa' ).removeClass( 'no-transition' ).css( 'opacity', '' );
 					}
 				} );
 				$target.removeClass( 'portfolio__item--target' );
@@ -683,7 +619,6 @@ var Project = (function() {
 		$( '.button-full' ).css( 'opacity', 0 );
 
 		$source.addClass( 'hide-meta' );
-		$( '.proof__overlay' ).css( 'opacity', 0 );
 
 		initialAlpha = latestDeviceAlpha;
 		initialBeta = latestDeviceBeta;
@@ -778,7 +713,7 @@ var Project = (function() {
 			e.preventDefault();
 		}
 
-		$target.children().not( '.proof__overlay, .jetpack-video-wrapper' ).add( $target ).addClass( 'no-transition' ).css( 'opacity', 0 );
+		$target.children().not( '.jetpack-video-wrapper' ).add( $target ).addClass( 'no-transition' ).css( 'opacity', 0 );
 		setTimeout( function() {
 			$target.children().add( $target ).removeClass( 'no-transition' );
 		}, 10 );
@@ -800,7 +735,6 @@ var Project = (function() {
 				$( '.site-content' ).removeClass( 'site-content--fullview' );
 				$( '.button-full' ).css( 'opacity', 1 );
 				$target.removeClass( 'hide-meta' );
-				$( '.proof__overlay, .proof__selected' ).removeClass( 'no-transition' ).css( 'opacity', '' );
 			} );
 			setTimeout( function() {
 				$fullview.removeClass( 'fullview--visible' );

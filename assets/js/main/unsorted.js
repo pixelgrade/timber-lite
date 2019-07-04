@@ -169,7 +169,6 @@ function isFilmstrip() {
     return $body.hasClass('blog')
         || $body.hasClass('project_layout-filmstrip')
         || $body.hasClass('project_layout-thumbnails')
-        || $body.hasClass('single-proof_gallery');
 }
 
 function bindVertToHorScroll() {

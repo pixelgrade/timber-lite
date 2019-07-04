@@ -41,7 +41,7 @@ function softInit() {
         HandleParentMenuItems.handle();
     }
 
-    if ($('.single-jetpack-portfolio, .single-proof_gallery').length ) {
+    if ($('.single-jetpack-portfolio').length ) {
         Project.init();
         Placeholder.update();
         Project.prepare();

@@ -768,7 +768,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		}
 
 		$markup .=
-		'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . $class . '"
+			'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . $class . '"
 			data-srcsmall="' . esc_attr( $image_small_size_url ) . '"
 			data-srclarge="' . esc_attr( $image_large_size_url ) . '"
 			data-srcfull="' . esc_attr( $image_full_size_url ) . '"
