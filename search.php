@@ -21,7 +21,7 @@ get_header(); ?>
 		<div class="filmstrip" <?php echo $data; ?>>
 			<div class="site-sidebar">
 				<div class="site-sidebar__content  site-sidebar__text">
-					<?php printf( esc_html__( 'Search Results for %s', 'timber' ), '<div class="divider"></div><span>' . get_search_query() . '</span>' ); ?>
+					<?php printf( esc_html__( 'Search Results for %s', 'timber-lite' ), '<div class="divider"></div><span>' . get_search_query() . '</span>' ); ?>
 				</div>
 			</div>
 

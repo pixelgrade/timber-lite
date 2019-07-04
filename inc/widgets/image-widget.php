@@ -27,14 +27,14 @@ if ( ! class_exists( 'Timber_Image_Widget' ) ) :
 		public function __construct() {
 			parent::__construct(
 				'timber-image',
-				apply_filters( 'timber_widget_name', esc_html__( 'Profile Image', 'timber' ) ),
+				apply_filters( 'timber_widget_name', esc_html__( 'Profile Image', 'timber-lite' ) ),
 				array(
 					'classname'   => 'widget_timber_image',
-					'description' => __( 'Display a full-height image within the "Overlay — Content" widget area.', 'timber' )
+					'description' => __( 'Display a full-height image within the "Overlay — Content" widget area.', 'timber-lite' )
 				)
 			);
 
-			$this->default_title = __( 'Image', 'timber' );
+			$this->default_title = __( 'Image', 'timber-lite' );
 		}
 
 		/**
@@ -112,15 +112,15 @@ if ( ! class_exists( 'Timber_Image_Widget' ) ) :
 
 			<div class="timber-image-widget-form">
 				<p class="timber-image-widget-image-control<?php echo ( $image_id ) ? ' has-image' : ''; ?>"
-				   data-title="<?php esc_attr_e( 'Choose an Image', 'timber' ); ?>"
-				   data-update-text="<?php esc_attr_e( 'Update Image', 'timber' ); ?>">
+				   data-title="<?php esc_attr_e( 'Choose an Image', 'timber-lite' ); ?>"
+				   data-update-text="<?php esc_attr_e( 'Update Image', 'timber-lite' ); ?>">
 					<?php
 					if ( ! empty( $image_id ) ) {
 						echo wp_get_attachment_image( $image_id, 'medium', false );
 					}
 					?>
 					<input class="timber-widget-image-id" type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'image_id' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'image_id' ) ); ?>" value="<?php echo esc_attr( $image_id ); ?>">
-					<a class="button timber-image-widget-image-control__choose" href="#"><?php _e( 'Choose an Image', 'timber' ); ?></a>
+					<a class="button timber-image-widget-image-control__choose" href="#"><?php _e( 'Choose an Image', 'timber-lite' ); ?></a>
 				</p>
 			</div>
 

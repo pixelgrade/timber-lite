@@ -18,7 +18,7 @@ get_header(); ?>
 	<?php if ( have_posts() ) : ?>
 		<div class="filmstrip">
 			<div class="site-sidebar  site-sidebar--archive">
-				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber' ); ?></div>
+				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber-lite' ); ?></div>
 				<?php timber_the_mobile_categories_nav(); ?>
 			</div>
 			<?php /* Start the Loop */ ?>
