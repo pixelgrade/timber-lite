@@ -768,7 +768,36 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		}
 
 		$markup .=
-		'' . PHP_EOL;
+			'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . $class . '"
+			data-srcsmall="' . esc_attr( $image_small_size_url ) . '"
+			data-srclarge="' . esc_attr( $image_large_size_url ) . '"
+			data-srcfull="' . esc_attr( $image_full_size_url ) . '"
+			id="' . esc_attr( $id ) . '"
+			data-attachment_id="' . esc_attr( $id ) . '"
+			data-alt="' . esc_attr( timber_get_img_alt( $id ) ) . '"
+			data-caption="' . esc_attr( $caption ) . '"
+			data-description="' . esc_attr( timber_get_img_description( $id ) ) . '"
+			data-exif="' . esc_attr( timber_get_img_exif( $id ) ) . '"
+			data-width="' . esc_attr( $image_width ) . '"
+			data-height="' . esc_attr( $image_height ) . '">
+
+			<div class="spinner">
+			    <span class="spinner__side side--left"><span class="spinner__fill"></span></span>
+			    <span class="spinner__side side--right"><span class="spinner__fill"></span></span>
+			</div>
+
+			<div class="proof__overlay">
+				<button class="proof-btn  proof-btn--thumbs  js-thumbs"></button>
+				<button class="proof-btn  proof-btn--zoom  js-zoom"></button>
+				<button data-photoid="' . esc_attr( $id ) . '" class="proof-btn  proof-btn--plus  js-plus  select-action"></button>
+				<button data-photoid="' . esc_attr( $id ) . '" class="proof-btn  proof-btn--minus  js-plus  select-action"></button>
+			</div>
+			<div class="proof__selected"></div>
+
+			<noscript>
+				<img src="' . esc_url( $image_small_size_url ) . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . esc_attr( $image_small_size_width ) . '" height="' . esc_attr( $image_small_size_height ) . '">
+			</noscript>
+		</div><!-- .portfolio__item -->' . PHP_EOL;
 
 		return $markup;
 	}

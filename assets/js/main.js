@@ -18321,7 +18321,7 @@ var Project = (function() {
 
 	function init() {
 
-		if ( ! $( '.single-jetpack-portfolio, .single-proof_gallery' ).length ) {
+		if ( ! $( '.single-jetpack-portfolio' ).length ) {
 			return;
 		}
 
@@ -19224,6 +19224,7 @@ var Project = (function() {
 		destroy: destroy
 	}
 })();
+
 /* --- Royal Slider Init --- */
 
 function royalSliderInit($container) {
