@@ -41,7 +41,7 @@ function softInit() {
         HandleParentMenuItems.handle();
     }
 
-    if ($('.single-jetpack-portfolio, .single-proof_gallery, .woocommerce.archive').length ) {
+    if ($('.single-jetpack-portfolio, .single-proof_gallery').length ) {
         Project.init();
         Placeholder.update();
         Project.prepare();
@@ -61,23 +61,9 @@ function softInit() {
     filterHandler();
     checkProfileImageWidget();
 
-    if( $('.woocommerce.archive').length ) {
-        Woocommerce.init();
-    }
-
-    if( $('.woocommerce.single-product').length ) {
-        Woocommerce.betterWooThumbsNav();
-    }
-
-    Woocommerce.checkCart();
-
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
     $(".pixcode--tabs").organicTabs();
-
-    if ( $('body' ).hasClass('woocommerce') && $( '#rating' ).length && $('#rating').is(':visible') ) {
-        $( '#rating' ).hide().before( '<p class="stars"><span><a class="star-1" href="#">1</a><a class="star-2" href="#">2</a><a class="star-3" href="#">3</a><a class="star-4" href="#">4</a><a class="star-5" href="#">5</a></span></p>' );
-    }
 
     if ( ! Modernizr.touchevents && ! horToVertScroll ) {
         bindVertToHorScroll();
@@ -134,10 +120,6 @@ function onResize() {
     Project.onResize();
     Nav.onResize();
 
-    if( $('.woocommerce.archive').length ) {
-        Woocommerce.onResize();
-    }
-
     frontpageSlider.onResize();
     videos.resize();
 
@@ -183,11 +165,6 @@ function loop() {
     Portfolio.maybeloadNextProjects();
     Blog.maybeLoadNextPosts();
     updateHeader();
-
-    if( $('.woocommerce.archive').length ) {
-        Woocommerce.getCurrent();
-        Woocommerce.maybeloadNextProducts();
-    }
 
     requestAnimationFrame(loop)
 }
