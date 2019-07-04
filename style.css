@@ -75,8 +75,7 @@ and Blueprint http://www.blueprintcss.org/
  *    5.29 - Border
  *    5.30 - Widgets
  *    5.31 - Shortcodes
- *    5.32 - PixProof
- *    5.33 - Password Protected Form
+ *    5.32 - Password Protected Form
  *  6.0 - Overrides
  *
  */
@@ -3814,7 +3813,7 @@ main,
 li, .wp-caption img[class*="wp-image-"], .nav .menu-item:hover > .sub-menu, .rsBullets .menu-item:hover > .sub-menu, .tabs__nav .menu-item:hover > .sub-menu, .nav--social .menu-item:not(.menu-item-language) a, .nav--social .menu-item:not(.menu-item-language) a:before, .portfolio img, .block-link {
   display: block; }
 
-.bar--fixed, .site-header, .site-footer, .site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .theme-name, .back-to-top, .project-addthis-container, .nav, .rsBullets, .tabs__nav, .site-container, .portfolio, .portfolio__header, .portfolio__link-wrap, .single-jetpack-portfolio .site, .single-proof_gallery .site,
+.bar--fixed, .site-header, .site-footer, .site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .theme-name, .back-to-top, .project-addthis-container, .nav, .rsBullets, .tabs__nav, .site-container, .portfolio, .portfolio__header, .portfolio__link-wrap, .single-jetpack-portfolio .site,
 .jetpack-portfolio .site {
   display: -webkit-box;
   display: flex;
@@ -4852,7 +4851,7 @@ figure {
 /**
  *   4.4 - Buttons
  */
-.btn, input[type="submit"], .search-form .search-submit, .pixproof-data.pixproof-data button {
+.btn, input[type="submit"], .search-form .search-submit {
   padding: 4px 30px;
   font-family: Ek Mukta, sans-serif;
   font-weight: 800;
@@ -4867,11 +4866,11 @@ figure {
   -webkit-transition: all .15s;
   transition: all .15s;
   cursor: pointer; }
-  .btn:hover, input:hover[type="submit"], .search-form .search-submit:hover, .pixproof-data.pixproof-data button:hover, .btn:active, input:active[type="submit"], .search-form .search-submit:active, .pixproof-data.pixproof-data button:active, .btn:focus, input:focus[type="submit"], .search-form .search-submit:focus, .pixproof-data.pixproof-data button:focus {
+  .btn:hover, input:hover[type="submit"], .search-form .search-submit:hover, .btn:active, input:active[type="submit"], .search-form .search-submit:active, .btn:focus, input:focus[type="submit"], .search-form .search-submit:focus {
     background-color: white;
     background-image: none;
     color: black; }
-  .btn.a, input.a[type="submit"], .search-form .a.search-submit, .pixproof-data.pixproof-data button.a {
+  .btn.a, input.a[type="submit"], .search-form .a.search-submit {
     border-bottom: none; }
 
 /**
@@ -6676,8 +6675,7 @@ li.depth-2:before {
 /**
  *   5.16 - Portfolio
  */
-.touch .single-jetpack-portfolio .site-footer, .touch .single-proof_gallery .site-footer,
-.touch .single-proof_gallery .site-footer {
+.touch .single-jetpack-portfolio .site-footer {
   padding-bottom: 0; }
 
 img {
@@ -6882,14 +6880,14 @@ img {
     display: -webkit-box;
     display: flex; }
 
-.page-template-custom-portfolio-page:not(.single-jetpack-portfolio):not(.single-proof_gallery) .portfolio--grid,
+.page-template-custom-portfolio-page:not(.single-jetpack-portfolio) .portfolio--grid,
 .tax-jetpack-portfolio-type .portfolio--grid,
 .tax-jetpack-portfolio-tag .portfolio--grid {
   padding-bottom: 0;
   display: none;
   opacity: 1; }
   @media not screen and (min-width: 900px) {
-    .page-template-custom-portfolio-page:not(.single-jetpack-portfolio):not(.single-proof_gallery) .portfolio--grid,
+    .page-template-custom-portfolio-page:not(.single-jetpack-portfolio) .portfolio--grid,
     .tax-jetpack-portfolio-type .portfolio--grid,
     .tax-jetpack-portfolio-tag .portfolio--grid {
       padding-left: 7vw;
@@ -7604,7 +7602,7 @@ img {
   text-transform: none;
   -webkit-transition: 0.3s opacity linear;
   transition: 0.3s opacity linear; }
-  .single-jetpack-portfolio .project-addthis-container .share-text:after, .single-proof_gallery .project-addthis-container .share-text:after {
+  .single-jetpack-portfolio .project-addthis-container .share-text:after {
     content: ":"; }
 
 .project-addthis-container .addthis_toolbox {
@@ -8758,219 +8756,6 @@ a:hover > .pixcode--icon {
 /**
  *   5.32 - PixProof
  */
-.portfolio__item--clone .proof__overlay {
-  opacity: 0 !important; }
-
-.single-proof_gallery .portfolio--grid .portfolio__item {
-  height: 19vh; }
-
-.single-proof_gallery .button-full {
-  display: none !important; }
-
-.single-proof_gallery .proof__overlay {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  -webkit-transition: opacity .3s ease-in-out;
-  transition: opacity .3s ease-in-out;
-  pointer-events: none;
-  overflow: hidden;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0); }
-
-.single-proof_gallery .photometa {
-  display: -webkit-box;
-  display: flex;
-  display: -webkit-flex; }
-
-.single-proof_gallery .photometa__caption {
-  opacity: 1; }
-
-.proof__selected {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 3000;
-  border: 0 solid transparent;
-  border-bottom-color: #50E3C2;
-  border-right-color: #50E3C2;
-  -webkit-transition: border-width 1s ease-in, opacity .2s ease-out, -webkit-transform 1s ease-in;
-  transition: border-width 1s ease-in, opacity .2s ease-out, -webkit-transform 1s ease-in;
-  transition: border-width 1s ease-in, transform 1s ease-in, opacity .2s ease-out;
-  transition: border-width 1s ease-in, transform 1s ease-in, opacity .2s ease-out, -webkit-transform 1s ease-in;
-  -webkit-transform: rotate(35deg) translate3d(60%, 60%, 0);
-          transform: rotate(35deg) translate3d(60%, 60%, 0);
-  opacity: 0; }
-  .proof__selected:after {
-    content: "";
-    width: 16px;
-    height: 14px;
-    display: block;
-    position: absolute;
-    bottom: -15px;
-    right: -15px;
-    background: url("assets/svg/check-mark-icon.svg");
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-size: contain;
-    opacity: 0;
-    -webkit-transition: all .2s .1s ease-in-out;
-    transition: all .2s .1s ease-in-out; }
-
-.js-portfolio-item.selected .proof__selected {
-  -webkit-transform: none;
-          transform: none;
-  border-width: 20px;
-  opacity: 1;
-  -webkit-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-  .js-portfolio-item.selected .proof__selected:after {
-    opacity: 1; }
-  .portfolio--filmstrip .js-portfolio-item.selected .proof__selected {
-    border-width: 25px; }
-    .portfolio--filmstrip .js-portfolio-item.selected .proof__selected:after {
-      width: 23px;
-      height: 20px;
-      bottom: -19px;
-      right: -20px; }
-
-.proof-btn.proof-btn.proof-btn {
-  width: 3em;
-  height: 3em;
-  margin: 0 1em;
-  -webkit-transition: -webkit-transform .3s ease-out;
-  transition: -webkit-transform .3s ease-out;
-  transition: transform .3s ease-out;
-  transition: transform .3s ease-out, -webkit-transform .3s ease-out;
-  background-position: center center;
-  background-size: 100% 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  -webkit-box-flex: 0;
-          flex: 0 1 3em; }
-  .portfolio--grid .proof-btn.proof-btn.proof-btn {
-    margin: 0 5%; }
-
-.proof-btn--zoom {
-  background: url("assets/svg/zoom-icon.svg"); }
-
-.proof-btn--plus {
-  background: url("assets/svg/plus-icon.svg"); }
-  .selected .proof-btn--plus {
-    display: none; }
-
-.proof-btn--minus {
-  display: none;
-  background: url("assets/svg/minus-icon.svg"); }
-  .selected .proof-btn--minus {
-    display: block; }
-
-.proof-btn--thumbs {
-  display: none; }
-  .portfolio--filmstrip .proof-btn--thumbs {
-    display: block;
-    background: url("assets/svg/back-to-thumbs-icon.svg"); }
-
-.no-touch .js-portfolio-item:hover .proof__overlay,
-.touch .js-portfolio-item .proof__overlay {
-  opacity: 1;
-  pointer-events: auto; }
-
-.touch .js-portfolio-item .proof__overlay {
-  background: rgba(0, 0, 0, 0.3); }
-
-.pixproof-data {
-  width: 100%;
-  margin-bottom: 2em; }
-  @media not screen and (min-width: 900px) {
-    .pixproof-data {
-      margin-top: 1em; } }
-  .pixproof-data .entry__meta-box span {
-    display: block;
-    line-height: 2; }
-  .portfolio--filmstrip .pixproof-data {
-    display: none; }
-  .pixproof-data.pixproof-data button {
-    position: static;
-    float: right;
-    margin-right: 5em;
-    line-height: 2;
-    border-radius: 4px;
-    background: #222;
-    opacity: 1;
-    margin-top: 0.3em;
-    -webkit-transition: opacity .3s ease-in-out;
-    transition: opacity .3s ease-in-out; }
-    @media not screen and (min-width: 900px) {
-      .pixproof-data.pixproof-data button {
-        float: left;
-        margin-top: 1em; } }
-  .pixproof-data .entry__meta-box span {
-    font-family: Ek Mukta, sans-serif;
-    color: #222;
-    font-size: 14px; }
-  .pixproof-data span.meta-box__title {
-    font-family: Libre Baskerville, serif;
-    font-weight: normal;
-    font-style: italic;
-    color: #9B9B9B;
-    margin-bottom: -0.2em; }
-  .pixproof-data span:not(.meta-box__title) {
-    font-weight: bold; }
-
-.pixproof__wrap {
-  width: 100%;
-  padding-bottom: 41.66667px; }
-  @media only screen and (min-width: 740px) {
-    .pixproof__wrap {
-      padding-right: 73.33333px;
-      padding-bottom: 83.33333px; } }
-  @media only screen and (min-width: 1200px) {
-    .pixproof__wrap {
-      padding-right: 110px;
-      padding-bottom: 125px; } }
-  @media not screen and (min-width: 740px) {
-    .pixproof__wrap {
-      padding-right: 1em; }
-      .pixproof__wrap .comments-area,
-      .pixproof__wrap .comment-respond {
-        padding-left: 0;
-        padding-right: 0; } }
-
-.pixproof__content {
-  max-width: 35em;
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 3em; }
-  .portfolio--filmstrip .pixproof__content {
-    display: none; }
-
-.proof_gallery .pixproof_photo_ref.pixproof_photo_ref {
-  letter-spacing: 0.1px;
-  padding: 0.1em 0.5em 0;
-  margin: 0 0.2em 0 0.3em;
-  line-height: 1.4;
-  border-radius: 1.9em;
-  display: inline-block;
-  background: #222;
-  color: white; }
-
-/**
- *   5.33 - PixProof
- */
 .password-required {
   color: #fff;
   background-color: #000; }
@@ -9019,7 +8804,7 @@ a:hover > .pixcode--icon {
     color: #AB0B00; }
 
 /**
- *   5.34 - Project filters
+ *   5.33 - Project filters
  */
 .projects-filter {
   position: fixed;
@@ -9112,7 +8897,7 @@ a:hover > .pixcode--icon {
   opacity: 1 !important; }
 
 /**
- *   5.35 - Images loading spinner
+ *   5.34 - Images loading spinner
  */
 .spinner {
   width: 40px;
@@ -9351,15 +9136,13 @@ html.has--nicescroll {
 .page-template-custom-portfolio-page .site-footer--single {
   display: none; }
 
-.single-jetpack-portfolio .site, .single-proof_gallery .site,
-.jetpack-portfolio .site,
-.single-proof_gallery .site {
+.single-jetpack-portfolio .site,
+.jetpack-portfolio .site {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column; }
 
-.touch .single-jetpack-portfolio .site-content, .touch .single-proof_gallery .site-content,
-.touch .single-proof_gallery .site-content {
+.touch .single-jetpack-portfolio .site-content {
   overflow-x: auto;
   overflow-y: hidden; }
 
@@ -9396,12 +9179,10 @@ html {
 
 .no-flexbox .filmstrip,
 .no-flexbox .single-jetpack-portfolio .site,
-.no-flexbox .single-proof_gallery .site,
 .no-flexbox .jetpack-portfolio .site {
   display: block; }
   .no-flexbox .filmstrip .site-content,
   .no-flexbox .single-jetpack-portfolio .site .site-content,
-  .no-flexbox .single-proof_gallery .site .site-content,
   .no-flexbox .jetpack-portfolio .site .site-content {
     height: 80vh;
     height: calc(100vh - 120px); }
