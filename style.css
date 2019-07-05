@@ -5004,7 +5004,8 @@ hr {
   @media only screen and (min-width: 900px) {
     .site-header.site-header {
       top: 7px; } }
-  .page .site-header {
+  .page .site-header,
+  .single .site-header {
     position: absolute;
     left: 0;
     right: 0;
