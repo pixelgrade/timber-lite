@@ -78,21 +78,4 @@
 
 		endif; ?>
 	</div>
-
-	<div class="projects-filter  js-projects-filter">
-		<button class="filter__trigger  js-projects-filter-trigger"></button>
-		<div class="filter__content  js-projects-filter-content">
-			<span class="filter__text"><?php _e('Filter:', 'timber-lite'); ?></span>
-			<?php
-			if ( ! is_wp_error($portfolio_types) && ! empty( $portfolio_types ) ) { ?>
-				<ul id="portfolio-category" class="filter__list  js-projects-filter-list">
-					<li><button class="filter__item  active" data-filter="*"><?php _e( 'All', 'timber-lite' );?></button></li>
-					<?php foreach ( $portfolio_types as $type ) { ?>
-						<li><button class="filter__item" data-filter="<?php echo esc_attr( '.jetpack-portfolio-type-' . $type->slug ) ?>"><?php echo $type->name; ?></button></li>
-					<?php } ?>
-				</ul>
-				<?php
-			} ?>
-		</div>
-	</div>
 </div>
