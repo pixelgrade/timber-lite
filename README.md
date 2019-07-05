@@ -2,7 +2,7 @@
 **Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience. You get a carefully chosen cutting edge set of tools to propel your photography showcase to new heights. A theme that matches your passion and artistic aspirations.**
   
 
-[Presentation](https://pixelgrade.com/themes/timber/) · [Demo Preview](https://demos.pixelgrade.com/timber/) · [Documentation](http://pixelgrade.com/docs/timber)
+[Presentation](https://pixelgrade.com/themes/timber-lite/) · [Demo Preview](https://demos.pixelgrade.com/timber/) · [Documentation](http://pixelgrade.com/docs/timber)
 
 ## Contributing
 The proposed value of **Open Source** is that by freely sharing the code with the community, others can use, improve and contribute back to it. 
