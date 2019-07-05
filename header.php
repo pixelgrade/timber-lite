@@ -23,7 +23,6 @@
 <body <?php body_class(); ?> <?php timber_body_attributes(); ?> data-first-letter="<?php echo timber_first_site_title_character(); ?>">
 
 <header id="masthead" class="site-header">
-	<div class="bar--fixed">
 
 	<div class="site-branding">
 
@@ -37,10 +36,11 @@
 
 	<nav id="site-navigation" class="main-navigation djax-updatable">
 		<?php wp_nav_menu( array(
-			'theme_location' => 'primary',
-			'menu_class' => 'nav nav--main',
-			'menu_id' => 'primary-menu',
-			'fallback_cb' => false,
+			'theme_location'    => 'primary',
+			'menu_class'        => 'nav nav--main',
+			'menu_id'           => 'primary-menu',
+			'fallback_cb'       => false,
+            'depth'             => 1
 		) ); ?>
 	</nav><!-- #site-navigation -->
 
@@ -52,8 +52,6 @@
 			'fallback_cb' => false,
 		) ); ?>
 	</nav>
-
-	</div>
 
 </header><!-- #masthead -->
 
