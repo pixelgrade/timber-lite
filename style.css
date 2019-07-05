@@ -5343,9 +5343,6 @@ hr {
       z-index: 551; }
     .site-content__mask.is-on-top {
       z-index: 9000; }
-  .site-content.portfolio-archive {
-    z-index: 200;
-    width: 100%; }
 
 .page-template-featured-projects-page .site-content__mask {
   -webkit-transform: none;
@@ -6828,15 +6825,6 @@ img {
           opacity: 1; }
     .portfolio--grid.portfolio--visible .portfolio__item {
       opacity: 1; }
-    .portfolio-archive .portfolio--grid {
-      padding-bottom: 0;
-      min-height: 15vh; }
-      @media not screen and (min-width: 740px) {
-        .portfolio-archive .portfolio--grid {
-          min-height: 13vh; } }
-      @media only screen and (max-height: 480px) and (min-width: 400px) {
-        .portfolio-archive .portfolio--grid {
-          min-height: 40vh; } }
   .portfolio--filmstrip {
     z-index: 350;
     opacity: 0; }
@@ -6902,9 +6890,6 @@ img {
 .is--ie-le10 .portfolio__item {
   display: inline-block; }
 
-.portfolio-archive .portfolio--project {
-  overflow: hidden; }
-
 .button-full {
   position: absolute;
   top: 3px;
@@ -6968,12 +6953,6 @@ img {
     background-position-x: -100px; }
   to {
     background-position-x: 100px; } }
-
-.is--ie-le10 .portfolio-archive .portfolio--project,
-.is--ie-le10 .portfolio-archive .portfolio__header,
-.no-flexbox .portfolio-archive .portfolio--project,
-.no-flexbox .portfolio-archive .portfolio__header {
-  display: inline-block; }
 
 .is--ie-le10 .portfolio--project,
 .no-flexbox .portfolio--project {
@@ -9034,10 +9013,6 @@ html {
   .portfolio__position,
   .show-details:before {
     display: none; } }
-
-@media not screen and (min-width: 740px) {
-  .portfolio-archive {
-    padding-left: 0.5em; } }
 
 @media not screen and (min-width: 900px) {
   .no-flexbox .site-branding {

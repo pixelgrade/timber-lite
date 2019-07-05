@@ -158,12 +158,6 @@ html {
     }
 }
 
-.portfolio-archive {
-    @include query-below($small) {
-        padding-left: 0.5em;
-    }
-}
-
 .no-flexbox {
     @include query-below($lap) {
         .site-branding {
