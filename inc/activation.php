@@ -137,18 +137,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 									'name'  => __( '<span class="dashicons dashicons-format-gallery"></span> Projects Slider', 'timber-lite' ),
 									'value' => 'project_slider',
 								),
-								array(
-									'name'  => __( '<span class="dashicons dashicons-portfolio"></span> Portfolio Archive', 'timber-lite' ),
-									'value' => 'portfolio',
-								),
-//								array(
-//									'name'  => __( 'Projects Category', 'timber-lite' ),
-//									'value' => 'portfolio_cat',
-//								),
-								array(
-									'name'  => __( '<span class="dashicons dashicons-format-image"></span> Single Project <a class="tooltip" title="This feature is designed so you can have the option of a simple gallery on the Front page."></a>', 'timber-lite' ),
-									'value' => 'project',
-								),
 							)
 						),
 
@@ -185,10 +173,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 									'name' => __( '<span class="dashicons dashicons-editor-insertmore"></span> Standard', 'timber-lite' ),
 									'value' => 'default'
 								),
-								array(
-									'name' => __( '<span class="dashicons dashicons-editor-expand"></span> Full Height', 'timber-lite' ),
-									'value' => 'full-height'
-								)
 							),
 							'display_on' => array(
 								'display' => true,
@@ -206,10 +190,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							'std'    => 'show_next',
 							'options'    => array(
 								array(
-									'name' => __( '<span class="dashicons dashicons-leftright"></span> Next and Prev', 'timber-lite' ),
-									'value' => 'show_prev_next'
-								),
-								array(
 									'name' => __( '<span class="dashicons dashicons-arrow-right"></span> Next Only', 'timber-lite' ),
 									'value' => 'show_next'
 								)
@@ -222,23 +202,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								)
 							),
 						),
-
-//						array(
-//							'name'       => __( 'Select a project category', 'timber-lite' ),
-//							'desc'       => __( 'Select a project category and we will show it on your homepage.', 'timber-lite' ),
-//							'id'         => 'project_category',
-//							'type'       => 'select_cpt_term',
-//							'taxonomy'   => 'lens_portfolio_categories',
-//							'options'    => array( // 'hidden' => true,
-//							),
-//							'display_on' => array(
-//								'display' => true,
-//								'on'      => array(
-//									'field' => 'custom_portfolio_page_type',
-//									'value' => 'portfolio_cat'
-//								)
-//							),
-//						),
 
 						array(
 							'name'       => __( 'Select the project', 'timber-lite' ),
