@@ -59,7 +59,6 @@ if ( post_password_required() ) {
 	<div class="bar--fixed">
 
 		<div class="project-addthis-container">
-			<?php get_template_part('template-parts/addthis-share'); ?>
 		</div>
 
 		<div class="site-info">

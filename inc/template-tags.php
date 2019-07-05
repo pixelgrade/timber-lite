@@ -110,7 +110,6 @@ function timber_entry_footer() {
 	// Hide category and tag text for pages.
 	if ( 'post' == get_post_type() ) {
 	echo '<div class="metabox">';
-	get_template_part( 'template-parts/addthis-share' );
 	echo '</div>';
 
 		$tags_list = get_the_tag_list();
