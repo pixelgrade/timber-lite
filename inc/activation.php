@@ -137,6 +137,10 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 									'name'  => __( '<span class="dashicons dashicons-format-gallery"></span> Projects Slider', 'timber-lite' ),
 									'value' => 'project_slider',
 								),
+								array(
+									'name'  => __( '<span class="dashicons dashicons-portfolio"></span> Portfolio Archive', 'timber-lite' ),
+									'value' => 'portfolio',
+								),
 							)
 						),
 

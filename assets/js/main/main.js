@@ -11,7 +11,6 @@ function init() {
     scrollToTop();
 
     if ( ! detectIE() ) {
-	    djax.init();
 	    Loader.init();
     }
 

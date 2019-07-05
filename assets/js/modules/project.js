@@ -170,13 +170,6 @@ var Project = (function() {
 			showThumbnails();
 		});
 
-		$(window).on('djaxLoad', function() {
-			if ( $( '.image-scaling--fit' ).length || ( Modernizr.touchevents && typeof window.disable_mobile_panning !== "undefined" && window.disable_mobile_panning === true ) ) {
-				imageScaling = 'fit';
-			} else {
-				imageScaling = 'fill';
-			}
-		});
 
 		$(document).keydown(function(e) {
 

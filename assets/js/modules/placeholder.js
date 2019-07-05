@@ -29,15 +29,11 @@ var Placeholder = (function() {
 	        $item.width( $item.data( 'newWidth' ) );
         });
 
-        $(window).on('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
+        $(window).on('DOMContentLoaded load resize scroll', bindImageLoad);
         $('.portfolio--grid, .site-content').on('scroll', bindImageLoad);
 
         bindImageLoad();
 
-        $(window).on('djaxClick', function() {
-            $(window).off('DOMContentLoaded load resize scroll djaxLoad', bindImageLoad);
-            $('.portfolio--grid, .site-content').off('scroll', bindImageLoad);
-        });
     }
 
     function bindImageLoad() {
