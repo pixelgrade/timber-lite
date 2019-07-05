@@ -1,16 +1,90 @@
-# Copyright (C) 2017 Pixelgrade
+# Copyright (C) 2019 Pixelgrade
 # This file is distributed under the GNU General Public License v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Timber 1.6.8\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/timber\n"
-"POT-Creation-Date: 2017-04-12 09:17:45+00:00\n"
+"Project-Id-Version: Timber Lite 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/timber-lite\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2019-07-05T07:45:04+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.2.0\n"
+"X-Domain: timber-lite\n"
+
+#. Theme Name of the theme
+msgid "Timber Lite"
+msgstr ""
+
+#. Theme URI of the theme
+msgid "https://demos.pixelgrade.com/timber-lite/"
+msgstr ""
+
+#. Description of the theme
+msgid "Timber Lite is a free photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience."
+msgstr ""
+
+#. Author of the theme
+msgid "Pixelgrade"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://pixelgrade.com/"
+msgstr ""
+
+#: functions.php:60
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:61
+msgid "Social Menu"
+msgstr ""
+
+#: functions.php:142
+msgid "Overlay — Left Sidebar (1/4)"
+msgstr ""
+
+#: functions.php:152
+msgid "Overlay — Right Sidebar (1/4)"
+msgstr ""
+
+#: functions.php:162
+msgid "Overlay — Content (2/4)"
+msgstr ""
+
+#: functions.php:201
+msgid "Previous (Left arrow key)"
+msgstr ""
+
+#: functions.php:202
+msgid "Next (Right arrow key)"
+msgstr ""
+
+#: functions.php:203
+#: template-parts/single-jetpack-portfolio.php:36
+msgid "of"
+msgstr ""
+
+#: functions.php:204
+msgid "<em>Loading more...</em>"
+msgstr ""
+
+#: functions.php:205
+msgid "<em>Nothing left to load.</em>"
+msgstr ""
+
+#: functions.php:505
+#: inc/widgets/image-widget.php:115
+#: inc/widgets/image-widget.php:123
+msgid "Choose an Image"
+msgstr ""
+
+#: functions.php:506
+#: inc/widgets/image-widget.php:116
+msgid "Update Image"
+msgstr ""
 
 #: 404.php:14
 msgid "Oops! That page can&rsquo;t be found."
@@ -20,232 +94,422 @@ msgstr ""
 msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
 msgstr ""
 
-#: comments.php:26 comments.php:96 comments.php:113
-msgid "Comment"
-msgid_plural "Comments"
+#: inc/required-plugins/class-tgm-plugin-activation.php:327
+#: inc/required-plugins.php:61
+msgid "Install Required Plugins"
+msgstr ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:328
+#: inc/required-plugins.php:62
+msgid "Install Plugins"
+msgstr ""
+
+#. translators: %s: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:330
+#: inc/required-plugins.php:63
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#. translators: %s: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:332
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:333
+#: inc/required-plugins.php:65
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#. translators: 1: plugin name(s).
+#: inc/required-plugins/class-tgm-plugin-activation.php:334
+#: inc/required-plugins.php:66
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: comments.php:28
-msgid "There are no comments"
+#. translators: 1: plugin name(s).
+#: inc/required-plugins/class-tgm-plugin-activation.php:340
+#: inc/required-plugins.php:68
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: inc/required-plugins/class-tgm-plugin-activation.php:346
+#: inc/required-plugins.php:78
+msgid "The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s."
+msgid_plural "The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: inc/required-plugins/class-tgm-plugin-activation.php:352
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: inc/required-plugins/class-tgm-plugin-activation.php:358
+#: inc/required-plugins.php:72
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name(s).
+#: inc/required-plugins/class-tgm-plugin-activation.php:364
+#: inc/required-plugins.php:74
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:370
+#: inc/required-plugins.php:82
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:375
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:380
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:385
+#: inc/required-plugins.php:84
+msgid "Return to Required Plugins Installer"
 msgstr ""
 
-#: comments.php:32
-msgid "Add yours"
+#: inc/required-plugins/class-tgm-plugin-activation.php:386
+#: inc/required-plugins/class-tgm-plugin-activation.php:827
+#: inc/required-plugins/class-tgm-plugin-activation.php:2533
+#: inc/required-plugins/class-tgm-plugin-activation.php:3580
+msgid "Return to the Dashboard"
 msgstr ""
 
-#: comments.php:40 comments.php:60
-msgid "Comment navigation"
+#: inc/required-plugins/class-tgm-plugin-activation.php:387
+#: inc/required-plugins/class-tgm-plugin-activation.php:3159
+#: inc/required-plugins.php:85
+msgid "Plugin activated successfully."
 msgstr ""
 
-#: comments.php:41 comments.php:61
-msgid "&larr; Older Comments"
+#: inc/required-plugins/class-tgm-plugin-activation.php:388
+#: inc/required-plugins/class-tgm-plugin-activation.php:2952
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:390
+msgid "No action taken. Plugin %1$s was already active."
 msgstr ""
 
-#: comments.php:42 comments.php:62
-msgid "Newer Comments &rarr;"
+#. translators: 1: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:392
+msgid "Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
 msgstr ""
 
-#: comments.php:74
-msgid "Comments are closed."
+#. translators: 1: dashboard link.
+#: inc/required-plugins/class-tgm-plugin-activation.php:394
+msgid "All plugins installed and activated successfully. %1$s"
 msgstr ""
 
-#: comments.php:85 comments.php:101
-msgid "Leave a Comment"
+#: inc/required-plugins/class-tgm-plugin-activation.php:395
+msgid "Dismiss this notice"
 msgstr ""
 
-#: comments.php:90 comments.php:106
-msgid "Name"
+#: inc/required-plugins/class-tgm-plugin-activation.php:396
+msgid "There are one or more required or recommended plugins to install, update or activate."
 msgstr ""
 
-#: comments.php:91 comments.php:107
-msgid "Email"
+#: inc/required-plugins/class-tgm-plugin-activation.php:397
+msgid "Please contact the administrator of this site for help."
 msgstr ""
 
-#: comments.php:91 comments.php:107
-msgid "your@email.com"
+#: inc/required-plugins/class-tgm-plugin-activation.php:522
+msgid "This plugin needs to be updated to be compatible with your theme."
 msgstr ""
 
-#: comments.php:94 comments.php:111
-#: inc/import/wordpress-importer/wordpress-importer.php:291
-msgid "Submit"
+#: inc/required-plugins/class-tgm-plugin-activation.php:523
+msgid "Update Required"
 msgstr ""
 
-#: comments.php:96 comments.php:113
-msgid "Your thoughts.."
+#: inc/required-plugins/class-tgm-plugin-activation.php:934
+msgid "The remote plugin package does not contain a folder with the desired slug and renaming did not work."
 msgstr ""
 
-#: comments.php:108
-msgid "Url"
+#: inc/required-plugins/class-tgm-plugin-activation.php:934
+#: inc/required-plugins/class-tgm-plugin-activation.php:937
+msgid "Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines."
 msgstr ""
 
-#: comments.php:108
-msgid "Website"
+#: inc/required-plugins/class-tgm-plugin-activation.php:937
+msgid "The remote plugin package consists of more than one file, but the files are not packaged in a folder."
 msgstr ""
 
-#: footer-single.php:9
-msgid "Theme &#8212; %1$s"
+#: inc/required-plugins/class-tgm-plugin-activation.php:1121
+#: inc/required-plugins/class-tgm-plugin-activation.php:2948
+msgctxt "plugin A *and* plugin B"
+msgid "and"
 msgstr ""
 
-#: footer-single.php:13
-msgid "Back to top"
+#. translators: %s: version number
+#: inc/required-plugins/class-tgm-plugin-activation.php:1982
+msgid "TGMPA v%s"
 msgstr ""
 
-#: functions.php:57
-msgid "Primary Menu"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2273
+msgid "Required"
 msgstr ""
 
-#: functions.php:58
-msgid "Social Menu"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2276
+msgid "Recommended"
 msgstr ""
 
-#: functions.php:145
-msgid "Overlay — Left Sidebar (1/4)"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2292
+msgid "WordPress Repository"
 msgstr ""
 
-#: functions.php:155
-msgid "Overlay — Right Sidebar (1/4)"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2295
+msgid "External Source"
 msgstr ""
 
-#: functions.php:165
-msgid "Overlay — Content (2/4)"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2298
+msgid "Pre-Packaged"
 msgstr ""
 
-#: functions.php:220
-msgid "Previous (Left arrow key)"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2315
+msgid "Not Installed"
 msgstr ""
 
-#: functions.php:221
-msgid "Next (Right arrow key)"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2319
+msgid "Installed But Not Activated"
 msgstr ""
 
-#: functions.php:222 template-parts/single-jetpack-portfolio.php:36
-msgid "of"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2321
+msgid "Active"
 msgstr ""
 
-#: functions.php:223
-msgid "<em>Loading more...</em>"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2327
+msgid "Required Update not Available"
 msgstr ""
 
-#: functions.php:224
-msgid "<em>Nothing left to load.</em>"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2330
+msgid "Requires Update"
 msgstr ""
 
-#: functions.php:294
-msgid "The import didn't work completely! <br/> Check out the errors given. You might want to try reloading the page and then try again."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2333
+msgid "Update recommended"
 msgstr ""
 
-#: functions.php:295
-msgid "Importing the demo data will overwrite your current Theme Options settings. Proceed anyway?"
+#. translators: 1: install status, 2: update status
+#: inc/required-plugins/class-tgm-plugin-activation.php:2342
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
 msgstr ""
 
-#: functions.php:296
-msgid "Phew...that was a hard one!"
+#. translators: 1: number of plugins.
+#: inc/required-plugins/class-tgm-plugin-activation.php:2388
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: inc/required-plugins/class-tgm-plugin-activation.php:2392
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: inc/required-plugins/class-tgm-plugin-activation.php:2396
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+#: inc/required-plugins/class-tgm-plugin-activation.php:2400
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:2482
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
 msgstr ""
 
-#: functions.php:297
-msgid "The demo data was imported without a glitch! Awesome! <br/><br/><b style=\"color:red\">Remember to update the passwords and roles of imported users. </b><br/><br/><i>We will now reload the page so you can see the brand new data!</i>"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2490
+msgid "Installed version:"
 msgstr ""
 
-#: functions.php:298
-msgid "All done!"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2498
+msgid "Minimum required version:"
 msgstr ""
 
-#: functions.php:299
-msgid "Working..."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2510
+msgid "Available version:"
 msgstr ""
 
-#: functions.php:300
-msgid "The setting up of the demo widgets failed..."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2533
+msgid "No plugins to install, update or activate."
 msgstr ""
 
-#: functions.php:301
-msgid "The setting up of the demo widgets failed</i><br />(The script returned the following message"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2547
+msgid "Plugin"
 msgstr ""
 
-#: functions.php:302
-msgid "Finished setting up the demo widgets..."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2548
+msgid "Source"
 msgstr ""
 
-#: functions.php:303 functions.php:306
-msgid "The importing of the theme options has failed..."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2549
+msgid "Type"
 msgstr ""
 
-#: functions.php:304
-msgid "The importing of the theme options has failed</i><br />(The script returned the following message"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2553
+msgid "Version"
 msgstr ""
 
-#: functions.php:305
-msgid "Finished importing the demo theme options..."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2554
+msgid "Status"
 msgstr ""
 
-#: functions.php:307
-msgid "Importing posts | Step"
+#. translators: %2$s: plugin name in screen reader markup
+#: inc/required-plugins/class-tgm-plugin-activation.php:2603
+msgid "Install %2$s"
 msgstr ""
 
-#: functions.php:308
-msgid "Error:"
+#. translators: %2$s: plugin name in screen reader markup
+#: inc/required-plugins/class-tgm-plugin-activation.php:2608
+msgid "Update %2$s"
 msgstr ""
 
-#: functions.php:309
-msgid "You can reload the page and try again."
+#. translators: %2$s: plugin name in screen reader markup
+#: inc/required-plugins/class-tgm-plugin-activation.php:2614
+msgid "Activate %2$s"
 msgstr ""
 
-#: functions.php:545 inc/widgets/image-widget.php:115
-#: inc/widgets/image-widget.php:123
-msgid "Choose an Image"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2684
+msgid "Upgrade message from the plugin author:"
 msgstr ""
 
-#: functions.php:546 inc/widgets/image-widget.php:116
-msgid "Update Image"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2717
+msgid "Install"
 msgstr ""
 
-#: functions.php:657 functions.php:707
-msgid "A <strong>valid purchase code</strong> is required for automatic updates."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2723
+msgid "Update"
 msgstr ""
 
-#: functions.php:668 functions.php:718
-msgid "Purchase code not updated. We will keep the existing one."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2726
+msgid "Activate"
 msgstr ""
 
-#: functions.php:671 functions.php:721
-msgid "Your <strong>purchase code is valid</strong>. Thank you! Enjoy one-click automatic updates."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2757
+msgid "No plugins were selected to be installed. No action taken."
 msgstr ""
 
-#: functions.php:678 functions.php:728
-msgid "Purchase code ( e.g. 9g2b13fa-10aa-2267-883a-9201a94cf9b5 )"
+#: inc/required-plugins/class-tgm-plugin-activation.php:2759
+msgid "No plugins were selected to be updated. No action taken."
 msgstr ""
 
-#: functions.php:679 functions.php:729
-msgid "Enter your purchase code and <strong>hit return/enter</strong>."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2800
+msgid "No plugins are available to be installed at this time."
 msgstr ""
 
-#: functions.php:681 functions.php:730
-msgid "Find out how to <a href=\"https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-\" target=\"_blank\">get your purchase code</a>."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2802
+msgid "No plugins are available to be updated at this time."
 msgstr ""
 
-#: functions.php:746
-msgid "<a href=\"%s\">Please enter your purchase code</a> to get automatic updates for <b>%s</b>."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2908
+msgid "No plugins were selected to be activated. No action taken."
 msgstr ""
 
-#: functions.php:792
-msgid "We are sorry but we couldn't connect to the verification server. Please try again later."
+#: inc/required-plugins/class-tgm-plugin-activation.php:2934
+msgid "No plugins are available to be activated at this time."
 msgstr ""
 
-#: functions.php:805
-msgid "Your purchase's support period has ended. Please extend it to receive automatic updates."
+#: inc/required-plugins/class-tgm-plugin-activation.php:3158
+msgid "Plugin activation failed."
 msgstr ""
 
-#: functions.php:807
-msgid "Could not find a sale with this purchase code. Please double check."
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3498
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
-#: functions.php:814
-msgid "Please enter a valid purchase code. Make sure to get all the characters."
+#. translators: 1: plugin name, 2: error message.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3501
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
 msgstr ""
 
-#: header.php:76
-msgid "Skip to content"
+#. translators: 1: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3503
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:3507
+msgid "The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3509
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3509
+#: inc/required-plugins/class-tgm-plugin-activation.php:3517
+msgid "Show Details"
+msgstr ""
+
+#. translators: 1: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3509
+#: inc/required-plugins/class-tgm-plugin-activation.php:3517
+msgid "Hide Details"
+msgstr ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:3510
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3512
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:3515
+msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3517
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: inc/required-plugins/class-tgm-plugin-activation.php:3518
+msgid "All installations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: inc/required-plugins/class-tgm-plugin-activation.php:3520
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
 msgstr ""
 
 #: inc/activation.php:21
@@ -280,7 +544,8 @@ msgstr ""
 msgid "All Projects"
 msgstr ""
 
-#: inc/activation.php:30 template-parts/content-portfolio.php:30
+#: inc/activation.php:30
+#: template-parts/content-portfolio.php:30
 msgid "View Project"
 msgstr ""
 
@@ -300,51 +565,8 @@ msgstr ""
 msgid "Portfolio"
 msgstr ""
 
-#: inc/activation.php:70 inc/activation.php:72
-msgid "Project Types"
-msgstr ""
-
-#: inc/activation.php:71
-msgid "Project Type"
-msgstr ""
-
-#: inc/activation.php:73
-msgid "All Project Types"
-msgstr ""
-
-#: inc/activation.php:74
-msgid "Edit Project Type"
-msgstr ""
-
-#: inc/activation.php:75
-msgid "View Project Type"
-msgstr ""
-
-#: inc/activation.php:76
-msgid "Update Project Type"
-msgstr ""
-
-#: inc/activation.php:77
-msgid "Add New Project Type"
-msgstr ""
-
-#: inc/activation.php:78
-msgid "New Project Type Name"
-msgstr ""
-
-#: inc/activation.php:79
-msgid "Parent Project Type"
-msgstr ""
-
-#: inc/activation.php:80
-msgid "Parent Project Type:"
-msgstr ""
-
-#: inc/activation.php:81
-msgid "Search Project Types"
-msgstr ""
-
-#: inc/activation.php:95 inc/activation.php:97
+#: inc/activation.php:95
+#: inc/activation.php:97
 msgid "Project Tags"
 msgstr ""
 
@@ -496,6 +718,88 @@ msgstr ""
 msgid "FIT - the image is resized to fit inside the container and it's fully visible from the start"
 msgstr ""
 
+#: inc/extras.php:180
+msgid "Page %s"
+msgstr ""
+
+#: inc/extras.php:233
+msgid "on %s at %s"
+msgstr ""
+
+#: inc/extras.php:238
+#: inc/template-tags.php:127
+#: template-parts/content-page.php:42
+msgid "Edit"
+msgstr ""
+
+#: inc/extras.php:250
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: inc/extras.php:757
+#: inc/extras.php:758
+msgctxt "label"
+msgid "Search for:"
+msgstr ""
+
+#: inc/extras.php:758
+msgctxt "placeholder"
+msgid "Search &hellip;"
+msgstr ""
+
+#: inc/extras.php:785
+msgid "Intro Text"
+msgstr ""
+
+#: inc/extras.php:786
+msgid "Dropcap"
+msgstr ""
+
+#: inc/extras.php:787
+msgid "Highlight"
+msgstr ""
+
+#: inc/extras.php:789
+msgid "Two Columns"
+msgstr ""
+
+#: inc/extras.php:794
+msgid "Caption"
+msgstr ""
+
+#: inc/extras.php:795
+msgid "Small Caption"
+msgstr ""
+
+#: inc/extras.php:1111
+msgid "This is a protected area."
+msgstr ""
+
+#: inc/extras.php:1115
+msgid "Please enter your password again."
+msgstr ""
+
+#: inc/extras.php:1117
+msgid "Please enter your password to continue."
+msgstr ""
+
+#: inc/extras.php:1127
+msgid "Password"
+msgstr ""
+
+#: inc/extras.php:1129
+msgid "Authenticate"
+msgstr ""
+
+#: inc/extras.php:1190
+#: inc/extras.php:1197
+msgid "Wrong Password"
+msgstr ""
+
+#: inc/customizer.php:19
+msgid "Display Site Title &amp; Tagline"
+msgstr ""
+
 #: inc/config.php:26
 msgid "Style"
 msgstr ""
@@ -520,807 +824,123 @@ msgstr ""
 msgid "Links Color"
 msgstr ""
 
-#: inc/config.php:219
+#: inc/config.php:215
+msgid "Border Color"
+msgstr ""
+
+#: inc/config.php:231
 msgid "Fonts"
 msgstr ""
 
-#: inc/config.php:223
+#: inc/config.php:235
 msgid "Headings"
 msgstr ""
 
-#: inc/config.php:258
+#: inc/config.php:270
 msgid "Capitalize Headings"
 msgstr ""
 
-#: inc/config.php:269
+#: inc/config.php:281
 msgid "Body Text"
 msgstr ""
 
-#: inc/config.php:286
+#: inc/config.php:298
 msgid "Caption Text"
 msgstr ""
 
-#: inc/config.php:302
+#: inc/config.php:314
 msgid "Navigation Text"
 msgstr ""
 
-#: inc/config.php:323
+#: inc/config.php:335
 msgid "Sizes and Spacings"
 msgstr ""
 
-#: inc/config.php:327
+#: inc/config.php:339
 msgid "Logo Height"
 msgstr ""
 
-#: inc/config.php:386
+#: inc/config.php:398
 msgid "Filmstrip Images Spacing"
 msgstr ""
 
-#: inc/config.php:408
+#: inc/config.php:420
 msgid "Theme Options"
 msgstr ""
 
-#: inc/config.php:411
+#: inc/config.php:423
 msgid "General"
 msgstr ""
 
-#: inc/config.php:440
-msgid "Additional Copyright Text"
+#: inc/config.php:452
+msgid "Copyright Text"
 msgstr ""
 
-#: inc/config.php:442
-msgid "All contents &copy; Pixelgrade 2011-2015"
+#: inc/config.php:453
+msgid "Set the text that will appear in the footer area. Use %year% to display the current year."
 msgstr ""
 
-#: inc/config.php:449
+#: inc/config.php:454
+msgid "%%year%% &copy; Handcrafted with love by the %1$s Team"
+msgstr ""
+
+#: inc/config.php:461
 msgid "Custom JavaScript (header)"
 msgstr ""
 
-#: inc/config.php:450
+#: inc/config.php:462
 msgid "Enter your custom Javascript code. This code will be loaded in the head section of your pages."
 msgstr ""
 
-#: inc/config.php:455
+#: inc/config.php:467
 msgid "Custom JavaScript (footer)"
 msgstr ""
 
-#: inc/config.php:456
+#: inc/config.php:468
 msgid "This javascript code will be loaded in the footer."
 msgstr ""
 
-#: inc/config.php:463
+#: inc/config.php:475
 msgid "Share Settings"
 msgstr ""
 
-#: inc/config.php:468
+#: inc/config.php:480
 msgid "Show Share Links"
 msgstr ""
 
-#: inc/config.php:473
+#: inc/config.php:485
 msgid "Share Services"
 msgstr ""
 
-#: inc/config.php:474
+#: inc/config.php:486
 msgid "Add here the share services you want to use, single comma delimited (no spaces). You can find the full list of services here: http://www.addthis.com/services/list. Also you can use the more tag to show the plus sign and the counter tag to show a global share counter."
 msgstr ""
 
-#: inc/config.php:480
-msgid "Demo Data"
-msgstr ""
-
-#: inc/config.php:492
-msgid "Import demo data"
-msgstr ""
-
-#: inc/config.php:498
-msgid "Please wait a few minutes (between 1 and 3 minutes usually, but depending on your hosting it can take longer) and <strong>don't reload the page</strong>. You will be notified as soon as the import has finished!"
-msgstr ""
-
-#: inc/customizer.php:19
-msgid "Display Site Title &amp; Tagline"
-msgstr ""
-
-#: inc/extras.php:180
-msgid "Page %s"
-msgstr ""
-
-#: inc/extras.php:233
-msgid "on %s at %s"
-msgstr ""
-
-#: inc/extras.php:238 inc/template-tags.php:127
-#: template-parts/content-page.php:42
-msgid "Edit"
-msgstr ""
-
-#: inc/extras.php:250
-msgid "Your comment is awaiting moderation."
-msgstr ""
-
-#: inc/extras.php:757 inc/extras.php:758
-msgctxt "label"
-msgid "Search for:"
-msgstr ""
-
-#: inc/extras.php:758
-msgctxt "placeholder"
-msgid "Search &hellip;"
-msgstr ""
-
-#: inc/extras.php:815
-msgid "Intro Text"
-msgstr ""
-
-#: inc/extras.php:816
-msgid "Dropcap"
-msgstr ""
-
-#: inc/extras.php:817
-msgid "Highlight"
-msgstr ""
-
-#: inc/extras.php:819
-msgid "Two Columns"
-msgstr ""
-
-#: inc/extras.php:824
-msgid "Caption"
-msgstr ""
-
-#: inc/extras.php:825
-msgid "Small Caption"
-msgstr ""
-
-#: inc/extras.php:1146
-msgid "This is a protected area."
-msgstr ""
-
-#: inc/extras.php:1150
-msgid "Please enter your password again."
-msgstr ""
-
-#: inc/extras.php:1152
-msgid "Please enter your password to continue."
-msgstr ""
-
-#: inc/extras.php:1162
-msgid "Password"
-msgstr ""
-
-#: inc/extras.php:1164
-msgid "Authenticate"
-msgstr ""
-
-#: inc/extras.php:1225 inc/extras.php:1232
-msgid "Wrong Password"
-msgstr ""
-
-#: inc/import/wordpress-importer/parsers.php:44
-#: inc/import/wordpress-importer/parsers.php:75
-#: inc/import/wordpress-importer/parsers.php:83
-msgid "There was an error when reading this WXR file"
-msgstr ""
-
-#: inc/import/wordpress-importer/parsers.php:45
-msgid "Details are shown above. The importer will now try again with a different parser..."
-msgstr ""
-
-#: inc/import/wordpress-importer/parsers.php:88
-#: inc/import/wordpress-importer/parsers.php:94
-#: inc/import/wordpress-importer/parsers.php:328
-#: inc/import/wordpress-importer/parsers.php:544
-msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:136
-#: inc/import/wordpress-importer/wordpress-importer.php:145
-#: inc/import/wordpress-importer/wordpress-importer.php:195
-#: inc/import/wordpress-importer/wordpress-importer.php:200
-#: inc/import/wordpress-importer/wordpress-importer.php:210
-msgid "Sorry, there has been an error."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:137
-msgid "The file does not exist, please try again."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:180
-msgid "All done."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:180
-msgid "Have fun!"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:181
-msgid "Remember to update the passwords and roles of imported users."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:201
-msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:219
-msgid "This WXR file (version %s) may not be supported by this version of the importer. Please consider updating."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:243
-msgid "Failed to import author %s. Their posts will be attributed to the current user."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:270
-msgid "Assign Authors"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:271
-msgid "To make it easier for you to edit and save the imported content, you may want to reassign the author of the imported item to an existing user of this site. For example, you may want to import all the entries as <code>admin</code>s entries."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:273
-msgid "If a new user is created by WordPress, a new password will be randomly generated and the new user's role will be set as %s. Manually changing the new user's details will be necessary."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:283
-msgid "Import Attachments"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:286
-msgid "Download and import file attachments"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:305
-msgid "Import author:"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:319
-msgid "or create new user with login name:"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:322
-msgid "as a new user:"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:330
-msgid "assign posts to an existing user:"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:332
-msgid "or assign posts to an existing user:"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:336
-msgid "- Select -"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:391
-msgid "Failed to create new user for %s. Their posts will be attributed to the current user."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:448
-msgid "Failed to import category %s"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:493
-msgid "Failed to import post tag %s"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:549
-#: inc/import/wordpress-importer/wordpress-importer.php:704
-#: inc/import/wordpress-importer/wpgrade-import-class.php:265
-msgid "Failed to import %s %s"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:575
-#: inc/import/wordpress-importer/wpgrade-import-class.php:121
-msgid "Failed to import \"%s\": Invalid post type %s"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:598
-msgid "%s \"%s\" already exists."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:668
-#: inc/import/wordpress-importer/wpgrade-import-class.php:229
-msgid "Failed to import %s \"%s\""
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:844
-msgid "Menu item skipped due to missing menu slug"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:852
-msgid "Menu item skipped due to invalid menu slug: %s"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:927
-msgid "Fetching attachments is not enabled"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:943
-msgid "Invalid file type"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:991
-msgid "Remote server did not respond"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:998
-msgid "Remote server returned error response %1$d %2$s"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:1006
-msgid "Remote file is incorrect size"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:1012
-msgid "Zero size file downloaded"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:1019
-msgid "Remote file is too large, limit is %s"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:1127
-msgid "Import WordPress"
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:1134
-msgid "A new version of this importer is available. Please update to version %s to ensure compatibility with newer export files."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:1149
-msgid "Howdy! Upload your WordPress eXtended RSS (WXR) file and we'll import the posts, pages, comments, custom fields, categories, and tags into this site."
-msgstr ""
-
-#: inc/import/wordpress-importer/wordpress-importer.php:1150
-msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:336
-#: inc/required-plugins/required-plugins.php:61
-msgid "Install Required Plugins"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:337
-#: inc/required-plugins/required-plugins.php:62
-msgid "Install Plugins"
-msgstr ""
-
-#. translators: %s: plugin name.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:339
-#: inc/required-plugins/required-plugins.php:63
-msgid "Installing Plugin: %s"
-msgstr ""
-
-#. translators: %s: plugin name.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:341
-msgid "Updating Plugin: %s"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:342
-#: inc/required-plugins/required-plugins.php:65
-msgid "Something went wrong with the plugin API."
-msgstr ""
-
-#. translators: 1: plugin name(s).
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:379
-#: inc/required-plugins/required-plugins.php:82
-msgid "Begin installing plugin"
-msgid_plural "Begin installing plugins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:384
-msgid "Begin updating plugin"
-msgid_plural "Begin updating plugins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:389
-msgid "Begin activating plugin"
-msgid_plural "Begin activating plugins"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:394
-#: inc/required-plugins/required-plugins.php:84
-msgid "Return to Required Plugins Installer"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:395
-#: inc/required-plugins/class-tgm-plugin-activation.php:944
-#: inc/required-plugins/class-tgm-plugin-activation.php:2650
-#: inc/required-plugins/class-tgm-plugin-activation.php:3697
-msgid "Return to the Dashboard"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:396
-#: inc/required-plugins/class-tgm-plugin-activation.php:3276
-#: inc/required-plugins/required-plugins.php:85
-msgid "Plugin activated successfully."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:397
-#: inc/required-plugins/class-tgm-plugin-activation.php:3069
-msgid "The following plugin was activated successfully:"
-msgstr ""
-
-#. translators: 1: plugin name.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:399
-msgid "No action taken. Plugin %1$s was already active."
-msgstr ""
-
-#. translators: 1: plugin name.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:401
-msgid "Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
-msgstr ""
-
-#. translators: 1: dashboard link.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:403
-msgid "All plugins installed and activated successfully. %1$s"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:404
-msgid "Dismiss this notice"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:405
-msgid "There are one or more required or recommended plugins to install, update or activate."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:406
-msgid "Please contact the administrator of this site for help."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:613
-msgid "This plugin needs to be updated to be compatible with your theme."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:614
-msgid "Update Required"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:1051
-msgid "The remote plugin package does not contain a folder with the desired slug and renaming did not work."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:1051
-#: inc/required-plugins/class-tgm-plugin-activation.php:1054
-msgid "Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:1054
-msgid "The remote plugin package consists of more than one file, but the files are not packaged in a folder."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:1238
-#: inc/required-plugins/class-tgm-plugin-activation.php:3065
-msgctxt "plugin A *and* plugin B"
-msgid "and"
-msgstr ""
-
-#. translators: %s: version number
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2099
-msgid "TGMPA v%s"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2390
-msgid "Required"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2393
-msgid "Recommended"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2409
-msgid "WordPress Repository"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2412
-msgid "External Source"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2415
-msgid "Pre-Packaged"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2432
-msgid "Not Installed"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2436
-msgid "Installed But Not Activated"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2438
-msgid "Active"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2444
-msgid "Required Update not Available"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2447
-msgid "Requires Update"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2450
-msgid "Update recommended"
-msgstr ""
-
-#. translators: 1: install status, 2: update status
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2459
-msgctxt "Install/Update Status"
-msgid "%1$s, %2$s"
-msgstr ""
-
-#. translators: 1: number of plugins.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2505
-msgctxt "plugins"
-msgid "All <span class=\"count\">(%s)</span>"
-msgid_plural "All <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#. translators: 1: number of plugins.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2509
-msgid "To Install <span class=\"count\">(%s)</span>"
-msgid_plural "To Install <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#. translators: 1: number of plugins.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2513
-msgid "Update Available <span class=\"count\">(%s)</span>"
-msgid_plural "Update Available <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#. translators: 1: number of plugins.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2517
-msgid "To Activate <span class=\"count\">(%s)</span>"
-msgid_plural "To Activate <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2599
-msgctxt "as in: \"version nr unknown\""
-msgid "unknown"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2607
-msgid "Installed version:"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2615
-msgid "Minimum required version:"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2627
-msgid "Available version:"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2650
-msgid "No plugins to install, update or activate."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2664
-msgid "Plugin"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2665
-msgid "Source"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2666
-msgid "Type"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2670
-msgid "Version"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2671
-msgid "Status"
-msgstr ""
-
-#. translators: %2$s: plugin name in screen reader markup
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2720
-msgid "Install %2$s"
-msgstr ""
-
-#. translators: %2$s: plugin name in screen reader markup
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2725
-msgid "Update %2$s"
-msgstr ""
-
-#. translators: %2$s: plugin name in screen reader markup
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2731
-msgid "Activate %2$s"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2801
-msgid "Upgrade message from the plugin author:"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2834
-msgid "Install"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2840
-msgid "Update"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2843
-msgid "Activate"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2874
-msgid "No plugins were selected to be installed. No action taken."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2876
-msgid "No plugins were selected to be updated. No action taken."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2917
-msgid "No plugins are available to be installed at this time."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:2919
-msgid "No plugins are available to be updated at this time."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3025
-msgid "No plugins were selected to be activated. No action taken."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3051
-msgid "No plugins are available to be activated at this time."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3275
-msgid "Plugin activation failed."
-msgstr ""
-
-#. translators: 1: plugin name, 2: action number 3: total number of actions.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3615
-msgid "Updating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#. translators: 1: plugin name, 2: error message.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3618
-msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
-msgstr ""
-
-#. translators: 1: plugin name.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3620
-msgid "The installation of %1$s failed."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3624
-msgid "The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
-msgstr ""
-
-#. translators: 1: plugin name.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3626
-msgid "%1$s installed and activated successfully."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3626
-#: inc/required-plugins/class-tgm-plugin-activation.php:3634
-msgid "Show Details"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3626
-#: inc/required-plugins/class-tgm-plugin-activation.php:3634
-msgid "Hide Details"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3627
-msgid "All installations and activations have been completed."
-msgstr ""
-
-#. translators: 1: plugin name, 2: action number 3: total number of actions.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3629
-msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3632
-msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
-msgstr ""
-
-#. translators: 1: plugin name.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3634
-msgid "%1$s installed successfully."
-msgstr ""
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3635
-msgid "All installations have been completed."
-msgstr ""
-
-#. translators: 1: plugin name, 2: action number 3: total number of actions.
-
-#: inc/required-plugins/class-tgm-plugin-activation.php:3637
-msgid "Installing Plugin %1$s (%2$d/%3$d)"
-msgstr ""
-
-#: inc/required-plugins/required-plugins.php:66
-msgid "This theme requires the following plugin: %1$s."
-msgid_plural "This theme requires the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/required-plugins.php:68
-msgid "This theme recommends the following plugin: %1$s."
-msgid_plural "This theme recommends the following plugins: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/required-plugins.php:70
+#: inc/required-plugins.php:70
 msgid "Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed."
 msgid_plural "Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/required-plugins/required-plugins.php:72
-msgid "The following required plugin is currently inactive: %1$s."
-msgid_plural "The following required plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/required-plugins.php:74
-msgid "The following recommended plugin is currently inactive: %1$s."
-msgid_plural "The following recommended plugins are currently inactive: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/required-plugins.php:76
+#: inc/required-plugins.php:76
 msgid "Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated."
 msgid_plural "Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/required-plugins/required-plugins.php:78
-msgid "The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s."
-msgid_plural "The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: inc/required-plugins/required-plugins.php:80
+#: inc/required-plugins.php:80
 msgid "Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated."
 msgid_plural "Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/required-plugins/required-plugins.php:83
+#: inc/required-plugins.php:83
 msgid "Activate installed plugin"
 msgid_plural "Activate installed plugins"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/required-plugins/required-plugins.php:86
+#: inc/required-plugins.php:86
 msgid "All plugins installed and activated successfully. %s"
 msgstr ""
 
@@ -1450,7 +1070,6 @@ msgid "Archives: %s"
 msgstr ""
 
 #. translators: 1: Taxonomy singular name, 2: Current taxonomy term
-
 #: inc/template-tags.php:180
 msgid "%1$s: %2$s"
 msgstr ""
@@ -1459,26 +1078,26 @@ msgstr ""
 msgid "Archives"
 msgstr ""
 
-#. translators: %s: Name of current post
-
 #: inc/template-tags.php:325
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
-#: inc/template-tags.php:996 template-parts/page-portfolio.php:90
+#: inc/template-tags.php:1036
+#: template-parts/page-portfolio.php:90
 msgid "All"
 msgstr ""
 
-#: inc/template-tags.php:1029 template-parts/page-portfolio.php:48
+#: inc/template-tags.php:1069
+#: template-parts/page-portfolio.php:48
 msgid "All categories"
 msgstr ""
 
-#: inc/template-tags.php:1059
+#: inc/template-tags.php:1099
 msgctxt "Used between list items, there is a space after the comma."
 msgid ", "
 msgstr ""
 
-#: inc/template-tags.php:1090
+#: inc/template-tags.php:1130
 msgid "All %s Posts"
 msgstr ""
 
@@ -1498,65 +1117,152 @@ msgstr ""
 msgid "Journal"
 msgstr ""
 
-#: page-templates/fullwidth-page.php:31 template-parts/content-page.php:34
-#: template-parts/content.php:56
-msgid "Pages:"
+#: comments.php:26
+#: comments.php:96
+#: comments.php:113
+msgid "Comment"
+msgid_plural "Comments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:28
+msgid "There are no comments"
+msgstr ""
+
+#: comments.php:32
+msgid "Add yours"
+msgstr ""
+
+#: comments.php:40
+#: comments.php:60
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:41
+#: comments.php:61
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:42
+#: comments.php:62
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: comments.php:74
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:85
+#: comments.php:101
+msgid "Leave a Comment"
+msgstr ""
+
+#: comments.php:90
+#: comments.php:106
+msgid "Name"
+msgstr ""
+
+#: comments.php:91
+#: comments.php:107
+msgid "Email"
+msgstr ""
+
+#: comments.php:91
+#: comments.php:107
+msgid "your@email.com"
+msgstr ""
+
+#: comments.php:94
+#: comments.php:111
+msgid "Submit"
+msgstr ""
+
+#: comments.php:96
+#: comments.php:113
+msgid "Your thoughts.."
+msgstr ""
+
+#: comments.php:108
+msgid "Url"
+msgstr ""
+
+#: comments.php:108
+msgid "Website"
 msgstr ""
 
 #: search.php:24
 msgid "Search Results for %s"
 msgstr ""
 
-#: single-proof_gallery.php:67 template-parts/single-jetpack-portfolio.php:63
+#: single-proof_gallery.php:67
+#: template-parts/single-jetpack-portfolio.php:63
 msgid "details"
 msgstr ""
 
-#: single-proof_gallery.php:70 template-parts/content-footer.php:21
+#: single-proof_gallery.php:70
 #: template-parts/single-jetpack-portfolio.php:66
+#: template-parts/content-footer.php:21
 msgid "show thumbnails"
 msgstr ""
 
-#: single-proof_gallery.php:71 template-parts/single-jetpack-portfolio.php:67
+#: single-proof_gallery.php:71
+#: template-parts/single-jetpack-portfolio.php:67
 msgid "thumbs"
 msgstr ""
 
-#: template-parts/addthis-share.php:22
-msgid "Share"
+#: header.php:69
+msgid "Skip to content"
 msgstr ""
 
-#: template-parts/content-footer.php:17
-msgid "http://wordpress.org/"
+#. Template Name of the theme
+msgid "Full Width Page"
 msgstr ""
 
-#: template-parts/content-footer.php:17
-msgid "Proudly powered by %s"
+#: page-templates/fullwidth-page.php:31
+#: template-parts/content-page.php:34
+#: template-parts/content.php:56
+msgid "Pages:"
 msgstr ""
 
-#: template-parts/content-footer.php:19
-msgid "Theme: %1$s by %2$s."
+#. Template Name of the theme
+msgid "Custom Portfolio Template"
 msgstr ""
 
-#: template-parts/content-none.php:15
-msgid "Nothing Found"
+#. translators: used between list items, there is a space after the comma
+#: template-parts/content-single.php:13
+#: template-parts/content-single-audio.php:15
+#: template-parts/content-single-video.php:15
+#: template-parts/content-single-gallery.php:13
+msgid ", "
 msgstr ""
 
-#: template-parts/content-none.php:21
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+#: template-parts/content-single.php:48
+#: template-parts/content-single-audio.php:55
+#: template-parts/content-single-video.php:55
+#: template-parts/content-single-gallery.php:53
+msgid "Next page"
 msgstr ""
 
-#: template-parts/content-none.php:25
-msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+#: template-parts/content-single.php:49
+#: template-parts/content-single-audio.php:56
+#: template-parts/content-single-video.php:56
+#: template-parts/content-single-gallery.php:54
+msgid "Previous page"
 msgstr ""
 
-#: template-parts/content-none.php:30
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
-msgstr ""
-
+#: template-parts/page-featured-projects.php:47
 #: template-parts/content-portfolio.php:23
 #: template-parts/content-portfolio.php:37
 #: template-parts/content-project-featured.php:14
-#: template-parts/page-featured-projects.php:47
 msgid "Permalink to %s"
+msgstr ""
+
+#: template-parts/page-featured-projects.php:52
+msgid "&#8594; View Project"
+msgstr ""
+
+#: template-parts/page-portfolio.php:86
+msgid "Filter:"
 msgstr ""
 
 #: template-parts/content-project-filmstrip.php:37
@@ -1575,162 +1281,42 @@ msgstr ""
 msgid "Index"
 msgstr ""
 
-#. translators: used between list items, there is a space after the comma
-
-#: template-parts/content-single-audio.php:15
-#: template-parts/content-single-gallery.php:13
-#: template-parts/content-single-video.php:15
-#: template-parts/content-single.php:13
-msgid ", "
+#: template-parts/content-none.php:15
+msgid "Nothing Found"
 msgstr ""
 
-#: template-parts/content-single-audio.php:55
-#: template-parts/content-single-gallery.php:53
-#: template-parts/content-single-video.php:55
-#: template-parts/content-single.php:48
-msgid "Next page"
+#: template-parts/content-none.php:21
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
-#: template-parts/content-single-audio.php:56
-#: template-parts/content-single-gallery.php:54
-#: template-parts/content-single-video.php:56
-#: template-parts/content-single.php:49
-msgid "Previous page"
+#: template-parts/content-none.php:25
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
 msgstr ""
 
-#: template-parts/page-featured-projects.php:52
-msgid "&#8594; View Project"
+#: template-parts/content-none.php:30
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
 msgstr ""
 
-#: template-parts/page-portfolio.php:86
-msgid "Filter:"
+#: template-parts/content-footer.php:17
+msgid "http://wordpress.org/"
 msgstr ""
 
-#: templates/pixproof_gallery.php:20
-msgid "Deselect"
+#: template-parts/content-footer.php:17
+msgid "Proudly powered by %s"
 msgstr ""
 
-#: templates/pixproof_gallery.php:22
-msgid "Select"
+#: template-parts/content-footer.php:19
+msgid "Theme: %1$s by %2$s."
 msgstr ""
 
-#: templates/pixproof_metadata.php:16
-msgid "Client"
+#: template-parts/addthis-share.php:22
+msgid "Share"
 msgstr ""
 
-#: templates/pixproof_metadata.php:24
-msgid "Event date"
+#: footer-single.php:9
+msgid "Theme &#8212; %1$s"
 msgstr ""
 
-#: templates/pixproof_metadata.php:32
-msgid "Images"
-msgstr ""
-
-#: templates/pixproof_metadata.php:40
-msgid "Download"
-msgstr ""
-
-#: woocommerce/archive-product.php:69
-msgid "Shop"
-msgstr ""
-
-#: woocommerce/cart/cart.php:34 woocommerce/cart/cart.php:66
-msgid "Product"
-msgstr ""
-
-#: woocommerce/cart/cart.php:35 woocommerce/cart/cart.php:84
-msgid "Price"
-msgstr ""
-
-#: woocommerce/cart/cart.php:36 woocommerce/cart/cart.php:90
-msgid "Quantity"
-msgstr ""
-
-#: woocommerce/cart/cart.php:37 woocommerce/cart/cart.php:107
-msgid "Total"
-msgstr ""
-
-#: woocommerce/cart/cart.php:79
-msgid "Available on backorder"
-msgstr ""
-
-#: woocommerce/cart/cart.php:115
-msgid "Remove this item"
-msgstr ""
-
-#: woocommerce/cart/cart.php:131
-msgid "Coupon:"
-msgstr ""
-
-#: woocommerce/cart/cart.php:131
-msgid "Coupon code"
-msgstr ""
-
-#: woocommerce/cart/cart.php:132
-msgid "Apply coupon"
-msgstr ""
-
-#: woocommerce/cart/cart.php:137
-msgid "Update Cart"
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:35
-msgid "You have "
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:35
-msgid "1 item in cart."
-msgid_plural "%1$s items in cart."
-msgstr[0] ""
-msgstr[1] ""
-
-#: woocommerce/cart/mini-cart.php:39
-msgid "Your cart is currently empty."
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:82
-msgid "Subtotal"
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:87
-msgid "View Cart"
-msgstr ""
-
-#: woocommerce/cart/mini-cart.php:88
-msgid "Checkout"
-msgstr ""
-
-#: woocommerce/single-product/add-to-cart/variable.php:31
-msgid "This product is currently out of stock and unavailable."
-msgstr ""
-
-#: woocommerce/single-product/add-to-cart/variable.php:45
-msgid "Clear"
-msgstr ""
-#. Theme Name of the plugin/theme
-msgid "Timber"
-msgstr ""
-
-#. Theme URI of the plugin/theme
-msgid "https://pixelgrade.com/demos/timber/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Pixelgrade"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://pixelgrade.com/"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Custom Portfolio Template"
-msgstr ""
-
-#. Template Name of the plugin/theme
-msgid "Full Width Page"
+#: footer-single.php:11
+msgid "Back to top"
 msgstr ""

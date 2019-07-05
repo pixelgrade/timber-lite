@@ -16,7 +16,9 @@
     <div class="site-info">
         <a href="<?php echo esc_url( __( 'http://wordpress.org/', 'timber-lite' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'timber-lite' ), 'WordPress' ); ?></a>
         <span class="sep"> | </span>
-        <?php printf( esc_html__( 'Theme: %1$s by %2$s.', 'timber-lite' ), 'timber-lite', '<a href="https://pixelgrade.com" rel="designer">Pixelgrade</a>' ); ?>
+        <?php
+        /* translators: 1: theme name, 2: author name */
+        printf( esc_html__( 'Theme: %1$s by %2$s.', 'timber-lite' ), 'timber-lite', '<a href="https://pixelgrade.com" rel="designer">Pixelgrade</a>' ); ?>
     </div><!-- .site-info -->
     <button class="show-button"><span><?php _e( 'show thumbnails', 'timber-lite' ); ?></span></button>
 </footer><!-- #colophon -->
