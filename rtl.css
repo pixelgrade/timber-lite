@@ -73,8 +73,7 @@ and Blueprint http://www.blueprintcss.org/
  *    5.27 - Loader
  *    5.28 - Border
  *    5.29 - Widgets
- *    5.30 - Shortcodes
- *    5.31 - Password Protected Form
+ *    5.30 - Password Protected Form
  *  6.0 - Overrides
  *
  */
@@ -394,7 +393,7 @@ and Blueprint http://www.blueprintcss.org/
   font-weight: normal;
   font-style: normal; }
 
-.icon, .pixcode--icon {
+.icon {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -451,10 +450,10 @@ and Blueprint http://www.blueprintcss.org/
 .icon-pull-right {
   float: left; }
 
-.icon.icon-pull-left, .icon-pull-left.pixcode--icon {
+.icon.icon-pull-left {
   margin-left: .3em; }
 
-.icon.icon-pull-right, .icon-pull-right.pixcode--icon {
+.icon.icon-pull-right {
   margin-right: .3em; }
 
 /* Deprecated as of 4.4.0 */
@@ -464,10 +463,10 @@ and Blueprint http://www.blueprintcss.org/
 .pull-left {
   float: right; }
 
-.icon.pull-left, .pull-left.pixcode--icon {
+.icon.pull-left {
   margin-left: .3em; }
 
-.icon.pull-right, .pull-right.pixcode--icon {
+.icon.pull-right {
   margin-right: .3em; }
 
 .icon-spin {
@@ -3777,7 +3776,7 @@ figure,
 ul, ol,
 dl, dd,
 th, td,
-pre, button, .nav, .rsBullets, .tabs__nav,
+pre, button, .nav, .rsBullets,
 .sub-menu,
 .menu-item, .filter, .blog .entry-title,
 .blog .entry-footer, .archive .entry-title,
@@ -3799,7 +3798,7 @@ img {
 :focus {
   outline: 0; }
 
-button, .nav a, .rsBullets a, .tabs__nav a, .nav a:hover, .rsBullets a:hover, .tabs__nav a:hover {
+button, .nav a, .rsBullets a, .nav a:hover, .rsBullets a:hover {
   background: none; }
 
 a, button {
@@ -3809,10 +3808,10 @@ a, button {
   cursor: pointer; }
 
 main,
-li, .wp-caption img[class*="wp-image-"], .nav .menu-item:hover > .sub-menu, .rsBullets .menu-item:hover > .sub-menu, .tabs__nav .menu-item:hover > .sub-menu, .nav--social .menu-item:not(.menu-item-language) a, .nav--social .menu-item:not(.menu-item-language) a:before, .portfolio img, .block-link {
+li, .wp-caption img[class*="wp-image-"], .nav .menu-item:hover > .sub-menu, .rsBullets .menu-item:hover > .sub-menu, .nav--social .menu-item:not(.menu-item-language) a, .nav--social .menu-item:not(.menu-item-language) a:before, .portfolio img, .block-link {
   display: block; }
 
-.bar--fixed, .site-header, .site-footer, .site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .theme-name, .back-to-top, .project-addthis-container, .nav, .rsBullets, .tabs__nav, .site-container, .portfolio, .portfolio__header, .portfolio__link-wrap, .single-jetpack-portfolio .site,
+.bar--fixed, .site-header, .site-footer, .site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .theme-name, .back-to-top, .project-addthis-container, .nav, .rsBullets, .site-container, .portfolio, .portfolio__header, .portfolio__link-wrap, .single-jetpack-portfolio .site,
 .jetpack-portfolio .site {
   display: -webkit-box;
   display: flex;
@@ -3851,7 +3850,7 @@ button {
 a {
   text-decoration: none; }
 
-.nav .menu-item-has-children, .rsBullets .menu-item-has-children, .tabs__nav .menu-item-has-children, .nav .menu-item-language, .rsBullets .menu-item-language, .tabs__nav .menu-item-language, .site-sidebar, .site-content, .photometa__caption, .photometa__description, .photometa__exif {
+.nav .menu-item-has-children, .rsBullets .menu-item-has-children, .nav .menu-item-language, .rsBullets .menu-item-language, .site-sidebar, .site-content, .photometa__caption, .photometa__description, .photometa__exif {
   position: relative; }
 
 .portfolio {
@@ -4089,29 +4088,29 @@ h3, .h3 {
       margin-bottom: 0.41052rem;
       padding-top: 0.58948rem; } }
 
-h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .progressbar__title, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
+h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
   line-height: 1.5rem;
   font-size: 1.6rem;
   margin-bottom: 0.26999rem;
   padding-top: 0.23001rem;
   letter-spacing: 0.075rem; }
   @media screen and (min-width: 40em) {
-    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .progressbar__title, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
+    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
       font-size: 1.43571rem;
       margin-bottom: 0.2166rem;
       padding-top: 0.2834rem; } }
   @media screen and (min-width: 50em) {
-    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .progressbar__title, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
+    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
       font-size: 1.36667rem;
       margin-bottom: 0.19416rem;
       padding-top: 0.30584rem; } }
   @media screen and (min-width: 64.0625em) {
-    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .progressbar__title, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
+    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
       font-size: 1.07143rem;
       margin-bottom: 0.0982rem;
       padding-top: 0.4018rem; } }
   @media screen and (min-width: 100em) {
-    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .progressbar__title, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
+    h4, h5, h6, .h4, .project-slide__text, .vertical-title span, .h5, .h6, .site-sidebar__content .entry-meta, .site-sidebar__text, .portfolio__type, .filter__item {
       font-size: 0.78947rem;
       margin-bottom: 0.00657rem;
       padding-top: 0.49343rem; } }
@@ -4804,16 +4803,16 @@ figure {
 /**
  *   4.2 - Nav
  */
-.nav, .rsBullets, .tabs__nav, .nav ul, .rsBullets ul, .tabs__nav ul {
+.nav, .rsBullets, .nav ul, .rsBullets ul {
   list-style-type: none; }
 
 @media only screen and (min-width: 900px) {
-  .nav .sub-menu, .rsBullets .sub-menu, .tabs__nav .sub-menu {
+  .nav .sub-menu, .rsBullets .sub-menu {
     display: none;
     position: absolute;
     top: 100%; } }
 
-.nav .sub-menu .sub-menu, .rsBullets .sub-menu .sub-menu, .tabs__nav .sub-menu .sub-menu {
+.nav .sub-menu .sub-menu, .rsBullets .sub-menu .sub-menu {
   top: 0;
   right: 100%; }
 
@@ -8494,123 +8493,7 @@ body.page-template-default.page .site-footer {
       color: white; }
 
 /**
- *   5.30 - Shortcodes
- */
-.pixcode--icon {
-  display: inline-block;
-  text-align: center;
-  font-size: 21px;
-  color: black; }
-  .pixcode--icon.square, .pixcode--icon.circle {
-    display: inline-block;
-    background-color: black;
-    color: #9B9B9B;
-    padding: 0;
-    font-size: 18px;
-    width: 2.66667em;
-    height: 2.66667em;
-    line-height: 2.66667em; }
-    .pixcode--icon.square:hover, .pixcode--icon.circle:hover {
-      background-color: black;
-      color: white; }
-  .pixcode--icon.circle {
-    border-radius: 999px; }
-  .pixcode--icon.small {
-    font-size: 16px; }
-    .pixcode--icon.small.circle, .pixcode--icon.small.square {
-      width: 2.25em;
-      height: 2.25em;
-      line-height: 2.25em; }
-  .pixcode--icon.medium {
-    font-size: 21px; }
-    .pixcode--icon.medium.circle, .pixcode--icon.medium.square {
-      width: 2.28571em;
-      height: 2.28571em;
-      line-height: 2.28571em; }
-  .pixcode--icon.big {
-    font-size: 36px; }
-    .pixcode--icon.big.circle, .pixcode--icon.big.square {
-      width: 2em;
-      height: 2em;
-      line-height: 2em; }
-
-/*--------------------------------------------*\
-               ICON INSIDE A LINK
-\*--------------------------------------------*/
-a > .pixcode--icon {
-  -webkit-transition: all .15s linear;
-  transition: all .15s linear; }
-
-a:hover > .pixcode--icon {
-  text-decoration: none;
-  border: none; }
-  a:hover > .pixcode--icon.circle, a:hover > .pixcode--icon.square {
-    background-color: black; }
-
-.pixcode--tabs {
-  padding-bottom: 0; }
-
-.tabs__nav {
-  color: white;
-  background: black;
-  text-transform: uppercase;
-  font-size: 13px;
-  margin-bottom: 24px; }
-  .tabs__nav li {
-    margin-right: 0; }
-  .tabs__nav a {
-    color: white;
-    background: none !important;
-    text-shadow: none;
-    padding: 12px;
-    font-weight: 800; }
-    .tabs__nav a .icon, .tabs__nav a .pixcode--icon {
-      margin-left: 12px; }
-
-.tabs__content {
-  position: relative;
-  min-height: 1px;
-  overflow: hidden; }
-
-.tabs__pane {
-  width: 100%;
-  position: absolute;
-  -webkit-transition: opacity .2s ease-in-out;
-  transition: opacity .2s ease-in-out;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-  z-index: 20; }
-  .tabs__pane.not-shown {
-    opacity: 0;
-    z-index: 5;
-    pointer-events: none; }
-
-.progressbar__title {
-  text-transform: uppercase;
-  font-weight: bold; }
-
-.progressbar__bar {
-  height: 8px;
-  background: #EBEBEB;
-  margin: 0.65em 0 1.3em; }
-
-.progressbar__progress {
-  height: 8px;
-  background: #222;
-  position: relative; }
-
-.progressbar__tooltip {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-  line-height: 1.4;
-  margin-bottom: 0.6em; }
-
-/**
- *   5.31 - PixProof
+ *   5.30 - PixProof
  */
 .password-required {
   color: #fff;
@@ -8660,7 +8543,7 @@ a:hover > .pixcode--icon {
     color: #AB0B00; }
 
 /**
- *   5.32 - Project filters
+ *   5.31 - Project filters
  */
 .projects-filter {
   position: fixed;
@@ -8753,7 +8636,7 @@ a:hover > .pixcode--icon {
   opacity: 1 !important; }
 
 /**
- *   5.33 - Images loading spinner
+ *   5.32 - Images loading spinner
  */
 .spinner {
   width: 40px;

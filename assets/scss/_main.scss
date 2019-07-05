@@ -5,7 +5,6 @@
 // Object       -- Objects and abstractions.
 // Components   -- Your designed UI elements.
 // Overrides
-// Shortcodes   -- Style for shortcodes (Pixcodes)
 // Shame        -- the place for prototyping and quick fixes
 
 
@@ -61,8 +60,7 @@
  *    5.27 - Loader
  *    5.28 - Border
  *    5.29 - Widgets
- *    5.30 - Shortcodes
- *    5.31 - Password Protected Form
+ *    5.30 - Password Protected Form
  *  6.0 - Overrides
  *
  */
@@ -310,21 +308,15 @@
  */
 @import "5-components/widgets";
 /**
- *   5.30 - Shortcodes
- */
-@import "5-components/shortcode-icon";
-@import "5-components/shortcode-tabs";
-@import "5-components/shortcode-progressbar";
-/**
- *   5.31 - PixProof
+ *   5.30 - PixProof
  */
 @import "5-components/password-protected";
 /**
- *   5.32 - Project filters
+ *   5.31 - Project filters
  */
 @import "5-components/projects-filter";
 /**
- *   5.33 - Images loading spinner
+ *   5.32 - Images loading spinner
  */
 @import "5-components/spinner";
 

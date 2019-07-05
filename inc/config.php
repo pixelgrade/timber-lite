@@ -497,46 +497,6 @@ endif;
 
 add_filter( 'customify_filter_fields', 'timber_add_customify_options' );
 
-/**
- * Get the current PixCodes configuration and check if there is something new
- */
-if ( ! function_exists( 'timber_pixcodes_setup' ) ) :
-	function timber_pixcodes_setup() {
-
-		$shortcodes = array(
-			'Columns',
-			'Button',
-			'Icon',
-			'Tabs',
-			'Separator',
-			'ProgressBar',
-			'Slider',
-		);
-
-		// create an array with shortcodes which are needed by the
-		// current theme
-		$current_options = get_option( 'wpgrade_shortcodes_list' );
-		if ( $current_options ) {
-			$diff_added   = array_diff( $shortcodes, $current_options );
-			$diff_removed = array_diff( $current_options, $shortcodes );
-			if ( ( ! empty( $diff_added ) || ! empty( $diff_removed ) ) && is_admin() ) {
-				update_option( 'wpgrade_shortcodes_list', $shortcodes );
-			}
-		} else { // there is no current shortcodes list
-			update_option( 'wpgrade_shortcodes_list', $shortcodes );
-		}
-
-		// we need to remember the prefix of the metaboxes so it can be used
-		// by the shortcodes plugin
-		$current_prefix = get_option( 'wpgrade_metaboxes_prefix' );
-		if ( empty( $current_prefix ) ) {
-			update_option( 'wpgrade_metaboxes_prefix', '_timber_' );
-		}
-	}
-endif; // end timber_pixcodes_setup
-
-add_action( 'admin_head', 'timber_pixcodes_setup' );
-
 function timber_capitalize_headings( $value, $selector, $property, $unit ) {
 
 	$result = $value ? 'uppercase' : 'none';
