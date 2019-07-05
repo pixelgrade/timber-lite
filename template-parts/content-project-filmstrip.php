@@ -34,11 +34,11 @@
 
     <div class="portfolio__item  portfolio__item--text  portfolio__item--nav">
         <div>
-            <?php next_post_link( '%link', '<div class="caption">' . __( 'next', 'timber' ) . '</div> <div class="nav__label">%title</div>' ); ?>
-            <?php previous_post_link( '%link', '<div class="caption">' . __( 'prev', 'timber' ) . '</div> <div class="nav__label">%title</div>' ); ?>
+            <?php next_post_link( '%link', '<div class="caption">' . __( 'next', 'timber-lite' ) . '</div> <div class="nav__label">%title</div>' ); ?>
+            <?php previous_post_link( '%link', '<div class="caption">' . __( 'prev', 'timber-lite' ) . '</div> <div class="nav__label">%title</div>' ); ?>
             <a class="nav__link--archive" href="<?php echo timber_get_portfolio_page_link(); ?>">
-                <div class="caption"><?php _e( 'back to', 'timber' ); ?></div>
-                <div class="nav__label"><?php _e( "Index", 'timber' ); ?></div>
+                <div class="caption"><?php _e( 'back to', 'timber-lite' ); ?></div>
+                <div class="nav__label"><?php _e( "Index", 'timber-lite' ); ?></div>
             </a>
         </div>
     </div>

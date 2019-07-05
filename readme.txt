@@ -1,38 +1,41 @@
-=== Timber ===
-
-Contributors: automattic
-Tags: translation-ready, custom-background, theme-options, custom-menu, post-formats, threaded-comments
-
-Requires at least: 4.0
-Tested up to: 4.2.4
-Stable tag: 1.0.0
-License: GPLv2 or later
+Theme Name: Timber Lite
+Theme URI: https://demos.pixelgrade.com/timber-lite/
+Author: Pixelgrade
+Author URI: https://pixelgrade.com/
+Description: Timber Lite is a free photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience.
+Version: 1.0.0
+License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-A theme called Timber.
+Text Domain: timber-lite
+Domain Path: /languages/
+Tags: photography, portfolio, grid-layout, four-columns, custom-menu, featured-images, sticky-post, translation-ready
+Requires at least: 4.7
+Tested up to: 5.2.2
 
 == Description ==
-
-Hi. I'm a starter theme called Timber, or underscores, if you like. I'm a theme meant for hacking so don't use me as a Parent Theme. Instead try turning me into the next, most awesome, WordPress theme out there. That's what I'm here for.
-
-== Installation ==
-	
-1. In your admin panel, go to Appearance > Themes and click the Add New button.
-2. Click Upload and Choose File, then select the theme's .zip file. Click Install Now.
-3. Click Activate to use your new theme right away.
-
-== Frequently Asked Questions ==
-
-= Does this theme support any plugins? =
-
-Timber includes support for Infinite Scroll in Jetpack.
+Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience. You get a carefully chosen cutting edge set of tools to propel your photography showcase to new heights. A theme that matches your passion and artistic aspirations.
 
 == Changelog ==
 
-= 1.0 - May 12 2015 =
+= 1.0.0 =
 * Initial release
+
 
 == Credits ==
 
-* Based on Underscores http://underscores.me/, (C) 2012-2015 Automattic, Inc., [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)
-* normalize.css http://necolas.github.io/normalize.css/, (C) 2012-2015 Nicolas Gallagher and Jonathan Neal, [MIT](http://opensource.org/licenses/MIT)
+Unless otherwise specified, all the theme files, scripts and images are licensed under GNU General Public License.
+
+The Timber Lite Theme bundles the following third-party resources:
+
+* normalize.css https://necolas.github.io/normalize.css/, (c) 2012-2016 Nicolas Gallagher and Jonathan Neal, licensed under [MIT](https://opensource.org/licenses/MIT)
+
+* jQuery.NiceScroll https://github.com/inuyaksa/jquery.nicescroll, (c) 2011-2017 InuYaksa, licensed under [MIT](https://opensource.org/licenses/MIT)
+* jQuery-smartresize https://github.com/louisremi/jquery-smartresize, (c) 2012 @louis_remi, licensed under [MIT](https://opensource.org/licenses/MIT)
+* hammer.js https://github.com/hammerjs/hammer.js, (c) 2014 Jorik Tangelder, licensed under [MIT](https://opensource.org/licenses/MIT)
+* jQuery.appear https://github.com/morr/jquery.appear, (c) 2012 Andrey Sidorov, licensed under [MIT](https://opensource.org/licenses/MIT)
+* djax https://github.com/beezee/djax, (c) 2012, Brian Zeligson, licensed under [MIT](https://opensource.org/licenses/MIT)
+* jQuery-Organic-Tabs https://github.com/CSS-Tricks/jQuery-Organic-Tabs, (c) 2012 CSS-TRICKS @todo complete license type
+* snap.svg https://github.com/adobe-webplatform/Snap.svg/, (c) 2013 – 2017 Adobe Systems Incorporated, licensed under [Apache License 2.0] (https://www.apache.org/licenses/LICENSE-2.0)
+* modernizr.js https://github.com/modernizr/modernizr, (c) 2009 , licensed under [MIT](https://opensource.org/licenses/MIT) @todo complete author
+* jQuery-mousewheel https://github.com/jquery/jquery-mousewheel, (c) jQuery Foundation, licensed under [MIT](https://opensource.org/licenses/MIT)
+

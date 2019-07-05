@@ -29,15 +29,15 @@ if ( ! function_exists( 'timber_paging_nav' ) ) :
 			return;
 		} ?>
 		<nav class="navigation posts-navigation clearfix" role="navigation">
-			<h2 class="screen-reader-text"><?php _e( 'Posts navigation', 'timber' ); ?></h2>
+			<h2 class="screen-reader-text"><?php _e( 'Posts navigation', 'timber-lite' ); ?></h2>
 			<div class="nav-links">
 
 				<?php if ( get_next_posts_link( '', $max_num_pages ) ) : ?>
-					<div class="nav-previous"><?php next_posts_link( __( 'Older posts', 'timber' ), $max_num_pages ); ?></div>
+					<div class="nav-previous"><?php next_posts_link( __( 'Older posts', 'timber-lite' ), $max_num_pages ); ?></div>
 				<?php endif; ?>
 
 				<?php if ( get_previous_posts_link( '', $max_num_pages ) ) : ?>
-					<div class="nav-next"><?php previous_posts_link( __( 'Newer posts', 'timber' ), $max_num_pages ); ?></div>
+					<div class="nav-next"><?php previous_posts_link( __( 'Newer posts', 'timber-lite' ), $max_num_pages ); ?></div>
 				<?php endif; ?>
 
 			</div><!-- .nav-links -->
@@ -62,7 +62,7 @@ function the_post_navigation() {
 	}
 	?>
 	<nav class="navigation post-navigation" role="navigation">
-		<h2 class="screen-reader-text"><?php esc_html_e( 'Post navigation', 'timber' ); ?></h2>
+		<h2 class="screen-reader-text"><?php esc_html_e( 'Post navigation', 'timber-lite' ); ?></h2>
 		<div class="nav-links">
 			<?php
 				previous_post_link( '<div class="nav-previous">%link</div>', '%title' );
@@ -92,7 +92,8 @@ function timber_posted_on() {
 	);
 
 	$posted_on = sprintf(
-		esc_html_x( '%s', 'post date', 'timber' ),
+	/* translators: 1: date */
+		esc_html_x( '%s', 'post date', 'timber-lite' ),
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
 
@@ -114,17 +115,18 @@ function timber_entry_footer() {
 
 		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
-			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'timber' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+			/* translators: 1: tag */
+			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'timber-lite' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
 	}
 
 	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
 		echo '<span class="comments-link">';
-		comments_popup_link( esc_html__( 'Leave a comment', 'timber' ), esc_html__( '1 Comment', 'timber' ), esc_html__( '% Comments', 'timber' ) );
+		comments_popup_link( esc_html__( 'Leave a comment', 'timber-lite' ), esc_html__( '1 Comment', 'timber-lite' ), esc_html__( '% Comments', 'timber-lite' ) );
 		echo '</span>';
 	}
 
-	edit_post_link( esc_html__( 'Edit', 'timber' ), '<span class="edit-link">', '</span>' );
+	edit_post_link( esc_html__( 'Edit', 'timber-lite' ), '<span class="edit-link">', '</span>' );
 }
 endif;
 
@@ -141,45 +143,52 @@ if ( ! function_exists( 'the_archive_title' ) ) :
  */
 function the_archive_title( $before = '', $after = '' ) {
 	if ( is_category() ) {
-		$title = sprintf( esc_html__( 'Category: %s', 'timber' ), single_cat_title( '', false ) );
+		/* translators: 1: category */
+		$title = sprintf( esc_html__( 'Category: %s', 'timber-lite' ), single_cat_title( '', false ) );
 	} elseif ( is_tag() ) {
-		$title = sprintf( esc_html__( 'Tag: %s', 'timber' ), single_tag_title( '', false ) );
+		/* translators: 1: tag */
+		$title = sprintf( esc_html__( 'Tag: %s', 'timber-lite' ), single_tag_title( '', false ) );
 	} elseif ( is_author() ) {
-		$title = sprintf( esc_html__( 'Author: %s', 'timber' ), '<span class="vcard">' . get_the_author() . '</span>' );
+		/* translators: 1: author name */
+		$title = sprintf( esc_html__( 'Author: %s', 'timber-lite' ), '<span class="vcard">' . get_the_author() . '</span>' );
 	} elseif ( is_year() ) {
-		$title = sprintf( esc_html__( 'Year: %s', 'timber' ), get_the_date( esc_html_x( 'Y', 'yearly archives date format', 'timber' ) ) );
+		/* translators: 1: year */
+		$title = sprintf( esc_html__( 'Year: %s', 'timber-lite' ), get_the_date( esc_html_x( 'Y', 'yearly archives date format', 'timber-lite' ) ) );
 	} elseif ( is_month() ) {
-		$title = sprintf( esc_html__( 'Month: %s', 'timber' ), get_the_date( esc_html_x( 'F Y', 'monthly archives date format', 'timber' ) ) );
+		/* translators: 1: month */
+		$title = sprintf( esc_html__( 'Month: %s', 'timber-lite' ), get_the_date( esc_html_x( 'F Y', 'monthly archives date format', 'timber-lite' ) ) );
 	} elseif ( is_day() ) {
-		$title = sprintf( esc_html__( 'Day: %s', 'timber' ), get_the_date( esc_html_x( 'F j, Y', 'daily archives date format', 'timber' ) ) );
+		/* translators: 1: day */
+		$title = sprintf( esc_html__( 'Day: %s', 'timber-lite' ), get_the_date( esc_html_x( 'F j, Y', 'daily archives date format', 'timber-lite' ) ) );
 	} elseif ( is_tax( 'post_format' ) ) {
 		if ( is_tax( 'post_format', 'post-format-aside' ) ) {
-			$title = esc_html_x( 'Asides', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Asides', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-gallery' ) ) {
-			$title = esc_html_x( 'Galleries', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Galleries', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-image' ) ) {
-			$title = esc_html_x( 'Images', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Images', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-video' ) ) {
-			$title = esc_html_x( 'Videos', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Videos', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-quote' ) ) {
-			$title = esc_html_x( 'Quotes', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Quotes', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-link' ) ) {
-			$title = esc_html_x( 'Links', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Links', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-status' ) ) {
-			$title = esc_html_x( 'Statuses', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Statuses', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-audio' ) ) {
-			$title = esc_html_x( 'Audio', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Audio', 'post format archive title', 'timber-lite' );
 		} elseif ( is_tax( 'post_format', 'post-format-chat' ) ) {
-			$title = esc_html_x( 'Chats', 'post format archive title', 'timber' );
+			$title = esc_html_x( 'Chats', 'post format archive title', 'timber-lite' );
 		}
 	} elseif ( is_post_type_archive() ) {
-		$title = sprintf( esc_html__( 'Archives: %s', 'timber' ), post_type_archive_title( '', false ) );
+		/* translators: 1: archive title. */
+		$title = sprintf( esc_html__( 'Archives: %s', 'timber-lite' ), post_type_archive_title( '', false ) );
 	} elseif ( is_tax() ) {
 		$tax = get_taxonomy( get_queried_object()->taxonomy );
 		/* translators: 1: Taxonomy singular name, 2: Current taxonomy term */
-		$title = sprintf( esc_html__( '%1$s: %2$s', 'timber' ), $tax->labels->singular_name, single_term_title( '', false ) );
+		$title = sprintf( esc_html__( '%1$s: %2$s', 'timber-lite' ), $tax->labels->singular_name, single_term_title( '', false ) );
 	} else {
-		$title = esc_html__( 'Archives', 'timber' );
+		$title = esc_html__( 'Archives', 'timber-lite' );
 	}
 
 	/**
@@ -322,7 +331,8 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 		if ( $has_more ) {
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
-				wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'timber' ), array( 'span' => array( 'class' => array() ) ) ),
+			    /* translators: 1: post title. */
+				wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'timber-lite' ), array( 'span' => array( 'class' => array() ) ) ),
 				the_title( '<span class="screen-reader-text">', '</span>', false )
 			) );
 		} elseif ( has_excerpt( $post ) ) {
@@ -1033,7 +1043,7 @@ if ( ! function_exists( 'timber_the_categories_nav' ) ) :
 		if ( ! empty( $categories ) ) : ?>
 
 			<ul class="filter">
-				<li class="filter__item active" data-filter="*"><?php _e( 'All', 'timber' ); ?></li>
+				<li class="filter__item active" data-filter="*"><?php _e( 'All', 'timber-lite' ); ?></li>
 
 				<?php foreach ( $categories as $category ) : ?>
 
@@ -1066,7 +1076,7 @@ if ( ! function_exists( 'timber_the_mobile_categories_nav' ) ) :
 		if ( ! empty( $categories ) ) : ?>
 			<div class="mobile-filter-wrapper">
 				<select class="filter  filter--mobile  js-filter-mobile-journal">
-					<option class="filter__item active" data-filter="*"><?php _e( 'All categories', 'timber' ); ?></option>
+					<option class="filter__item active" data-filter="*"><?php _e( 'All categories', 'timber-lite' ); ?></option>
 
 					<?php foreach ( $categories as $category ) : ?>
 
@@ -1096,7 +1106,7 @@ function timber_the_project_types( $post_ID = null, $before = '<span class="entr
 	/*
      * Project category list
      */
-	$separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber' );
+	$separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber-lite' );
 
 	$terms_list = get_the_term_list( $post_ID, 'jetpack-portfolio-type', $before , $separate_meta, $after );
 
@@ -1127,7 +1137,7 @@ if ( ! function_exists( 'timber_get_post_format_link' ) ) :
 		}
 
 		return $before . '<span class="entry-format">
-				<a href="' . esc_url( get_post_format_link( $post_format ) ) .'" title="' . esc_attr( sprintf( __( 'All %s Posts', 'timber' ), get_post_format_string( $post_format ) ) ) . '">' .
+				<a href="' . esc_url( get_post_format_link( $post_format ) ) .'" title="' . esc_attr( sprintf( __( 'All %s Posts', 'timber-lite' ), get_post_format_string( $post_format ) ) ) . '">' .
 		       get_post_format_string( $post_format ) .
 		       '</a>
 			</span>' . $after;

@@ -23,20 +23,20 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 		$options['panels'] = array(
 
 			'style' => array(
-				'title'    => __( 'Style', 'timber' ),
+				'title'    => __( 'Style', 'timber-lite' ),
 				'sections' => array(
 //					'presets_section' => array(
-//						'title'    => __( 'Style Presets', 'timber' ),
+//						'title'    => __( 'Style Presets', 'timber-lite' ),
 //						'options' => array(
 //							'theme_style'   => array(
 //								'type'      => 'preset',
-//								'label'     => __( 'Select a style:', 'timber' ),
-//								'desc' => __( 'Conveniently change the design of your site with built-in style presets. Easy as pie.', 'timber' ),
-//								'default'   => 'timber',
+//								'label'     => __( 'Select a style:', 'timber-lite' ),
+//								'desc' => __( 'Conveniently change the design of your site with built-in style presets. Easy as pie.', 'timber-lite' ),
+//								'default'   => 'timber-lite',
 //								'choices_type' => 'awesome',
 //								'choices'  => array(
-//									'timber' => array(
-//										'label' => __( 'Patch', 'timber' ),
+//									'timber-lite' => array(
+//										'label' => __( 'Patch', 'timber-lite' ),
 //										'preview' => array(
 //											'color-text' => '#ffffff',
 //											'background-card' => '#121012',
@@ -56,7 +56,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 //
 //
 //									'adler' => array(
-//										'label' => __( 'Adler', 'timber' ),
+//										'label' => __( 'Adler', 'timber-lite' ),
 //										'preview' => array(
 //											'color-text' => '#fff',
 //											'background-card' => '#0e364f',
@@ -75,7 +75,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 //									),
 //
 //									'royal' => array(
-//										'label' => __( 'Royal', 'timber' ),
+//										'label' => __( 'Royal', 'timber-lite' ),
 //										'preview' => array(
 //											'color-text' => '#ffffff',
 //											'background-card' => '#615375',
@@ -94,7 +94,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 //									),
 //
 //									'queen' => array(
-//										'label' => __( 'Queen', 'timber' ),
+//										'label' => __( 'Queen', 'timber-lite' ),
 //										'preview' => array(
 //											'color-text' => '#fbedec',
 //											'background-card' => '#a33b61',
@@ -112,7 +112,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 //										)
 //									),
 //									'carrot' => array(
-//										'label' => __( 'Carrot', 'timber' ),
+//										'label' => __( 'Carrot', 'timber-lite' ),
 //										'preview' => array(
 //											'color-text' => '#ffffff',
 //											'background-card' => '#df421d',
@@ -130,7 +130,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 //										)
 //									),
 //									'velvet' => array(
-//										'label' => __( 'Velvet', 'timber' ),
+//										'label' => __( 'Velvet', 'timber-lite' ),
 //										'preview' => array(
 //											'color-text' => '#ffffff',
 //											'background-card' => '#282828',
@@ -156,11 +156,11 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 					 * COLORS - This section will handle different elements colors (eg. links, headings)
 					 */
 					'colors_section' => array(
-						'title'    => __( 'Colors', 'timber' ),
+						'title'    => __( 'Colors', 'timber-lite' ),
 						'options' => array(
 							'headings_color' => array(
 								'type'      => 'color',
-								'label'     => __( 'Headings Color', 'timber' ),
+								'label'     => __( 'Headings Color', 'timber-lite' ),
 								'live' => true,
 								'default'   => '#171617',
 								'css'  => array(
@@ -175,7 +175,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							'body_color'     => array(
 								'type'      => 'color',
-								'label'     => __( 'Body Color', 'timber' ),
+								'label'     => __( 'Body Color', 'timber-lite' ),
 								'live' => true,
 								'default'   => '#222222',
 								'css'  => array(
@@ -187,7 +187,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							'caption_color'     => array(
 								'type'      => 'color',
-								'label'     => __( 'Caption Color', 'timber' ),
+								'label'     => __( 'Caption Color', 'timber-lite' ),
 								'live' => true,
 								'default'   => '#9B9B9B',
 								'css'  => array(
@@ -199,7 +199,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							'links_color'   => array(
 								'type'      => 'color',
-								'label'     => __( 'Links Color', 'timber' ),
+								'label'     => __( 'Links Color', 'timber-lite' ),
 								'live' => true,
 								'default'   => '#222222',
 								'css'  => array(
@@ -212,7 +212,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							'border_color' => array(
 								'type'      => 'color',
-								'label'     => __( 'Border Color', 'timber' ),
+								'label'     => __( 'Border Color', 'timber-lite' ),
 								'live' => true,
 								'default'   => '#171617',
 								'css'  => array(
@@ -228,11 +228,11 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 					 * FONTS - This section will handle different elements fonts (eg. headings, body)
 					 */
 					'typography_section' => array(
-						'title'    => __( 'Fonts', 'timber' ),
+						'title'    => __( 'Fonts', 'timber-lite' ),
 						'options' => array(
 							'headings_font' => array(
 								'type'     => 'typography',
-								'label'    => __( 'Headings', 'timber' ),
+								'label'    => __( 'Headings', 'timber-lite' ),
 								'default'  => 'Ek Mukta',
 								'selector' => 'h1, h2, h3, h4, h5, h6, .entry-title, .entry-title a,
 												.project-slide__content h1, .vertical-title span,
@@ -267,7 +267,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							'headings_caps' => array(
 								'type'	=> 'checkbox',
 								'default' => true,
-								'label' => __( 'Capitalize Headings', 'timber' ),
+								'label' => __( 'Capitalize Headings', 'timber-lite' ),
 								'css'	=> array(
 									array(
 										'property' => 'text-transform',
@@ -278,7 +278,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							'body_font'     => array(
 								'type'    => 'typography',
-								'label'   => __( 'Body Text', 'timber' ),
+								'label'   => __( 'Body Text', 'timber-lite' ),
 								'default' => 'Ek Mukta',
 								'selector' => 'body',
 								'load_all_weights' => true,
@@ -295,7 +295,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							'caption_font'     => array(
 								'type'    => 'typography',
-								'label'   => __( 'Caption Text', 'timber' ),
+								'label'   => __( 'Caption Text', 'timber-lite' ),
 								'default' => 'Libre Baskerville',
 								'selector' => '.caption, small',
 								'recommended' => array(
@@ -311,7 +311,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							'nav_font'     => array(
 								'type'    => 'typography',
-								'label'   => __( 'Navigation Text', 'timber' ),
+								'label'   => __( 'Navigation Text', 'timber-lite' ),
 								'default' => 'Ek Mukta',
 								'selector' => '.main-navigation',
 								'recommended' => array(
@@ -332,11 +332,11 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 					 * SIZING AND SPACING - This section will handle different elements colors (eg. links, headings)
 					 */
 					'sizes_section' => array(
-						'title'    => __( 'Sizes and Spacings', 'timber' ),
+						'title'    => __( 'Sizes and Spacings', 'timber-lite' ),
 						'options' => array(
 							'logo_height'   => array(
 								'type'      => 'range',
-								'label'     => __( 'Logo Height', 'timber' ),
+								'label'     => __( 'Logo Height', 'timber-lite' ),
 								 'input_attrs' => array(
 							        'min'   => 20,
 							        'max'   => 240,
@@ -353,7 +353,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							),
 							// 'spacing_header'   => array(
 							// 	'type'      => 'range',
-							// 	'label'     => __( 'Header Spacing', 'timber' ),
+							// 	'label'     => __( 'Header Spacing', 'timber-lite' ),
 							// 	 'input_attrs' => array(
 							//         'min'   => 0,
 							//         'max'   => 100,
@@ -374,7 +374,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							// ),
 							// 'spacing_footer'   => array(
 							// 	'type'      => 'range',
-							// 	'label'     => __( 'Footer Spacing', 'timber' ),
+							// 	'label'     => __( 'Footer Spacing', 'timber-lite' ),
 							// 	 'input_attrs' => array(
 							//         'min'   => 0,
 							//         'max'   => 100,
@@ -395,7 +395,7 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 							// ),
 							'filmstrip_spacing'   => array(
 								'type'      => 'range',
-								'label'     => __( 'Filmstrip Images Spacing', 'timber' ),
+								'label'     => __( 'Filmstrip Images Spacing', 'timber-lite' ),
 								 'input_attrs' => array(
 							        'min'   => 0,
 							        'max'   => 100,
@@ -417,73 +417,73 @@ if ( ! function_exists( 'timber_add_customify_options' ) ) :
 			),
 
 			'theme_options' => array(
-				'title'    => __( 'Theme Options', 'timber' ),
+				'title'    => __( 'Theme Options', 'timber-lite' ),
 				'sections' => array(
 					'general' => array (
-						'title'    => __( 'General', 'timber' ),
+						'title'    => __( 'General', 'timber-lite' ),
 						'options' => array(
 //							'use_smooth_scroll' => array(
 //								'type'     => 'checkbox',
-//								'label'    => __( 'Smooth Scrolling', 'timber' ),
-//								'desc' => __( 'Enable / Disable smooth scrolling.', 'timber' ),
+//								'label'    => __( 'Smooth Scrolling', 'timber-lite' ),
+//								'desc' => __( 'Enable / Disable smooth scrolling.', 'timber-lite' ),
 //								'default'  => true
 //							),
 //							'use_ajax_loading' => array(
 //								'type'     => 'checkbox',
-//								'label'    => __( 'AJAX Loading', 'timber' ),
-//								'desc' => __( 'Enable / Disable dynamic page content loading using AJAX.', 'timber' ),
+//								'label'    => __( 'AJAX Loading', 'timber-lite' ),
+//								'desc' => __( 'Enable / Disable dynamic page content loading using AJAX.', 'timber-lite' ),
 //								'default'  => true
 //							),
 
 //							'hide_portfolio_page_content' => array(
 //								'type'     => 'checkbox',
-//								'label'    => __( 'Hide title and content on Portfolio Page Template.', 'timber' ),
+//								'label'    => __( 'Hide title and content on Portfolio Page Template.', 'timber-lite' ),
 //								'default'  => false,
 //							),
 
 //							'disable_search_in_social_menu' => array(
 //								'type'     => 'checkbox',
-//								'label'    => __( 'Hide search button in Social Menu.', 'timber' ),
+//								'label'    => __( 'Hide search button in Social Menu.', 'timber-lite' ),
 //								'default'  => false,
 //							),
 
 							'footer_copyright' => array(
 								'type'     => 'textarea',
-								'label'             => esc_html__( 'Copyright Text', 'timber' ),
-								'desc'              => esc_html__( 'Set the text that will appear in the footer area. Use %year% to display the current year.', 'timber' ),
-								'default'           => sprintf( esc_html__( '%%year%% &copy; Handcrafted with love by the %1$s Team', 'timber' ), '&nbsp;<a href="https://pixelgrade.com/" rel="designer">Pixelgrade</a>&nbsp;' ),
+								'label'             => esc_html__( 'Copyright Text', 'timber-lite' ),
+								'desc'              => esc_html__( 'Set the text that will appear in the footer area. Use %year% to display the current year.', 'timber-lite' ),
+								'default'           => sprintf( esc_html__( '%%year%% &copy; Handcrafted with love by the %1$s Team', 'timber-lite' ), '&nbsp;<a href="https://pixelgrade.com/" rel="designer">Pixelgrade</a>&nbsp;' ),
 								'sanitize_callback' => 'wp_kses_post',
 								'live' => array( '.site-info' )
 							),
 
 							'custom_js' => array(
 								'type'     => 'ace_editor',
-								'label'    => __( 'Custom JavaScript (header)', 'timber' ),
-								'desc' => __( 'Enter your custom Javascript code. This code will be loaded in the head section of your pages.', 'timber' ),
+								'label'    => __( 'Custom JavaScript (header)', 'timber-lite' ),
+								'desc' => __( 'Enter your custom Javascript code. This code will be loaded in the head section of your pages.', 'timber-lite' ),
 								'editor_type'     => 'javascript',
 							),
 							'custom_js_footer' => array(
 								'type'     => 'ace_editor',
-								'label'    => __( 'Custom JavaScript (footer)', 'timber' ),
-								'desc' => __( 'This javascript code will be loaded in the footer.', 'timber' ),
+								'label'    => __( 'Custom JavaScript (footer)', 'timber-lite' ),
+								'desc' => __( 'This javascript code will be loaded in the footer.', 'timber-lite' ),
 								'editor_type'     => 'javascript',
 							),
 						)
 					),
 
 					'share_settings' => array(
-						'title'    => __( 'Share Settings', 'timber' ),
+						'title'    => __( 'Share Settings', 'timber-lite' ),
 						'options' => array(
 							'show_share_links' => array(
 								'type'	=> 'checkbox',
 								'default' => true,
-								'label' => __( 'Show Share Links', 'timber' ),
+								'label' => __( 'Show Share Links', 'timber-lite' ),
 							),
 							'share_buttons_settings' => array(
 								'type'	=> 'text',
 								'default' => 'preferred,preferred,preferred,preferred,more',
-								'label' => __( 'Share Services', 'timber' ),
-								'desc' => __( 'Add here the share services you want to use, single comma delimited (no spaces). You can find the full list of services here: http://www.addthis.com/services/list. Also you can use the more tag to show the plus sign and the counter tag to show a global share counter.', 'timber' ),
+								'label' => __( 'Share Services', 'timber-lite' ),
+								'desc' => __( 'Add here the share services you want to use, single comma delimited (no spaces). You can find the full list of services here: http://www.addthis.com/services/list. Also you can use the more tag to show the plus sign and the counter tag to show a global share counter.', 'timber-lite' ),
 							),
 						),
 					),

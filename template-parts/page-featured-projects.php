@@ -44,12 +44,14 @@ if ( ! empty( $featured ) ) :
 
 			<a href="<?php echo esc_url( get_the_permalink( $featured[0]->ID ) ); ?>"
 			   class="project-slide__link"
-			   title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'timber' ), the_title_attribute( array( 'echo' => 0, 'post' => $featured[0]->ID) ) ) ); ?>"
+			   title="<?php
+			   /* translators: 1: project title. */
+               echo esc_attr( sprintf( __( 'Permalink to %s', 'timber-lite' ), the_title_attribute( array( 'echo' => 0, 'post' => $featured[0]->ID) ) ) ); ?>"
 			   rel="bookmark">
 				<div class="project-slide__title js-title-mask">
 					<h1><?php echo get_the_title( $featured[0] ); ?></h1>
 				</div>
-				<div class="project-slide__text"><?php _e( '&#8594; View Project', 'timber' ); ?></div>
+				<div class="project-slide__text"><?php _e( '&#8594; View Project', 'timber-lite' ); ?></div>
 			</a>
 		</div>
 		<?php if ( $numFeatured != 1 ) : ?>

@@ -31,7 +31,7 @@ $background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'fu
 		<?php the_content(); ?>
 		<?php
 			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'timber' ),
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'timber-lite' ),
 				'after'  => '</div>',
 			) );
 		?>
@@ -39,6 +39,6 @@ $background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'fu
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php edit_post_link( esc_html__( 'Edit', 'timber' ), '<span class="edit-link">', '</span>' ); ?>
+		<?php edit_post_link( esc_html__( 'Edit', 'timber-lite' ), '<span class="edit-link">', '</span>' ); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->

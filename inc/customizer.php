@@ -16,7 +16,7 @@ function timber_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 
 	// Rename the label to "Display Site Title & Tagline" in order to make this option clearer.
-	$wp_customize->get_control( 'display_header_text' )->label = __( 'Display Site Title &amp; Tagline', 'timber' );
+	$wp_customize->get_control( 'display_header_text' )->label = __( 'Display Site Title &amp; Tagline', 'timber-lite' );
 }
 add_action( 'customize_register', 'timber_customize_register' );
 

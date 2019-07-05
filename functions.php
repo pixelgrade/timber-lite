@@ -19,9 +19,9 @@ if ( ! function_exists( 'timber_setup' ) ) :
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
 		 * If you're building a theme based on Timber, use a find and replace
-		 * to change 'timber' to the name of your theme in all the template files
+		 * to change 'timber-lite' to the name of your theme in all the template files
 		 */
-		load_theme_textdomain( 'timber', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'timber-lite', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -57,8 +57,8 @@ if ( ! function_exists( 'timber_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
-			'primary' => esc_html__( 'Primary Menu', 'timber' ),
-			'social' => esc_html__( 'Social Menu', 'timber' )
+			'primary' => esc_html__( 'Primary Menu', 'timber-lite' ),
+			'social' => esc_html__( 'Social Menu', 'timber-lite' )
 		) );
 
 		/*
@@ -139,7 +139,7 @@ add_action( 'init', 'timber_remove_custom_post_comment' );
  */
 function timber_widgets_init() {
 	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay — Left Sidebar (1/4)', 'timber' ),
+		'name'          => esc_html__( 'Overlay — Left Sidebar (1/4)', 'timber-lite' ),
 		'id'            => 'overlay-widget-area-1',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
@@ -149,7 +149,7 @@ function timber_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay — Right Sidebar (1/4)', 'timber' ),
+		'name'          => esc_html__( 'Overlay — Right Sidebar (1/4)', 'timber-lite' ),
 		'id'            => 'overlay-widget-area-2',
 		'description'   => '',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
@@ -159,7 +159,7 @@ function timber_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay — Content (2/4)', 'timber' ),
+		'name'          => esc_html__( 'Overlay — Content (2/4)', 'timber-lite' ),
 		'id'            => 'overlay-widget-area-3',
 		'description'   => 'Add a full-height photo using the Profile Image widget.',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
@@ -198,11 +198,11 @@ function timber_scripts_styles() {
 	// Localize the script with new data
 	$translation_array = array
 	(
-		'tPrev' => __('Previous (Left arrow key)', 'timber'),
-		'tNext' => __('Next (Right arrow key)', 'timber'),
-		'tCounter' => __('of', 'timber'),
-		'infscrLoadingText' => __("<em>Loading more...</em>", 'timber'),
-		'infscrReachedEnd' => __("<em>Nothing left to load.</em>", 'timber'),
+		'tPrev' => __('Previous (Left arrow key)', 'timber-lite'),
+		'tNext' => __('Next (Right arrow key)', 'timber-lite'),
+		'tCounter' => __('of', 'timber-lite'),
+		'infscrLoadingText' => __("<em>Loading more...</em>", 'timber-lite'),
+		'infscrReachedEnd' => __("<em>Nothing left to load.</em>", 'timber-lite'),
 	);
 
 	wp_localize_script( 'timber-scripts', 'objectl10n', $translation_array );
@@ -437,7 +437,7 @@ function timber_last_function(){
 						$.getScript(url)
 							.done(function (script, textStatus) {
 								//console.log(textStatus);
-								$(document).trigger('timber' + key + ':script:loaded');
+								$(document).trigger('timber-lite' + key + ':script:loaded');
 								//console.log( 'timber:' + key + ':script:loaded' );
 							})
 							.fail(function (jqxhr, settings, exception) {
@@ -502,8 +502,8 @@ function timber_wp_enqueue_media() {
 		'TimberImageWidget',
 		array(
 			'l10n' => array(
-				'frameTitle'      => __( 'Choose an Image', 'timber' ),
-				'frameUpdateText' => __( 'Update Image', 'timber' ),
+				'frameTitle'      => __( 'Choose an Image', 'timber-lite' ),
+				'frameUpdateText' => __( 'Update Image', 'timber-lite' ),
 			),
 		)
 	);

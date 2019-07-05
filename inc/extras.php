@@ -177,7 +177,7 @@ if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 
 		// Add a page number if necessary.
 		if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() ) {
-			$title .= " $sep " . sprintf( esc_html__( 'Page %s', 'timber' ), max( $paged, $page ) );
+			$title .= " $sep " . sprintf( esc_html__( 'Page %s', 'timber-lite' ), max( $paged, $page ) );
 		}
 
 		return $title;
@@ -189,7 +189,6 @@ if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
 	 * Title shim for sites older than WordPress 4.1.
 	 *
 	 * @link https://make.wordpress.org/core/2014/10/29/title-tags-in-4-1/
-	 * @todo Remove this function when WordPress 4.3 is released.
 	 */
 	function timber_render_title() {
 		?>
@@ -230,12 +229,12 @@ if ( ! function_exists( 'timber_comment' ) ) :
 					<?php printf( '<span class="comment__author-name">%s</span>', get_comment_author_link() ) ?>
 					<time class="comment__time" datetime="<?php comment_time( 'c' ); ?>">
 						<a href="<?php echo esc_url( get_comment_link( get_comment_ID() ) ) ?>"
-						   class="comment__timestamp"><?php printf( __( 'on %s at %s', 'timber' ), get_comment_date(), get_comment_time() ); ?></a>
+						   class="comment__timestamp"><?php printf( __( 'on %s at %s', 'timber-lite' ), get_comment_date(), get_comment_time() ); ?></a>
 					</time>
 					<div class="comment__links">
 						<?php
 						//we need some space before Edit
-						edit_comment_link( __( 'Edit', 'timber' ), '  ' );
+						edit_comment_link( __( 'Edit', 'timber-lite' ), '  ' );
 
 						comment_reply_link( array_merge( $args, array(
 							'depth'     => $depth,
@@ -247,7 +246,7 @@ if ( ! function_exists( 'timber_comment' ) ) :
 				<!-- .comment-meta -->
 				<?php if ( $comment->comment_approved == '0' ) : ?>
 					<div class="alert info">
-						<p><?php _e( 'Your comment is awaiting moderation.', 'timber' ) ?></p>
+						<p><?php _e( 'Your comment is awaiting moderation.', 'timber-lite' ) ?></p>
 					</div>
 				<?php endif; ?>
 				<section class="comment__content comment">
@@ -754,8 +753,8 @@ function timber_attachment_url_to_postid( $url ) {
 function timber_search_form( $form ) {
 	$form = '<form role="search" method="get" class="search-form" action="' . esc_url( home_url( '/' ) ) . '">
 				<label>
-					<span class="screen-reader-text">' . _x( 'Search for:', 'label', 'timber' ) . '</span>
-					<input type="search" class="search-field" placeholder="' . esc_attr_x( 'Search &hellip;', 'placeholder', 'timber' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'timber' ) . '" />
+					<span class="screen-reader-text">' . _x( 'Search for:', 'label', 'timber-lite' ) . '</span>
+					<input type="search" class="search-field" placeholder="' . esc_attr_x( 'Search &hellip;', 'placeholder', 'timber-lite' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'timber-lite' ) . '" />
 				</label>
 				<button class="search-submit"><i class="icon  icon-search"></i></button>
 			</form>';
@@ -782,17 +781,17 @@ add_filter( 'tiny_mce_before_init', 'timber_mce_before_init' );
 function timber_mce_before_init( $settings ) {
 
 	$style_formats = array(
-		array( 'title' => __( 'Intro Text', 'timber' ), 'selector' => 'p', 'classes' => 'intro' ),
-		array( 'title' => __( 'Dropcap', 'timber' ), 'inline' => 'span', 'classes' => 'dropcap' ),
-		array( 'title' => __( 'Highlight', 'timber' ), 'inline' => 'span', 'classes' => 'highlight' ),
+		array( 'title' => __( 'Intro Text', 'timber-lite' ), 'selector' => 'p', 'classes' => 'intro' ),
+		array( 'title' => __( 'Dropcap', 'timber-lite' ), 'inline' => 'span', 'classes' => 'dropcap' ),
+		array( 'title' => __( 'Highlight', 'timber-lite' ), 'inline' => 'span', 'classes' => 'highlight' ),
 		array(
-			'title'   => __( 'Two Columns', 'timber' ),
+			'title'   => __( 'Two Columns', 'timber-lite' ),
 			'block'   => 'div',
 			'classes' => 'twocolumn',
 			'wrapper' => true
 		),
-		array( 'title' => __( 'Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption' ),
-		array( 'title' => __( 'Small Caption', 'timber' ), 'selector' => 'p', 'classes' => 'caption caption--small' )
+		array( 'title' => __( 'Caption', 'timber-lite' ), 'selector' => 'p', 'classes' => 'caption' ),
+		array( 'title' => __( 'Small Caption', 'timber-lite' ), 'selector' => 'p', 'classes' => 'caption caption--small' )
 	);
 
 	$settings['style_formats'] = json_encode( $style_formats );
@@ -1108,13 +1107,13 @@ function timber_callback_the_password_form( $form ) {
 				<div class="lock-icon"></div>
 				<div class="protected-area-text">
 					<?php
-					_e( 'This is a protected area.', 'timber' );
+					_e( 'This is a protected area.', 'timber-lite' );
 
 					if ( $timber_private_post['error'] ) {
 						echo $timber_private_post['error']; ?>
-						<span class="gray"><?php _e( 'Please enter your password again.', 'timber' ); ?></span>
+						<span class="gray"><?php _e( 'Please enter your password again.', 'timber-lite' ); ?></span>
 					<?php } else { ?>
-						<span class="gray"><?php _e( 'Please enter your password to continue.', 'timber' ); ?></span>
+						<span class="gray"><?php _e( 'Please enter your password to continue.', 'timber-lite' ); ?></span>
 					<?php } ?>
 
 				</div>
@@ -1124,9 +1123,9 @@ function timber_callback_the_password_form( $form ) {
 					<?php wp_nonce_field( 'password_protection', 'submit_password_nonce' ); ?>
 					<input type="hidden" name="submit_password" value="1"/>
 					<input type="password" name="post_password" id="auth_password" class="auth__pass"
-					       placeholder="<?php _e( "Password", 'timber' ) ?>"/>
+					       placeholder="<?php _e( "Password", 'timber-lite' ) ?>"/>
 					<input type="submit" name="Submit" id="auth_submit" class="auth__submit"
-					       value="<?php _e( "Authenticate", 'timber' ) ?>"/>
+					       value="<?php _e( "Authenticate", 'timber-lite' ) ?>"/>
 				</form>
 			</div>
 		</div><!-- .content -->
@@ -1187,14 +1186,14 @@ function timber_is_password_protected() {
 					setcookie( 'wp-postpass_' . COOKIEHASH, $wp_hasher->HashPassword( stripslashes( $_POST['post_password'] ) ), 0, COOKIEPATH );
 
 				} else {
-					$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber' ) . '</h3>';
+					$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber-lite' ) . '</h3>';
 				}
 			}
 		}
 	}
 
 	if ( isset( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) && get_permalink() == wp_get_referer() ) {
-		$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber' ) . '</h3>';
+		$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber-lite' ) . '</h3>';
 	}
 
 

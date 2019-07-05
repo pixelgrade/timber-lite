@@ -64,11 +64,11 @@ if ( post_password_required() ) {
 
 		<div class="site-info">
 			<div class="portfolio__position"></div>
-			<button class="show-details caption js-details"><span><?php _e( 'details', 'timber' ); ?></span></button>
+			<button class="show-details caption js-details"><span><?php _e( 'details', 'timber-lite' ); ?></span></button>
 		</div><!-- .site-info -->
 		<button class="show-button caption js-show-thumbnails">
-			<span class="desktop-thumbnails-label"><?php _e( 'show thumbnails', 'timber' ); ?></span>
-			<span class="mobile-thumbnails-label"><?php _e( 'thumbs', 'timber' ); ?></span>
+			<span class="desktop-thumbnails-label"><?php _e( 'show thumbnails', 'timber-lite' ); ?></span>
+			<span class="mobile-thumbnails-label"><?php _e( 'thumbs', 'timber-lite' ); ?></span>
 		</button>
 	</div>
 </footer><!-- #colophon -->

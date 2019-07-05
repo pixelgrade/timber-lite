@@ -19,7 +19,7 @@ if ( ! empty( $share_buttons_types ) || $share_buttons_types !== 'false' ) :
 
 	<div class="share-box">
 		<button class="share-button  js-share-button"></button>
-		<span class="share-text"><?php _e( 'Share', 'timber' ); ?></span>
+		<span class="share-text"><?php _e( 'Share', 'timber-lite' ); ?></span>
 
 		<div class="addthis_toolbox addthis_default_style addthis_32x32_style social-links-list"
 		     addthis:url="<?php echo esc_attr( timber_get_current_canonical_url() ) ?>"
