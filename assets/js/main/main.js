@@ -16,7 +16,6 @@ function init() {
     }
 
     Nav.init();
-    Overlay.init();
     updateHeader();
     $html.addClass('ready');
 
@@ -59,7 +58,6 @@ function softInit() {
     videos.init();
 
     filterHandler();
-    checkProfileImageWidget();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 

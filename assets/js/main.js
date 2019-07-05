@@ -16474,18 +16474,6 @@ function sizeColumns() {
 
 }
 
-function checkProfileImageWidget() {
-	var $widget_container = $('.overlay__col.col1');
-	if( $widget_container.length ) {
-		//if ($widget_container.find('.widget_timber_image')) {
-		if ($widget_container.find('.widget_timber_image').length) {
-			$widget_container.addClass('has--widget-profile-image');
-		} else {
-			$('.overlay').addClass('is--scrollable');
-		}
-	}
-}
-
 function isFilmstrip() {
     return $body.hasClass('blog')
         || $body.hasClass('project_layout-filmstrip')
@@ -17103,7 +17091,6 @@ var djax = (function() {
     function onDjaxLoading(e) {
         transitionedOut = false;
         Nav.close();
-        Overlay.close();
         transitionOut();
         Project.destroy();
     }
@@ -17721,7 +17708,6 @@ var Nav = (function() {
 
 	function bindEvents() {
 		$('.js-nav-toggle').off( 'click', toggle ).on( 'click', toggle );
-		$('.js-navigation-overlay').off( 'click', close ).on( 'click', close );
 	}
 
 	function toggle(e) {
@@ -17757,73 +17743,7 @@ var Nav = (function() {
 	}
 
 })();
-var Overlay = (function () {
 
-	var $trigger,
-		$overlay,
-		isOpen;
-
-	function init() {
-		$trigger = $('.js-overlay-trigger');
-		$overlay = $('.overlay');
-		isOpen   = false;
-
-		bindEvents();
-	}
-
-	function bindEvents() {
-		// Toggle navigation on click
-		$(document).on('click', '.js-overlay-trigger', navToggle);
-
-		// Close menu with ESC key
-		$(document).on('keydown' ,function(e) {
-			if (e.keyCode == 27 && isOpen) {
-				navToggle(e);
-			}
-		});
-	}
-
-	function open() {
-		$overlay.css('left', 0);
-		TweenMax.to($overlay, 0.3, {opacity: 1});
-		$('html').css('overflow', 'hidden');
-		isOpen = true;
-
-		$('html, body, *').unbind('mousewheel', vertToHorScroll);
-	}
-
-	function close() {
-		TweenMax.to($overlay, 0.3, {
-			opacity: 0,
-			onComplete: function () {
-				$overlay.css('left', '100%');
-			}
-		});
-
-		$('html').css('overflow', '');
-		isOpen = false;
-
-		bindVertToHorScroll();
-	}
-
-
-	function navToggle(e) {
-		e.preventDefault();
-		e.stopPropagation();
-
-		if (isOpen) {
-			close();
-		} else {
-			open();
-		}
-	}
-
-	return {
-		init: init,
-		open: open,
-		close: close
-	}
-})();
 var Placeholder = (function() {
     var $items;
 
@@ -19457,7 +19377,6 @@ function init() {
     }
 
     Nav.init();
-    Overlay.init();
     updateHeader();
     $html.addClass('ready');
 
@@ -19500,7 +19419,6 @@ function softInit() {
     videos.init();
 
     filterHandler();
-    checkProfileImageWidget();
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 

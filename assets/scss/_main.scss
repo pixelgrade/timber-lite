@@ -54,16 +54,15 @@
  *    5.20 - Preloader
  *    5.21 - Entry thumbnail
  *    5.22 - Entry header
- *    5.23 - Overlay
- *    5.24 - Search form
- *    5.25 - Add This
- *    5.26 - RoyalSlider
- *    5.27 - Fullscreen slider
- *    5.28 - Loader
- *    5.29 - Border
- *    5.30 - Widgets
- *    5.31 - Shortcodes
- *    5.32 - Password Protected Form
+ *    5.23 - Search form
+ *    5.24 - Add This
+ *    5.25 - RoyalSlider
+ *    5.26 - Fullscreen slider
+ *    5.27 - Loader
+ *    5.28 - Border
+ *    5.29 - Widgets
+ *    5.30 - Shortcodes
+ *    5.31 - Password Protected Form
  *  6.0 - Overrides
  *
  */
@@ -283,53 +282,49 @@
  */
 @import "5-components/entry-header";
 /**
- *   5.23 - Overlay
- */
-@import "5-components/overlay";
-/**
- *   5.24 - Search form
+ *   5.23 - Search form
  */
 @import "5-components/search-form";
 /**
- *   5.25 - Add This
+ *   5.24 - Add This
  */
 @import "5-components/add-this";
 /**
- *   5.26 - RoyalSlider
+ *   5.25 - RoyalSlider
  */
 @import "5-components/royalslider";
 /**
- *   5.27 - Fullscreen slider
+ *   5.26 - Fullscreen slider
  */
 @import "5-components/fullscreen-slider";
 /**
- *   5.28 - Loader
+ *   5.27 - Loader
  */
 @import "5-components/loader";
 /**
- *   5.29 - Border
+ *   5.28 - Border
  */
 @import "5-components/border";
 /**
- *   5.30 - Widgets
+ *   5.29 - Widgets
  */
 @import "5-components/widgets";
 /**
- *   5.31 - Shortcodes
+ *   5.30 - Shortcodes
  */
 @import "5-components/shortcode-icon";
 @import "5-components/shortcode-tabs";
 @import "5-components/shortcode-progressbar";
 /**
- *   5.32 - PixProof
+ *   5.31 - PixProof
  */
 @import "5-components/password-protected";
 /**
- *   5.33 - Project filters
+ *   5.32 - Project filters
  */
 @import "5-components/projects-filter";
 /**
- *   5.34 - Images loading spinner
+ *   5.33 - Images loading spinner
  */
 @import "5-components/spinner";
 

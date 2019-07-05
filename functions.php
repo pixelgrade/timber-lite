@@ -133,44 +133,6 @@ function timber_remove_custom_post_comment() {
 add_action( 'init', 'timber_remove_custom_post_comment' );
 
 /**
- * Register widget area.
- *
- * @link http://codex.wordpress.org/Function_Reference/register_sidebar
- */
-function timber_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay — Left Sidebar (1/4)', 'timber-lite' ),
-		'id'            => 'overlay-widget-area-1',
-		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h4 class="widget-title">',
-		'after_title'   => '</h4>',
-	) );
-
-	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay — Right Sidebar (1/4)', 'timber-lite' ),
-		'id'            => 'overlay-widget-area-2',
-		'description'   => '',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h4 class="widget-title">',
-		'after_title'   => '</h4>',
-	) );
-
-	register_sidebar( array(
-		'name'          => esc_html__( 'Overlay — Content (2/4)', 'timber-lite' ),
-		'id'            => 'overlay-widget-area-3',
-		'description'   => 'Add a full-height photo using the Profile Image widget.',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h4 class="widget-title">',
-		'after_title'   => '</h4>',
-	) );
-}
-add_action( 'widgets_init', 'timber_widgets_init' );
-
-/**
  * Enqueue scripts and styles.
  */
 function timber_scripts_styles() {
@@ -566,8 +528,3 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Recommended/Required plugins notification
  */
 require get_template_directory() . '/inc/required-plugins.php';
-
-/**
- * Load the custom Image widget
- */
-require get_template_directory() . '/inc/widgets/image-widget.php';

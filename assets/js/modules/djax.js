@@ -47,7 +47,6 @@ var djax = (function() {
     function onDjaxLoading(e) {
         transitionedOut = false;
         Nav.close();
-        Overlay.close();
         transitionOut();
         Project.destroy();
     }
