@@ -92,6 +92,7 @@ function timber_posted_on() {
 	);
 
 	$posted_on = sprintf(
+	/* translators: 1: date */
 		esc_html_x( '%s', 'post date', 'timber-lite' ),
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
@@ -114,6 +115,7 @@ function timber_entry_footer() {
 
 		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
+			/* translators: 1: tag */
 			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'timber-lite' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
 	}
@@ -141,16 +143,22 @@ if ( ! function_exists( 'the_archive_title' ) ) :
  */
 function the_archive_title( $before = '', $after = '' ) {
 	if ( is_category() ) {
+		/* translators: 1: category */
 		$title = sprintf( esc_html__( 'Category: %s', 'timber-lite' ), single_cat_title( '', false ) );
 	} elseif ( is_tag() ) {
+		/* translators: 1: tag */
 		$title = sprintf( esc_html__( 'Tag: %s', 'timber-lite' ), single_tag_title( '', false ) );
 	} elseif ( is_author() ) {
+		/* translators: 1: author name */
 		$title = sprintf( esc_html__( 'Author: %s', 'timber-lite' ), '<span class="vcard">' . get_the_author() . '</span>' );
 	} elseif ( is_year() ) {
+		/* translators: 1: year */
 		$title = sprintf( esc_html__( 'Year: %s', 'timber-lite' ), get_the_date( esc_html_x( 'Y', 'yearly archives date format', 'timber-lite' ) ) );
 	} elseif ( is_month() ) {
+		/* translators: 1: month */
 		$title = sprintf( esc_html__( 'Month: %s', 'timber-lite' ), get_the_date( esc_html_x( 'F Y', 'monthly archives date format', 'timber-lite' ) ) );
 	} elseif ( is_day() ) {
+		/* translators: 1: day */
 		$title = sprintf( esc_html__( 'Day: %s', 'timber-lite' ), get_the_date( esc_html_x( 'F j, Y', 'daily archives date format', 'timber-lite' ) ) );
 	} elseif ( is_tax( 'post_format' ) ) {
 		if ( is_tax( 'post_format', 'post-format-aside' ) ) {
@@ -173,6 +181,7 @@ function the_archive_title( $before = '', $after = '' ) {
 			$title = esc_html_x( 'Chats', 'post format archive title', 'timber-lite' );
 		}
 	} elseif ( is_post_type_archive() ) {
+		/* translators: 1: archive title. */
 		$title = sprintf( esc_html__( 'Archives: %s', 'timber-lite' ), post_type_archive_title( '', false ) );
 	} elseif ( is_tax() ) {
 		$tax = get_taxonomy( get_queried_object()->taxonomy );
@@ -322,6 +331,7 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 		if ( $has_more ) {
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
+			    /* translators: 1: post title. */
 				wp_kses( __( 'Continue reading %s <span class="meta-nav">&rarr;</span>', 'timber-lite' ), array( 'span' => array( 'class' => array() ) ) ),
 				the_title( '<span class="screen-reader-text">', '</span>', false )
 			) );

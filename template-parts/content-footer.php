@@ -14,7 +14,9 @@
     </div>
 
     <div class="site-info">
-        <a href="<?php echo esc_url( __( 'http://wordpress.org/', 'timber-lite' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', 'timber-lite' ), 'WordPress' ); ?></a>
+        <a href="<?php echo esc_url( __( 'http://wordpress.org/', 'timber-lite' ) ); ?>"><?php
+	        /* translators: 1: WordPress */
+            printf( esc_html__( 'Proudly powered by %s', 'timber-lite' ), 'WordPress' ); ?></a>
         <span class="sep"> | </span>
         <?php
         /* translators: 1: theme name, 2: author name */
