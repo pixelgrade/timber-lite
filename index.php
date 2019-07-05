@@ -19,7 +19,6 @@ get_header(); ?>
 		<div class="filmstrip">
 			<div class="site-sidebar  site-sidebar--archive">
 				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber-lite' ); ?></div>
-				<?php timber_the_mobile_categories_nav(); ?>
 			</div>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -42,9 +41,7 @@ get_header(); ?>
 </div>
 
 <div class="site-footer">
-	<div class="bar--fixed">
-		<?php timber_the_categories_nav(); ?>
-	</div>
+
 </div>
 
 <?php get_footer(); ?>
