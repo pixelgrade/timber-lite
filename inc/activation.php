@@ -237,23 +237,14 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 					'fields'     => array(
 						array(
 							'name'       => __( 'Layout Style<a class="tooltip" title="Select the initial layout for this project."></a>', 'timber-lite' ),
-							// 'desc'       => __( 'Select the initial layout. ', 'timber-lite' ),
 							'id'         => 'project_template',
 							'type'       => 'radio',
 							'std'    => 'filmstrip',
 							'options'    => array(
 								array(
-									'name' => __( 'Thumbnails', 'timber-lite' ),
-									'value' => 'thumbnails'
-								),
-								array(
 									'name' => __( 'Filmstrip', 'timber-lite' ),
 									'value' => 'filmstrip'
 								),
-								array(
-									'name' => __( 'Fullscreen', 'timber-lite' ),
-									'value' => 'fullscreen'
-								)
 							),
 						),
 						array(
@@ -265,10 +256,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								array(
 									'name' => __( 'FILL - the image covers the entire screen and can be explored using an immersive panning effect', 'timber-lite'),
 									'value' => 'fill'
-								),
-								array(
-									'name' => __( 'FIT - the image is resized to fit inside the container and it\'s fully visible from the start', 'timber-lite' ),
-									'value' => 'fit'
 								),
 							),
 						)
