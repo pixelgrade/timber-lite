@@ -36,10 +36,11 @@
 
 	<nav id="site-navigation" class="main-navigation djax-updatable">
 		<?php wp_nav_menu( array(
-			'theme_location' => 'primary',
-			'menu_class' => 'nav nav--main',
-			'menu_id' => 'primary-menu',
-			'fallback_cb' => false,
+			'theme_location'    => 'primary',
+			'menu_class'        => 'nav nav--main',
+			'menu_id'           => 'primary-menu',
+			'fallback_cb'       => false,
+            'depth'             => 1
 		) ); ?>
 	</nav><!-- #site-navigation -->
 
