@@ -4,7 +4,6 @@
 
 		<?php
 		/**
-		 * @TODO wait for it
 		 * Displays portfolio page content if user opts to
 		 * Can be controlled in Appearance > Customize > Theme Options
 

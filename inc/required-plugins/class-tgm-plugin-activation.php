@@ -3236,7 +3236,6 @@ if ( ! function_exists( 'tgmpa_load_bulk_installer' ) ) {
 						 * Only start maintenance mode if:
 						 * - running Multisite and there are one or more plugins specified, OR
 						 * - a plugin with an update available is currently active.
-						 * @TODO: For multisite, maintenance mode should only kick in for individual sites if at all possible.
 						 */
 						$maintenance = ( is_multisite() && ! empty( $plugins ) );
 

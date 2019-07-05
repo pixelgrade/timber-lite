@@ -37,7 +37,6 @@
 @include query-above($small) {
 
 	.overlay__wrapper {
-		// @todo better when widget areas are added to the navigation overlay
 		width: 100%;
 		padding: 150px 70px 110px 110px;
 
