@@ -10,7 +10,6 @@ var Nav = (function() {
 
 	function bindEvents() {
 		$('.js-nav-toggle').off( 'click', toggle ).on( 'click', toggle );
-		$('.js-navigation-overlay').off( 'click', close ).on( 'click', close );
 	}
 
 	function toggle(e) {

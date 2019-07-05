@@ -66,16 +66,15 @@ and Blueprint http://www.blueprintcss.org/
  *    5.20 - Preloader
  *    5.21 - Entry thumbnail
  *    5.22 - Entry header
- *    5.23 - Overlay
- *    5.24 - Search form
- *    5.25 - Add This
- *    5.26 - RoyalSlider
- *    5.27 - Fullscreen slider
- *    5.28 - Loader
- *    5.29 - Border
- *    5.30 - Widgets
- *    5.31 - Shortcodes
- *    5.32 - Password Protected Form
+ *    5.23 - Search form
+ *    5.24 - Add This
+ *    5.25 - RoyalSlider
+ *    5.26 - Fullscreen slider
+ *    5.27 - Loader
+ *    5.28 - Border
+ *    5.29 - Widgets
+ *    5.30 - Shortcodes
+ *    5.31 - Password Protected Form
  *  6.0 - Overrides
  *
  */
@@ -7412,130 +7411,7 @@ img {
   line-height: 1.5; }
 
 /**
- *   5.23 - Overlay
- */
-.overlay {
-  position: fixed;
-  bottom: 0;
-  left: 100%;
-  z-index: 10000;
-  width: 100%;
-  height: 100vh;
-  opacity: 0;
-  background: #222222;
-  color: white;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-  -webkit-overflow-scrolling: touch;
-  top: 0px; }
-  .overlay.is--scrollable {
-    overflow-y: scroll; }
-  .overlay * {
-    text-shadow: none; }
-  #demosite-activate-wrap ~ .overlay {
-    top: 80px; }
-  .admin-bar .overlay {
-    top: 32px; }
-  .admin-bar #demosite-activate-wrap ~ .overlay {
-    top: 112px; }
-  @media screen and (max-width: 782px) {
-    .admin-bar .overlay {
-      top: 46px; }
-    .admin-bar #demosite-activate-wrap ~ .overlay {
-      top: 126px; } }
-  @media not screen and (min-width: 740px) {
-    .overlay {
-      padding: 70px 30px;
-      overflow-y: auto; } }
-
-@media only screen and (min-width: 740px) {
-  .overlay__wrapper {
-    width: 100%;
-    padding: 150px 70px 110px 110px;
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-            flex-direction: row;
-    -webkit-box-pack: center;
-            justify-content: center;
-    -webkit-box-align: start;
-            align-items: flex-start;
-    align-content: flex-start; }
-    .is--IE .overlay__wrapper {
-      min-height: 0 !important; }
-  .overlay__col {
-    -webkit-box-flex: 1;
-            flex: 1 1 auto;
-    overflow-y: scroll;
-    -ms-overflow-style: scrollbar; }
-    .is--ie-le10 .overlay__col {
-      display: inline-block;
-      width: 49%;
-      vertical-align: top; }
-    .is--scrollable .overlay__col {
-      overflow-y: auto; }
-    .overlay__col.col1 {
-      position: relative;
-      flex-shrink: 1;
-      height: calc(100vh - 260px);
-      padding: 0 40px; }
-      .overlay__col.col1 .widget {
-        max-width: 560px; }
-    .overlay__col.col1.has--widget-profile-image {
-      overflow: hidden; }
-    .overlay__col.col2 {
-      height: calc(100vh - 250px);
-      display: -webkit-box;
-      display: flex;
-      -webkit-box-orient: horizontal;
-      -webkit-box-direction: normal;
-              flex-direction: row;
-      -webkit-box-pack: center;
-              justify-content: center;
-      -webkit-box-align: start;
-              align-items: flex-start;
-      align-content: flex-start;
-      flex-shrink: 1;
-      margin-bottom: 100px; }
-    .overlay__col.col1 + .overlay__col.col2 {
-      -webkit-box-flex: 0;
-              flex: 0 0 50vw;
-      padding-left: 40px; }
-      .overlay__col.col1 + .overlay__col.col2 .sub-col {
-        flex-basis: 360px; }
-  .sub-col {
-    -webkit-box-flex: 0;
-            flex: 0 1 50%;
-    padding: 0 40px; } }
-
-@media only screen and (min-width: 1200px) {
-  .overlay__col.col1 + .overlay__col.col2 {
-    -webkit-box-flex: 0;
-            flex: 0 0 760px; } }
-
-.is--IE .overlay, .is--IE
-.overlay__wrapper {
-  display: block !important;
-  width: 100%; }
-
-.overlay__close {
-  width: 1.5em;
-  height: 1.5em;
-  position: absolute;
-  cursor: pointer;
-  z-index: 10;
-  background: url("assets/svg/close-button.svg") no-repeat;
-  background-size: cover;
-  top: 1em;
-  right: 1em; }
-  @media only screen and (min-width: 1200px) {
-    .overlay__close {
-      top: 62px;
-      right: 42px; } }
-
-/**
- *   5.24 - Search form
+ *   5.23 - Search form
  */
 .search-form {
   width: 100%;
@@ -7569,7 +7445,7 @@ img {
     border: 1px solid white; }
 
 /**
- *   5.25 - Add This
+ *   5.24 - Add This
  */
 .share-box {
   position: relative; }
@@ -7705,7 +7581,7 @@ img {
   background-position: 5px 3px !important; }
 
 /**
- *   5.26 - RoyalSlider
+ *   5.25 - RoyalSlider
  */
 .royalSlider, .pixslider {
   width: 600px;
@@ -8141,7 +8017,7 @@ img.rsImg {
     padding: 0 35px; } }
 
 /**
- *   5.27 - Fullscreen slider
+ *   5.26 - Fullscreen slider
  */
 .page-template-featured-projects-page {
   overflow: hidden; }
@@ -8504,7 +8380,7 @@ body.page-template-default.page .site-footer {
   border-radius: 3px; }
 
 /**
- *   5.28 - Loader
+ *   5.27 - Loader
  */
 .loader {
   position: fixed;
@@ -8530,7 +8406,7 @@ body.page-template-default.page .site-footer {
     font-weight: bold; }
 
 /**
- *   5.29 - Border
+ *   5.28 - Border
  */
 @media only screen and (min-width: 900px) {
   .site-header--placeholder {
@@ -8556,7 +8432,7 @@ body.page-template-default.page .site-footer {
     border-width: 0.9vh; } }
 
 /**
- *   5.30 - Widgets
+ *   5.29 - Widgets
  */
 .widget {
   font-size: 14px;
@@ -8638,7 +8514,7 @@ body.page-template-default.page .site-footer {
       color: white; }
 
 /**
- *   5.31 - Shortcodes
+ *   5.30 - Shortcodes
  */
 .pixcode--icon {
   display: inline-block;
@@ -8754,7 +8630,7 @@ a:hover > .pixcode--icon {
   margin-bottom: 0.6em; }
 
 /**
- *   5.32 - PixProof
+ *   5.31 - PixProof
  */
 .password-required {
   color: #fff;
@@ -8804,7 +8680,7 @@ a:hover > .pixcode--icon {
     color: #AB0B00; }
 
 /**
- *   5.33 - Project filters
+ *   5.32 - Project filters
  */
 .projects-filter {
   position: fixed;
@@ -8897,7 +8773,7 @@ a:hover > .pixcode--icon {
   opacity: 1 !important; }
 
 /**
- *   5.34 - Images loading spinner
+ *   5.33 - Images loading spinner
  */
 .spinner {
   width: 40px;
