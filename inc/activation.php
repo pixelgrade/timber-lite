@@ -349,7 +349,7 @@ add_action( 'after_switch_theme', 'timber_config_getting_active' );
 if ( ! class_exists( 'wpgrade' ) ) :
 class wpgrade {
 	static function shortname() {
-		return 'timber-lite';
+		return 'timber';
 	}
 
 	/** @var WP_Theme */
