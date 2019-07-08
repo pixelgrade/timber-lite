@@ -251,18 +251,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								),
 							),
 						),
-						array(
-							'name'		=> __('Fullscreen Image Scaling', 'timber-lite'),
-							'id'		=> 'fullscreen_image_scaling',
-							'type'		=> 'radio',
-							'std'		=> 'fill',
-							'options'	=> array(
-								array(
-									'name' => __( 'FILL - the image covers the entire screen and can be explored using an immersive panning effect', 'timber-lite'),
-									'value' => 'fill'
-								),
-							),
-						)
 					)
 				),
 			),
