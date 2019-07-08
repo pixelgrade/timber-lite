@@ -25,11 +25,6 @@ if ( 'fullscreen' == $project_template ): ?>
 
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="bar--fixed">
-
-		<div class="project-addthis-container">
-
-		</div>
-
 		<div class="site-info">
 			<div class="gallery-counter  js-gallery-counter">
 				<span class="js-unit">1</span>
@@ -37,7 +32,6 @@ if ( 'fullscreen' == $project_template ): ?>
 				<span class="js-gallery-slides-total"></span>
 			</div>
 		</div><!-- .site-info -->
-		<button class="show-button  js-show-thumbnails"></button>
 	</div>
 </footer><!-- #colophon -->
 
@@ -53,19 +47,10 @@ if ( 'fullscreen' == $project_template ): ?>
 
 <footer id="colophon" class="site-footer" role="contentinfo">
 	<div class="bar--fixed">
-
-		<div class="project-addthis-container">
-
-		</div>
-
 		<div class="site-info">
 			<div class="portfolio__position"></div>
 			<button class="show-details caption js-details"><span><?php _e( 'details', 'timber-lite' ); ?></span></button>
 		</div><!-- .site-info -->
-		<button class="show-button caption js-show-thumbnails">
-			<span class="desktop-thumbnails-label"><?php _e( 'show thumbnails', 'timber-lite' ); ?></span>
-			<span class="mobile-thumbnails-label"><?php _e( 'thumbs', 'timber-lite' ); ?></span>
-		</button>
 	</div>
 </footer><!-- #colophon -->
 

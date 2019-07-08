@@ -22,7 +22,7 @@
 
 <body <?php body_class(); ?> <?php timber_body_attributes(); ?> data-first-letter="<?php echo timber_first_site_title_character(); ?>">
 
-<header id="masthead" class="site-header">
+<header id="masthead" class="site-header u-header--fixed">
 
 	<div class="site-branding">
 

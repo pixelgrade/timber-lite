@@ -189,7 +189,6 @@ var Project = (function() {
 	function bindEvents() {
 
 		$( window ).on( 'project:resize', onResize );
-		$( 'body' ).on( 'click', '.js-show-thumbnails', showThumbnails );
 
 		// if ( Modernizr.touchevents ) {
 		// 	$('.portfolio--grid').on('click', '.js-portfolio-item', showFullView);
@@ -301,7 +300,6 @@ var Project = (function() {
 
 	function unbindEvents() {
 		$( window ).off( 'project:resize', onResize );
-		$( 'body' ).off( 'click', '.js-show-thumbnails', showThumbnails );
 		$( '.portfolio--grid' ).off( 'click', '.js-portfolio-item', showFilmstrip );
 		$( '.portfolio--filmstrip' ).off( 'click', '.js-portfolio-item', showFullView );
 		$( '.fullview__close' ).off( 'click', hideFullView );

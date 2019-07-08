@@ -39,7 +39,9 @@
 
 .site-info {
     @extend %bar-piece;
-    @extend %bar-middle;
+    flex-basis: 100%;
+    justify-content: center;
+    text-align: center;
 }
 
 .show-button {

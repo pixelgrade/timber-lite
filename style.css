@@ -4741,7 +4741,7 @@ figure {
           align-items: center;
   -webkit-align-items: center; }
 
-.main-navigation, .site-info {
+.main-navigation {
   flex-basis: 70%;
   -webkit-flex-basis: 70%;
   -webkit-box-pack: center;
@@ -4797,7 +4797,7 @@ figure {
 .no-flexbox .site-branding, .no-flexbox .social-navigation, .no-flexbox .show-button, .no-flexbox .theme-name, .no-flexbox .back-to-top, .no-flexbox .project-addthis-container {
   width: 15%; }
 
-.no-flexbox .main-navigation, .no-flexbox .site-info {
+.no-flexbox .main-navigation {
   width: 70%; }
 
 /**
@@ -5376,6 +5376,12 @@ hr {
       .site-footer .site-branding, .site-footer .main-navigation, .site-footer .social-navigation, .site-footer .site-info, .site-footer .show-button, .site-footer .theme-name, .site-footer .back-to-top, .site-footer .project-addthis-container {
         display: block;
         padding: 0.75em; } }
+
+.site-info {
+  flex-basis: 100%;
+  -webkit-box-pack: center;
+          justify-content: center;
+  text-align: center; }
 
 @media not screen and (min-width: 900px) {
   .show-button.caption.caption, .project-addthis-container .show-button.share-text, .show-button.filter__text {
@@ -6577,6 +6583,12 @@ li.depth-2:before {
 .is--ie9 .blog .post-meta__content {
   top: 2px;
   left: 19px; }
+
+.project_layout-filmstrip .u-header--fixed {
+  position: fixed;
+  left: 0.9vh;
+  right: 0.9vh;
+  width: auto; }
 
 /**
  *   5.15 - Full view
