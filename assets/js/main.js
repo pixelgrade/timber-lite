@@ -18088,6 +18088,7 @@ var Project = (function() {
 
 		$fullview = $( '.fullview' );
 
+		addMetadata();
 		bindEvents();
 
 		initialized = true;
@@ -18157,6 +18158,44 @@ var Project = (function() {
 
 		$document.on('mousemove', panFullview);
 		$(window).on('deviceorientation', panFullview);
+	}
+
+	function addMetadata() {
+		var $target = $( '.single-proof_gallery' ).length ? $film.add( $grid ) : $film;
+
+		$target.find( '.js-portfolio-item' ).each( function( i, obj ) {
+			var $item = $( obj ),
+				captionText = $item.data( 'caption' ),
+				$caption = $( '<div class="photometa__caption"></div>' ).html( captionText ),
+				descriptionText = $item.data( 'description' ),
+				$description = $( '<div class="photometa__description"></div>' ).html( '<div>' + descriptionText + '</div>' ),
+				$exif = $( '<ul class="photometa__exif  exif"></ul>' ),
+				$meta = $( '<div class="portfolio__meta  photometa"></div>' ),
+				exifText = $item.data( 'exif' ),
+				$full = $( '<button class="button-full js-button-full"></button>' );
+
+			if ( empty( captionText ) ) {
+				$meta.css( 'opacity', 0 );
+				$meta.addClass( 'no-caption' );
+
+				if ( empty( descriptionText ) && empty( exifText ) ) {
+					$meta.hide();
+				}
+			}
+
+			if ( ! empty( exifText ) ) {
+				$.each( exifText, function( key, value ) {
+					$( '<li class="exif__item"><i class="exif__icon exif__icon--' + key + '"></i>' + value + '</li>' ).appendTo( $exif );
+				} );
+			}
+
+			$full.prependTo( $item );
+			$caption.appendTo( $meta );
+			$exif.appendTo( $meta );
+			$description.appendTo( $meta );
+
+			$meta.appendTo( $item );
+		} );
 	}
 
 	function prepare() {
