@@ -34,16 +34,6 @@ function timber_register_required_plugins() {
 
 	$plugins = array(
 		array(
-			'name'               => 'Customify',
-			'slug'               => 'customify',
-			'required'           => true,
-		),
-		array(
-			'name'               => 'PixCodes',
-			'slug'               => 'pixcodes',
-			'required'           => false,
-		),
-		array(
 			'name'               => 'PixTypes',
 			'slug'               => 'pixtypes',
 			'required'           => true,
