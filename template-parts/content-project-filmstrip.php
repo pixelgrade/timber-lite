@@ -29,7 +29,7 @@
 	/*
 	 * Project film strip
 	 */
-	timber_the_film_strip();
+	timber_the_film_strip(get_the_ID(), true, true);
 	?>
 
     <div class="portfolio__item  portfolio__item--text  portfolio__item--nav">
