@@ -16,7 +16,7 @@ It's great if you're willing to use your skills, knowledge, and experience to he
 - **Have you made something great?** [Share](https://github.com/pixelgrade/timber/issues/new "Share") it with us.
 
 ## Changelog
-= 1.0.1 =
+= 1.0.0 =
 - Initial release.
 
 ## Credits
