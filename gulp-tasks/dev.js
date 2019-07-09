@@ -34,6 +34,15 @@ gulp.task( 'styles-main', 'Compiles main css files (ie. style.css editor-style.c
 	           .pipe( gulp.dest( '.' ) );
 } );
 
+gulp.task('styles-admin', 'Compiles styles that will be loaded in WP dashboard.', function(){
+	return gulp.src('assets/scss/admin/*.scss')
+	           .pipe( plugins.sourcemaps.init() )
+	           .pipe( plugins.sass().on( 'error', logError ) )
+	           .pipe( plugins.autoprefixer() )
+	           .pipe( plugins.sourcemaps.write( '.' ) )
+	           .pipe( gulp.dest( './admin' ) );
+});
+
 gulp.task( 'styles-rtl', 'Generate rtl.css file based on style.css', function() {
 	return gulp.src( 'style.css' )
 	           .pipe( plugins.rtlcss() )
@@ -53,7 +62,7 @@ gulp.task( 'styles-components', 'Compiles Sass and uses autoprefixer', function(
 } );
 
 gulp.task( 'styles', 'Compile styles', function( cb ) {
-	plugins.sequence( 'typeline-config', 'typeline-phpconfig', 'styles-components', 'styles-main', 'styles-rtl', cb );
+	plugins.sequence( 'typeline-config', 'typeline-phpconfig', 'styles-components', 'styles-main', 'styles-admin', 'styles-rtl', cb );
 } );
 
 
