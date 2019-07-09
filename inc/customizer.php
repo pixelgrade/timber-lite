@@ -20,7 +20,7 @@ function timber_customize_register( $wp_customize ) {
 
 	// View Pro
 	$wp_customize->add_section( 'pro__section', array(
-		'title'       => '' . esc_html__( 'View PRO Version', 'hive-lite' ),
+		'title'       => '' . esc_html__( 'View PRO Version', 'timber-lite' ),
 		'priority'    => 2,
 		'description' => sprintf(
 		/* translators: %s: The view pro link. */
@@ -45,7 +45,7 @@ function timber_customize_register( $wp_customize ) {
 
                     </ul> %s </div>', 'timber-lite' ),
 			/* translators: %1$s: The view pro URL, %2$s: The view pro link text. */
-			sprintf( '<a href="%1$s" target="_blank" class="button button-primary">%2$s</a>', esc_url( timber_lite_get_pro_link() ), esc_html__( 'View Timber PRO', 'hive-lite' ) )
+			sprintf( '<a href="%1$s" target="_blank" class="button button-primary">%2$s</a>', esc_url( timber_lite_get_pro_link() ), esc_html__( 'View Timber PRO', 'timber-lite' ) )
 		),
 	) );
 
@@ -70,10 +70,10 @@ function timber_customize_preview_js() {
 add_action( 'customize_preview_init', 'timber_customize_preview_js' );
 
 /**
- * Generate a link to the Hive Lite info page.
+ * Generate a link to the Timber Lite info page.
  */
 function timber_lite_get_pro_link() {
-	return 'https://pixelgrade.com/themes/blogging/hive-lite?utm_source=hive-lite-clients&utm_medium=customizer&utm_campaign=hive-lite#pro';
+	return 'https://pixelgrade.com/themes/blogging/timber-lite?utm_source=timber-lite-clients&utm_medium=customizer&utm_campaign=timber-lite#pro';
 }
 
 /**
