@@ -92,8 +92,7 @@ function timber_posted_on() {
 	);
 
 	$posted_on = sprintf(
-	/* translators: 1: date */
-		esc_html_x( '%s', 'post date', 'timber-lite' ),
+		esc_html_x( '%s', 'post date' ),
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
 
@@ -114,8 +113,7 @@ function timber_entry_footer() {
 
 		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
-			/* translators: 1: tag */
-			printf( '<span class="tags-links">' . esc_html__( '%1$s', 'timber-lite' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+			printf( '<span class="tags-links">' . esc_html__( '%1$s' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
 	}
 
@@ -684,10 +682,6 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 		$attachment_id = timber_attachment_url_to_postid( $matches[1][ $idx ] );
 		if ( $attachment_id ) {
 			$markup .= call_user_func( $image_callback, $attachment_id, $caption );
-		} else {
-			//we have an external image
-
-			//IGNORE IT for now as we can't reliably get dimensions
 		}
 	}
 

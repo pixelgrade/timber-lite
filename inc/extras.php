@@ -150,55 +150,6 @@ function timber_post_classes( $classes ) {
 
 add_filter( 'post_class', 'timber_post_classes' );
 
-if ( version_compare( $GLOBALS['wp_version'], '4.1', '<' ) ) :
-	/**
-	 * Filters wp_title to print a neat <title> tag based on what is being viewed.
-	 *
-	 * @param string $title Default title text for current view.
-	 * @param string $sep Optional separator.
-	 *
-	 * @return string The filtered title.
-	 */
-	function timber_wp_title( $title, $sep ) {
-		if ( is_feed() ) {
-			return $title;
-		}
-
-		global $page, $paged;
-
-		// Add the blog name.
-		$title .= get_bloginfo( 'name', 'display' );
-
-		// Add the blog description for the home/front page.
-		$site_description = get_bloginfo( 'description', 'display' );
-		if ( $site_description && ( is_home() || is_front_page() ) ) {
-			$title .= " $sep $site_description";
-		}
-
-		// Add a page number if necessary.
-		if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() ) {
-			$title .= " $sep " . sprintf( esc_html__( 'Page %s', 'timber-lite' ), max( $paged, $page ) );
-		}
-
-		return $title;
-	}
-
-	add_filter( 'wp_title', 'timber_wp_title', 10, 2 );
-
-	/**
-	 * Title shim for sites older than WordPress 4.1.
-	 *
-	 * @link https://make.wordpress.org/core/2014/10/29/title-tags-in-4-1/
-	 */
-	function timber_render_title() {
-		?>
-		<title><?php wp_title( '|', true, 'right' ); ?></title>
-		<?php
-	}
-
-	add_action( 'wp_head', 'timber_render_title' );
-endif;
-
 if ( ! function_exists( 'timber_comment' ) ) :
 	/**
 	 * Display individual comment layout
@@ -1039,7 +990,7 @@ function timber_callback_the_password_form( $form ) {
 
 				</div>
 				<form class="auth-form" method="post"
-				      action="<?php echo wp_login_url() . '?action=postpass'; // just keep this action path ... wordpress will refear for us
+				      action="<?php echo wp_login_url() . '?action=postpass'; // just keep this action path ... WordPress will refear for us
 				      ?>">
 					<?php wp_nonce_field( 'password_protection', 'submit_password_nonce' ); ?>
 					<input type="hidden" name="submit_password" value="1"/>
@@ -1097,7 +1048,7 @@ function timber_is_password_protected() {
 				if ( $post->post_password === $_POST['post_password'] ) {
 					$private_post['allowed'] = true;
 
-					// ok if we have a correct password we should inform wordpress too
+					// ok if we have a correct password we should inform WordPress too
 					// otherwise the mad dog will put the password form again in the_content() and other filters
 					global $wp_hasher;
 					if ( empty( $wp_hasher ) ) {
