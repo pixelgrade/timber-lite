@@ -180,7 +180,7 @@ if ( ! function_exists( 'timber_comment' ) ) :
 					<?php printf( '<span class="comment__author-name">%s</span>', get_comment_author_link() ) ?>
 					<time class="comment__time" datetime="<?php comment_time( 'c' ); ?>">
 						<a href="<?php echo esc_url( get_comment_link( get_comment_ID() ) ) ?>"
-						   class="comment__timestamp"><?php printf( __( 'on %s at %s', 'timber-lite' ), get_comment_date(), get_comment_time() ); ?></a>
+						   class="comment__timestamp"><?php printf( __( 'on %1$s, at %2$s,', 'timber-lite' ), get_comment_date(), get_comment_time() ); ?></a>
 					</time>
 					<div class="comment__links">
 						<?php

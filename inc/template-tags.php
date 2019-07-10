@@ -80,9 +80,6 @@ if ( ! function_exists( 'timber_posted_on' ) ) :
  */
 function timber_posted_on() {
 	$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-//	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-//		$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
-//	}
 
 	$time_string = sprintf( $time_string,
 		esc_attr( get_the_date( 'c' ) ),
@@ -92,7 +89,8 @@ function timber_posted_on() {
 	);
 
 	$posted_on = sprintf(
-		esc_html_x( '%s', 'post date' ),
+	    /* translators: 1: date */
+		esc_html_x( 'Posted on %s', 'post date', 'timber-lite' ),
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
 
@@ -113,7 +111,8 @@ function timber_entry_footer() {
 
 		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
-			printf( '<span class="tags-links">' . esc_html__( '%1$s' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+			/* translators: 1: tag */
+			printf( '<span class="tags-links">' . esc_html__( 'Tags: %1$s', 'timber-lite' ) . '</span>', $tags_list ); // WPCS: XSS OK.
 		}
 	}
 
