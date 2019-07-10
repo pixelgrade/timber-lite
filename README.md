@@ -10,10 +10,10 @@ The proposed value of **Open Source** is that by freely sharing the code with th
 It's great if you're willing to use your skills, knowledge, and experience to help further refine this project with your own improvements. We really appreciate it and you're 💯 welcome to submit an issue or pull request on any topic.
 
 ### How can you help?
-- **Discovered an issue?** Please report it [here](https://github.com/pixelgrade/timber/issues/new "here").
-- **Fixed a bug?** Send a [pull request](https://github.com/pixelgrade/timber/pulls "pull request").
-- **Need a feature?** Propose it [here](https://github.com/pixelgrade/timber/issues/new "here").
-- **Have you made something great?** [Share](https://github.com/pixelgrade/timber/issues/new "Share") it with us.
+- **Discovered an issue?** Please report it [here](https://github.com/pixelgrade/timber-lite/issues/new "here").
+- **Fixed a bug?** Send a [pull request](https://github.com/pixelgrade/timber-lite/pulls "pull request").
+- **Need a feature?** Propose it [here](https://github.com/pixelgrade/timber-lite/issues/new "here").
+- **Have you made something great?** [Share](https://github.com/pixelgrade/timber-lite/issues/new "Share") it with us.
 
 ## Changelog
 = 1.0.0 =
