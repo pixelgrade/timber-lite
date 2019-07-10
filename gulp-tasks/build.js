@@ -107,7 +107,7 @@ gulp.task( 'move-variation-specific-files', ['txtdomain-replace'], function() {
 // -----------------------------------------------------------------------------
 
 gulp.task( 'build', 'Remove unneeded files and folders from the build folder', ['move-variation-specific-files'], function() {
-    let variation = 'timber';
+    let variation = 'timber-lite';
 
     if ( argv.variation !== undefined ) {
         variation = argv.variation;
@@ -180,7 +180,7 @@ gulp.task( 'build', 'Remove unneeded files and folders from the build folder', [
 // -----------------------------------------------------------------------------
 
 gulp.task( 'zip', 'Create the theme installer archive and delete the build folder', ['build'], function() {
-    let variation = 'timber';
+    let variation = 'timber-lite';
 
     if ( argv.variation !== undefined ) {
         variation = argv.variation;
