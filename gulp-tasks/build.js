@@ -27,7 +27,7 @@ gulp.task( 'styles-remove-sourcemaps', function() {
 // -----------------------------------------------------------------------------
 
 gulp.task( 'copy-folder', 'Copy theme production files to a build folder', ['styles-remove-sourcemaps'], function() {
-	let variation = 'timber';
+	let variation = 'timber-lite';
 
 	if ( argv.variation !== undefined ) {
 		variation = argv.variation;
