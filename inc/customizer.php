@@ -77,7 +77,7 @@ add_action( 'customize_preview_init', 'timber_customize_preview_js' );
  * Generate a link to the Timber Lite info page.
  */
 function timber_lite_get_pro_link() {
-	return 'https://pixelgrade.com/themes/blogging/timber-pro?utm_source=timber-lite-clients&utm_medium=customizer&utm_campaign=timber-lite';
+	return 'https://pixelgrade.com/themes/portfolio/timber-pro?utm_source=timber-lite-clients&utm_medium=customizer&utm_campaign=timber-lite';
 }
 
 /**
