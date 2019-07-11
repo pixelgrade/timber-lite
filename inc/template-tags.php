@@ -1177,7 +1177,7 @@ function timber_the_random_projects_images_data_uri( $maxnum = 5 ) {
 
 function data_uri($file, $mime)
 {
-    $contents = file_get_contents($file);
+    $contents = WP_Filesystem_Base::get_contents(  $file );
     $base64   = base64_encode($contents);
     return ('data:' . $mime . ';base64,' . $base64);
 }
