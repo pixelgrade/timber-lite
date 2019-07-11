@@ -80,6 +80,6 @@ function timber_lite_get_pro_link() {
  * Assets that will be loaded for the customizer sidebar
  */
 function timber_lite_customizer_assets() {
-	wp_enqueue_style( 'timber_lite_customizer_style', get_template_directory_uri() . '/admin/customizer.css', null, '1.0.0', false );
+	wp_enqueue_style( 'timber_lite_customizer_style', get_template_directory_uri() . '/admin/admin.css', null, '1.0.0', false );
 }
-add_action( 'customize_controls_enqueue_scripts', 'timber_lite_customizer_assets' );
+add_action( 'admin_enqueue_scripts', 'timber_lite_customizer_assets' );
