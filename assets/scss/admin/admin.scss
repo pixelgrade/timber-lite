@@ -81,3 +81,9 @@ $button-bg-color: #8E65C0;
   color: #ffffff;
   text-transform: capitalize;
 }
+
+
+// Make portfolio metabox visible
+#custom_portfolio_page_settings {
+  display: block !important;
+}

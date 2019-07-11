@@ -5878,11 +5878,6 @@ hr {
 .page-template-default.page-has-featured-image .site-header--placeholder {
   display: none; }
 
-.page-template-fullwidth-page .entry-title {
-  margin-bottom: 20px;
-  padding-top: 0;
-  text-align: right; }
-
 .not-found .page-title {
   margin-top: 0; }
 
@@ -5924,14 +5919,6 @@ body:not(.page) .entry-header, body.single-format-gallery .entry-header .entry-t
     position: absolute;
     left: 4px;
     bottom: 4px; }
-
-.page-template-fullwidth-page .site-main {
-  padding-right: 30px;
-  padding-left: 30px; }
-  @media only screen and (min-width: 900px) {
-    .page-template-fullwidth-page .site-main {
-      padding-right: 130px;
-      padding-left: 32px; } }
 
 /**
  *   5.12 - Single footer

@@ -58,4 +58,7 @@
   color: #ffffff;
   text-transform: capitalize; }
 
-/*# sourceMappingURL=customizer.css.map */
+#custom_portfolio_page_settings {
+  display: block !important; }
+
+/*# sourceMappingURL=admin.css.map */
