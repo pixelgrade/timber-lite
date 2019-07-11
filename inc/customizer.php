@@ -26,21 +26,25 @@ function timber_customize_register( $wp_customize ) {
 		/* translators: %s: The view pro link. */
 			__( '<div class="upsell-container">
 					<h2>Need More? Go PRO</h2>
-					<p>Take it to the next level. See the features below:</p>
+					<p>Take it to the next level and stand out. See the hotspots of Timber PRO:</p>
 					<ul class="upsell-features">
                             <li>
-                            	<h4>Personalize to Match Your Style</h4>
-                            	<div class="description">Having different tastes and preferences might be tricky for users, but not with Hive onboard. It has an intuitive and catchy interface which allows you to change <strong>fonts, colors or layout sizes</strong> in a blink of an eye.</div>
+                            	<h4>Advanced Customizations</h4>
+                            	<div class="description">Having different tastes and preferences might be tricky for users, but not with Timber onboard. It has an intuitive and catchy interface which allows you to <strong>change fonts, colors, or layout sizes</strong> in a blink of an eye.</div>
                             </li>
 
                             <li>
-                            	<h4>Adaptive Layouts For Your Posts</h4>
-                            	<div class="description">Whether your featured image is in portrait or landscape mode, Hive takes care of it by changing the post layout to provide the right fit.</div>
+                            	<h4>More ways to display your portfolio</h4>
+                            	<div class="description">Showcasing your work in different ways will give you more opportunities to express your creativity. That\'s why Timber PRO lets you use <strong>multiple layout styles, add text</strong> anywhere in your portfolio to add more context, <strong>insert videos</strong> to show behind the scenes, or highlight your film-making skills.</div>
                             </li>
 
                             <li>
+                            	<h4>Thrilling Page Transitions & Extra Filtering Options</h4>
+                            	<div class="description">We packed the whole experience into a <strong>fascinating loader</strong> that goes beyond what\'s ordinary and familiar. Besides, the social media <strong>sharing</strong>, portfolio, and blog <strong>category</strong> filtering options will equip you with the right tool to wow your audience.</div>
+                            </li>
+                              <li>
                             	<h4>Premium Customer Support</h4>
-                            	<div class="description">You will benefit by priority support from a caring and devoted team, eager to help and to spread happiness. We work hard to provide a flawless experience for those who vote us with trust and choose to be our special clients.</div>
+                            	<div class="description">You will benefit by priority support from a caring and devoted team, eager to help and to spread happiness. We work hard to provide a flawless experience for those who vote us with trust and choose to be our special client.</div>
                             </li>
 
                     </ul> %s </div>', 'timber-lite' ),
@@ -73,7 +77,7 @@ add_action( 'customize_preview_init', 'timber_customize_preview_js' );
  * Generate a link to the Timber Lite info page.
  */
 function timber_lite_get_pro_link() {
-	return 'https://pixelgrade.com/themes/blogging/timber-lite?utm_source=timber-lite-clients&utm_medium=customizer&utm_campaign=timber-lite#pro';
+	return 'https://pixelgrade.com/themes/blogging/timber-pro?utm_source=timber-lite-clients&utm_medium=customizer&utm_campaign=timber-lite';
 }
 
 /**
