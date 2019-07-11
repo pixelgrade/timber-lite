@@ -23,7 +23,7 @@ get_header(); ?>
             }
         } ?>
         <div class="site-sidebar  site-sidebar--archive">
-            <h1 class="site-sidebar__content  site-sidebar__text"><?php $tax = get_queried_object(); echo esc_html( $tax->name ); ?></h1>
+            <h1 class="site-sidebar__content  site-sidebar__text"><?php $portfolio_tag = get_queried_object(); echo esc_html( $portfolio_tag->name ); ?></h1>
         </div>
         <div class="portfolio-wrapper" <?php echo $data; ?>>
         <?php
