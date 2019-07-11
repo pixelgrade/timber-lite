@@ -18,11 +18,11 @@
 		 */
 
 		if ( get_query_var( 'paged' ) ) :
-			$paged = get_query_var( 'paged' );
+			$page_number = get_query_var( 'paged' );
 		elseif ( get_query_var( 'page' ) ) :
-			$paged = get_query_var( 'page' );
+			$page_number = get_query_var( 'page' );
 		else :
-			$paged = 1;
+			$page_number = 1;
 		endif;
 
 		$posts_per_page = get_option( 'jetpack_portfolio_posts_per_page', '12' );
@@ -31,7 +31,7 @@
 
 		$args = array(
 			'post_type' => 'jetpack-portfolio',
-			'paged' => $paged,
+			'paged' => $page_number,
 			'posts_per_page' => $posts_per_page,
 		);
 
@@ -46,9 +46,9 @@
 					<select class="filter  filter--mobile  js-filter-mobile-portfolio">
 						<option class="filter__item active" data-filter="*"><?php _e( 'All categories', 'timber-lite' ); ?></option>
 
-						<?php foreach ( $portfolio_types as $type ) : ?>
+						<?php foreach ( $portfolio_types as $portfolio_type ) : ?>
 
-							<option class="filter__item" data-filter=".jetpack-portfolio-type-<?php echo $type->slug; ?>"><?php echo $type->name; ?></option>
+							<option class="filter__item" data-filter=".jetpack-portfolio-type-<?php echo $portfolio_type->slug; ?>"><?php echo $portfolio_type->name; ?></option>
 
 						<?php endforeach; ?>
 

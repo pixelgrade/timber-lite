@@ -809,7 +809,7 @@ function timber_load_next_posts() {
 	if ( ! empty( $posts ) ) {
 		ob_start();
 
-		foreach ( $posts as $post ) : setup_postdata( $post );
+		foreach ( $posts as $single_post ) : setup_postdata( $single_post );
 			$template_path = 'template-parts/content';
 			$template_slug = get_post_format();
 
@@ -878,7 +878,7 @@ function timber_load_next_projects() {
 	if ( ! empty( $posts ) ) {
 		ob_start();
 
-		foreach ( $posts as $post ) : setup_postdata( $post );
+		foreach ( $posts as $single_post ) : setup_postdata( $single_post );
 			get_template_part( 'template-parts/content', 'portfolio' );
 		endforeach;
 
@@ -945,7 +945,7 @@ function timber_load_next_products() {
 	if ( ! empty( $posts ) ) {
 		ob_start();
 
-		foreach ( $posts as $post ) : setup_postdata( $post );
+		foreach ( $posts as $single_post ) : setup_postdata( $single_post );
 			wc_get_template_part( 'content', 'product' );
 		endforeach;
 

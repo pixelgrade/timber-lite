@@ -20,7 +20,7 @@ if ( ! empty( $featured ) ) :
 		<div class="projects-slider<?php if ( $numFeatured == 1 ) echo '  has--one-slide'; ?>">
 
 			<?php
-			foreach ( $featured as $post ) : setup_postdata( $post );
+			foreach ( $featured as $featured_post ) : setup_postdata( $featured_post );
 
 				get_template_part( 'template-parts/content', 'project-featured' );
 

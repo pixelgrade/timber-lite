@@ -79,7 +79,6 @@ $req       = get_option( 'require_name_email' );
 $aria_req  = ( $req ? " aria-required='true'" : '' );
 
 if ( is_user_logged_in() ) {
-	$current_user  = wp_get_current_user();
 	$comments_args = array(
 		// change the title of send button=
 		'title_reply'          => __( 'Leave a Comment', 'timber-lite' ),
