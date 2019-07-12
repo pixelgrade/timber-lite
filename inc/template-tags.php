@@ -1240,6 +1240,7 @@ function pixelgrade_footer_the_copyright() {
  * @return bool|string
  */
 function pixelgrade_footer_get_copyright_content() {
+	/* translators: 1: Author name, Pixelgrade */
 	$copyright_text = pixelgrade_option( 'footer_copyright', sprintf( esc_html__( '%%year%% &copy; Handcrafted with love by the %1$s Team', 'timber-lite' ), '<a href="https://pixelgrade.com/" rel="designer">Pixelgrade</a>' ) );
 
 	if ( ! empty( $copyright_text ) ) {
