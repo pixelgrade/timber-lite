@@ -729,7 +729,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				$url = wp_nonce_url(
 					add_query_arg(
 						array(
-							'plugin'                 => rawurlencode( $slug ),
+							'plugin'                 => urlencode( $slug ),
 							'tgmpa-' . $install_type => $install_type . '-plugin',
 						),
 						$this->get_tgmpa_url()
@@ -761,7 +761,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				$url = add_query_arg(
 					array(
 						'action' => $install_type . '-plugin',
-						'plugin' => rawurlencode( $slug ),
+						'plugin' => urlencode( $slug ),
 					),
 					'update.php'
 				);
@@ -1589,7 +1589,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				$url = add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
-						'plugin'    => rawurlencode( $slug ),
+						'plugin'    => urlencode( $slug ),
 						'TB_iframe' => 'true',
 						'width'     => '640',
 						'height'    => '500',
@@ -1669,7 +1669,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				}
 				$url = add_query_arg(
 					array(
-						'page' => rawurlencode( $this->menu ),
+						'page' => urlencode( $this->menu ),
 					),
 					self_admin_url( $parent )
 				);
@@ -1692,7 +1692,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 		public function get_tgmpa_status_url( $status ) {
 			return add_query_arg(
 				array(
-					'plugin_status' => rawurlencode( $status ),
+					'plugin_status' => urlencode( $status ),
 				),
 				$this->get_tgmpa_url()
 			);
@@ -2620,7 +2620,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 				$nonce_url = wp_nonce_url(
 					add_query_arg(
 						array(
-							'plugin'           => rawurlencode( $item['slug'] ),
+							'plugin'           => urlencode( $item['slug'] ),
 							'tgmpa-' . $action => $action . '-plugin',
 						),
 						$this->tgmpa->get_tgmpa_url()
