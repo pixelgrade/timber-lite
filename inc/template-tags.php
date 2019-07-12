@@ -933,7 +933,9 @@ if ( ! function_exists( 'timber_get_post_format_link' ) ) :
 		}
 
 		return $before . '<span class="entry-format">
-				<a href="' . esc_url( get_post_format_link( $post_format ) ) .'" title="' . esc_attr( sprintf( __( 'All %s Posts', 'timber-lite' ), get_post_format_string( $post_format ) ) ) . '">' .
+				<a href="' . esc_url( get_post_format_link( $post_format ) ) .'" title="' . esc_attr(
+			/* translators: %s: Post format */
+				sprintf( __( 'All %s Posts', 'timber-lite' ), get_post_format_string( $post_format ) ) ) . '">' .
 		       get_post_format_string( $post_format ) .
 		       '</a>
 			</span>' . $after;
