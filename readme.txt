@@ -1,5 +1,5 @@
 Theme Name: Timber Lite
-Theme URI: https://demos.pixelgrade.com/timber-lite/
+Theme URI: https://github.com/pixelgrade/timber-lite
 Author: Pixelgrade
 Author URI: https://pixelgrade.com/
 Description: Timber Lite is a free photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience.
@@ -13,8 +13,7 @@ Requires at least: 4.7
 Tested up to: 5.2.2
 
 == Description ==
-Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience. You get a carefully chosen cutting edge set of tools to propel your photography showcase to new heights. A theme that matches your passion and artistic aspirations.
-
+Timber Lite is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
 == Changelog ==
 
 = 1.0.0 =
@@ -38,4 +37,6 @@ The Timber Lite Theme bundles the following third-party resources:
 * snap.svg https://github.com/adobe-webplatform/Snap.svg/, (c) 2013 – 2017 Adobe Systems Incorporated, licensed under [Apache License 2.0] (https://www.apache.org/licenses/LICENSE-2.0)
 * modernizr.js https://github.com/modernizr/modernizr, (c) 2009 , licensed under [MIT](https://opensource.org/licenses/MIT) @todo complete author
 * jQuery-mousewheel https://github.com/jquery/jquery-mousewheel, (c) jQuery Foundation, licensed under [MIT](https://opensource.org/licenses/MIT)
+
+* Images: screenshot images by Jonas Svidras - [Image 1](https://pxhere.com/en/photo/1427193) and [Image 2](https://pxhere.com/en/photo/976371), licensed under CC0 Public Domain.
 

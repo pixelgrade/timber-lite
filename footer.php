@@ -37,7 +37,7 @@ if ( $timber_show_footer ) {
 </div>
 
 <script>
-     <?php timber_the_random_projects_images_srcs(); ?>;
+     var loaderRandomImages = <?php timber_the_random_projects_images_srcs(); ?>;
 </script>
 
 <?php wp_footer();?>
