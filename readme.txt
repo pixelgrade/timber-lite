@@ -13,8 +13,7 @@ Requires at least: 4.7
 Tested up to: 5.2.2
 
 == Description ==
-Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience. You get a carefully chosen cutting edge set of tools to propel your photography showcase to new heights. A theme that matches your passion and artistic aspirations.
-
+Timber is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
 == Changelog ==
 
 = 1.0.0 =
