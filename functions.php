@@ -111,7 +111,6 @@ function timber_filter_attachment_links_on_singles( $link, $id  ){
 	return $link;
 }
 
-
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
@@ -223,7 +222,6 @@ add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
 /*
  * Enqueue some custom JS in the admin area for various small tasks
  */
-add_action('admin_enqueue_scripts','timber_add_admin_page_scripts');
 function timber_add_admin_page_scripts( $hook ){
 
 	wp_enqueue_script(
@@ -232,9 +230,12 @@ function timber_add_admin_page_scripts( $hook ){
 		array('jquery') //dependencies
 	);
 }
+add_action('admin_enqueue_scripts','timber_add_admin_page_scripts');
 
-/// add custom css to the new-project admin page
-add_action('admin_head','timber_add_new_project_admin_style');
+
+/*
+ * Add custom css to the new-project admin page
+ */
 function timber_add_new_project_admin_style( $hook ){
 	global $typenow;
 
@@ -252,6 +253,7 @@ $output = '
 		echo $output;
 	}
 }
+add_action('admin_head','timber_add_new_project_admin_style');
 
 function timber_add_new_project_admin_editor_style() {
 	global $typenow;
@@ -334,8 +336,8 @@ function timber_get_queued_styles() {
 	}
 	return $loading_styles;
 }
-
 add_action( 'wp_enqueue_scripts', 'timber_localize_scripts_and_styles', 999999999 );
+
 /**
  * Localize a static list with resources already loaded on the first page load this lists will be filled on
  * each d-jax request which has new resources
@@ -483,11 +485,6 @@ function timber_setup_addthis() {
     }
 }
 add_action( 'wp_head', 'timber_setup_addthis' );
-
-/**
- * Load theme's configuration file.
- */
-require get_template_directory() . '/inc/config.php';
 
 /**
  * And all the activation hooks.

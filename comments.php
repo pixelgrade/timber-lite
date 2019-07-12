@@ -33,15 +33,7 @@ if ( post_password_required() ) {
 		</div>
 		<?php
 		// You can start editing here -- including this comment!
-		if ( have_comments() ) :
-			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
-				<nav role="navigation" id="comment-nav-above" class="site-navigation comment-navigation">
-					<span class="comment-number  comment-number--dark">&bull;</span>
-					<h3 class="comment-navigation__title  assistive-text"><?php _e( 'Comment navigation', 'timber-lite' ); ?></h3>
-					<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'timber-lite' ) ); ?></div>
-					<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'timber-lite' ) ); ?></div>
-				</nav><!-- #comment-nav-before .site-navigation .comment-navigation -->
-			<?php endif; // check for comment navigation ?>
+		if ( have_comments() ) : ?>
 
 			<ol class="comment-list">
 				<?php

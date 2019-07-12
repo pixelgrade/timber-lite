@@ -276,7 +276,6 @@ function timber_comment_form_remove_notes_after( $defaults ) {
 
 	return $defaults;
 }
-
 add_filter( 'comment_form_defaults', 'timber_comment_form_remove_notes_after' );
 
 /**
@@ -295,7 +294,6 @@ function timber_link_pages( $link ) {
 
 	return $link;
 }
-
 add_filter( 'wp_link_pages_link', 'timber_link_pages' );
 
 /**
@@ -304,7 +302,6 @@ add_filter( 'wp_link_pages_link', 'timber_link_pages' );
 function timber_read_more_link( $link ) {
 	return '<div class="more-link-wrapper">' . $link . '</div>';
 }
-
 add_filter( 'the_content_more_link', 'timber_read_more_link' );
 
 /**
@@ -313,7 +310,6 @@ add_filter( 'the_content_more_link', 'timber_read_more_link' );
 function timber_excerpt_length( $length ) {
 	return 35;
 }
-
 add_filter( 'excerpt_length', 'timber_excerpt_length', 999 );
 
 
@@ -322,7 +318,6 @@ function timber_remove_shortcode_from_excerpt( $content ) {
 
 	return $content;//always return $content
 }
-
 add_filter( 'get_the_excerpt', 'timber_remove_shortcode_from_excerpt' );
 
 
@@ -337,7 +332,6 @@ function timber_strip_first_content_gallery( $content ) {
 
 	return $content;
 }
-
 add_filter( 'the_content', 'timber_strip_first_content_gallery' );
 
 /**
@@ -712,7 +706,6 @@ function timber_search_form( $form ) {
 
 	return $form;
 }
-
 add_filter( 'get_search_form', 'timber_search_form' );
 
 /**
@@ -1034,7 +1027,6 @@ function timber_prepare_password_for_custom_post_types() {
 	$timber_private_post = timber_is_password_protected();
 
 }
-
 add_action( 'wp', 'timber_prepare_password_for_custom_post_types' );
 
 function timber_is_password_protected() {
@@ -1071,11 +1063,3 @@ function timber_is_password_protected() {
 
 	return $private_post;
 }
-
-//Force large image sizes on the shop so we can let the WP 4.4 responsive images do their thing
-//function timber_woo_shop_thumbnail_size( $size ) {
-//	if ( 'shop_catalog' == $size ) {
-//		return 'large';
-//	}
-//}
-//add_filter( 'post_thumbnail_size', 'timber_woo_shop_thumbnail_size' );

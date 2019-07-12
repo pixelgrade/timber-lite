@@ -22,7 +22,7 @@ get_header(); ?>
 			<div class="site-sidebar">
 				<div class="site-sidebar__content  site-sidebar__text">
 					<?php
-					/* translators: 1: searched term. */
+					/* translators: s%: searched term. */
                     printf( esc_html__( 'Search Results for %s', 'timber-lite' ), '<div class="divider"></div><span>' . get_search_query() . '</span>' ); ?>
 				</div>
 			</div>
