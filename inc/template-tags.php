@@ -1062,7 +1062,6 @@ if ( ! function_exists('timber_body_attributes') ):
 		$data_currentID = '';
 		$data_currentEditString = '';
 		$data_currentTaxonomy = '';
-//		if ( ( pixelgrade_option('use_ajax_loading') == 1 ) ) {
 			$current_object = get_queried_object();
 
 			if (!empty($current_object->post_type)

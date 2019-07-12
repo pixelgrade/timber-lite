@@ -87,10 +87,6 @@ if ( ! function_exists( 'timber_setup' ) ) :
 			'link',
 		) );
 
-		// custom javascript handlers - make sure it is the last one added
-		add_action( 'wp_head', 'timber_load_custom_js_header', 999 );
-		add_action( 'wp_footer', 'timber_load_custom_js_footer', 999 );
-
 		add_filter( 'attachment_link', 'timber_filter_attachment_links_on_singles', 2, 2 );
 	}
 endif; // timber_setup
@@ -181,7 +177,7 @@ function timber_scripts_styles() {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
-	if ( is_singular() && pixelgrade_option( 'show_share_links' ) ) {
+	if ( is_singular() ) {
 		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
 	}
 
@@ -263,37 +259,6 @@ function timber_add_new_project_admin_editor_style() {
 	}
 }
 add_action( 'admin_init', 'timber_add_new_project_admin_editor_style' );
-
-/**
- * Load custom javascript set by theme options
- * This method is invoked by wpgrade_callback_themesetup
- * The function is executed on wp_enqueue_scripts
- */
-function timber_load_custom_js_header() {
-	$custom_js = pixelgrade_option( 'custom_js' );
-	if ( ! empty( $custom_js ) ) {
-		//first lets test is the js code is clean or has <script> tags and such
-		//if we have <script> tags than we will not enclose it in anything - raw output
-		if ( strpos( $custom_js, '</script>' ) !== false ) {
-			echo $custom_js . "\n";
-		} else {
-			echo "<script type=\"text/javascript\">\n;(function($){\n" . $custom_js . "\n})(jQuery);\n</script>\n";
-		}
-	}
-}
-
-function timber_load_custom_js_footer() {
-	$custom_js = pixelgrade_option( 'custom_js_footer' );
-	if ( ! empty( $custom_js ) ) {
-		//first lets test is the js code is clean or has <script> tags and such
-		//if we have <script> tags than we will not enclose it in anything - raw output
-		if ( strpos( $custom_js, '</script>' ) !== false ) {
-			echo $custom_js . "\n";
-		} else {
-			echo "<script type=\"text/javascript\">\n;(function($){\n" . $custom_js . "\n})(jQuery);\n</script>\n";
-		}
-	}
-}
 
 /**
  * Get an array with all queued scripts
@@ -479,7 +444,7 @@ add_action( 'admin_enqueue_scripts', 'timber_wp_enqueue_media' );
  * Add the global AddThis configuration in the <head>
  */
 function timber_setup_addthis() {
-    if ( is_singular() && pixelgrade_option( 'show_share_links' ) ) {
+    if ( is_singular() ) {
         //here we will configure the AddThis sharing globally
         get_template_part( 'inc/integrations/addthis/addthis-js-config' );
     }

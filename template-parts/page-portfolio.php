@@ -6,15 +6,6 @@
 		/**
 		 * Displays portfolio page content if user opts to
 		 * Can be controlled in Appearance > Customize > Theme Options
-
-		if ( ! pixelgrade_option( 'hide_portfolio_page_content', false ) ) : ?>
-
-			<?php while ( have_posts() ) : the_post(); ?>
-
-				<?php get_template_part( 'template-parts/content', 'page' ); ?>
-
-			<?php endwhile; // end of the loop.
-		endif;
 		 */
 
 		if ( get_query_var( 'paged' ) ) :
