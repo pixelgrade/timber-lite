@@ -2947,7 +2947,7 @@ if ( ! class_exists( 'TGMPA_List_Table' ) ) {
 					$last_plugin  = array_pop( $plugin_names ); // Pop off last name to prep for readability.
 					$imploded     = empty( $plugin_names ) ? $last_plugin : ( implode( ', ', $plugin_names ) . ' ' . esc_html_x( 'and', 'plugin A *and* plugin B', 'timber-lite' ) . ' ' . $last_plugin );
 
-					printf( // WPCS: xss ok.
+					printf( // phpcs:ignore Standard.Category.SniffName.ErrorCode
 						'<div id="message" class="updated"><p>%1$s %2$s.</p></div>',
 						esc_html( _n( 'The following plugin was activated successfully:', 'The following plugins were activated successfully:', $count, 'timber-lite' ) ),
 						$imploded

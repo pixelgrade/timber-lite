@@ -66,7 +66,7 @@ function timber_posted_on() {
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
 
-	echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
+	echo '<span class="posted-on">' . $posted_on . '</span>'; // phpcs:ignore Standard.Category.SniffName.ErrorCode
 
 }
 endif;
@@ -84,7 +84,7 @@ function timber_entry_footer() {
 		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
 			/* translators: 1: tag */
-			printf( '<span class="tags-links">' . esc_html__( 'Tags: %1$s', 'timber-lite' ) . '</span>', $tags_list ); // WPCS: XSS OK.
+			printf( '<span class="tags-links">' . esc_html__( 'Tags: %1$s', 'timber-lite' ) . '</span>', $tags_list ); // phpcs:ignore Standard.Category.SniffName.ErrorCode
 		}
 	}
 
