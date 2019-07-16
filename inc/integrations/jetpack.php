@@ -55,4 +55,4 @@ function timber_post_is_project( $post = null ) {
 	}
 
 	return false;
-} ?>
+}

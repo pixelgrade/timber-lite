@@ -441,17 +441,6 @@ function timber_wp_enqueue_media() {
 add_action( 'admin_enqueue_scripts', 'timber_wp_enqueue_media' );
 
 /**
- * Add the global AddThis configuration in the <head>
- */
-function timber_setup_addthis() {
-    if ( is_singular() ) {
-        //here we will configure the AddThis sharing globally
-        get_template_part( 'inc/integrations/addthis/addthis-js-config' );
-    }
-}
-add_action( 'wp_head', 'timber_setup_addthis' );
-
-/**
  * And all the activation hooks.
  */
 require get_template_directory() . '/inc/activation.php';

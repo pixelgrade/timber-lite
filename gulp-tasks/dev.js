@@ -5,90 +5,66 @@
  * @version 1.0.0
  */
 
-var gulp = require( 'gulp-help' )( require( 'gulp' ) ),
-	plugins = require( 'gulp-load-plugins' )(),
-	del = require( 'del' ),
-	bs = require( 'browser-sync' ),
+var gulp = require( 'gulp' ),
+	plugins = require('gulp-load-plugins')(),
+	del = require('del'),
+	bs = require('browser-sync'),
 	argv = require('yargs').argv;
 
 var u = plugins.util,
 	c = plugins.util.colors,
-	log = plugins.util.log;
+	log = plugins.util.log
 
 // -----------------------------------------------------------------------------
 // Stylesheets
 // -----------------------------------------------------------------------------
 
-function logError( err, res ) {
-	log( c.red( 'Sass failed to compile' ) );
-	log( c.red( '> ' ) + err.file.split( '/' )[err.file.split( '/' ).length - 1] + ' ' + c.underline( 'line ' + err.line ) + ': ' + err.message );
+function logError (err, res) {
+	log(c.red('Sass failed to compile'))
+	log(c.red('> ') + err.file.split('/')[err.file.split('/').length - 1] + ' ' + c.underline('line ' + err.line) + ': ' + err.message)
 }
 
-gulp.task( 'styles-main', 'Compiles main css files (ie. style.css editor-style.css)', function() {
+function stylesMain() {
+	let variation = 'timber-lite'
 
-	return gulp.src( 'assets/scss/*.scss' )
-	           .pipe( plugins.sourcemaps.init() )
-	           .pipe( plugins.sass().on( 'error', logError ) )
-	           .pipe( plugins.autoprefixer() )
-	           .pipe( plugins.sourcemaps.write( '.' ) )
-	           .pipe( gulp.dest( '.' ) );
-} );
+	if (argv.variation !== undefined) {
+		variation = argv.variation
+	}
 
-gulp.task('styles-admin', 'Compiles styles that will be loaded in WP dashboard.', function(){
-	return gulp.src('assets/scss/admin/*.scss')
-	           .pipe( plugins.sourcemaps.init() )
-	           .pipe( plugins.sass().on( 'error', logError ) )
-	           .pipe( plugins.autoprefixer() )
-	           .pipe( plugins.sourcemaps.write( '.' ) )
-	           .pipe( gulp.dest( './admin' ) );
-});
+	return gulp.src('assets/scss/**/*.scss')
+		.pipe(plugins.sourcemaps.init())
+		.pipe(plugins.sass().on('error', logError))
+		.pipe(plugins.autoprefixer())
+		.pipe(plugins.sourcemaps.write('.'))
+		.pipe(plugins.replace(/^@charset \"UTF-8\";\n/gm, ''))
+		.pipe(gulp.dest('.'))
+}
+stylesMain.description = 'Compiles main css files (ie. style.css editor-style.css)';
+gulp.task('styles-main', stylesMain )
 
-gulp.task( 'styles-rtl', 'Generate rtl.css file based on style.css', function() {
-	return gulp.src( 'style.css' )
-	           .pipe( plugins.rtlcss() )
-	           .pipe( plugins.rename( 'rtl.css' ) )
-	           .pipe( gulp.dest( '.' ) );
-} );
+function stylesRtl() {
+	return gulp.src('style.css')
+		.pipe(plugins.rtlcss())
+		.pipe(plugins.rename('style-rtl.css'))
+		.pipe(gulp.dest('.'))
+}
+stylesRtl.description = 'Generate style-rtl.css file based on style.css';
+gulp.task('styles-rtl', stylesRtl )
 
-gulp.task( 'styles-components', 'Compiles Sass and uses autoprefixer', function() {
-	return gulp.src( 'components/**/*.scss' )
-	           .pipe( plugins.sass().on( 'error', logError ) )
-	           .pipe( plugins.autoprefixer() )
-	           .pipe( plugins.rename( function( path ) {
-		           path.dirname = path.dirname.replace( '/scss', '' );
-		           path.dirname += "/css";
-	           } ) )
-	           .pipe( gulp.dest( './components' ) );
-} );
+function stylesProcess() {
+	return gulp.src('style.css')
+		.pipe(plugins.sourcemaps.init({loadMaps: true}))
+		// @todo some processing
+		.pipe(plugins.sourcemaps.write('.'))
+		.pipe(gulp.dest('.'))
+}
+gulp.task('styles-process', stylesProcess)
 
-gulp.task( 'styles', 'Compile styles', function( cb ) {
-	plugins.sequence( 'typeline-config', 'typeline-phpconfig', 'styles-components', 'styles-main', 'styles-admin', 'styles-rtl', cb );
-} );
-
-
-
-
-
-// -----------------------------------------------------------------------------
-// Scripts
-// -----------------------------------------------------------------------------
-
-var jsFiles = [
-	'assets/js/vendor/*.js',
-	'assets/js/main/wrapper-start.js',
-	'assets/js/main/unsorted.js',
-	'assets/js/main/functions.js',
-	'assets/js/modules/*.js',
-	'assets/js/main/main.js',
-	'assets/js/main/wrapper-end.js',
-];
-
-
-gulp.task( 'scripts', 'Concatenate all JS into main.js and wrap all code in a closure', function() {
-	return gulp.src( jsFiles )
-	           .pipe( plugins.concat( 'main.js' ) )
-	           .pipe( gulp.dest( './assets/js/' ) );
-} );
+function stylesSequence(cb) {
+	gulp.series( 'styles-main', 'styles-rtl')(cb);
+}
+stylesSequence.description = 'Compile all styles';
+gulp.task('styles', stylesSequence )
 
 // -----------------------------------------------------------------------------
 // Watch tasks
@@ -102,19 +78,27 @@ gulp.task( 'scripts', 'Concatenate all JS into main.js and wrap all code in a cl
 // to run those tasks more frequently, set up a new watch task here.
 // -----------------------------------------------------------------------------
 
-gulp.task( 'watch', 'Watch for changes to various files and process them', ['compile'], function() {
-	gulp.watch( [
-		'inc/integrations/typeline-config.json',
-		'inc/integrations/typeline-config-editor.json'
-	], ['typeline-config', 'typeline-phpconfig'] );
-	gulp.watch( ['components/**/*.scss', 'assets/scss/**/*.scss'], ['styles'] );
-	gulp.watch( 'assets/js/**/*.js', ['scripts'] );
-} );
+function watchStart() {
+	let variation = 'timber-lite'
 
+	if (argv.variation !== undefined) {
+		variation = argv.variation
+	}
 
+	// watch for theme related CSS changes
+	gulp.watch( ['assets/scss/**/*.scss'], stylesMain )
 
+	// watch for JavaScript changes
+	// gulp.watch('assets/js/**/*.js', ['scripts'])
+}
+watchStart.description = 'Watch for changes to various files and process them';
+gulp.task( 'watch-start', watchStart )
 
-
+function watchSequence(cb) {
+	return gulp.series( 'compile', 'watch-start' )(cb);
+}
+watchSequence.description = 'Compile and watch for changes to various JSON, SCSS and JS files and process them';
+gulp.task( 'watch', watchSequence )
 
 // -----------------------------------------------------------------------------
 // Browser Sync using Proxy server
@@ -129,18 +113,19 @@ gulp.task( 'watch', 'Watch for changes to various files and process them', ['com
 // Usage: gulp browser-sync-proxy --port 8080
 // -----------------------------------------------------------------------------
 
-gulp.task( 'browser-sync', false, function() {
-	bs( {
+function browserSync() {
+	bs({
 		// Point this to your pre-existing server.
 		proxy: config.baseurl + (
 			u.env.port ? ':' + u.env.port : ''
 		),
-		files: ['*.php', 'style.css', 'assets/js/main.js'],
+		files: ['*.php', 'style.css', 'assets/js/*.js'],
 		// This tells BrowserSync to auto-open a tab once it boots.
 		open: true
-	}, function( err, bs ) {
-		if ( err ) {
-			console.log( bs.options );
+	}, function (err, bs) {
+		if (err) {
+			console.log(bs.options)
 		}
-	} );
-} );
+	})
+}
+gulp.task('browser-sync', browserSync )
