@@ -6,17 +6,13 @@
  * @since Timber 1.0
  */
 
-//get the slider settings
-$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true);
-$show_adjacent_projects = get_post_meta( timber_get_post_id(), 'show_adjacent_projects', true);
-
 //get the featured projects
 $featured = timber_get_featured_projects();
 if ( ! empty( $featured ) ) :
 	$numFeatured = count( $featured ); ?>
 
 <div id="primary" class="content-area">
-	<main id="main" class="site-main <?php echo 'slider--' . $show_adjacent_projects . ' slider--' . $projects_slider_height ?>">
+	<main id="main" class="site-main slider--show_next slider--default>
 		<div class="projects-slider<?php if ( $numFeatured == 1 ) echo '  has--one-slide'; ?>">
 
 			<?php

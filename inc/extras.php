@@ -58,7 +58,7 @@ function timber_body_classes( $classes ) {
 
 		// add classes for a project layout
 		if ( timber_post_is_project() ) {
-			$project_layout = get_post_meta( timber_get_post_id(), 'project_template', true );
+			$project_layout = 'filmstrip';
 
 			if ( empty( $project_layout ) && is_page() ) {
 				$homepage_project = get_post_meta( timber_get_post_id(), 'homepage_project', true );
@@ -84,7 +84,7 @@ function timber_body_classes( $classes ) {
 				$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true );
 
 				if ( timber_has_featured_projects() ) {
-					$projects_slider_height = get_post_meta( timber_get_post_id(), 'projects_slider_height', true );
+					$projects_slider_height = 'default';
 				}
 
 				if ( ! empty( $projects_slider_height ) ) {
