@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*
 Theme Name: Timber Lite
-Theme URI: https://demos.pixelgrade.com/timber-lite/
+Theme URI: https://github.com/pixelgrade/timber-lite
 Author: Pixelgrade
 Author URI: https://pixelgrade.com/
 Description: Timber is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
@@ -5376,6 +5376,9 @@ hr {
       .site-footer .site-branding, .site-footer .main-navigation, .site-footer .social-navigation, .site-footer .site-info, .site-footer .show-button, .site-footer .theme-name, .site-footer .back-to-top, .site-footer .project-addthis-container {
         display: block;
         padding: 0.75em; } }
+  .site-footer .sep {
+    margin-left: .5em;
+    margin-right: .5em; }
 
 .site-info {
   flex-basis: 100%;
@@ -8991,4 +8994,4 @@ html body .jp-carousel .selected {
 body {
   background-color: #FFFFFF; }
 
-
+/*# sourceMappingURL=style.css.map */
