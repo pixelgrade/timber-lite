@@ -167,45 +167,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						),
 
 						array(
-							'name'       => esc_html__( 'Slider Height', 'timber-lite' ),
-							'id'         => 'projects_slider_height',
-							'type'       => 'radio',
-							'std'    => 'default',
-							'options'    => array(
-								array(
-									'name' => wp_kses_post( __( '<span class="dashicons dashicons-editor-insertmore"></span> Standard', 'timber-lite' ) ),
-									'value' => 'default'
-								),
-							),
-							'display_on' => array(
-								'display' => true,
-								'on'      => array(
-									'field' => 'custom_portfolio_page_type',
-									'value' => 'project_slider',
-								)
-							),
-						),
-						array(
-							'name'       => esc_html__( 'Slider Navigation', 'timber-lite' ),
-							'id'         => 'show_adjacent_projects',
-							'type'       => 'radio',
-							'std'    => 'show_next',
-							'options'    => array(
-								array(
-									'name' => wp_kses_post( __( '<span class="dashicons dashicons-arrow-right"></span> Next Only', 'timber-lite' ) ),
-									'value' => 'show_next',
-								)
-							),
-							'display_on' => array(
-								'display' => true,
-								'on'      => array(
-									'field' => 'custom_portfolio_page_type',
-									'value' => 'project_slider',
-								)
-							),
-						),
-
-						array(
 							'name'       => esc_html__( 'Select the project', 'timber-lite' ),
 							'desc'       => esc_html__( 'Example: You can have a Filmstrip or Fullscreen gallery on the Front page (see above for details).', 'timber-lite' ),
 							'id'         => 'homepage_project',
@@ -227,29 +188,6 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 							'sanitization_cb' => 'pw_select2_sanitise',
 						),
 					),
-				),
-
-				'timber_project_settings' => array(
-					'id'         => 'timber_project_settings',
-					'title'      => esc_html__( 'Project settings', 'timber-lite' ),
-					'pages'      => array( 'jetpack-portfolio' ), // Post type
-					'context'    => 'normal',
-					'priority'   => 'high',
-					'show_names' => true, // Show field names on the left
-					'fields'     => array(
-						array(
-							'name'       => wp_kses_post( __( 'Layout Style<a class="tooltip" title="Select the initial layout for this project."></a>', 'timber-lite' ) ),
-							'id'         => 'project_template',
-							'type'       => 'radio',
-							'std'    => 'filmstrip',
-							'options'    => array(
-								array(
-									'name' => esc_html__( 'Filmstrip', 'timber-lite' ),
-									'value' => 'filmstrip',
-								),
-							),
-						),
-					)
 				),
 			),
 		);
