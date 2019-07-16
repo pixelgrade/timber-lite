@@ -18,20 +18,20 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 			'first_activation' => true,
 			'post_types'       => array(
 				'jetpack-portfolio'   => array(
-					'description' => __( 'Portfolio Items', 'timber-lite' ),
+					'description' => esc_html__( 'Portfolio Items', 'timber-lite' ),
 					'labels'        => array(
-						'name'               => __( 'Projects', 'timber-lite' ),
-						'singular_name'      => __( 'Project', 'timber-lite' ),
-						'add_new'            => __( 'Add New', 'timber-lite' ),
-						'add_new_item'       => __( 'Add New Project', 'timber-lite' ),
-						'edit_item'          => __( 'Edit Project', 'timber-lite' ),
-						'new_item'           => __( 'New Project', 'timber-lite' ),
-						'all_items'          => __( 'All Projects', 'timber-lite' ),
-						'view_item'          => __( 'View Project', 'timber-lite' ),
-						'search_items'       => __( 'Search Projects', 'timber-lite' ),
-						'not_found'          => __( 'No Projects found', 'timber-lite' ),
-						'not_found_in_trash' => __( 'No Projects found in Trash', 'timber-lite' ),
-						'menu_name'          => __( 'Portfolio', 'timber-lite' ),
+						'name'               => esc_html__( 'Projects', 'timber-lite' ),
+						'singular_name'      => esc_html__( 'Project', 'timber-lite' ),
+						'add_new'            => esc_html__( 'Add New', 'timber-lite' ),
+						'add_new_item'       => esc_html__( 'Add New Project', 'timber-lite' ),
+						'edit_item'          => esc_html__( 'Edit Project', 'timber-lite' ),
+						'new_item'           => esc_html__( 'New Project', 'timber-lite' ),
+						'all_items'          => esc_html__( 'All Projects', 'timber-lite' ),
+						'view_item'          => esc_html__( 'View Project', 'timber-lite' ),
+						'search_items'       => esc_html__( 'Search Projects', 'timber-lite' ),
+						'not_found'          => esc_html__( 'No Projects found', 'timber-lite' ),
+						'not_found_in_trash' => esc_html__( 'No Projects found in Trash', 'timber-lite' ),
+						'menu_name'          => esc_html__( 'Portfolio', 'timber-lite' ),
 					),
 					'public'        => true,
 					'rewrite' => array(
@@ -92,21 +92,21 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 				'jetpack-portfolio-tag'   => array(
 					'hierarchical'      => false,
 					'labels'            => array(
-						'name'                       => __( 'Project Tags',                   'timber-lite' ),
-						'singular_name'              => __( 'Project Tag',                    'timber-lite' ),
-						'menu_name'                  => __( 'Project Tags',                   'timber-lite' ),
-						'all_items'                  => __( 'All Project Tags',               'timber-lite' ),
-						'edit_item'                  => __( 'Edit Project Tag',               'timber-lite' ),
-						'view_item'                  => __( 'View Project Tag',               'timber-lite' ),
-						'update_item'                => __( 'Update Project Tag',             'timber-lite' ),
-						'add_new_item'               => __( 'Add New Project Tag',            'timber-lite' ),
-						'new_item_name'              => __( 'New Project Tag Name',           'timber-lite' ),
-						'search_items'               => __( 'Search Project Tags',            'timber-lite' ),
-						'popular_items'              => __( 'Popular Project Tags',           'timber-lite' ),
-						'separate_items_with_commas' => __( 'Separate tags with commas',      'timber-lite' ),
-						'add_or_remove_items'        => __( 'Add or remove tags',             'timber-lite' ),
-						'choose_from_most_used'      => __( 'Choose from the most used tags', 'timber-lite' ),
-						'not_found'                  => __( 'No tags found.',                 'timber-lite' ),
+						'name'                       => esc_html__( 'Project Tags',                   'timber-lite' ),
+						'singular_name'              => esc_html__( 'Project Tag',                    'timber-lite' ),
+						'menu_name'                  => esc_html__( 'Project Tags',                   'timber-lite' ),
+						'all_items'                  => esc_html__( 'All Project Tags',               'timber-lite' ),
+						'edit_item'                  => esc_html__( 'Edit Project Tag',               'timber-lite' ),
+						'view_item'                  => esc_html__( 'View Project Tag',               'timber-lite' ),
+						'update_item'                => esc_html__( 'Update Project Tag',             'timber-lite' ),
+						'add_new_item'               => esc_html__( 'Add New Project Tag',            'timber-lite' ),
+						'new_item_name'              => esc_html__( 'New Project Tag Name',           'timber-lite' ),
+						'search_items'               => esc_html__( 'Search Project Tags',            'timber-lite' ),
+						'popular_items'              => esc_html__( 'Popular Project Tags',           'timber-lite' ),
+						'separate_items_with_commas' => esc_html__( 'Separate tags with commas',      'timber-lite' ),
+						'add_or_remove_items'        => esc_html__( 'Add or remove tags',             'timber-lite' ),
+						'choose_from_most_used'      => esc_html__( 'Choose from the most used tags', 'timber-lite' ),
+						'not_found'                  => esc_html__( 'No tags found.',                 'timber-lite' ),
 					),
 					'show_admin_column' => true,
 					'rewrite'           => array( 'slug' => 'project-tag' ),
@@ -119,7 +119,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 
 				'custom_portfolio_page_settings'   => array(
 					'id'         => 'custom_portfolio_page_settings',
-					'title'      => __( 'Custom Portfolio Template Options', 'timber-lite' ),
+					'title'      => esc_html__( 'Custom Portfolio Template Options', 'timber-lite' ),
 					'pages'      => array( 'page' ), // Post type
 					'context'    => 'normal',
 					'priority'   => 'high',
@@ -127,27 +127,27 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
 						array(
-							'name'    => __( 'Page Content<a class="tooltip" title="Select what content would you like to be on this page."></a>', 'timber-lite' ),
-							'desc'    => __( ' <p class="cmb_metabox_description" style="font-size: 90%">If you want to set this page as your <a href="https://en.support.wordpress.com/pages/front-page/" target="_blank">Front page</a>, simply go to <a href="customize.php">Customizer</a>, click on the <b>Static Front Page</b> tab on the left and select this one.</p>', 'timber-lite' ),
+							'name'    => wp_kses_post( __( 'Page Content<a class="tooltip" title="Select what content would you like to be on this page."></a>', 'timber-lite' ) ),
+							'desc'    => wp_kses_post( __( ' <p class="cmb_metabox_description" style="font-size: 90%">If you want to set this page as your <a href="https://en.support.wordpress.com/pages/front-page/" target="_blank">Front page</a>, simply go to <a href="customize.php">Customizer</a>, click on the <b>Static Front Page</b> tab on the left and select this one.</p>', 'timber-lite' ) ),
 							'id'      => 'custom_portfolio_page_type',
 							'type'    => 'radio',
 							'std'     => 'project_slider',
 							'options' => array(
 								array(
-									'name'  => __( '<span class="dashicons dashicons-format-gallery"></span> Projects Slider', 'timber-lite' ),
+									'name'  => wp_kses_post( __( '<span class="dashicons dashicons-format-gallery"></span> Projects Slider', 'timber-lite' ) ),
 									'value' => 'project_slider',
 								),
 								array(
-									'name'  => __( '<span class="dashicons dashicons-portfolio"></span> Portfolio Archive', 'timber-lite' ),
+									'name'  => wp_kses_post( __( '<span class="dashicons dashicons-portfolio"></span> Portfolio Archive', 'timber-lite' ) ),
 									'value' => 'portfolio',
 								),
 							)
 						),
 
 						array(
-							'name'    => __( 'Featured Projects', 'timber-lite' ),
+							'name'    => esc_html__( 'Featured Projects', 'timber-lite' ),
 							'id'      => 'portfolio_featured_projects',
-							'desc'    => __( 'Choose your featured projects. Drag and drop to reorder them to your liking.', 'timber-lite' ),
+							'desc'    => esc_html__( 'Choose your featured projects. Drag and drop to reorder them to your liking.', 'timber-lite' ),
 							'type'    => 'pw_multiselect_cpt',
 							'options' => array(
 								'args' => array(
@@ -167,14 +167,13 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 						),
 
 						array(
-							'name'       => __( 'Slider Height', 'timber-lite' ),
-							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber-lite' ),
+							'name'       => esc_html__( 'Slider Height', 'timber-lite' ),
 							'id'         => 'projects_slider_height',
 							'type'       => 'radio',
 							'std'    => 'default',
 							'options'    => array(
 								array(
-									'name' => __( '<span class="dashicons dashicons-editor-insertmore"></span> Standard', 'timber-lite' ),
+									'name' => wp_kses_post( __( '<span class="dashicons dashicons-editor-insertmore"></span> Standard', 'timber-lite' ) ),
 									'value' => 'default'
 								),
 							),
@@ -182,34 +181,33 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								'display' => true,
 								'on'      => array(
 									'field' => 'custom_portfolio_page_type',
-									'value' => 'project_slider'
+									'value' => 'project_slider',
 								)
 							),
 						),
 						array(
-							'name'       => __( 'Slider Navigation', 'timber-lite' ),
-							//'desc'       => __( 'Select a galleries category and we will show it on your homepage.', 'timber-lite' ),
+							'name'       => esc_html__( 'Slider Navigation', 'timber-lite' ),
 							'id'         => 'show_adjacent_projects',
 							'type'       => 'radio',
 							'std'    => 'show_next',
 							'options'    => array(
 								array(
-									'name' => __( '<span class="dashicons dashicons-arrow-right"></span> Next Only', 'timber-lite' ),
-									'value' => 'show_next'
+									'name' => wp_kses_post( __( '<span class="dashicons dashicons-arrow-right"></span> Next Only', 'timber-lite' ) ),
+									'value' => 'show_next',
 								)
 							),
 							'display_on' => array(
 								'display' => true,
 								'on'      => array(
 									'field' => 'custom_portfolio_page_type',
-									'value' => 'project_slider'
+									'value' => 'project_slider',
 								)
 							),
 						),
 
 						array(
-							'name'       => __( 'Select the project', 'timber-lite' ),
-							'desc'       => __( 'Example: You can have a Filmstrip or Fullscreen gallery on the Front page (see above for details).', 'timber-lite' ),
+							'name'       => esc_html__( 'Select the project', 'timber-lite' ),
+							'desc'       => esc_html__( 'Example: You can have a Filmstrip or Fullscreen gallery on the Front page (see above for details).', 'timber-lite' ),
 							'id'         => 'homepage_project',
 							'type'       => 'select_cpt_post',
 							'options'    => array(
@@ -223,7 +221,7 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 								'display' => true,
 								'on'      => array(
 									'field' => 'custom_portfolio_page_type',
-									'value' => 'project'
+									'value' => 'project',
 								),
 							),
 							'sanitization_cb' => 'pw_select2_sanitise',
@@ -233,21 +231,21 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 
 				'timber_project_settings' => array(
 					'id'         => 'timber_project_settings',
-					'title'      => __( 'Project settings', 'timber-lite' ),
+					'title'      => esc_html__( 'Project settings', 'timber-lite' ),
 					'pages'      => array( 'jetpack-portfolio' ), // Post type
 					'context'    => 'normal',
 					'priority'   => 'high',
 					'show_names' => true, // Show field names on the left
 					'fields'     => array(
 						array(
-							'name'       => __( 'Layout Style<a class="tooltip" title="Select the initial layout for this project."></a>', 'timber-lite' ),
+							'name'       => wp_kses_post( __( 'Layout Style<a class="tooltip" title="Select the initial layout for this project."></a>', 'timber-lite' ) ),
 							'id'         => 'project_template',
 							'type'       => 'radio',
 							'std'    => 'filmstrip',
 							'options'    => array(
 								array(
-									'name' => __( 'Filmstrip', 'timber-lite' ),
-									'value' => 'filmstrip'
+									'name' => esc_html__( 'Filmstrip', 'timber-lite' ),
+									'value' => 'filmstrip',
 								),
 							),
 						),

@@ -8,12 +8,6 @@
  * @since Timber 1.0
  */
 
-function timber_the_custom_logo() {
-	if ( function_exists( 'the_custom_logo' ) ) {
-		the_custom_logo();
-	}
-}
-
 if ( ! function_exists( 'timber_paging_nav' ) ) :
 	/**
 	 * Display navigation to next/previous set of posts when applicable.
@@ -33,11 +27,11 @@ if ( ! function_exists( 'timber_paging_nav' ) ) :
 			<div class="nav-links">
 
 				<?php if ( get_next_posts_link( '', $max_num_pages ) ) : ?>
-					<div class="nav-previous"><?php next_posts_link( __( 'Older posts', 'timber-lite' ), $max_num_pages ); ?></div>
+					<div class="nav-previous"><?php next_posts_link( esc_html__( 'Older posts', 'timber-lite' ), $max_num_pages ); ?></div>
 				<?php endif; ?>
 
 				<?php if ( get_previous_posts_link( '' ) ) : ?>
-					<div class="nav-next"><?php previous_posts_link( __( 'Newer posts', 'timber-lite' ) ); ?></div>
+					<div class="nav-next"><?php previous_posts_link( esc_html__( 'Newer posts', 'timber-lite' ) ); ?></div>
 				<?php endif; ?>
 
 			</div><!-- .nav-links -->
@@ -66,7 +60,7 @@ function timber_posted_on() {
 		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 	);
 
-	echo '<span class="posted-on">' . $posted_on . '</span>'; // phpcs:ignore Standard.Category.SniffName.ErrorCode
+	echo '<span class="posted-on">' . $posted_on . '</span>'; // phpcs:ignore
 
 }
 endif;
@@ -83,13 +77,14 @@ function timber_entry_footer() {
 
 		$tags_list = get_the_tag_list();
 		if ( $tags_list ) {
-			/* translators: 1: tag */
-			printf( '<span class="tags-links">' . esc_html__( 'Tags: %1$s', 'timber-lite' ) . '</span>', $tags_list ); // phpcs:ignore Standard.Category.SniffName.ErrorCode
+			/* translators: %s: tag list */
+			printf( '<span class="tags-links">' . esc_html__( 'Tags: %s', 'timber-lite' ) . '</span>', $tags_list ); // phpcs:ignore
 		}
 	}
 
 	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
 		echo '<span class="comments-link">';
+		/* translators: %s: Number of comments */
 		comments_popup_link( esc_html__( 'Leave a comment', 'timber-lite' ), esc_html__( '1 Comment', 'timber-lite' ), esc_html__( '% Comments', 'timber-lite' ) );
 		echo '</span>';
 	}
@@ -188,7 +183,7 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 		$post = get_post( $post_id );
 
 		if ( empty( $post ) ) {
-			return '';
+			return;
 		}
 
 		// Check the content for the more text
@@ -308,40 +303,103 @@ if ( ! function_exists( 'timber_get_option' ) ) :
 endif;
 
 // This function should come from Customify, but we need to do our best to make things happen
-if ( ! function_exists( 'pixelgrade_option') ) {
+if ( ! function_exists( 'pixelgrade_option' ) ) {
 	/**
 	 * Get option from the database
 	 *
-	 * @param string $option The option name.
-	 * @param mixed $default Optional. The default value to return when the option was not found or saved.
-	 * @param bool $force_default Optional. When true, we will use the $default value provided for when the option was not saved at least once.
-	 *                          When false, we will let the option's default set value (in the Customify settings) kick in first, than our $default.
-	 *                          It basically, reverses the order of fallback, first the option's default, then our own.
-	 *                          This is ignored when $default is null.
+	 * @param string $option_id           The option name.
+	 * @param mixed  $default             Optional. The default value to return when the option was not found or saved.
+	 * @param bool   $force_given_default Optional. When true, we will use the $default value provided for when the option was not saved at least once.
+	 *                                    When false, we will let the option's default set value (in the Customify settings) kick in first, then our $default.
+	 *                                    It basically, reverses the order of fallback, first the option's default, then our own.
+	 *                                    This is ignored when $default is null.
 	 *
 	 * @return mixed
 	 */
-	function pixelgrade_option( $option, $default = null, $force_default = true ) {
-		/** @var PixCustomifyPlugin $pixcustomify_plugin */
-		global $pixcustomify_plugin;
-
-		if ( $pixcustomify_plugin !== null ) {
-			// if there is a customify value get it here
-
-			// First we see if we are not supposed to force over the option's default value
-			if ( $default !== null && $force_default == false ) {
-				// We will not pass the default here so Customify will fallback on the option's default value, if set
-				$customify_value = $pixcustomify_plugin->get_option( $option );
-
-				// We only fallback on the $default if none was given from Customify
-				if ( $customify_value == null ) {
-					return $default;
+	function pixelgrade_option( $option_id, $default = null, $force_given_default = false ) {
+		if ( function_exists( 'PixCustomifyPlugin' ) ) {
+			// Customify is present so we should get the value via it
+			// We need to account for the case where a option has an 'active_callback' defined in it's config
+			$options_config = PixCustomifyPlugin()->get_options_configs();
+			if ( ! empty( $options_config ) && ! empty( $options_config[ $option_id ] ) ) {
+				if ( ! empty( $options_config[ $option_id ]['active_callback'] ) ) {
+					// This option has an active callback
+					// We need to "question" it
+					//
+					// IMPORTANT NOTICE:
+					//
+					// Be extra careful when setting up the options to not end up in a circular logic
+					// due to callbacks that get an option and that option has a callback that gets the initial option - INFINITE LOOPS :(
+					if ( is_callable( $options_config[ $option_id ]['active_callback'] ) ) {
+						// Now we call the function and if it returns false, this means that the control is not active
+						// Hence it's saved value doesn't matter
+						$active = call_user_func( $options_config[ $option_id ]['active_callback'] );
+						if ( empty( $active ) ) {
+							// If we need to force the default received; we respect that
+							if ( true === $force_given_default && null !== $default ) {
+								return $default;
+							} else {
+								// Else we return false
+								// because we treat the case when the active callback returns false as if the option would be non-existent
+								// We do not return the default configured value in this case
+								return false;
+							}
+						}
+					}
 				}
+
+				// Now that the option is truly active, we need to see if we are not supposed to force over the option's default value
+				if ( $default !== null && false === $force_given_default ) {
+					// We will not pass the received $default here so Customify will fallback on the option's default value, if set
+					$customify_value = PixCustomifyPlugin()->get_option( $option_id );
+
+					// We only fallback on the $default if none was given from Customify
+					if ( null === $customify_value ) {
+						return $default;
+					}
+				} else {
+					$customify_value = PixCustomifyPlugin()->get_option( $option_id, $default );
+				}
+
+				return $customify_value;
+			}
+		}
+
+		// We don't have Customify present, or Customify doesn't "know" about this option ID, so we need to retrieve the option value the hard way.
+		$option_value = null;
+
+		// Fire the all-gathering-filter that Customify uses so we can get as much data about this option as possible.
+		$config = apply_filters( 'customify_filter_fields', array() );
+
+		if ( ! isset( $config['opt-name'] ) ) {
+			return $default;
+		}
+
+		$option_config = pixelgrade_get_option_customizer_config( $option_id, $config );
+		if ( ! empty( $option_config ) && isset( $option_config['setting_type'] ) && 'option' === $option_config['setting_type'] ) {
+			// We need to retrieve it from the wp_options table
+			// If we have been explicitly given a setting ID we will use that
+			if ( ! empty( $option_config['setting_id'] ) ) {
+				$setting_id = $option_config['setting_id'];
 			} else {
-				$customify_value = $pixcustomify_plugin->get_option( $option, $default );
+				$setting_id = $config['opt-name'] . '[' . $option_id . ']';
 			}
 
-			return $customify_value;
+			$option_value = get_option( $setting_id, null );
+		} else {
+			$values = get_theme_mod( $config['opt-name'] );
+
+			if ( isset( $values[ $option_id ] ) ) {
+				$option_value = $values[ $option_id ];
+			}
+		}
+
+		if ( null !== $option_value ) {
+			return $option_value;
+		}
+
+		if ( false === $force_given_default && isset( $option_config['default'] ) ) {
+			return $option_config['default'];
 		}
 
 		return $default;
@@ -357,7 +415,7 @@ if ( ! function_exists( 'timber_the_film_strip' ) ) :
      * @param boolean $ignore_videos Optional. To ignore or not video boxes
 	 */
 	function timber_the_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
-		echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos );
+		echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos ); // phpcs:ignore
 	}
 
 endif;
@@ -371,7 +429,7 @@ if ( ! function_exists( 'timber_the_project_slider_images' ) ) :
      * @param boolean $ignore_videos Optional. To ignore or not video boxes
      */
     function timber_the_project_slider_images( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
-        echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos, 'timber_get_slider_image' );
+        echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos, 'timber_get_slider_image' ); // phpcs:ignore
     }
 
 endif;
@@ -705,9 +763,9 @@ if ( ! function_exists( 'timber_get_slider_image' ) ) :
 
         $markup .=
             '<div class="project-slide  rsContent">' .
-				'<img itemprop="image" src="' . $image_full_size[0] . '" class="rsImg" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . $image_data["width"] . '" height="' . $image_data["height"] . '">';
-        if ( ! empty($caption) ) {
-            $markup .= '<figure class="rsCaption">' . $caption . '</figure>';
+				'<img itemprop="image" src="' . esc_url( $image_full_size[0] ) . '" class="rsImg" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . esc_attr( $image_data["width"] ) . '" height="' . esc_attr( $image_data["height"] ) . '">';
+        if ( ! empty( $caption ) ) {
+            $markup .= '<figure class="rsCaption">' . wp_kses_post( $caption ) . '</figure>';
         }
 		$markup .= '</div><!-- .project-slide -->' . PHP_EOL;
 
@@ -833,45 +891,7 @@ function timber_first_category( $post_ID = null ) {
 		$first_category = array_shift( $categories );
 		$rel = ( is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) ? 'rel="category tag"' : 'rel="category"';
 
-		echo '<div class="divider"></div><span class="cat-links"><a href="' . esc_url( get_category_link( $first_category->term_id ) ) . '" ' . $rel . '>' . $first_category->name . '</a></span>';
-	}
-
-} #function
-
-/**
- * Prints HTML with the category of a certain post, with the most posts in it
- * The most important category of a post
- *
- * @param int|WP_Post $post_ID Optional. Post ID or post object.
- */
-function timber_first_project_category( $post_ID = null ) {
-	global $wp_rewrite;
-
-	//use the current post ID is none given
-	if ( empty( $post_ID ) ) {
-		$post_ID = get_the_ID();
-	}
-
-	//first get all project types ordered by count
-	$all_types = get_terms( 'jetpack-portfolio-type', array(
-		'orderby' => 'count',
-		'order' => 'DESC',
-	) );
-
-	//get the project's categories
-	$types = get_the_terms( $post_ID, 'jetpack-portfolio-type');
-	if ( empty( $types ) ) {
-		return;
-	}
-
-	//now intersect them so that we are left with a descending ordered array of the post's categories
-	$types = array_uintersect( $all_types, $types, 'timber_compare_categories' );
-
-	if ( ! empty ( $types ) ) {
-		$type = array_shift( $types );
-		$rel = ( is_object( $wp_rewrite ) && $wp_rewrite->using_permalinks() ) ? 'rel="category tag"' : 'rel="category"';
-
-		echo '<span class="divider"></span><span class="cat-links"><a href="' . esc_url( get_term_link( $term->term_id ) ) . '" ' . $rel . '>' . $term->name . '</a></span>';
+		echo '<div class="divider"></div><span class="cat-links"><a href="' . esc_url( get_category_link( $first_category->term_id ) ) . '" ' . $rel . '>' . esc_html( $first_category->name ) . '</a></span>'; // phpcs:ignore
 	}
 
 } #function
@@ -902,13 +922,13 @@ function timber_the_project_types( $post_ID = null, $before = '<span class="entr
 	/*
      * Project category list
      */
-	$separate_meta = _x( ', ', 'Used between list items, there is a space after the comma.', 'timber-lite' );
+	$separate_meta = esc_html_x( ', ', 'Used between list items, there is a space after the comma.', 'timber-lite' );
 
 	$terms_list = get_the_term_list( $post_ID, 'jetpack-portfolio-type', $before , $separate_meta, $after );
 
 	// $terms_list will turn into an wp_error when the taxonomy is missing so check it first
 	if ( ! is_wp_error( $terms_list ) ) {
-		echo $terms_list;
+		echo $terms_list; // phpcs:ignore
 	}
 }
 
@@ -934,8 +954,8 @@ if ( ! function_exists( 'timber_get_post_format_link' ) ) :
 
 		return $before . '<span class="entry-format">
 				<a href="' . esc_url( get_post_format_link( $post_format ) ) .'" title="' . esc_attr(
-			/* translators: %s: Post format */
-				sprintf( __( 'All %s Posts', 'timber-lite' ), get_post_format_string( $post_format ) ) ) . '">' .
+				/* translators: %s: Post format */
+				sprintf( esc_html__( 'All %s Posts', 'timber-lite' ), get_post_format_string( $post_format ) ) ) . '">' .
 		       get_post_format_string( $post_format ) .
 		       '</a>
 			</span>' . $after;
@@ -953,7 +973,7 @@ if ( ! function_exists( 'timber_post_format_link' ) ) :
 	 */
 	function timber_post_format_link( $post_ID = null, $before = '', $after = '' ) {
 
-		echo timber_get_post_format_link( $post_ID, $before, $after );
+		echo timber_get_post_format_link( $post_ID, $before, $after ); // phpcs:ignore
 
 	} #function
 
@@ -1025,36 +1045,6 @@ function timber_the_random_projects_images_srcs( $maxnum = 5 ) {
     echo json_encode( $image_srcs );
 }
 
-/**
- * Print a JSON encoded array of a number of random attachments data uris from those attached to the jetpack-portfolio CPT.
- *
- * @param int $maxnum Optional. Max number of random projects images srcs to return
- */
-function timber_the_random_projects_images_data_uri( $maxnum = 5 ) {
-    $random_images = timber_get_random_projects_images( $maxnum );
-
-    $image_data_uris = array();
-    if ( ! empty( $random_images ) ) {
-        $upload_dir = wp_upload_dir();
-
-        foreach ($random_images as $key => $image) {
-            $thumbnail = image_get_intermediate_size( $image->ID, 'thumbnail' );
-            if ( $thumbnail ) {
-                $image_data_uris[] = data_uri( trailingslashit( $upload_dir['basedir'] ) . $thumbnail['path'], $image->post_mime_type );
-            }
-        }
-    }
-
-    echo json_encode( $image_data_uris );
-}
-
-function data_uri($file, $mime)
-{
-    $contents = WP_Filesystem_Base::get_contents( $file );
-    $base64   = base64_encode($contents);
-    return ('data:' . $mime . ';base64,' . $base64);
-}
-
 if ( ! function_exists('timber_body_attributes') ):
 	function timber_body_attributes() {
 		//we use this so we can generate links with post id
@@ -1062,29 +1052,28 @@ if ( ! function_exists('timber_body_attributes') ):
 		$data_currentID = '';
 		$data_currentEditString = '';
 		$data_currentTaxonomy = '';
-			$current_object = get_queried_object();
+		$current_object = get_queried_object();
 
-			if (!empty($current_object->post_type)
-				&& ($post_type_object = get_post_type_object($current_object->post_type))
-				&& current_user_can('edit_post', $current_object->ID)
-				&& $post_type_object->show_ui && $post_type_object->show_in_admin_bar ) {
-				$data_currentID = 'data-curpostid="' . $current_object->ID . '" ';
-				if (isset($post_type_object->labels) && isset($post_type_object->labels->edit_item)) {
-					$data_currentEditString = 'data-curpostedit="' . esc_attr( $post_type_object->labels->edit_item ) . '" ';
-				}
-			} elseif (!empty($current_object->taxonomy)
-				&& ($tax = get_taxonomy($current_object->taxonomy))
-				&& current_user_can($tax->cap->edit_terms)
-				&& $tax->show_ui ) {
-				$data_currentID = 'data-curpostid="' . esc_attr( $current_object->term_id ) . '" ';
-				$data_currentTaxonomy = 'data-curtaxonomy="' . esc_attr( $current_object->taxonomy ) . '" ';
-				if ( isset($tax->labels ) && isset( $tax->labels->edit_item ) ) {
-					$data_currentEditString = 'data-curpostedit="' . esc_attr( $tax->labels->edit_item ) . '" ';
-				}
+		if (!empty($current_object->post_type)
+			&& ($post_type_object = get_post_type_object($current_object->post_type))
+			&& current_user_can('edit_post', $current_object->ID)
+			&& $post_type_object->show_ui && $post_type_object->show_in_admin_bar ) {
+			$data_currentID = 'data-curpostid="' . esc_attr( $current_object->ID ) . '" ';
+			if (isset($post_type_object->labels) && isset($post_type_object->labels->edit_item)) {
+				$data_currentEditString = 'data-curpostedit="' . esc_attr( $post_type_object->labels->edit_item ) . '" ';
 			}
+		} elseif (!empty($current_object->taxonomy)
+			&& ($tax = get_taxonomy($current_object->taxonomy))
+			&& current_user_can($tax->cap->edit_terms)
+			&& $tax->show_ui ) {
+			$data_currentID = 'data-curpostid="' . esc_attr( $current_object->term_id ) . '" ';
+			$data_currentTaxonomy = 'data-curtaxonomy="' . esc_attr( $current_object->taxonomy ) . '" ';
+			if ( isset($tax->labels ) && isset( $tax->labels->edit_item ) ) {
+				$data_currentEditString = 'data-curpostedit="' . esc_attr( $tax->labels->edit_item ) . '" ';
+			}
+		}
 
-			echo $data_currentID . $data_currentEditString . $data_currentTaxonomy;
-//		}
+		echo $data_currentID . $data_currentEditString . $data_currentTaxonomy; // phpcs:ignore
 	}
 endif;
 
@@ -1097,7 +1086,7 @@ endif;
  */
 function timber_get_post_title_class_attr( $class = '', $post_id = null ) {
 	// Separates classes with a single space, collates classes for post title
-	return 'class="' . join( ' ', timber_get_post_title_class( $class, $post_id ) ) . '"';
+	return 'class="' . esc_attr( join( ' ', timber_get_post_title_class( $class, $post_id ) ) ) . '"';
 }
 
 if ( ! function_exists( 'timber_get_post_title_class' ) ) :
@@ -1169,9 +1158,9 @@ if ( ! function_exists( 'timber_first_site_title_character' ) ) :
 	 * @return string
 	 */
 	function timber_first_site_title_character() {
-		$title = get_bloginfo('name');
-		if ( empty($title) ) {
-			return;
+		$title = get_bloginfo( 'name' );
+		if ( empty( $title ) ) {
+			return '';
 		}
 		$first_letter = '';
 		//find the first alphanumeric character - multibyte
@@ -1187,6 +1176,7 @@ if ( ! function_exists( 'timber_first_site_title_character' ) ) :
 				$first_letter = $results[0];
 			}
 		};
+
 		return $first_letter;
 	}
 endif;
@@ -1223,33 +1213,20 @@ if ( ! function_exists( 'timber_get_portfolio_page_link' ) ) :
 
 endif;
 
-/**
- * Display the footer copyright.
- */
-function pixelgrade_footer_the_copyright() {
-	$copyright_text = pixelgrade_footer_get_copyright_content();
+if ( ! function_exists( 'timber_footer_the_copyright' ) ) {
+	/**
+	 * Display the footer copyright.
+	 */
+	function timber_footer_the_copyright() {
+		$output = '';
+		$output .= '<div class="site-info c-footer__copyright-text">' . "\n";
+		/* translators: %s: WordPress. */
+		$output .= '<a href="' . esc_url( __( 'https://wordpress.org/', 'timber-lite' ) ) . '">' . sprintf( esc_html__( 'Proudly powered by %s', 'timber-lite' ), 'WordPress' ) . '</a>' . "\n";
+		$output .= '<span class="sep"> | </span>';
+		/* translators: %1$s: The theme name, %2$s: The theme author name. */
+		$output .= '<span class="c-footer__credits">' . sprintf( esc_html__( 'Theme: %1$s by %2$s.', 'timber-lite' ), 'Timber Lite', '<a href="https://pixelgrade.com/?utm_source=timber-lite-clients&utm_medium=footer&utm_campaign=timber-lite" title="' . esc_html__( 'The Pixelgrade Website', 'timber-lite' ) . '" rel="nofollow">Pixelgrade</a>' ) . '</span>' . "\n";
+		$output .= '</div>';
 
-	if ( ! empty( $copyright_text ) ) {
-		echo '<div class="site-info">' . $copyright_text . '</div>';
+		echo apply_filters( 'pixelgrade_footer_the_copyright', $output );
 	}
-}
-
-/**
- * Get the footer copyright content (HTML or simple text).
- * It already has do_shortcode applied.
- *
- * @return bool|string
- */
-function pixelgrade_footer_get_copyright_content() {
-	/* translators: 1: Author name, Pixelgrade */
-	$copyright_text =  sprintf( esc_html__( '%%year%% &copy; Handcrafted with love by %1$s', 'timber-lite' ), '<a href="https://pixelgrade.com/">Pixelgrade</a>' ) ;
-
-	if ( ! empty( $copyright_text ) ) {
-		// We need to parse some tags
-		// like %year%
-		$copyright_text = str_replace( '%year%', date( 'Y' ), $copyright_text );
-		return do_shortcode( $copyright_text );
-	}
-
-	return '';
 }

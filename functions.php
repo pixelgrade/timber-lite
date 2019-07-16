@@ -151,15 +151,15 @@ function timber_scripts_styles() {
 	wp_enqueue_script( 'timber-mix', '//pxgcdn.com/js/mixitup/2.1.11/index.js', array( 'jquery' ) );
 	$dependencies[] = 'timber-mix';
 	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', $dependencies, $theme_data->get( 'Version' ), true );
-	
+
 	// Localize the script with new data
 	$translation_array = array
 	(
-		'tPrev' => __('Previous (Left arrow key)', 'timber-lite'),
-		'tNext' => __('Next (Right arrow key)', 'timber-lite'),
-		'tCounter' => __('of', 'timber-lite'),
-		'infscrLoadingText' => __("<em>Loading more...</em>", 'timber-lite'),
-		'infscrReachedEnd' => __("<em>Nothing left to load.</em>", 'timber-lite'),
+		'tPrev' => esc_html__('Previous (Left arrow key)', 'timber-lite'),
+		'tNext' => esc_html__('Next (Right arrow key)', 'timber-lite'),
+		'tCounter' => esc_html__('of', 'timber-lite'),
+		'infscrLoadingText' => wp_kses_post( __("<em>Loading more...</em>", 'timber-lite') ),
+		'infscrReachedEnd' => wp_kses_post( __("<em>Nothing left to load.</em>", 'timber-lite') ),
 	);
 
 	wp_localize_script( 'timber-scripts', 'objectl10n', $translation_array );
@@ -431,8 +431,8 @@ function timber_wp_enqueue_media() {
 		'TimberImageWidget',
 		array(
 			'l10n' => array(
-				'frameTitle'      => __( 'Choose an Image', 'timber-lite' ),
-				'frameUpdateText' => __( 'Update Image', 'timber-lite' ),
+				'frameTitle'      => esc_html__( 'Choose an Image', 'timber-lite' ),
+				'frameUpdateText' => esc_html__( 'Update Image', 'timber-lite' ),
 			),
 		)
 	);

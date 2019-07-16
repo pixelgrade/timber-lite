@@ -63,11 +63,11 @@ if ( post_password_required() ) {
 
 		<div class="site-info">
 			<div class="portfolio__position"></div>
-			<button class="show-details caption js-details"><span><?php _e( 'details', 'timber-lite' ); ?></span></button>
+			<button class="show-details caption js-details"><span><?php esc_html_e( 'details', 'timber-lite' ); ?></span></button>
 		</div><!-- .site-info -->
 	</div>
 </footer><!-- #colophon -->
 
 <?php }
 
-get_footer(); ?>
+get_footer();

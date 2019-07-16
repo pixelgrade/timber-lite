@@ -49,4 +49,4 @@ get_header(); ?>
 
 <div class="site-footer"></div>
 
-<?php get_footer(); ?>
+<?php get_footer();

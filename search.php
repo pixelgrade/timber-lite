@@ -54,4 +54,4 @@ get_header(); ?>
 	<div class="bar--fixed"></div>
 </div>
 
-<?php get_footer(); ?>
+<?php get_footer();

@@ -15,9 +15,9 @@ if ( empty( $image_scaling ) ) {
 
 // the $post variable will be served be the parent template
 
-if ( 'fullscreen' == $project_template ): ?>
+if ( 'fullscreen' == $project_template ) : ?>
 
-<main id="content" class="site-content  site-container  site-content--fullscreen  <?php echo 'image-scaling--' . $image_scaling; ?>">
+<main id="content" class="site-content  site-container  site-content--fullscreen  <?php echo esc_attr( 'image-scaling--' . $image_scaling ); ?>">
 
 	<?php get_template_part( 'template-parts/content', 'project-fullscreen' ); ?>
 
@@ -28,7 +28,7 @@ if ( 'fullscreen' == $project_template ): ?>
 		<div class="site-info">
 			<div class="gallery-counter  js-gallery-counter">
 				<span class="js-unit">1</span>
-				<span><?php _e( 'of', 'timber-lite' ); ?></span>
+				<span><?php esc_html_e( 'of', 'timber-lite' ); ?></span>
 				<span class="js-gallery-slides-total"></span>
 			</div>
 		</div><!-- .site-info -->
@@ -39,7 +39,7 @@ if ( 'fullscreen' == $project_template ): ?>
 
 <div class="site-header  site-header--placeholder"></div>
 
-<main id="content" class="site-content site-container  <?php echo 'image-scaling--' . $image_scaling; ?>">
+<main id="content" class="site-content site-container  <?php echo esc_attr( 'image-scaling--' . $image_scaling ); ?>">
 
 	<?php get_template_part( 'template-parts/content', 'project-filmstrip' ); ?>
 
@@ -49,7 +49,7 @@ if ( 'fullscreen' == $project_template ): ?>
 	<div class="bar--fixed">
 		<div class="site-info">
 			<div class="portfolio__position"></div>
-			<button class="show-details caption js-details"><span><?php _e( 'details', 'timber-lite' ); ?></span></button>
+			<button class="show-details caption js-details"><span><?php esc_html_e( 'details', 'timber-lite' ); ?></span></button>
 		</div><!-- .site-info -->
 	</div>
 </footer><!-- #colophon -->

@@ -27,7 +27,7 @@
 	<div class="site-branding">
 
 		<?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : // display the Site Logo if present
-			timber_the_custom_logo();
+			the_custom_logo();
 		else : ?>
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 		<?php endif; ?>
@@ -64,7 +64,7 @@
 	<div id="djaxContainer" class="hfeed site djax-updatable">
 		<div class="mobile-header">
 			<?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : // display the Site Logo if present
-				timber_the_custom_logo();
+				the_custom_logo();
 			else : ?>
                 <h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<?php endif; ?>

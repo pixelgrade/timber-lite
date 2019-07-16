@@ -182,12 +182,12 @@ if ( ! function_exists( 'timber_comment' ) ) :
 						<a href="<?php echo esc_url( get_comment_link( get_comment_ID() ) ) ?>"
 						   class="comment__timestamp"><?php
                             /* translators: 1: comment date, 2: comment time. */
-							printf( __( 'on %1$s, at %2$s,', 'timber-lite' ), get_comment_date(), get_comment_time() ); ?></a>
+							printf( esc_html__( 'on %1$s, at %2$s,', 'timber-lite' ), get_comment_date(), get_comment_time() ); ?></a>
 					</time>
 					<div class="comment__links">
 						<?php
 						//we need some space before Edit
-						edit_comment_link( __( 'Edit', 'timber-lite' ), '  ' );
+						edit_comment_link( esc_html__( 'Edit', 'timber-lite' ), '  ' );
 
 						comment_reply_link( array_merge( $args, array(
 							'depth'     => $depth,
@@ -199,7 +199,7 @@ if ( ! function_exists( 'timber_comment' ) ) :
 				<!-- .comment-meta -->
 				<?php if ( $comment->comment_approved == '0' ) : ?>
 					<div class="alert info">
-						<p><?php _e( 'Your comment is awaiting moderation.', 'timber-lite' ) ?></p>
+						<p><?php esc_html_e( 'Your comment is awaiting moderation.', 'timber-lite' ) ?></p>
 					</div>
 				<?php endif; ?>
 				<section class="comment__content comment">
@@ -700,7 +700,7 @@ function timber_attachment_url_to_postid( $url ) {
 function timber_search_form( $form ) {
 	$form = '<form role="search" method="get" class="search-form" action="' . esc_url( home_url( '/' ) ) . '">
 				<label>
-					<span class="screen-reader-text">' . _x( 'Search for:', 'label', 'timber-lite' ) . '</span>
+					<span class="screen-reader-text">' . esc_html_x( 'Search for:', 'label', 'timber-lite' ) . '</span>
 					<input type="search" class="search-field" placeholder="' . esc_attr_x( 'Search &hellip;', 'placeholder', 'timber-lite' ) . '" value="' . get_search_query() . '" name="s" title="' . esc_attr_x( 'Search for:', 'label', 'timber-lite' ) . '" />
 				</label>
 				<button class="search-submit"><i class="icon  icon-search"></i></button>
@@ -727,17 +727,17 @@ add_filter( 'tiny_mce_before_init', 'timber_mce_before_init' );
 function timber_mce_before_init( $settings ) {
 
 	$style_formats = array(
-		array( 'title' => __( 'Intro Text', 'timber-lite' ), 'selector' => 'p', 'classes' => 'intro' ),
-		array( 'title' => __( 'Dropcap', 'timber-lite' ), 'inline' => 'span', 'classes' => 'dropcap' ),
-		array( 'title' => __( 'Highlight', 'timber-lite' ), 'inline' => 'span', 'classes' => 'highlight' ),
+		array( 'title' => esc_html__( 'Intro Text', 'timber-lite' ), 'selector' => 'p', 'classes' => 'intro' ),
+		array( 'title' => esc_html__( 'Dropcap', 'timber-lite' ), 'inline' => 'span', 'classes' => 'dropcap' ),
+		array( 'title' => esc_html__( 'Highlight', 'timber-lite' ), 'inline' => 'span', 'classes' => 'highlight' ),
 		array(
-			'title'   => __( 'Two Columns', 'timber-lite' ),
+			'title'   => esc_html__( 'Two Columns', 'timber-lite' ),
 			'block'   => 'div',
 			'classes' => 'twocolumn',
 			'wrapper' => true
 		),
-		array( 'title' => __( 'Caption', 'timber-lite' ), 'selector' => 'p', 'classes' => 'caption' ),
-		array( 'title' => __( 'Small Caption', 'timber-lite' ), 'selector' => 'p', 'classes' => 'caption caption--small' )
+		array( 'title' => esc_html__( 'Caption', 'timber-lite' ), 'selector' => 'p', 'classes' => 'caption' ),
+		array( 'title' => esc_html__( 'Small Caption', 'timber-lite' ), 'selector' => 'p', 'classes' => 'caption caption--small' )
 	);
 
 	$settings['style_formats'] = json_encode( $style_formats );
@@ -888,73 +888,6 @@ function timber_load_next_projects() {
 	}
 }
 
-/*
- * Ajax loading projects
- */
-add_action( 'wp_ajax_timber_load_next_products', 'timber_load_next_products' );
-add_action( 'wp_ajax_nopriv_timber_load_next_products', 'timber_load_next_products' );
-function timber_load_next_products() {
-	global $post;
-
-	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
-		wp_send_json_error();
-	}
-
-	//set the query args
-	$args = array( 'post_type' => 'product', 'suppress_filters' => false );
-
-
-	$count_products = wp_count_posts( 'product' );
-	$count_products = $count_products->publish;
-
-	if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-		$args['lang'] = ICL_LANGUAGE_CODE;
-	}
-
-	if ( isset( $_REQUEST['posts_number'] ) && 'all' == $_REQUEST['posts_number'] ) {
-		$args['posts_per_page'] = $count_products;
-	} else {
-		$args['posts_per_page'] = get_option( 'posts_per_page' );
-	}
-
-	if ( isset( $_REQUEST['taxonomy'] ) ) {
-		$args['tax_query'] = array(
-			array(
-				'taxonomy' => $_REQUEST['taxonomy'],
-				'field'    => 'term_id',
-				'terms'    => array( $_REQUEST['term_id'] ),
-			),
-		);
-	}
-
-	//check if we have a offset in $_REQUEST
-	if ( isset( $_REQUEST['offset'] ) ) {
-		$args['offset'] = (int) $_REQUEST['offset'];
-
-		if ( 'all' == $_REQUEST['posts_number'] ) {
-			$args['posts_per_page'] = (int) $count_products - (int) $_POST['offset'];
-		}
-	}
-
-	$posts = get_posts( $args );
-	if ( ! empty( $posts ) ) {
-		ob_start();
-
-		foreach ( $posts as $post ) : setup_postdata( $post );
-			wc_get_template_part( 'content', 'product' );
-		endforeach;
-
-		/* Restore original Post Data */
-		wp_reset_postdata();
-
-		wp_send_json_success( array(
-			'posts' => ob_get_clean(),
-		) );
-	} else {
-		wp_send_json_error();
-	}
-}
-
 
 add_action( 'the_password_form', 'timber_callback_the_password_form' );
 
@@ -974,13 +907,13 @@ function timber_callback_the_password_form( $form ) {
 				<div class="lock-icon"></div>
 				<div class="protected-area-text">
 					<?php
-					_e( 'This is a protected area.', 'timber-lite' );
+					esc_html_e( 'This is a protected area.', 'timber-lite' );
 
 					if ( $timber_private_post['error'] ) {
 						echo $timber_private_post['error']; ?>
-						<span class="gray"><?php _e( 'Please enter your password again.', 'timber-lite' ); ?></span>
+						<span class="gray"><?php esc_html_e( 'Please enter your password again.', 'timber-lite' ); ?></span>
 					<?php } else { ?>
-						<span class="gray"><?php _e( 'Please enter your password to continue.', 'timber-lite' ); ?></span>
+						<span class="gray"><?php esc_html_e( 'Please enter your password to continue.', 'timber-lite' ); ?></span>
 					<?php } ?>
 
 				</div>
@@ -990,9 +923,9 @@ function timber_callback_the_password_form( $form ) {
 					<?php wp_nonce_field( 'password_protection', 'submit_password_nonce' ); ?>
 					<input type="hidden" name="submit_password" value="1"/>
 					<input type="password" name="post_password" id="auth_password" class="auth__pass"
-					       placeholder="<?php _e( "Password", 'timber-lite' ) ?>"/>
+					       placeholder="<?php esc_html_e( "Password", 'timber-lite' ) ?>"/>
 					<input type="submit" name="Submit" id="auth_submit" class="auth__submit"
-					       value="<?php _e( "Authenticate", 'timber-lite' ) ?>"/>
+					       value="<?php esc_html_e( "Authenticate", 'timber-lite' ) ?>"/>
 				</form>
 			</div>
 		</div><!-- .content -->
@@ -1052,14 +985,14 @@ function timber_is_password_protected() {
 					setcookie( 'wp-postpass_' . COOKIEHASH, $wp_hasher->HashPassword( stripslashes( $_POST['post_password'] ) ), 0, COOKIEPATH );
 
 				} else {
-					$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber-lite' ) . '</h3>';
+					$private_post['error'] = '<h3 class="text--error">' . esc_html__( 'Wrong Password', 'timber-lite' ) . '</h3>';
 				}
 			}
 		}
 	}
 
 	if ( isset( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) && get_permalink() == wp_get_referer() ) {
-		$private_post['error'] = '<h3 class="text--error">' . __( 'Wrong Password', 'timber-lite' ) . '</h3>';
+		$private_post['error'] = '<h3 class="text--error">' . esc_html__( 'Wrong Password', 'timber-lite' ) . '</h3>';
 	}
 
 

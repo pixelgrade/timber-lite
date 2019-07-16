@@ -23,13 +23,13 @@ if ( post_password_required() ) {
 			<h3 class="comments-title">
 				<?php
 				if ( have_comments() ):
-					echo '<span class="comment-number  comment-number--dark  total">' . number_format_i18n( get_comments_number() ) . '</span>' . _n( 'Comment', 'Comments',  number_format_i18n( get_comments_number() ), 'timber-lite' );
+					echo '<span class="comment-number  comment-number--dark  total">' . number_format_i18n( get_comments_number() ) . '</span>' . esc_html( _n( 'Comment', 'Comments',  number_format_i18n( get_comments_number() ), 'timber-lite' ) );
 				else:
-					echo '<span class="comment-number  comment-number--dark">+</span>' . __( 'There are no comments', 'timber-lite');
+					echo '<span class="comment-number  comment-number--dark">+</span>' . esc_html__( 'There are no comments', 'timber-lite');
 				endif;
 				?>
 			</h3>
-			<?php echo '<a class="comments_add-comment" href="#reply-title">' . __( 'Add yours', 'timber-lite' ) . '</a>'; ?>
+			<?php echo '<a class="comments_add-comment" href="#reply-title">' . esc_html__( 'Add yours', 'timber-lite' ) . '</a>'; ?>
 		</div>
 		<?php
 		// You can start editing here -- including this comment!
@@ -49,9 +49,9 @@ if ( post_password_required() ) {
 			<?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // are there comments to navigate through ?>
 			<nav role="navigation" id="comment-nav-below" class="site-navigation comment-navigation">
 				<span class="comment-number  comment-number--dark">&bull;</span>
-				<h3 class="comment-navigation__title  assistive-text"><?php _e( 'Comment navigation', 'timber-lite' ); ?></h3>
-				<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'timber-lite' ) ); ?></div>
-				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'timber-lite' ) ); ?></div>
+				<h3 class="comment-navigation__title  assistive-text"><?php esc_html_e( 'Comment navigation', 'timber-lite' ); ?></h3>
+				<div class="nav-previous"><?php previous_comments_link( esc_html__( '&larr; Older Comments', 'timber-lite' ) ); ?></div>
+				<div class="nav-next"><?php next_comments_link( esc_html__( 'Newer Comments &rarr;', 'timber-lite' ) ); ?></div>
 			</nav><!-- #comment-nav-below .site-navigation .comment-navigation -->
 		<?php endif; // check for comment navigation ?>
 
@@ -63,7 +63,7 @@ if ( post_password_required() ) {
 // If comments are closed and there are comments, let's leave a little note, shall we?
 if ( ! comments_open() && post_type_supports( get_post_type(), 'comments' ) && ! is_page() ) :
 	?>
-	<p class="nocomments"><span class="comment-number comment-number--dark  no-comments-box"><i class="icon  icon-times"></i></span><span><?php _e( 'Comments are closed.', 'timber-lite' ); ?></span></p>
+	<p class="nocomments"><span class="comment-number comment-number--dark  no-comments-box"><i class="icon  icon-times"></i></span><span><?php esc_html_e( 'Comments are closed.', 'timber-lite' ); ?></span></p>
 <?php endif;
 
 $commenter = wp_get_current_commenter();
@@ -73,35 +73,35 @@ $aria_req  = ( $req ? " aria-required='true'" : '' );
 if ( is_user_logged_in() ) {
 	$comments_args = array(
 		// change the title of send button=
-		'title_reply'          => __( 'Leave a Comment', 'timber-lite' ),
+		'title_reply'          => esc_html__( 'Leave a Comment', 'timber-lite' ),
 		// remove "Text or HTML to be displayed after the set of comment fields"
 		'comment_notes_before' => '',
 		'comment_notes_after'  => '',
 		'fields'               => apply_filters( 'comment_form_default_fields', array(
-			'author' => '<p class="comment-form-author"><label for="author" class="show-on-ie8">' . __( 'Name', 'timber-lite' ) . '</label><input id="author" name="author" value="' . esc_attr( $commenter['comment_author'] ) . '" type="text" placeholder="' . __( 'Name', 'timber-lite' ) . '..." size="30" ' . $aria_req . ' /></p>',
-			'email'  => '<p class="comment-form-email"><label for="email" class="show-on-ie8">' . __( 'Email', 'timber-lite' ) . '</label><input id="email" name="email" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" type="text" placeholder="' . __( 'your@email.com', 'timber-lite' ) . '..." ' . $aria_req . ' /></p>'
+			'author' => '<p class="comment-form-author"><label for="author" class="show-on-ie8">' . esc_html__( 'Name', 'timber-lite' ) . '</label><input id="author" name="author" value="' . esc_attr( $commenter['comment_author'] ) . '" type="text" placeholder="' . esc_attr__( 'Name', 'timber-lite' ) . '..." size="30" ' . $aria_req . ' /></p>',
+			'email'  => '<p class="comment-form-email"><label for="email" class="show-on-ie8">' . esc_html__( 'Email', 'timber-lite' ) . '</label><input id="email" name="email" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" type="text" placeholder="' . esc_attr__( 'your@email.com', 'timber-lite' ) . '..." ' . $aria_req . ' /></p>'
 		) ),
 		'id_submit'            => 'comment-submit',
-		'label_submit'         => __( 'Submit', 'timber-lite' ),
+		'label_submit'         => esc_html__( 'Submit', 'timber-lite' ),
 		// redefine your own textarea (the comment body)
-		'comment_field'        => '<p class="comment-form-comment"><label for="comment" class="show-on-ie8">' . __( 'Comment', 'timber-lite' ) . '</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Your thoughts..', 'timber-lite' ) . '"></textarea></p>'
+		'comment_field'        => '<p class="comment-form-comment"><label for="comment" class="show-on-ie8">' . esc_html__( 'Comment', 'timber-lite' ) . '</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . esc_attr__( 'Your thoughts..', 'timber-lite' ) . '"></textarea></p>'
 	);
 } else {
 	$comments_args = array(
 		// change the title of send button
-		'title_reply'          => __( 'Leave a Comment', 'timber-lite' ),
+		'title_reply'          => esc_html__( 'Leave a Comment', 'timber-lite' ),
 		// remove "Text or HTML to be displayed after the set of comment fields"
 		'comment_notes_before' => '',
 		'comment_notes_after'  => '',
 		'fields'               => apply_filters( 'comment_form_default_fields', array(
-			'author' => '<p class="comment-form-author"><label for="author" class="show-on-ie8">' . __( 'Name', 'timber-lite' ) . '</label><input id="author" name="author" value="' . esc_attr( $commenter['comment_author'] ) . '" type="text" placeholder="' . __( 'Name', 'timber-lite' ) . '..." size="30" ' . $aria_req . ' /></p><!--',
-			'email'  => '--><p class="comment-form-email"><label for="name" class="show-on-ie8">' . __( 'Email', 'timber-lite' ) . '</label><input id="email" name="email" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" type="text" placeholder="' . __( 'your@email.com', 'timber-lite' ) . '..." ' . $aria_req . ' /></p><!--',
-			'url'    => '--><p class="comment-form-url"><label for="url" class="show-on-ie8">' . __( 'Url', 'timber-lite' ) . '</label><input id="url" name="url" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" placeholder="' . __( 'Website', 'timber-lite' ) . '..." type="text"></p>'
+			'author' => '<p class="comment-form-author"><label for="author" class="show-on-ie8">' . esc_html__( 'Name', 'timber-lite' ) . '</label><input id="author" name="author" value="' . esc_attr( $commenter['comment_author'] ) . '" type="text" placeholder="' . esc_attr__( 'Name', 'timber-lite' ) . '..." size="30" ' . $aria_req . ' /></p><!--',
+			'email'  => '--><p class="comment-form-email"><label for="name" class="show-on-ie8">' . esc_html__( 'Email', 'timber-lite' ) . '</label><input id="email" name="email" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" type="text" placeholder="' . esc_attr__( 'your@email.com', 'timber-lite' ) . '..." ' . $aria_req . ' /></p><!--',
+			'url'    => '--><p class="comment-form-url"><label for="url" class="show-on-ie8">' . esc_html__( 'Url', 'timber-lite' ) . '</label><input id="url" name="url" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" placeholder="' . esc_attr__( 'Website', 'timber-lite' ) . '..." type="text"></p>'
 		) ),
 		'id_submit'            => 'comment-submit',
-		'label_submit'         => __( 'Submit', 'timber-lite' ),
+		'label_submit'         => esc_html__( 'Submit', 'timber-lite' ),
 		// redefine your own textarea (the comment body)
-		'comment_field'        => '<p class="comment-form-comment"><label for="comment" class="show-on-ie8">' . __( 'Comment', 'timber-lite' ) . '</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Your thoughts..', 'timber-lite' ) . '"></textarea></p>'
+		'comment_field'        => '<p class="comment-form-comment"><label for="comment" class="show-on-ie8">' . esc_html__( 'Comment', 'timber-lite' ) . '</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . esc_attr__( 'Your thoughts..', 'timber-lite' ) . '"></textarea></p>'
 	);
 }
 

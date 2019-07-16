@@ -9,7 +9,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('filmstrip__item'); ?>>
 	<?php $src = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'timber-square-image' ); ?>
-	<a href="<?php the_permalink(); ?>" class="item__thumb" <?php if ( !empty($src[0]) ) echo 'style="background-image: url('. $src[0] .')"';?>>
+	<a href="<?php the_permalink(); ?>" class="item__thumb" <?php if ( !empty($src[0]) ) echo 'style="background-image: url('. esc_url( $src[0] ) .')"';?>>
 
 
 			<?php if ( 'post' == get_post_type() && in_array( get_post_format(), array( 'gallery', 'video', 'audio' ) ) ) : ?>

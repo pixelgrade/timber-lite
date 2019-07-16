@@ -51,7 +51,7 @@ if ( ! empty( $featured ) ) :
 				<div class="project-slide__title js-title-mask">
 					<h1><?php echo get_the_title( $featured[0] ); ?></h1>
 				</div>
-				<div class="project-slide__text"><?php _e( '&#8594; View Project', 'timber-lite' ); ?></div>
+				<div class="project-slide__text"><?php esc_html_e( '&#8594; View Project', 'timber-lite' ); ?></div>
 			</a>
 		</div>
 		<?php if ( $numFeatured != 1 ) : ?>

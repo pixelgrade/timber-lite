@@ -12,7 +12,7 @@ $media  = timber_audio_attachment(); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
 	/* translators: used between list items, there is a space after the comma */
-	$category_list = get_the_category_list( __( ', ', 'timber-lite' ) ); ?>
+	$category_list = get_the_category_list( esc_html__( ', ', 'timber-lite' ) ); ?>
 
 	<header class="entry-header">
 		<?php the_title( '<h1 ' . timber_get_post_title_class_attr( 'entry-title  h0' ) . '>', '</h1>' ); ?>
@@ -52,8 +52,8 @@ $media  = timber_audio_attachment(); ?>
 			'before'           => '<div class="page-links  pagination">',
 			'after'            => '</div>',
 			'next_or_number'   => 'number',
-			'nextpagelink'     => __( 'Next page', 'timber-lite' ),
-			'previouspagelink' => __( 'Previous page', 'timber-lite' ),
+			'nextpagelink'     => esc_html__( 'Next page', 'timber-lite' ),
+			'previouspagelink' => esc_html__( 'Previous page', 'timber-lite' ),
 			'pagelink'         => '%',
 			'echo'             => 1,
 		) ); ?>

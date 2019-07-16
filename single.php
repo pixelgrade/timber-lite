@@ -37,4 +37,4 @@ if ( post_password_required() ) {
 
 <?php }
 
-get_footer(); ?>
+get_footer();

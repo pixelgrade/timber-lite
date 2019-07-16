@@ -27,7 +27,7 @@
 						the_title();
 					else :
 						// if no title is present, use generic text instead
-						_e( 'View Project', 'timber-lite' );
+						esc_html_e( 'View Project', 'timber-lite' );
 					endif;
 				?>
 			</a>

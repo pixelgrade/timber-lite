@@ -16,11 +16,11 @@ function timber_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 
 	// Rename the label to "Display Site Title & Tagline" in order to make this option clearer.
-	$wp_customize->get_control( 'display_header_text' )->label = __( 'Display Site Title &amp; Tagline', 'timber-lite' );
+	$wp_customize->get_control( 'display_header_text' )->label = esc_html__( 'Display Site Title &amp; Tagline', 'timber-lite' );
 
 	// View Pro
 	$wp_customize->add_section( 'pro__section', array(
-		'title'       => '' . esc_html__( 'View PRO Version', 'timber-lite' ),
+		'title'       => esc_html__( 'View PRO Version', 'timber-lite' ),
 		'priority'    => 2,
 		'description' => sprintf(
 		/* translators: %s: The view pro link. */
@@ -86,4 +86,4 @@ function timber_lite_get_pro_link() {
 function timber_lite_customizer_assets() {
 	wp_enqueue_style( 'timber_lite_customizer_style', get_template_directory_uri() . '/admin/admin.css', null, '1.0.0', false );
 }
-add_action( 'admin_enqueue_scripts', 'timber_lite_customizer_assets' );
+add_action( 'customize_controls_enqueue_scripts', 'timber_lite_customizer_assets' );
