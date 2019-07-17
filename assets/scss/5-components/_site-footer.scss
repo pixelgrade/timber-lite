@@ -74,30 +74,6 @@
     }
 }
 
-
-
-
-
-// Single post and page footer style
-.theme-name, .back-to-top {
-    @extend %bar-piece;
-    @extend %bar-side;
-}
-
-.theme-name {
-    @extend %bar-left;
-
-    * {
-        display: inline-block;
-    }
-}
-
-.back-to-top {
-    @extend %bar-right;
-
-    color: $hoverColour;
-}
-
 .site-footer--single {
     @include query-above($lap) {
         flex-basis: 9vh;
@@ -111,11 +87,5 @@
     @include query-below($lap) {
         flex-direction: column;
         -webkit-flex-direction: column;
-
-        .theme-name, .back-to-top {
-            justify-content: center;
-            -webkit-justify-content: center;
-            text-align: center;
-        }
     }
 }

@@ -11,7 +11,7 @@ var gulp = require( 'gulp' ),
 	plugins = require( 'gulp-load-plugins' )(),
 	rsync = require('gulp-rsync'),
 	argv = require('yargs').argv,
-  cp = require('child_process');
+    cp = require('child_process');
 
 
 // -----------------------------------------------------------------------------

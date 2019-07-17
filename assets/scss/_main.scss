@@ -54,13 +54,14 @@
  *    5.21 - Entry thumbnail
  *    5.22 - Entry header
  *    5.23 - Search form
- *    5.24 - Add This
- *    5.25 - RoyalSlider
- *    5.26 - Fullscreen slider
- *    5.27 - Loader
- *    5.28 - Border
- *    5.29 - Widgets
- *    5.30 - Password Protected Form
+ *    5.24 - RoyalSlider
+ *    5.25 - Fullscreen slider
+ *    5.26 - Loader
+ *    5.27 - Border
+ *    5.28 - Widgets
+ *    5.29 - Password Protected Form
+ *    5.30 - Project filters
+ *    5.31 - Images loading spinner
  *  6.0 - Overrides
  *
  */
@@ -284,39 +285,35 @@
  */
 @import "5-components/search-form";
 /**
- *   5.24 - Add This
- */
-@import "5-components/add-this";
-/**
- *   5.25 - RoyalSlider
+ *   5.24 - RoyalSlider
  */
 @import "5-components/royalslider";
 /**
- *   5.26 - Fullscreen slider
+ *   5.25 - Fullscreen slider
  */
 @import "5-components/fullscreen-slider";
 /**
- *   5.27 - Loader
+ *   5.26 - Loader
  */
 @import "5-components/loader";
 /**
- *   5.28 - Border
+ *   5.27 - Border
  */
 @import "5-components/border";
 /**
- *   5.29 - Widgets
+ *   5.28 - Widgets
  */
 @import "5-components/widgets";
 /**
- *   5.30 - PixProof
+ *   5.29 - PixProof
  */
 @import "5-components/password-protected";
 /**
- *   5.31 - Project filters
+ *   5.30 - Project filters
  */
 @import "5-components/projects-filter";
 /**
- *   5.32 - Images loading spinner
+ *   5.31 - Images loading spinner
  */
 @import "5-components/spinner";
 
