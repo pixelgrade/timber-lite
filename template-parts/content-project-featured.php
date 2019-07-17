@@ -5,7 +5,10 @@
  * @package Timber
  * @since Timber 1.0
  */
-?>
+
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+} ?>
 
 <div class="project-slide"
     data-title="<?php the_title(); ?>"

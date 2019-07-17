@@ -6,6 +6,10 @@
  * @since Timber 1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
 get_header(); ?>
 <div class="site-header  site-header--placeholder"></div>
 <div class="site-container  site-content">

@@ -8,6 +8,10 @@
  * @since Timber 1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
 global $timber_show_footer;
 
 if ( $timber_show_footer ) {

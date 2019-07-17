@@ -6,6 +6,10 @@
  * @since Timber 1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
 //get the featured projects
 $featured = timber_get_featured_projects();
 if ( ! empty( $featured ) ) :

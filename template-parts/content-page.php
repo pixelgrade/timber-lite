@@ -6,8 +6,11 @@
  * @since Timber 1.0
  */
 
-$background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID), 'full' );
-?>
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
+$background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php if ( ! empty( $background_image ) ) : ?>

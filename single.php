@@ -6,6 +6,10 @@
  * @since Timber 1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
 get_header();
 
 if ( post_password_required() ) {

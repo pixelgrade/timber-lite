@@ -5,7 +5,10 @@
  * @package Timber
  * @since Timber 1.0
  */
-?>
+
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+} ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class('filmstrip__item'); ?>>
 	<?php $src = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'timber-square-image' ); ?>

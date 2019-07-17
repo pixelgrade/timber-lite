@@ -1,4 +1,9 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
 global $post;
 
 $project_template 	= get_post_meta( timber_get_post_id(), 'project_template', true);

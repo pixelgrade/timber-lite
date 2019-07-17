@@ -6,6 +6,10 @@
  * @since Timber 1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
 //get the media objects from the content and bring up only the first one
 $media  = timber_video_attachment(); ?>
 

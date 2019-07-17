@@ -8,7 +8,9 @@
  * @since Timber 1.0
  */
 
-?>
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+} ?>
 
 <section class="no-results not-found">
 	<header class="page-header">

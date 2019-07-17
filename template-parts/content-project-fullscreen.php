@@ -6,6 +6,10 @@
  * @since Timber 1.0
  */
 
+if ( ! defined( 'ABSPATH' ) ){
+	exit; // Exit if accessed directly
+}
+
 $image_scaling 		= get_post_meta( timber_get_post_id(), 'fullscreen_image_scaling', true);
 
 if ( empty( $image_scaling ) ) {
