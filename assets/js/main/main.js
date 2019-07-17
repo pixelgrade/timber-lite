@@ -20,9 +20,6 @@ function init() {
 
     $('.site-header, #page, .site-footer').css('opacity', 1);
 
-    // Loads the addThis script - this should be run just once
-    AddThisIcons.init();
-
     if( Modernizr.touchevents ) {
         HandleParentMenuItems.bindOuterNavClick();
     }
@@ -52,7 +49,6 @@ function softInit() {
 
     frontpageSlider.init();
 
-    AddThisIcons.softInit();
     royalSliderInit();
     videos.init();
 
