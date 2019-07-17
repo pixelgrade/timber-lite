@@ -31,11 +31,11 @@ if ( ! empty( $featured ) ) :
 
 
 		<?php if ( $numFeatured > 1 ) : ?>
-		<div class="vertical-title prev"><span><?php echo get_the_title( $featured[ $numFeatured - 1 ] ); ?></span></div>
+		<div class="vertical-title prev"><span><?php echo esc_html( get_the_title( $featured[ $numFeatured - 1 ] ) ); ?></span></div>
 		<?php endif; ?>
 
 		<?php if ( ! empty( $featured[1] ) ) : ?>
-		<div class="vertical-title next"><span><?php echo get_the_title( $featured[1] ); ?></span></div>
+		<div class="vertical-title next"><span><?php echo esc_html( get_the_title( $featured[1] ) ); ?></span></div>
 		<?php endif; ?>
 
 		<div class="project-slide__content">
@@ -49,7 +49,7 @@ if ( ! empty( $featured ) ) :
                echo esc_attr( sprintf( __( 'Permalink to %s', 'timber-lite' ), the_title_attribute( array( 'echo' => 0, 'post' => $featured[0]->ID) ) ) ); ?>"
 			   rel="bookmark">
 				<div class="project-slide__title js-title-mask">
-					<h1><?php echo get_the_title( $featured[0] ); ?></h1>
+					<h1><?php echo esc_html( get_the_title( $featured[0] ) ); ?></h1>
 				</div>
 				<div class="project-slide__text"><?php esc_html_e( '&#8594; View Project', 'timber-lite' ); ?></div>
 			</a>
