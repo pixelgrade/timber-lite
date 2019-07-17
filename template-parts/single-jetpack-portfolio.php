@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ){
 
 global $post;
 
-$project_template 	= get_post_meta( timber_get_post_id(), 'project_template', true);
-$image_scaling 		= get_post_meta( timber_get_post_id(), 'fullscreen_image_scaling', true);
+$project_template 	= 'filmstrip';
+$image_scaling 		= 'fill';
 
 //in case nothing is returned default to a filmstrip template
 if ( empty( $project_template ) ) {
@@ -16,31 +16,7 @@ if ( empty( $project_template ) ) {
 
 if ( empty( $image_scaling ) ) {
 	$image_scaling = 'fill';
-}
-
-// the $post variable will be served be the parent template
-
-if ( 'fullscreen' == $project_template ) : ?>
-
-<main id="content" class="site-content  site-container  site-content--fullscreen  <?php echo esc_attr( 'image-scaling--' . $image_scaling ); ?>">
-
-	<?php get_template_part( 'template-parts/content', 'project-fullscreen' ); ?>
-
-</main>
-
-<footer id="colophon" class="site-footer" role="contentinfo">
-	<div class="bar--fixed">
-		<div class="site-info">
-			<div class="gallery-counter  js-gallery-counter">
-				<span class="js-unit">1</span>
-				<span><?php esc_html_e( 'of', 'timber-lite' ); ?></span>
-				<span class="js-gallery-slides-total"></span>
-			</div>
-		</div><!-- .site-info -->
-	</div>
-</footer><!-- #colophon -->
-
-<?php else : ?>
+} ?>
 
 <div class="site-header  site-header--placeholder"></div>
 
@@ -59,4 +35,4 @@ if ( 'fullscreen' == $project_template ) : ?>
 	</div>
 </footer><!-- #colophon -->
 
-<?php endif;
+<?php
