@@ -16,8 +16,8 @@ if ( ! empty( $featured ) ) :
 	$numFeatured = count( $featured ); ?>
 
 <div id="primary" class="content-area">
-	<main id="main" class="site-main slider--show_next slider--default>
-		<div class="projects-slider<?php if ( $numFeatured == 1 ) echo '  has--one-slide'; ?>">
+	<main id="main" class="site-main slider--show_next slider--default">
+		<div class="projects-slider <?php if ( $numFeatured == 1 ) echo '  has--one-slide'; ?>">
 
 			<?php
 			foreach ( $featured as $post ) : setup_postdata( $post );

@@ -1,9 +1,11 @@
 # TIMBER – An Unusual Photography WordPress Theme
-### imber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience. You get a carefully chosen cutting edge set of tools to propel your photography showcase to new heights. A theme that matches your passion and artistic aspirations.
+### Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience. You get a carefully chosen cutting edge set of tools to propel your photography showcase to new heights. A theme that matches your passion and artistic aspirations.
 
 [Download for Free](https://downloads.wordpress.org/theme/timber-lite.latest-stable.zip) &nbsp;·&nbsp; [Demo Preview](https://demos.pixelgrade.com/timber-lite/) &nbsp;·&nbsp; [ Timber Pro](https://pixelgrade.com/themes/timber-pro/)
 
 [![](https://img.shields.io/github/issues-closed/pixelgrade/timber-lite.svg?color=6cc644&label=Issues)](https://github.com/pixelgrade/timber-lite/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aclosed+) [![](https://img.shields.io/github/issues/pixelgrade/timber-lite.svg?color=4078c0&label=%20)](https://github.com/pixelgrade/timber-lite/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen)
+
+[![](https://user-images.githubusercontent.com/46342490/61357251-8c061580-a880-11e9-8a9a-75cbaaa4f36b.jpg)](https://pixelgrade.com/themes/timber-lite/)
 
 ## Contributing
 The essence of **open source** is that by freely sharing the code, you have the freedom to use it for any purpose, study how it works and adapt it to your needs, improve the program and **share your improvements** with the community so that we all benefit. 🙏
