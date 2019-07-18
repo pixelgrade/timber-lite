@@ -31,6 +31,8 @@ Unless otherwise specified, all the theme files, scripts and images are licensed
 
 The Timber Lite Theme bundles the following third-party resources:
 
+* Font Awesome Free https://github.com/FortAwesome/Font-Awesome, licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL), [CC BY-SA 4.0](https://creativecommons.org/licenses/by/4.0/), and [MIT](https://opensource.org/licenses/MIT)
+* Entypo icon font http://www.entypo.com/, licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by/4.0/)
 * normalize.css https://necolas.github.io/normalize.css/, (c) 2012-2016 Nicolas Gallagher and Jonathan Neal, licensed under [MIT](https://opensource.org/licenses/MIT)
 
 * jQuery.NiceScroll https://github.com/inuyaksa/jquery.nicescroll, (c) 2011-2017 InuYaksa, licensed under [MIT](https://opensource.org/licenses/MIT)
