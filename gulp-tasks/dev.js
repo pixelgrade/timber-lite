@@ -72,12 +72,11 @@ gulp.task('styles', stylesSequence )
 
 jsFiles = [
   './assets/js/vendor/*.js',
-  './assets/js/main/wrapper_start.js',
-  './assets/js/main/shared_vars.js',
+  './assets/js/main/wrapper-start.js',
   './assets/js/modules/*.js',
   './assets/js/main/main.js',
-  './assets/js/main/functions.js',
-  './assets/js/main/wrapper_end.js'
+  './assets/js/main/unsorted.js',
+  './assets/js/main/wrapper-end.js'
 ];
 
 function scripts() {
