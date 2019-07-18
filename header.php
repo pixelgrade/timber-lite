@@ -28,6 +28,8 @@ if ( ! defined( 'ABSPATH' ) ){
 
 <header id="masthead" class="site-header u-header--fixed">
 
+    <a class="skip-link screen-reader-text" href="#page"><?php esc_html_e( 'Skip to content', 'timber-lite' ); ?></a>
+
 	<div class="site-branding">
 
 		<?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : // display the Site Logo if present
@@ -64,7 +66,6 @@ if ( ! defined( 'ABSPATH' ) ){
 
 
 <div id="page">
-	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'timber-lite' ); ?></a>
 	<div id="djaxContainer" class="hfeed site djax-updatable">
 		<div class="mobile-header">
 			<?php if ( function_exists( 'has_custom_logo' ) && has_custom_logo() ) : // display the Site Logo if present

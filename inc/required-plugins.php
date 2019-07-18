@@ -14,7 +14,7 @@ function timber_register_required_plugins() {
 		array(
 			'name'               => 'PixTypes',
 			'slug'               => 'pixtypes',
-			'required'           => true,
+			'required'           => false,
 		),
 	);
 

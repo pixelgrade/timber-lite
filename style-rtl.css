@@ -4,7 +4,7 @@ Theme URI: https://github.com/pixelgrade/timber-lite
 Author: Pixelgrade
 Author URI: https://pixelgrade.com/
 Description: Timber is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
-Version: 1.0.0
+Version: 1.0.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: timber-lite
@@ -66,13 +66,14 @@ and Blueprint http://www.blueprintcss.org/
  *    5.21 - Entry thumbnail
  *    5.22 - Entry header
  *    5.23 - Search form
- *    5.24 - Add This
- *    5.25 - RoyalSlider
- *    5.26 - Fullscreen slider
- *    5.27 - Loader
- *    5.28 - Border
- *    5.29 - Widgets
- *    5.30 - Password Protected Form
+ *    5.24 - RoyalSlider
+ *    5.25 - Fullscreen slider
+ *    5.26 - Loader
+ *    5.27 - Border
+ *    5.28 - Widgets
+ *    5.29 - Password Protected Form
+ *    5.30 - Project filters
+ *    5.31 - Images loading spinner
  *  6.0 - Overrides
  *
  */
@@ -3785,10 +3786,10 @@ pre, button, .nav, .rsBullets,
   padding: 0;
   border: 0; }
 
-body, .social-links-list, .filter__list {
+body, .filter__list {
   margin: 0; }
 
-.social-links-list, .filter__list {
+.filter__list {
   padding: 0; }
 
 img {
@@ -3810,7 +3811,7 @@ main,
 li, .wp-caption img[class*="wp-image-"], .nav .menu-item:hover > .sub-menu, .rsBullets .menu-item:hover > .sub-menu, .nav--social .menu-item:not(.menu-item-language) a, .nav--social .menu-item:not(.menu-item-language) a:before, .portfolio img, .block-link {
   display: block; }
 
-.bar--fixed, .site-header, .site-footer, .site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .theme-name, .back-to-top, .project-addthis-container, .nav, .rsBullets, .site-container, .portfolio, .portfolio__header, .portfolio__link-wrap, .single-jetpack-portfolio .site,
+.bar--fixed, .site-header, .site-footer, .site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .nav, .rsBullets, .site-container, .portfolio, .portfolio__header, .portfolio__link-wrap, .single-jetpack-portfolio .site,
 .jetpack-portfolio .site {
   display: -webkit-box;
   display: flex;
@@ -3819,7 +3820,6 @@ li, .wp-caption img[class*="wp-image-"], .nav .menu-item:hover > .sub-menu, .rsB
 .nav--main a, .portfolio__position {
   display: inline-block; }
 
-.screen-reader-text,
 .site-description, .portfolio--project .portfolio__item--text, .page-template-portfolio-page .entry-header,
 .page-template-portfolio-page .entry-footer,
 .tax-jetpack-portfolio-tag .entry-header,
@@ -4146,29 +4146,29 @@ b, strong {
 em, i {
   font-style: italic; }
 
-small, .caption, .project-addthis-container .share-text, .filter__text {
+small, .caption, .filter__text {
   font-family: Libre Baskerville, serif;
   font-style: italic;
   font-weight: 400;
   font-size: 1.06667rem;
   margin-bottom: 0; }
   @media screen and (min-width: 40em) {
-    small, .caption, .project-addthis-container .share-text, .filter__text {
+    small, .caption, .filter__text {
       font-size: 1.02857rem; } }
   @media screen and (min-width: 50em) {
-    small, .caption, .project-addthis-container .share-text, .filter__text {
+    small, .caption, .filter__text {
       font-size: 0.96rem; } }
   @media screen and (min-width: 64.0625em) {
-    small, .caption, .project-addthis-container .share-text, .filter__text {
+    small, .caption, .filter__text {
       font-size: 0.91429rem; } }
   @media screen and (min-width: 100em) {
-    small, .caption, .project-addthis-container .share-text, .filter__text {
+    small, .caption, .filter__text {
       font-size: 0.67368rem; } }
 
 small {
   line-height: 1rem; }
 
-.caption, .project-addthis-container .share-text, .filter__text {
+.caption, .filter__text {
   line-height: 2rem;
   margin-bottom: 1.34666rem;
   padding-top: 0.65334rem;
@@ -4176,29 +4176,29 @@ small {
   margin-bottom: 0 !important;
   line-height: 0.875em; }
   @media screen and (min-width: 40em) {
-    .caption, .project-addthis-container .share-text, .filter__text {
+    .caption, .filter__text {
       margin-bottom: 1.33428rem;
       padding-top: 0.66572rem; } }
   @media screen and (min-width: 50em) {
-    .caption, .project-addthis-container .share-text, .filter__text {
+    .caption, .filter__text {
       margin-bottom: 1.31199rem;
       padding-top: 0.68801rem; } }
   @media screen and (min-width: 64.0625em) {
-    .caption, .project-addthis-container .share-text, .filter__text {
+    .caption, .filter__text {
       margin-bottom: 1.29713rem;
       padding-top: 0.70287rem; } }
   @media screen and (min-width: 100em) {
-    .caption, .project-addthis-container .share-text, .filter__text {
+    .caption, .filter__text {
       margin-bottom: 1.21894rem;
       padding-top: 0.78106rem; } }
-  .caption + p, .project-addthis-container .share-text + p, .filter__text + p {
+  .caption + p, .filter__text + p {
     padding-top: 0;
     margin-top: -5px; }
 
-h1 + .caption, .project-addthis-container h1 + .share-text, h1 + .filter__text, h3 + .caption, .project-addthis-container h3 + .share-text, h3 + .filter__text {
+h1 + .caption, h1 + .filter__text, h3 + .caption, h3 + .filter__text {
   margin-top: -1rem; }
 
-.site-sidebar__content .entry-meta + .caption, .site-sidebar__text + .caption, .portfolio__type + .caption, .filter__item + .caption, .site-sidebar__content .project-addthis-container .entry-meta + .share-text, .project-addthis-container .site-sidebar__content .entry-meta + .share-text, .project-addthis-container .site-sidebar__text + .share-text, .project-addthis-container .portfolio__type + .share-text, .project-addthis-container .filter__item + .share-text, .site-sidebar__content .entry-meta + .filter__text, .site-sidebar__text + .filter__text, .portfolio__type + .filter__text, .filter__item + .filter__text {
+.site-sidebar__content .entry-meta + .caption, .site-sidebar__text + .caption, .portfolio__type + .caption, .filter__item + .caption, .site-sidebar__content .entry-meta + .filter__text, .site-sidebar__text + .filter__text, .portfolio__type + .filter__text, .filter__item + .filter__text {
   margin-top: 0rem; }
 
 blockquote {
@@ -4735,7 +4735,7 @@ figure {
   left: 0.9vh;
   width: auto; }
 
-.site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .theme-name, .back-to-top, .project-addthis-container {
+.site-branding, .main-navigation, .social-navigation, .site-info, .show-button {
   -webkit-box-align: center;
           align-items: center;
   -webkit-align-items: center; }
@@ -4747,33 +4747,33 @@ figure {
           justify-content: center;
   text-align: center; }
 
-.site-branding, .social-navigation, .show-button, .theme-name, .back-to-top, .project-addthis-container {
+.site-branding, .social-navigation, .show-button {
   flex-basis: 15%;
   -webkit-flex-basis: 15%;
   -webkit-box-flex: 1;
           flex-grow: 1;
   -webkit-flex-grow: 1; }
 
-.site-branding, .theme-name, .project-addthis-container {
+.site-branding {
   padding-right: 48px;
   -webkit-box-pack: start;
           justify-content: flex-start;
   text-align: right; }
   @media not screen and (min-width: 1200px) {
-    .site-branding, .theme-name, .project-addthis-container {
+    .site-branding {
       padding-right: 32px; } }
 
-.social-navigation, .show-button, .back-to-top {
+.social-navigation, .show-button {
   padding-left: 48px;
   -webkit-box-pack: end;
           justify-content: flex-end;
   text-align: left; }
   @media not screen and (min-width: 1200px) {
-    .social-navigation, .show-button, .back-to-top {
+    .social-navigation, .show-button {
       padding-left: 32px; } }
 
 @media not screen and (min-width: 900px) {
-  .site-branding, .main-navigation, .social-navigation, .site-info, .show-button, .theme-name, .back-to-top, .project-addthis-container {
+  .site-branding, .main-navigation, .social-navigation, .site-info, .show-button {
     margin: 0;
     flex-basis: 33%;
     -webkit-box-flex: 1;
@@ -4788,12 +4788,12 @@ figure {
   display: table;
   width: 100%; }
 
-.no-flexbox .site-branding, .no-flexbox .main-navigation, .no-flexbox .social-navigation, .no-flexbox .site-info, .no-flexbox .show-button, .no-flexbox .theme-name, .no-flexbox .back-to-top, .no-flexbox .project-addthis-container {
+.no-flexbox .site-branding, .no-flexbox .main-navigation, .no-flexbox .social-navigation, .no-flexbox .site-info, .no-flexbox .show-button {
   display: table-cell;
   vertical-align: middle;
   text-align: center; }
 
-.no-flexbox .site-branding, .no-flexbox .social-navigation, .no-flexbox .show-button, .no-flexbox .theme-name, .no-flexbox .back-to-top, .no-flexbox .project-addthis-container {
+.no-flexbox .site-branding, .no-flexbox .social-navigation, .no-flexbox .show-button {
   width: 15%; }
 
 .no-flexbox .main-navigation {
@@ -4997,6 +4997,44 @@ hr {
  * 5.0 - Components
  *   5.1 - Site header
  */
+/* Text meant only for screen readers. */
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(50%);
+          clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+  /* Many screen reader and browser combinations announce broken words as they would appear visually. */ }
+  .screen-reader-text:focus {
+    background-color: #FFF;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    -webkit-clip-path: none;
+            clip-path: none;
+    color: #222;
+    display: block;
+    font-weight: bold;
+    height: auto;
+    right: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000;
+    /* Above WP toolbar. */ }
+
+/* Do not show the outline on the skip link target. */
+#content[tabindex="-1"]:focus {
+  outline: 0; }
+
 .site-header {
   z-index: 552; }
   @media only screen and (min-width: 900px) {
@@ -5004,12 +5042,14 @@ hr {
       top: 7px; } }
   .page .site-header,
   .single .site-header {
-    position: absolute;
+    position: relative;
     right: 0;
     left: 0;
     width: 100%; }
-  .page-template-portfolio-page .site-header {
-    position: static;
+  .page-template .site-header {
+    position: absolute; }
+  .portfolio_page_type-portfolio .site-header {
+    position: fixed;
     right: auto;
     left: auto; }
 
@@ -5372,7 +5412,7 @@ hr {
     .site-footer {
       padding-bottom: 0.75em;
       overflow: hidden; }
-      .site-footer .site-branding, .site-footer .main-navigation, .site-footer .social-navigation, .site-footer .site-info, .site-footer .show-button, .site-footer .theme-name, .site-footer .back-to-top, .site-footer .project-addthis-container {
+      .site-footer .site-branding, .site-footer .main-navigation, .site-footer .social-navigation, .site-footer .site-info, .site-footer .show-button {
         display: block;
         padding: 0.75em; } }
   .site-footer .sep {
@@ -5386,7 +5426,7 @@ hr {
   text-align: center; }
 
 @media not screen and (min-width: 900px) {
-  .show-button.caption.caption, .project-addthis-container .show-button.share-text, .show-button.filter__text {
+  .show-button.caption.caption, .show-button.filter__text {
     padding-top: 0.75em; } }
 
 .show-button .mobile-thumbnails-label {
@@ -5398,12 +5438,6 @@ hr {
 @media not screen and (min-width: 1200px) {
   .show-button .desktop-thumbnails-label {
     display: none; } }
-
-.theme-name * {
-  display: inline-block; }
-
-.back-to-top {
-  color: #9B9B9B; }
 
 .site-footer--single {
   color: #9B9B9B;
@@ -5417,12 +5451,7 @@ hr {
     .site-footer--single {
       -webkit-box-orient: vertical;
       -webkit-box-direction: normal;
-              flex-direction: column; }
-      .site-footer--single .theme-name, .site-footer--single .back-to-top {
-        -webkit-box-pack: center;
-                justify-content: center;
-        -webkit-justify-content: center;
-        text-align: center; } }
+              flex-direction: column; } }
 
 /**
  *   5.8 - Navigation main
@@ -6352,6 +6381,11 @@ li.depth-2:before {
   right: auto;
   left: 1.5em; }
 
+.comment-form-cookies-consent {
+  margin-right: 24px; }
+  .comment-form-cookies-consent label {
+    display: inline-block; }
+
 /**
  *   5.14 - Filmstrip
  */
@@ -6986,7 +7020,7 @@ img {
   .portfolio__item--nav a {
     display: block;
     margin-bottom: 15px; }
-  .portfolio__item--nav .caption, .portfolio__item--nav .project-addthis-container .share-text, .project-addthis-container .portfolio__item--nav .share-text, .portfolio__item--nav .filter__text {
+  .portfolio__item--nav .caption, .portfolio__item--nav .filter__text {
     padding-top: 0; }
   .portfolio__item--nav .nav__label {
     font-weight: bold;
@@ -7428,143 +7462,7 @@ img {
     border: 1px solid white; }
 
 /**
- *   5.24 - Add This
- */
-.share-box {
-  position: relative; }
-
-.share-text {
-  text-transform: uppercase; }
-
-.project_layout-fullscreen .project-addthis-container .share-button {
-  background: url("assets/svg/share-icon-white.svg") no-repeat; }
-
-.project-addthis-container .share-button {
-  width: 22px;
-  height: 22px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url("assets/svg/share-icon.svg") no-repeat;
-  background-size: cover; }
-
-.project-addthis-container .share-text {
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  -webkit-transform: translateY(-50%) translateZ(0);
-          transform: translateY(-50%) translateZ(0);
-  z-index: 1;
-  padding-top: 0;
-  opacity: 0;
-  pointer-events: none;
-  color: #9B9B9B;
-  text-transform: none;
-  -webkit-transition: 0.3s opacity linear;
-  transition: 0.3s opacity linear; }
-  .single-jetpack-portfolio .project-addthis-container .share-text:after {
-    content: ":"; }
-
-.project-addthis-container .addthis_toolbox {
-  -webkit-transition: 0.3s background-color linear;
-  transition: 0.3s background-color linear; }
-
-.project-addthis-container .active .share-text {
-  opacity: 1; }
-
-.project-addthis-container .active .share-button {
-  opacity: 0; }
-
-.project-addthis-container .active .addthis_toolbox {
-  background-color: white; }
-
-.share-button, .share-text {
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s; }
-
-.social-links-list {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  min-width: 33vw;
-  width: 300%;
-  padding-right: 3em;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  pointer-events: none;
-  margin-top: 5px; }
-  .active .social-links-list {
-    pointer-events: auto; }
-  .metabox .social-links-list {
-    padding-right: 5.5em; }
-  .entry-footer .social-links-list {
-    width: 100%; }
-  .social-links-list a, .social-links-list a:hover {
-    background: none; }
-  .social-links-list a {
-    opacity: 0;
-    display: inline-block;
-    padding: 10px;
-    -webkit-transition-duration: 0s;
-            transition-duration: 0s; }
-  .social-links-list a:hover .at4-icon {
-    -webkit-filter: none;
-    filter: none; }
-
-@media not screen and (min-width: 900px) {
-  .single-post .social-links-list, .single-post .share-text {
-    display: inline-block;
-    vertical-align: middle; }
-  .single-post .social-links-list {
-    position: static;
-    padding-right: 0;
-    -webkit-transform: none;
-            transform: none; }
-    .single-post .social-links-list a {
-      opacity: 1 !important;
-      -webkit-transform: none !important;
-              transform: none !important; }
-  .single-post .share-text {
-    opacity: 1; }
-  .single-post .share-button {
-    opacity: 0; } }
-
-.addthis_toolbox.addthis_32x32_style span {
-  background-size: 70% !important;
-  background-position: center center !important; }
-
-.addthis_32x32_style span {
-  width: 28px !important;
-  height: 28px !important;
-  border-radius: 3px;
-  -webkit-filter: grayscale(1) invert(1) brightness(2.3);
-  -moz-filter: grayscale(1) invert(1) brightness(2.3);
-  -o-filter: grayscale(1) invert(1) brightness(2.3);
-  -ms-filter: grayscale(1) invert(1) brightness(2.3);
-  filter: grayscale(1) invert(1) brightness(2.3);
-  -webkit-transition: all .3s linear;
-  transition: all .3s linear; }
-  .addthis_32x32_style span svg {
-    width: 100% !important;
-    height: 100% !important; }
-
-.addthis_32x32_style a:hover span {
-  -webkit-filter: none;
-  -moz-filter: none;
-  -o-filter: none;
-  -ms-filter: none;
-  filter: none; }
-
-#at15s.atm {
-  display: none !important; }
-
-.addthis_toolbox.addthis_32x32_style span.at4-icon.aticon-facebook {
-  background-position: 3px 3px !important; }
-
-.addthis_toolbox.addthis_32x32_style span.at4-icon.aticon-pinterest_share {
-  background-position: 5px 3px !important; }
-
-/**
- *   5.25 - RoyalSlider
+ *   5.24 - RoyalSlider
  */
 .royalSlider, .pixslider {
   width: 600px;
@@ -8000,7 +7898,7 @@ img.rsImg {
     padding: 0 35px; } }
 
 /**
- *   5.26 - Fullscreen slider
+ *   5.25 - Fullscreen slider
  */
 .page-template-featured-projects-page {
   overflow: hidden; }
@@ -8363,7 +8261,7 @@ body.page-template-default.page .site-footer {
   border-radius: 3px; }
 
 /**
- *   5.27 - Loader
+ *   5.26 - Loader
  */
 .loader {
   position: fixed;
@@ -8389,7 +8287,7 @@ body.page-template-default.page .site-footer {
     font-weight: bold; }
 
 /**
- *   5.28 - Border
+ *   5.27 - Border
  */
 @media only screen and (min-width: 900px) {
   .site-header--placeholder {
@@ -8415,7 +8313,7 @@ body.page-template-default.page .site-footer {
     border-width: 0.9vh; } }
 
 /**
- *   5.29 - Widgets
+ *   5.28 - Widgets
  */
 .widget {
   font-size: 14px;
@@ -8497,7 +8395,7 @@ body.page-template-default.page .site-footer {
       color: white; }
 
 /**
- *   5.30 - PixProof
+ *   5.29 - PixProof
  */
 .password-required {
   color: #fff;
@@ -8547,7 +8445,7 @@ body.page-template-default.page .site-footer {
     color: #AB0B00; }
 
 /**
- *   5.31 - Project filters
+ *   5.30 - Project filters
  */
 .projects-filter {
   position: fixed;
@@ -8640,7 +8538,7 @@ body.page-template-default.page .site-footer {
   opacity: 1 !important; }
 
 /**
- *   5.32 - Images loading spinner
+ *   5.31 - Images loading spinner
  */
 .spinner {
   width: 40px;
@@ -8853,7 +8751,7 @@ html.has--nicescroll {
 .show-button {
   line-height: initial; }
 
-.show-button.caption, .project-addthis-container .show-button.share-text, .show-button.filter__text {
+.show-button.caption, .show-button.filter__text {
   padding-top: 0; }
 
 .photometa__caption {
@@ -8926,35 +8824,35 @@ html {
     height: 80vh;
     height: calc(100vh - 120px); }
 
-p.caption, .project-addthis-container p.share-text, p.filter__text {
+p.caption, p.filter__text {
   line-height: 1.5;
   padding: 0;
   margin-top: 0;
   font-size: 14px; }
-  p.caption:first-child, .project-addthis-container p.share-text:first-child, p.filter__text:first-child {
+  p.caption:first-child, p.filter__text:first-child {
     margin-top: 1.75em; }
-    .twocolumn > p.caption:first-child, .project-addthis-container .twocolumn > p.share-text:first-child, .twocolumn > p.filter__text:first-child {
+    .twocolumn > p.caption:first-child, .twocolumn > p.filter__text:first-child {
       margin-top: 0; }
-  p + p.caption, .project-addthis-container p + p.share-text, p + p.filter__text {
+  p + p.caption, p + p.filter__text {
     margin-top: 3em; }
-  p.caption a, .project-addthis-container p.share-text a, p.filter__text a {
+  p.caption a, p.filter__text a {
     color: inherit;
     text-decoration: none;
     background: none; }
-    p.caption a .pixcode--icon, .project-addthis-container p.share-text a .pixcode--icon, p.filter__text a .pixcode--icon {
+    p.caption a .pixcode--icon, p.filter__text a .pixcode--icon {
       color: inherit;
       -webkit-transition: none;
       transition: none; }
-    p.caption a:hover, .project-addthis-container p.share-text a:hover, p.filter__text a:hover {
+    p.caption a:hover, p.filter__text a:hover {
       color: #222; }
-  p.caption:last-child, .project-addthis-container p.share-text:last-child, p.filter__text:last-child {
+  p.caption:last-child, p.filter__text:last-child {
     margin-bottom: 0; }
 
-h1 + p.caption, .project-addthis-container h1 + p.share-text, h1 + p.filter__text, h2 + p.caption, .project-addthis-container h2 + p.share-text, h2 + p.filter__text, h3 + p.caption, .project-addthis-container h3 + p.share-text, h3 + p.filter__text, h4 + p.caption, .project-addthis-container h4 + p.share-text, h4 + p.filter__text, h5 + p.caption, .project-addthis-container h5 + p.share-text, h5 + p.filter__text, h6 + p.caption, .project-addthis-container h6 + p.share-text, h6 + p.filter__text {
+h1 + p.caption, h1 + p.filter__text, h2 + p.caption, h2 + p.filter__text, h3 + p.caption, h3 + p.filter__text, h4 + p.caption, h4 + p.filter__text, h5 + p.caption, h5 + p.filter__text, h6 + p.caption, h6 + p.filter__text {
   margin-top: 0.5em;
   margin-bottom: 1.5em !important; }
 
-.caption.caption--small, .project-addthis-container .caption--small.share-text, .caption--small.filter__text {
+.caption.caption--small, .caption--small.filter__text {
   font-size: 12px;
   text-shadow: none; }
 

@@ -4,7 +4,7 @@ Theme URI: https://github.com/pixelgrade/timber-lite
 Author: Pixelgrade
 Author URI: https://pixelgrade.com/
 Description: Timber is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
-Version: 1.0.0
+Version: 1.0.1
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: timber-lite
@@ -3820,7 +3820,6 @@ li, .wp-caption img[class*="wp-image-"], .nav .menu-item:hover > .sub-menu, .rsB
 .nav--main a, .portfolio__position {
   display: inline-block; }
 
-.screen-reader-text,
 .site-description, .portfolio--project .portfolio__item--text, .page-template-portfolio-page .entry-header,
 .page-template-portfolio-page .entry-footer,
 .tax-jetpack-portfolio-tag .entry-header,
@@ -4998,6 +4997,44 @@ hr {
  * 5.0 - Components
  *   5.1 - Site header
  */
+/* Text meant only for screen readers. */
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(50%);
+          clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+  /* Many screen reader and browser combinations announce broken words as they would appear visually. */ }
+  .screen-reader-text:focus {
+    background-color: #FFF;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    -webkit-clip-path: none;
+            clip-path: none;
+    color: #222;
+    display: block;
+    font-weight: bold;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000;
+    /* Above WP toolbar. */ }
+
+/* Do not show the outline on the skip link target. */
+#content[tabindex="-1"]:focus {
+  outline: 0; }
+
 .site-header {
   z-index: 552; }
   @media only screen and (min-width: 900px) {
@@ -5005,12 +5042,14 @@ hr {
       top: 7px; } }
   .page .site-header,
   .single .site-header {
-    position: absolute;
+    position: relative;
     left: 0;
     right: 0;
     width: 100%; }
-  .page-template-portfolio-page .site-header {
-    position: static;
+  .page-template .site-header {
+    position: absolute; }
+  .portfolio_page_type-portfolio .site-header {
+    position: fixed;
     left: auto;
     right: auto; }
 
@@ -6341,6 +6380,11 @@ li.depth-2:before {
 .rtl .comments-area:before {
   left: auto;
   right: 1.5em; }
+
+.comment-form-cookies-consent {
+  margin-left: 24px; }
+  .comment-form-cookies-consent label {
+    display: inline-block; }
 
 /**
  *   5.14 - Filmstrip
