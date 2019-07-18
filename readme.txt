@@ -17,6 +17,10 @@ Timber Lite is a Free photography WordPress theme that goes out to the edge to e
 
 == Changelog ==
 
+= 1.0.2 =
+* JavaScript bundle performance optimizations.
+* Minor textual changes to recommended plugins.
+
 = 1.0.0 =
 * Initial release
 
