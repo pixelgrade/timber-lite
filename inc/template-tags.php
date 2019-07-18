@@ -1230,3 +1230,21 @@ if ( ! function_exists( 'timber_footer_the_copyright' ) ) {
 		echo apply_filters( 'pixelgrade_footer_the_copyright', $output );
 	}
 }
+
+if ( ! function_exists( 'wp_body_open' ) ) :
+	/**
+	 * Fire the wp_body_open action.
+	 *
+	 * Added for backwards compatibility to support pre 5.2.0 WordPress versions.
+	 *
+	 * @since Timber Lite 1.0.3
+	 */
+	function wp_body_open() {
+		/**
+		 * Triggered after the opening <body> tag.
+		 *
+		 * @since Timber Lite 1.0.3
+		 */
+		do_action( 'wp_body_open' );
+	}
+endif;

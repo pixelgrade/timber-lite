@@ -58,7 +58,8 @@
         width: 100%;
     }
 
-    .page-template & {
+    .page-template &,
+    .page-has-featured-image &{
         position: absolute;
     }
 
