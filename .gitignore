@@ -14,7 +14,6 @@ codekit-config.json
 node_modules
 build
 gulpconfig.json
-package-lock.json
 *-ck.js
 *.css.map
 *.js.mapbower_components/

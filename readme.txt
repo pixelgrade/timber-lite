@@ -2,18 +2,19 @@ Theme Name: Timber Lite
 Theme URI: https://github.com/pixelgrade/timber-lite
 Author: Pixelgrade
 Author URI: https://pixelgrade.com/
-Description: Timber Lite is a free photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience.
-Version: 1.0.0
+Description: Timber Lite is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
+Version: 1.0.2
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: timber-lite
 Domain Path: /languages/
 Tags: photography, portfolio, grid-layout, four-columns, custom-menu, featured-images, sticky-post, translation-ready, post-formats
-Requires at least: 4.7
+Requires at least: 4.9.9
 Tested up to: 5.2.2
 
 == Description ==
 Timber Lite is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
+
 == Changelog ==
 
 = 1.0.0 =

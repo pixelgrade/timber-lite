@@ -67,6 +67,32 @@ stylesSequence.description = 'Compile all styles';
 gulp.task('styles', stylesSequence )
 
 // -----------------------------------------------------------------------------
+// Scripts
+// -----------------------------------------------------------------------------
+
+jsFiles = [
+  './assets/js/vendor/*.js',
+  './assets/js/main/wrapper_start.js',
+  './assets/js/main/shared_vars.js',
+  './assets/js/modules/*.js',
+  './assets/js/main/main.js',
+  './assets/js/main/functions.js',
+  './assets/js/main/wrapper_end.js'
+];
+
+function scripts() {
+  return gulp.src(jsFiles, { allowEmpty: true })
+    .pipe(plugins.concat('main.js'))
+    .pipe(plugins.prettier())
+    .pipe(gulp.dest('./assets/js/'))
+    .pipe(plugins.terser())
+    .pipe(plugins.rename('main.min.js'))
+    .pipe(gulp.dest('./assets/js/'))
+}
+scripts.description = 'Concatenate all JS into main.js and wrap all code in a closure';
+gulp.task('scripts', scripts )
+
+// -----------------------------------------------------------------------------
 // Watch tasks
 //
 // These tasks are run whenever a file is saved. Don't confuse the files being
@@ -89,7 +115,7 @@ function watchStart() {
 	gulp.watch( ['assets/scss/**/*.scss'], stylesMain )
 
 	// watch for JavaScript changes
-	// gulp.watch('assets/js/**/*.js', ['scripts'])
+	gulp.watch('assets/js/**/*.js', scripts)
 }
 watchStart.description = 'Watch for changes to various files and process them';
 gulp.task( 'watch-start', watchStart )

@@ -132,29 +132,27 @@ add_action( 'init', 'timber_remove_custom_post_comment' );
  */
 function timber_scripts_styles() {
 
-	$theme_data = wp_get_theme();
-
-	$dependencies = array( 'jquery', 'wp-mediaelement' );
+	$theme = wp_get_theme( get_template() );
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 	// Main Style - we use this path instead of get_stylesheet_uri() so a child theme can extend this not override it.
-	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'wp-mediaelement' ), $theme_data->get( 'Version' ) );
+	wp_enqueue_style( 'timber-style', get_template_directory_uri() . '/style.css', array( 'wp-mediaelement' ), $theme->get( 'Version' ) );
 
-
+	$script_dependencies = array( 'jquery', 'wp-mediaelement' );
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/plugins/modernizr.min.js', array( 'jquery' ), '3.3.1' );
-	$dependencies[] = 'modernizr';
+	$script_dependencies[] = 'modernizr';
 	wp_enqueue_script( 'tween-max', '//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js', array( 'jquery' ) );
-	$dependencies[] = 'tween-max';
+	$script_dependencies[] = 'tween-max';
 	wp_enqueue_script( 'scroll-to-plugin', '//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/plugins/ScrollToPlugin.min.js', array( 'jquery' ) );
-	$dependencies[] = 'scroll-to-plugin';
+	$script_dependencies[] = 'scroll-to-plugin';
 	wp_enqueue_script( 'timber-rs', '//pxgcdn.com/js/rs/9.5.7/index.js', array( 'jquery' ) );
-	$dependencies[] = 'timber-rs';
+	$script_dependencies[] = 'timber-rs';
 	wp_enqueue_script( 'timber-mix', '//pxgcdn.com/js/mixitup/2.1.11/index.js', array( 'jquery' ) );
-	$dependencies[] = 'timber-mix';
-	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main.js', $dependencies, $theme_data->get( 'Version' ), true );
+	$script_dependencies[] = 'timber-mix';
+	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main' . $suffix . '.js', $script_dependencies, $theme->get( 'Version' ), true );
 
 	// Localize the script with new data
-	$translation_array = array
-	(
+	$translation_array = array(
 		'tPrev' => esc_html__('Previous (Left arrow key)', 'timber-lite'),
 		'tNext' => esc_html__('Next (Right arrow key)', 'timber-lite'),
 		'tCounter' => esc_html__('of', 'timber-lite'),
@@ -175,10 +173,6 @@ function timber_scripts_styles() {
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
-	}
-
-	if ( is_singular() ) {
-		wp_enqueue_script( 'addthis-api' , '//s7.addthis.com/js/250/addthis_widget.js#async=1', array( 'jquery' ), '1.0.0', true );
 	}
 
 	wp_enqueue_script('mousewheel' , get_template_directory_uri() . '/assets/js/plugins/jquery.mousewheel.min.js', array('jquery'), '3.1.13', true );
@@ -208,7 +202,7 @@ function timber_scripts_styles() {
 		$carousel = new Jetpack_Carousel();
 
 		// First parameter is $output, which comes from filters, and causes bypass of the asset enqueuing. Passing null is correct.
-		$carousel->enqueue_assets( null );
+		$carousel->enqueue_assets();
 	}
 	add_filter( 'jp_carousel_force_enable', true );
 
@@ -301,7 +295,7 @@ function timber_get_queued_styles() {
 	}
 	return $loading_styles;
 }
-add_action( 'wp_enqueue_scripts', 'timber_localize_scripts_and_styles', 999999999 );
+add_action( 'wp_enqueue_scripts', 'timber_localize_scripts_and_styles', 999999 );
 
 /**
  * Localize a static list with resources already loaded on the first page load this lists will be filled on
@@ -315,8 +309,7 @@ function timber_localize_scripts_and_styles() {
 		'styles'  => timber_get_queued_styles()
 	) );
 }
-
-add_action('wp_footer', 'timber_last_function', 999999999);
+add_action('wp_footer', 'timber_last_function', 999999);
 
 function timber_last_function(){
 	/**
@@ -476,6 +469,6 @@ require get_template_directory() . '/inc/hybrid-media-grabber.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
- * Load Recommended/Required plugins notification
+ * Load Recommended plugins notification
  */
 require get_template_directory() . '/inc/required-plugins.php';
