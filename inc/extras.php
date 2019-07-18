@@ -164,11 +164,10 @@ if ( ! function_exists( 'timber_comment' ) ) :
 		} else {
 			$comment_number ++;
 		}
-
-		$GLOBALS['comment'] = $comment; ?>
+		?>
 		<li <?php comment_class(); ?>>
 		<article id="comment-<?php comment_ID() ?>" class="comment-article  media">
-			<span class="comment-number"><?php echo $comment_number ?></span>
+			<span class="comment-number"><?php echo esc_html( $comment_number ); ?></span>
 			<?php
 			//grab the avatar - by default the Mystery Man
 			$avatar = get_avatar( $comment, 60, '', '', array( 'extra_attr' => '' ) ); ?>
