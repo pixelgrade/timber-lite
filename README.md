@@ -1,7 +1,7 @@
 # TIMBER – An Unusual Photography WordPress Theme
 ### Timber is a photography WordPress theme that goes out to the edge to enable a fresh, adventurous experience. You get a carefully chosen cutting edge set of tools to propel your photography showcase to new heights. A theme that matches your passion and artistic aspirations.
 
-[Download for Free](https://downloads.wordpress.org/theme/timber-lite.latest-stable.zip) &nbsp;·&nbsp; [Demo Preview](https://demos.pixelgrade.com/timber-lite/) &nbsp;·&nbsp; [ Timber Pro](https://pixelgrade.com/themes/timber-pro/)
+[View Demo](https://demos.pixelgrade.com/timber-lite/) &nbsp;·&nbsp; [Documentation](https://pixelgrade.com/timber-lite-documentation/) &nbsp;·&nbsp; [Download for Free](https://downloads.wordpress.org/theme/timber-lite.latest-stable.zip) &nbsp;·&nbsp; [ View Pro Version](https://pixelgrade.com/themes/timber-pro/)
 
 [![](https://img.shields.io/github/issues-closed/pixelgrade/timber-lite.svg?color=6cc644&label=Issues)](https://github.com/pixelgrade/timber-lite/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aclosed+) [![](https://img.shields.io/github/issues/pixelgrade/timber-lite.svg?color=4078c0&label=%20)](https://github.com/pixelgrade/timber-lite/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen)
 
