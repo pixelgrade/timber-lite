@@ -8143,7 +8143,7 @@ body.page-template-default.page .site-footer {
     bottom: 0;
     pointer-events: none;
     border: 0 solid #222;
-    transition: border-width .3s ease-out; }
+    transition: none; }
   .ready body:after {
     border-width: 0.9vh; } }
 

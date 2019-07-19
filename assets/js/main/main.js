@@ -10,10 +10,6 @@ function init() {
     browserSize();
     scrollToTop();
 
-    if ( ! detectIE() ) {
-	    Loader.init();
-    }
-
     Nav.init();
     updateHeader();
     $html.addClass('ready');
@@ -68,29 +64,6 @@ function softInit() {
 $window.load(function () {
     softInit();
     eventHandlers();
-
-    requestAnimationFrame(function() {
-        TweenMax.to('.loader', .3, {
-            opacity: 0,
-            ease: Expo.easeInOut
-        });
-        TweenMax.fromTo('.loader', .6, {
-            left: 0
-        }, {
-            left: '-100%',
-            ease: Expo.easeInOut,
-        });
-        TweenMax.to('.mask--page', .6, {
-            left: '100%',
-            ease: Expo.easeInOut,
-            onComplete: function() {
-                $('.mask--page').css('left', '-100%');
-                $('.mask--page').removeClass('is-on-top');
-                $('.loader').css('opacity', 1);
-            }
-        });
-    });
-
     loop();
 });
 

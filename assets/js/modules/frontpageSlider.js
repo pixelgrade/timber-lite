@@ -331,7 +331,6 @@ var frontpageSlider = (function() {
 
     function animateContentIn() {
 
-        $content.find('.project-slide__title h1').text($current.data('title'));
         $content.find('.portfolio_types').html($current.data('types'));
         $content.find('a').attr('href', $current.data('link')).attr('title', $current.data('link-title'));
 

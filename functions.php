@@ -464,6 +464,11 @@ require get_template_directory() . '/inc/extras.php';
 require get_template_directory() . '/inc/hybrid-media-grabber.php';
 
 /**
+ * Customify
+ */
+require get_template_directory() . '/inc/integrations/customify.php';
+
+/**
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';

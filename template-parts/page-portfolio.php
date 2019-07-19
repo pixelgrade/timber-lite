@@ -65,7 +65,7 @@ if ( ! defined( 'ABSPATH' ) ){
 
 				wp_reset_postdata(); ?>
 
-				<?php get_template_part( 'template-parts/preloader' ); ?>
+<!--				--><?php //get_template_part( 'template-parts/preloader' ); ?>
 			</div>
 
 		<?php else :

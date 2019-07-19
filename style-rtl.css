@@ -5026,10 +5026,9 @@ hr {
     right: 0;
     left: 0;
     width: 100%; }
-  .page-template .site-header {
+  .page-template .site-header,
+  .page-has-featured-image .site-header {
     position: absolute; }
-    .page-template .site-header.page-has-featured-image {
-      position: relative; }
   .portfolio_page_type-portfolio .site-header {
     position: fixed;
     right: auto;
