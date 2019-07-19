@@ -35,7 +35,6 @@ get_header(); ?>
             while ( have_posts() ) : the_post();
                 get_template_part( 'template-parts/content', 'portfolio' );
             endwhile;
-//            get_template_part( 'template-parts/preloader' );
         else :
             get_template_part( 'template-parts/content', 'none' );
         endif;

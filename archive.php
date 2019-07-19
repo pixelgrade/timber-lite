@@ -44,7 +44,6 @@ get_header(); ?>
 				?>
 			<?php endwhile; ?>
 		    <?php timber_paging_nav(); ?>
-<!--            --><?php //get_template_part( 'template-parts/preloader' ); ?>
 		</div>
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content', 'none' ); ?>
