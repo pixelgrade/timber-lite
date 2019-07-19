@@ -4734,8 +4734,8 @@ figure {
   text-align: center; }
 
 .site-branding, .social-navigation, .show-button {
-  flex-basis: 15%;
-  -webkit-flex-basis: 15%;
+  flex-basis: 30%;
+  -webkit-flex-basis: 30%;
   flex-grow: 1;
   -webkit-flex-grow: 1; }
 
