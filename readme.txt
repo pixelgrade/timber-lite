@@ -60,9 +60,9 @@ The Timber Lite Theme bundles the following third-party resources:
 * hammer.js https://github.com/hammerjs/hammer.js, (c) 2014 Jorik Tangelder, licensed under [MIT](https://opensource.org/licenses/MIT)
 * jQuery.appear https://github.com/morr/jquery.appear, (c) 2012 Andrey Sidorov, licensed under [MIT](https://opensource.org/licenses/MIT)
 * djax https://github.com/beezee/djax, (c) 2012, Brian Zeligson, licensed under [MIT](https://opensource.org/licenses/MIT)
-* jQuery-Organic-Tabs https://github.com/CSS-Tricks/jQuery-Organic-Tabs, (c) 2012 CSS-TRICKS @todo complete license type
+* jQuery-Organic-Tabs https://github.com/CSS-Tricks/jQuery-Organic-Tabs, (c) 2012 CSS-TRICKS
 * snap.svg https://github.com/adobe-webplatform/Snap.svg/, (c) 2013 – 2017 Adobe Systems Incorporated, licensed under [Apache License 2.0] (https://www.apache.org/licenses/LICENSE-2.0)
-* modernizr.js https://github.com/modernizr/modernizr, (c) 2009 , licensed under [MIT](https://opensource.org/licenses/MIT) @todo complete author
+* modernizr.js https://github.com/modernizr/modernizr, (c) 2009 , licensed under [MIT](https://opensource.org/licenses/MIT)
 * jQuery-mousewheel https://github.com/jquery/jquery-mousewheel, (c) jQuery Foundation, licensed under [MIT](https://opensource.org/licenses/MIT)
 
 * Images: screenshot images by Jonas Svidras - [Image 1](https://pxhere.com/en/photo/1427193) and [Image 2](https://pxhere.com/en/photo/976371), licensed under CC0 Public Domain.
