@@ -3,7 +3,7 @@
  * Multibyte String Functions Pseudo-Replacements
  * This is in case the mb PHP extension is not present although it should be
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

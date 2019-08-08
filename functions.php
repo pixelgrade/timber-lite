@@ -2,7 +2,7 @@
 /**
  * Timber functions and definitions
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

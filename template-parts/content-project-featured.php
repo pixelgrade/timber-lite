@@ -2,7 +2,7 @@
 /**
  * The template used for displaying a project (Jetpack Portfolio Single Post) on the Featured Projects Page
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

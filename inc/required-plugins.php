@@ -1,9 +1,8 @@
 <?php
 /**
- * Timber required or recommended plugins
+ * Timber Lite required or recommended plugins
  *
- * @package Timber
- * @since Timber 1.0
+ * @package Timber Lite
  */
 
 require_once get_template_directory() . '/inc/required-plugins/class-tgm-plugin-activation.php';

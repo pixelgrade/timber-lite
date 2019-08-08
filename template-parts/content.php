@@ -2,7 +2,7 @@
 /**
  * Template part for displaying posts on archive.
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

@@ -2,7 +2,7 @@
 /**
  * The template for displaying PixProof Galleries.
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

@@ -4,7 +4,7 @@
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

@@ -2,7 +2,7 @@
 /**
  * Theme activation hook
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

@@ -2,7 +2,7 @@
 /**
  * Template part for displaying featured projects.
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

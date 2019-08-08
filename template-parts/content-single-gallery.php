@@ -2,7 +2,7 @@
 /**
  * The template for displaying single gallery post format posts.
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

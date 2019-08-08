@@ -2,7 +2,7 @@
 /**
  * Timber Theme Customizer
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

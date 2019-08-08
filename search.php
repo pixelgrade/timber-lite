@@ -2,7 +2,7 @@
 /**
  * The template for displaying search results pages.
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

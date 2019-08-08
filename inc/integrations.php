@@ -2,7 +2,7 @@
 /**
 * Require files that deal with various plugin integrations.
 *
-* @package Timber
+* @package Timber Lite
 */
 
 /**

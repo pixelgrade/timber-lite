@@ -2,7 +2,7 @@
 /**
  * The template for displaying all single posts.
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

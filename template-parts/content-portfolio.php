@@ -2,7 +2,7 @@
 /**
  * The template used for displaying Jetpack Portfolio posts on the Porfolio landing page and on Portfolio archives
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

@@ -4,7 +4,7 @@
  *
  * Aimed at being used as a static front page where you can showcase your featured projects in a fullscreen slideshow
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 

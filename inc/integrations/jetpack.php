@@ -4,7 +4,7 @@
  * This way we provide a smooth transition to those that decide to use Jetpack
  * See: http://jetpack.me/
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 function timber_load_jetpack_compatibility() {

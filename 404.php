@@ -2,7 +2,7 @@
 /**
  * The template for displaying 404 pages (not found).
  *
- * @package Timber
+ * @package Timber Lite
  * @since Timber 1.0
  */
 
