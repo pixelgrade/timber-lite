@@ -3,7 +3,6 @@
  * Template part for displaying posts on archive.
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ){
@@ -25,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ){
 							case 'video':
 							case 'audio': echo '<i class="icon  icon-play"></i>';
 								break;
-							case 'gallery': echo timber_get_post_gallery_count();
+							case 'gallery': echo timber_lite_get_post_gallery_count();
                                 break;
 						} ?>
 					</div>
@@ -38,21 +37,21 @@ if ( ! defined( 'ABSPATH' ) ){
 			<div class="entry-meta">
 
 				<?php if ( 'post' == get_post_type() ) {
-					timber_posted_on();
-					timber_first_category();
+					timber_lite_posted_on();
+					timber_lite_first_category();
 				} else {
 					echo get_post_type();
 				} ?>
 
 			</div><!-- .entry-meta -->
 
-			<?php the_title( sprintf( '<h1 ' . timber_get_post_title_class_attr( 'entry-title h3' ) . '><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
+			<?php the_title( sprintf( '<h1 ' . timber_lite_get_post_title_class_attr( 'entry-title h3' ) . '><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h1>' ); ?>
 
 		</header><!-- .entry-header -->
 
 		<div class="entry-content">
 
-			<?php timber_post_excerpt(); ?>
+			<?php timber_lite_post_excerpt(); ?>
 
 			<?php
 			wp_link_pages( array(

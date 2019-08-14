@@ -22,7 +22,7 @@ get_header(); ?>
         }
         ?>
 
-		<div class="filmstrip" <?php echo $data; ?>>
+		<div class="filmstrip" <?php echo $data; // phpcs:ignore ?>>
 			<div class="site-sidebar">
 				<div class="site-sidebar__content  site-sidebar__text">
 					<?php
@@ -44,7 +44,7 @@ get_header(); ?>
 					get_template_part( 'template-parts/content', get_post_format() );
 				?>
 			<?php endwhile; ?>
-		    <?php timber_paging_nav(); ?>
+		    <?php timber_lite_paging_nav(); ?>
 
 		</div>
 

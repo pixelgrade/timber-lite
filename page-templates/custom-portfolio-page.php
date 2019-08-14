@@ -5,7 +5,6 @@
  * Aimed at being used as a static front page where you can showcase your featured projects in a fullscreen slideshow
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ){
@@ -18,7 +17,7 @@ if ( post_password_required() ) {
 	echo get_the_password_form();
 } else {
 
-	$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true);
+	$custom_portfolio_page_type = get_post_meta( timber_lite_get_post_id(), 'custom_portfolio_page_type', true);
 	// this is the default template
 	$template_part = 'template-parts/page-featured-projects';
 
@@ -29,7 +28,7 @@ if ( post_password_required() ) {
 
 	// when user wants a project as this template, force it
 	if ( $custom_portfolio_page_type === 'project' ) {
-		$homepage_project = get_post_meta( timber_get_post_id(), 'homepage_project', true );
+		$homepage_project = get_post_meta( timber_lite_get_post_id(), 'homepage_project', true );
 
 		if ( is_numeric( $homepage_project ) ) {
 			global $post;

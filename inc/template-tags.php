@@ -5,15 +5,14 @@
  * Eventually, some of the functionality here could be replaced by core features.
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
-if ( ! function_exists( 'timber_paging_nav' ) ) :
+if ( ! function_exists( 'timber_lite_paging_nav' ) ) :
 	/**
 	 * Display navigation to next/previous set of posts when applicable.
 	 *
 	 */
-	function timber_paging_nav( $max_num_pages = '' ) {
+	function timber_lite_paging_nav( $max_num_pages = '' ) {
 		// Get max_num_pages if not provided
 		if ( '' == $max_num_pages ) {
 			$max_num_pages = $GLOBALS['wp_query']->max_num_pages;
@@ -40,11 +39,11 @@ if ( ! function_exists( 'timber_paging_nav' ) ) :
 	}
 endif;
 
-if ( ! function_exists( 'timber_posted_on' ) ) :
+if ( ! function_exists( 'timber_lite_posted_on' ) ) :
 /**
  * Prints HTML with meta information for the current post-date/time and author.
  */
-function timber_posted_on() {
+function timber_lite_posted_on() {
 	$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 
 	$time_string = sprintf( $time_string,
@@ -65,11 +64,11 @@ function timber_posted_on() {
 }
 endif;
 
-if ( ! function_exists( 'timber_entry_footer' ) ) :
+if ( ! function_exists( 'timber_lite_entry_footer' ) ) :
 /**
  * Prints HTML with meta information for the categories, tags and comments.
  */
-function timber_entry_footer() {
+function timber_lite_entry_footer() {
 	// Hide category and tag text for pages.
 	if ( 'post' == get_post_type() ) {
 	echo '<div class="metabox">';
@@ -98,7 +97,7 @@ endif;
  *
  * @return bool
  */
-function timber_categorized_blog() {
+function timber_lite_categorized_blog() {
 	if ( false === ( $all_the_cool_cats = get_transient( 'timber_categories' ) ) ) {
 		// Create an array of all the categories that are attached to posts.
 		$all_the_cool_cats = get_categories( array(
@@ -116,36 +115,36 @@ function timber_categorized_blog() {
 	}
 
 	if ( $all_the_cool_cats > 1 ) {
-		// This blog has more than 1 category so timber_categorized_blog should return true.
+		// This blog has more than 1 category so timber_lite_categorized_blog should return true.
 		return true;
 	} else {
-		// This blog has only 1 category so timber_categorized_blog should return false.
+		// This blog has only 1 category so timber_lite_categorized_blog should return false.
 		return false;
 	}
 }
 
 /**
- * Flush out the transients used in timber_categorized_blog.
+ * Flush out the transients used in timber_lite_categorized_blog.
  */
-function timber_category_transient_flusher() {
+function timber_lite_category_transient_flusher() {
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return;
 	}
 	// Like, beat it. Dig?
 	delete_transient( 'timber_categories' );
 }
-add_action( 'edit_category', 'timber_category_transient_flusher' );
-add_action( 'save_post',     'timber_category_transient_flusher' );
+add_action( 'edit_category', 'timber_lite_category_transient_flusher' );
+add_action( 'save_post', 'timber_lite_category_transient_flusher' );
 
 
-if ( ! function_exists( 'timber_get_custom_excerpt' ) ) :
+if ( ! function_exists( 'timber_lite_get_custom_excerpt' ) ) :
 /**
  * Generate a custom post excerpt suited to both latin alphabet languages and multibyte ones, like Chinese of Japanese
  *
  * @param int|WP_Post $id Optional. Post ID or post object.
  * @return string The custom excerpt
  */
-function timber_get_custom_excerpt( $post_id = null ) {
+function timber_lite_get_custom_excerpt( $post_id = null ) {
 	$post = get_post( $post_id );
 
 	if ( empty( $post ) ) {
@@ -161,7 +160,7 @@ function timber_get_custom_excerpt( $post_id = null ) {
 	//the excerpt returned by WordPress
 	$excerpt = get_the_excerpt();
 	//now we try to truncate the default excerpt with the length = number of words * 6 - the average word length in English
-	$mb_excerpt = timber_truncate( $excerpt, ( apply_filters( 'excerpt_length', 55 ) * 6 ) );
+	$mb_excerpt = timber_lite_truncate( $excerpt, ( apply_filters( 'excerpt_length', 55 ) * 6 ) );
 
 	//if the multibyte excerpt's length is smaller then the regular excerpt's length divided by 1.8 (this is a conservative number)
 	//then it's quite clear that the default one is no good
@@ -173,13 +172,13 @@ function timber_get_custom_excerpt( $post_id = null ) {
 }
 endif;
 
-if ( ! function_exists( 'timber_post_excerpt' ) ) :
+if ( ! function_exists( 'timber_lite_post_excerpt' ) ) :
 	/**
 	 * Display the post excerpt, either with the <!--more--> tag or regular excerpt
 	 *
 	 * @param int|WP_Post $id Optional. Post ID or post object.
 	 */
-	function timber_post_excerpt( $post_id = null ) {
+	function timber_lite_post_excerpt( $post_id = null ) {
 		$post = get_post( $post_id );
 
 		if ( empty( $post ) ) {
@@ -202,12 +201,12 @@ if ( ! function_exists( 'timber_post_excerpt' ) ) :
 			the_excerpt();
 		} else {
 			//need custom generated excerpt
-			echo apply_filters('the_excerpt', timber_get_custom_excerpt( $post ) );
+			echo apply_filters('the_excerpt', timber_lite_get_custom_excerpt( $post ) );
 		}
 	} #function
 endif;
 
-if ( ! function_exists( 'timber_the_post_thumbnail') ) :
+if ( ! function_exists( 'timber_lite_the_post_thumbnail' ) ) :
     /**
      * Display the project featured image or the first content image
      *
@@ -215,7 +214,7 @@ if ( ! function_exists( 'timber_the_post_thumbnail') ) :
      * @param string $size Optional. Thumbnail size. Default full
      * @param string|array $attr Optional. Query string or array of attributes. Default empty.
      */
-    function timber_the_post_thumbnail( $post_id = null, $size = 'full', $attr = '' ) {
+    function timber_lite_the_post_thumbnail( $post_id = null, $size = 'full', $attr = '' ) {
         $post = get_post( $post_id );
 
         if ( empty( $post ) ) {
@@ -241,7 +240,7 @@ if ( ! function_exists( 'timber_the_post_thumbnail') ) :
                 preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
 
                 if ( isset( $matches[1][0] ) ) {
-                    $post_thumbnail_id = timber_attachment_url_to_postid( $matches[1][0] );
+                    $post_thumbnail_id = timber_lite_attachment_url_to_postid( $matches[1][0] );
                 }
             }
 
@@ -295,9 +294,9 @@ if ( ! function_exists( 'timber_the_post_thumbnail') ) :
     }
 endif;
 
-if ( ! function_exists( 'timber_get_option' ) ) :
-	function timber_get_option( $option, $default = null ) {
-		_deprecated_function('timber_get_option', '1.6.8', 'pixelgrade_option');
+if ( ! function_exists( 'timber_lite_get_option' ) ) :
+	function timber_lite_get_option( $option, $default = null ) {
+		_deprecated_function('timber_lite_get_option', '1.6.8', 'pixelgrade_option');
 		return pixelgrade_option($option, $default);
 	}
 endif;
@@ -406,7 +405,7 @@ if ( ! function_exists( 'pixelgrade_option' ) ) {
 	}
 }
 
-if ( ! function_exists( 'timber_the_film_strip' ) ) :
+if ( ! function_exists( 'timber_lite_the_film_strip' ) ) :
 	/**
 	 * Display the film strip
 	 *
@@ -414,13 +413,13 @@ if ( ! function_exists( 'timber_the_film_strip' ) ) :
      * @param boolean $ignore_text Optional. To ignore or not text boxes
      * @param boolean $ignore_videos Optional. To ignore or not video boxes
 	 */
-	function timber_the_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
-		echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos ); // phpcs:ignore
+	function timber_lite_the_film_strip( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
+		echo timber_lite_get_processed_content( $post_id, $ignore_text, $ignore_videos ); // phpcs:ignore
 	}
 
 endif;
 
-if ( ! function_exists( 'timber_the_project_slider_images' ) ) :
+if ( ! function_exists( 'timber_lite_the_project_slider_images' ) ) :
     /**
      * Display the slider images
      *
@@ -428,13 +427,13 @@ if ( ! function_exists( 'timber_the_project_slider_images' ) ) :
      * @param boolean $ignore_text Optional. To ignore or not text boxes
      * @param boolean $ignore_videos Optional. To ignore or not video boxes
      */
-    function timber_the_project_slider_images( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
-        echo timber_get_processed_content( $post_id, $ignore_text, $ignore_videos, 'timber_get_slider_image' ); // phpcs:ignore
+    function timber_lite_the_project_slider_images( $post_id = null, $ignore_text = false, $ignore_videos = false ) {
+        echo timber_lite_get_processed_content( $post_id, $ignore_text, $ignore_videos, 'timber_lite_get_slider_image' ); // phpcs:ignore
     }
 
 endif;
 
-if ( ! function_exists( 'timber_get_processed_content' ) ) :
+if ( ! function_exists( 'timber_lite_get_processed_content' ) ) :
 	/**
 	 * Return the film strip markup
 	 *
@@ -444,7 +443,7 @@ if ( ! function_exists( 'timber_get_processed_content' ) ) :
      * @param string $image_callback Optional. Function name to use to get the individual images markup
 	 * @return string The film strip markup
 	 */
-	function timber_get_processed_content( $post_id = null, $ignore_text = false, $ignore_videos = false, $image_callback = 'timber_get_film_strip_image' ) {
+	function timber_lite_get_processed_content( $post_id = null, $ignore_text = false, $ignore_videos = false, $image_callback = 'timber_lite_get_film_strip_image' ) {
 		$post = get_post( $post_id );
 
 		if ( empty( $post ) ) {
@@ -458,7 +457,7 @@ if ( ! function_exists( 'timber_get_processed_content' ) ) :
 
 		/* FIRST DEAL WITH GALLERIES - [gallery] shortcode - THIS IS A HARD/TOP LEVEL LIMIT */
 
-		$galleries = timber_get_post_galleries( $post, false );
+		$galleries = timber_lite_get_post_galleries( $post, false );
 
 		if ( ! empty( $galleries ) ) {
 			foreach ( $galleries as $gallery ) {
@@ -470,7 +469,7 @@ if ( ! function_exists( 'timber_get_processed_content' ) ) :
 					$before_content = substr( $content, 0, $pos );
 
 					//now let's process this content and get it in the film strip
-					$output .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, true, $image_callback );
+					$output .= timber_lite_process_partial_content( $before_content, $ignore_text, $ignore_videos, true, $image_callback );
 
 					//delete everything in front of the shortcode including it
 					$content = trim( substr( $content, $pos + strlen( $gallery['original'] ) ) );
@@ -487,7 +486,7 @@ if ( ! function_exists( 'timber_get_processed_content' ) ) :
 
 		if ( ! empty( $content ) ) {
 			//there is some content left - let's process it
-			$output .= timber_process_partial_content( $content, $ignore_text, $ignore_videos, true, $image_callback );
+			$output .= timber_lite_process_partial_content( $content, $ignore_text, $ignore_videos, true, $image_callback );
 		}
 
 		return $output;
@@ -496,7 +495,7 @@ if ( ! function_exists( 'timber_get_processed_content' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_process_partial_content' ) ) :
+if ( ! function_exists( 'timber_lite_process_partial_content' ) ) :
 /**
  * Return markup for the film strip given a gallery-free piece of content
  *
@@ -507,7 +506,7 @@ if ( ! function_exists( 'timber_process_partial_content' ) ) :
  * @param string $image_callback Optional. Function name to use to get the individual images markup
  * @return string The markup
  */
-function timber_process_partial_content( $content, $ignore_text = false, $ignore_videos = false, $the_content = true, $image_callback = 'timber_get_film_strip_image' ) {
+function timber_lite_process_partial_content( $content, $ignore_text = false, $ignore_videos = false, $the_content = true, $image_callback = 'timber_lite_get_film_strip_image' ) {
 	$markup = '';
 
 	//a little bit of cleanup
@@ -538,7 +537,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
             $before_content = trim( substr( $content, 0, $pos ) );
 
             //process the before content recursively
-            $markup .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, false, $image_callback );
+            $markup .= timber_lite_process_partial_content( $before_content, $ignore_text, $ignore_videos, false, $image_callback );
 
             //delete everything in front of the current match including it
             $content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
@@ -564,7 +563,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 			$before_content = trim( substr( $content, 0, $pos ) );
 
 			//process the before content recursively
-			$markup .= timber_process_partial_content( $before_content, $ignore_text, $ignore_videos, false, $image_callback );
+			$markup .= timber_lite_process_partial_content( $before_content, $ignore_text, $ignore_videos, false, $image_callback );
 
 			//delete everything in front of the current match including it
 			$content = trim( substr( $content, $pos + strlen( $matches[0][ $idx ] ) ) );
@@ -607,7 +606,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 			$caption = $matches[3][ $idx ];
 		}
 		//first try and get an attachment ID - we may fail because it is an external image
-		$attachment_id = timber_attachment_url_to_postid( $matches[1][ $idx ] );
+		$attachment_id = timber_lite_attachment_url_to_postid( $matches[1][ $idx ] );
 		if ( $attachment_id ) {
 			$markup .= call_user_func( $image_callback, $attachment_id, $caption );
 		}
@@ -631,7 +630,7 @@ function timber_process_partial_content( $content, $ignore_text = false, $ignore
 }
 endif;
 
-if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
+if ( ! function_exists( 'timber_lite_get_film_strip_image' ) ) :
 	/**
 	 * Return markup for a single image in the film strip
 	 *
@@ -641,7 +640,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 	 *
 	 * @return string The image markup
 	 */
-	function timber_get_film_strip_image( $id = null, $caption = "", $class = '' ) {
+	function timber_lite_get_film_strip_image( $id = null, $caption = "", $class = '' ) {
 		$markup = '';
 
 		//do nothing if we have no ID
@@ -651,7 +650,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 
         if ( empty( $caption ) ) {
             //try to get the caption from the attachment metadata
-            $caption = timber_get_img_caption( $id );
+            $caption = timber_lite_get_img_caption( $id );
         }
 
 		/*
@@ -699,16 +698,16 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 		}
 
 		$markup .=
-			'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . $class . '"
+			'<div class="portfolio__item js-placeholder js-portfolio-item  proof-photo ' . esc_attr( $class ) . '"
 			data-srcsmall="' . esc_attr( $image_small_size_url ) . '"
 			data-srclarge="' . esc_attr( $image_large_size_url ) . '"
 			data-srcfull="' . esc_attr( $image_full_size_url ) . '"
 			id="' . esc_attr( $id ) . '"
 			data-attachment_id="' . esc_attr( $id ) . '"
-			data-alt="' . esc_attr( timber_get_img_alt( $id ) ) . '"
+			data-alt="' . esc_attr( timber_lite_get_img_alt( $id ) ) . '"
 			data-caption="' . esc_attr( $caption ) . '"
-			data-description="' . esc_attr( timber_get_img_description( $id ) ) . '"
-			data-exif="' . esc_attr( timber_get_img_exif( $id ) ) . '"
+			data-description="' . esc_attr( timber_lite_get_img_description( $id ) ) . '"
+			data-exif="' . esc_attr( timber_lite_get_img_exif( $id ) ) . '"
 			data-width="' . esc_attr( $image_width ) . '"
 			data-height="' . esc_attr( $image_height ) . '">
 
@@ -726,7 +725,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 			<div class="proof__selected"></div>
 
 			<noscript>
-				<img src="' . esc_url( $image_small_size_url ) . '" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . esc_attr( $image_small_size_width ) . '" height="' . esc_attr( $image_small_size_height ) . '">
+				<img src="' . esc_url( $image_small_size_url ) . '" alt="' . esc_attr( timber_lite_get_img_alt( $id ) ) . '" width="' . esc_attr( $image_small_size_width ) . '" height="' . esc_attr( $image_small_size_height ) . '">
 			</noscript>
 		</div><!-- .portfolio__item -->' . PHP_EOL;
 
@@ -735,7 +734,7 @@ if ( ! function_exists( 'timber_get_film_strip_image' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_get_slider_image' ) ) :
+if ( ! function_exists( 'timber_lite_get_slider_image' ) ) :
     /**
      * Return markup for a single image in the slider
      *
@@ -743,7 +742,7 @@ if ( ! function_exists( 'timber_get_slider_image' ) ) :
      * @param string $caption Optional. The caption
      * @return string The image markup
      */
-    function timber_get_slider_image( $id = null, $caption = "" ) {
+    function timber_lite_get_slider_image( $id = null, $caption = "" ) {
         $markup = '';
 
         //do nothing if we have no ID
@@ -753,7 +752,7 @@ if ( ! function_exists( 'timber_get_slider_image' ) ) :
 
         if ( empty( $caption ) ) {
             //try to get the caption from the attachment metadata
-            $caption = timber_get_img_caption( $id );
+            $caption = timber_lite_get_img_caption( $id );
         }
 
         $image_full_size = wp_get_attachment_image_src( $id, 'full' );
@@ -763,7 +762,7 @@ if ( ! function_exists( 'timber_get_slider_image' ) ) :
 
         $markup .=
             '<div class="project-slide  rsContent">' .
-				'<img itemprop="image" src="' . esc_url( $image_full_size[0] ) . '" class="rsImg" alt="' . esc_attr( timber_get_img_alt( $id ) ) . '" width="' . esc_attr( $image_data["width"] ) . '" height="' . esc_attr( $image_data["height"] ) . '">';
+				'<img itemprop="image" src="' . esc_url( $image_full_size[0] ) . '" class="rsImg" alt="' . esc_attr( timber_lite_get_img_alt( $id ) ) . '" width="' . esc_attr( $image_data["width"] ) . '" height="' . esc_attr( $image_data["height"] ) . '">';
         if ( ! empty( $caption ) ) {
             $markup .= '<figure class="rsCaption">' . wp_kses_post( $caption ) . '</figure>';
         }
@@ -774,7 +773,7 @@ if ( ! function_exists( 'timber_get_slider_image' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_get_post_galleries' ) ) :
+if ( ! function_exists( 'timber_lite_get_post_galleries' ) ) :
 	/**
 	 * Retrieves galleries from the passed post's content.
 	 * Modified version of the core get_post_galleries() because we wanted the matched string also returned
@@ -785,7 +784,7 @@ if ( ! function_exists( 'timber_get_post_galleries' ) ) :
 	 * @return array A list of arrays, each containing gallery data and srcs parsed
 	 *               from the expanded shortcode.
 	 */
-	function timber_get_post_galleries( $post, $html = true ) {
+	function timber_lite_get_post_galleries( $post, $html = true ) {
 		if ( ! $post = get_post( $post ) )
 			return array();
 
@@ -836,7 +835,7 @@ endif;
  *
  * @return string
  */
-function timber_audio_attachment() {
+function timber_lite_audio_attachment() {
 	return hybrid_media_grabber( array( 'type' => 'audio', 'split_media' => true ) );
 }
 /**
@@ -844,7 +843,7 @@ function timber_audio_attachment() {
  *
  * @return string
  */
-function timber_video_attachment() {
+function timber_lite_video_attachment() {
 	return hybrid_media_grabber( array( 'type' => 'video', 'split_media' => true ) );
 }
 
@@ -854,7 +853,7 @@ function timber_video_attachment() {
  *
  * @param int|WP_Post $post_ID Optional. Post ID or post object.
  */
-function timber_first_category( $post_ID = null ) {
+function timber_lite_first_category( $post_ID = null ) {
 	global $wp_rewrite;
 
 	//use the current post ID is none given
@@ -877,7 +876,7 @@ function timber_first_category( $post_ID = null ) {
 	$categories = get_the_category( $post_ID );
 
 	//now intersect them so that we are left with e descending ordered array of the post's categories
-	$categories = array_uintersect( $all_categories, $categories, 'timber_compare_categories' );
+	$categories = array_uintersect( $all_categories, $categories, 'timber_lite_compare_categories' );
 
 	//remove the Uncategorized category
 	if ( ! empty( $categories ) ) {
@@ -896,7 +895,7 @@ function timber_first_category( $post_ID = null ) {
 
 } #function
 
-function timber_compare_categories( $a1, $a2 ) {
+function timber_lite_compare_categories( $a1, $a2 ) {
 	if ( $a1->term_id == $a2->term_id ) {
 		return 0; //we are only interested by equality but PHP wants the whole thing
 	}
@@ -912,7 +911,7 @@ function timber_compare_categories( $a1, $a2 ) {
  *
  * @param int|WP_Post $post_ID Optional. Post ID or post object.
  */
-function timber_the_project_types( $post_ID = null, $before = '<span class="entry-meta meta-categories">', $after = '</span>' ) {
+function timber_lite_the_project_types( $post_ID = null, $before = '<span class="entry-meta meta-categories">', $after = '</span>' ) {
 	//use the current post ID is none given
 
 	if ( empty( $post_ID ) ) {
@@ -932,14 +931,14 @@ function timber_the_project_types( $post_ID = null, $before = '<span class="entr
 	}
 }
 
-if ( ! function_exists( 'timber_get_post_format_link' ) ) :
+if ( ! function_exists( 'timber_lite_get_post_format_link' ) ) :
 
 	/**
 	 * Returns HTML with the post format link
 	 *
 	 * @param int|WP_Post $post_ID Optional. Post ID or post object.
 	 */
-	function timber_get_post_format_link( $post_ID = null, $before = '', $after = '' ) {
+	function timber_lite_get_post_format_link( $post_ID = null, $before = '', $after = '' ) {
 
 		//use the current post ID is none given
 		if ( empty( $post_ID ) ) {
@@ -964,22 +963,22 @@ if ( ! function_exists( 'timber_get_post_format_link' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_post_format_link' ) ) :
+if ( ! function_exists( 'timber_lite_post_format_link' ) ) :
 
 	/**
 	 * Prints HTML with the post format link
 	 *
 	 * @param int|WP_Post $post_ID Optional. Post ID or post object.
 	 */
-	function timber_post_format_link( $post_ID = null, $before = '', $after = '' ) {
+	function timber_lite_post_format_link( $post_ID = null, $before = '', $after = '' ) {
 
-		echo timber_get_post_format_link( $post_ID, $before, $after ); // phpcs:ignore
+		echo timber_lite_get_post_format_link( $post_ID, $before, $after ); // phpcs:ignore
 
 	} #function
 
 endif;
 
-function timber_get_post_gallery_count( $post_ID = null ) {
+function timber_lite_get_post_gallery_count( $post_ID = null ) {
 	//use the current post ID is none given
 	if ( empty( $post_ID ) ) {
 		$post_ID = get_the_ID();
@@ -1000,7 +999,7 @@ function timber_get_post_gallery_count( $post_ID = null ) {
  * @param int $maxnum Optional. Max number of random projects images to return
  * @return array List of images
  */
-function timber_get_random_projects_images( $maxnum = 5 ) {
+function timber_lite_get_random_projects_images( $maxnum = 5 ) {
     $projects = get_posts( array(
         'post_type' => 'jetpack-portfolio',
         'posts_per_page' => -1,
@@ -1029,8 +1028,8 @@ function timber_get_random_projects_images( $maxnum = 5 ) {
  *
  * @param int $maxnum Optional. Max number of random projects images srcs to return
  */
-function timber_the_random_projects_images_srcs( $maxnum = 5 ) {
-    $random_images = timber_get_random_projects_images( $maxnum );
+function timber_lite_the_random_projects_images_srcs( $maxnum = 5 ) {
+    $random_images = timber_lite_get_random_projects_images( $maxnum );
 
     $image_srcs = array();
     if ( ! empty( $random_images ) ) {
@@ -1045,8 +1044,8 @@ function timber_the_random_projects_images_srcs( $maxnum = 5 ) {
     echo json_encode( $image_srcs );
 }
 
-if ( ! function_exists('timber_body_attributes') ):
-	function timber_body_attributes() {
+if ( ! function_exists( 'timber_lite_body_attributes' ) ):
+	function timber_lite_body_attributes() {
 		//we use this so we can generate links with post id
 		//right now we use it to change the Edit Post link in the admin bar
 		$data_currentID = '';
@@ -1084,12 +1083,12 @@ endif;
  * @param int|WP_Post $post_id Optional. Post ID or post object.
  * @return string
  */
-function timber_get_post_title_class_attr( $class = '', $post_id = null ) {
+function timber_lite_get_post_title_class_attr( $class = '', $post_id = null ) {
 	// Separates classes with a single space, collates classes for post title
-	return 'class="' . esc_attr( join( ' ', timber_get_post_title_class( $class, $post_id ) ) ) . '"';
+	return 'class="' . esc_attr( join( ' ', timber_lite_get_post_title_class( $class, $post_id ) ) ) . '"';
 }
 
-if ( ! function_exists( 'timber_get_post_title_class' ) ) :
+if ( ! function_exists( 'timber_lite_get_post_title_class' ) ) :
 
 	/**
 	 * Retrieve the classes for the post title,
@@ -1098,7 +1097,7 @@ if ( ! function_exists( 'timber_get_post_title_class' ) ) :
 	 * @param string|array $class One or more classes to add to the class list.
 	 * @return array Array of classes.
 	 */
-	function timber_get_post_title_class( $class = '', $post_id = null ) {
+	function timber_lite_get_post_title_class( $class = '', $post_id = null ) {
 
 		$post = get_post( $post_id );
 
@@ -1148,7 +1147,7 @@ if ( ! function_exists( 'timber_get_post_title_class' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_first_site_title_character' ) ) :
+if ( ! function_exists( 'timber_lite_first_site_title_character' ) ) :
 	/**
 	 * Returns the first UTF-8 character of the site title
 	 * returns empty string if nothing found
@@ -1157,7 +1156,7 @@ if ( ! function_exists( 'timber_first_site_title_character' ) ) :
 	 *
 	 * @return string
 	 */
-	function timber_first_site_title_character() {
+	function timber_lite_first_site_title_character() {
 		$title = get_bloginfo( 'name' );
 		if ( empty( $title ) ) {
 			return '';
@@ -1181,9 +1180,9 @@ if ( ! function_exists( 'timber_first_site_title_character' ) ) :
 	}
 endif;
 
-if ( ! function_exists( 'timber_get_portfolio_page_link' ) ) :
+if ( ! function_exists( 'timber_lite_get_portfolio_page_link' ) ) :
 	// Return the slug of the page with the page-templates/custom-portfolio-archive.php template or the post type archive if no page was found
-	function timber_get_portfolio_page_link() {
+	function timber_lite_get_portfolio_page_link() {
 
 	    $pages = get_pages(
 	        array(
@@ -1199,10 +1198,10 @@ if ( ! function_exists( 'timber_get_portfolio_page_link' ) ) :
 	    if ( ! empty( $pages ) ) {
 	        //find the page with the Portfolio Archive option selected
 	        foreach ( $pages as $page ) {
-	            $custom_portfolio_page_type = get_post_meta( timber_get_post_id( $page->ID, 'page' ), 'custom_portfolio_page_type', true);
+	            $custom_portfolio_page_type = get_post_meta( timber_lite_get_post_id( $page->ID, 'page' ), 'custom_portfolio_page_type', true);
 	            if ( 'portfolio' === $custom_portfolio_page_type  ) {
 	                //found it
-	                return get_page_link( timber_get_post_id( $page->ID, 'page' ) );
+	                return get_page_link( timber_lite_get_post_id( $page->ID, 'page' ) );
 	            }
 	        }
 	    }
@@ -1213,11 +1212,11 @@ if ( ! function_exists( 'timber_get_portfolio_page_link' ) ) :
 
 endif;
 
-if ( ! function_exists( 'timber_footer_the_copyright' ) ) {
+if ( ! function_exists( 'timber_lite_footer_the_copyright' ) ) {
 	/**
 	 * Display the footer copyright.
 	 */
-	function timber_footer_the_copyright() {
+	function timber_lite_footer_the_copyright() {
 		$output = '';
 		$output .= '<div class="site-info c-footer__copyright-text">' . "\n";
 		/* translators: %s: WordPress. */

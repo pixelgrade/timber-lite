@@ -3,7 +3,6 @@
  * The template used for displaying Jetpack Portfolio posts on the Porfolio landing page and on Portfolio archives
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ){
@@ -19,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ){
 	<div class="portfolio__header">
 
 		<?php if ( ! is_tax("jetpack-portfolio-type") ) { //do not show single project types on types archives
-			timber_the_project_types( get_the_ID(), '<div class="portfolio__type">', '</div>' );
+			timber_lite_the_project_types( get_the_ID(), '<div class="portfolio__type">', '</div>' );
 		} ?>
 
 		<h2 class="portfolio__title h1">
@@ -42,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ){
 		/*
 		 * Project film strip with text boxes and videos ignored
 		 */
-		timber_the_film_strip( get_the_ID(), true, true );
+		timber_lite_the_film_strip( get_the_ID(), true, true );
 		?>
 	</a>
 

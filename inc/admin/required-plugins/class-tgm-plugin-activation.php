@@ -8,7 +8,7 @@
  * or theme author for support.
  *
  * @package   TGM-Plugin-Activation
- * @version   2.6.1 for parent theme Timber Lite for publication on WordPress.org
+ * @version   2.6.1
  * @link      http://tgmpluginactivation.com/
  * @author    Thomas Griffin, Gary Jones, Juliette Reinders Folmer
  * @copyright Copyright (c) 2011, Thomas Griffin
@@ -386,8 +386,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				'dashboard'                       => esc_html__( 'Return to the Dashboard', '__theme_txtd' ),
 				'plugin_activated'                => esc_html__( 'Plugin activated successfully.', '__theme_txtd' ),
 				'activated_successfully'          => esc_html__( 'The following plugin was activated successfully:', '__theme_txtd' ),
-				/* translators: 1: plugin name. */
-				'plugin_already_active'           => esc_html__( 'No action taken. Plugin %1$s was already active.', '__theme_txtd' ),
+				'plugin_already_active'           => esc_html__( 'No action taken. Plugin was already active.', '__theme_txtd' ),
 				/* translators: 1: plugin name. */
 				'plugin_needs_higher_version'     => esc_html__( 'Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin.', '__theme_txtd' ),
 				/* translators: 1: dashboard link. */

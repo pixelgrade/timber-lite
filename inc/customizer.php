@@ -1,9 +1,8 @@
 <?php
 /**
- * Timber Theme Customizer
+ * Timber Lite Customizer
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
 /**
@@ -11,7 +10,7 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
-function timber_customize_register( $wp_customize ) {
+function timber_lite_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 
@@ -63,15 +62,15 @@ function timber_customize_register( $wp_customize ) {
 		'type'    => 'hidden',
 	) );
 }
-add_action( 'customize_register', 'timber_customize_register' );
+add_action( 'customize_register', 'timber_lite_customize_register' );
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
-function timber_customize_preview_js() {
+function timber_lite_customize_preview_js() {
 	wp_enqueue_script( 'timber_customizer_preview', get_template_directory_uri() . '/assets/js/admin/customizer_preview.js', array( 'customize-preview' ), '20171212', true );
 }
-add_action( 'customize_preview_init', 'timber_customize_preview_js' );
+add_action( 'customize_preview_init', 'timber_lite_customize_preview_js' );
 
 /**
  * Generate a link to the Timber Lite info page.
@@ -84,6 +83,6 @@ function timber_lite_get_pro_link() {
  * Assets that will be loaded for the customizer sidebar
  */
 function timber_lite_customizer_assets() {
-	wp_enqueue_style( 'timber_lite_customizer_style', get_template_directory_uri() . '/admin/admin.css', null, '1.0.0', false );
+	wp_enqueue_style( 'timber_lite_customizer_style', get_template_directory_uri() . '/inc/admin/css/customizer.css', null, '1.0.4', false );
 }
 add_action( 'customize_controls_enqueue_scripts', 'timber_lite_customizer_assets' );

@@ -24,8 +24,7 @@ if ( ! defined( 'ABSPATH' ) ){
 <?php wp_head();  ?>
 </head>
 
-<body <?php body_class(); ?> <?php timber_body_attributes(); ?> data-first-letter="<?php echo timber_first_site_title_character(); ?>">
-
+<body <?php body_class(); ?> <?php timber_lite_body_attributes(); ?> data-first-letter="<?php echo timber_lite_first_site_title_character(); ?>">
 <?php wp_body_open(); ?>
 
 <header id="masthead" class="site-header u-header--fixed">

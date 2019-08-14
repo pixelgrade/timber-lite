@@ -25,7 +25,7 @@ get_header(); ?>
             $data .= ' data-termid="' . esc_attr( $queried_object->term_taxonomy_id ) .'"';
         }
         ?>
-		<div class="filmstrip" <?php echo $data; ?>>
+		<div class="filmstrip" <?php echo $data; // phpcs:ignore ?>>
 			<div class="site-sidebar  site-sidebar--archive  site-sidebar--journal">
 				<div class="site-sidebar__content site-sidebar__text"><?php the_archive_title(); ?></div>
 			</div>
@@ -43,7 +43,7 @@ get_header(); ?>
 					get_template_part( 'template-parts/content', get_post_format() );
 				?>
 			<?php endwhile; ?>
-		    <?php timber_paging_nav(); ?>
+		    <?php timber_lite_paging_nav(); ?>
 		</div>
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content', 'none' ); ?>

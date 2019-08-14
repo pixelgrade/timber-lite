@@ -3,7 +3,6 @@
  * The template used for displaying Portfolio posts on single project pages
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ){
@@ -17,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ){
     /*
      * Project Title
      */
-    the_title( '<h1 ' . timber_get_post_title_class_attr( 'site-sidebar__text' ) . '>', '</h1>' );
+    the_title( '<h1 ' . timber_lite_get_post_title_class_attr( 'site-sidebar__text' ) . '>', '</h1>' );
 
-    timber_the_project_types();
+    timber_lite_the_project_types();
     ?>
     </div>
 </header>
@@ -30,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ){
 	/*
 	 * Project film strip
 	 */
-	timber_the_film_strip();
+	timber_lite_the_film_strip();
 	?>
 
 	<div class="js-last"></div>

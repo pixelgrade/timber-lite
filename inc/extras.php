@@ -16,7 +16,7 @@
  *
  * @return int The id of the post
  */
-function timber_get_post_id( $id = null, $post_type = 'post' ) {
+function timber_lite_get_post_id( $id = null, $post_type = 'post' ) {
 	global $post;
 
 	if ( $id === null ) {
@@ -42,7 +42,7 @@ function timber_get_post_id( $id = null, $post_type = 'post' ) {
  *
  * @return array
  */
-function timber_body_classes( $classes ) {
+function timber_lite_body_classes( $classes ) {
 	// Adds a class of group-blog to blogs with more than 1 published author.
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
@@ -57,11 +57,11 @@ function timber_body_classes( $classes ) {
 		}
 
 		// add classes for a project layout
-		if ( timber_post_is_project() ) {
+		if ( timber_lite_post_is_project() ) {
 			$project_layout = 'filmstrip';
 
 			if ( empty( $project_layout ) && is_page() ) {
-				$homepage_project = get_post_meta( timber_get_post_id(), 'homepage_project', true );
+				$homepage_project = get_post_meta( timber_lite_get_post_id(), 'homepage_project', true );
 				$project_layout   = get_post_meta( $homepage_project, 'project_template', true );
 			}
 			$classes[] = 'project_layout-' . $project_layout;
@@ -81,9 +81,9 @@ function timber_body_classes( $classes ) {
 			}
 
 			if ( 'custom-portfolio-page.php' === $this_template ) {
-				$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true );
+				$custom_portfolio_page_type = get_post_meta( timber_lite_get_post_id(), 'custom_portfolio_page_type', true );
 
-				if ( timber_has_featured_projects() ) {
+				if ( timber_lite_has_featured_projects() ) {
 					$projects_slider_height = 'default';
 				}
 
@@ -102,8 +102,7 @@ function timber_body_classes( $classes ) {
 
 	return $classes;
 }
-
-add_filter( 'body_class', 'timber_body_classes' );
+add_filter( 'body_class', 'timber_lite_body_classes' );
 
 /**
  * Extend the default WordPress post classes.
@@ -114,7 +113,7 @@ add_filter( 'body_class', 'timber_body_classes' );
  *
  * @return array The filtered post class list.
  */
-function timber_post_classes( $classes ) {
+function timber_lite_post_classes( $classes ) {
 
 	//add classes for portfolio
 	if ( 'jetpack-portfolio' == get_post_type( get_the_ID() ) ) {
@@ -128,7 +127,7 @@ function timber_post_classes( $classes ) {
 		}
 
 		if ( is_single() || 'project' === $custom_portfolio_page_type ) {
-			$project_template = get_post_meta( timber_get_post_id(), 'project_template', true );
+			$project_template = get_post_meta( timber_lite_get_post_id(), 'project_template', true );
 			//this is the default layout - just in case something went wrong and the defaults didn't kick in
 			if ( empty( $project_template ) ) {
 				$project_template = 'filmstrip';
@@ -147,16 +146,15 @@ function timber_post_classes( $classes ) {
 
 	return $classes;
 }
+add_filter( 'post_class', 'timber_lite_post_classes' );
 
-add_filter( 'post_class', 'timber_post_classes' );
-
-if ( ! function_exists( 'timber_comment' ) ) :
+if ( ! function_exists( 'timber_lite_comment' ) ) :
 	/**
 	 * Display individual comment layout
 	 *
 	 * @since Timber 1.0
 	 */
-	function timber_comment( $comment, $args, $depth ) {
+	function timber_lite_comment( $comment, $args, $depth ) {
 		static $comment_number;
 
 		if ( ! isset( $comment_number ) ) {
@@ -219,21 +217,20 @@ endif;
  *
  * @return string
  */
-function timber_project_editor_content( $content, $post ) {
+function timber_lite_project_editor_content( $content, $post ) {
 	if ( 'jetpack-portfolio' == $post->post_type ) {
 		$content = "[gallery columns='6']";
 	}
 
 	return $content;
 }
+add_filter( 'default_content', 'timber_lite_project_editor_content', 10, 3 );
 
-add_filter( 'default_content', 'timber_project_editor_content', 10, 3 );
-
-if ( ! function_exists( 'timber_get_featured_projects' ) ) {
-	function timber_get_featured_projects() {
+if ( ! function_exists( 'timber_lite_get_featured_projects' ) ) {
+	function timber_lite_get_featured_projects() {
 
 		$featured_projects     = array();
-		$featured_projects_ids = get_post_meta( timber_get_post_id(), 'portfolio_featured_projects', true );
+		$featured_projects_ids = get_post_meta( timber_lite_get_post_id(), 'portfolio_featured_projects', true );
 		// turn from string to array
 		$featured_projects_ids = explode( ',', $featured_projects_ids );
 
@@ -251,9 +248,9 @@ if ( ! function_exists( 'timber_get_featured_projects' ) ) {
 	}
 }
 
-if ( ! function_exists( 'timber_has_featured_projects' ) ) {
-	function timber_has_featured_projects() {
-		$featured_projects_ids = get_post_meta( timber_get_post_id(), 'portfolio_featured_projects', true );
+if ( ! function_exists( 'timber_lite_has_featured_projects' ) ) {
+	function timber_lite_has_featured_projects() {
+		$featured_projects_ids = get_post_meta( timber_lite_get_post_id(), 'portfolio_featured_projects', true );
 
 		if ( ! empty( $featured_projects_ids ) ) {
 			return true;
@@ -272,12 +269,12 @@ if ( ! function_exists( 'timber_has_featured_projects' ) ) {
  *
  * @return array
  */
-function timber_comment_form_remove_notes_after( $defaults ) {
+function timber_lite_comment_form_remove_notes_after( $defaults ) {
 	$defaults['comment_notes_after'] = '';
 
 	return $defaults;
 }
-add_filter( 'comment_form_defaults', 'timber_comment_form_remove_notes_after' );
+add_filter( 'comment_form_defaults', 'timber_lite_comment_form_remove_notes_after' );
 
 /**
  * Filter wp_link_pages to wrap current page in span.
@@ -288,44 +285,42 @@ add_filter( 'comment_form_defaults', 'timber_comment_form_remove_notes_after' );
  *
  * @return string
  */
-function timber_link_pages( $link ) {
+function timber_lite_link_pages( $link ) {
 	if ( is_numeric( $link ) ) {
 		return '<span class="current">' . $link . '</span>';
 	}
 
 	return $link;
 }
-add_filter( 'wp_link_pages_link', 'timber_link_pages' );
+add_filter( 'wp_link_pages_link', 'timber_lite_link_pages' );
 
 /**
  * Wrap more link
  */
-function timber_read_more_link( $link ) {
+function timber_lite_read_more_link( $link ) {
 	return '<div class="more-link-wrapper">' . $link . '</div>';
 }
-add_filter( 'the_content_more_link', 'timber_read_more_link' );
+add_filter( 'the_content_more_link', 'timber_lite_read_more_link' );
 
 /**
  * Constrain the excerpt length to 35 words - about a medium sized excerpt
  */
-function timber_excerpt_length( $length ) {
+function timber_lite_excerpt_length( $length ) {
 	return 35;
 }
-add_filter( 'excerpt_length', 'timber_excerpt_length', 999 );
+add_filter( 'excerpt_length', 'timber_lite_excerpt_length', 999 );
 
-
-function timber_remove_shortcode_from_excerpt( $content ) {
+function timber_lite_remove_shortcode_from_excerpt( $content ) {
 	$content = strip_shortcodes( $content );
 
 	return $content;//always return $content
 }
-add_filter( 'get_the_excerpt', 'timber_remove_shortcode_from_excerpt' );
-
+add_filter( 'get_the_excerpt', 'timber_lite_remove_shortcode_from_excerpt' );
 
 /**
  * When dealing with gallery post format, we need to strip the first gallery in the content since we show it at the top
  */
-function timber_strip_first_content_gallery( $content ) {
+function timber_lite_strip_first_content_gallery( $content ) {
 	if ( 'gallery' == get_post_format() ) {
 		$regex   = '/\[gallery.*]/';
 		$content = preg_replace( $regex, '', $content, 1 );
@@ -333,7 +328,7 @@ function timber_strip_first_content_gallery( $content ) {
 
 	return $content;
 }
-add_filter( 'the_content', 'timber_strip_first_content_gallery' );
+add_filter( 'the_content', 'timber_lite_strip_first_content_gallery' );
 
 /**
  * This function was borrowed from CakePHP and adapted.
@@ -368,7 +363,7 @@ add_filter( 'the_content', 'timber_strip_first_content_gallery' );
  * @return string Trimmed string.
  * @link http://book.cakephp.org/3.0/en/core-libraries/string.html#truncating-text
  */
-function timber_truncate( $text, $length = 100, $options = array() ) {
+function timber_lite_truncate( $text, $length = 100, $options = array() ) {
 	$default = array(
 		'ellipsis' => apply_filters( 'excerpt_more', '[&#8230;]' ),
 		'exact'    => false,
@@ -474,104 +469,20 @@ function timber_truncate( $text, $length = 100, $options = array() ) {
 	return $truncate;
 }
 
-function timber_allow_skype_protocol( $protocols ) {
+function timber_lite_allow_skype_protocol( $protocols ) {
 	$protocols[] = 'skype';
 
 	return $protocols;
 }
+add_filter( 'kses_allowed_protocols', 'timber_lite_allow_skype_protocol' );
 
-add_filter( 'kses_allowed_protocols', 'timber_allow_skype_protocol' );
-
-/**
- * The following code is inspired by Yoast SEO.
- */
-function timber_get_current_canonical_url() {
-	global $wp_query;
-
-	if ( $wp_query->is_404 || $wp_query->is_search ) {
-		return false;
-	}
-
-	$haspost = count( $wp_query->posts ) > 0;
-
-	if ( get_query_var( 'm' ) ) {
-		$m = preg_replace( '/[^0-9]/', '', get_query_var( 'm' ) );
-		switch ( strlen( $m ) ) {
-			case 4:
-				$link = get_year_link( $m );
-				break;
-			case 6:
-				$link = get_month_link( substr( $m, 0, 4 ), substr( $m, 4, 2 ) );
-				break;
-			case 8:
-				$link = get_day_link( substr( $m, 0, 4 ), substr( $m, 4, 2 ), substr( $m, 6, 2 ) );
-				break;
-			default:
-				return false;
-		}
-	} elseif ( ( $wp_query->is_single || $wp_query->is_page ) && $haspost ) {
-		$post = $wp_query->posts[0];
-		$link = get_permalink( timber_get_post_id( $post->ID ) );
-	} elseif ( $wp_query->is_author && $haspost ) {
-		$author = get_userdata( get_query_var( 'author' ) );
-		if ( $author === false ) {
-			return false;
-		}
-		$link = get_author_posts_url( $author->ID, $author->user_nicename );
-	} elseif ( $wp_query->is_category && $haspost ) {
-		$link = get_category_link( get_query_var( 'cat' ) );
-	} elseif ( $wp_query->is_tag && $haspost ) {
-		$tag = get_term_by( 'slug', get_query_var( 'tag' ), 'post_tag' );
-		if ( ! empty( $tag->term_id ) ) {
-			$link = get_tag_link( $tag->term_id );
-		}
-	} elseif ( $wp_query->is_day && $haspost ) {
-		$link = get_day_link( get_query_var( 'year' ), get_query_var( 'monthnum' ), get_query_var( 'day' ) );
-	} elseif ( $wp_query->is_month && $haspost ) {
-		$link = get_month_link( get_query_var( 'year' ), get_query_var( 'monthnum' ) );
-	} elseif ( $wp_query->is_year && $haspost ) {
-		$link = get_year_link( get_query_var( 'year' ) );
-	} elseif ( $wp_query->is_home ) {
-		if ( ( get_option( 'show_on_front' ) == 'page' ) && ( $pageid = get_option( 'page_for_posts' ) ) ) {
-			$link = get_permalink( $pageid );
-		} else {
-			if ( function_exists( 'icl_get_home_url' ) ) {
-				$link = icl_get_home_url();
-			} else { // icl_get_home_url does not exist
-				$link = home_url();
-			}
-		}
-	} elseif ( $wp_query->is_tax && $haspost ) {
-		$taxonomy = get_query_var( 'taxonomy' );
-		$term     = get_query_var( 'term' );
-		$link     = get_term_link( $term, $taxonomy );
-	} elseif ( $wp_query->is_archive && function_exists( 'get_post_type_archive_link' ) && ( $post_type = get_query_var( 'post_type' ) ) ) {
-		$link = get_post_type_archive_link( $post_type );
-	} else {
-		return false;
-	}
-
-	//let's see about the page number
-	$page = get_query_var( 'page' );
-	if ( empty( $page ) ) {
-		$page = get_query_var( 'paged' );
-	}
-
-	if ( ! empty( $page ) && $page > 1 ) {
-		$link = trailingslashit( $link ) . "page/$page";
-		$link = user_trailingslashit( $link, 'paged' );
-	}
-
-	return $link;
-}
-
-function timber_get_img_alt( $attachment_ID ) {
+function timber_lite_get_img_alt( $attachment_ID ) {
 	$img_alt = trim( strip_tags( get_post_meta( $attachment_ID, '_wp_attachment_image_alt', true ) ) );
 
 	return $img_alt;
 }
 
-function timber_get_img_caption( $attachment_ID ) {
+function timber_lite_get_img_caption( $attachment_ID ) {
 	$attachment  = get_post( $attachment_ID );
 	$img_caption = '';
 	if ( isset( $attachment->post_excerpt ) ) {
@@ -581,7 +492,7 @@ function timber_get_img_caption( $attachment_ID ) {
 	return $img_caption;
 }
 
-function timber_get_img_description( $attachment_ID ) {
+function timber_lite_get_img_description( $attachment_ID ) {
 	$attachment      = get_post( $attachment_ID );
 	$img_description = '';
 	if ( isset( $attachment->post_content ) ) {
@@ -591,7 +502,7 @@ function timber_get_img_description( $attachment_ID ) {
 	return $img_description;
 }
 
-function timber_get_img_exif( $attachment_ID ) {
+function timber_lite_get_img_exif( $attachment_ID ) {
 	$meta_data = wp_get_attachment_metadata( $attachment_ID );
 
 	if ( isset( $meta_data['image_meta'] ) ) {
@@ -610,7 +521,7 @@ function timber_get_img_exif( $attachment_ID ) {
 		}
 
 		if ( ! empty( $meta_data['image_meta']['shutter_speed'] ) ) {
-			$exif['exposure'] = timber_convert_exposure_to_frac( $meta_data['image_meta']['shutter_speed'] );
+			$exif['exposure'] = timber_lite_convert_exposure_to_frac( $meta_data['image_meta']['shutter_speed'] );
 		}
 
 		if ( ! empty( $meta_data['image_meta']['iso'] ) ) {
@@ -631,7 +542,7 @@ function timber_get_img_exif( $attachment_ID ) {
  *
  * @return string
  */
-function timber_convert_exposure_to_frac( $shutter_speed ) {
+function timber_lite_convert_exposure_to_frac( $shutter_speed ) {
 	$frac = '';
 
 	if ( ( 1 / $shutter_speed ) > 1 ) {
@@ -662,7 +573,7 @@ function timber_convert_exposure_to_frac( $shutter_speed ) {
  *
  * @return int The found post ID, or 0 on failure.
  */
-function timber_attachment_url_to_postid( $url ) {
+function timber_lite_attachment_url_to_postid( $url ) {
 	global $wpdb;
 
 	$dir  = wp_upload_dir();
@@ -696,7 +607,7 @@ function timber_attachment_url_to_postid( $url ) {
 /**
  * Replace the submit input with button because the <input> tag doesn't allow CSS styling with ::before or ::after
  */
-function timber_search_form( $form ) {
+function timber_lite_search_form( $form ) {
 	$form = '<form role="search" method="get" class="search-form" action="' . esc_url( home_url( '/' ) ) . '">
 				<label>
 					<span class="screen-reader-text">' . esc_html_x( 'Search for:', 'label', 'timber-lite' ) . '</span>
@@ -707,13 +618,13 @@ function timber_search_form( $form ) {
 
 	return $form;
 }
-add_filter( 'get_search_form', 'timber_search_form' );
+add_filter( 'get_search_form', 'timber_lite_search_form' );
 
 /**
  * Add "Styles" drop-down
  */
-add_filter( 'mce_buttons_2', 'timber_mce_editor_buttons' );
-function timber_mce_editor_buttons( $buttons ) {
+add_filter( 'mce_buttons_2', 'timber_lite_mce_editor_buttons' );
+function timber_lite_mce_editor_buttons( $buttons ) {
 	array_unshift( $buttons, 'styleselect' );
 
 	return $buttons;
@@ -722,8 +633,8 @@ function timber_mce_editor_buttons( $buttons ) {
 /**
  * Add styles/classes to the "Styles" drop-down
  */
-add_filter( 'tiny_mce_before_init', 'timber_mce_before_init' );
-function timber_mce_before_init( $settings ) {
+add_filter( 'tiny_mce_before_init', 'timber_lite_mce_before_init' );
+function timber_lite_mce_before_init( $settings ) {
 
 	$style_formats = array(
 		array( 'title' => esc_html__( 'Intro Text', 'timber-lite' ), 'selector' => 'p', 'classes' => 'intro' ),
@@ -747,9 +658,9 @@ function timber_mce_before_init( $settings ) {
 /*
  * Ajax loading posts
  */
-add_action( 'wp_ajax_timber_load_next_posts', 'timber_load_next_posts' );
-add_action( 'wp_ajax_nopriv_timber_load_next_posts', 'timber_load_next_posts' );
-function timber_load_next_posts() {
+add_action( 'wp_ajax_timber_load_next_posts', 'timber_lite_load_next_posts' );
+add_action( 'wp_ajax_nopriv_timber_load_next_posts', 'timber_lite_load_next_posts' );
+function timber_lite_load_next_posts() {
 	global $post;
 
 	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
@@ -824,9 +735,9 @@ function timber_load_next_posts() {
 /*
  * Ajax loading projects
  */
-add_action( 'wp_ajax_timber_load_next_projects', 'timber_load_next_projects' );
-add_action( 'wp_ajax_nopriv_timber_load_next_projects', 'timber_load_next_projects' );
-function timber_load_next_projects() {
+add_action( 'wp_ajax_timber_load_next_projects', 'timber_lite_load_next_projects' );
+add_action( 'wp_ajax_nopriv_timber_load_next_projects', 'timber_lite_load_next_projects' );
+function timber_lite_load_next_projects() {
 	global $post;
 
 	if ( ! wp_verify_nonce( $_REQUEST['nonce'], 'timber_ajax' ) ) {
@@ -887,14 +798,11 @@ function timber_load_next_projects() {
 	}
 }
 
-
-add_action( 'the_password_form', 'timber_callback_the_password_form' );
-
-function timber_callback_the_password_form( $form ) {
+function timber_lite_callback_the_password_form( $form ) {
 	global $post;
 	$post      = get_post( $post );
 	$post_type = get_post_type( $post );
-	$postID    = timber_get_post_id( $post->ID, $post_type );
+	$postID    = timber_lite_get_post_id( $post->ID, $post_type );
 	$label     = 'pwbox-' . ( empty( $postID ) ? rand() : $postID );
 
 	global $timber_private_post;
@@ -950,20 +858,19 @@ function timber_callback_the_password_form( $form ) {
 	}
 
 	return $form;
-
 }
+add_action( 'the_password_form', 'timber_lite_callback_the_password_form' );
 
-
-function timber_prepare_password_for_custom_post_types() {
+function timber_lite_prepare_password_for_custom_post_types() {
 
 	global $timber_private_post;
 
-	$timber_private_post = timber_is_password_protected();
+	$timber_private_post = timber_lite_is_password_protected();
 
 }
-add_action( 'wp', 'timber_prepare_password_for_custom_post_types' );
+add_action( 'wp', 'timber_lite_prepare_password_for_custom_post_types' );
 
-function timber_is_password_protected() {
+function timber_lite_is_password_protected() {
 	global $post;
 	$private_post = array( 'allowed' => false, 'error' => '' );
 

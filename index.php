@@ -18,7 +18,7 @@ get_header(); ?>
 	<?php if ( have_posts() ) : ?>
 		<div class="filmstrip">
 			<div class="site-sidebar  site-sidebar--archive">
-				<div class="site-sidebar__content  site-sidebar__text"><?php _e( 'Journal', 'timber-lite' ); ?></div>
+				<div class="site-sidebar__content  site-sidebar__text"><?php esc_html_e( 'Journal', 'timber-lite' ); ?></div>
 			</div>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -32,7 +32,7 @@ get_header(); ?>
 					get_template_part( 'template-parts/content', get_post_format() );
 				?>
 			<?php endwhile; ?>
-			<?php timber_paging_nav(); ?>
+			<?php timber_lite_paging_nav(); ?>
 		</div>
 	<?php else : ?>
 		<?php get_template_part( 'template-parts/content', 'none' ); ?>

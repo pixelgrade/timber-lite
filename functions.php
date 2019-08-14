@@ -1,12 +1,11 @@
 <?php
 /**
- * Timber functions and definitions
+ * Timber Lite functions and definitions
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
-if ( ! function_exists( 'timber_setup' ) ) :
+if ( ! function_exists( 'timber_lite_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -14,7 +13,7 @@ if ( ! function_exists( 'timber_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function timber_setup() {
+	function timber_lite_setup() {
 		/*
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
@@ -87,10 +86,10 @@ if ( ! function_exists( 'timber_setup' ) ) :
 			'link',
 		) );
 
-		add_filter( 'attachment_link', 'timber_filter_attachment_links_on_singles', 2, 2 );
+		add_filter( 'attachment_link', 'timber_lite_filter_attachment_links_on_singles', 2, 2 );
 	}
-endif; // timber_setup
-add_action( 'after_setup_theme', 'timber_setup' );
+endif; // timber_lite_setup
+add_action( 'after_setup_theme', 'timber_lite_setup' );
 
 /**
  * We need to force ajax off attachment links on posts and pages since it is a chance to trigger a modal opening
@@ -100,7 +99,7 @@ add_action( 'after_setup_theme', 'timber_setup' );
  *
  * @return string
  */
-function timber_filter_attachment_links_on_singles( $link, $id  ){
+function timber_lite_filter_attachment_links_on_singles( $link, $id  ){
 	if ( wp_attachment_is_image( $id ) && ( is_singular( 'post' ) || is_page()) ) {
 		return $link . '#';
 	}
@@ -114,23 +113,23 @@ function timber_filter_attachment_links_on_singles( $link, $id  ){
  *x
  * @global int $content_width
  */
-function timber_content_width() {
+function timber_lite_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'timber_content_width', 2570 );
 }
-add_action( 'after_setup_theme', 'timber_content_width', 0 );
+add_action( 'after_setup_theme', 'timber_lite_content_width', 0 );
 
 /*
  * Disable comments for the Portfolio CPT
  */
-function timber_remove_custom_post_comment() {
+function timber_lite_remove_custom_post_comment() {
 	remove_post_type_support( 'jetpack-portfolio', 'comments' );
 }
-add_action( 'init', 'timber_remove_custom_post_comment' );
+add_action( 'init', 'timber_lite_remove_custom_post_comment' );
 
 /**
  * Enqueue scripts and styles.
  */
-function timber_scripts_styles() {
+function timber_lite_scripts_styles() {
 
 	$theme = wp_get_theme( get_template() );
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
@@ -181,12 +180,12 @@ function timber_scripts_styles() {
 	global $timber_show_footer;
 
 	$timber_show_footer = false;
-	if ( ! (get_post_type() == 'proof_gallery') && ! timber_post_is_project() && ( is_page() || is_single() ) ) {
+	if ( ! (get_post_type() == 'proof_gallery') && ! timber_lite_post_is_project() && ( is_page() || is_single() ) ) {
 		$timber_show_footer = true;
 		$this_template = basename( get_page_template() );
 
 		if ( is_page() && $this_template  === 'custom-portfolio-page.php' ) {
-			$custom_portfolio_page_type = get_post_meta( timber_get_post_id(), 'custom_portfolio_page_type', true);
+			$custom_portfolio_page_type = get_post_meta( timber_lite_get_post_id(), 'custom_portfolio_page_type', true);
 
 			if ( $custom_portfolio_page_type === 'project_slider' ) {
 				$timber_show_footer = false;
@@ -207,12 +206,12 @@ function timber_scripts_styles() {
 	add_filter( 'jp_carousel_force_enable', true );
 
 }
-add_action( 'wp_enqueue_scripts', 'timber_scripts_styles' );
+add_action( 'wp_enqueue_scripts', 'timber_lite_scripts_styles' );
 
 /*
  * Enqueue some custom JS in the admin area for various small tasks
  */
-function timber_add_admin_page_scripts( $hook ){
+function timber_lite_add_admin_page_scripts( $hook ){
 
 	wp_enqueue_script(
 		'timber_admin_custom_js', //unique handle
@@ -220,13 +219,13 @@ function timber_add_admin_page_scripts( $hook ){
 		array('jquery') //dependencies
 	);
 }
-add_action('admin_enqueue_scripts','timber_add_admin_page_scripts');
+add_action('admin_enqueue_scripts', 'timber_lite_add_admin_page_scripts' );
 
 
 /*
  * Add custom css to the new-project admin page
  */
-function timber_add_new_project_admin_style( $hook ){
+function timber_lite_add_new_project_admin_style( $hook ){
 	global $typenow;
 
 	if ( 'jetpack-portfolio' === $typenow ) {
@@ -243,23 +242,23 @@ $output = '
 		echo $output;
 	}
 }
-add_action('admin_head','timber_add_new_project_admin_style');
+add_action('admin_head', 'timber_lite_add_new_project_admin_style' );
 
-function timber_add_new_project_admin_editor_style() {
+function timber_lite_add_new_project_admin_editor_style() {
 	global $typenow;
 
 	if ( 'jetpack-portfolio' === $typenow ) {
 		add_editor_style( 'project-editor-style.css' );
 	}
 }
-add_action( 'admin_init', 'timber_add_new_project_admin_editor_style' );
+add_action( 'admin_init', 'timber_lite_add_new_project_admin_editor_style' );
 
 /**
  * Get an array with all queued scripts
  *
  * @return array
  */
-function timber_get_queued_scripts() {
+function timber_lite_get_queued_scripts() {
 	global $wp_scripts;
 
 	$loading_scripts = array();
@@ -282,7 +281,7 @@ function timber_get_queued_scripts() {
  *
  * @return array
  */
-function timber_get_queued_styles() {
+function timber_lite_get_queued_styles() {
 	global $wp_styles;
 
 	$loading_styles = array();
@@ -295,7 +294,6 @@ function timber_get_queued_styles() {
 	}
 	return $loading_styles;
 }
-add_action( 'wp_enqueue_scripts', 'timber_localize_scripts_and_styles', 999999 );
 
 /**
  * Localize a static list with resources already loaded on the first page load this lists will be filled on
@@ -303,22 +301,22 @@ add_action( 'wp_enqueue_scripts', 'timber_localize_scripts_and_styles', 999999 )
  *
  * Note: make this dependent to timber-scripts because we know for sure it is there
  */
-function timber_localize_scripts_and_styles() {
+function timber_lite_localize_scripts_and_styles() {
 	wp_localize_script( 'timber-scripts', 'timber_static_resources', array(
-		'scripts' => timber_get_queued_scripts(),
-		'styles'  => timber_get_queued_styles()
+		'scripts' => timber_lite_get_queued_scripts(),
+		'styles'  => timber_lite_get_queued_styles()
 	) );
 }
-add_action('wp_footer', 'timber_last_function', 999999);
+add_action( 'wp_enqueue_scripts', 'timber_lite_localize_scripts_and_styles', 999999 );
 
-function timber_last_function(){
+function timber_lite_last_function(){
 	/**
 	 * Display dynamic generated data while runing d-jax requests :
 	 *
 	 * a script which will load others scripts on the run
 	 */
-	$dynamic_scripts = timber_get_queued_scripts();
-	$dynamic_styles  = timber_get_queued_styles();?>
+	$dynamic_scripts = timber_lite_get_queued_scripts();
+	$dynamic_styles  = timber_lite_get_queued_styles();?>
 	<div id="djax_list_scripts_and_styles">
 		<script id="timber_list_scripts_and_styles"  class="djax-updatable">
 			(function ($) {
@@ -404,12 +402,13 @@ function timber_last_function(){
 	</div>
 	<?php
 }
+add_action('wp_footer', 'timber_lite_last_function', 999999);
 
 /**
  * Registers/enqueues the scripts related to media JS APIs
  *
  */
-function timber_wp_enqueue_media() {
+function timber_lite_wp_enqueue_media() {
 
 	// this will ensure all the resources needed for the media modal
 	wp_enqueue_media();
@@ -430,50 +429,44 @@ function timber_wp_enqueue_media() {
 		)
 	);
 }
-
-add_action( 'admin_enqueue_scripts', 'timber_wp_enqueue_media' );
+add_action( 'admin_enqueue_scripts', 'timber_lite_wp_enqueue_media' );
 
 /**
  * And all the activation hooks.
  */
-require get_template_directory() . '/inc/activation.php';
+require_once get_template_directory() . '/inc/activation.php';
 
 /**
  * Load various plugin integrations
  */
-require get_template_directory() . '/inc/integrations.php';
+require_once get_template_directory() . '/inc/integrations.php';
 
 /**
  * MB string functions for when the MB library is not available
  */
-require get_template_directory() . '/inc/mb_compat.php';
+require_once get_template_directory() . '/inc/mb_compat.php';
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require_once get_template_directory() . '/inc/template-tags.php';
 
 /**
  * Custom functions that act independently of the theme templates.
  */
-require get_template_directory() . '/inc/extras.php';
+require_once get_template_directory() . '/inc/extras.php';
 
 /**
  * Load the Hybrid Media Grabber class
  */
-require get_template_directory() . '/inc/hybrid-media-grabber.php';
-
-/**
- * Customify
- */
-require get_template_directory() . '/inc/integrations/customify.php';
+require_once get_template_directory() . '/inc/hybrid-media-grabber.php';
 
 /**
  * Customizer additions.
  */
-require get_template_directory() . '/inc/customizer.php';
+require_once get_template_directory() . '/inc/customizer.php';
 
 /**
- * Load Recommended plugins notification
+ * Admin dashboard related logic.
  */
-require get_template_directory() . '/inc/required-plugins.php';
+require_once trailingslashit( get_template_directory() ) . 'inc/admin.php';

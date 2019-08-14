@@ -3,7 +3,6 @@
  * Template part for displaying featured projects.
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ){
@@ -11,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ){
 }
 
 //get the featured projects
-$featured = timber_get_featured_projects();
+$featured = timber_lite_get_featured_projects();
 if ( ! empty( $featured ) ) :
 	$numFeatured = count( $featured ); ?>
 
@@ -40,7 +39,7 @@ if ( ! empty( $featured ) ) :
 
 		<div class="project-slide__content">
 
-			<?php timber_the_project_types( $featured[0]->ID, '<div class="portfolio_types">', '</div>' ); ?>
+			<?php timber_lite_the_project_types( $featured[0]->ID, '<div class="portfolio_types">', '</div>' ); ?>
 
 			<a href="<?php echo esc_url( get_the_permalink( $featured[0]->ID ) ); ?>"
 			   class="project-slide__link"

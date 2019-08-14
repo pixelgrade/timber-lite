@@ -3,7 +3,6 @@
  * The template used for displaying page content in page.php
  *
  * @package Timber Lite
- * @since Timber 1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ){
@@ -24,7 +23,7 @@ $background_image = wp_get_attachment_url( get_post_thumbnail_id($post->ID) ); ?
 	<?php endif; ?>
 
 		<div class="cover-container">
-		<?php the_title( '<h1 ' . timber_get_post_title_class_attr( 'entry-title  h0' ) . '>', '</h1>' ); ?>
+		<?php the_title( '<h1 ' . timber_lite_get_post_title_class_attr( 'entry-title  h0' ) . '>', '</h1>' ); ?>
 		</div>
 
 	</header><!-- .entry-header -->

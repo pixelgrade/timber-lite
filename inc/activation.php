@@ -6,8 +6,8 @@
  * @since Timber 1.0
  */
 
-if ( ! function_exists( 'timber_config_getting_active' ) ) :
-	function timber_config_getting_active() {
+if ( ! function_exists( 'timber_lite_config_getting_active' ) ) :
+	function timber_lite_config_getting_active() {
 		/**
 		 * ACTIVATION SETTINGS
 		 * These settings will be needed when the theme will get active
@@ -217,9 +217,8 @@ if ( ! function_exists( 'timber_config_getting_active' ) ) :
 			update_option( 'pixproof_settings', $pixproof_settings );
 		}
 	}
-endif; // end timber_config_getting_active
-
-add_action( 'after_switch_theme', 'timber_config_getting_active' );
+endif; // end timber_lite_config_getting_active
+add_action( 'after_switch_theme', 'timber_lite_config_getting_active' );
 
 
 // pixtypes requires these things below for a pixelgrade theme
@@ -258,7 +257,7 @@ class wpgrade {
 }
 
 function wpgrade_callback_geting_active() {
-	timber_config_getting_active();
+	timber_lite_config_getting_active();
 }
 
 endif;

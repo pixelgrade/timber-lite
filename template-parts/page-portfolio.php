@@ -61,7 +61,7 @@ if ( ! defined( 'ABSPATH' ) ){
 
 				endwhile;
 
-				timber_paging_nav( $project_query->max_num_pages );
+				timber_lite_paging_nav( $project_query->max_num_pages );
 
 				wp_reset_postdata(); ?>
 
