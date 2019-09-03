@@ -9,6 +9,7 @@ function init() {
     platformDetect();
     browserSize();
     scrollToTop();
+    focusItems();
 
     Nav.init();
     updateHeader();
@@ -135,6 +136,15 @@ function loop() {
     requestAnimationFrame(loop)
 }
 
+function focusItems() {
+    var $portfolioItemThumb = $('.filmstrip__item .item__thumb');
+
+    $portfolioItemThumb.on('focusin', function(){
+        var element = $(this).parent();
+        element[0].scrollIntoView({inline: "end"});
+
+    });
+}
 
 function eventHandlers() {
     $window.on('debouncedresize', onResize);
