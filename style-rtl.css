@@ -3795,9 +3795,6 @@ body, .filter__list {
 img {
   border: 0; }
 
-:focus {
-  outline: 0; }
-
 button, .nav a, .rsBullets a, .nav a:hover, .rsBullets a:hover {
   background: none; }
 

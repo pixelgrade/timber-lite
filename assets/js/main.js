@@ -20686,7 +20686,6 @@ URL: https://github.com/hammerjs/jquery.hammer.js
       $(".portfolio--filmstrip.portfolio--visible").length
     ) {
       this.scrollLeft -= delta * event.deltaFactor; // delta for macos
-      event.preventDefault();
     }
   }
 

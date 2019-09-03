@@ -646,3 +646,10 @@ li.depth-2:before {
 		display: inline-block;
 	}
 }
+
+.comment-article:focus-within {
+	.comment-edit-link,
+	.comment-reply-link {
+		opacity: 1;
+	}
+}

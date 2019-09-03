@@ -3795,9 +3795,6 @@ body, .filter__list {
 img {
   border: 0; }
 
-:focus {
-  outline: 0; }
-
 button, .nav a, .rsBullets a, .nav a:hover, .rsBullets a:hover {
   background: none; }
 
@@ -5897,8 +5894,7 @@ body:not(.page) .entry-header, body.single-format-gallery .entry-header .entry-t
   padding: 15px 0; }
 
 .tags-links {
-  float: right;
-  margin-left: 10px;
+  float: left;
   font-size: 14px;
   word-break: break-word;
   -ms-word-wrap: break-word; }
@@ -5909,9 +5905,6 @@ body:not(.page) .entry-header, body.single-format-gallery .entry-header .entry-t
       content: "#"; }
     .tags-links a:last-child {
       margin-right: 0; }
-  .tags-links + .edit-link:after {
-    content: "|";
-    margin-left: 10px; }
 
 .edit-link {
   float: right; }
@@ -6319,6 +6312,10 @@ li.depth-2:before {
   margin-left: 24px; }
   .comment-form-cookies-consent label {
     display: inline-block; }
+
+.comment-article:focus-within .comment-edit-link,
+.comment-article:focus-within .comment-reply-link {
+  opacity: 1; }
 
 /**
  *   5.14 - Filmstrip
