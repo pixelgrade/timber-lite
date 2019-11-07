@@ -37,9 +37,9 @@ function timber_lite_register_required_plugins() {
 			'installing'                      => esc_html__( 'Installing Plugin: %s', '__theme_txtd' ),
 			'oops'                            => esc_html__( 'Something went wrong with the plugin API.', '__theme_txtd' ),
 			/* translators: %1$s = plugin name */
-			'notice_can_install_required'     => _n_noop( 'Hive Lite requires the following plugin: %1$s.', 'Hive Lite requires the following plugins: %1$s.', '__theme_txtd' ),
+			'notice_can_install_required'     => _n_noop( 'Timber Lite requires the following plugin: %1$s.', 'Timber Lite requires the following plugins: %1$s.', '__theme_txtd' ),
 			/* translators: %1$s = plugin name */
-			'notice_can_install_recommended'  => _n_noop( 'Hive Lite recommends the following plugin: %1$s.', 'Hive Lite recommends the following plugins: %1$s.', '__theme_txtd' ),
+			'notice_can_install_recommended'  => _n_noop( 'Timber Lite recommends the following plugin: %1$s.', 'Timber Lite recommends the following plugins: %1$s.', '__theme_txtd' ),
 			/* translators: %1$s = plugin name */
 			'notice_cannot_install'           => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.', '__theme_txtd' ),
 			/* translators: %1$s = plugin name */
@@ -49,7 +49,7 @@ function timber_lite_register_required_plugins() {
 			/* translators: %1$s = plugin name */
 			'notice_cannot_activate'          => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.', '__theme_txtd' ),
 			/* translators: %1$s = plugin name */
-			'notice_ask_to_update'            => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with Hive Lite: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with Hive Lite: %1$s.', '__theme_txtd' ),
+			'notice_ask_to_update'            => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with Timber Lite: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with Timber Lite: %1$s.', '__theme_txtd' ),
 			/* translators: %1$s = plugin name */
 			'notice_cannot_update'            => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.', '__theme_txtd' ),
 			'install_link'                    => _n_noop( 'Begin installing plugin', 'Begin installing plugins', '__theme_txtd' ),
@@ -60,4 +60,4 @@ function timber_lite_register_required_plugins() {
 
 	tgmpa( $plugins, $config );
 }
-add_action( 'tgmpa_register', 'timber_lite_register_required_plugins', 999 );
+add_action( 'tgmpa_register', 'timber_lite_register_required_plugins', 995 );
