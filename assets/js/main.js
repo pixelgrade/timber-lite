@@ -17463,10 +17463,10 @@ if (!Date.now)
  */
 var ua = navigator.userAgent.toLowerCase(),
   platform = navigator.platform.toLowerCase(),
-  $window = $(window),
-  $document = $(document),
-  $html = $("html"),
-  $body = $("body"),
+  $window = jQuery(window),
+  $document = jQuery(document),
+  $html = jQuery("html"),
+  $body = jQuery("body"),
   android_ancient =
     ua.indexOf("mozilla/5.0") !== -1 &&
     ua.indexOf("android") !== -1 &&
@@ -17488,7 +17488,7 @@ var ua = navigator.userAgent.toLowerCase(),
   isiPad = false,
   firefox = ua.indexOf("gecko") != -1,
   safari = ua.indexOf("safari") != -1 && ua.indexOf("chrome") == -1,
-  is_small = $(".js-nav-trigger").is(":visible"),
+  is_small = jQuery(".js-nav-trigger").is(":visible"),
   windowHeight = $window.height(),
   windowWidth = $window.width(),
   documentHeight = $document.height(),
@@ -17509,6 +17509,7 @@ var ua = navigator.userAgent.toLowerCase(),
 
 (function($, undefined) {
   "use strict";
+
   var Blog = (function() {
     var $filmstrip_container,
       fullviewWidth,
