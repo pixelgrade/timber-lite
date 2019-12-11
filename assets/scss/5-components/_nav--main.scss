@@ -259,7 +259,7 @@
     position: fixed;
     @include wp-offset();
     left: 17px;
-    z-index: 9999;
+    z-index: 10001;
 
     // mobile-header-height / 2
     margin-top: 30px;

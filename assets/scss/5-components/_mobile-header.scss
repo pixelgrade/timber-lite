@@ -59,6 +59,10 @@
             border: 0;
         }
     }
+
+    .portfolio_page_type-portfolio & {
+        position: fixed;
+    }
 }
 
 .admin-bar .site-header--placeholder {

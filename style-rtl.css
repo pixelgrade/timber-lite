@@ -5028,7 +5028,6 @@ hr {
     position: absolute; }
   .portfolio_page_type-portfolio .site-header {
     position: fixed;
-    right: auto;
     left: auto; }
 
 .site-header.site-header--placeholder {
@@ -5160,6 +5159,8 @@ hr {
     background: transparent; }
     .slider_height-full-height .mobile-header:after {
       border: 0; }
+  .portfolio_page_type-portfolio .mobile-header {
+    position: fixed; }
 
 @media not screen and (min-width: 900px) {
   .admin-bar .site-header--placeholder {
