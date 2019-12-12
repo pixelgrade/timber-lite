@@ -12,8 +12,8 @@ Tags: photography, portfolio, grid-layout, four-columns, custom-menu, featured-i
 Requires PHP: 5.3.0
 Requires at least: 4.9.9
 Tested up to: 5.3
-Version: 1.1.1
-Stable Tag: 1.1.1
+Version: 1.1.2
+Stable Tag: 1.1.2
 
 == Description ==
 Timber Lite is a Free photography WordPress theme that goes out to the edge to enable an adventurous experience. Equipped with smart photo galleries and a unique way of showcasing your photographs, illustrations, design projects, or any other type of creative work, Timber is the best option for if you want to put yourself out there for the world to see and admire. It has a responsive layout optimized for all devices, it’s easy to use and personalize without writing code and it follows all the best responsible SEO practices for maximum visibility in search engines. Its multilingual compatibility with WPML (WordPress Multilingual Plugin) ensures that no matter where you live and the language you speak, you have the right tool to highlight your portfolio and share it with the world.
@@ -25,6 +25,9 @@ Timber Lite is a Free photography WordPress theme that goes out to the edge to e
 3. Click Activate to use your new theme right away.
 
 == Changelog ==
+
+= 1.1.2 =
+* Fixed broken mobile menu on portfolio
 
 = 1.1.1 =
 * Fixed "$ is not a function" in WordPress 5.3
