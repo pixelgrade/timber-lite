@@ -62,7 +62,7 @@ function softInit() {
 }
 
 // /* ====== ON WINDOW LOAD ====== */
-$window.load(function () {
+$window.on('load', function () {
     softInit();
     eventHandlers();
     loop();

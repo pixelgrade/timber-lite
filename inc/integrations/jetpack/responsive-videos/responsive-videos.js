@@ -87,7 +87,7 @@
 	 * Load responsive_videos().
 	 * Trigger resize to make sure responsive_videos() is loaded after IS.
 	 */
-	$( window ).load( responsive_videos ).resize( debounce( responsive_videos, 100 ) ).trigger( 'resize' );
+	$( window ).on('load', responsive_videos ).resize( debounce( responsive_videos, 100 ) ).trigger( 'resize' );
 	$( document ).on( 'post-load', responsive_videos );
 
 } )( jQuery );
