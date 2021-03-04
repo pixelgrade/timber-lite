@@ -140,13 +140,13 @@ function timber_lite_scripts_styles() {
 	$script_dependencies = array( 'jquery', 'wp-mediaelement' );
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/plugins/modernizr.min.js', array( 'jquery' ), '3.3.1' );
 	$script_dependencies[] = 'modernizr';
-	wp_enqueue_script( 'tween-max', '//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js', array( 'jquery' ) );
+	wp_enqueue_script( 'tween-max', get_template_directory_uri() . '/assets/js/plugins/TweenMax.min.js', array( 'jquery' ) );
 	$script_dependencies[] = 'tween-max';
-	wp_enqueue_script( 'scroll-to-plugin', '//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/plugins/ScrollToPlugin.min.js', array( 'jquery' ) );
+	wp_enqueue_script( 'scroll-to-plugin', get_template_directory_uri() . '/assets/js/plugins/ScrollToPlugin.min.js', array( 'jquery' ) );
 	$script_dependencies[] = 'scroll-to-plugin';
-	wp_enqueue_script( 'timber-rs', '//pxgcdn.com/js/rs/9.5.7/index.js', array( 'jquery' ) );
+	wp_enqueue_script( 'timber-rs', get_template_directory_uri() . '/assets/js/plugins/rs.js', array( 'jquery' ) );
 	$script_dependencies[] = 'timber-rs';
-	wp_enqueue_script( 'timber-mix', '//pxgcdn.com/js/mixitup/2.1.11/index.js', array( 'jquery' ) );
+	wp_enqueue_script( 'timber-mix', get_template_directory_uri() . '/assets/js/plugins/mixitup.js', array( 'jquery' ) );
 	$script_dependencies[] = 'timber-mix';
 	wp_register_script( 'timber-scripts', get_template_directory_uri() . '/assets/js/main' . $suffix . '.js', $script_dependencies, $theme->get( 'Version' ), true );
 
